@@ -6,7 +6,15 @@
 
 //Подключаю переменные шрифтов
  @use './app/CommonUI/StyleVariables/fonts.scss';
+ 
+//Подключаю переменные colors
+ @use './app/CommonUI/StyleVariables/colors.scss';
 
+ //Подключаю переменные margin
+ @use './app/CommonUI/StyleVariables/margin.scss';
+
+ //Подключаю переменные padding
+ @use './app/CommonUI/StyleVariables/padding.scss';
 //Подключаю переменные фонов
  @use './app/CommonUI/StyleVariables/backgrounds.scss';
 
@@ -38,6 +46,7 @@
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 
 *{
+    
     font-family: var(--font-bold);
 }
 ion-content{
