@@ -5,6 +5,8 @@ import { publicRoutes } from './app/Routes/public.routes';
 import { routes } from './app/app.routes';
 import { privateRoutes } from './app/Routes/private.routes';
 import { AppComponent } from './app/app.component';
+import { errorsRoutes } from './app/Routes/errors.routes';
+import { authRoutes } from './app/Routes/auth.routes';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -12,6 +14,8 @@ bootstrapApplication(AppComponent, {
     provideIonicAngular(),
     provideRouter(routes, withPreloading(PreloadAllModules)),
     provideRouter(privateRoutes),
-    provideRouter(publicRoutes)
+    provideRouter(publicRoutes),
+    provideRouter(errorsRoutes),
+    provideRouter(authRoutes)
   ],
 });
