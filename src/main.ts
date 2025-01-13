@@ -3,6 +3,7 @@ import { RouteReuseStrategy, provideRouter, withPreloading, PreloadAllModules } 
 import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalone';
 
 import { routes } from './app/app.routes';
+import { privateRoutes } from './app/Routes/private.routes';
 import { AppComponent } from './app/app.component';
 
 bootstrapApplication(AppComponent, {
@@ -10,5 +11,6 @@ bootstrapApplication(AppComponent, {
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     provideIonicAngular(),
     provideRouter(routes, withPreloading(PreloadAllModules)),
+    provideRouter(privateRoutes)
   ],
 });
