@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
 
 import { HomePageComponent } from './home-page.component';
 
@@ -9,8 +8,7 @@ describe('HomePageComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ HomePageComponent ],
-      imports: [IonicModule.forRoot()]
+      imports: [HomePageComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(HomePageComponent);

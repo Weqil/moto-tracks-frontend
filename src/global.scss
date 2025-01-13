@@ -7,6 +7,9 @@
 //Подключаю переменные шрифтов
  @use './app/CommonUI/StyleVariables/fonts.scss';
 
+//Подключаю переменные фонов
+ @use './app/CommonUI/StyleVariables/backgrounds.scss';
+
 
 /* Core CSS required for Ionic components to work properly */
 @import "@ionic/angular/css/core.css";
@@ -36,4 +39,7 @@
 
 *{
     font-family: var(--font-bold);
+}
+ion-content{
+    background: --page-background;
 }
