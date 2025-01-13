@@ -3,6 +3,8 @@
  
 //Подключаю свои шрифты
  @use './app/CommonUI/StyleLinks/font-links.scss';
+ //Подключаю свои цвета
+ @use './app/CommonUI/StyleVariables/colors.scss';
 /* Core CSS required for Ionic components to work properly */
 @import "@ionic/angular/css/core.css";
 
