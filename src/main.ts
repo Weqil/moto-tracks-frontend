@@ -1,3 +1,5 @@
+import { NG_EVENT_PLUGINS } from "@taiga-ui/event-plugins";
+import { provideAnimations } from "@angular/platform-browser/animations";
 import { bootstrapApplication } from '@angular/platform-browser';
 import { RouteReuseStrategy, provideRouter, withPreloading, PreloadAllModules } from '@angular/router';
 import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalone';
@@ -10,12 +12,15 @@ import { authRoutes } from './app/Routes/auth.routes';
 
 bootstrapApplication(AppComponent, {
   providers: [
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+        provideAnimations(),
+        { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     provideIonicAngular(),
     provideRouter(routes, withPreloading(PreloadAllModules)),
     provideRouter(privateRoutes),
     provideRouter(publicRoutes),
     provideRouter(errorsRoutes),
-    provideRouter(authRoutes)
-  ],
+    provideRouter(authRoutes),
+        NG_EVENT_PLUGINS,
+        NG_EVENT_PLUGINS
+    ],
 });
