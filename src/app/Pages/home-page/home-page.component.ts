@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ButtonsModule } from 'src/app/Shared/Modules/buttons/buttons.module';
 import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
 
 
@@ -6,9 +7,10 @@ import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss'],
-  imports: [SharedModule],
+  imports: [SharedModule, ButtonsModule],
   providers:[
-    SharedModule
+    SharedModule,
+    ButtonsModule
   ]
 
 })
