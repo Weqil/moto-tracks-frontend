@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
+import { IonContent } from '@ionic/angular/standalone';
 
 @NgModule({
   declarations: [
@@ -8,7 +8,11 @@ import { IonicModule } from '@ionic/angular';
   ],
   imports: [
     CommonModule,
-    IonicModule
-  ]
+    IonContent,
+  ],
+  exports: [
+    IonContent
+  ],
+
 })
 export class SharedModule { }

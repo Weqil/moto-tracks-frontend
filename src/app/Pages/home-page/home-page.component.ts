@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/angular/standalone';
+import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
 
 
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent],
+  imports: [SharedModule],
+  providers:[
+    SharedModule
+  ]
 
 })
 export class HomePageComponent  implements OnInit {
