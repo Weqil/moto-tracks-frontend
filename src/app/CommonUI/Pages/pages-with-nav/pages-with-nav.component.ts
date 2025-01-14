@@ -4,7 +4,7 @@ import { BottomNavComponent } from 'src/app/Shared/Components/UI/bottom-nav/bott
 import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
 import { Link } from '../../Interfaces/navigation-link';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import { NavController } from '@ionic/angular';
 @Component({
   selector: 'app-pages-with-nav',
   templateUrl: './pages-with-nav.component.html',
@@ -17,6 +17,8 @@ export class PagesWithNavComponent  {
   constructor() { }
   router:Router = inject(Router)
   activatedRoute:ActivatedRoute = inject(ActivatedRoute)
+
+  navController:NavController = inject(NavController)
 
   links: Link[] = [
       {
@@ -74,7 +76,8 @@ export class PagesWithNavComponent  {
     this.links.forEach((link) => link.active = false);
     changedLink.active = true;
     if(changedLink.path.length !== 2){
-      this.router.navigate(changedLink.path)
+      this.navController.navigateForward
+      this.navController.navigateForward(changedLink.path)
     } 
     else
     {

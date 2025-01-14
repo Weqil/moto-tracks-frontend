@@ -23,6 +23,10 @@ export const publicRoutes: Routes = [
       {
         path:'tracks',
         loadComponent: () => import('../Pages/Track/track-tape-page/track-tape-page.component').then((m) => m.TrackTapePageComponent),
+      },
+      {
+        path:'favorites',
+        loadComponent: () => import('../Pages/Profile/favorites-page/favorites-page.component').then((m) => m.FavoritesPageComponent),
       }
     ]
   },
