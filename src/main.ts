@@ -14,12 +14,11 @@ bootstrapApplication(AppComponent, {
   providers: [
         provideAnimations(),
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    provideIonicAngular(),
-    provideRouter(routes, withPreloading(PreloadAllModules)),
-    provideRouter(privateRoutes),
-    provideRouter(publicRoutes),
-    provideRouter(errorsRoutes),
-    provideRouter(authRoutes),
+        provideIonicAngular(),
+        provideRouter(publicRoutes),
+        provideRouter(privateRoutes),
+        provideRouter(authRoutes),
+        provideRouter(errorsRoutes),
         NG_EVENT_PLUGINS,
         NG_EVENT_PLUGINS
     ],
