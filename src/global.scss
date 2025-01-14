@@ -47,9 +47,13 @@
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 
 *{
-    
     font-family: var(--font-bold);
+    scrollbar-width: none;
 }
-ion-content{
-    --background: --page-background;
-}
+
+*::-webkit-scrollbar {
+    display: none;
+  }
+  ion-content {
+    --background: var(--page-background);
+  }

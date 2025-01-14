@@ -1,3 +1,10 @@
-<p>
-  bottom-nav works!
-</p>
+
+<div class="bottom-nav">
+    @for (link of links; track $index) {
+        
+            <div (click)="handleLinkClick(link)" [ngClass]="{'bottom-nav__item':!link.active, 'bottom-nav__item--active':link.active}">
+                <img class="icon" [src]="link.icon" alt="">
+                {{link.name}}
+            </div>
+    }
+</div>

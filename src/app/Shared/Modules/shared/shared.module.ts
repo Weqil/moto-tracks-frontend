@@ -7,11 +7,11 @@ import { IonContent } from '@ionic/angular/standalone';
   
   ],
   imports: [
-    CommonModule,
     IonContent,
   ],
   exports: [
-    IonContent
+    IonContent,
+    CommonModule,
   ],
 
 })

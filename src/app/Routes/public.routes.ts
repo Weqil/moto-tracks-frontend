@@ -15,8 +15,17 @@ export const publicRoutes: Routes = [
           path: '',
           redirectTo: 'home',
           pathMatch: 'full',
-        },
+      },
+      {
+        path:'events',
+        loadComponent: () => import('../Pages/Events/event-tape-page/event-tape-page.component').then((m) => m.EventTapePageComponent),
+      },
+      {
+        path:'tracks',
+        loadComponent: () => import('../Pages/Track/track-tape-page/track-tape-page.component').then((m) => m.TrackTapePageComponent),
+      }
     ]
   },
+  
    
   ];

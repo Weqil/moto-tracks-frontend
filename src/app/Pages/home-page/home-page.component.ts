@@ -15,7 +15,6 @@ import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
 export class HomePageComponent  implements OnInit {
 
   constructor() { }
-
   ngOnInit() {}
 
 }
