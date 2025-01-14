@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HeaderModule } from 'src/app/Shared/Modules/header/header.module';
 import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
 
 @Component({
@@ -6,7 +7,8 @@ import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
   templateUrl: './cabinet.component.html',
   styleUrls: ['./cabinet.component.scss'],
   imports:[
-    SharedModule
+    SharedModule,
+    HeaderModule
   ]
 })
 export class CabinetComponent  implements OnInit {

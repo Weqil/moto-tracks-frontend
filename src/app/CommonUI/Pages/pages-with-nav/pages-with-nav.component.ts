@@ -5,12 +5,13 @@ import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
 import { Link } from '../../Interfaces/navigation-link';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
+import { HeaderModule } from 'src/app/Shared/Modules/header/header.module';
 @Component({
   selector: 'app-pages-with-nav',
   templateUrl: './pages-with-nav.component.html',
   standalone: true,
   styleUrls: ['./pages-with-nav.component.scss'],
-  imports:[IonRouterOutlet, SharedModule, BottomNavComponent]
+  imports:[IonRouterOutlet, SharedModule, BottomNavComponent, HeaderModule]
 })
 export class PagesWithNavComponent  {
 
