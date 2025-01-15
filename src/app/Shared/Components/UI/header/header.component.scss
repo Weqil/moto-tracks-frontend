@@ -1,6 +1,9 @@
 .header{
     background:var(--grey-color);
     align-items: center;
+    position: fixed;
+    width: 100%;
+    top: 0;
     justify-content: space-between;
     display: flex;
     border-radius: 0px 0px 1.5rem 1.5rem;

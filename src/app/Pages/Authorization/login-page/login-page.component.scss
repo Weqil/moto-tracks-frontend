@@ -1,0 +1,25 @@
+.login__logo{
+    display: flex;
+    justify-content: center;
+    .login__logo__img{
+        width: 7rem;
+    }
+  
+}
+
+.login__form{
+    display: flex;
+    flex-direction: column;
+    gap: var(--standart-padding);
+}
+.recovery-password-wrapper{
+    display: flex;
+    justify-content:flex-end;
+}
+
+.recovery-password{
+    font-family: var(--font-regular);
+    font-size: var( --font-little);
+    color: var(--grey-color);
+    opacity: 55%;
+}
