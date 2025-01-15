@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ButtonsModule } from 'src/app/Shared/Modules/buttons/buttons.module';
-
+import { NgClass } from '@angular/common';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
-  imports: [ButtonsModule] 
+  imports: [ButtonsModule,NgClass] 
 })
 export class HeaderComponent  implements OnInit {
   @Input() secondButtonIcon!: string

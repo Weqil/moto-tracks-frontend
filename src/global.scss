@@ -58,6 +58,12 @@
 *::-webkit-scrollbar {
     display: none;
   }
+
   ion-content {
     --background: var(--page-background);
+  }
+
+  .invisible {
+    opacity: 0;
+    pointer-events: none;
   }

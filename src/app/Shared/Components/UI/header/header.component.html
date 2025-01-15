@@ -1,5 +1,6 @@
 <div class="header">
   <app-back-button></app-back-button>
   <div class="header-title">{{headerTitle}}</div>
-  <app-circle-button [icon]="secondButtonIcon"></app-circle-button>
+  
+  <app-circle-button [ngClass]="{'invisible': !secondButtonIcon}"  [icon]="secondButtonIcon"></app-circle-button>
 </div>
