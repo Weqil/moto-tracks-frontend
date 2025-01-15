@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
 import { HeaderModule } from 'src/app/Shared/Modules/header/header.module';
 import { StandartInputComponent } from 'src/app/Shared/Components/Forms/standart-input/standart-input.component';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { LoadingService } from 'src/app/Shared/Services/loading.service';
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
@@ -12,6 +13,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class LoginPageComponent  implements OnInit {
 
   constructor() { }
+  loading:LoadingService = inject(LoadingService)
+
   loginForm!: FormGroup
   loginInvalid = {
     localError: false,
@@ -58,6 +61,7 @@ export class LoginPageComponent  implements OnInit {
   }
 
   submitLoginForm(){
+    this.loading.showLoading()
     console.log('отправить форму')
   }
 
