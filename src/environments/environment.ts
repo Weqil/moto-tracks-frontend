@@ -1,17 +1,23 @@
-// This file can be replaced during build by using the `fileReplacements` array.
-// `ng build` replaces `environment.ts` with `environment.prod.ts`.
-// The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
-  yandexMapsApiKey:'9a1df530-ff4c-4c63-b19c-ede18479110d'
-};
-
-/*
- * For easier debugging in development mode, you can import the following file
- * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
- *
- * This import should be commented out in production mode because it will have a negative impact
- * on performance if an error is thrown.
- */
-// import 'zone.js/plugins/zone-error';  // Included with Angular CLI.
+  production: true,
+  apiKeyYandex: '9a1df530-ff4c-4c63-b19c-ede18479110d',
+  apiKeyYandexSubject: '6483f031-ac2f-4600-a338-269045f79ee2',
+  YANDEX_METRICA_KEY: 96112606,
+  YANDEX_METRICA_ON: true,
+  APP_NAME: 'VOKRUG',
+  BASE_URL: 'https://vokrug.city',
+  PORT: '443',
+  BACKEND_URL: 'https://api.vokrug.city',
+  BACKEND_PORT: '443',
+  DOMAIN: 'dev.vokrug.city',
+  appleClientId: 'mlcity.ru',
+  appleAuthUrl: 'https://api.vokrug.city/api/social-auth/apple',
+  vkontakteAuthUrl: `https://api.vokrug.city/api/social-auth/vkontakte`,
+  yandexAuthUrl: 'https://api.vokrug.city/api/social-auth/yandex/',
+  vkontakteServiceKey: '7c6d50047c6d50047c6d5004647f7f17fc77c6d7c6d50041fa47869a3cc84a7c0bed429',
+  // cityName: 'Заречный',
+  // cityRegion: 'Свердловская область',
+  // cityCoordsLatitude: 56.81497464978607,
+  // cityCoordsLongitude: 61.32053375244141
+}
