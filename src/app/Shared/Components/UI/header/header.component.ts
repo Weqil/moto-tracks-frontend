@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ButtonsModule } from 'src/app/Shared/Modules/buttons/buttons.module';
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -11,6 +12,7 @@ export class HeaderComponent  implements OnInit {
   @Input() headerTitle!: string
   constructor() { }
 
+  
   ngOnInit() {}
 
 }
