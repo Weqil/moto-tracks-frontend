@@ -19,6 +19,10 @@
 //Подключаю переменные фонов
  @use './app/CommonUI/StyleVariables/backgrounds.scss';
 
+//Подключаю отдельные модули с классами
+
+//Моудль контейнеров
+@use './app/CommonUI/StylesModules/containers.scss';
 
 /* Core CSS required for Ionic components to work properly */
 @import "@ionic/angular/css/core.css";

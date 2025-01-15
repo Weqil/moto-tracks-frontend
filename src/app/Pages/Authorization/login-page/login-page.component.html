@@ -1,4 +1,21 @@
 <ion-content>
   <app-header headerTitle="Вход" secondButtonIcon="/assets/icons/menu-pen.svg"></app-header>
-  <app-standart-input></app-standart-input>
+  <div class="main-container--with-header">
+    <div class="login">
+        <div class="login__logo">
+          <img class="login__logo__img" src="/assets/icons/favicon.png" alt="">
+        </div>
+        <form action="" class="login__form">
+          <app-standart-input (changeInput)="clearErrors()" [invalid]="loginInvalid.name.status" [errorMessage]="loginInvalid.name.message" [label]="'E-mail'" [control] = "loginForm.get('name')"></app-standart-input>
+          <app-standart-input (changeInput)="clearErrors()" [invalid]="loginInvalid.password.status" [errorMessage]="loginInvalid.password.message" [openPassword]="true" type="password"  [label]="'Пароль'" [control] = "loginForm.get('password')"></app-standart-input>
+          <div class="recovery-password-wrapper">
+            <span class="recovery-password">Забыл(а) пароль</span>
+          </div>
+        </form>
+        <button type="submit" [disabled]="loginForm.invalid" (click)="submitLoginForm()">Войти</button>
+    </div>
+    <!-- <app-standart-input></app-standart-input> -->
+  </div>
+
+
 </ion-content>
