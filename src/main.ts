@@ -9,6 +9,7 @@ import { privateRoutes } from './app/Routes/private.routes';
 import { AppComponent } from './app/app.component';
 import { errorsRoutes } from './app/Routes/errors.routes';
 import { authRoutes } from './app/Routes/auth.routes';
+import { provideHttpClient } from "@angular/common/http";
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -19,6 +20,7 @@ bootstrapApplication(AppComponent, {
         provideRouter(privateRoutes),
         provideRouter(authRoutes),
         provideRouter(errorsRoutes),
+        provideHttpClient(),
         NG_EVENT_PLUGINS,
         NG_EVENT_PLUGINS
     ],

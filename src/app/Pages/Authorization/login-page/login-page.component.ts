@@ -4,6 +4,11 @@ import { HeaderModule } from 'src/app/Shared/Modules/header/header.module';
 import { StandartInputComponent } from 'src/app/Shared/Components/Forms/standart-input/standart-input.component';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoadingService } from 'src/app/Shared/Services/loading.service';
+import { LoginService } from 'src/app/Shared/Data/Services/Auth/login.service';
+import { Login } from 'src/app/Shared/Data/Interfaces/login-model';
+import { finalize } from 'rxjs';
+import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
+import { AuthService } from 'src/app/Shared/Data/Services/Auth/auth.service';
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
@@ -14,7 +19,9 @@ export class LoginPageComponent  implements OnInit {
 
   constructor() { }
   loading:LoadingService = inject(LoadingService)
-
+  loginService: LoginService = inject(LoginService)
+  userService: UserService = inject(UserService)
+  authService: AuthService = inject(AuthService)
   loginForm!: FormGroup
   loginInvalid = {
     localError: false,
@@ -61,8 +68,19 @@ export class LoginPageComponent  implements OnInit {
   }
 
   submitLoginForm(){
+    const fd:FormData = new FormData()
+    fd.append('name', this.loginForm.get('name')?.value)
+    fd.append('password', this.loginForm.get('password')?.value)
     this.loading.showLoading()
-    console.log('отправить форму')
+    this.loginService.loginUser(fd).pipe(
+      finalize(()=>{
+        this.loading.hideLoading()
+      })
+    ).subscribe((res:Login)=>{
+      this.userService.setUserInLocalStorage(res.user)
+      this.authService.setAuthTokenInLocalStorage(String(res.access_token))
+    })
+   
   }
 
   ngOnInit() {

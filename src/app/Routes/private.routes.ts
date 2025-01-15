@@ -1,6 +1,7 @@
 
 
 import { Routes } from '@angular/router';
+import { canActivateAuth } from '../Shared/Guards/Auth/auth.guard';
 
 export const privateRoutes: Routes = [
     {
@@ -9,6 +10,7 @@ export const privateRoutes: Routes = [
         children:[
             {
                 path:'cabinet',
+                canActivate:[canActivateAuth],
                 loadComponent: () => import('../Pages/Profile/cabinet/cabinet.component').then((m) => m.CabinetComponent)
             }
         ]
