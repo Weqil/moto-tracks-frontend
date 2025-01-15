@@ -1,4 +1,4 @@
-<!-- 
+
 <div *ngIf="control"  class="input-wrapper">
 
   <ng-container *ngIf="!disabled">
@@ -13,7 +13,7 @@
     <input (input)="emitInput($event)" #input [readonly]="readonly" placeholder="{{placeholder}}" type="{{type}}" name="{{label}}" class="standart-input_disabled" [formControl]="control" name="new_name">
     <button (click)="openPasword(input)" *ngIf="openPassword" type="button" class="open-input"><img class="open-input-icon" src="/assets/icons/open-input.svg" alt=""></button>
   </ng-container>
-</div> -->
+</div>
 
 <span *ngIf="!control">
   добавьте formControl - например:

@@ -27,6 +27,8 @@
     "@capacitor/keyboard": "6.0.3",
     "@capacitor/status-bar": "6.0.2",
     "@ionic/angular": "^8.0.0",
+    "@maskito/angular": "^3.2.1",
+    "@maskito/core": "^3.2.1",
     "@taiga-ui/cdk": "^4.19.0",
     "@taiga-ui/core": "^4.19.0",
     "@taiga-ui/event-plugins": "^4.0.2",
