@@ -1,30 +1,38 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Login } from '../../Interfaces/login-model';
 import { User } from '../../Interfaces/user-model';
 import { BehaviorSubject } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
  
-  public user: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(this.getUserFromLocalStorage())
+  public user: BehaviorSubject<User|null> = new BehaviorSubject<User|null>(this.getUserFromLocalStorage())
 
+  http:HttpClient = inject(HttpClient)
   constructor() { }
   //Занёс данные о пользователе
   setUserInLocalStorage(user:User){
     if(user){
+      this.user.next(user);
       localStorage.setItem('user', JSON.stringify(user));
     }
   }
+
+  getUserFromServerWithToken(){
+       return this.http.get<User>(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/users`)
+  }
   
+  clearUser(){
+    localStorage.removeItem('user');
+    this.user.next(null);
+  }
   //Получил данные о пользователе
-  getUserFromLocalStorage():User|null {
-    if(localStorage.getItem('user')){
-      return JSON.parse(String(localStorage.getItem('user')));
-    } else {
-      return null;
-    }
+  getUserFromLocalStorage():User {
+    return JSON.parse(String(localStorage.getItem('user')));
    
   }
 }

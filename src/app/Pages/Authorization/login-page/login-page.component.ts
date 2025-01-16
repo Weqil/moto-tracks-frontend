@@ -102,12 +102,14 @@ export class LoginPageComponent  implements OnInit {
           this.errorResponseAfterLogin(err)
           return EMPTY
         }),
+        
         finalize(()=>{
           this.loading.hideLoading()
         })
       ).subscribe((res:Login)=>{
         this.userService.setUserInLocalStorage(res.user)
         this.authService.setAuthToken(String(res.access_token))
+        this.navController.navigateForward('/cabinet')
       })
     }
    
@@ -117,6 +119,7 @@ export class LoginPageComponent  implements OnInit {
   redirectInRegistration(){
     this.navController.navigateForward('/registration')
   }
+  
   ngOnInit() {
     this.loginForm = new FormGroup({
       name: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]),

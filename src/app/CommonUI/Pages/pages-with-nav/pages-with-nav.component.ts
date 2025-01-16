@@ -77,8 +77,7 @@ export class PagesWithNavComponent  {
     this.links.forEach((link) => link.active = false);
     changedLink.active = true;
     if(changedLink.path.length !== 2){
-      this.navController.navigateForward
-      this.navController.navigateForward(changedLink.path)
+      this.navController.navigateForward(changedLink.path,{ animationDirection: 'forward' })
     } 
     else
     {

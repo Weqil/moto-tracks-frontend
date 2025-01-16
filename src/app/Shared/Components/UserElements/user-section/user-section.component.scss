@@ -1,0 +1,35 @@
+.user-section{
+    display: inline-flex;
+    gap: 10px;
+    .user-section__avatar{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .user-section__avatar__img{
+            width: 3.75rem;
+            height: 3.75rem;
+            object-fit: cover;
+            overflow: hidden;
+            background-color: rgb(99, 99, 99);
+            border-radius: 50%;
+        }
+    }
+    .user-section__info{
+        display: flex;
+     
+        justify-content: center;
+        flex-direction: column;
+        .user-section__name{
+            margin: 0;
+            color: var(--font-standart-color);
+            font-family: var(--font-bold);
+            font-size: var( --font-headers-size) ;
+        }
+        .user-section__email{
+            font-family: var(--font-bold);
+            font-size: var( --font-little);
+            color: var(--font-standart-color);
+            opacity: 50%;
+        }
+    }
+}

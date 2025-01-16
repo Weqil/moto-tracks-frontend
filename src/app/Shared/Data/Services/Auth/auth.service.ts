@@ -29,6 +29,15 @@ export class AuthService {
     })
   }
 
+  logout(){
+    console.log('выход пользователя')
+    this.cookieService.delete('authToken')
+    this.token.next(null)
+    this.authenticationState.next(false)
+    this.userService.clearUser()
+    console.log(this.isAuthenticated())
+  }
+
   getAuthToken(){
     return this.cookieService.get('authToken')
   }

@@ -1,0 +1,9 @@
+<div *ngIf="user" class="user-section">
+  <div class="user-section__avatar">
+    <img class="user-section__avatar__img" [src]="user.avatar | checkImgUrl" alt="">
+  </div>
+  <div class="user-section__info">
+    <h2 class="user-section__name">{{user.name}}</h2>
+    <p class="user-section__email">{{user.email}}</p>
+  </div>
+</div>

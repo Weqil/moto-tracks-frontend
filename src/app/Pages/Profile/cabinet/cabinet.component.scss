@@ -1,0 +1,19 @@
+.cabinet{
+    padding-top: var(--standart-padding);
+}
+
+.cabinet__user-info{
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    .user-info__class{
+        display: inline;
+        border-radius: 50%;
+        overflow-y: none;
+        img{
+            border-radius: 50%;
+            overflow-y: none;
+            width: 4.5rem;
+        }
+    }
+}
