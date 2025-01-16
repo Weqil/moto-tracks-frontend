@@ -1,0 +1,14 @@
+
+<div class="item-main" *ngIf="routing">
+  <div class="info-wrapper">
+    <ng-container>
+        <div *ngIf="icon && iconColor" class="item-main-icon-wrapper" [style.background]="iconColor">
+          <img style="filter:{{iconFilter}}" src="{{icon}}" alt="" class="item-main-icon">
+        </div>
+        <div *ngIf="name" class="icon-name">{{name}}</div>
+    </ng-container>
+  </div>
+  <div class="arrow">
+    <img src="/assets/icons/arrow-rounded.svg" alt="" class="arrow-icon">
+  </div>
+</div>
