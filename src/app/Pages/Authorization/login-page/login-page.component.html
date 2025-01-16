@@ -12,9 +12,13 @@
             <span class="recovery-password">Забыл(а) пароль</span>
           </div>
         </form>
-        <button type="submit" [disabled]="loginForm.invalid" (click)="submitLoginForm()">Войти</button>
     </div>
-    <app-standart-button  buttonText="Войти" type="submit" [disabled]="loginForm.invalid"></app-standart-button>
+    <div class="submit-button">
+      <app-standart-button (onClick)="submitLoginForm()" buttonText="Войти" type="submit" [disabled]="loginForm.invalid"></app-standart-button>
+    </div>
+    <div class="dont-have-account">
+      <span (click)="redirectInRegistration()" class="dont-have-account__registration-link">Нет аккаунта? <span class="dont-have-account__registration-link__route">Создать аккаунт</span></span>
+    </div>
   </div>
 
 

@@ -6,10 +6,13 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoadingService } from 'src/app/Shared/Services/loading.service';
 import { LoginService } from 'src/app/Shared/Data/Services/Auth/login.service';
 import { Login } from 'src/app/Shared/Data/Interfaces/login-model';
-import { finalize } from 'rxjs';
+import { catchError, EMPTY, empty, finalize } from 'rxjs';
 import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
 import { AuthService } from 'src/app/Shared/Data/Services/Auth/auth.service';
 import { ButtonsModule } from 'src/app/Shared/Modules/buttons/buttons.module';
+import { NavController } from '@ionic/angular/standalone';
+import { MessagesErrors } from 'src/app/Shared/Enums/messages-errors';
+import { serverError } from 'src/app/Shared/Data/Interfaces/errors';
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
@@ -22,6 +25,7 @@ export class LoginPageComponent  implements OnInit {
   loading:LoadingService = inject(LoadingService)
   loginService: LoginService = inject(LoginService)
   userService: UserService = inject(UserService)
+  navController: NavController = inject(NavController)
   authService: AuthService = inject(AuthService)
   loginForm!: FormGroup
   loginInvalid = {
@@ -62,6 +66,22 @@ export class LoginPageComponent  implements OnInit {
     }
   }
 
+  errorResponseAfterLogin(err: any) {
+    let message = err.error.message
+    // this.toastService.showToast(err.error.message || MessagesErrors.default, 'warning')
+    this.loginInvalid.serverError = true
+    if (message === MessagesErrors.emailNotCorrect) {
+      this.loginInvalid.name.status = true
+      this.loginInvalid.name.message = 'Введите корректный E-mail'
+    }
+    if (message === 'Значение поля имя не существует.' || err.status == '403') {
+      this.loginInvalid.name.status = true
+      this.loginInvalid.password.status = true
+      this.loginInvalid.password.message = 'Почта или пароль не верный'
+    }
+    this.loginForm.enable()
+  }
+
   clearErrors() {
     if (this.loginInvalid.localError || this.loginInvalid.serverError) {
       this.validateForm()
@@ -69,21 +89,34 @@ export class LoginPageComponent  implements OnInit {
   }
 
   submitLoginForm(){
-    const fd:FormData = new FormData()
-    fd.append('name', this.loginForm.get('name')?.value)
-    fd.append('password', this.loginForm.get('password')?.value)
-    this.loading.showLoading()
-    this.loginService.loginUser(fd).pipe(
-      finalize(()=>{
-        this.loading.hideLoading()
+    //Проверяб форму на валидность что бы вывести ошибки 
+    this.validateForm()
+    if (!this.loginInvalid.localError) {
+      const fd:FormData = new FormData()
+      fd.append('name', this.loginForm.get('name')?.value)
+      fd.append('password', this.loginForm.get('password')?.value)
+      this.loading.showLoading()
+      this.loginService.loginUser(fd).pipe(
+        catchError((err: serverError) => {
+          console.log(err)
+          this.errorResponseAfterLogin(err)
+          return EMPTY
+        }),
+        finalize(()=>{
+          this.loading.hideLoading()
+        })
+      ).subscribe((res:Login)=>{
+        this.userService.setUserInLocalStorage(res.user)
+        this.authService.setAuthToken(String(res.access_token))
       })
-    ).subscribe((res:Login)=>{
-      this.userService.setUserInLocalStorage(res.user)
-      this.authService.setAuthToken(String(res.access_token))
-    })
+    }
+   
    
   }
 
+  redirectInRegistration(){
+    this.navController.navigateForward('/registration')
+  }
   ngOnInit() {
     this.loginForm = new FormGroup({
       name: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]),
