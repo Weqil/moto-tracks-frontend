@@ -9,11 +9,12 @@ import { Login } from 'src/app/Shared/Data/Interfaces/login-model';
 import { finalize } from 'rxjs';
 import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
 import { AuthService } from 'src/app/Shared/Data/Services/Auth/auth.service';
+import { ButtonsModule } from 'src/app/Shared/Modules/buttons/buttons.module';
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.scss'],
-  imports: [SharedModule, HeaderModule, StandartInputComponent],
+  imports: [SharedModule, HeaderModule, StandartInputComponent,ButtonsModule],
 })
 export class LoginPageComponent  implements OnInit {
 
@@ -78,7 +79,7 @@ export class LoginPageComponent  implements OnInit {
       })
     ).subscribe((res:Login)=>{
       this.userService.setUserInLocalStorage(res.user)
-      this.authService.setAuthTokenInLocalStorage(String(res.access_token))
+      this.authService.setAuthToken(String(res.access_token))
     })
    
   }

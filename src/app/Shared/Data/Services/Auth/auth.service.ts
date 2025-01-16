@@ -1,35 +1,36 @@
 import { inject, Injectable } from '@angular/core';
 import { UserService } from '../User/user.service';
 import { BehaviorSubject } from 'rxjs';
-
+import {CookieService} from 'ngx-cookie-service';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   userService:UserService = inject(UserService)
-
-  public token: BehaviorSubject<string|null> = new BehaviorSubject<string|null>(this.getAuthTokenFromLocalStorage())
+  cookieService:CookieService = inject(CookieService)
+  public token: BehaviorSubject<string|null> = new BehaviorSubject<string|null>(this.getAuthToken())
   
   public authenticationState: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
 
   constructor() { }
 
+  //Проверяю куку на токен и если его нет то не авторизован
   isAuthenticated(): boolean {
-    let user = this.userService.getUserFromLocalStorage()
-    if (this.token && user) {
-      this.authenticationState.value === false ? this.authenticationState.next(true) : null
-      return true
-    } else {
-      this.authenticationState.value === true ? this.authenticationState.next(false) : null
-      return false
-    }
+    if (!this.token.value) {
+      this.token.next(this.getAuthToken())
+    } 
+    return !!this.token.value
   }
 
-  setAuthTokenInLocalStorage(token:string){
-    localStorage.setItem('token', token);
+  setAuthToken(token:string){
+    this.cookieService.set('authToken', token, {
+      secure: true,
+      sameSite: 'Strict',
+    })
   }
-  getAuthTokenFromLocalStorage(){
-    return localStorage.getItem('token');
+
+  getAuthToken(){
+    return this.cookieService.get('authToken')
   }
 
 }
