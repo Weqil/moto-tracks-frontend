@@ -13,6 +13,7 @@ import { ButtonsModule } from 'src/app/Shared/Modules/buttons/buttons.module';
 import { NavController } from '@ionic/angular/standalone';
 import { MessagesErrors } from 'src/app/Shared/Enums/messages-errors';
 import { serverError } from 'src/app/Shared/Data/Interfaces/errors';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
@@ -25,6 +26,7 @@ export class LoginPageComponent  implements OnInit {
   loading:LoadingService = inject(LoadingService)
   loginService: LoginService = inject(LoginService)
   userService: UserService = inject(UserService)
+  router:Router = inject(Router)
   navController: NavController = inject(NavController)
   authService: AuthService = inject(AuthService)
   loginForm!: FormGroup
@@ -109,7 +111,9 @@ export class LoginPageComponent  implements OnInit {
       ).subscribe((res:Login)=>{
         this.userService.setUserInLocalStorage(res.user)
         this.authService.setAuthToken(String(res.access_token))
-        this.navController.navigateForward('/cabinet')
+        // this.navController.navigateForward('/cabinet', {  animated: false })
+        console.log('навигейт')
+        this.router.navigate(['/cabinet'])
       })
     }
    
@@ -117,7 +121,7 @@ export class LoginPageComponent  implements OnInit {
   }
 
   redirectInRegistration(){
-    this.navController.navigateForward('/registration')
+    this.navController.navigateForward('/registration', {animationDirection: 'forward'})
   }
   
   ngOnInit() {

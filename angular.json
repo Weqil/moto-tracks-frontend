@@ -48,7 +48,14 @@
               "node_modules/@taiga-ui/core/styles/taiga-ui-theme.less",
               "node_modules/@taiga-ui/core/styles/taiga-ui-fonts.less",
               "src/global.scss",
-              "src/theme/variables.scss"
+              "src/theme/variables.scss",
+              "src/app/CommonUI/StyleLinks/font-links.scss",
+              "src/app/CommonUI/StyleVariables/colors.scss",
+              "src/app/CommonUI/StyleVariables/fonts.scss",
+              "src/app/CommonUI/StyleVariables/margin.scss",
+              "src/app/CommonUI/StyleVariables/padding.scss",
+              "src/app/CommonUI/StyleVariables/backgrounds.scss",
+              "src/app/CommonUI/StylesModules/containers.scss"
             ],
             "scripts": [],
             "browser": "src/main.ts"
