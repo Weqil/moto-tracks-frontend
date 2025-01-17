@@ -95,7 +95,7 @@ export class LoginPageComponent  implements OnInit {
     this.validateForm()
     if (!this.loginInvalid.localError) {
       const fd:FormData = new FormData()
-      fd.append('name', this.loginForm.get('name')?.value)
+      fd.append('email', this.loginForm.get('name')?.value)
       fd.append('password', this.loginForm.get('password')?.value)
       this.loading.showLoading()
       this.loginService.loginUser(fd).pipe(
@@ -112,7 +112,6 @@ export class LoginPageComponent  implements OnInit {
         this.userService.setUserInLocalStorage(res.user)
         this.authService.setAuthToken(String(res.access_token))
         // this.navController.navigateForward('/cabinet', {  animated: false })
-        console.log('навигейт')
         this.router.navigate(['/cabinet'])
       })
     }
@@ -127,7 +126,7 @@ export class LoginPageComponent  implements OnInit {
   ngOnInit() {
     this.loginForm = new FormGroup({
       name: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]),
-      password: new FormControl('', [Validators.required, Validators.minLength(8)]),
+      password: new FormControl('', [Validators.required, Validators.minLength(3)]),
     })
   }
 

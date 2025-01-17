@@ -1,0 +1,24 @@
+.switcher{
+    background-color: var(--white-color);
+    display: inline-flex;
+    padding: 0.25rem;
+    border-radius: 50px;
+    .switcher-item{
+        display: inline-flex;
+        background-color: var(--blue-primary-color);
+        color: var(--white-color);
+        border-radius: 50px;
+        padding: 0.3rem;
+        gap: 5px;
+       
+        .switcher-item__img{
+            filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(7500%) hue-rotate(158deg) brightness(105%) contrast(99%);
+        }
+        .switcher-item__title{
+            color: var(--white-color);
+            font-size: var(--font-little);
+            font-family: var(--font-bold);
+           
+        }
+    }
+}

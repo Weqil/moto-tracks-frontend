@@ -6,8 +6,10 @@
         justify-content: center;
         align-items: center;
         .user-section__avatar__img{
-            width: 3.75rem;
-            height: 3.75rem;
+            min-width: 3.75rem;
+            min-height: 3.75rem;
+            max-width: 3.75rem;
+            max-height: 3.75rem;
             object-fit: cover;
             overflow: hidden;
             background-color: rgb(99, 99, 99);

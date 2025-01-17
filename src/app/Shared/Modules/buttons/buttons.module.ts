@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { BackButtonComponent } from '../../Components/UI/Buttons/back-button/back-button.component';
 import { CircleButtonComponent } from '../../Components/UI/Buttons/circle-button/circle-button.component';
 import { StandartButtonComponent } from '../../Components/UI/Buttons/standart-button/standart-button.component';
-
+import { SwitcherComponent } from '../../Components/UI/Buttons/switcher/switcher.component';
 
 
 @NgModule({
@@ -12,9 +12,10 @@ import { StandartButtonComponent } from '../../Components/UI/Buttons/standart-bu
     CommonModule,
     BackButtonComponent,
     CircleButtonComponent,
-    StandartButtonComponent
+    StandartButtonComponent,
+    SwitcherComponent
 
   ],
-  exports: [BackButtonComponent, CircleButtonComponent, StandartButtonComponent]
+  exports: [BackButtonComponent, CircleButtonComponent, StandartButtonComponent,SwitcherComponent]
 })
 export class ButtonsModule { }

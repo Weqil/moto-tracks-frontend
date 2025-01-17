@@ -26,22 +26,22 @@ export class PagesWithNavComponent  {
         icon: '/assets/navigation/tape.svg',
         name:'Лента',
         active:false,
-        path: ['/events','/tracks'],
+        path: ['/tracks'],
       },
   
-      {
-        icon: '/assets/navigation/map.svg',
-        name:'Рейтинг',
-        path: ['/home'],
-        active:false,
-      },
+      // {
+      //   icon: '/assets/navigation/map.svg',
+      //   name:'Рейтинг',
+      //   path: ['/home'],
+      //   active:false,
+      // },
   
-      {
-        icon: '/assets/navigation/favorites.svg',
-        name:'Избранное',
-        active:false,
-        path: ['/favorites'],
-      },
+      // {
+      //   icon: '/assets/navigation/favorites.svg',
+      //   name:'Избранное',
+      //   active:false,
+      //   path: ['/favorites'],
+      // },
   
       {
         icon: '/assets/navigation/user.svg',
