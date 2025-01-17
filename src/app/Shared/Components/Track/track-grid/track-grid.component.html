@@ -1,0 +1,6 @@
+
+<ng-container >
+  <ion-infinite-scroll immediate-check="false" threshold="100px"  *ngIf="notFound === false" (ionInfinite)="onIonInfinite($event)">
+    <ion-infinite-scroll-content ></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ng-container>

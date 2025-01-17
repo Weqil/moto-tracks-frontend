@@ -1,0 +1,8 @@
+<div *ngIf="track" class="track-section">
+  <div class="track-section__avatar">
+    <img class="track-section__avatar__img" [src]="track.avatar | checkImgUrl" alt="">
+  </div>
+  <div class="track-section__info">
+    <h2 class="track-section__name">{{track.name}}</h2>
+  </div>
+</div>

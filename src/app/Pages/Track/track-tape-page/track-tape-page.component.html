@@ -1,4 +1,4 @@
-<ion-content>
+<ion-content [scrollEvents]="true">
   <app-header-strong image ="/assets/images/moto-background.png">
      <div class="track-page-header">
         <div class="track-page-header__top-content">
@@ -10,7 +10,14 @@
      </div>
   </app-header-strong>
   <main class="main-container--with-header--strong">
-      <p>test</p>
+    <div class="tracks">
+      <div class="tracks-grid">
+        @for (track of tracks; track $index) {
+          <div class="tracks-grid__item">
+            <app-track-section [track]="track"></app-track-section>
+          </div>
+        } 
+      </div>
+    </div>
   </main>
- <p>test</p>
 </ion-content>

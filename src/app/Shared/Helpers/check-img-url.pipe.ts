@@ -19,7 +19,7 @@ export class CheckImgUrlPipe implements PipeTransform {
       return url;
     } 
     else {
-      return 'assets/images/nophoto.jpg';
+      return 'assets/images/moto-standart.jpg';
     }
   }
 

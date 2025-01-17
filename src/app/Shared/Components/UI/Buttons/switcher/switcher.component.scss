@@ -1,14 +1,14 @@
 .switcher{
     background-color: var(--white-color);
     display: inline-flex;
-    padding: 0.25rem;
+    padding: 0.2rem;
     border-radius: 50px;
     .switcher-item{
         display: inline-flex;
         background-color: var(--blue-primary-color);
         color: var(--white-color);
         border-radius: 50px;
-        padding: 0.3rem;
+        padding: 0.2rem 0.3rem;
         gap: 5px;
        
         .switcher-item__img{

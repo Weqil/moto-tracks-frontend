@@ -1,0 +1,37 @@
+.track-section{
+    display: inline-flex;
+    gap: 10px;
+    .track-section__avatar{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .track-section__avatar__img{
+            min-width: 3.75rem;
+            min-height: 3.75rem;
+            max-width: 3.75rem;
+            max-height: 3.75rem;
+            object-fit: cover;
+            overflow: hidden;
+            background-color: rgb(99, 99, 99);
+            border-radius: 50%;
+        }
+    }
+    .track-section__info{
+        display: flex;
+     
+        justify-content: center;
+        flex-direction: column;
+        .track-section__name{
+            margin: 0;
+            color: var(--font-standart-color);
+            font-family: var(--font-bold);
+            font-size: var( --font-headers-size) ;
+        }
+        .track-section__email{
+            font-family: var(--font-bold);
+            font-size: var( --font-little);
+            color: var(--font-standart-color);
+            opacity: 50%;
+        }
+    }
+}
