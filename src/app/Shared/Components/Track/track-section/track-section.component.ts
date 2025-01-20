@@ -2,17 +2,20 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Track } from 'src/app/Shared/Data/Interfaces/track-model';
 import { CheckImgUrlPipe } from "../../../Helpers/check-img-url.pipe";
 import { CommonModule } from '@angular/common';
+import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
+
 @Component({
   selector: 'app-track-section',
   templateUrl: './track-section.component.html',
   styleUrls: ['./track-section.component.scss'],
-  imports: [CheckImgUrlPipe,CheckImgUrlPipe,CommonModule]
+  imports: [CheckImgUrlPipe,CheckImgUrlPipe,CommonModule,SharedModule]
 })
 export class TrackSectionComponent  implements OnInit {
 
   constructor() { }
 
   @Input() track!:Track
+  @Input() loading!:boolean
 
   ngOnInit() {}
 

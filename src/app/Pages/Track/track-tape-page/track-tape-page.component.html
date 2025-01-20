@@ -12,7 +12,7 @@
   <main class="main-container--with-header--strong">
     <div class="tracks">
       <div class="tracks-grid">
-        @for (track of tracks; track $index) {
+        @for (track of  this.trackTapeService.tracks; track $index) {
           <div class="tracks-grid__item">
             <app-track-section [routerLink]="['/track/', track.id]" routerLinkActive="router-link-active"  [track]="track"></app-track-section>
           </div>

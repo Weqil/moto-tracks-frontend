@@ -1,0 +1,9 @@
+@if (files.length) {
+  <div class="swiper">
+
+    @for (file of files; track $index) {
+      <img [src]="file.src" class="swiper-item"/>
+    }
+
+</div>
+}

@@ -35,9 +35,20 @@
 }
 .track__params{
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    width: 100%;
     font-family: var(--font-regular);
-    font-size: var(--font-regular-size);
+    font-size: var(--font-little);
     padding-top: var(--standart-padding);
-    gap: 1rem;
+}
+
+.track__files{
+    padding-top: var(--standart-padding);
+}
+
+.track__info{
+    padding-top: var(--standart-padding); 
+}
+.track{
+    
 }

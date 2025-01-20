@@ -1,26 +1,37 @@
 <ion-content>
   <app-header [headerTitle]= "'Трек ' + track.name" ></app-header>
-  <main class="main-container--with-header">
-      <div class="track">
+
+  <main>
+
+      <div class="main-container--with-header">
         <div class="track__header">
           <img [src]="track.avatar | checkImgUrl" alt="" class="track-header__avatar">
           <div class="track__status">
             <div class="track__status__circle"></div>
             {{track.status}}
           </div>
-      </div>
-      <div class="track__params">
-        <div class="track__params__item">
-            Длина: {{track.trackParams.length}}
+       </div>
+        <div class="track__params">
+          <div class="track__params__item">
+              Длина: {{track.trackParams.length}}
+          </div>
+          <div class="track__params__item">
+            Повороты: {{track.trackParams.turn}}
+          </div>
+          <div class="track__params__item">
+            Сложность: {{track.trackParams.level}}
+          </div>
         </div>
-        <div class="track__params__item">
-           Повороты: {{track.trackParams.turn}}
-        </div>
-        <div class="track__params__item">
-          Сложность: {{track.trackParams.level}}
-        </div>
-      </div>
+     </div>
+
+     <div class="track__files">
+      <app-horizontal-swiper [files]="track.images"></app-horizontal-swiper>
     </div>
 
+    <div class="track__info">
+      <div class="standart-heading">О треке</div>
+    </div>
   </main>
+  
+
 </ion-content>

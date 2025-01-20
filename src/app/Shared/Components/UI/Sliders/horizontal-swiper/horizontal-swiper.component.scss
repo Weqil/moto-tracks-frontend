@@ -1,0 +1,14 @@
+
+.swiper{
+    display: flex;
+    gap:5px;
+    overflow-x: auto;
+}
+.swiper-item{
+    min-width: 8rem;
+    min-height: 5rem;
+    max-width: 8rem;
+    max-height: 5rem;
+    border-radius: 5px;
+    object-fit: cover;
+}

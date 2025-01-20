@@ -23,6 +23,7 @@
 
 //Моудль контейнеров
 @use './app/CommonUI/StylesModules/containers.scss';
+@use './app/CommonUI/StylesModules/text-heading.scss';
 
 /* Core CSS required for Ionic components to work properly */
 @import "@ionic/angular/css/core.css";

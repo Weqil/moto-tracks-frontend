@@ -81,6 +81,11 @@ export class LoginPageComponent  implements OnInit {
       this.loginInvalid.password.status = true
       this.loginInvalid.password.message = 'Почта или пароль не верный'
     }
+    if(err.status = '422'){
+      this.loginInvalid.name.status = true
+      this.loginInvalid.password.status = true
+      this.loginInvalid.password.message = 'Такого аккаунта не существует'
+    }
     this.loginForm.enable()
   }
 
