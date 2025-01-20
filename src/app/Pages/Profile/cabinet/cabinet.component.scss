@@ -6,7 +6,6 @@
     display: flex;
     justify-content:space-between;
     align-items: center;
-    padding-bottom: var(--standart-padding);
     .user-info__class{
         display: inline;
         border-radius: 50%;
@@ -24,3 +23,6 @@
     padding-top: var(--middle-padding);
 }
 
+.cabinet__select-status{
+    width: 8rem;
+}

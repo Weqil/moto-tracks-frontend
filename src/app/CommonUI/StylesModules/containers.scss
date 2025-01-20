@@ -1,7 +1,9 @@
 
 //Стандартный контейнер с учётом обычного хедера
 .main-container--with-header{
-    padding:  var(--standart-header-padding) var(--standart-padding) ;
+    padding-top:var(--standart-header-padding);
+    padding-left:var(--standart-padding);
+    padding-right:var(--standart-padding);
     width: 100%;
 }
 .main-container--with-header--strong{

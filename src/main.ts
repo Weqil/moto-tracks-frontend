@@ -11,6 +11,15 @@ import { errorsRoutes } from './app/Routes/errors.routes';
 import { authRoutes } from './app/Routes/auth.routes';
 import { provideHttpClient, withInterceptors } from "@angular/common/http";
 import { authTokenInterceptor } from "./app/Shared/Data/Interceptors/auth.interceptor";
+import { YaConfig } from "angular8-yandex-maps/lib/interfaces/ya-config";
+import { environment } from "./environments/environment";
+import { importProvidersFrom } from "@angular/core";
+import { AngularYandexMapsModule } from "angular8-yandex-maps";
+import config from "capacitor.config";
+
+const yandexMapConfig: YaConfig = {
+  apikey: environment.apiKeyYandex,
+};
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -21,7 +30,9 @@ bootstrapApplication(AppComponent, {
         provideRouter(privateRoutes),
         provideRouter(authRoutes),
         provideRouter(errorsRoutes),
+        importProvidersFrom(AngularYandexMapsModule.forRoot(yandexMapConfig)),
         provideHttpClient(withInterceptors([authTokenInterceptor])),
+        
         NG_EVENT_PLUGINS,
         NG_EVENT_PLUGINS
     ],

@@ -1,0 +1,17 @@
+<div name ="selectedModal" class="select-container">
+  <div name ="selectedModal" (click)="changeModalState()" class="clicked_zone">
+
+  </div>
+  <div name ="selectedModal" class="select-container-value">
+      <ng-container *ngIf="selectedValue">
+          {{selectedValue.name}}
+      </ng-container>
+   
+  </div>
+  <ul name ="selectedModal" [ngClass]="{'select-container__content_active': modalValue, 'select-container__content': !modalValue}" class="select-container__content">
+      <ng-container *ngFor="let option of items">     
+           <li (click)="selectValue(option)" *ngIf="option !== selectedValue" class="select-container__content__option">{{option.name}}</li>
+      </ng-container>
+  
+  </ul>
+</div>

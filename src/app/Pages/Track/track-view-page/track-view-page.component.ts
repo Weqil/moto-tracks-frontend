@@ -4,7 +4,10 @@ import { HeaderModule } from 'src/app/Shared/Modules/header/header.module';
 import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
 import { CheckImgUrlPipe } from "../../../Shared/Helpers/check-img-url.pipe";
 import { SlidersModule } from 'src/app/Shared/Modules/sliders/sliders.module';
-
+import { AngularYandexMapsModule } from 'angular8-yandex-maps';
+import {TuiDataList} from '@taiga-ui/core';
+import {TuiDataListWrapper} from '@taiga-ui/kit';
+import {TuiSelectModule, TuiTextfieldControllerModule} from '@taiga-ui/legacy';
 @Component({
   selector: 'app-track-view-page',
   templateUrl: './track-view-page.component.html',
@@ -13,7 +16,11 @@ import { SlidersModule } from 'src/app/Shared/Modules/sliders/sliders.module';
     SharedModule,
     HeaderModule,
     CheckImgUrlPipe,
-    SlidersModule
+    SlidersModule,
+    AngularYandexMapsModule,
+    TuiSelectModule,
+    TuiTextfieldControllerModule
+    
 ]
 })
 
@@ -24,6 +31,7 @@ export class TrackViewPageComponent  implements OnInit {
     address:'Свердловская область, поселок городского типа Белоярский, посёлок Баженово',
     latitude:56.728396,
     longitude:61.388896,
+    description: 'Обучение мотокроссу детей и начинающих. Трассы с трамплинами и гонки по бездорожью для профессионалов',
     status:'Работает',
     trackParams:{
       length:2000,
@@ -42,8 +50,45 @@ export class TrackViewPageComponent  implements OnInit {
       {
         src:'https://a.d-cd.net/1f13ca9s-960.jpg'
       }
-    ]
+    ],
+    specifications:[
+      {
+        title:'Тип',
+        value:'Открытый'
+      },
+      {
+        title:'Минимальная ширина',
+        value:'2м.'
+      },
+      {
+        title:'Прожектора',
+        value:'8'
+      },
+      {
+        title:'Грунт',
+        value:'Щебень'
+      },
+      {
+        title:'Упоры',
+        value:'19'
+      }
+    ],
+    additionalServices:[
+      {
+        ico:'/assets/icons/tube.svg',
+        value:'Полив трека'
+      },
+      {
+        ico:'/assets/icons/show.svg',
+        value:'Душевые'
+      },
+      {
+        ico:'/assets/icons/parking.svg',
+        value:'Парковка'
+      },
+    ],
   }
+
   constructor() { }
 
   ngOnInit() {}

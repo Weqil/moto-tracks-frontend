@@ -11,7 +11,7 @@
   
 
 :root {
-  --font-little:12px;
+   --font-little-size:12px;
   --font-regular-size:14px;
   --font-headers-size:1.25rem;
 
@@ -19,6 +19,7 @@
 
 :root {
   --font-standart-white-color:var(--white-color);
+  --font-gray-color:var(--grey-color);
   --font-standart-color:var(--dark-grey-color);
   --font-grey-color:var(--grey-color)
 }

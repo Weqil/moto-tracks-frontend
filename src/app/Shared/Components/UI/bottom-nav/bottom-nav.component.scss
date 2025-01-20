@@ -14,7 +14,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    font-size: var(--font-little);
+    font-size: var( --font-little-size);
     font-family: var(--font-regular);
     align-items: center;
     .icon{
@@ -27,7 +27,7 @@
 
 
 .bottom-nav__item--active{
-    font-size: var(--font-little);
+    font-size: var( --font-little-size);
     font-family: var(--font-regular);
     color: var(--blue-primary-color);
     display: flex;

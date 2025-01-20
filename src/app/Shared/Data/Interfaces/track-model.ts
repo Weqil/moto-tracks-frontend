@@ -7,5 +7,9 @@ export interface Track {
     avatar?: string|null;
     status?:string;
     trackParams?:any;
+    description?: string,
+    specifications?:any,
     images?:any;
+    additionalServices?:any;
+
 }
