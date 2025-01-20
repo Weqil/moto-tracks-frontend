@@ -5,4 +5,6 @@ export interface Track {
     latitude: number;
     longitude: number;
     avatar?: string|null;
+    status?:string
+    trackParams?:any
 }

@@ -4,12 +4,14 @@ import { HeaderModule } from 'src/app/Shared/Modules/header/header.module';
 import { ButtonsModule } from 'src/app/Shared/Modules/buttons/buttons.module';
 import { TrackModule } from 'src/app/Shared/Modules/track/track.module';
 import { Track } from 'src/app/Shared/Data/Interfaces/track-model';
+
 import { TrackGridComponent } from "../../../Shared/Components/Track/track-grid/track-grid.component";
+import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-track-tape-page',
   templateUrl: './track-tape-page.component.html',
   styleUrls: ['./track-tape-page.component.scss'],
-  imports: [SharedModule, HeaderModule, ButtonsModule, TrackModule]
+  imports: [SharedModule, HeaderModule, ButtonsModule, TrackModule, RouterLink]
 })
 export class TrackTapePageComponent  implements OnInit {
 

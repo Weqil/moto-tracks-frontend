@@ -27,6 +27,10 @@ export const publicRoutes: Routes = [
       {
         path:'favorites',
         loadComponent: () => import('../Pages/Profile/favorites-page/favorites-page.component').then((m) => m.FavoritesPageComponent),
+      },
+      {
+        path:'track/:id',
+        loadComponent: () => import('../Pages/Track/track-view-page/track-view-page.component').then((m) => m.TrackViewPageComponent)
       }
     ]
   },

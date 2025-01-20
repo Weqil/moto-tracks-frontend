@@ -1,0 +1,43 @@
+.track{
+    padding-top: var( --little-padding);
+}
+.track-header__avatar{
+    min-width: 3.75rem;
+    min-height: 3.75rem;
+    max-width: 3.75rem;
+    border:1px solid rgb(182, 182, 182);
+    max-height: 3.75rem;
+    object-fit: cover;
+    overflow: hidden;
+    background-color: rgb(99, 99, 99);
+    border-radius: 50%;
+}
+
+.track__header{
+    display: flex;
+    gap: 10px;
+}
+
+.track__status__circle{
+    width: 20px;
+    height: 20px;
+    background-color:var(--green-color);
+
+    border-radius: 50%;
+}
+.track__status{
+    display: inline-flex;
+    font-family: var(--font-regular);
+    font-size: var(--font-regular-size);
+    align-items: end;
+    padding-bottom: var(--little-padding);
+    gap:5px;
+}
+.track__params{
+    display: flex;
+    justify-content: center;
+    font-family: var(--font-regular);
+    font-size: var(--font-regular-size);
+    padding-top: var(--standart-padding);
+    gap: 1rem;
+}
