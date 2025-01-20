@@ -1,6 +1,6 @@
 
 <div class="item-main" *ngIf="routing">
-  <div class="info-wrapper">
+  <div class="info-wrapper" (click)="redirectInPage()">
     <ng-container>
         <div *ngIf="icon && iconColor" class="item-main-icon-wrapper" [style.background]="iconColor">
           <img style="filter:{{iconFilter}}" src="{{icon}}" alt="" class="item-main-icon">

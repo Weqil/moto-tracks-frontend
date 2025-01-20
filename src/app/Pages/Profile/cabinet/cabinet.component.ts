@@ -41,6 +41,7 @@ export class CabinetComponent  implements OnInit {
   }
   selectStatus(event:any){
     this.selectedStatusItem = event;
+    console.log( this.selectedStatusItem)
   }
   openSelectedStatus(){
     this.statusesSelect = true;

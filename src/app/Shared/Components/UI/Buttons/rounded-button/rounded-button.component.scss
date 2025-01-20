@@ -1,0 +1,70 @@
+.close_image{
+    width: 0.4rem;
+    height: 0.4rem;
+    position: absolute;
+    margin-top: -0.3rem;
+    right: 0.2rem;
+}
+.rounded-button{
+    background-color: #ffffff;
+    font-size: 0.75rem;
+    color: var(--font-color);
+    min-width: 3rem;
+    padding-left: 0.6rem;
+    gap: 3px;
+    padding-right: 0.6rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    text-align: center;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+    transition: 0.2s;
+    max-height: 34px;
+    border-radius: 100px;
+}
+.rounded-button_outline{
+    background-color: #ffffff;
+    font-size: 0.75rem;
+    color: var(--font-color);
+    min-width: 2rem;
+    padding-left: 0.6rem;
+    gap: 3px;
+    box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.55);
+    padding-right: 0.6rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    text-align: center;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.2s;
+    max-height: 34px;
+    border-radius: 100px;
+}
+
+.rounded-button__second{
+    background-color: #368be0;
+    font-size: 1rem;
+    color: #ffffff;
+    width: 150px;
+    padding-left: 0.6rem;
+    gap: 3px;
+    padding-right: 0.6rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    transition: 0.2s;
+    max-height: 34px;
+    border-radius: 100px;
+    
+}
+.rounded-button__container{
+    display: flex;
+    font-family: var(--font-bold);
+    color: var(--font-gray-color);
+    justify-content: space-between;
+    align-items: center;
+
+}
