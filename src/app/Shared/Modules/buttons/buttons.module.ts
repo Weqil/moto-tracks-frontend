@@ -17,6 +17,12 @@ import { RoundedButtonComponent } from '../../Components/UI/Buttons/rounded-butt
     RoundedButtonComponent
 
   ],
-  exports: [BackButtonComponent, CircleButtonComponent, StandartButtonComponent,SwitcherComponent]
+  exports: [
+    BackButtonComponent, 
+    CircleButtonComponent, 
+    StandartButtonComponent,
+    SwitcherComponent,
+    RoundedButtonComponent
+  ]
 })
 export class ButtonsModule { }

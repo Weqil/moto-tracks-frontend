@@ -26,7 +26,8 @@ import { UserModule } from 'src/app/Shared/Modules/user/user.module';
 })
 export class CabinetComponent  implements OnInit {
   
-  user: User|null = inject(UserService).user.value 
+  user!: User|null 
+  userService: UserService = inject(UserService)
   authService:AuthService = inject(AuthService)
   navControler:NavController = inject(NavController)
 
@@ -53,6 +54,9 @@ export class CabinetComponent  implements OnInit {
   logoutInAccount() {
     this.authService.logout()
     this.navControler.navigateForward('/login',{  animated: false })
+  }
+  ionViewWillEnter(){
+    this.user =  this.userService.user.value 
   }
   ngOnInit() {
     

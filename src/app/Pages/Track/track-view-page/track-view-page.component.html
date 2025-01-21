@@ -1,81 +1,94 @@
 <ion-content>
-  <app-header [headerTitle]= "'Трек ' + track.name" ></app-header>
+  <ng-container *ngIf="track">
+    <app-header [headerTitle]= "'Трек ' + track.name" ></app-header>
+    <div>
 
-  <div>
-
-      <div class="main-container--with-header">
-        <div class="track__header">
-          <img [src]="track.avatar | checkImgUrl" alt="" class="track-header__avatar">
-       
-          <div class="track__status">
-            <div class="track__status__circle"></div>
-            {{track.status}}
-          </div>
-       </div>
-        <div class="track__params">
-          <div class="track__params__item">
-              Длина: {{track.trackParams.length}}
-          </div>
-          <div class="track__params__item">
-            Повороты: {{track.trackParams.turn}}
-          </div>
-          <div class="track__params__item">
-            Сложность: {{track.trackParams.level}}
-          </div>
-        </div>
+        <div class="main-container--with-header">
+          <div class="track__header">
+            <img src="{{track.images ? (track.images[0] | checkImgUrl) : '' | checkImgUrl}}" alt="" class="track-header__avatar">
         
-     </div>
-    
-      <div class="track__files">
-          <app-horizontal-swiper [files]="track.images"></app-horizontal-swiper>
-      </div>
-
-      <div class="track__info main-container">
-        <div class="specifications">
-          <div class="standart-heading">О треке</div>
-          @for (specification of track.specifications; track $index) {
-            <div class="specifications__item">
-              <div class="specifications__item__title">{{specification.title}}</div>
-              <div class="specifications__item__value">{{specification.value}}</div>
+            <div class="track__status">
+              <div class="track__status__circle" style="background-color: {{track.is_work ? 'var(--green-color)' : 'var(--red-color)'}};"></div>
+              {{track.is_work ? 'Работает' : 'Закрыто'}}
             </div>
-          }
         </div>
-        <div class="additional-services">
-          <div class="standart-heading">Дополнительные сервисы</div>
-          <div class="additional-services__grid">
-            @for (service of track.additionalServices; track $index) {
-              <div class="additional-services__item">
-                <img [src]="service.ico" class="additiobal-services__item__ico">
-                <div class="additional-services__item__value">{{service.value}}</div>
+          <div class="track__params">
+            <div class="track__params__item">
+                Длина: {{track.length}}
+            </div>
+            <div class="track__params__item">
+              Повороты: {{track.turns}}
+            </div>
+            <div class="track__params__item">
+              Сложность: <span>{{track.level.name}}</span>
+            </div>
+          </div>
+          
+      </div>
+      
+        <div class="track__files">
+            <app-horizontal-swiper [files]="track.images"></app-horizontal-swiper>
+        </div>
+
+        <div class="track__info main-container">
+          <div class="specifications">
+            <div class="standart-heading">О треке</div>
+            <div class="specifications__item">
+              <div class="specifications__item__title">Вход на трек</div>
+              <div class="specifications__item__value">{{track.free ? 'Бесплатный' : 'Платный'}}</div>
+            </div>
+            @for (specification of track.spec; track $index) {
+              <div class="specifications__item">
+                <div class="specifications__item__title">{{specification.title}}</div>
+                <div class="specifications__item__value">{{specification.value}}</div>
               </div>
             }
           </div>
-         
-        </div>
-        <div class="description">
-          <div class="standart-heading">Описание трека</div>
-          <div class="description__text">{{track.description}}</div>
-        </div>
+          <div *ngIf="track.additionalServices" class="additional-services">
+            <div class="standart-heading">Дополнительные сервисы</div>
+            <div class="additional-services__grid">
+              
+              @for (service of track.additionalServices; track $index) {
+                <div class="additional-services__item">
+                  <img [src]="service.ico" class="additiobal-services__item__ico">
+                  <div class="additional-services__item__value">{{service.value}}</div>
+                </div>
+              }
+              
+            </div>
+          
+          </div>
+          <div class="description">
+            <div class="standart-heading">Описание трека</div>
+            <div class="description__text">{{track.desc}}</div>
+          </div>
 
-        <div class="map">
-          <div class="standart-heading">На карте</div>
-          <div class="map__container">
-            <ya-map
-            [center]="[55.751952, 37.600739]"
-            [zoom]="12"   
-            [state]="{controls: []}"
-            [options]="{
-              yandexMapDisablePoiInteractivity: true,
-              suppressMapOpenBlock: true,
-              suppressObsoleteBrowserNotifier: true,
-              autoFitToViewport: 'always',
-            }">
-            <ya-placemark [geometry]="[55.751952, 37.600739]"></ya-placemark>
-            </ya-map>
+          <div class="map">
+            <div class="standart-heading">На карте</div>
+            <div class="map__container">
+              <ya-map
+              [center]="[track.latitude,track.longitude,]"
+              [zoom]="12"   
+              [state]="{controls: []}"
+              [options]="{
+                yandexMapDisablePoiInteractivity: true,
+                suppressMapOpenBlock: true,
+                suppressObsoleteBrowserNotifier: true,
+                autoFitToViewport: 'always',
+              }">
+              <ya-placemark [geometry]="[track.latitude,track.longitude,]"></ya-placemark>
+              </ya-map>
+            </div>
+            <div class="map__open-button">
+              <app-standart-button buttonText="Проложить маршрут" (onClick) = "goToPoint()"></app-standart-button>
+            </div>
+       
           </div>
         </div>
-      </div>
     </div>
+  </ng-container>
+  
+  
   
 
 </ion-content>

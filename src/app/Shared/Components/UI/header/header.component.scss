@@ -3,13 +3,15 @@
     align-items: center;
     position: fixed;
     width: 100%;
+    max-height: 4rem;
     top: 0;
+    text-align: center;
     justify-content: space-between;
     display: flex;
     border-radius: 0px 0px 1.5rem 1.5rem;
     padding: var(--standart-padding);
     .header-title{
-        font-size: var(--font-headers-size);
+        font-size: var( --font-headers-size-little);
         font-family: var(--font-bold);
         color: var(--font-standart-white-color);
     }

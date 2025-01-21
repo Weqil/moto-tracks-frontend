@@ -1,13 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Track } from 'src/app/Shared/Data/Interfaces/track-model';
 import { HeaderModule } from 'src/app/Shared/Modules/header/header.module';
 import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
 import { CheckImgUrlPipe } from "../../../Shared/Helpers/check-img-url.pipe";
 import { SlidersModule } from 'src/app/Shared/Modules/sliders/sliders.module';
 import { AngularYandexMapsModule } from 'angular8-yandex-maps';
-import {TuiDataList} from '@taiga-ui/core';
-import {TuiDataListWrapper} from '@taiga-ui/kit';
 import {TuiSelectModule, TuiTextfieldControllerModule} from '@taiga-ui/legacy';
+import { ActivatedRoute } from '@angular/router';
+import { finalize, Subject, takeUntil } from 'rxjs';
+import { TrackService } from 'src/app/Shared/Data/Services/Track/track.service';
+import { ButtonsModule } from 'src/app/Shared/Modules/buttons/buttons.module';
+import { LoadingService } from 'src/app/Shared/Services/loading.service';
 @Component({
   selector: 'app-track-view-page',
   templateUrl: './track-view-page.component.html',
@@ -18,6 +21,7 @@ import {TuiSelectModule, TuiTextfieldControllerModule} from '@taiga-ui/legacy';
     CheckImgUrlPipe,
     SlidersModule,
     AngularYandexMapsModule,
+    ButtonsModule,
     TuiSelectModule,
     TuiTextfieldControllerModule
     
@@ -25,71 +29,43 @@ import {TuiSelectModule, TuiTextfieldControllerModule} from '@taiga-ui/legacy';
 })
 
 export class TrackViewPageComponent  implements OnInit {
-  track:Track = {
-    id: 1,
-    name: 'Баженово',
-    address:'Свердловская область, поселок городского типа Белоярский, посёлок Баженово',
-    latitude:56.728396,
-    longitude:61.388896,
-    description: 'Обучение мотокроссу детей и начинающих. Трассы с трамплинами и гонки по бездорожью для профессионалов',
-    status:'Работает',
-    trackParams:{
-      length:2000,
-      turn:20,
-      level:'Низкая'
-    },
-    images:[
-      {
-        id: 1,
-        src: 'https://www.рцпв.рф/wp-content/uploads/2021/03/P6kyiF1u5wI.jpg',
-        alt: 'Slide 1',
-      },
-      {
-        src:'https://avatars.mds.yandex.net/i?id=2c610d7df92b855b072023060caa590d_l-5289075-images-thumbs&n=13'
-      },
-      {
-        src:'https://a.d-cd.net/1f13ca9s-960.jpg'
-      }
-    ],
-    specifications:[
-      {
-        title:'Тип',
-        value:'Открытый'
-      },
-      {
-        title:'Минимальная ширина',
-        value:'2м.'
-      },
-      {
-        title:'Прожектора',
-        value:'8'
-      },
-      {
-        title:'Грунт',
-        value:'Щебень'
-      },
-      {
-        title:'Упоры',
-        value:'19'
-      }
-    ],
-    additionalServices:[
-      {
-        ico:'/assets/icons/tube.svg',
-        value:'Полив трека'
-      },
-      {
-        ico:'/assets/icons/show.svg',
-        value:'Душевые'
-      },
-      {
-        ico:'/assets/icons/parking.svg',
-        value:'Парковка'
-      },
-    ],
-  }
-
+    private readonly destroy$ = new Subject<void>()
+  
+  track!:Track 
+  trackService:TrackService = inject(TrackService)
+  trackId!: string 
   constructor() { }
+  route: ActivatedRoute = inject(ActivatedRoute)
+  loadingService: LoadingService = inject(LoadingService)
+
+   getTrack(){
+    this.loadingService.showLoading()
+    this.trackService.getTrackById(this.trackId).pipe(
+      finalize(()=>{
+        this.loadingService.hideLoading()  
+      })
+    ).subscribe((res:any) => {
+      this.track = res.track
+    })
+    console.log(this.track)
+   }
+   goToPoint(){
+    if (this.track?.latitude && this.track?.longitude) {
+      window.location.href = 'https://yandex.ru/maps/?rtext=~' + this.track.latitude + ',' + this.track.longitude
+    } else {
+      // this.toastService.showToast('Произошла ошибка при получении координат', 'warning')
+    }
+   }
+  ionViewWillEnter(){
+    this.route.params.pipe(takeUntil(this.destroy$)).subscribe((params) => {
+      this.trackId = params['id']
+      this.getTrack()
+
+    })
+  }
+  ionViewDidLeave(){
+    this.destroy$.next()
+  }
 
   ngOnInit() {}
 

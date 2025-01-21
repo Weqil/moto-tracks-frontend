@@ -18,6 +18,11 @@ export const privateRoutes: Routes = [
                 canActivate:[canActivateAuth],
                 loadComponent: () => import('../Pages/Profile/Tracks/my-tracks-page/my-tracks-page.component').then((m) => m.MyTracksPageComponent)
             },
+            {
+                path:'create-track',
+                canActivate:[canActivateAuth],
+                loadComponent: () => import('../Pages/Profile/Tracks/create-track-page/create-track-page.component').then((m) => m.CreateTrackPageComponent)
+            },
         ]
     }
  

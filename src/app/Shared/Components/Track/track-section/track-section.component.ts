@@ -16,6 +16,9 @@ export class TrackSectionComponent  implements OnInit {
 
   @Input() track!:Track
   @Input() loading!:boolean
+  checkImage(){
+    
+  }
 
   ngOnInit() {}
 

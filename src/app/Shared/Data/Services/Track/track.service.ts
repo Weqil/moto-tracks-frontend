@@ -19,6 +19,9 @@ export class TrackService {
     return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/tracks`)
   }
 
+  getTrackById(id:string){
+    return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/tracks/${id}`)
+  }
 
 
   loginUser( loginForm:FormData){

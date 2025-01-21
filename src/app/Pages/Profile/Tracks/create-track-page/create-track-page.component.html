@@ -1,3 +1,10 @@
-<p>
-  create-track-page works!
-</p>
+<ion-content>
+    <app-header  headerTitle="Создание трека"></app-header>
+    <main class="main-container--with-header">
+        <app-step-container [maxStepsCount]="maxStepsCount" [stepCurrency]="stepCurrency">
+            <app-step-container-item [maxStepsCount]="maxStepsCount" [stepCurrency]="stepCurrency" stepNum="1">
+                    
+            </app-step-container-item>
+        </app-step-container>
+    </main>
+</ion-content>

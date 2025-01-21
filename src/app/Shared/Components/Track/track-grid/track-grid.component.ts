@@ -19,13 +19,7 @@ export class TrackGridComponent  implements OnInit {
   @Input() archived: boolean = false
   @Output() endScroll: EventEmitter<any> = new EventEmitter()
   @Input() notFound: any = false
-  testTrack:Track = {
-    id: 1,
-    name: 'Баженово',
-    address:'Свердловская область, поселок городского типа Белоярский, посёлок Баженово',
-    latitude:56.728396,
-    longitude:61.388896
-  }
+
   onIonInfinite(event: any) {
     if (!this.notFound) {
       let trueEvent = event as InfiniteScrollCustomEvent
