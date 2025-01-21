@@ -1,11 +1,11 @@
 <div class="header">
-  <app-back-button></app-back-button>
+  <app-back-button *ngIf="!customBack"></app-back-button>
+  <app-circle-button *ngIf="customBack" (click)="backButtonClick()" icon="/assets/icons/arrow.svg"></app-circle-button>
   <div class="header-title">{{headerTitle}}</div>
   <ng-container *ngIf="customButton">
     <ng-content>
 
     </ng-content>
-    
   </ng-container>
   
   <app-circle-button *ngIf="!customButton" [ngClass]="{'invisible': !secondButtonIcon}"  [icon]="secondButtonIcon"></app-circle-button>

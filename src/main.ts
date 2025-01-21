@@ -18,7 +18,7 @@ import { AngularYandexMapsModule } from "angular8-yandex-maps";
 import config from "capacitor.config";
 
 const yandexMapConfig: YaConfig = {
-  apikey: environment.apiKeyYandex,
+  apikey: environment.apiKeyYandex + '&' + `suggest_apikey=${environment.apiKeyYandexSubject}`,
 };
 
 bootstrapApplication(AppComponent, {

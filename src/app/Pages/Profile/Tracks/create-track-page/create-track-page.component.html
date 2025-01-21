@@ -1,10 +1,86 @@
 <ion-content>
-    <app-header  headerTitle="Создание трека"></app-header>
+    <app-header (customBackClick)="stepPrevious()" [customBack]="true"  headerTitle="Создание трека"></app-header>
     <main class="main-container--with-header">
         <app-step-container [maxStepsCount]="maxStepsCount" [stepCurrency]="stepCurrency">
             <app-step-container-item [maxStepsCount]="maxStepsCount" [stepCurrency]="stepCurrency" stepNum="1">
-                    
+                <div class="step-description">
+                    На данном этапе необходимо обязательно заполнить информацию о вашем треке.
+                </div>
+                <app-standart-input label="Название" [control]="createTrackForm.get('name')" placeholder="Введите название вашего трека"></app-standart-input>
+                <div class="photo-slider">
+                    <app-edit-slider type="create"></app-edit-slider>
+                </div>
+                <div class="decription">
+                    <app-standart-rich-input [control]="createTrackForm.get('description')" label="Описание" placeholder="Введите описание вашего трека"></app-standart-rich-input>
+                </div>
+              
+            </app-step-container-item>
+            <app-step-container-item [maxStepsCount]="maxStepsCount" [stepCurrency]="stepCurrency" stepNum="2">
+                <div class="specifications">
+                    <app-standart-input label= "Количество поворотов" [control]="createTrackForm.get('turns')" placeholder="Введите количество поворотов"></app-standart-input>
+                    <app-standart-input label= "Длинна трека" [control]="createTrackForm.get('length')" placeholder="Введите длинну в метрах"></app-standart-input>
+                    @for (param of newParams; track param.temp_id) {
+                        <div>
+                            <div class="select-level__label">
+                            Новый параметр 
+                            <button (click)="deleteNewParameter(param.temp_id)" class="delete-button">
+                                <img class="delete-img" src="/assets/icons/trash.svg" alt="">
+                            </button>
+                          </div>
+                            <div class="new-param-input">
+                                <input class="new-param-input__title" placeholder="Введите название вашего параметра" type="text">
+                                <input class="new-param-input__text" placeholder="Введите значение вашего параметра" type="text">
+                            </div>
+                        </div>
+                    }
+               
+                    <app-standart-button (click)="addNewParameter()" buttonText="Добавить параметр"></app-standart-button>
+                    <div class="select-level">
+                        <div class="select-level__label">Выберите сложность трека</div>
+                        <ion-radio-group value="custom-checked">
+                            <div class="custom-checked__item">
+                                <ion-radio value="custom" aria-label="Custom checkbox">Лёгкая</ion-radio>
+                            </div>
+                            <div class="custom-checked__item">
+                                <ion-radio value="custom" aria-label="Custom checkbox">Средняя</ion-radio>
+                                
+                            </div>
+                            <div class="custom-checked__item">
+                                <ion-radio value="custom" aria-label="Custom checkbox">Высокая</ion-radio>
+                                
+                            </div>
+                         
+                         
+                          </ion-radio-group>
+                    </div>
+                    <div class="select-level">
+                        <div class="select-level__label">Вход на трек</div>
+                        <ion-radio-group value="custom-checked">
+                            <div class="custom-checked__item">
+                                <ion-radio value="custom" aria-label="Custom checkbox">Платный</ion-radio>
+                            </div>
+
+                            <div class="custom-checked__item">
+                                <ion-radio value="custom" aria-label="Custom checkbox">Бесплатный</ion-radio>
+                            </div>
+                
+                          </ion-radio-group>
+                    </div>
+                    <!-- <app-address-input></app-address-input> -->
+                </div>
+            </app-step-container-item>
+            <app-step-container-item [maxStepsCount]="maxStepsCount" [stepCurrency]="stepCurrency" stepNum="3">
+                <div class="select-level__label">Адрес трека</div>
+                <app-address-input></app-address-input>
             </app-step-container-item>
         </app-step-container>
+
+        <div class="navigate-buttons-container">
+            <app-standart-button  *ngIf="stepCurrency !== maxStepsCount" (click)="stepNext()" buttonText="Далее" theme="standart"></app-standart-button>
+            <app-standart-button  *ngIf="stepCurrency === maxStepsCount"  buttonText="Создать и открыть" theme="standart"></app-standart-button>
+            <div>
+              <app-standart-button  buttonText="Отмена" theme="light"></app-standart-button>
+            </div>
+          </div>
     </main>
 </ion-content>

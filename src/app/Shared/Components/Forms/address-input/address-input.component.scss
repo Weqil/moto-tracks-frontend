@@ -1,0 +1,111 @@
+.standart-input{
+    border: 1px solid #4c586141;
+    border-radius: 5px;
+    width: 100%;
+    min-height: 2.25rem;
+    font-size: 12px;
+    padding-left: 0.8rem;
+    padding-right: 1.4rem;
+    transition: 0.1s;
+    color: #363d42;
+    font-family: var(--font-regular);
+    background: none;
+}
+.standart-input_inavlid{
+    border: 1px solid #ff0000;
+    border-radius: 5px;
+    padding-left: 0.8rem;
+    width: 100%;
+    min-height: 2.25rem;
+    font-size: 12px;
+    padding-right: 1.4rem;
+    background: none;
+    transition: 0.1s;
+    color: #363d42;
+}
+.clear-input{
+    background: none;
+    position: absolute;
+    margin-left: -1.5rem;
+    margin-top: 0.6rem;
+}
+.clear-input__img{
+    width: 1rem;
+    height: 1rem;
+}
+.standart-input_inavlid:focus{
+    outline: none;
+    border-radius: 5px;
+    width: 100%;
+    padding-left: 0.8rem;
+    padding-right: 1.4rem;
+    min-height: 2.25rem;
+    transition: 0.2s;
+    background: none;
+    font-size: 12px;
+    padding-left: 0.8rem;
+    transition: 0.1s;
+    color: #363d42;
+}
+.standart-input:focus{
+    transition: 0.2s;
+    padding-left: 0.8rem;
+    padding-right: 1.4rem;
+    outline: 1px solid #52b1fab0;
+    border-radius: 5px;
+    width: 100%;
+    background: none;
+    min-height: 2.25rem;
+    font-size: 12px;
+    padding-left: 0.8rem;
+    color: #363d42;
+}
+
+.label{
+    color: #4C5861;
+    font-size: 12px;
+    margin-bottom: 6px;
+    font-family: var(--font-regular);
+}
+.label_invalid{
+    color: #ff0000;
+    font-size: 12px;
+    margin-bottom: 6px;
+}
+
+.open-input{
+    background: none;
+    position: absolute;
+    margin-left: -2rem;
+    margin-top: 0.75rem;
+}
+.open-input:active{
+    background: none;
+    position: absolute;
+    margin-left: -2rem;
+    margin-top: 0.75rem;
+    .open-input-icon{
+        filter: brightness(0) saturate(100%) invert(20%) sepia(2%) saturate(3827%) hue-rotate(188deg) brightness(93%) contrast(92%);
+    }
+}
+.open-input-icon:active{
+    filter: brightness(0) saturate(100%) invert(20%) sepia(2%) saturate(3827%) hue-rotate(188deg) brightness(93%) contrast(92%);
+}
+.standart-input_disabled{
+    border: none;
+    pointer-events: none;
+    padding-right: 1.4rem;
+    border-radius: 5px;
+    width: 100%;
+    min-height: 2.25rem;
+    font-size: 12px;
+    background-color: #c0c0c071;
+    padding-left: 0.8rem;
+    transition: 0.1s;
+    color: #51555896;
+}
+.map {
+    padding-top: 1rem;
+    width: 100%;
+    height: 30vh;
+  }

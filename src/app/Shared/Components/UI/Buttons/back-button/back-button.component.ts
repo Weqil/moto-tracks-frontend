@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular/standalone';
 
 @Component({
@@ -8,6 +8,8 @@ import { NavController } from '@ionic/angular/standalone';
 })
 export class BackButtonComponent  implements OnInit {
   navController:NavController = inject(NavController)
+  
+
   constructor() { }
 
   backNavigate() {

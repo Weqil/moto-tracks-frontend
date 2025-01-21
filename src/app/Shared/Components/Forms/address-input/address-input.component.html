@@ -1,0 +1,34 @@
+
+<div  class="input-wrapper">
+
+  <form [formGroup]="addressForm">
+    <label class="label" for="{{label}}">{{label}}</label>
+    <input #input formControlName="address" value="{{this.addressForm.value.address}}"  [readonly]="readonly" id="search-map-" placeholder="{{placeholder}}" type="{{type}}" name="{{label}}" class="standart-input" name="new_name">
+    <button type="button" (click)="clearInput(input)" class="clear-input">
+      <img class="clear-input__img" src="/assets/icons/close.svg" alt="">
+    </button>
+
+    <div class="map">
+      <ya-map 
+        (ready)="onMapReady($event)"
+        [zoom]="11"
+        (yaclick)="onMapClick($event)"
+        [center]="coords"
+        [state]="{
+          controls: [
+            'zoomControl',
+            'fullscreenControl',]
+          }"
+        [options]="{
+          yandexMapDisablePoiInteractivity: true,
+          maxZoom:18,
+          suppressMapOpenBlock: true,
+          suppressObsoleteBrowserNotifier: true
+        }"
+      >
+      </ya-map>
+    </div>
+  </form>
+
+</div>
+
