@@ -1,3 +1,39 @@
-<p>
-  create-events-page works!
-</p>
+<ion-content>
+  <app-header (customBackClick)="stepPrevious()" [customBack]="true"  headerTitle="Создание гонки"></app-header>
+  <main class="main-container--with-header">
+    <app-step-container [maxStepsCount]="maxStepsCount" [stepCurrency]="stepCurrency">
+      <app-step-container-item [maxStepsCount]="maxStepsCount" [stepCurrency]="stepCurrency" stepNum="1">
+
+        <div class="step-description">
+          На данном этапе необходимо обязательно заполнить информацию о вашей гонки.
+        </div>
+        <app-standart-input label="Название" [control]="createEventForm.get('name')" placeholder="Введите название вашего соревнования"></app-standart-input>
+  
+        <div class="photo-slider">
+            <app-edit-slider (filesEmit)="getImages($event)" type="create"></app-edit-slider>
+        </div>
+        <div class="decription">
+          <app-standart-rich-input [control]="createEventForm.get('desc')" label="Описание" placeholder="Введите описание вашего трека"></app-standart-rich-input>
+        </div>
+      </app-step-container-item>
+
+      <app-step-container-item [maxStepsCount]="maxStepsCount" [stepCurrency]="stepCurrency" stepNum="2">
+        <div class="step-description">
+          На данном этапе необходимо выбрать дату начала гонки и выбрать на каком треке она будет проходить
+        </div>
+        <app-standart-input type="datetime-local" label="Дата начала" [control]="createEventForm.get('date_start')"></app-standart-input>
+        <div class="select-track-wrapper">
+          <div class="label">Трек гонки</div>
+          <app-track-select-modal [selectedTrack]="trackSelected" (selectTrack)="selectTrack($event)" [trackSelectModalStateValue]="trackSelectedModalState" [tracks]="tracks" (closeTrackSelectModal)="closeTrackSelectModalFunction()" (openTrackSelectModal)="openTrackSelectModalFunction()"></app-track-select-modal>
+        </div>
+      </app-step-container-item>
+    </app-step-container>
+    <div class="navigate-buttons-container">
+      <app-standart-button [disabled]="stepInvalidate()"  *ngIf="stepCurrency !== maxStepsCount" (click)="stepNext()" buttonText="Далее" theme="standart"></app-standart-button>
+      <app-standart-button [disabled]="stepInvalidate()"  *ngIf="stepCurrency === maxStepsCount" (click)="submitForm()"  buttonText="Создать и открыть" theme="standart"></app-standart-button>
+      <div>
+        <app-standart-button [disabled]="stepInvalidate()" (click)="cancelCreate()"  buttonText="Отмена" theme="light"></app-standart-button>
+      </div>
+  </div>
+  </main>
+</ion-content>

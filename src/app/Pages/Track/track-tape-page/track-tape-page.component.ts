@@ -43,10 +43,7 @@ export class TrackTapePageComponent  implements OnInit {
     this.ionContent.ionScroll.pipe(takeUntil(this.destroy$)).subscribe((event: any) => {
       this.trackTapeService.tracksLastScrollPositionForTape = event.detail.scrollTop
     })
-    if( !this.trackTapeService.tracks.length){
       this.getTracks()
-    }
-
   }
 
   ionViewDidLeave(){

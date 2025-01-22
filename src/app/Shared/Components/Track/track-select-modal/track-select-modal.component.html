@@ -1,0 +1,26 @@
+<div (click)="openModal()" class="track-selected-container">
+    
+  <ng-container *ngIf="!selectedTrack">
+      Трек не выбран
+    </ng-container>
+
+    <ng-container *ngIf="selectedTrack">
+      <app-track-section [track]="selectedTrack"></app-track-section>
+    </ng-container>
+    
+</div>
+
+<ion-modal (didDismiss)="closeModal()"  [isOpen]="trackSelectModalStateValue">
+  <ng-template>
+    <ion-content>
+      <div class="tracks-grid">
+        @for (track of  this.tracks; track $index) {
+          <div (click)="select(track)" class="tracks-grid__item">
+            <app-track-section  [track]="track"></app-track-section>
+          </div>
+        } 
+      </div>
+    </ion-content>
+  </ng-template>
+  
+</ion-modal>

@@ -2,3 +2,15 @@
     font-size: var(--font-headers-size);
     font-family: var(--font-bold);
 }
+.label{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    color: #4C5861;
+    font-size: 12px;
+    padding-bottom: 1px;
+    font-family: var(--font-regular);
+   
+}

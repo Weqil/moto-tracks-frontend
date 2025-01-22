@@ -12,14 +12,15 @@ import { IonRadio, IonRadioGroup } from '@ionic/angular/standalone';
 import { AddressInputComponent } from "../../../../Shared/Components/Forms/address-input/address-input.component";
 import { TrackService } from 'src/app/Shared/Data/Services/Track/track.service';
 import { LoadingService } from 'src/app/Shared/Services/loading.service';
-import { finalize } from 'rxjs';
+import { catchError, EMPTY, finalize } from 'rxjs';
 import { ToastService } from 'src/app/Shared/Services/toast.service';
+import { serverError } from 'src/app/Shared/Data/Interfaces/errors';
 
 @Component({
   selector: 'app-create-track-page',
   templateUrl: './create-track-page.component.html',
   styleUrls: ['./create-track-page.component.scss'],
-  imports: [SharedModule, HeaderComponent, ButtonsModule, StepsModule, FormsModule, EditSliderComponent, StandartRichInputComponent, IonRadio, IonRadioGroup, AddressInputComponent]
+  imports: [SharedModule, HeaderComponent, ButtonsModule, StepsModule, FormsModule, EditSliderComponent, StandartRichInputComponent, AddressInputComponent]
 })
 export class CreateTrackPageComponent  implements OnInit {
 
@@ -36,7 +37,6 @@ export class CreateTrackPageComponent  implements OnInit {
   newParams: [{temp_id:any, title:string, value:string}]|any = []
   createTrackForm: FormGroup = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    description: new FormControl('', [Validators.required, Validators.minLength(3)]),
     address: new FormControl('', [Validators.required, Validators.minLength(3)]),
     latitude: new FormControl('', [Validators.required, Validators.minLength(3)]),
     longitude: new FormControl('', [Validators.required, Validators.minLength(3)]),
@@ -116,6 +116,7 @@ export class CreateTrackPageComponent  implements OnInit {
     }
   }
   submitForm(){
+
     this.loadingService.showLoading()
     let createTrackFormData: FormData = new FormData()
    
@@ -126,11 +127,14 @@ export class CreateTrackPageComponent  implements OnInit {
       createTrackFormData.append('images[]', this.createTrackForm.value.images[i])
     }
     this.trackService.createTrack(createTrackFormData).pipe(
+      catchError((err:serverError)=>{
+        this.toastService.showToast('Возникла ошибка','danger')
+        return EMPTY
+      }),
       finalize(()=> this.loadingService.hideLoading())
     ).subscribe((res:any)=>{
       console.log(res)
       this.navController.back()
- 
     })
   
   }

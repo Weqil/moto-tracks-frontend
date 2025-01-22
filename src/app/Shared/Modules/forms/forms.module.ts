@@ -12,7 +12,8 @@ import { AddressInputComponent } from '../../Components/Forms/address-input/addr
     AddressInputComponent
   ],
   exports: [
-    StandartInputComponent
+    StandartInputComponent,
+    StandartRichInputComponent
   ]
 })
 export class FormsModule { }

@@ -38,12 +38,14 @@ export class EventsTapePageComponent  implements OnInit {
       level: {name:'', color:''}
     }
   }
+
+  
+
   ionViewWillEnter(){
-    if(!this.eventTapeService.events.length){
-      this.eventService.getAllEvents().subscribe((res:any) => {
+
+    this.eventService.getAllEvents().subscribe((res:any) => {
         this.eventTapeService.events = res.races
-      })
-    }
+    })
   }
   redirectInTracks(){
     this.navController.navigateForward('/tracks')

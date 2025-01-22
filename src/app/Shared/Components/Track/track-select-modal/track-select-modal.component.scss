@@ -1,0 +1,32 @@
+.track-selected-container{
+    border: 1px solid rgba(76, 88, 97, 0.2549019608);
+    border-radius: 5px;
+    padding: 0.3rem;
+    width: 100%;
+    min-height: 2.25rem;
+    font-size: 12px;
+    padding-left: 0.8rem;
+    transition: 0.1s;
+    margin-top: 3px;
+    display: flex;
+    align-items: center;
+    color: #363d42;
+    font-family: var(--font-regular);
+    background: none;
+}
+ion-modal{
+    --max-height:50%;
+    --width:90%;
+    --border-radius: 12px;
+    --overflow-y: hidden;
+}
+.tracks-grid{
+    padding-top: var(--standart-padding);
+    padding-left: var(--standart-padding);
+    padding-right: var(--standart-padding);
+}
+.tracks-grid__item{
+    border-bottom: 1px solid rgba(76, 88, 97, .1568627451);
+    padding-top: var(--little-padding);
+    padding-bottom: var(--little-padding);
+}
