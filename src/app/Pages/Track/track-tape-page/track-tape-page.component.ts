@@ -6,7 +6,7 @@ import { TrackModule } from 'src/app/Shared/Modules/track/track.module';
 import { RouterLink } from '@angular/router';
 import { TrackService } from 'src/app/Shared/Data/Services/Track/track.service';
 import { TrackTapeService } from 'src/app/Shared/Data/Services/Track/track-tape.service';
-import { IonContent } from '@ionic/angular/standalone';
+import { IonContent, NavController } from '@ionic/angular/standalone';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
@@ -21,6 +21,7 @@ export class TrackTapePageComponent  implements OnInit {
 
   constructor() { }
   private readonly destroy$ = new Subject<void>()
+  navController: NavController = inject(NavController)
 
   trackService:TrackService = inject(TrackService)
   trackTapeService:TrackTapeService = inject(TrackTapeService)
@@ -33,6 +34,10 @@ export class TrackTapePageComponent  implements OnInit {
     })
   }
 
+  redirectInEvents(){
+    this.navController.navigateForward('/events')
+  }
+
   ionViewWillEnter(){
     this.ionContent.scrollToPoint(0, this.trackTapeService.tracksLastScrollPositionForTape, 0)
     this.ionContent.ionScroll.pipe(takeUntil(this.destroy$)).subscribe((event: any) => {
@@ -43,6 +48,7 @@ export class TrackTapePageComponent  implements OnInit {
     }
 
   }
+
   ionViewDidLeave(){
     this.destroy$.next()
   }

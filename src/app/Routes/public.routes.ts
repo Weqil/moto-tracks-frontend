@@ -17,10 +17,6 @@ export const publicRoutes: Routes = [
           pathMatch: 'full',
       },
       {
-        path:'events',
-        loadComponent: () => import('../Pages/Events/event-tape-page/event-tape-page.component').then((m) => m.EventTapePageComponent),
-      },
-      {
         path:'tracks',
         loadComponent: () => import('../Pages/Track/track-tape-page/track-tape-page.component').then((m) => m.TrackTapePageComponent),
       },
@@ -31,6 +27,14 @@ export const publicRoutes: Routes = [
       {
         path:'track/:id',
         loadComponent: () => import('../Pages/Track/track-view-page/track-view-page.component').then((m) => m.TrackViewPageComponent)
+      },
+      {
+        path:'events',
+        loadComponent: () => import('../Pages/Events/events-tape-page/events-tape-page.component').then((m) => m.EventsTapePageComponent),
+      },
+      {
+        path:'event/:id',
+        loadComponent: () => import('../Pages/Events/events-view-page/events-view-page.component').then((m) => m.EventsViewPageComponent)
       }
     ]
   },

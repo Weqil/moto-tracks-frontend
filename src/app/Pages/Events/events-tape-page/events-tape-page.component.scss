@@ -1,0 +1,38 @@
+.track-page-header{
+    padding: var(--standart-padding);
+    justify-content: space-between;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    .track-page-header__bottom-content{
+        display: flex;
+        justify-content: end;
+    }
+    .map-button{
+        padding: 0.3rem;
+        background-color: var(--white-color);
+        font-family: var(--font-bold);
+        text-align: end;
+        transition: 0.3s all;
+        border-radius: 4px;
+        font-size: var(--font-regular-size);
+    }
+    .map-button:active{
+        padding: 0.3rem;
+        transition: 0.3s all;
+        background-color: var(--blue-primary-color);
+        font-family: var(--font-bold);
+        text-align: end;
+        color: var(--white-color);
+        border-radius: 4px;
+        font-size: var(--font-regular-size);
+    }
+}
+.tracks{
+    padding-top: var(--standart-padding);
+}
+.tracks-grid__item{
+    border-bottom: 1px solid rgba(76, 88, 97, .1568627451);
+    padding-top: var(--little-padding);
+    padding-bottom: var(--little-padding);
+}
