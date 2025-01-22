@@ -42,6 +42,7 @@ export class CabinetComponent  implements OnInit {
   }
   selectStatus(event:any){
     this.selectedStatusItem = event;
+    localStorage.setItem('user-status', event.id)
     console.log( this.selectedStatusItem)
   }
   openSelectedStatus(){
@@ -56,7 +57,15 @@ export class CabinetComponent  implements OnInit {
     this.navControler.navigateForward('/login',{  animated: false })
   }
   ionViewWillEnter(){
-    this.user =  this.userService.user.value 
+    let userStatus = Number(localStorage.getItem('user-status'))
+
+    if(userStatus == 1){
+      this.selectedStatusItem = { id: 1, name: 'Гонщик', value: 'Гонщик' }
+    }else{
+      this.selectedStatusItem = { id: 2, name: 'Организатор', value: 'Организатор' }
+    }
+    this.user = this.userService.user.value 
+
   }
   ngOnInit() {
     

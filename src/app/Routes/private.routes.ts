@@ -23,6 +23,16 @@ export const privateRoutes: Routes = [
                 canActivate:[canActivateAuth],
                 loadComponent: () => import('../Pages/Profile/Tracks/create-track-page/create-track-page.component').then((m) => m.CreateTrackPageComponent)
             },
+            {
+                path: 'create-event',
+                canActivate:[canActivateAuth],
+                loadComponent: () => import('../Pages/Profile/Events/create-events-page/create-events-page.component').then((m) => m.CreateEventsPageComponent)
+            },
+            {
+                path:'my-events',
+                canActivate:[canActivateAuth],
+                loadComponent: () => import('../Pages/Profile/Events/my-events-page/my-events-page.component').then((m) => m.MyEventsPageComponent)
+            }
         ]
     }
  
