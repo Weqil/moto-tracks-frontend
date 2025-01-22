@@ -24,13 +24,11 @@ import { LoadingService } from 'src/app/Shared/Services/loading.service';
     ButtonsModule,
     TuiSelectModule,
     TuiTextfieldControllerModule
-    
 ]
 })
 
 export class TrackViewPageComponent  implements OnInit {
-    private readonly destroy$ = new Subject<void>()
-  
+  private readonly destroy$ = new Subject<void>()
   track!:Track 
   trackService:TrackService = inject(TrackService)
   trackId!: string 

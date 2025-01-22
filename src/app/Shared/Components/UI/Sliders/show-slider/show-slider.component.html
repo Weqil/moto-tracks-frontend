@@ -1,0 +1,31 @@
+
+  <swiper-container
+      class="swiper-container"
+      [pagination]="false"
+      [grabCursor]="true"
+      [slidesPerView]="1"
+      [centeredSlides]="true"
+      [followFinger]="false"
+      [initialSlide]="0"
+      (swiperslidechange)="slideChange($event)"
+      >
+
+    <ng-container *ngFor = "let file of files">
+      <swiper-slide>
+        <ng-container>
+          <img src="{{file| checkImgUrl}}" />
+          <div class="darkening-background"></div>
+        </ng-container>
+      </swiper-slide>
+    </ng-container>
+
+    <ng-container *ngIf="!files?.length">
+      <swiper-slide>
+        <ng-container>
+          <img src="{{''| checkImgUrl}}" />
+          <div class="darkening-background"></div>
+        </ng-container>
+      </swiper-slide>
+    </ng-container>
+
+</swiper-container>

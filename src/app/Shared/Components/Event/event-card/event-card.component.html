@@ -6,17 +6,20 @@
         </div>
         {{event.track?.name}}
     </div>
-    <div class="card__content">
-        <img src="{{event.images ? (event.images[0] | checkImgUrl) : '' | checkImgUrl}}" alt="">
-    </div>
-    <div class="card__footer">
-        <div class="event-name">
-            {{event.name}}
+    <div (click)="redirectInEvent()" >
+        <div class="card__content">
+            <img src="{{event.images ? (event.images[0] | checkImgUrl) : '' | checkImgUrl}}" alt="">
         </div>
-        <div class="event-address">
-            {{event.track?.address}}
+        <div class="card__footer">
+            <div class="event-name">
+                {{event.name}}
+            </div>
+            <div class="event-address">
+                {{event.track?.address}}
+            </div>
+           
         </div>
-       
     </div>
+   
  </div>
 }

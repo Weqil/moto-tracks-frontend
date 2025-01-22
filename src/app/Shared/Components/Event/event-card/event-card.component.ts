@@ -17,6 +17,9 @@ export class EventCardComponent  implements OnInit {
   redirectInTrack(){
     this.navController.navigateForward(`/track/${this.event.track.id}`)
   }
+  redirectInEvent(){
+    this.navController.navigateForward(`/event/${this.event.id}`)
+  }
   ngOnInit() {}
 
 }

@@ -1,0 +1,33 @@
+.slider-container{
+    position: relative;
+}
+.slider-container{
+    
+}
+.slider-container__header{
+    position: absolute;
+    top: var(--standart-padding);
+    padding-left: var(--standart-padding);
+    padding-right: var(--standart-padding);
+    z-index: 100;
+}
+
+.event-name{
+    font-size: 1.5rem;
+    font-family: var(--font-bold);
+}
+.event-description{
+    padding-top: var(--standart-padding);
+    font-size: 1rem;
+    font-family: var(--font-light);
+    color: var(--gray);
+    line-height: 1.5;
+}
+.event-track__title{
+    padding-top: var(--standart-padding);
+    padding-bottom: var(--standart-padding);
+    text-align: start;
+    font-family: var(--font-bold);
+    font-size: 20px;
+    color: #1c2226;
+}

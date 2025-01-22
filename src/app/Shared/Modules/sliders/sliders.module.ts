@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HorizontalSwiperComponent } from '../../Components/UI/Sliders/horizontal-swiper/horizontal-swiper.component';
+import { ShowSliderComponent } from '../../Components/UI/Sliders/show-slider/show-slider.component';
 
 
 
@@ -8,8 +9,9 @@ import { HorizontalSwiperComponent } from '../../Components/UI/Sliders/horizonta
   declarations: [],
   imports: [
     CommonModule,
-    HorizontalSwiperComponent
+    HorizontalSwiperComponent,
+    ShowSliderComponent,
   ],
-  exports: [HorizontalSwiperComponent]
+  exports: [HorizontalSwiperComponent,ShowSliderComponent]
 })
 export class SlidersModule { }

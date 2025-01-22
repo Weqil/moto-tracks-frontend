@@ -141,7 +141,8 @@ export class CreateEventsPageComponent  implements OnInit {
       return EMPTY
     })
   ).subscribe((res)=>{
-      console.log(res)
+      this.toastService.showToast('Событие успешно создано', 'primary')
+      this.navController.back()
     })
    }
   }

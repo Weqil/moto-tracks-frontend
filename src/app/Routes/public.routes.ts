@@ -35,7 +35,8 @@ export const publicRoutes: Routes = [
       {
         path:'event/:id',
         loadComponent: () => import('../Pages/Events/events-view-page/events-view-page.component').then((m) => m.EventsViewPageComponent)
-      }
+      },
+      
     ]
   },
   

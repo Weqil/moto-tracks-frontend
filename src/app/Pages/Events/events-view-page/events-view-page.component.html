@@ -1,3 +1,26 @@
-<p>
-  events-view-page works!
-</p>
+<ion-content>
+  <main>
+    @if (this.event) {
+      <div class="slider-container">
+        <app-show-slider [files]="event.images"></app-show-slider>
+        <div class="slider-container__header">
+          <app-back-button></app-back-button>
+        </div>
+      </div>
+      <div class="main-container">
+        <div class="event-name">{{event.name}}</div>
+        <div class="event-description">{{event.desc}}</div>
+        <div class="event-track">
+          <div class="event-track__title">Где проходит</div>
+          <app-track-section [track]="event.track"></app-track-section>
+        </div>
+      </div>
+    }
+
+  
+  </main>
+
+
+
+
+</ion-content>

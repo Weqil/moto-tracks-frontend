@@ -1,0 +1,35 @@
+swiper-slide img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius:0px 0px 16px 16px;
+}
+.video-content{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius:0px 0px 16px 16px;
+}
+.darkening-background{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(114, 114, 114, 0.29);
+}
+.swiper-pagination-fraction{
+    display: contents;
+}
+.swiper-paginate{
+    padding: 7px;
+    font-size: 0.7rem;
+    color: #fff;
+    background-color: rgba(28, 34, 38, 0.8352941176);
+    font-size: 0.625rem;
+    font-family: var(--font-bold);
+    text-align: center;
+    border-radius: 8px;
+    z-index: 100;
+    position: absolute;
+    top: 11.5rem;
+    right: 1rem;
+}

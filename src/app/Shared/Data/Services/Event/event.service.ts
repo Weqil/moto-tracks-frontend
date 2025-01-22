@@ -13,6 +13,10 @@ export class EventService {
     return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races`)
   }
 
+  getEventById(eventId:string){
+    return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races/${eventId}`)
+  }
+
   createEvent(event:FormData){
     return this.http.post(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races`, event)
   }
