@@ -7,8 +7,12 @@
     </div>
  </app-header-strong>
  <main class="main-container--with-header--strong">
-    <app-event-card>
-      
-    </app-event-card>
+   <div class="events-grid">
+    @for (event of this.eventTapeService.events; track $index) {
+      <app-event-card [event]="event"></app-event-card>
+    }
+
+   </div>
+
  </main>
 </ion-content>

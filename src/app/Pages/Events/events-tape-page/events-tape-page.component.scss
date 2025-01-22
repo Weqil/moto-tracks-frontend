@@ -36,3 +36,12 @@
     padding-top: var(--little-padding);
     padding-bottom: var(--little-padding);
 }
+.events-grid{
+    padding-top: var(--standart-padding);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--standart-padding);
+    flex-direction: column;
+    padding-bottom: 2rem;
+}
