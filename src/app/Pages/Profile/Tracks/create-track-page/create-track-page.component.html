@@ -8,15 +8,15 @@
                 </div>
                 <app-standart-input label="Название" [control]="createTrackForm.get('name')" placeholder="Введите название вашего трека"></app-standart-input>
                 <div class="photo-slider">
-                    <app-edit-slider type="create"></app-edit-slider>
+                    <app-edit-slider (filesEmit)="getImages($event)" type="create"></app-edit-slider>
                 </div>
                 <div class="decription">
-                    <app-standart-rich-input [control]="createTrackForm.get('description')" label="Описание" placeholder="Введите описание вашего трека"></app-standart-rich-input>
+                    <app-standart-rich-input [control]="createTrackForm.get('desc')" label="Описание" placeholder="Введите описание вашего трека"></app-standart-rich-input>
                 </div>
-              
             </app-step-container-item>
-            <app-step-container-item [maxStepsCount]="maxStepsCount" [stepCurrency]="stepCurrency" stepNum="2">
-                <div class="specifications">
+            
+            <app-step-container-item [maxStepsCount]="maxStepsCount" [stepCurrency]="stepCurrency">
+                <!-- <div class="specifications">
                     <app-standart-input label= "Количество поворотов" [control]="createTrackForm.get('turns')" placeholder="Введите количество поворотов"></app-standart-input>
                     <app-standart-input label= "Длинна трека" [control]="createTrackForm.get('length')" placeholder="Введите длинну в метрах"></app-standart-input>
                     @for (param of newParams; track param.temp_id) {
@@ -66,20 +66,22 @@
                 
                           </ion-radio-group>
                     </div>
-                    <!-- <app-address-input></app-address-input> -->
-                </div>
+                </div> -->
             </app-step-container-item>
-            <app-step-container-item [maxStepsCount]="maxStepsCount" [stepCurrency]="stepCurrency" stepNum="3">
+            <app-step-container-item [maxStepsCount]="maxStepsCount" [stepCurrency]="stepCurrency" stepNum="2">
+                <div class="step-description">
+                    На данном этапе необходимо обязательно указать адрес вашего трека.
+                </div>
                 <div class="select-level__label">Адрес трека</div>
-                <app-address-input></app-address-input>
+                <app-address-input (addressEditEmit)="changeAddress($event)"></app-address-input>
             </app-step-container-item>
         </app-step-container>
 
         <div class="navigate-buttons-container">
-            <app-standart-button  *ngIf="stepCurrency !== maxStepsCount" (click)="stepNext()" buttonText="Далее" theme="standart"></app-standart-button>
-            <app-standart-button  *ngIf="stepCurrency === maxStepsCount"  buttonText="Создать и открыть" theme="standart"></app-standart-button>
+            <app-standart-button [disabled]="stepInvalidate()"  *ngIf="stepCurrency !== maxStepsCount" (click)="stepNext()" buttonText="Далее" theme="standart"></app-standart-button>
+            <app-standart-button [disabled]="stepInvalidate()"   *ngIf="stepCurrency === maxStepsCount" (click)="submitForm()"  buttonText="Создать и открыть" theme="standart"></app-standart-button>
             <div>
-              <app-standart-button  buttonText="Отмена" theme="light"></app-standart-button>
+              <app-standart-button (click)="cancelCreate()"  buttonText="Отмена" theme="light"></app-standart-button>
             </div>
           </div>
     </main>

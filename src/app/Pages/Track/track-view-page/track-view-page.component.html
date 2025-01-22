@@ -12,7 +12,7 @@
               {{track.is_work ? 'Работает' : 'Закрыто'}}
             </div>
         </div>
-          <div class="track__params">
+          <div *ngIf="false" class="track__params">
             <div class="track__params__item">
                 Длина: {{track.length}}
             </div>
@@ -26,7 +26,7 @@
           
       </div>
       
-        <div class="track__files">
+        <div *ngIf="track.images" class="track__files">
             <app-horizontal-swiper [files]="track.images"></app-horizontal-swiper>
         </div>
 
@@ -58,13 +58,13 @@
             </div>
           
           </div>
-          <div class="description">
-            <div class="standart-heading">Описание трека</div>
+          <div *ngIf="track.desc" class="description">
+            <!-- <div class="standart-heading">Описание трека</div> -->
             <div class="description__text">{{track.desc}}</div>
           </div>
 
           <div class="map">
-            <div class="standart-heading">На карте</div>
+            <!-- <div class="standart-heading">На карте</div> -->
             <div class="map__container">
               <ya-map
               [center]="[track.latitude,track.longitude,]"

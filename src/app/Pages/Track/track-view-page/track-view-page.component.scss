@@ -29,9 +29,9 @@
     display: inline-flex;
     font-family: var(--font-regular);
     font-size: var(--font-regular-size);
-    align-items: end;
-    padding-bottom: var(--little-padding);
-    gap:5px;
+    align-items: center;
+    /* padding-bottom: var(--little-padding); */
+    gap: 5px;
 }
 .track__params{
     display: flex;
@@ -95,7 +95,7 @@
 }
 
 .description{
-    padding-top: var(--standart-padding);
+    padding-top: var(--little-padding);
     font-family: var(--font-regular);
     font-size: var( --font-regular-size);
     color: var(--text-color);
@@ -104,7 +104,7 @@
     }
 }
 .map{
-    padding-top: var(--standart-padding);
+
     .map__container{
         height: 10rem;
         padding-top: var(--standart-padding);

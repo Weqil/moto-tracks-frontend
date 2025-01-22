@@ -34,6 +34,10 @@ export class AddressInputComponent implements OnInit {
   public addressChange: BehaviorSubject<boolean> = new BehaviorSubject(true)
   setFirstCoords() {
     this.coords = [55.751574, 37.573856] // Москва по умолчанию
+    this.addressForm.patchValue({
+      longitude: this.coords[0],
+      latitude: this.coords[1]
+    })
     this.setAdress()
   }
 
@@ -83,6 +87,7 @@ export class AddressInputComponent implements OnInit {
     this.coords = [event.get('coords')[0], event.get('coords')[1]]
     this.setAdress()
     this.setLongitudelatitude()
+    this.emitForm()
   }
   setAdress() {
     const geocodeResult = this.yaGeocoderService.geocode(this.coords, {
@@ -100,7 +105,7 @@ export class AddressInputComponent implements OnInit {
         }),
       )
       .subscribe((result: any) => {
-        
+        this.emitForm()
       })
   }
   setLongitudelatitude() {
