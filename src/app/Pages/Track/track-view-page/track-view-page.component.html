@@ -79,6 +79,9 @@
               <ya-placemark [geometry]="[track.latitude,track.longitude,]"></ya-placemark>
               </ya-map>
             </div>
+            <div class="map__address">
+              {{track.address}}
+            </div>
             <div class="map__open-button">
               <app-standart-button buttonText="Проложить маршрут" (onClick) = "goToPoint()"></app-standart-button>
             </div>

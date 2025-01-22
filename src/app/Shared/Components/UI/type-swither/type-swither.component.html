@@ -1,0 +1,17 @@
+
+<div #switcher (click)="switchType(switcher,itemFirstText,itemFirstImg,itemSecond,itemSecondImg,itemSecondText)" class="switcher">
+  <div class="switcher-content">
+    <div  [ngClass]="switcherClass"></div>
+    <!-- {'switcher_first': this.type === event, 'switcher_second': this.type === sight} -->
+    
+    <div #item_first class="switcher-item_first">
+      <img class="fire" #itemFirstImg src="/assets/icons/fire.svg" alt="">
+      <span #itemFirstText>События</span>
+    </div>
+    <div #itemSecond class="switcher-item_second">
+      <img #itemSecondImg src ="/assets/icons/flag.svg" alt="">
+      <span #itemSecondText>Места</span>
+      
+    </div>
+  </div>
+</div>

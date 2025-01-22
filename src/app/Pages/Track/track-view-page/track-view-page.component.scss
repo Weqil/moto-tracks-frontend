@@ -106,10 +106,16 @@
 .map{
 
     .map__container{
-        height: 10rem;
+        height: 12rem;
         padding-top: var(--standart-padding);
     }
     .map__open-button{
         padding-top: var(--little-padding);
     }
+}
+
+.map__address{
+    font-family: var(--font-regular);
+    font-size: var(--font-regular-size);
+    padding-top: var(--standart-padding);
 }
