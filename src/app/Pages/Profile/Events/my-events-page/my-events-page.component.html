@@ -2,4 +2,13 @@
   <app-header [customButton]="true" headerTitle="Мои гонки" secondButtonIcon="/assets/icons/menu-pen.svg">
     <app-rounded-button (click)="redirectInCreate()" icon="assets/icons/create.svg" buttonText="Создать"></app-rounded-button>
   </app-header>
+
+  <div class="main-container--with-header">
+    <div class="events-grid">
+      @for (event of events; track $index) {
+        <app-event-card [event]="event"></app-event-card>
+      }
+   </div>
+  </div>
+
 </ion-content>

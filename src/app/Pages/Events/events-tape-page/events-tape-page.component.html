@@ -8,10 +8,9 @@
  </app-header-strong>
  <main class="main-container--with-header--strong">
    <div class="events-grid">
-    @for (event of this.eventTapeService.events; track $index) {
-      <app-event-card [event]="event"></app-event-card>
-    }
-
+      @for (event of this.eventTapeService.events; track $index) {
+        <app-event-card [event]="event"></app-event-card>
+      }
    </div>
 
  </main>

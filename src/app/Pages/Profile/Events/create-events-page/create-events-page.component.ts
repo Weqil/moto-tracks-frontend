@@ -82,7 +82,8 @@ export class CreateEventsPageComponent  implements OnInit {
           }
         case 2:
           if(
-            !this.createEventForm.value.date_start ||  !this.trackSelected
+            !this.createEventForm.value.dateStart ||  !this.trackSelected
+            
           ){
             return true
           }else{

@@ -23,6 +23,9 @@ export class TrackService {
     return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/tracks/${id}`)
   }
 
+  getTracksByUserId(userId:string){
+    return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/tracks`,{params:{userId:userId}})
+  }
   createTrack(trackForm:FormData){
     return this.http.post(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/tracks`, trackForm)
   }
