@@ -13,7 +13,9 @@ export class UserService {
   public user: BehaviorSubject<User|null> = new BehaviorSubject<User|null>(this.getUserFromLocalStorage())
 
   http:HttpClient = inject(HttpClient)
+
   constructor() { }
+
   //Занёс данные о пользователе
   setUserInLocalStorage(user:User){
     if(user){
@@ -25,11 +27,25 @@ export class UserService {
   getUserFromServerWithToken(){
        return this.http.get<User>(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/users`)
   }
+  refreshUser(){
+    this.getUserFromServerWithToken().pipe().subscribe((res:any)=>{
+      this.setUserInLocalStorage(res.user);
+    })
+  }
   
   clearUser(){
     localStorage.removeItem('user');
     this.user.next(null);
   }
+
+  createPersonalInfo(personalForm:any){
+    return this.http.post(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/users/cabinet/personal-info`, personalForm )
+  }
+
+  updatePersonalInfo(personalForm:any){
+    return this.http.patch(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/users/cabinet/personal-info`, personalForm )
+  }
+
   //Получил данные о пользователе
   getUserFromLocalStorage():User {
     return JSON.parse(String(localStorage.getItem('user')));

@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 export class HeaderComponent  implements OnInit {
   @Input() secondButtonIcon!: string
   @Input() headerTitle!: string
+  @Output() secondButtonClick: EventEmitter<any> = new EventEmitter();
   @Input() customBackFunction!:void
   @Input() customBack: boolean = false
   @Input() customButton = false;
@@ -18,6 +19,10 @@ export class HeaderComponent  implements OnInit {
   constructor() { }
   backButtonClick() {
     this.customBackClick.emit(true)
+  }
+
+  secondButtonClickFunction(){
+    this.secondButtonClick.emit()
   }
 
   

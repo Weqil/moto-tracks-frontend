@@ -32,6 +32,11 @@ export const privateRoutes: Routes = [
                 path:'my-events',
                 canActivate:[canActivateAuth],
                 loadComponent: () => import('../Pages/Profile/Events/my-events-page/my-events-page.component').then((m) => m.MyEventsPageComponent)
+            },
+            {
+                path:'personal-info',
+                canActivate:[canActivateAuth],
+                loadComponent: () => import('../Pages/Profile/personal-info/personal-info.component').then((m) => m.PersonalInfoComponent)
             }
         ]
     }

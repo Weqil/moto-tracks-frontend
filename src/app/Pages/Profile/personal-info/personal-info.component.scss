@@ -1,0 +1,11 @@
+.personal-form{
+    padding-top: var(--standart-padding);
+    display: flex;
+    flex-direction: column;
+    gap: var(--standart-padding);
+    padding-bottom: var(--standart-padding);
+}
+.start-number-container{
+    display: flex;
+    gap: 10px;
+}

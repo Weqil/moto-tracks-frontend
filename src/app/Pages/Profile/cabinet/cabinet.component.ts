@@ -56,6 +56,9 @@ export class CabinetComponent  implements OnInit {
     this.authService.logout()
     this.navControler.navigateForward('/login',{  animated: false })
   }
+  redirectInEditPersonalInfo(){
+    this.navControler.navigateForward('/personal-info')
+  }
   ionViewWillEnter(){
     let userStatus = Number(localStorage.getItem('user-status'))
 
