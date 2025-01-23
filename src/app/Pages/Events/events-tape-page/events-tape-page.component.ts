@@ -8,6 +8,7 @@ import { EventModule } from 'src/app/Shared/Modules/event/event.module';
 import { IEvent } from 'src/app/Shared/Data/Interfaces/event';
 import { EventService } from 'src/app/Shared/Data/Services/Event/event.service';
 import { EventTapeService } from 'src/app/Shared/Data/Services/Event/event-tape.service';
+import { SwitchTypeService } from 'src/app/Shared/Services/switch-type.service';
 
 @Component({
   selector: 'app-events-tape-page',
@@ -21,6 +22,8 @@ export class EventsTapePageComponent  implements OnInit {
   navController: NavController = inject(NavController)
   eventService: EventService = inject(EventService)
   eventTapeService: EventTapeService = inject(EventTapeService)
+  switchTypeService:SwitchTypeService = inject(SwitchTypeService)
+
   testEvent: IEvent = {
     id: 1,
     name: 'Гонка на крутом треке',
@@ -42,7 +45,8 @@ export class EventsTapePageComponent  implements OnInit {
   
 
   ionViewWillEnter(){
-
+    this.switchTypeService.setTypeInLocalSorage('events')
+    console.log(this.switchTypeService.getTypeFromLocalSorage())
     this.eventService.getAllEvents().subscribe((res:any) => {
         this.eventTapeService.events = res.races
     })

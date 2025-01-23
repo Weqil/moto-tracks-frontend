@@ -42,7 +42,7 @@ export class CreateEventsPageComponent  implements OnInit {
     name: new FormControl('', [Validators.required, Validators.minLength(3)]),
     desc: new FormControl('', [Validators.required, Validators.minLength(3)]),
     images: new FormControl('', [Validators.required, Validators.minLength(1)]),
-    date_start: new FormControl('', [Validators.required, Validators.minLength(1)]),
+    dateStart: new FormControl('', [Validators.required, Validators.minLength(1)]),
   })
   navController: NavController = inject(NavController)
 

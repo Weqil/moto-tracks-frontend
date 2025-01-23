@@ -8,6 +8,7 @@ import { LoadingService } from 'src/app/Shared/Services/loading.service';
 import { SlidersModule } from 'src/app/Shared/Modules/sliders/sliders.module';
 import { ButtonsModule } from 'src/app/Shared/Modules/buttons/buttons.module';
 import { TrackSectionComponent } from "../../../Shared/Components/Track/track-section/track-section.component";
+import { SwitchTypeService } from 'src/app/Shared/Services/switch-type.service';
 
 
 
@@ -26,7 +27,7 @@ export class EventsViewPageComponent  implements OnInit {
   route: ActivatedRoute = inject(ActivatedRoute)
   eventService: EventService = inject(EventService)
   loadingService: LoadingService = inject(LoadingService)
-
+  switchTypeService:SwitchTypeService = inject(SwitchTypeService)
   event!:IEvent
   eventId: string = ''
 
@@ -43,7 +44,7 @@ export class EventsViewPageComponent  implements OnInit {
   }
 
   ionViewWillEnter(){
- 
+  
     this.route.params.pipe(takeUntil(this.destroy$)).pipe(
       finalize(()=>{
     

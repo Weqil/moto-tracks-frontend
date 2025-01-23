@@ -11,8 +11,8 @@ export class SwitchTypeService {
 
   changeType() {
     if (this.currentType.value == 'events') {
-      this.setTypeInLocalSorage('sights')
-      this.link.next('/sights')
+      this.setTypeInLocalSorage('tracks')
+      this.link.next('/tracks')
     } else {
       this.setTypeInLocalSorage('events')
       this.link.next('/events')

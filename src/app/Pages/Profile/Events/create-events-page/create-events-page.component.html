@@ -21,7 +21,7 @@
         <div class="step-description">
           На данном этапе необходимо выбрать дату начала гонки и выбрать на каком треке она будет проходить
         </div>
-        <app-standart-input type="datetime-local" label="Дата начала" [control]="createEventForm.get('date_start')"></app-standart-input>
+        <app-standart-input type="datetime-local" label="Дата начала" [control]="createEventForm.get('dateStart')"></app-standart-input>
         <div class="select-track-wrapper">
           <div class="label">Трек гонки</div>
           <app-track-select-modal [selectedTrack]="trackSelected" (selectTrack)="selectTrack($event)" [trackSelectModalStateValue]="trackSelectedModalState" [tracks]="tracks" (closeTrackSelectModal)="closeTrackSelectModalFunction()" (openTrackSelectModal)="openTrackSelectModalFunction()"></app-track-select-modal>

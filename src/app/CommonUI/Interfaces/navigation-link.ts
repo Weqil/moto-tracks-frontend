@@ -3,4 +3,5 @@ export interface Link {
   name:string;
   active:boolean;
   path:string[]
+  activeLink?: string;
 }

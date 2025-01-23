@@ -6,6 +6,7 @@ import { Link } from '../../Interfaces/navigation-link';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { HeaderModule } from 'src/app/Shared/Modules/header/header.module';
+import { SwitchTypeService } from 'src/app/Shared/Services/switch-type.service';
 @Component({
   selector: 'app-pages-with-nav',
   templateUrl: './pages-with-nav.component.html',
@@ -20,13 +21,17 @@ export class PagesWithNavComponent  {
   activatedRoute:ActivatedRoute = inject(ActivatedRoute)
 
   navController:NavController = inject(NavController)
+  switchTypeService:SwitchTypeService = inject(SwitchTypeService)
+
+  tapeLink:string =  this.switchTypeService.link.value
 
   links: Link[] = [
       {
         icon: '/assets/navigation/tape.svg',
         name:'Лента',
         active:false,
-        path: ['/tracks'],
+        path: ['/tracks','/events'],
+        activeLink: this.tapeLink
       },
   
       // {
@@ -81,10 +86,18 @@ export class PagesWithNavComponent  {
     } 
     else
     {
-      console.log(changedLink.path)
+      this.navController.navigateForward(String(changedLink.activeLink),{ animationDirection: 'forward' })
     }
   }
  
+  ngOnInit(): void {
+
+    this.switchTypeService.currentType.pipe().subscribe((event:any)=>{
+      this.links[0].activeLink =  this.tapeLink = '/' + event
+    })
+  
+    
+  }
   ionViewWillEnter(){
     this.checkCurrentPage()
   }

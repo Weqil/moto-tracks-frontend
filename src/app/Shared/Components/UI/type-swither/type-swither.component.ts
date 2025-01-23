@@ -29,7 +29,7 @@ export class TypeSwitherComponent implements OnInit, OnChanges {
     private router: Router,
   ) {}
   type: string = ''
-  sight: string = 'sights'
+  sight: string = 'tracks'
   event: string = 'events'
   wait: boolean = false
 
@@ -137,7 +137,7 @@ export class TypeSwitherComponent implements OnInit, OnChanges {
         }
       })
     } else {
-      this.switchTypeService.currentType.next('sights')
+      this.switchTypeService.currentType.next('tracks')
       // this.switchTypeService.currentType.next(this.sight)
       this.switchTypeService.currentType.pipe(takeUntil(this.destroy$)).subscribe((value) => {
         this.type = value
