@@ -25,20 +25,20 @@ export const publicRoutes: Routes = [
         loadComponent: () => import('../Pages/Profile/favorites-page/favorites-page.component').then((m) => m.FavoritesPageComponent),
       },
       {
-        path:'track/:id',
-        loadComponent: () => import('../Pages/Track/track-view-page/track-view-page.component').then((m) => m.TrackViewPageComponent)
-      },
-      {
         path:'events',
         loadComponent: () => import('../Pages/Events/events-tape-page/events-tape-page.component').then((m) => m.EventsTapePageComponent),
-      },
-      {
-        path:'event/:id',
-        loadComponent: () => import('../Pages/Events/events-view-page/events-view-page.component').then((m) => m.EventsViewPageComponent)
       },
       
     ]
   },
   
+    {
+      path:'event/:id',
+      loadComponent: () => import('../Pages/Events/events-view-page/events-view-page.component').then((m) => m.EventsViewPageComponent)
+    },
+    {
+      path:'track/:id',
+      loadComponent: () => import('../Pages/Track/track-view-page/track-view-page.component').then((m) => m.TrackViewPageComponent)
+    },
    
   ];

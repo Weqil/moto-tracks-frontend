@@ -4,22 +4,22 @@ export interface User{
     email: string;
     email_verified_at:string|null,
     avatar:string|null,
-    personalInfo:{
+    personal:{
         name: string,
         surname:string,
         patronymic:string,
-        dateOfBirth:string,
+        date_of_birth:string,
         city:string,
         inn:string,
         snils:number,
-        phoneNumber:string,
-        startNumber:string,
+        phone_number:string,
+        start_number:string,
         group:string,
         ranks:string,
-        rankNumber:string,
+        rank_number:string,
         community:string,
         coach:string,
-        motoStamp:string,
+        moto_stamp:string,
         engines:string              
     }
 }

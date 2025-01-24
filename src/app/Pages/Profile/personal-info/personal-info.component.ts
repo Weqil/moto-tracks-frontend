@@ -5,6 +5,7 @@ import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
 import { FormsModule } from 'src/app/Shared/Modules/forms/forms.module';
 import { HeaderModule } from 'src/app/Shared/Modules/header/header.module';
 import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
+import { ToastService } from 'src/app/Shared/Services/toast.service';
 
 @Component({
   selector: 'app-personal-info',
@@ -17,7 +18,7 @@ export class PersonalInfoComponent  implements OnInit {
   constructor() { }
   
   userService:UserService = inject(UserService)
-
+  toastService:ToastService = inject(ToastService)
   personalUserForm: FormGroup = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(3)]),
     surname: new FormControl('', [Validators.required, Validators.minLength(3)]),
@@ -38,19 +39,38 @@ export class PersonalInfoComponent  implements OnInit {
   })
 
   submitForm(){
-    if(this.userService.user.value?.personalInfo){
+    if(this.userService.user.value?.personal){
       this.userService.updatePersonalInfo(this.personalUserForm.value).pipe().subscribe((res:any)=>{
         console.log(res)
+
+        this.toastService.showToast('Данные успешно добавлены', 'success')
         this.userService.refreshUser()
       })
     }else{
         this.userService.createPersonalInfo(this.personalUserForm.value).pipe().subscribe((res:any)=>{
-          console.log(res)
+          this.toastService.showToast('Данные успешно изменены', 'success')
           this.userService.refreshUser()
         })
     }
   }
 
+  ionViewWillEnter() {
+    console.log(this.userService.user.value)
+    this.userService.refreshUser()
+    if(this.userService.user.value?.personal){
+      this.personalUserForm.patchValue(this.userService.user.value?.personal)
+      this.personalUserForm.patchValue({
+        dateOfBirth: this.userService.user.value?.personal.date_of_birth,
+        phoneNumber: this.userService.user.value?.personal.phone_number,
+        startNumber: this.userService.user.value?.personal.start_number,
+        rankNumber: this.userService.user.value?.personal.rank_number,
+        motoStamp:  this.userService.user.value?.personal.moto_stamp
+      })
+      console.log(this.personalUserForm.value)
+    }else{
+      this.personalUserForm.reset()
+    }
+  }
   ngOnInit() {}
 
 }

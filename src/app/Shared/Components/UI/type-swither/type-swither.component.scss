@@ -113,6 +113,7 @@
   border-radius: 100px;
   position: absolute;
   z-index: 1;
+ 
 }
 .switcher_second{
   transition: 0.3s all;
@@ -137,6 +138,9 @@
   font-size: 0.75rem;
   gap: 5px;
   width:5.438rem;
+  span{
+    color: #fff;
+  }
 }
 .switcher-item_second{
   z-index: 1;
@@ -150,6 +154,9 @@
   font-size: 0.75rem;
   gap: 5px;
   width:4.5rem;
+  span{
+    color: #fff;
+  }
 }
 .fire_non-active{
   filter: brightness(0) saturate(100%) invert(71%) sepia(69%) saturate(3607%) hue-rotate(353deg) brightness(100%) contrast(96%);
@@ -160,4 +167,3 @@
 .switcher-content{
   display: flex;
 }
-

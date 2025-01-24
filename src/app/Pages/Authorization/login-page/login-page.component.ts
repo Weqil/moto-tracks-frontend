@@ -30,6 +30,7 @@ export class LoginPageComponent  implements OnInit {
   navController: NavController = inject(NavController)
   authService: AuthService = inject(AuthService)
   loginForm!: FormGroup
+  errorText:any
   loginInvalid = {
     localError: false,
     serverError: false,
@@ -107,6 +108,7 @@ export class LoginPageComponent  implements OnInit {
         catchError((err: serverError) => {
           console.log(err)
           this.errorResponseAfterLogin(err)
+          this.errorText = err
           return EMPTY
         }),
         
