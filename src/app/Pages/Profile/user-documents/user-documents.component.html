@@ -1,0 +1,30 @@
+<ion-content>
+  <app-header headerTitle="Документы участника"></app-header>
+  <main class="main-container--with-header">
+
+    <div class="document-header">Лицензии</div>
+    <div class="licenses document-container">
+      <app-standart-input [control]="licensesForm.get('licensesNumber')" placeholder="Лицензия МФР" label="Лицензия МФР (тип, №):"></app-standart-input>
+      <app-standart-input [control]="licensesForm.get('fileLink')" placeholder="Введите ссылку на файл документа" label="Введите ссылку на файл"></app-standart-input>
+    </div>
+    <app-standart-button [disabled]="!validateLicenses()" buttonText="Сохранить"></app-standart-button>
+
+    <div class="document-header">Страховой полис</div>
+    <div class="polis document-container">
+      <app-standart-input [control]="polisForm.get('polisNumber')" placeholder="Серия, номер" label="Серия и номер"></app-standart-input>
+      <app-standart-input [control]="polisForm.get('issuedWhom')" placeholder="Кем выдан" label="Кем выдан"></app-standart-input>
+      <app-standart-input [control]="polisForm.get('itWorksDate')" placeholder="Срок действия" label="Срок действия"></app-standart-input>
+      <app-standart-input [control]="polisForm.get('fileLink')" placeholder="Введите ссылку на скан документа" label="Введите ссылку на файл документа"></app-standart-input>
+
+    </div>
+    <app-standart-button [disabled]="!validatePolis()" buttonText="Сохранить"></app-standart-button>
+
+    <div class="document-header">Паспорт / Свидетельство о рождении</div>
+    <div class="pasportForm document-container">
+      <app-standart-input [control]="pasportForm.get('numberAndSeria')" placeholder="Серия, номер" label="Серия, номер"></app-standart-input>
+      <app-standart-input [control]="pasportForm.get('fileLink')" placeholder="Введите ссылку на скан документа" label="Введите ссылку на файл"></app-standart-input>
+    </div>
+    <app-standart-button (click)="createPasport()" [disabled]="!validatePasport()" buttonText="Сохранить"></app-standart-button>
+
+  </main>
+</ion-content>

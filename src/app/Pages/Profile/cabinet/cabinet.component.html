@@ -12,7 +12,7 @@
         <app-custom-selected [items]="statuses" [modalValue]="statusesSelect" [selectedValue]="selectedStatusItem" (openModal)="openSelectedStatus()" (closeModal)="closeSelectedStatus()" (selectItem)="selectStatus($event)"></app-custom-selected>
       </div>
       <app-profile-menu-item [routing]="'location'" [iconColor]="'#DCE9FF'" [icon]="'/assets/icons/motorcycle.svg'"  [iconFilter]="'brightness(0) saturate(100%) invert(46%) sepia(36%) saturate(5687%) hue-rotate(205deg) brightness(100%) contrast(103%);'" [name]="'Мой гараж'"></app-profile-menu-item>
-      <app-profile-menu-item [routing]="'location'" [iconColor]="'#DCE9FF'" [icon]="'/assets/navigation/user.svg'"  [iconFilter]="'brightness(0) saturate(100%) invert(46%) sepia(36%) saturate(5687%) hue-rotate(205deg) brightness(100%) contrast(103%);'" [name]="'Мои документы'"></app-profile-menu-item>
+      <app-profile-menu-item [routing]="'documents'" [iconColor]="'#DCE9FF'" [icon]="'/assets/navigation/user.svg'"  [iconFilter]="'brightness(0) saturate(100%) invert(46%) sepia(36%) saturate(5687%) hue-rotate(205deg) brightness(100%) contrast(103%);'" [name]="'Мои документы'"></app-profile-menu-item>
       <!-- <app-profile-menu-item [routing]="'events'" [iconColor]="'#FAEAD7'" [icon]="'/assets/icons/fireOrange.svg'" [name]="'Мои мероприятия'"></app-profile-menu-item> -->
       
       <app-profile-menu-item *ngIf="selectedStatusItem.id == 2" [routing]="'my-tracks'" [iconColor]="'#DCE9FF'" [icon]="'/assets/icons/place.svg'" [name]="'Мои треки'"></app-profile-menu-item>

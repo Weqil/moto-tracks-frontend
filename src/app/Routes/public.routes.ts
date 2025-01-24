@@ -29,6 +29,7 @@ export const publicRoutes: Routes = [
         loadComponent: () => import('../Pages/Events/events-tape-page/events-tape-page.component').then((m) => m.EventsTapePageComponent),
       },
       
+      
     ]
   },
   
