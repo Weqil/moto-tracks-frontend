@@ -1,3 +1,25 @@
 <ion-content>
   <app-header headerTitle="Регистрация" secondButtonIcon="/assets/icons/menu-pen.svg"></app-header>
+  <div class="main-container--with-header">
+    <div class="login">
+        <div class="login__logo">
+          <img class="login__logo__img" src="/assets/icons/favicon.png" alt="">
+        </div>
+        <form action="" class="login__form">
+          <app-standart-input [label]="'Имя'" [control] = "registerForm.get('name')" name="name"></app-standart-input>
+          <app-standart-input [label]="'E-mail'" [control] = "registerForm.get('email')" name="email"></app-standart-input>
+          <app-standart-input [openPassword]="true" type="password"  [label]="'Пароль'" [control] = "registerForm.get('password')" password="password"></app-standart-input>
+          <app-standart-input [openPassword]="true" type="password"  [label]="'Повторите пароль'" [control] = "registerForm.get('password_confirmation')" password="password"></app-standart-input>
+          <div class="recovery-password-wrapper">
+          </div>
+        </form>
+    </div>
+    <div class="submit-button">
+      <app-standart-button (onClick)="submitLoginForm()" buttonText="Войти" type="submit" [disabled]="registerForm.invalid"></app-standart-button>
+    </div>
+    <div class="dont-have-account">
+      <span (click)="redirectInLogin()" class="dont-have-account__registration-link">Уже есть аккаунта? <span class="dont-have-account__registration-link__route">Войти в аккаунт</span></span>
+    </div>
+    
+  </div>
 </ion-content>
