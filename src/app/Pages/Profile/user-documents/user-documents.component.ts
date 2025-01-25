@@ -1,5 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { IonContent } from '@ionic/angular';
+import { IonModal } from '@ionic/angular/standalone';
 import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
 import { ButtonsModule } from 'src/app/Shared/Modules/buttons/buttons.module';
 import { FormsModule } from 'src/app/Shared/Modules/forms/forms.module';
@@ -11,7 +13,7 @@ import { LoadingService } from 'src/app/Shared/Services/loading.service';
   selector: 'app-user-documents',
   templateUrl: './user-documents.component.html',
   styleUrls: ['./user-documents.component.scss'],
-  imports: [SharedModule,HeaderModule,FormsModule,ButtonsModule]
+  imports: [SharedModule,HeaderModule,FormsModule,ButtonsModule,IonModal]
 })
 export class UserDocumentsComponent  implements OnInit {
 

@@ -9,6 +9,11 @@ import { SlidersModule } from 'src/app/Shared/Modules/sliders/sliders.module';
 import { ButtonsModule } from 'src/app/Shared/Modules/buttons/buttons.module';
 import { TrackSectionComponent } from "../../../Shared/Components/Track/track-section/track-section.component";
 import { SwitchTypeService } from 'src/app/Shared/Services/switch-type.service';
+import { IonModal } from '@ionic/angular/standalone';
+import { HeaderModule } from 'src/app/Shared/Modules/header/header.module';
+import { StandartInputComponent } from 'src/app/Shared/Components/Forms/standart-input/standart-input.component';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+
 
 
 
@@ -16,7 +21,7 @@ import { SwitchTypeService } from 'src/app/Shared/Services/switch-type.service';
   selector: 'app-events-view-page',
   templateUrl: './events-view-page.component.html',
   styleUrls: ['./events-view-page.component.scss'],
-  imports: [SharedModule, SlidersModule, ButtonsModule, TrackSectionComponent]
+  imports: [SharedModule, SlidersModule, ButtonsModule, TrackSectionComponent,IonModal,HeaderModule, StandartInputComponent]
 })
 export class EventsViewPageComponent  implements OnInit {
 
@@ -30,6 +35,24 @@ export class EventsViewPageComponent  implements OnInit {
   switchTypeService:SwitchTypeService = inject(SwitchTypeService)
   event!:IEvent
   eventId: string = ''
+  personalUserForm: FormGroup = new FormGroup({
+      name: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      surname: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      patronymic: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      dateOfBirth: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      city: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      inn: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      snils: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      phoneNumber: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      startNumber: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      group:new FormControl('', [Validators.required, Validators.minLength(3)]),
+      rank:new FormControl('', [Validators.required, Validators.minLength(3)]),
+      rankNumber:new FormControl('', [Validators.required, Validators.minLength(3)]),
+      community:new FormControl('', [Validators.required, Validators.minLength(3)]),
+      coach:new FormControl('', [Validators.required, Validators.minLength(3)]),
+      motoStamp:new FormControl('', [Validators.required, Validators.minLength(3)]),
+      engine:new FormControl('', [Validators.required, Validators.minLength(3)]),
+    })
 
   getEvent(){
     this.loadingService.showLoading()

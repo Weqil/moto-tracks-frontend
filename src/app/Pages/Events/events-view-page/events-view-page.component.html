@@ -27,3 +27,37 @@
   </div>
 
 </ion-content>
+
+<ion-modal [isOpen]="true">
+  <ng-template>
+    <ion-content >
+      <app-header headerTitle="Отправить заявку"></app-header>
+      <div class="main-container--with-header">
+        <form class="personal-form">
+          <app-standart-input [control]="personalUserForm.get('surname')" placeholder="Введите фмилию" label="Фамилия"></app-standart-input>
+          <app-standart-input [control]="personalUserForm.get('name')" placeholder="Введите имя" label="Имя"></app-standart-input>
+          <app-standart-input [control]="personalUserForm.get('patronymic')" placeholder="Введите отчество" label="Отчество"></app-standart-input>
+          <app-standart-input [control]="personalUserForm.get('dateOfBirth')" placeholder="Выберите дату" label="Дата рождения" type="date"></app-standart-input>
+          <app-standart-input [control]="personalUserForm.get('city')" placeholder="Город (край, область, регион)" label="Город"></app-standart-input>
+          <div class="start-number-container">
+            <app-standart-input [control]="personalUserForm.get('inn')" placeholder="ИНН" label="ИНН"></app-standart-input>
+            <app-standart-input [control]="personalUserForm.get('snils')" placeholder="СНИЛС" label="СНИЛС"></app-standart-input>
+          </div>
+          <app-standart-input [control]="personalUserForm.get('phoneNumber')" placeholder="Номер телефона" label="Телефон"></app-standart-input>
+          <div class="start-number-container">
+            <app-standart-input [control]="personalUserForm.get('startNumber')" placeholder="Стартовый номер" label="Стартовый номер"></app-standart-input>
+            <app-standart-input [control]="personalUserForm.get('group')" placeholder="Класс (группа)" label="Класс"></app-standart-input>
+          </div>
+          <app-standart-input [control]="personalUserForm.get('rank')" placeholder="Спортивное звание, разряд" label="Спортивное звание"></app-standart-input>
+          <app-standart-input [control]="personalUserForm.get('rankNumber')" placeholder="№ удостоверения (МСМК, МС, КМС)" label="№ удостоверения"></app-standart-input>
+          <app-standart-input [control]="personalUserForm.get('community')" placeholder="Команда" label="Навзание команды"></app-standart-input>
+          <app-standart-input [control]="personalUserForm.get('coach')" placeholder="Тренер" label="ФИО тренера"></app-standart-input>
+          <app-standart-input [control]="personalUserForm.get('motoStamp')" placeholder="Марка мотоцикла" label="Мотоцикл"></app-standart-input>
+          <app-standart-input [control]="personalUserForm.get('engine')" placeholder="Двигатель мотоцикла" label="Двигатель"></app-standart-input>
+      
+        </form>
+      </div>
+    </ion-content>
+  </ng-template>
+  
+</ion-modal>

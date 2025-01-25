@@ -31,3 +31,13 @@
     font-size: 20px;
     color: #1c2226;
 }
+.footer{
+    padding: var(--standart-padding);
+    position: fixed;
+    bottom: 0;
+    background-color: var(--page-background);
+    width: 100%;
+}
+.event-track{
+    padding-bottom: 4rem;
+}
