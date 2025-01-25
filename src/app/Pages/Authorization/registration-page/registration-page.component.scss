@@ -1,0 +1,47 @@
+.login__logo{
+    display: flex;
+    justify-content: center;
+    .login__logo__img{
+        width: 7rem;
+    }
+  
+}
+
+.login__form{
+    display: flex;
+    padding: 0 1rem;
+    flex-direction: column;
+    gap: var(--standart-padding);
+}
+.recovery-password-wrapper{
+    display: flex;
+    justify-content:flex-end;
+}
+
+.recovery-password{
+    font-family: var(--font-regular);
+    font-size: var(  --font-little-size);
+    color: var(--grey-color);
+    opacity: 55%;
+}
+.submit-button{
+    padding-top: var(--standart-padding);
+}
+.dont-have-account{
+    padding-top: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .dont-have-account__registration-link{
+      font-size:0.75rem;
+      font-family: var(--font-regular);
+      color: var(--gray-color);
+      cursor: pointer;
+    }
+    .dont-have-account__registration-link__route{
+      font-size:0.75rem;
+      font-family: var(--font-regular);
+      color: var(--blue-primary-color);
+      cursor: pointer;
+    }
+  }
