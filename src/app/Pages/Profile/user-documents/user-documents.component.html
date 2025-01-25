@@ -7,7 +7,15 @@
       <app-standart-input [control]="licensesForm.get('licensesNumber')" placeholder="Лицензия МФР" label="Лицензия МФР (тип, №):"></app-standart-input>
       <app-standart-input [control]="licensesForm.get('fileLink')" placeholder="Введите ссылку на файл документа" label="Введите ссылку на файл"></app-standart-input>
     </div>
-    <app-standart-button [disabled]="!validateLicenses()" buttonText="Сохранить"></app-standart-button>
+
+     @if (!oldLicensesValue) {
+      <app-standart-button (click)="createLicenses()" [disabled]="!validateLicenses()" buttonText="Сохранить"></app-standart-button>
+     }
+     @else {
+      <app-standart-button (click)="updateLicenses()" [disabled]="!validateLicenses()" buttonText="Изменить"></app-standart-button>
+     }
+    
+   
 
     <div class="document-header">Страховой полис</div>
     <div class="polis document-container">
@@ -17,14 +25,27 @@
       <app-standart-input [control]="polisForm.get('fileLink')" placeholder="Введите ссылку на скан документа" label="Введите ссылку на файл документа"></app-standart-input>
 
     </div>
-    <app-standart-button [disabled]="!validatePolis()" buttonText="Сохранить"></app-standart-button>
+      @if (!oldPolisValue) {
+        <app-standart-button (click)="createPolis()" [disabled]="!validatePolis()" buttonText="Сохранить"></app-standart-button>
+      }
+      @else {
+        <app-standart-button (click)="updatePolis()" [disabled]="!validatePolis()" buttonText="Изменить"></app-standart-button>
+      }
+    
 
     <div class="document-header">Паспорт / Свидетельство о рождении</div>
     <div class="pasportForm document-container">
       <app-standart-input [control]="pasportForm.get('numberAndSeria')" placeholder="Серия, номер" label="Серия, номер"></app-standart-input>
       <app-standart-input [control]="pasportForm.get('fileLink')" placeholder="Введите ссылку на скан документа" label="Введите ссылку на файл"></app-standart-input>
     </div>
-    <app-standart-button (click)="createPasport()" [disabled]="!validatePasport()" buttonText="Сохранить"></app-standart-button>
+      @if (!oldPasportValue) {
+        <app-standart-button (click)="createPasport()" [disabled]="!validatePasport()" buttonText="Сохранить"></app-standart-button>
+      }
+      @else {
+        <app-standart-button (click)="updatePasport()" [disabled]="!validatePasport()" buttonText="Изменить"></app-standart-button>
+      }
+     
+   
 
   </main>
 </ion-content>
