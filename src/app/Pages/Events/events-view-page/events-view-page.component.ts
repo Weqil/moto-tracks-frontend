@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, Inject, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { finalize, Subject, takeUntil } from 'rxjs';
 import { IEvent } from 'src/app/Shared/Data/Interfaces/event';
@@ -13,6 +13,7 @@ import { IonModal } from '@ionic/angular/standalone';
 import { HeaderModule } from 'src/app/Shared/Modules/header/header.module';
 import { StandartInputComponent } from 'src/app/Shared/Components/Forms/standart-input/standart-input.component';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
 
 
 
@@ -34,6 +35,8 @@ export class EventsViewPageComponent  implements OnInit {
   loadingService: LoadingService = inject(LoadingService)
   switchTypeService:SwitchTypeService = inject(SwitchTypeService)
   event!:IEvent
+  applicationFormValueState:boolean = false
+  userService:UserService = inject(UserService)
   eventId: string = ''
   personalUserForm: FormGroup = new FormGroup({
       name: new FormControl('', [Validators.required, Validators.minLength(3)]),
@@ -54,6 +57,39 @@ export class EventsViewPageComponent  implements OnInit {
       engine:new FormControl('', [Validators.required, Validators.minLength(3)]),
     })
 
+    licensesForm: FormGroup = new FormGroup(
+      {
+        licensesNumber: new FormControl('',[Validators.required, Validators.minLength(3), ]), //номер лицензии
+        fileLink: new FormControl('',[Validators.required, Validators.minLength(3), ]), // путь до файла
+      }
+    )
+  
+    polisForm: FormGroup = new FormGroup(
+      {
+        polisNumber: new FormControl('',[Validators.required, Validators.minLength(3), ]), //Серия и номер полиса
+        issuedWhom: new FormControl('',[Validators.required, Validators.minLength(3), ]), //Кем выдан
+        itWorksDate: new FormControl('',[Validators.required, Validators.minLength(3), ]), //Срок действия
+        fileLink: new FormControl('',[Validators.required, Validators.minLength(3), ]), // путь до файла
+      }
+    )
+    pasportForm: FormGroup = new FormGroup(
+      {
+        numberAndSeria: new FormControl('',[Validators.required, Validators.minLength(3)]), //Серия и номер полиса
+        fileLink: new FormControl('',[Validators.required, Validators.minLength(3), ]), // путь до файла
+      }
+    )
+
+    pasport:any
+    licenses:any
+    polis:any
+
+    openApplicationForm(){
+      this.applicationFormValueState = true
+    }
+    closeApplicationForm(){
+      this.applicationFormValueState = false
+    }
+
   getEvent(){
     this.loadingService.showLoading()
     this.eventService.getEventById(this.eventId).pipe(
@@ -66,6 +102,29 @@ export class EventsViewPageComponent  implements OnInit {
     })
   }
 
+  setUserInForm(){
+    this.userService.refreshUser()
+    if(this.userService.user.value?.personal){
+      this.personalUserForm.patchValue(this.userService.user.value?.personal)
+      this.personalUserForm.patchValue({
+        dateOfBirth: this.userService.user.value?.personal.date_of_birth,
+        phoneNumber: this.userService.user.value?.personal.phone_number,
+        startNumber: this.userService.user.value?.personal.start_number,
+        rankNumber: this.userService.user.value?.personal.rank_number,
+        motoStamp:  this.userService.user.value?.personal.moto_stamp
+      })
+      console.log(this.personalUserForm.value)
+    }else{
+      this.personalUserForm.reset()
+    }
+  }
+
+  getUserDocuments(){
+    this.userService.getUserDocuments().pipe().subscribe((res:any)=>{
+      console.log(res)
+    })
+  }
+
   ionViewWillEnter(){
   
     this.route.params.pipe(takeUntil(this.destroy$)).pipe(
@@ -75,6 +134,8 @@ export class EventsViewPageComponent  implements OnInit {
     ).subscribe((params) => {
         this.eventId = params['id']
         this.getEvent()
+        this.getUserDocuments()
+        this.setUserInForm()
       })
     }
   ngOnInit() {}

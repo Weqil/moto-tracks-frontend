@@ -1,13 +1,16 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { IonContent } from '@ionic/angular';
 import { IonModal } from '@ionic/angular/standalone';
+import { finalize } from 'rxjs';
 import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
 import { ButtonsModule } from 'src/app/Shared/Modules/buttons/buttons.module';
 import { FormsModule } from 'src/app/Shared/Modules/forms/forms.module';
 import { HeaderModule } from 'src/app/Shared/Modules/header/header.module';
 import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
 import { LoadingService } from 'src/app/Shared/Services/loading.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-user-documents',
@@ -22,27 +25,28 @@ export class UserDocumentsComponent  implements OnInit {
   oldPolisValue?: { polisNumber:string, issuedWhom:string,itWorksDate:string, fileLink:string} //Здесь будет храниться прошлое значение, которое мы получаем с сервера
   loaderService:LoadingService = inject(LoadingService)
   oldPasportValue?:{numberAndSeria:string, fileLink:string} //Здесь будет храниться прошлое значение, которое мы получаем с сервера
+  httpClient:HttpClient = inject(HttpClient)
   userService:UserService = inject(UserService)
 
   licensesForm: FormGroup = new FormGroup(
     {
-      licensesNumber: new FormControl('',[Validators.required, Validators.minLength(3), Validators.maxLength(50)]), //номер лицензии
-      fileLink: new FormControl('',[Validators.required, Validators.minLength(3), Validators.maxLength(50)]), // путь до файла
+      licensesNumber: new FormControl('',[Validators.required, Validators.minLength(3), ]), //номер лицензии
+      fileLink: new FormControl('',[Validators.required, Validators.minLength(3), ]), // путь до файла
     }
   )
 
   polisForm: FormGroup = new FormGroup(
     {
-      polisNumber: new FormControl('',[Validators.required, Validators.minLength(3), Validators.maxLength(50)]), //Серия и номер полиса
-      issuedWhom: new FormControl('',[Validators.required, Validators.minLength(3), Validators.maxLength(50)]), //Кем выдан
-      itWorksDate: new FormControl('',[Validators.required, Validators.minLength(3), Validators.maxLength(50)]), //Срок действия
-      fileLink: new FormControl('',[Validators.required, Validators.minLength(3), Validators.maxLength(50)]), // путь до файла
+      polisNumber: new FormControl('',[Validators.required, Validators.minLength(3), ]), //Серия и номер полиса
+      issuedWhom: new FormControl('',[Validators.required, Validators.minLength(3), ]), //Кем выдан
+      itWorksDate: new FormControl('',[Validators.required, Validators.minLength(3), ]), //Срок действия
+      fileLink: new FormControl('',[Validators.required, Validators.minLength(3), ]), // путь до файла
     }
   )
   pasportForm: FormGroup = new FormGroup(
     {
-      numberAndSeria: new FormControl('',[Validators.required, Validators.minLength(3), Validators.maxLength(50)]), //Серия и номер полиса
-      fileLink: new FormControl('',[Validators.required, Validators.minLength(3), Validators.maxLength(50)]), // путь до файла
+      numberAndSeria: new FormControl('',[Validators.required, Validators.minLength(3)]), //Серия и номер полиса
+      fileLink: new FormControl('',[Validators.required, Validators.minLength(3), ]), // путь до файла
     }
   )
 
@@ -90,7 +94,12 @@ export class UserDocumentsComponent  implements OnInit {
     })
   }
   createPasport(){
-    this.userService.createUserDocument({type: 'pasport', data:JSON.stringify(this.pasportForm.value)}).pipe().subscribe((res:any)=>{
+      this.loaderService.showLoading()
+      this.userService.createUserDocument({type: 'pasport', data:(this.pasportForm.value)}).pipe(
+      finalize(()=>{
+        this.loaderService.hideLoading()
+      })
+    ).subscribe((res:any)=>{
       console.log(res)
     })
   }
@@ -101,7 +110,12 @@ export class UserDocumentsComponent  implements OnInit {
     })
   }
 
+  ionViewWillEnter(){
 
+    this.userService.getUserDocuments().pipe().subscribe((res:any)=>{
+      console.log(res.documents)
+    })
+  }
 
   ngOnInit() {}
 

@@ -41,3 +41,52 @@
 .event-track{
     padding-bottom: 4rem;
 }
+.personal-form{
+    padding-top: var(--standart-padding);
+    display: flex;
+    flex-direction: column;
+    gap: var(--standart-padding);
+}
+.personal-form{
+    padding-top: var(--standart-padding);
+    display: flex;
+    flex-direction: column;
+    gap: var(--standart-padding);
+}
+.start-number-container{
+    display: flex;
+    gap: 10px;
+}
+.application-main{
+    padding-bottom: 4rem;
+}
+.race-name{
+    padding-top: var(--standart-padding);
+    font-size: var(--font-headers-size);
+    font-family: var(--font-bold);
+}
+.documents{
+    display: flex;
+    flex-direction: column;
+}
+.document-name{
+    font-size: 1rem;
+    font-family: var(--font-bold);
+}
+.document-container{
+    border: 1px solid rgba(76, 88, 97, 0.2549019608);
+    padding: var(--little-padding);
+    margin-bottom: var(--little-padding);
+    display: flex;
+    border-radius: 5px;
+    gap: var(--little-padding);
+    flex-direction: column;
+}
+
+.document-header{
+    padding-top: 1rem;
+    font-family: var(--font-bold);
+    font-size: var(--font-regular-size);
+    padding-bottom: var(--little-padding);
+}
+
