@@ -46,7 +46,7 @@ export class CreateTrackPageComponent  implements OnInit {
     desc: new FormControl('', [Validators.required, Validators.minLength(3)]),
     level: new FormControl('', [Validators.required, Validators.minLength(3)]),
     images: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    is_work: new FormControl(true)
+    is_work: new FormControl(1)
   })
 
 

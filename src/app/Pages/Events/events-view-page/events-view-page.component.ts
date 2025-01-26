@@ -145,7 +145,7 @@ export class EventsViewPageComponent  implements OnInit {
   getEvent(){
     this.loadingService.showLoading()
     this.eventService.getEventById(this.eventId,{
-      userId:String(this.userService.user.value?.id),
+      userId:String(this.userService.user.value?.id ? this.userService.user.value?.id : '' ),
       appointmentUser:1,
     }).pipe(
       finalize(()=>{
