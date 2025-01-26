@@ -166,7 +166,7 @@ export class EventsViewPageComponent  implements OnInit {
         this.loaderService.hideLoading()
       })
     ).subscribe((res:any)=>{
-      if(res.documents.lenght){
+      if(res.documents.length){
         this.licensesForm.patchValue((res.documents.find((doc:any)=> doc.type === 'licenses').data))
         this.polisForm.patchValue((res.documents.find((doc:any)=> doc.type === 'polis').data))
         this.pasportForm.patchValue((res.documents.find((doc:any)=> doc.type === 'pasport').data))
