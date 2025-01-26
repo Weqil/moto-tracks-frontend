@@ -1,0 +1,40 @@
+<div class="users">
+    <div class="users_avatars" (click)="openModal()">
+        <ng-container *ngFor="let user of usersPreview">
+            <div  style="background-image:url('{{user.avatar | checkImgUrl}}');" class="users_avatars-user"></div>
+        </ng-container>
+       
+        <div *ngIf="moreCount" class="users_avatars-user-more">+{{moreCount}}</div>
+    </div>
+</div>
+
+<!-- <ion-modal  class="modal" backdropDismiss="false" [isOpen] ="true" [canDismiss]="openModalGroupValue"></ion-modal> -->
+
+<ion-modal (willDismiss)="closeModal()" mode="ios" class="modal" [isOpen] ="openUsersModal">
+    <ng-template>
+        <ion-header>
+            <ion-toolbar>
+                <div class="user-modal-header">
+                    Участники {{fullValueUsers}}
+                    <div class="close-wrapper">
+                        <img (click)="closeModal()" class="user-modal-header_close-image" src="assets/icons/close.svg" alt="">
+                    </div>
+                   
+                </div>
+            </ion-toolbar>
+          </ion-header>
+         
+      <ion-content class="" class="ion-padding">
+        <div class="card-grid">
+            <ng-container *ngIf="users.length" >
+                <app-user-section [hideEmail]= "true" *ngFor="let user of users" [user]="user"></app-user-section>
+            </ng-container>
+        </div>
+        @if (generateLinkUrl) {
+            <div class="footer">
+                <app-standart-button (click)="generateLinkButtonClickFunction()" buttonText="Получить таблицу"></app-standart-button>
+            </div>
+        }
+      </ion-content>
+    </ng-template>
+</ion-modal>

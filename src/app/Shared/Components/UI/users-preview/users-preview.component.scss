@@ -1,0 +1,87 @@
+.users_avatars-user{
+    width: 2rem;
+    height: 2rem;
+    object-fit: cover;
+    background-position: center;
+    background-size: cover;
+    border-radius: 50%;
+    box-shadow: 0px 4px 8px 0px rgba(34, 60, 80, 0.2);
+    margin-right: 0.5rem;
+}
+.user-no-photo{
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    display: flex;
+    background-color: rgb(233, 233, 233);
+    box-shadow: 0px 4px 8px 0px rgba(34, 60, 80, 0.2);
+    justify-content: center;
+    align-items: center;
+    font-size: 0.65rem;
+    color: rgb(107, 107, 107);
+    margin-right: 0.5rem;
+}
+.user-no-photo_image{
+    width: 2rem;
+    height: 2rem;
+}
+.card-grid{
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+}
+.users_avatars{
+    display: flex;
+    padding-top: 0.5rem;
+}
+.users_avatars-user-more{
+    background-color: rgb(255, 255, 255);
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    text-align: center;
+    color: gray;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--font-bold);
+    font-size: 0.65rem;
+    border-radius: 50%;
+    box-shadow: 0px 4px 8px 0px rgba(34, 60, 80, 0.2);
+    margin-right: 0.5rem;
+}
+.user-modal-header_close-image{
+    width: 1rem;
+    height: 1rem;
+}
+ion-modal{
+  
+    --background:#fff;
+}
+.modal-content{
+    background:#fff;
+}
+ion-toolbar{
+    --border:none;
+}
+.user-modal-header{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 1rem;
+    justify-content: center;
+    font-family: var(--font-bold);
+}
+.close-wrapper{
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    padding: 0.3rem;
+    box-shadow: 4px 4px 8px 0px rgb(193 193 193 / 20%);
+}
+.spiner-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

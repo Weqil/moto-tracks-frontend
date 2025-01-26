@@ -7,5 +7,6 @@ export interface IEvent {
     desc?: string,
     date_start?: string,
     track:Track
-    images?: string[]
+    images?: string[],
+    appointments_exists?:boolean
 }

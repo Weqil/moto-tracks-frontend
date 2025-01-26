@@ -17,14 +17,13 @@ import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
 import { AuthService } from 'src/app/Shared/Data/Services/Auth/auth.service';
 import { ToastService } from 'src/app/Shared/Services/toast.service';
 import { User } from 'src/app/Shared/Data/Interfaces/user-model';
-
-
+import { UsersPreviewComponent } from 'src/app/Shared/Components/UI/users-preview/users-preview.component';
 
 @Component({
   selector: 'app-events-view-page',
   templateUrl: './events-view-page.component.html',
   styleUrls: ['./events-view-page.component.scss'],
-  imports: [SharedModule, SlidersModule, ButtonsModule, TrackSectionComponent,IonModal,HeaderModule, StandartInputComponent]
+  imports: [SharedModule, SlidersModule, ButtonsModule, TrackSectionComponent,IonModal,HeaderModule, StandartInputComponent,UsersPreviewComponent]
 })
 export class EventsViewPageComponent  implements OnInit {
 
@@ -41,6 +40,8 @@ export class EventsViewPageComponent  implements OnInit {
 
   usersInRace:User[] = []
   event!:IEvent
+  openUserModalValue:boolean = false
+  raceUser!:User
   applicationFormValueState:boolean = false
   userService:UserService = inject(UserService)
   eventId: string = ''
@@ -92,8 +93,44 @@ export class EventsViewPageComponent  implements OnInit {
     polis:any
     toastService:ToastService = inject(ToastService)
 
+    openStateUsersModal(){
+      this.openUserModalValue = true
+    }
+    closeStateUsersModal(){
+      this.openUserModalValue = false
+    }
+
+    cancelApplicationForm(){
+      let currentForm = {
+        ...this.personalUserForm.value,
+        ...this.polisForm.value,
+        ...this.licensesForm.value,
+        ...this.pasportForm.value,
+      }
+      const fd: FormData = new FormData();
+      fd.append('data',  JSON.stringify(currentForm))
+      this.loaderService.showLoading()
+      this.eventService.toggleAplicationInRace(this.eventId, fd).pipe(
+        finalize(()=>{
+          this.loadingService.hideLoading()
+        })
+      ).subscribe((res:any)=>{
+          this.toastService.showToast('Заявка успешно отменена','success')
+          this.getUsersInRace()
+          this.getEvent()
+      })
+    }
+
+    generateGoogleLink(){
+      this.loaderService.showLoading()
+      this.eventService.generateGoogleLink(this.eventId).pipe(
+        finalize(()=> this.loadingService.hideLoading())
+      ).subscribe((res:any)=>{
+        window.open(res.table_url)
+      })
+    }
+
     openApplicationForm(){
-  
       if(this.authService.isAuthenticated()){
         this.applicationFormValueState = true
       }else{
@@ -107,14 +144,25 @@ export class EventsViewPageComponent  implements OnInit {
 
   getEvent(){
     this.loadingService.showLoading()
-    this.eventService.getEventById(this.eventId).pipe(
+    this.eventService.getEventById(this.eventId,{
+      userId:String(this.userService.user.value?.id),
+      appointmentUser:1,
+    }).pipe(
       finalize(()=>{
         this.loadingService.hideLoading()
       })
     ).subscribe((res:any)=>{
-      console.log(res)
+      this.raceUser = res.race.user
       this.event = res.race
     })
+  }
+
+  checkUser(){
+    if(this.userService.user.value){
+      return this.userService.user.value?.id == this.raceUser.id
+    }else{
+      return false
+    }
   }
 
   toggleAplicationInRace(){
@@ -133,15 +181,11 @@ export class EventsViewPageComponent  implements OnInit {
           this.loadingService.hideLoading()
         })
       ).subscribe((res:any)=>{
-        console.log(res)
-        if(!this.applicationFormValueState){
-          this.toastService.showToast('Заявка успешно отменена','success')
-        }else{
+          this.getUsersInRace()
+          this.closeApplicationForm()
           this.toastService.showToast('Заявка успешно отправленна','success')
-        }
       })
     }
-   
   }
 
   setUserInForm(){
@@ -171,7 +215,6 @@ export class EventsViewPageComponent  implements OnInit {
         this.polisForm.patchValue((res.documents.find((doc:any)=> doc.type === 'polis').data))
         this.pasportForm.patchValue((res.documents.find((doc:any)=> doc.type === 'pasport').data))
       }
-     
     })
   }
 
@@ -184,8 +227,8 @@ export class EventsViewPageComponent  implements OnInit {
   }
 
   getUsersInRace(){
-    console.log(this.eventId)
     this.eventService.getUsersInRace(this.eventId).pipe().subscribe((res:any)=>{
+      this.usersInRace = res.users
       console.log(res)
     })
   }
@@ -199,7 +242,6 @@ export class EventsViewPageComponent  implements OnInit {
   }
 
   ionViewWillEnter(){
-
     this.route.params.pipe(takeUntil(this.destroy$)).pipe(
       finalize(()=>{
       })
@@ -216,5 +258,4 @@ export class EventsViewPageComponent  implements OnInit {
     }
 
   ngOnInit() {}
-
 }

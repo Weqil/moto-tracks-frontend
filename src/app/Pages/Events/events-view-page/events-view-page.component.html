@@ -9,24 +9,30 @@
       </div>
       <div class="main-container">
         <div class="event-name">{{event.name}}</div>
+        @if (usersInRace.length) {
+          <app-users-preview [generateLinkUrl]="checkUser()" (generateLinkButtonClick)="generateGoogleLink()" [fullValueUsers]="usersInRace.length" [users]="usersInRace" [moreCount]="usersInRace.length" [openUsersModal]="openUserModalValue" (closeModalEmit)="closeStateUsersModal()" (openModalEmit)="openStateUsersModal()"></app-users-preview>
+        }
         <div class="event-description">{{event.desc}}</div>
         <div class="event-track">
           <div class="event-track__title">Где проходит</div>
           <app-track-section [track]="event.track"></app-track-section>
         </div>
       </div>
+      
+      <div class="footer">
+          @if (!this.event.appointments_exists) {
+            <app-standart-button (click)="openApplicationForm()" buttonText="Заявиться"></app-standart-button>
+          }
+          @else {
+            <app-standart-button [disabled]="true" (click)="cancelApplicationForm()" buttonText="Отменить заявку"></app-standart-button>
+          }
+    
+        </div>
     }
-
-  
-  
   </main>
 
-
-  <div class="footer">
-      <app-standart-button (click)="openApplicationForm()" buttonText="Заявиться"></app-standart-button>
-  </div>
-
 </ion-content>
+
 @if (this.event) {
 <ion-modal [isOpen]="applicationFormValueState">
   <ng-template>

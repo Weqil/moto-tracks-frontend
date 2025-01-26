@@ -13,6 +13,7 @@ export class UserSectionComponent  implements OnInit {
   constructor() { }
   @Output() changeStatus = new EventEmitter();
   @Input() user !:User|null
+  @Input() hideEmail:boolean = false;
   @Input() status ?:string
 
   onClickStatus(){
