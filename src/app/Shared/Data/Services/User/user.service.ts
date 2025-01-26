@@ -31,7 +31,9 @@ export class UserService {
   }
 
   updateDocument(id:number,document:any){
-    return this.http.post<any>(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/users/cabinet/documents/${id}/update`, document)
+    const fd: FormData = new FormData();
+    fd.append('data',  JSON.stringify(document))
+    return this.http.post<any>(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/users/cabinet/documents/${id}/update`, fd)
   }
 
   getUserDocuments(){

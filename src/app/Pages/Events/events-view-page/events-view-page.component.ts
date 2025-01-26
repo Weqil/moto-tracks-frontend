@@ -16,6 +16,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
 import { AuthService } from 'src/app/Shared/Data/Services/Auth/auth.service';
 import { ToastService } from 'src/app/Shared/Services/toast.service';
+import { User } from 'src/app/Shared/Data/Interfaces/user-model';
 
 
 
@@ -37,48 +38,50 @@ export class EventsViewPageComponent  implements OnInit {
   navController: NavController = inject(NavController)
   loadingService: LoadingService = inject(LoadingService)
   switchTypeService:SwitchTypeService = inject(SwitchTypeService)
+
+  usersInRace:User[] = []
   event!:IEvent
   applicationFormValueState:boolean = false
   userService:UserService = inject(UserService)
   eventId: string = ''
   personalUserForm: FormGroup = new FormGroup({
-      name: new FormControl('', [Validators.required, Validators.minLength(3)]),
-      surname: new FormControl('', [Validators.required, Validators.minLength(3)]),
-      patronymic: new FormControl('', [Validators.required, Validators.minLength(3)]),
-      dateOfBirth: new FormControl('', [Validators.required, Validators.minLength(3)]),
-      city: new FormControl('', [Validators.required, Validators.minLength(3)]),
-      inn: new FormControl('', [Validators.required, Validators.minLength(3)]),
-      snils: new FormControl('', [Validators.required, Validators.minLength(3)]),
-      phoneNumber: new FormControl('', [Validators.required, Validators.minLength(3)]),
-      startNumber: new FormControl('', [Validators.required, Validators.minLength(3)]),
-      group:new FormControl('', [Validators.required, Validators.minLength(3)]),
-      rank:new FormControl('', [Validators.required, Validators.minLength(3)]),
-      rankNumber:new FormControl('', [Validators.required, Validators.minLength(3)]),
-      community:new FormControl('', [Validators.required, Validators.minLength(3)]),
-      coach:new FormControl('', [Validators.required, Validators.minLength(3)]),
-      motoStamp:new FormControl('', [Validators.required, Validators.minLength(3)]),
-      engine:new FormControl('', [Validators.required, Validators.minLength(3)]),
+      name: new FormControl('', [Validators.required]),
+      surname: new FormControl('', [Validators.required]),
+      patronymic: new FormControl('', [Validators.required]),
+      dateOfBirth: new FormControl('', [Validators.required]),
+      city: new FormControl('', [Validators.required]),
+      inn: new FormControl('', [Validators.required]),
+      snils: new FormControl('', [Validators.required]),
+      phoneNumber: new FormControl('', [Validators.required]),
+      startNumber: new FormControl('', [Validators.required]),
+      group:new FormControl('', [Validators.required]),
+      rank:new FormControl('', [Validators.required]),
+      rankNumber:new FormControl('', [Validators.required]),
+      community:new FormControl('', [Validators.required]),
+      coach:new FormControl('', [Validators.required]),
+      motoStamp:new FormControl('', [Validators.required]),
+      engine:new FormControl('', [Validators.required]),
     })
 
     licensesForm: FormGroup = new FormGroup(
       {
-        licensesNumber: new FormControl('',[Validators.required, Validators.minLength(3), ]), //номер лицензии
-        licensesFileLink: new FormControl('',[Validators.required, Validators.minLength(3), ]), // путь до файла
+        licensesNumber: new FormControl('',[Validators.required, ]), //номер лицензии
+        licensesFileLink: new FormControl('',[Validators.required, ]), // путь до файла
       }
     )
   
     polisForm: FormGroup = new FormGroup(
       {
-        polisNumber: new FormControl('',[Validators.required, Validators.minLength(3), ]), //Серия и номер полиса
-        issuedWhom: new FormControl('',[Validators.required, Validators.minLength(3), ]), //Кем выдан
-        itWorksDate: new FormControl('',[Validators.required, Validators.minLength(3), ]), //Срок действия
-        polisFileLink: new FormControl('',[Validators.required, Validators.minLength(3), ]), // путь до файла
+        polisNumber: new FormControl('',[Validators.required, ]), //Серия и номер полиса
+        issuedWhom: new FormControl('',[Validators.required, ]), //Кем выдан
+        itWorksDate: new FormControl('',[Validators.required, ]), //Срок действия
+        polisFileLink: new FormControl('',[Validators.required, ]), // путь до файла
       }
     )
     pasportForm: FormGroup = new FormGroup(
       {
-        numberAndSeria: new FormControl('',[Validators.required, Validators.minLength(3)]), //Серия и номер полиса
-        pasportFileLink: new FormControl('',[Validators.required, Validators.minLength(3), ]), // путь до файла
+        numberAndSeria: new FormControl('',[Validators.required]), //Серия и номер полиса
+        pasportFileLink: new FormControl('',[Validators.required, ]), // путь до файла
       }
     )
 
@@ -115,27 +118,30 @@ export class EventsViewPageComponent  implements OnInit {
   }
 
   toggleAplicationInRace(){
-    let currentForm = {
-      ...this.personalUserForm.value,
-      ...this.polisForm.value,
-      ...this.licensesForm.value,
-      ...this.pasportForm.value,
-    }
-    const fd: FormData = new FormData();
-    fd.append('data',  JSON.stringify(currentForm))
-    this.loaderService.showLoading()
-    this.eventService.toggleAplicationInRace(this.eventId, fd).pipe(
-      finalize(()=>{
-        this.loadingService.hideLoading()
-      })
-    ).subscribe((res:any)=>{
-      console.log(res)
-      if(!this.applicationFormValueState){
-        this.toastService.showToast('Заявка успешно отменена','success')
-      }else{
-        this.toastService.showToast('Заявка успешно отправленна','success')
+    if(!this.invalidRequest()){
+      let currentForm = {
+        ...this.personalUserForm.value,
+        ...this.polisForm.value,
+        ...this.licensesForm.value,
+        ...this.pasportForm.value,
       }
-    })
+      const fd: FormData = new FormData();
+      fd.append('data',  JSON.stringify(currentForm))
+      this.loaderService.showLoading()
+      this.eventService.toggleAplicationInRace(this.eventId, fd).pipe(
+        finalize(()=>{
+          this.loadingService.hideLoading()
+        })
+      ).subscribe((res:any)=>{
+        console.log(res)
+        if(!this.applicationFormValueState){
+          this.toastService.showToast('Заявка успешно отменена','success')
+        }else{
+          this.toastService.showToast('Заявка успешно отправленна','success')
+        }
+      })
+    }
+   
   }
 
   setUserInForm(){
@@ -160,7 +166,7 @@ export class EventsViewPageComponent  implements OnInit {
         this.loaderService.hideLoading()
       })
     ).subscribe((res:any)=>{
-      if(res.documents){
+      if(res.documents.lenght){
         this.licensesForm.patchValue((res.documents.find((doc:any)=> doc.type === 'licenses').data))
         this.polisForm.patchValue((res.documents.find((doc:any)=> doc.type === 'polis').data))
         this.pasportForm.patchValue((res.documents.find((doc:any)=> doc.type === 'pasport').data))
@@ -177,13 +183,30 @@ export class EventsViewPageComponent  implements OnInit {
   submitForm(){
   }
 
+  getUsersInRace(){
+    console.log(this.eventId)
+    this.eventService.getUsersInRace(this.eventId).pipe().subscribe((res:any)=>{
+      console.log(res)
+    })
+  }
+
+  invalidRequest(){
+    if(this.personalUserForm.invalid || this.polisForm.invalid || this.pasportForm.invalid || this.licensesForm.invalid ){
+      return true
+    }else{
+      return false
+    }
+  }
+
   ionViewWillEnter(){
+
     this.route.params.pipe(takeUntil(this.destroy$)).pipe(
       finalize(()=>{
       })
     ).subscribe((params) => {
         this.eventId = params['id']
         this.getEvent()
+        this.getUsersInRace()
         if(this.authService.isAuthenticated()){
           this.getUserDocuments()
           this.setUserInDocuments()

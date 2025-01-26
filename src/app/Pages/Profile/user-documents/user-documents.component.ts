@@ -165,10 +165,11 @@ export class UserDocumentsComponent  implements OnInit {
       })
     ).subscribe((res:any)=>{
       if(res.documents){
-        this.licensesForm.patchValue((res.documents.find((doc:any)=> doc.type === 'licenses').data))
-        this.polisForm.patchValue((res.documents.find((doc:any)=> doc.type === 'polis').data))
-        this.pasportForm.patchValue((res.documents.find((doc:any)=> doc.type === 'pasport').data))
+        this.licensesForm.patchValue((res.documents.find((doc:any)=> doc.type === 'licenses')?.data))
+        this.polisForm.patchValue((res.documents.find((doc:any)=> doc.type === 'polis')?.data))
+        this.pasportForm.patchValue((res.documents.find((doc:any)=> doc.type === 'pasport')?.data))
         this.oldLicensesValue = (res.documents.find((doc:any)=> doc.type === 'licenses'))
+        console.log( this.oldLicensesValue)
         this.oldPolisValue = (res.documents.find((doc:any)=> doc.type === 'polis'))
         this.oldPasportValue = (res.documents.find((doc:any)=> doc.type === 'pasport'))
       }

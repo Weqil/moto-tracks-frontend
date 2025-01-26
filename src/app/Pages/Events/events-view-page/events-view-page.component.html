@@ -82,7 +82,7 @@
         </div>
       </div>
       <div class="footer">
-        <app-standart-button (click)="toggleAplicationInRace()" buttonText="Заявиться"></app-standart-button>
+        <app-standart-button [disabled]="invalidRequest()" (click)="toggleAplicationInRace()" buttonText="Заявиться"></app-standart-button>
       </div>
     </ion-content>
   </ng-template>

@@ -117,6 +117,7 @@ export class RegistrationPageComponent  implements OnInit {
     ).subscribe((res:Login)=>{
       this.userService.setUserInLocalStorage(res.user)
       this.authService.setAuthToken(String(res.access_token))
+      console.log(res.access_token)
       // this.navController.navigateForward('/cabinet', {  animated: false })
       this.router.navigate(['/cabinet'])
     })

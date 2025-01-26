@@ -19,7 +19,7 @@ export class LoginService {
 
 
   loginUser( registerForm:FormData){
-    return this.http.post<Login>(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/register`, registerForm)
+    return this.http.post<Login>(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/login`, registerForm)
   }
 
  

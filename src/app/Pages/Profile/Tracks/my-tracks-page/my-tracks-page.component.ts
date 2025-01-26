@@ -9,6 +9,8 @@ import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
 import { Track } from 'src/app/Shared/Data/Interfaces/track-model';
 import { TrackModule } from 'src/app/Shared/Modules/track/track.module';
 import { RouterLink } from '@angular/router';
+import { LoadingService } from 'src/app/Shared/Services/loading.service';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-my-tracks-page',
@@ -21,6 +23,7 @@ export class MyTracksPageComponent  implements OnInit {
   constructor() { }
   navController: NavController = inject(NavController)
   trackService: TrackService = inject(TrackService)
+  loaderService: LoadingService = inject(LoadingService)
   userService: UserService = inject(UserService)
 
   tracks!:Track[]
@@ -28,8 +31,10 @@ export class MyTracksPageComponent  implements OnInit {
     this.navController.navigateForward('/create-track')
   }
   getMyTracks(){
-    console.log(this.userService.user.value)
-    this.trackService.getTracksByUserId(String(this.userService.user.value?.id)).subscribe((res:any) => {
+    this.loaderService.showLoading()
+    this.trackService.getTracksByUserId(String(this.userService.user.value?.id)).pipe(
+      finalize(()=>this.loaderService.hideLoading())
+    ).subscribe((res:any) => {
       this.tracks = res.tracks
     })
   }

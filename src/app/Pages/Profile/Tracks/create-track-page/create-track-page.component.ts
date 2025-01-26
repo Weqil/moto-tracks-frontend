@@ -134,6 +134,7 @@ export class CreateTrackPageComponent  implements OnInit {
       finalize(()=> this.loadingService.hideLoading())
     ).subscribe((res:any)=>{
       console.log(res)
+      this.toastService.showToast('Трек успешно создан','success')
       this.navController.back()
     })
   
