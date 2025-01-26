@@ -1,10 +1,12 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { finalize } from 'rxjs';
 import { StandartButtonComponent } from 'src/app/Shared/Components/UI/Buttons/standart-button/standart-button.component';
 import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
 import { FormsModule } from 'src/app/Shared/Modules/forms/forms.module';
 import { HeaderModule } from 'src/app/Shared/Modules/header/header.module';
 import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
+import { LoadingService } from 'src/app/Shared/Services/loading.service';
 import { ToastService } from 'src/app/Shared/Services/toast.service';
 
 @Component({
@@ -19,6 +21,7 @@ export class PersonalInfoComponent  implements OnInit {
   
   userService:UserService = inject(UserService)
   toastService:ToastService = inject(ToastService)
+  loaderService:LoadingService = inject(LoadingService)
   personalUserForm: FormGroup = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(3)]),
     surname: new FormControl('', [Validators.required, Validators.minLength(3)]),
@@ -39,16 +42,26 @@ export class PersonalInfoComponent  implements OnInit {
   })
 
   submitForm(){
+    this.loaderService.showLoading()
     if(this.userService.user.value?.personal){
-      this.userService.updatePersonalInfo(this.personalUserForm.value).pipe().subscribe((res:any)=>{
-        console.log(res)
-
-        this.toastService.showToast('Данные успешно добавлены', 'success')
+      this.userService.updatePersonalInfo(this.personalUserForm.value).pipe(
+        finalize(
+          ()=>{
+            this.loaderService.hideLoading()
+          }
+        )
+      ).subscribe((res:any)=>{
+        this.toastService.showToast('Данные успешно изменены', 'success')
         this.userService.refreshUser()
       })
     }else{
-        this.userService.createPersonalInfo(this.personalUserForm.value).pipe().subscribe((res:any)=>{
-          this.toastService.showToast('Данные успешно изменены', 'success')
+        this.userService.createPersonalInfo(this.personalUserForm.value).pipe(
+          finalize(
+            ()=>{
+              this.loaderService.hideLoading()
+            })
+        ).subscribe((res:any)=>{
+          this.toastService.showToast('Данные успешно добавлены', 'success')
           this.userService.refreshUser()
         })
     }

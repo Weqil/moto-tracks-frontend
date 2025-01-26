@@ -27,7 +27,7 @@
   </div>
 
 </ion-content>
-
+@if (this.event) {
 <ion-modal [isOpen]="applicationFormValueState">
   <ng-template>
     <ion-content >
@@ -62,7 +62,7 @@
             <div class="document-header">Лицензия</div>
             <div class="licenses document-container">
               <app-standart-input [control]="licensesForm.get('licensesNumber')" placeholder="Лицензия МФР" label="Лицензия МФР (тип, №):"></app-standart-input>
-              <app-standart-input [control]="licensesForm.get('fileLink')" placeholder="Введите ссылку на файл документа" label="Введите ссылку на файл"></app-standart-input>
+              <app-standart-input [control]="licensesForm.get('licensesFileLink')" placeholder="Введите ссылку на файл документа" label="Введите ссылку на файл"></app-standart-input>
             </div>
 
             <div class="document-header">Страховой полис</div>
@@ -70,21 +70,22 @@
               <app-standart-input [control]="polisForm.get('polisNumber')" placeholder="Серия, номер" label="Серия и номер"></app-standart-input>
               <app-standart-input [control]="polisForm.get('issuedWhom')" placeholder="Кем выдан" label="Кем выдан"></app-standart-input>
               <app-standart-input [control]="polisForm.get('itWorksDate')" placeholder="Срок действия" label="Срок действия"></app-standart-input>
-              <app-standart-input [control]="polisForm.get('fileLink')" placeholder="Введите ссылку на скан документа" label="Введите ссылку на файл документа"></app-standart-input>
+              <app-standart-input [control]="polisForm.get('polisFileLink')" placeholder="Введите ссылку на скан документа" label="Введите ссылку на файл документа"></app-standart-input>
             </div>
 
             <div class="document-header">Паспорт / Свидетельство о рождении</div>
             <div class="pasportForm document-container">
               <app-standart-input [control]="pasportForm.get('numberAndSeria')" placeholder="Серия, номер" label="Серия, номер"></app-standart-input>
-              <app-standart-input [control]="pasportForm.get('fileLink')" placeholder="Введите ссылку на скан документа" label="Введите ссылку на файл"></app-standart-input>
+              <app-standart-input [control]="pasportForm.get('pasportFileLink')" placeholder="Введите ссылку на скан документа" label="Введите ссылку на файл"></app-standart-input>
             </div>
             
         </div>
       </div>
       <div class="footer">
-        <app-standart-button (click)="openApplicationForm()" buttonText="Заявиться"></app-standart-button>
+        <app-standart-button (click)="toggleAplicationInRace()" buttonText="Заявиться"></app-standart-button>
       </div>
     </ion-content>
   </ng-template>
   
 </ion-modal>
+}

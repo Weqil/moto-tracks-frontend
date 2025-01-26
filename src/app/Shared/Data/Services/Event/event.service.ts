@@ -23,4 +23,7 @@ export class EventService {
   createEvent(event:FormData){
     return this.http.post(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races`, event)
   }
+  toggleAplicationInRace(raceId:string,data:any){
+    return this.http.post<any>(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races/${raceId}/toggle-appointment-race`, data)
+  }
 }

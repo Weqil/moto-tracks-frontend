@@ -32,7 +32,7 @@ export class UserDocumentsComponent  implements OnInit {
   licensesForm: FormGroup = new FormGroup(
     {
       licensesNumber: new FormControl('',[Validators.required, Validators.minLength(3), ]), //номер лицензии
-      fileLink: new FormControl('',[Validators.required, Validators.minLength(3), ]), // путь до файла
+      licensesFileLink: new FormControl('',[Validators.required, Validators.minLength(3), ]), // путь до файла
     }
   )
 
@@ -41,13 +41,13 @@ export class UserDocumentsComponent  implements OnInit {
       polisNumber: new FormControl('',[Validators.required, Validators.minLength(3), ]), //Серия и номер полиса
       issuedWhom: new FormControl('',[Validators.required, Validators.minLength(3), ]), //Кем выдан
       itWorksDate: new FormControl('',[Validators.required, Validators.minLength(3), ]), //Срок действия
-      fileLink: new FormControl('',[Validators.required, Validators.minLength(3), ]), // путь до файла
+      polisFileLink: new FormControl('',[Validators.required, Validators.minLength(3), ]), // путь до файла
     }
   )
   pasportForm: FormGroup = new FormGroup(
     {
       numberAndSeria: new FormControl('',[Validators.required, Validators.minLength(3)]), //Серия и номер полиса
-      fileLink: new FormControl('',[Validators.required, Validators.minLength(3), ]), // путь до файла
+      pasportFileLink: new FormControl('',[Validators.required, Validators.minLength(3), ]), // путь до файла
     }
   )
 

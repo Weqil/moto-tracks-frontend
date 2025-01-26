@@ -9,12 +9,13 @@ import { SlidersModule } from 'src/app/Shared/Modules/sliders/sliders.module';
 import { ButtonsModule } from 'src/app/Shared/Modules/buttons/buttons.module';
 import { TrackSectionComponent } from "../../../Shared/Components/Track/track-section/track-section.component";
 import { SwitchTypeService } from 'src/app/Shared/Services/switch-type.service';
-import { IonModal } from '@ionic/angular/standalone';
+import { IonModal, NavController } from '@ionic/angular/standalone';
 import { HeaderModule } from 'src/app/Shared/Modules/header/header.module';
 import { StandartInputComponent } from 'src/app/Shared/Components/Forms/standart-input/standart-input.component';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
-
+import { AuthService } from 'src/app/Shared/Data/Services/Auth/auth.service';
+import { ToastService } from 'src/app/Shared/Services/toast.service';
 
 
 
@@ -32,6 +33,8 @@ export class EventsViewPageComponent  implements OnInit {
 
   route: ActivatedRoute = inject(ActivatedRoute)
   eventService: EventService = inject(EventService)
+  authService: AuthService = inject(AuthService)
+  navController: NavController = inject(NavController)
   loadingService: LoadingService = inject(LoadingService)
   switchTypeService:SwitchTypeService = inject(SwitchTypeService)
   event!:IEvent
@@ -60,7 +63,7 @@ export class EventsViewPageComponent  implements OnInit {
     licensesForm: FormGroup = new FormGroup(
       {
         licensesNumber: new FormControl('',[Validators.required, Validators.minLength(3), ]), //номер лицензии
-        fileLink: new FormControl('',[Validators.required, Validators.minLength(3), ]), // путь до файла
+        licensesFileLink: new FormControl('',[Validators.required, Validators.minLength(3), ]), // путь до файла
       }
     )
   
@@ -69,22 +72,31 @@ export class EventsViewPageComponent  implements OnInit {
         polisNumber: new FormControl('',[Validators.required, Validators.minLength(3), ]), //Серия и номер полиса
         issuedWhom: new FormControl('',[Validators.required, Validators.minLength(3), ]), //Кем выдан
         itWorksDate: new FormControl('',[Validators.required, Validators.minLength(3), ]), //Срок действия
-        fileLink: new FormControl('',[Validators.required, Validators.minLength(3), ]), // путь до файла
+        polisFileLink: new FormControl('',[Validators.required, Validators.minLength(3), ]), // путь до файла
       }
     )
     pasportForm: FormGroup = new FormGroup(
       {
         numberAndSeria: new FormControl('',[Validators.required, Validators.minLength(3)]), //Серия и номер полиса
-        fileLink: new FormControl('',[Validators.required, Validators.minLength(3), ]), // путь до файла
+        pasportFileLink: new FormControl('',[Validators.required, Validators.minLength(3), ]), // путь до файла
       }
     )
 
+
+    loaderService:LoadingService = inject(LoadingService)
     pasport:any
     licenses:any
     polis:any
+    toastService:ToastService = inject(ToastService)
 
     openApplicationForm(){
-      this.applicationFormValueState = true
+  
+      if(this.authService.isAuthenticated()){
+        this.applicationFormValueState = true
+      }else{
+        this.navController.navigateForward('/login')
+      }
+     
     }
     closeApplicationForm(){
       this.applicationFormValueState = false
@@ -99,6 +111,30 @@ export class EventsViewPageComponent  implements OnInit {
     ).subscribe((res:any)=>{
       console.log(res)
       this.event = res.race
+    })
+  }
+
+  toggleAplicationInRace(){
+    let currentForm = {
+      ...this.personalUserForm.value,
+      ...this.polisForm.value,
+      ...this.licensesForm.value,
+      ...this.pasportForm.value,
+    }
+    const fd: FormData = new FormData();
+    fd.append('data',  JSON.stringify(currentForm))
+    this.loaderService.showLoading()
+    this.eventService.toggleAplicationInRace(this.eventId, fd).pipe(
+      finalize(()=>{
+        this.loadingService.hideLoading()
+      })
+    ).subscribe((res:any)=>{
+      console.log(res)
+      if(!this.applicationFormValueState){
+        this.toastService.showToast('Заявка успешно отменена','success')
+      }else{
+        this.toastService.showToast('Заявка успешно отправленна','success')
+      }
     })
   }
 
@@ -118,26 +154,44 @@ export class EventsViewPageComponent  implements OnInit {
       this.personalUserForm.reset()
     }
   }
+  setUserInDocuments(){
+    this.userService.getUserDocuments().pipe(
+      finalize(()=>{
+        this.loaderService.hideLoading()
+      })
+    ).subscribe((res:any)=>{
+      if(res.documents){
+        this.licensesForm.patchValue((res.documents.find((doc:any)=> doc.type === 'licenses').data))
+        this.polisForm.patchValue((res.documents.find((doc:any)=> doc.type === 'polis').data))
+        this.pasportForm.patchValue((res.documents.find((doc:any)=> doc.type === 'pasport').data))
+      }
+     
+    })
+  }
 
   getUserDocuments(){
     this.userService.getUserDocuments().pipe().subscribe((res:any)=>{
       console.log(res)
     })
   }
+  submitForm(){
+  }
 
   ionViewWillEnter(){
-  
     this.route.params.pipe(takeUntil(this.destroy$)).pipe(
       finalize(()=>{
-    
       })
     ).subscribe((params) => {
         this.eventId = params['id']
         this.getEvent()
-        this.getUserDocuments()
-        this.setUserInForm()
+        if(this.authService.isAuthenticated()){
+          this.getUserDocuments()
+          this.setUserInDocuments()
+          this.setUserInForm()
+        }
       })
     }
+
   ngOnInit() {}
 
 }
