@@ -9,6 +9,8 @@ import { IEvent } from 'src/app/Shared/Data/Interfaces/event';
 import { EventService } from 'src/app/Shared/Data/Services/Event/event.service';
 import { EventTapeService } from 'src/app/Shared/Data/Services/Event/event-tape.service';
 import { SwitchTypeService } from 'src/app/Shared/Services/switch-type.service';
+import { LoadingService } from 'src/app/Shared/Services/loading.service';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-events-tape-page',
@@ -21,6 +23,7 @@ export class EventsTapePageComponent  implements OnInit {
   constructor() { }
   navController: NavController = inject(NavController)
   eventService: EventService = inject(EventService)
+  loaderService:LoadingService = inject(LoadingService)
   eventTapeService: EventTapeService = inject(EventTapeService)
   switchTypeService:SwitchTypeService = inject(SwitchTypeService)
 
@@ -45,9 +48,12 @@ export class EventsTapePageComponent  implements OnInit {
   
 
   ionViewWillEnter(){
+    this.loaderService.showLoading()
     this.switchTypeService.setTypeInLocalSorage('events')
     console.log(this.switchTypeService.getTypeFromLocalSorage())
-    this.eventService.getAllEvents().subscribe((res:any) => {
+    this.eventService.getAllEvents().pipe(
+      finalize(()=> this.loaderService.hideLoading())
+    ).subscribe((res:any) => {
         this.eventTapeService.events = res.races
     })
   }

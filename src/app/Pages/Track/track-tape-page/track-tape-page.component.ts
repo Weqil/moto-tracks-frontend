@@ -7,9 +7,10 @@ import { RouterLink } from '@angular/router';
 import { TrackService } from 'src/app/Shared/Data/Services/Track/track.service';
 import { TrackTapeService } from 'src/app/Shared/Data/Services/Track/track-tape.service';
 import { IonContent, NavController } from '@ionic/angular/standalone';
-import { takeUntil } from 'rxjs/operators';
+import { finalize, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { SwitchTypeService } from 'src/app/Shared/Services/switch-type.service';
+import { LoadingService } from 'src/app/Shared/Services/loading.service';
 
 @Component({
   selector: 'app-track-tape-page',
@@ -27,11 +28,15 @@ export class TrackTapePageComponent  implements OnInit {
   trackService:TrackService = inject(TrackService)
   trackTapeService:TrackTapeService = inject(TrackTapeService)
   switchTypeService:SwitchTypeService = inject(SwitchTypeService)
+  loadingService:LoadingService = inject(LoadingService)
 
   @ViewChild(IonContent) ionContent!: IonContent
 
   getTracks(){
-    this.trackService.getTracks().pipe().subscribe((res:any)=>{
+    this.loadingService.showLoading()
+    this.trackService.getTracks().pipe(
+      finalize(()=>this.loadingService.hideLoading())
+    ).subscribe((res:any)=>{
       this.trackTapeService.tracks = res.tracks
     })
   }
@@ -41,6 +46,7 @@ export class TrackTapePageComponent  implements OnInit {
   }
 
   ionViewWillEnter(){
+
     this.switchTypeService.setTypeInLocalSorage('tracks')
     this.ionContent.scrollToPoint(0, this.trackTapeService.tracksLastScrollPositionForTape, 0)
     this.ionContent.ionScroll.pipe(takeUntil(this.destroy$)).subscribe((event: any) => {
