@@ -121,7 +121,10 @@ export class EventsViewPageComponent  implements OnInit {
       })
     }
 
-   
+   redirectInRace(){
+     this.navController.navigateForward(`/track/${this.event.track.id}`)
+      
+   }
 
     openApplicationForm(){
       if(this.authService.isAuthenticated()){
