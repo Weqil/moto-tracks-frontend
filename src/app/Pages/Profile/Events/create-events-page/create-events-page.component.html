@@ -29,7 +29,7 @@
       <app-standart-button [disabled]="stepInvalidate()"  *ngIf="stepCurrency !== maxStepsCount" (click)="stepNext()" buttonText="Далее" theme="standart"></app-standart-button>
       <app-standart-button [disabled]="stepInvalidate()"  *ngIf="stepCurrency === maxStepsCount" (click)="submitForm()"  buttonText="Создать и открыть" theme="standart"></app-standart-button>
       <div>
-        <app-standart-button [disabled]="stepInvalidate()" (click)="cancelCreate()"  buttonText="Отмена" theme="light"></app-standart-button>
+        <app-standart-button [disabled]="true" (click)="cancelCreate()"  buttonText="Отмена" theme="light"></app-standart-button>
       </div>
   </div>
   </main>

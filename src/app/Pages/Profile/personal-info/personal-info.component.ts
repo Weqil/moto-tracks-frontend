@@ -8,6 +8,7 @@ import { HeaderModule } from 'src/app/Shared/Modules/header/header.module';
 import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
 import { LoadingService } from 'src/app/Shared/Services/loading.service';
 import { ToastService } from 'src/app/Shared/Services/toast.service';
+import { NavController } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-personal-info',
@@ -16,6 +17,8 @@ import { ToastService } from 'src/app/Shared/Services/toast.service';
   imports:[FormsModule, ReactiveFormsModule,SharedModule,HeaderModule,StandartButtonComponent]
 })
 export class PersonalInfoComponent  implements OnInit {
+  navController:NavController = inject(NavController)
+  
 
   constructor() { }
   
@@ -53,6 +56,7 @@ export class PersonalInfoComponent  implements OnInit {
       ).subscribe((res:any)=>{
         this.toastService.showToast('Данные успешно изменены', 'success')
         this.userService.refreshUser()
+        this.navController.back();
       })
     }else{
         this.userService.createPersonalInfo(this.personalUserForm.value).pipe(
@@ -63,8 +67,14 @@ export class PersonalInfoComponent  implements OnInit {
         ).subscribe((res:any)=>{
           this.toastService.showToast('Данные успешно добавлены', 'success')
           this.userService.refreshUser()
+          this.navController.back();
         })
     }
+    
+  }
+
+  cancelEdit(){
+    this.navController.back()
   }
 
   ionViewWillEnter() {
