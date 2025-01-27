@@ -27,21 +27,21 @@ export class PagesWithNavComponent  {
 
   links: Link[] = [
       {
-        icon: '/assets/navigation/map.svg',
+        icon: '/assets/navigation/tape.svg',
         name:'Гонки',
         active:false,
         path: ['/events'],
       },
       
       {
-        icon: '/assets/navigation/tape.svg',
+        icon: '/assets/icons/Repeat.svg',
         name:'Треки',
         active:false,
-        path: ['/tracks'],
+        path: ['/tracks'], 
       },
 
       {
-        icon: '/assets/navigation/favorites.svg',
+        icon: '/assets/navigation/reiting.svg',
         name:'Рейтинг',
         active:false,
         path: [''],
