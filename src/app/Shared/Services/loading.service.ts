@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { LoadingController } from '@ionic/angular'
+import { LoadingController } from '@ionic/angular/standalone'
 import { MessagesLoading } from '../Enums/messages-loading'
 
 @Injectable({
