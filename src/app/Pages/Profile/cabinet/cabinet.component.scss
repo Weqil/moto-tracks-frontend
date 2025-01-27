@@ -6,6 +6,7 @@
     display: flex;
     justify-content:space-between;
     align-items: center;
+    gap: 8px;
     .user-info__class{
         border-radius: 50%;
         overflow-y: none;
@@ -15,6 +16,7 @@
             width: 4.5rem;
         }
     }
+    padding-bottom: var(--standart-padding);
 
 }
 
@@ -24,6 +26,7 @@
 
 .cabinet__select-status{
     width: 8rem;
+    padding-bottom: var(--standart-padding);
 }
 .user-info__class{
     background-color: var(--white-color);
