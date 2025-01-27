@@ -4,8 +4,8 @@
     <div class="cabinet">
       <div class="cabinet__user-info">
         <app-user-section (changeStatus)="setNewStatusModalOpen()" [user]="user"></app-user-section>
-        <div class="user-info__class">
-            <img src="/assets/images/userClassTemplate2.png" alt="">
+        <div *ngIf="user?.personal?.start_number" class="user-info__class">
+            {{user?.personal?.start_number}}
         </div>
       </div>
       <div class="cabinet__select-status">
