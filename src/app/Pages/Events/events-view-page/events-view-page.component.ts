@@ -82,7 +82,7 @@ export class EventsViewPageComponent  implements OnInit {
     pasportForm: FormGroup = new FormGroup(
       {
         numberAndSeria: new FormControl('',[Validators.required]), //Серия и номер полиса
-        pasportFileLink: new FormControl('',[Validators.required, ]), // путь до файла
+        pasportFileLink: new FormControl(''), // путь до файла
       }
     )
 
