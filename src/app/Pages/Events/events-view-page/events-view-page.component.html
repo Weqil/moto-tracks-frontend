@@ -10,7 +10,7 @@
       <div class="main-container">
         <div class="event-name">{{event.name}}</div>
         @if (usersInRace.length) {
-          <app-users-preview [generateLinkUrl]="checkUser()" (generateLinkButtonClick)="generateGoogleLink()" [fullValueUsers]="usersInRace.length" [users]="usersInRace" [moreCount]="usersInRace.length" [openUsersModal]="openUserModalValue" (closeModalEmit)="closeStateUsersModal()" (openModalEmit)="openStateUsersModal()"></app-users-preview>
+          <app-users-preview  [fullValueUsers]="usersInRace.length" [users]="usersInRace" [moreCount]="usersInRace.length" [openUsersModal]="openUserModalValue" (closeModalEmit)="closeStateUsersModal()" (openModalEmit)="openStateUsersModal()"></app-users-preview>
         }
         <div class="event-description">{{event.desc}}</div>
         <div class="event-track">

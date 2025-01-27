@@ -121,14 +121,7 @@ export class EventsViewPageComponent  implements OnInit {
       })
     }
 
-    generateGoogleLink(){
-      this.loaderService.showLoading()
-      this.eventService.generateGoogleLink(this.eventId).pipe(
-        finalize(()=> this.loadingService.hideLoading())
-      ).subscribe((res:any)=>{
-        window.open(res.table_url)
-      })
-    }
+   
 
     openApplicationForm(){
       if(this.authService.isAuthenticated()){

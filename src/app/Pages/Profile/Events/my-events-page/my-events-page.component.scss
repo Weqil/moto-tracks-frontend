@@ -4,7 +4,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: var(--standart-padding);
+    gap: 2rem;
     flex-direction: column;
     padding-bottom: 2rem;
+}
+.buttons-container{
+    width: 100%;
+    padding-top: var(--little-padding);
 }
