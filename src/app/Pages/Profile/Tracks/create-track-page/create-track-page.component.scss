@@ -120,6 +120,9 @@ ion-radio {
   border-radius: 5px;
   border: 1px solid #4c586141;
 }
+form{
+  padding-top: var(--standart-padding);
+}
 .delete-button {
   margin-top: .19rem;
   width: 2rem;
