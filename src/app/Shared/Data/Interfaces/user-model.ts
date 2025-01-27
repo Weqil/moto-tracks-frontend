@@ -16,6 +16,7 @@ export interface User{
         start_number:string,
         group:string,
         ranks:string,
+        rank:string,
         rank_number:string,
         community:string,
         coach:string,
