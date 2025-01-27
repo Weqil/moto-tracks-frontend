@@ -3,8 +3,9 @@
     <img class="user-section__avatar__img" [src]="user.avatar | checkImgUrl" alt="">
   </div>
   <div class="user-section__info">
-    <h2 class="user-section__name">{{user.name}}</h2>
+    <h2 class="user-section__name">{{ (user?.personal?.name && user?.personal?.surname) ? (user.personal.name +  ' ' +  user.personal.surname) : user.name}}</h2>
     <p class="user-section__email">{{user.email}}</p>
+    <p *ngIf="user?.personal?.rank" class="user-section__email">{{user.personal.rank}}</p>
   </div>
 </div>
 <div *ngIf="status" class="cabinet__user-status">{{status}}</div>  
