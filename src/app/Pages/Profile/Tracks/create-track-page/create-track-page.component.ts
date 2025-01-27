@@ -27,7 +27,7 @@ export class CreateTrackPageComponent  implements OnInit {
   constructor() { }
   navController: NavController = inject(NavController)
 
-  maxStepsCount: number = 2
+  maxStepsCount: number = 1
   stepCurrency: number = 1
 
   trackService: TrackService = inject(TrackService)
