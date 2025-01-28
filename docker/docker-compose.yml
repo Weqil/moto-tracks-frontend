@@ -1,0 +1,9 @@
+version: "3.8"
+services:
+  moto_nginx:
+      image: moskowpsix/moto-nginx:develop
+      ports:
+          - "444:443"
+      volumes:
+          - ./nginx/conf.d:/etc/nginx/conf.d
+          - ../:/var/www/moto_front
