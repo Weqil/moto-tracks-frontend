@@ -61,17 +61,17 @@ export class CabinetComponent  implements OnInit {
   }
   ionViewWillEnter(){
     let userStatus = Number(localStorage.getItem('user-status'))
-
+    console.log('чекаю юзера')
     if(userStatus == 1){
       this.selectedStatusItem = { id: 1, name: 'Гонщик', value: 'Гонщик' }
     }else{
       this.selectedStatusItem = { id: 2, name: 'Организатор', value: 'Организатор' }
     }
-    this.user = this.userService.user.value 
-
   }
   ngOnInit() {
-    
+    this.userService.user.pipe().subscribe(()=>{
+      this.user = this.userService.user.value 
+    })
   }
 
 }

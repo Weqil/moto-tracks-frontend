@@ -78,8 +78,8 @@ export class PersonalInfoComponent  implements OnInit {
   }
 
   ionViewWillEnter() {
-    console.log(this.userService.user.value)
     this.userService.refreshUser()
+    console.log('чекаю юзера')
     if(this.userService.user.value?.personal){
       this.personalUserForm.patchValue(this.userService.user.value?.personal)
       this.personalUserForm.patchValue({
