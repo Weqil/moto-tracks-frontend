@@ -27,6 +27,9 @@ export class StandartButtonComponent  implements OnInit {
       if(this.theme == 'red'){
         return 'standart-button--red'
       }
+      if(this.theme == 'big'){
+        return 'standart-button--big'
+      }
     }
 
     return 'standart-button_disabled'
