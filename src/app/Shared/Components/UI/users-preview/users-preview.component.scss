@@ -29,10 +29,18 @@
     display: flex;
     gap: 1rem;
     flex-direction: column;
+    height: 100%;
 }
 .users_avatars{
     display: flex;
     padding-top: 0.5rem;
+}
+
+.close-container{
+    position: fixed;
+    width: 95%;
+    top: 90%;
+    right: 3%
 }
 .users_avatars-user-more{
     background-color: rgb(255, 255, 255);
@@ -53,6 +61,9 @@
     width: 1rem;
     height: 1rem;
 }
+ion-header{
+    --background: var(--white-color);
+}
 ion-modal{
   
     --background:#fff;
@@ -62,6 +73,7 @@ ion-modal{
 }
 ion-toolbar{
     --border:none;
+    --background: var(--dark-grey-color);
 }
 .user-modal-header{
     display: flex;
@@ -70,6 +82,8 @@ ion-toolbar{
     gap: 1rem;
     justify-content: center;
     font-family: var(--font-bold);
+    background-color: var(--dark-grey-color);
+    color: var(--white-color);
 }
 .close-wrapper{
     background-color: rgb(255, 255, 255);
@@ -93,7 +107,8 @@ ion-toolbar{
 }
 
 .user-info__class{
-    background-color: var(--white-color);
+    background-color: var(--dark-grey-color);
+    color: var(--white-color);
     min-width: 3rem;
     font-size: 20px;
     text-align: center;
