@@ -9,7 +9,7 @@ import { SlidersModule } from 'src/app/Shared/Modules/sliders/sliders.module';
 import { ButtonsModule } from 'src/app/Shared/Modules/buttons/buttons.module';
 import { TrackSectionComponent } from "../../../Shared/Components/Track/track-section/track-section.component";
 import { SwitchTypeService } from 'src/app/Shared/Services/switch-type.service';
-import { IonModal, NavController } from '@ionic/angular/standalone';
+import { IonModal, NavController, Platform } from '@ionic/angular/standalone';
 import { HeaderModule } from 'src/app/Shared/Modules/header/header.module';
 import { StandartInputComponent } from 'src/app/Shared/Components/Forms/standart-input/standart-input.component';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -88,6 +88,7 @@ export class EventsViewPageComponent  implements OnInit {
 
 
     loaderService:LoadingService = inject(LoadingService)
+    platform:Platform = inject(Platform)
     pasport:any
     licenses:any
     polis:any
@@ -254,5 +255,10 @@ export class EventsViewPageComponent  implements OnInit {
       })
     }
 
-  ngOnInit() {}
+  ngOnInit() {
+    //Необходимо что бы не ломалась модалка
+    window.addEventListener('popstate', (event) => {
+      this.closeStateUsersModal()
+    });
+  }
 }
