@@ -33,6 +33,9 @@ export class PersonalInfoComponent  implements OnInit {
       city: {
          errorMessage:''
       },
+      startNumber: {
+         errorMessage:''
+      },
   }
 
   userService:UserService = inject(UserService)
