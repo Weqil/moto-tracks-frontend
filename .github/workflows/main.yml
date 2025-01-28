@@ -1,0 +1,25 @@
+name: "MotoDeployDevelop"
+
+on:
+  push:
+    branches: ["Develop"]
+  pull_request:
+    branches: ["Develop"]
+
+jobs:
+  deploy-code-to-server:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.PROD_SSH_HOST }}
+          username: ${{ secrets.PROD_SSH_NAME }}
+          password: ${{ secrets.PROD_SSH_PASSWORD }}
+          port: ${{ secrets.PROD_SSH_PORT }}
+
+          script: |
+            cd ${{ secrets.PROD_PROJECT_DIR }};
+            git checkout master;
+            git checkout -- .
+            git -c credential.helper='!f() { echo "username=${{secrets.GIT_AUTH_NAME}}"; echo "password=${{secrets.GIT_AUTH_TOKEN}}"; }; f' pull
