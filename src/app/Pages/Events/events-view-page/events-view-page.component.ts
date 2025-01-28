@@ -179,6 +179,7 @@ export class EventsViewPageComponent  implements OnInit {
       ).subscribe((res:any)=>{
           this.getUsersInRace()
           this.closeApplicationForm()
+          this.getEvent()
           this.toastService.showToast('Заявка успешно отправленна','success')
       })
     }
