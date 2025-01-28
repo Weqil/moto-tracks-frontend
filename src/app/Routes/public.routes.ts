@@ -13,7 +13,7 @@ export const publicRoutes: Routes = [
       },
       {
           path: '',
-          redirectTo: 'tracks',
+          redirectTo: 'events',
           pathMatch: 'full',
       },
       {
