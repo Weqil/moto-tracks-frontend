@@ -33,7 +33,7 @@ export class CreateEventsPageComponent  implements OnInit {
   loadingService: LoadingService = inject(LoadingService)
   toastService: ToastService = inject(ToastService)
   
-  maxStepsCount: number = 2
+  maxStepsCount: number = 1
   stepCurrency: number = 1
 
   tracks!: Track[] 

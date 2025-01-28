@@ -28,26 +28,25 @@ export class PagesWithNavComponent  {
   links: Link[] = [
       {
         icon: '/assets/navigation/tape.svg',
-        name:'Лента',
+        name:'Гонки',
         active:false,
-        path: ['/tracks','/events'],
-        activeLink: this.tapeLink
+        path: ['/events'],
       },
-  
-      // {
-      //   icon: '/assets/navigation/map.svg',
-      //   name:'Рейтинг',
-      //   path: ['/home'],
-      //   active:false,
-      // },
-  
-      // {
-      //   icon: '/assets/navigation/favorites.svg',
-      //   name:'Избранное',
-      //   active:false,
-      //   path: ['/favorites'],
-      // },
-  
+      
+      {
+        icon: '/assets/icons/Repeat.svg',
+        name:'Треки',
+        active:false,
+        path: ['/tracks'], 
+      },
+
+      {
+        icon: '/assets/navigation/reiting.svg',
+        name:'Рейтинг',
+        active:false,
+        path: [],
+      },
+    
       {
         icon: '/assets/navigation/user.svg',
         name:'Профиль',

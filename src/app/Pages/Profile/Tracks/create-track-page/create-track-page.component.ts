@@ -27,7 +27,7 @@ export class CreateTrackPageComponent  implements OnInit {
   constructor() { }
   navController: NavController = inject(NavController)
 
-  maxStepsCount: number = 2
+  maxStepsCount: number = 1
   stepCurrency: number = 1
 
   trackService: TrackService = inject(TrackService)
@@ -43,7 +43,14 @@ export class CreateTrackPageComponent  implements OnInit {
     free: new FormControl('', [Validators.required, Validators.minLength(3)]),
     turns: new FormControl('', [Validators.required, Validators.minLength(3)]),
     length: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    desc: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    desc: new FormControl(`Длина: - 
+Ширина: -
+Покрытие: -
+Направление: -
+Левых поворотов: -
+Правых поворотов: -
+                            `
+, [Validators.required, Validators.minLength(3)]),
     level: new FormControl('', [Validators.required, Validators.minLength(3)]),
     images: new FormControl('', [Validators.required, Validators.minLength(3)]),
     is_work: new FormControl(1)

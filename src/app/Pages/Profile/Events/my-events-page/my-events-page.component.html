@@ -6,8 +6,13 @@
   <div class="main-container--with-header">
     <div class="events-grid">
       @for (event of events; track $index) {
-        <app-event-card [event]="event"></app-event-card>
-   
+        <div>
+          <app-event-card [event]="event"></app-event-card>
+          <div class="buttons-container">
+            <app-standart-button  (click)="generateGoogleLink(event.id)" buttonText="Получить таблицу"></app-standart-button>
+          </div>
+        </div>
+      
       }
    </div>
   </div>

@@ -7,6 +7,8 @@ import { EventModule } from 'src/app/Shared/Modules/event/event.module';
 import { EventService } from 'src/app/Shared/Data/Services/Event/event.service';
 import { IEvent } from 'src/app/Shared/Data/Interfaces/event';
 import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
+import { finalize } from 'rxjs/operators';
+import { LoadingService } from 'src/app/Shared/Services/loading.service';
 @Component({
   selector: 'app-my-events-page',
   templateUrl: './my-events-page.component.html',
@@ -20,8 +22,17 @@ export class MyEventsPageComponent  implements OnInit {
   eventService: EventService = inject(EventService)
   events!:any
   userService: UserService = inject(UserService)
+  loadingService:LoadingService = inject(LoadingService)
   redirectInCreate(){
     this.navController.navigateForward('/create-event')
+  }
+  generateGoogleLink(eventId:any){
+    this.loadingService.showLoading()
+    this.eventService.generateGoogleLink(eventId).pipe(
+      finalize(()=> this.loadingService.hideLoading())
+    ).subscribe((res:any)=>{
+      window.open(res.table_url)
+    })
   }
 
   ionViewWillEnter(){

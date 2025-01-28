@@ -1,4 +1,4 @@
-<div class="circles-grid">
+<div *ngIf="maxStepsCount !== 1" class="circles-grid">
     <ng-container *ngFor="let step of [].constructor(maxStepsCount); let i = index">
         <ng-container *ngIf="i+1 !== stepCurrency">
             <div class="step-circle">

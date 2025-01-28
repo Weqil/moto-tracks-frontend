@@ -1,15 +1,7 @@
 <ion-content [scrollEvents]="true">
-  <app-header-strong image ="/assets/images/moto-background.png">
-     <div class="track-page-header">
-        <div class="track-page-header__top-content">
-          <app-type-swither (endingSwitchAnimation)="redirectInEvents()"></app-type-swither>
-        </div>
-        <div class="track-page-header__bottom-content">
-            <button class="map-button">На карте</button>
-        </div>
-     </div>
-  </app-header-strong>
-  <main class="main-container--with-header--strong">
+  
+  <app-header headerTitle = "Лента треков"></app-header>
+  <main class="main-container--with-header">
     <div class="tracks">
       <div class="tracks-grid">
         @for (track of  this.trackTapeService.tracks; track $index) {

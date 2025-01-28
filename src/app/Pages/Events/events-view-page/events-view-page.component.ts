@@ -82,7 +82,7 @@ export class EventsViewPageComponent  implements OnInit {
     pasportForm: FormGroup = new FormGroup(
       {
         numberAndSeria: new FormControl('',[Validators.required]), //Серия и номер полиса
-        pasportFileLink: new FormControl('',[Validators.required, ]), // путь до файла
+        pasportFileLink: new FormControl(''), // путь до файла
       }
     )
 
@@ -121,14 +121,10 @@ export class EventsViewPageComponent  implements OnInit {
       })
     }
 
-    generateGoogleLink(){
-      this.loaderService.showLoading()
-      this.eventService.generateGoogleLink(this.eventId).pipe(
-        finalize(()=> this.loadingService.hideLoading())
-      ).subscribe((res:any)=>{
-        window.open(res.table_url)
-      })
-    }
+   redirectInRace(){
+     this.navController.navigateForward(`/track/${this.event.track.id}`)
+      
+   }
 
     openApplicationForm(){
       if(this.authService.isAuthenticated()){
@@ -183,6 +179,7 @@ export class EventsViewPageComponent  implements OnInit {
       ).subscribe((res:any)=>{
           this.getUsersInRace()
           this.closeApplicationForm()
+          this.getEvent()
           this.toastService.showToast('Заявка успешно отправленна','success')
       })
     }

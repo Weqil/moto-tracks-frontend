@@ -6,8 +6,8 @@
     display: flex;
     justify-content:space-between;
     align-items: center;
+    gap: 8px;
     .user-info__class{
-        display: inline;
         border-radius: 50%;
         overflow-y: none;
         img{
@@ -16,6 +16,7 @@
             width: 4.5rem;
         }
     }
+    padding-bottom: var(--standart-padding);
 
 }
 
@@ -25,4 +26,16 @@
 
 .cabinet__select-status{
     width: 8rem;
+    padding-bottom: var(--standart-padding);
+}
+.user-info__class{
+    background-color: var(--white-color);
+    min-width: 3rem;
+    font-size: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 3rem;
+    font-family: var(--font-bold);
 }

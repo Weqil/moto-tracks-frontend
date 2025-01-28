@@ -47,7 +47,7 @@ export class UserDocumentsComponent  implements OnInit {
   pasportForm: FormGroup = new FormGroup(
     {
       numberAndSeria: new FormControl('',[Validators.required, Validators.minLength(3)]), //Серия и номер полиса
-      pasportFileLink: new FormControl('',[Validators.required, Validators.minLength(3), ]), // путь до файла
+      pasportFileLink: new FormControl(''), // путь до файла
     }
   )
 
