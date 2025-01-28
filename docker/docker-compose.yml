@@ -1,0 +1,16 @@
+version: "3.8"
+services:
+    moto_nginx:
+        image: moskowpsix/moto-nginx:master
+        ports:
+          - "444:443"
+        volumes:
+          - ./nginx/conf.d:/etc/nginx/conf.d
+          - ../:/var/www/moto_front
+    moto_node:
+        image: node:22-alpine3.19
+        volumes:
+          - ../:/var/www/moto_front
+        working_dir: /var/www/moto_front
+        command: >
+                sh script.sh  

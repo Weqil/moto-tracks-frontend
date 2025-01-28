@@ -18,58 +18,100 @@ import { NavController } from '@ionic/angular/standalone';
 })
 export class PersonalInfoComponent  implements OnInit {
   navController:NavController = inject(NavController)
-  
-
   constructor() { }
-  
+  formErrors:any = {
+      name: {
+        errorMessage:''
+
+      },
+      surname: {
+         errorMessage:''
+      },
+      rank: {
+        errorMessage:''
+      },
+      city: {
+         errorMessage:''
+      },
+      startNumber: {
+         errorMessage:''
+      },
+  }
+
   userService:UserService = inject(UserService)
   toastService:ToastService = inject(ToastService)
   loaderService:LoadingService = inject(LoadingService)
   personalUserForm: FormGroup = new FormGroup({
-    name: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    surname: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    patronymic: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    dateOfBirth: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    city: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    inn: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    snils: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    phoneNumber: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    startNumber: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    group:new FormControl('', [Validators.required, Validators.minLength(3)]),
-    rank:new FormControl('', [Validators.required, Validators.minLength(3)]),
-    rankNumber:new FormControl('', [Validators.required, Validators.minLength(3)]),
-    community:new FormControl('', [Validators.required, Validators.minLength(3)]),
-    coach:new FormControl('', [Validators.required, Validators.minLength(3)]),
-    motoStamp:new FormControl('', [Validators.required, Validators.minLength(3)]),
-    engine:new FormControl('', [Validators.required, Validators.minLength(3)]),
+    name: new FormControl('', [Validators.required]),
+    surname: new FormControl('', [Validators.required]),
+    patronymic: new FormControl('', [Validators.required]),
+    dateOfBirth: new FormControl('', [Validators.required]),
+    city: new FormControl('', [Validators.required]),
+    inn: new FormControl('', [Validators.required]),
+    snils: new FormControl('', [Validators.required]),
+    phoneNumber: new FormControl('', [Validators.required]),
+    startNumber: new FormControl('', [Validators.required]),
+    group:new FormControl('', [Validators.required]),
+    rank:new FormControl('', [Validators.required]),
+    rankNumber:new FormControl('', [Validators.required]),
+    community:new FormControl('', [Validators.required]),
+    coach:new FormControl('', [Validators.required]),
+    motoStamp:new FormControl('', [Validators.required]),
+    engine:new FormControl('', [Validators.required]),
   })
 
-  submitForm(){
-    this.loaderService.showLoading()
-    if(this.userService.user.value?.personal){
-      this.userService.updatePersonalInfo(this.personalUserForm.value).pipe(
-        finalize(
-          ()=>{
-            this.loaderService.hideLoading()
+  submitValidate(){
+    let valid = true
+    Object.keys(this.personalUserForm.controls).forEach((key) => {
+      const control = this.personalUserForm.get(key); // Доступ к контролу
+      if (!control!.valid) {
+        if(this.formErrors[key]){
+          console.log(this.formErrors[key])
+          this.formErrors[key].errorMessage = 'Обязательное поле'; // Сообщение об ошибке
+           valid = false
+        }
+      } else {
+          if( this.formErrors[key]){
+            console.log('невалидирую форму')
+            this.formErrors[key].errorMessage = ''; // Очистка сообщения об ошибке
           }
-        )
-      ).subscribe((res:any)=>{
-        this.toastService.showToast('Данные успешно изменены', 'success')
-        this.userService.refreshUser()
-        this.navController.back();
-      })
-    }else{
-        this.userService.createPersonalInfo(this.personalUserForm.value).pipe(
+      }
+    });
+    return valid
+  }
+
+  submitForm(){
+    console.log(this.submitValidate())
+    if(this.submitValidate()){
+      this.loaderService.showLoading()
+      if(this.userService.user.value?.personal){
+        this.userService.updatePersonalInfo(this.personalUserForm.value).pipe(
           finalize(
             ()=>{
               this.loaderService.hideLoading()
-            })
+            }
+          )
         ).subscribe((res:any)=>{
-          this.toastService.showToast('Данные успешно добавлены', 'success')
+          this.toastService.showToast('Данные успешно изменены', 'success')
           this.userService.refreshUser()
           this.navController.back();
         })
+      }else{
+          this.userService.createPersonalInfo(this.personalUserForm.value).pipe(
+            finalize(
+              ()=>{
+                this.loaderService.hideLoading()
+              })
+          ).subscribe((res:any)=>{
+            this.toastService.showToast('Данные успешно добавлены', 'success')
+            this.userService.refreshUser()
+            this.navController.back();
+          })
+      }
+    }else{
+      this.toastService.showToast('Заполните обязательные поля - Фамилия, имя, адрес, спортивное звание','danger')
     }
+  
     
   }
 
@@ -77,9 +119,9 @@ export class PersonalInfoComponent  implements OnInit {
     this.navController.back()
   }
 
+
   ionViewWillEnter() {
     this.userService.refreshUser()
-    console.log('чекаю юзера')
     if(this.userService.user.value?.personal){
       this.personalUserForm.patchValue(this.userService.user.value?.personal)
       this.personalUserForm.patchValue({

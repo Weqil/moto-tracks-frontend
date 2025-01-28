@@ -1,0 +1,7 @@
+FROM node:22-alpine3.19 as build
+
+WORKDIR /var/www/moto_front
+
+RUN npm install --force
+RUN export NODE_OPTIONS="--max-old-space-size=8192"
+RUN npm run build

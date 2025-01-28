@@ -3,7 +3,7 @@ import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
 import { HeaderComponent } from 'src/app/Shared/Components/UI/header/header.component';
 import { ButtonsModule } from 'src/app/Shared/Modules/buttons/buttons.module';
 import { StepsModule } from 'src/app/Shared/Modules/steps/steps.module';
-import { NavController } from '@ionic/angular/standalone';
+import { NavController, Platform } from '@ionic/angular/standalone';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FormsModule } from 'src/app/Shared/Modules/forms/forms.module';
 import { EditSliderComponent } from 'src/app/Shared/Components/UI/edit-slider/edit-slider.component';
@@ -33,6 +33,7 @@ export class CreateTrackPageComponent  implements OnInit {
   trackService: TrackService = inject(TrackService)
   loadingService: LoadingService = inject(LoadingService)
   toastService: ToastService = inject(ToastService)
+  platform:Platform = inject(Platform)
 
   newParams: [{temp_id:any, title:string, value:string}]|any = []
   createTrackForm: FormGroup = new FormGroup({
@@ -43,7 +44,14 @@ export class CreateTrackPageComponent  implements OnInit {
     free: new FormControl('', [Validators.required, Validators.minLength(3)]),
     turns: new FormControl('', [Validators.required, Validators.minLength(3)]),
     length: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    desc: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    desc: new FormControl(`Длина: - 
+Ширина: -
+Покрытие: -
+Направление: -
+Левых поворотов: -
+Правых поворотов: -
+                            `
+, [Validators.required, Validators.minLength(3)]),
     level: new FormControl('', [Validators.required, Validators.minLength(3)]),
     images: new FormControl('', [Validators.required, Validators.minLength(3)]),
     is_work: new FormControl(1)
