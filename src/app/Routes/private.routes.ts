@@ -42,6 +42,11 @@ export const privateRoutes: Routes = [
                 path:'documents',
                 canActivate:[canActivateAuth],
                 loadComponent: () => import('../Pages/Profile/user-documents/user-documents.component').then((m) => m.UserDocumentsComponent)
+            },
+            {
+                path:'settings',
+                canActivate:[canActivateAuth],
+                loadComponent: () => import('../Pages/Profile/settings/settings.component').then((m) => m.SettingsComponent)
             }
         ]
     }
