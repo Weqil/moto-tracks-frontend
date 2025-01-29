@@ -12,5 +12,15 @@ services:
         volumes:
           - ../:/var/www/moto_front
         working_dir: /var/www/moto_front
+        deploy:
+            restart_policy:
+                condition: on-failure
+            resources:
+                reservations:
+                    cpus: '2.0'
+                    memory: 1024M
+                limits:
+                    cpus: '4.0'
+                    memory: 2048M
         command: >
                 sh script.sh  
