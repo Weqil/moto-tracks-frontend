@@ -3,7 +3,7 @@
   <div class="main-container--with-header">
     <div class="cabinet">
       <div class="cabinet__user-info">
-        <app-user-section (changeStatus)="setNewStatusModalOpen()" [user]="user"></app-user-section>
+        <app-user-section [showRank]="false" [showAddress]="false" (changeStatus)="setNewStatusModalOpen()" [user]="user"></app-user-section>
         <div *ngIf="user?.personal?.start_number" class="user-info__class">
             {{user?.personal?.start_number}}
         </div>
@@ -14,7 +14,8 @@
       <app-profile-menu-item [routing]="'documents'" [iconColor]="'#0000'" [icon]="'/assets/icons/documents.svg'"  [iconFilter]="''" [name]="'Мои документы'"></app-profile-menu-item>
       <app-profile-menu-item *ngIf="selectedStatusItem.id == 2" [routing]="'my-events'" [iconColor]="'#0000'" [icon]="'/assets/icons/FlagStrong.svg'" [name]="'Мои гонки'"></app-profile-menu-item>
       <app-profile-menu-item *ngIf="selectedStatusItem.id == 2" [routing]="'my-tracks'" [iconColor]="'#0000'" [icon]="'/assets/icons/Repeat.svg'" [name]="'Мои треки'"></app-profile-menu-item>
-      <app-profile-menu-item *ngIf="selectedStatusItem.id == 2" [routing]="'personal-info'" [iconColor]="'#0000'" [icon]="'/assets/icons/documents.svg'" [name]="'Анкета участника'"></app-profile-menu-item>
+      <app-profile-menu-item  [routing]="'personal-info'" [iconColor]="'#0000'" [icon]="'/assets/icons/documents.svg'" [name]="'Анкета участника'"></app-profile-menu-item>
+      <app-profile-menu-item  [routing]="'settings'" [iconColor]="'#0000'" [icon]="'/assets/icons/settings.svg'" [name]="'Настройки'"></app-profile-menu-item>
       
       <div class="cabinet__logout">
         <app-standart-button (click)="logoutInAccount()" theme="red" buttonText="Выход"></app-standart-button>
