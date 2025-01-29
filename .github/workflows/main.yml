@@ -2,9 +2,9 @@ name: "MotoDeployDevelop"
 
 on:
   push:
-    branches: ["Develop"]
+    branches: ["Main"]
   pull_request:
-    branches: ["Develop"]
+    branches: ["Main"]
 
 jobs:
   deploy-code-to-server:
@@ -20,7 +20,7 @@ jobs:
 
           script: |
             cd ${{ secrets.PROD_PROJECT_DIR }};
-            git checkout master;
+            git checkout Main;
             git checkout -- .
             git -c credential.helper='!f() { echo "username=${{secrets.GIT_AUTH_NAME}}"; echo "password=${{secrets.GIT_AUTH_TOKEN}}"; }; f' pull
             docker service update --force moto_front_moto_node
