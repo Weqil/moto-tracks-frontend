@@ -13,7 +13,7 @@
         </div>
         <app-standart-input [control]="personalUserForm.get('phoneNumber')" placeholder="Номер телефона" label="Телефон"></app-standart-input>
         <div class="start-number-container">
-          <app-standart-input  [control]="personalUserForm.get('startNumber')" placeholder="Стартовый номер" label="Стартовый номер"></app-standart-input>
+          <app-standart-input  [control]="personalUserForm.get('startNumber')" [invalid]="formErrors.startNumber.errorMessage.length !== 0" [errorMessage]="formErrors.startNumber.errorMessage" placeholder="Стартовый номер" label="Стартовый номер"></app-standart-input>
           <app-standart-input [control]="personalUserForm.get('group')" placeholder="Класс (группа)" label="Класс"></app-standart-input>
         </div>
         <app-standart-input  [control]="personalUserForm.get('rank')" placeholder="Спортивное звание, разряд" label="Спортивное звание" [invalid]="formErrors.rank.errorMessage.length !== 0" [errorMessage]="formErrors.rank.errorMessage"></app-standart-input>
