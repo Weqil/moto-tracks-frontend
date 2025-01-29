@@ -1,0 +1,30 @@
+ion-modal{
+    --max-height: 10rem;
+    --max-width: 22rem;
+    --border-radius: 5px;
+    --overflow: hidden;
+}
+ion-content{
+    --overflow: hidden;
+}
+.modal-confirm-button-container{
+    display: flex;
+    gap: 1rem;
+    min-width: 100%;
+}
+.button-wrapper{
+    flex: 1;
+    width: 50%;
+}
+.modal-confirm-title{
+    text-align: center;
+    padding-top: 2rem;
+    color:#4C5861;
+    font-family: var(--font-bold);
+    padding-bottom: 1rem;
+    font-size: 1rem;
+}
+.modal-confirm{
+    padding-left: 1rem;
+    padding-right: 1rem;
+}

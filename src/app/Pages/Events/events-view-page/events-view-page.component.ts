@@ -16,14 +16,18 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
 import { AuthService } from 'src/app/Shared/Data/Services/Auth/auth.service';
 import { ToastService } from 'src/app/Shared/Services/toast.service';
+
 import { User } from 'src/app/Shared/Data/Interfaces/user-model';
+import * as _ from 'lodash';
+
 import { UsersPreviewComponent } from 'src/app/Shared/Components/UI/users-preview/users-preview.component';
+import { ConfirmModalComponent } from 'src/app/Shared/Components/UI/confirm-modal/confirm-modal.component';
 
 @Component({
   selector: 'app-events-view-page',
   templateUrl: './events-view-page.component.html',
   styleUrls: ['./events-view-page.component.scss'],
-  imports: [SharedModule, SlidersModule, ButtonsModule, TrackSectionComponent,IonModal,HeaderModule, StandartInputComponent,UsersPreviewComponent]
+  imports: [SharedModule, SlidersModule, ButtonsModule, TrackSectionComponent,IonModal,HeaderModule, StandartInputComponent,UsersPreviewComponent,ConfirmModalComponent]
 })
 export class EventsViewPageComponent  implements OnInit {
 
@@ -37,11 +41,13 @@ export class EventsViewPageComponent  implements OnInit {
   navController: NavController = inject(NavController)
   loadingService: LoadingService = inject(LoadingService)
   switchTypeService:SwitchTypeService = inject(SwitchTypeService)
-
+  changePersonalDateModalValue:boolean = false
   usersInRace:User[] = []
   event!:IEvent
   openUserModalValue:boolean = false
   raceUser!:User
+  documents:any = []
+  
   applicationFormValueState:boolean = false
   userService:UserService = inject(UserService)
   eventId: string = ''
@@ -189,6 +195,75 @@ export class EventsViewPageComponent  implements OnInit {
     })
   }
 
+  //Проверяю изменились ли данные у пользователя
+  checkChangeInPersonalform(){
+    let personalFormChange = false
+    function normalizeObject(obj: any) {
+      return Object.keys(obj).reduce((acc: any, key: string) => {
+        acc[key] = obj[key] === null ? undefined : obj[key]; 
+        return acc;
+      }, {});
+    }
+    
+    if (this.userService.user.value?.personal) {
+      let oldPersonal: any = { ...this.userService.user.value.personal };
+    
+      // Переименовываем поля
+      oldPersonal.dateOfBirth = oldPersonal.date_of_birth;
+      oldPersonal.phoneNumber = oldPersonal.phone_number;
+      oldPersonal.startNumber = oldPersonal.start_number;
+      oldPersonal.rankNumber = oldPersonal.rank_number;
+      oldPersonal.motoStamp = oldPersonal.moto_stamp;
+    
+      // Удаляем старые названия
+      delete oldPersonal.date_of_birth;
+      delete oldPersonal.phone_number;
+      delete oldPersonal.start_number;
+      delete oldPersonal.rank_number;
+      delete oldPersonal.moto_stamp;
+    
+      console.log("Old Personal:", oldPersonal);
+      console.log("Form Data:", this.personalUserForm.value);
+    
+      // Приводим объекты к единому виду
+      const normalizedOld = normalizeObject(oldPersonal);
+      const normalizedForm = normalizeObject(this.personalUserForm.value);
+    
+      // Используем Lodash
+      personalFormChange = _.isEqual(normalizedOld, normalizedForm);
+
+      //Если обьекты различаются
+      if(!personalFormChange){
+        console.log('хочу сохранить данные')
+        this.changePersonalDateModalValue = true
+      }
+    }
+    
+  }
+
+  saveNewPersonal(){
+    this.loaderService.showLoading()
+    this.userService.updatePersonalInfo(this.personalUserForm.value).pipe(
+      finalize(
+        ()=>{
+          this.loaderService.hideLoading()
+        }
+      )
+    ).subscribe((res:any)=>{
+      this.toastService.showToast('Данные успешно изменены', 'success')
+      this.userService.refreshUser()
+      this.getUsersInRace()
+      this.changePersonalDateModalValue = false
+    })
+  }
+
+  closePersonalNewModal(){
+    this.changePersonalDateModalValue = false
+  }
+
+  checkChangeDocumentsForm(){
+
+  }
 
    setFirstDocuments(){
     let documents = []
@@ -265,6 +340,7 @@ export class EventsViewPageComponent  implements OnInit {
           //Если пользователь не имел персональных данных
           this.setFirstUserPersonal()
           this.setFirstDocuments()
+          this.checkChangeInPersonalform()
           this.toastService.showToast('Заявка успешно отправленна','success')
       })
     }else{
@@ -272,6 +348,8 @@ export class EventsViewPageComponent  implements OnInit {
     }
       
   }
+
+  
 
   setUserInForm(){
     this.userService.refreshUser()
