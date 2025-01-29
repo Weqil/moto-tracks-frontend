@@ -1,6 +1,6 @@
 import { Component, Inject, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { finalize, Subject, takeUntil } from 'rxjs';
+import { finalize, Subject, takeUntil, tap } from 'rxjs';
 import { IEvent } from 'src/app/Shared/Data/Interfaces/event';
 import { EventService } from 'src/app/Shared/Data/Services/Event/event.service';
 import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
@@ -146,6 +146,66 @@ export class EventsViewPageComponent  implements OnInit {
       
    }
 
+   //Если у пользователя не было данных создаём их
+   setFirstUserPersonal(){
+    if(!this.userService.user.value?.personal){
+      this.loaderService.showLoading()
+        this.userService.createPersonalInfo(this.personalUserForm.value).pipe(
+          finalize(
+            ()=>{
+              this.loaderService.hideLoading()
+            })
+        ).subscribe((res:any)=>{
+          this.userService.refreshUser()
+        })
+      }
+   }
+
+
+   createLicenses(){
+    this.userService.createUserDocument({type: 'licenses', data:(this.licensesForm.value)}).pipe(
+    finalize(()=>{
+      this.loaderService.hideLoading()
+    })
+  ).subscribe((res:any)=>{
+  })
+  }
+
+  createPasport(){
+      this.userService.createUserDocument({type: 'pasport', data:(this.pasportForm.value)}).pipe(
+      finalize(()=>{
+        this.loaderService.hideLoading()
+      })
+    ).subscribe((res:any)=>{
+    })
+  }
+
+  createPolis(){
+      this.userService.createUserDocument({type: 'polis', data:(this.polisForm.value)}).pipe(
+      finalize(()=>{
+        this.loaderService.hideLoading()
+      })
+    ).subscribe((res:any)=>{
+    })
+  }
+
+
+   setFirstDocuments(){
+    let documents = []
+    this.userService.getUserDocuments().pipe(
+      finalize(()=>{
+        this.loaderService.hideLoading()
+      }),
+    ).subscribe((res:any)=>{
+      documents = res.documents
+      if(documents.length == 0){
+        this.createLicenses()
+        this.createPasport()
+        this.createPolis()
+      }
+    })
+   }
+
     openApplicationForm(){
       if(this.authService.isAuthenticated()){
         this.applicationFormValueState = true
@@ -181,6 +241,8 @@ export class EventsViewPageComponent  implements OnInit {
     }
   }
 
+
+
   toggleAplicationInRace(){
     if(this.submitValidate()){
       let currentForm = {
@@ -200,6 +262,9 @@ export class EventsViewPageComponent  implements OnInit {
           this.getUsersInRace()
           this.closeApplicationForm()
           this.getEvent()
+          //Если пользователь не имел персональных данных
+          this.setFirstUserPersonal()
+          this.setFirstDocuments()
           this.toastService.showToast('Заявка успешно отправленна','success')
       })
     }else{
