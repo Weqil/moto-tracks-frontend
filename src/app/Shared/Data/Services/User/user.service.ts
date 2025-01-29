@@ -24,7 +24,9 @@ export class UserService {
     }
   }
 
- 
+  deleteUser(){
+    
+  }
 
   createUserDocument(document:any){
     return this.http.post<any>(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/users/cabinet/documents`, document)

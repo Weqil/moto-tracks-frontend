@@ -1,6 +1,6 @@
 import { Component, Inject, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { finalize, Subject, takeUntil } from 'rxjs';
+import { finalize, Subject, takeUntil, tap } from 'rxjs';
 import { IEvent } from 'src/app/Shared/Data/Interfaces/event';
 import { EventService } from 'src/app/Shared/Data/Services/Event/event.service';
 import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
@@ -86,6 +86,25 @@ export class EventsViewPageComponent  implements OnInit {
       }
     )
 
+    formErrors:any = {
+      name: {
+        errorMessage:''
+
+      },
+      surname: {
+         errorMessage:''
+      },
+      rank: {
+        errorMessage:''
+      },
+      city: {
+         errorMessage:''
+      },
+      startNumber: {
+         errorMessage:''
+      },
+  }
+
 
     loaderService:LoadingService = inject(LoadingService)
     platform:Platform = inject(Platform)
@@ -127,6 +146,66 @@ export class EventsViewPageComponent  implements OnInit {
       
    }
 
+   //Если у пользователя не было данных создаём их
+   setFirstUserPersonal(){
+    if(!this.userService.user.value?.personal){
+      this.loaderService.showLoading()
+        this.userService.createPersonalInfo(this.personalUserForm.value).pipe(
+          finalize(
+            ()=>{
+              this.loaderService.hideLoading()
+            })
+        ).subscribe((res:any)=>{
+          this.userService.refreshUser()
+        })
+      }
+   }
+
+
+   createLicenses(){
+    this.userService.createUserDocument({type: 'licenses', data:(this.licensesForm.value)}).pipe(
+    finalize(()=>{
+      this.loaderService.hideLoading()
+    })
+  ).subscribe((res:any)=>{
+  })
+  }
+
+  createPasport(){
+      this.userService.createUserDocument({type: 'pasport', data:(this.pasportForm.value)}).pipe(
+      finalize(()=>{
+        this.loaderService.hideLoading()
+      })
+    ).subscribe((res:any)=>{
+    })
+  }
+
+  createPolis(){
+      this.userService.createUserDocument({type: 'polis', data:(this.polisForm.value)}).pipe(
+      finalize(()=>{
+        this.loaderService.hideLoading()
+      })
+    ).subscribe((res:any)=>{
+    })
+  }
+
+
+   setFirstDocuments(){
+    let documents = []
+    this.userService.getUserDocuments().pipe(
+      finalize(()=>{
+        this.loaderService.hideLoading()
+      }),
+    ).subscribe((res:any)=>{
+      documents = res.documents
+      if(documents.length == 0){
+        this.createLicenses()
+        this.createPasport()
+        this.createPolis()
+      }
+    })
+   }
+
     openApplicationForm(){
       if(this.authService.isAuthenticated()){
         this.applicationFormValueState = true
@@ -162,8 +241,10 @@ export class EventsViewPageComponent  implements OnInit {
     }
   }
 
+
+
   toggleAplicationInRace(){
-    if(!this.invalidRequest()){
+    if(this.submitValidate()){
       let currentForm = {
         ...this.personalUserForm.value,
         ...this.polisForm.value,
@@ -181,9 +262,15 @@ export class EventsViewPageComponent  implements OnInit {
           this.getUsersInRace()
           this.closeApplicationForm()
           this.getEvent()
+          //Если пользователь не имел персональных данных
+          this.setFirstUserPersonal()
+          this.setFirstDocuments()
           this.toastService.showToast('Заявка успешно отправленна','success')
       })
+    }else{
+      this.toastService.showToast('Заполните обязательные поля - Фамилия, имя, адрес, спортивное звание','danger')
     }
+      
   }
 
   setUserInForm(){
@@ -237,6 +324,24 @@ export class EventsViewPageComponent  implements OnInit {
     }else{
       return false
     }
+  }
+
+  submitValidate(){
+    let valid = true
+    Object.keys(this.personalUserForm.controls).forEach((key) => {
+      const control = this.personalUserForm.get(key); // Доступ к контролу
+      if (!control!.valid) {
+        if(this.formErrors[key]){
+          this.formErrors[key].errorMessage = 'Обязательное поле'; // Сообщение об ошибке
+           valid = false
+        }
+      } else {
+          if( this.formErrors[key]){
+            this.formErrors[key].errorMessage = ''; // Очистка сообщения об ошибке
+          }
+      }
+    });
+    return valid
   }
 
   ionViewWillEnter(){

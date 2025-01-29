@@ -95,7 +95,6 @@ export class UserDocumentsComponent  implements OnInit {
       this.loaderService.hideLoading()
     })
   ).subscribe((res:any)=>{
- 
     this.toastService.showToast('Данные лицензии успешно сохранены','success')
   })
   }
