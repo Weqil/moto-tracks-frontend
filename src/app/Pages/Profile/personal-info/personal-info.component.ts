@@ -66,13 +66,11 @@ export class PersonalInfoComponent  implements OnInit {
       const control = this.personalUserForm.get(key); // Доступ к контролу
       if (!control!.valid) {
         if(this.formErrors[key]){
-          console.log(this.formErrors[key])
           this.formErrors[key].errorMessage = 'Обязательное поле'; // Сообщение об ошибке
            valid = false
         }
       } else {
           if( this.formErrors[key]){
-            console.log('невалидирую форму')
             this.formErrors[key].errorMessage = ''; // Очистка сообщения об ошибке
           }
       }

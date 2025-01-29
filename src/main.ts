@@ -1,4 +1,4 @@
-import { NG_EVENT_PLUGINS } from "@taiga-ui/event-plugins";
+
 import { provideAnimations } from "@angular/platform-browser/animations";
 import { bootstrapApplication } from '@angular/platform-browser';
 import { RouteReuseStrategy, provideRouter, withPreloading, PreloadAllModules } from '@angular/router';
@@ -32,8 +32,5 @@ bootstrapApplication(AppComponent, {
         provideRouter(errorsRoutes),
         importProvidersFrom(AngularYandexMapsModule.forRoot(yandexMapConfig)),
         provideHttpClient(withInterceptors([authTokenInterceptor])),
-        
-        NG_EVENT_PLUGINS,
-        NG_EVENT_PLUGINS
     ],
 });

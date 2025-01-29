@@ -5,7 +5,6 @@ import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
 import { CheckImgUrlPipe } from "../../../Shared/Helpers/check-img-url.pipe";
 import { SlidersModule } from 'src/app/Shared/Modules/sliders/sliders.module';
 import { AngularYandexMapsModule } from 'angular8-yandex-maps';
-import {TuiSelectModule, TuiTextfieldControllerModule} from '@taiga-ui/legacy';
 import { ActivatedRoute } from '@angular/router';
 import { finalize, Subject, takeUntil } from 'rxjs';
 import { TrackService } from 'src/app/Shared/Data/Services/Track/track.service';
@@ -22,8 +21,6 @@ import { LoadingService } from 'src/app/Shared/Services/loading.service';
     SlidersModule,
     AngularYandexMapsModule,
     ButtonsModule,
-    TuiSelectModule,
-    TuiTextfieldControllerModule
 ]
 })
 
