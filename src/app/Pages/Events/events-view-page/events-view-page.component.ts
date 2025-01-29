@@ -16,16 +16,18 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
 import { AuthService } from 'src/app/Shared/Data/Services/Auth/auth.service';
 import { ToastService } from 'src/app/Shared/Services/toast.service';
+
 import { User } from 'src/app/Shared/Data/Interfaces/user-model';
 import * as _ from 'lodash';
 
 import { UsersPreviewComponent } from 'src/app/Shared/Components/UI/users-preview/users-preview.component';
+import { ConfirmModalComponent } from 'src/app/Shared/Components/UI/confirm-modal/confirm-modal.component';
 
 @Component({
   selector: 'app-events-view-page',
   templateUrl: './events-view-page.component.html',
   styleUrls: ['./events-view-page.component.scss'],
-  imports: [SharedModule, SlidersModule, ButtonsModule, TrackSectionComponent,IonModal,HeaderModule, StandartInputComponent,UsersPreviewComponent]
+  imports: [SharedModule, SlidersModule, ButtonsModule, TrackSectionComponent,IonModal,HeaderModule, StandartInputComponent,UsersPreviewComponent,ConfirmModalComponent]
 })
 export class EventsViewPageComponent  implements OnInit {
 
@@ -39,12 +41,13 @@ export class EventsViewPageComponent  implements OnInit {
   navController: NavController = inject(NavController)
   loadingService: LoadingService = inject(LoadingService)
   switchTypeService:SwitchTypeService = inject(SwitchTypeService)
-
+  changePersonalDateModalValue:boolean = false
   usersInRace:User[] = []
   event!:IEvent
   openUserModalValue:boolean = false
   raceUser!:User
   documents:any = []
+  
   applicationFormValueState:boolean = false
   userService:UserService = inject(UserService)
   eventId: string = ''
@@ -231,10 +234,31 @@ export class EventsViewPageComponent  implements OnInit {
 
       //Если обьекты различаются
       if(!personalFormChange){
-        
+        console.log('хочу сохранить данные')
+        this.changePersonalDateModalValue = true
       }
     }
     
+  }
+
+  saveNewPersonal(){
+    this.loaderService.showLoading()
+    this.userService.updatePersonalInfo(this.personalUserForm.value).pipe(
+      finalize(
+        ()=>{
+          this.loaderService.hideLoading()
+        }
+      )
+    ).subscribe((res:any)=>{
+      this.toastService.showToast('Данные успешно изменены', 'success')
+      this.userService.refreshUser()
+      this.getUsersInRace()
+      this.changePersonalDateModalValue = false
+    })
+  }
+
+  closePersonalNewModal(){
+    this.changePersonalDateModalValue = false
   }
 
   checkChangeDocumentsForm(){
@@ -324,6 +348,8 @@ export class EventsViewPageComponent  implements OnInit {
     }
       
   }
+
+  
 
   setUserInForm(){
     this.userService.refreshUser()
