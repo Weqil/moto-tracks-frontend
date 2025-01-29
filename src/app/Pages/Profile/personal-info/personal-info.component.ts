@@ -61,6 +61,11 @@ export class PersonalInfoComponent  implements OnInit {
     email:new FormControl('', [Validators.required])
   })
 
+  userSettingsForm: FormGroup = new FormGroup({
+    name: new FormControl('', [Validators.required]),
+    email:new FormControl('', [Validators.required])
+  })
+
   submitValidate(){
     let valid = true
     Object.keys(this.personalUserForm.controls).forEach((key) => {
