@@ -42,21 +42,21 @@
         <div class="race-name">{{event.name}}</div>
         <div class="race-date-start">{{event.date_start |date}}</div>
         <form class="personal-form">
-          <app-standart-input [control]="personalUserForm.get('surname')" placeholder="Введите фмилию" label="Фамилия"></app-standart-input>
-          <app-standart-input [control]="personalUserForm.get('name')" placeholder="Введите имя" label="Имя"></app-standart-input>
+          <app-standart-input [control]="personalUserForm.get('surname')" placeholder="Введите фмилию" [errorMessage]="formErrors.surname.errorMessage" [invalid]="formErrors.surname.errorMessage.length !== 0" label="Фамилия"></app-standart-input>
+          <app-standart-input [control]="personalUserForm.get('name')" [errorMessage]="formErrors.name.errorMessage" [invalid]="formErrors.name.errorMessage.length !== 0" placeholder="Введите имя" label="Имя"></app-standart-input>
           <app-standart-input [control]="personalUserForm.get('patronymic')" placeholder="Введите отчество" label="Отчество"></app-standart-input>
           <app-standart-input [control]="personalUserForm.get('dateOfBirth')" placeholder="Выберите дату" label="Дата рождения" type="date"></app-standart-input>
-          <app-standart-input [control]="personalUserForm.get('city')" placeholder="Город (край, область, регион)" label="Город"></app-standart-input>
+          <app-standart-input [control]="personalUserForm.get('city')" placeholder="Город (край, область, регион)" label="Город" [invalid]="formErrors.city.errorMessage.length !== 0" [errorMessage]="formErrors.city.errorMessage"></app-standart-input>
           <div class="start-number-container">
             <app-standart-input [control]="personalUserForm.get('inn')" placeholder="ИНН" label="ИНН"></app-standart-input>
             <app-standart-input [control]="personalUserForm.get('snils')" placeholder="СНИЛС" label="СНИЛС"></app-standart-input>
           </div>
           <app-standart-input [control]="personalUserForm.get('phoneNumber')" placeholder="Номер телефона" label="Телефон"></app-standart-input>
           <div class="start-number-container">
-            <app-standart-input [control]="personalUserForm.get('startNumber')" placeholder="Стартовый номер" label="Стартовый номер"></app-standart-input>
+            <app-standart-input [control]="personalUserForm.get('startNumber')" [invalid]="formErrors.startNumber.errorMessage.length !== 0" [errorMessage]="formErrors.startNumber.errorMessage" placeholder="Стартовый номер" label="Стартовый номер"></app-standart-input>
             <app-standart-input [control]="personalUserForm.get('group')" placeholder="Класс (группа)" label="Класс"></app-standart-input>
           </div>
-          <app-standart-input [control]="personalUserForm.get('rank')" placeholder="Спортивное звание, разряд" label="Спортивное звание"></app-standart-input>
+          <app-standart-input [control]="personalUserForm.get('rank')" [invalid]="formErrors.rank.errorMessage.length !== 0" [errorMessage]="formErrors.rank.errorMessage" placeholder="Спортивное звание, разряд" label="Спортивное звание"></app-standart-input>
           <app-standart-input [control]="personalUserForm.get('rankNumber')" placeholder="№ удостоверения (МСМК, МС, КМС)" label="№ удостоверения"></app-standart-input>
           <app-standart-input [control]="personalUserForm.get('community')" placeholder="Команда" label="Навзание команды"></app-standart-input>
           <app-standart-input [control]="personalUserForm.get('coach')" placeholder="Тренер" label="ФИО тренера"></app-standart-input>
@@ -87,7 +87,7 @@
         </div>
       </div>
       <div class="footer">
-        <app-standart-button [disabled]="invalidRequest()" (click)="toggleAplicationInRace()" buttonText="Заявиться"></app-standart-button>
+        <app-standart-button (click)="toggleAplicationInRace()" buttonText="Заявиться"></app-standart-button>
       </div>
     </ion-content>
   </ng-template>

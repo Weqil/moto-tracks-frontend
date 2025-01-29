@@ -86,6 +86,25 @@ export class EventsViewPageComponent  implements OnInit {
       }
     )
 
+    formErrors:any = {
+      name: {
+        errorMessage:''
+
+      },
+      surname: {
+         errorMessage:''
+      },
+      rank: {
+        errorMessage:''
+      },
+      city: {
+         errorMessage:''
+      },
+      startNumber: {
+         errorMessage:''
+      },
+  }
+
 
     loaderService:LoadingService = inject(LoadingService)
     platform:Platform = inject(Platform)
@@ -163,7 +182,7 @@ export class EventsViewPageComponent  implements OnInit {
   }
 
   toggleAplicationInRace(){
-    if(!this.invalidRequest()){
+    if(this.submitValidate()){
       let currentForm = {
         ...this.personalUserForm.value,
         ...this.polisForm.value,
@@ -183,7 +202,10 @@ export class EventsViewPageComponent  implements OnInit {
           this.getEvent()
           this.toastService.showToast('Заявка успешно отправленна','success')
       })
+    }else{
+      this.toastService.showToast('Заполните обязательные поля - Фамилия, имя, адрес, спортивное звание','danger')
     }
+      
   }
 
   setUserInForm(){
@@ -237,6 +259,24 @@ export class EventsViewPageComponent  implements OnInit {
     }else{
       return false
     }
+  }
+
+  submitValidate(){
+    let valid = true
+    Object.keys(this.personalUserForm.controls).forEach((key) => {
+      const control = this.personalUserForm.get(key); // Доступ к контролу
+      if (!control!.valid) {
+        if(this.formErrors[key]){
+          this.formErrors[key].errorMessage = 'Обязательное поле'; // Сообщение об ошибке
+           valid = false
+        }
+      } else {
+          if( this.formErrors[key]){
+            this.formErrors[key].errorMessage = ''; // Очистка сообщения об ошибке
+          }
+      }
+    });
+    return valid
   }
 
   ionViewWillEnter(){
