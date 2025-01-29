@@ -50,6 +50,15 @@ export class CreateTrackPageComponent  implements OnInit {
 Направление: -
 Левых поворотов: -
 Правых поворотов: -
+
+Расписание и время работы:
+ПН:
+ВТ:
+СР:
+ЧТ:
+ПТ:
+СБ:
+ВС:
                             `
 , [Validators.required, Validators.minLength(3)]),
     level: new FormControl('', [Validators.required, Validators.minLength(3)]),
