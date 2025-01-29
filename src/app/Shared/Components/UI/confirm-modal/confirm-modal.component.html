@@ -1,0 +1,19 @@
+<ion-modal [isOpen]="openModal" (didDismiss)="closeModal()">
+  <ng-template>
+    <ion-content>
+      <div class="modal-confirm">
+        <div class="modal-confirm-title">{{text}}</div>
+        <div class="modal-confirm-button-container">
+          <div class="button-wrapper">
+            <app-standart-button  (click)="closeModal()"  buttonText="Отмена" theme="light"></app-standart-button>
+          </div>
+          
+          <div class="button-wrapper">
+              <app-standart-button  (click)="confirmModal()"  buttonText="Да" theme="standart"></app-standart-button>
+          </div>
+
+        </div>
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>
