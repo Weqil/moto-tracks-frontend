@@ -451,6 +451,7 @@ export class EventsViewPageComponent  implements OnInit {
       })
     }
 
+    
   ngOnInit() {
     //Необходимо что бы не ломалась модалка
     window.addEventListener('popstate', (event) => {

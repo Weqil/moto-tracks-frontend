@@ -3,7 +3,10 @@
   <main class="main-container--with-header">
     <app-step-container [maxStepsCount]="maxStepsCount" [stepCurrency]="stepCurrency">
       <app-step-container-item [maxStepsCount]="maxStepsCount" [stepCurrency]="stepCurrency" stepNum="1">
-        <app-standart-input label="Название" [control]="createEventForm.get('name')" placeholder="Введите название вашего соревнования"></app-standart-input>
+        <div class="name-wrapper">
+          <app-standart-input label="Название" [control]="createEventForm.get('name')" placeholder="Введите название вашего соревнования"></app-standart-input>
+
+        </div>
   
         <div class="photo-slider">
             <app-edit-slider (filesEmit)="getImages($event)" type="create"></app-edit-slider>
