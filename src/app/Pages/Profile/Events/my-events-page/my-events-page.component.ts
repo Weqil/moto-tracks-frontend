@@ -38,14 +38,6 @@ export class MyEventsPageComponent  implements OnInit {
     })
   }
 
-  openTableModal(){
-
-  }
-
-  closeTableModal(){
-
-  }
-
   ionViewWillEnter(){
     this.eventService.getEventByUserId(String(this.userService.user.value?.id)).pipe().subscribe((res:any)=>{
       this.events = res.races
