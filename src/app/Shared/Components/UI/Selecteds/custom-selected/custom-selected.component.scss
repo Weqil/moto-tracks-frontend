@@ -44,7 +44,7 @@
     width: 100%;
     border-radius: 12px;
     background-color: #ffffff;
-    text-align: start;
+    text-align: center;
     display: flex;
     flex-direction: column;
     transition: 0.3s;
@@ -77,11 +77,11 @@
     transform: translate(0, 0px);
     transition: 0.3s;
     background-color: #fff;
-    text-align: start;
+    text-align: center;
     display: flex;
     flex-direction: column;
     opacity: 1;
-    align-items: flex-start;
+    align-items: center;
     left: 0;
     padding-bottom: 0.3rem;
     .select-container__content__option{

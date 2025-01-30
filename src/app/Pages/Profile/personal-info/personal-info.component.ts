@@ -58,13 +58,9 @@ export class PersonalInfoComponent  implements OnInit {
     coach:new FormControl('', [Validators.required]),
     motoStamp:new FormControl('', [Validators.required]),
     engine:new FormControl('', [Validators.required]),
-    email:new FormControl('', [Validators.required])
   })
 
-  userSettingsForm: FormGroup = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    email:new FormControl('', [Validators.required])
-  })
+  
 
   submitValidate(){
     let valid = true

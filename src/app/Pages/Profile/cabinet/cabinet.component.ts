@@ -32,7 +32,7 @@ export class CabinetComponent  implements OnInit {
   navControler:NavController = inject(NavController)
 
   statusesSelect:boolean = false
-  selectedStatusItem:any =  { id: 1, name: 'Гонщик', value: 'Гонщик' }
+  selectedStatusItem!:any 
   statuses:any[] = [
     { id: 1, name: 'Гонщик', value: 'Гонщик' },
     { id: 2, name: 'Организатор', value: 'Организатор' },
