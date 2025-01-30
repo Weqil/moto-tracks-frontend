@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common'
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core'
+import { Component, EventEmitter, inject, Input, OnInit, Output, SimpleChanges } from '@angular/core'
 import { InfiniteScrollCustomEvent } from '@ionic/angular'
-import { IonHeader, IonIcon, IonModal, IonToolbar } from '@ionic/angular/standalone'
+import { IonHeader, IonIcon, IonModal, IonToolbar, NavController } from '@ionic/angular/standalone'
 import { User } from 'src/app/Shared/Data/Interfaces/user-model'
 import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module'
 import { UserSectionComponent } from "../../UserElements/user-section/user-section.component";
@@ -20,10 +20,12 @@ export class UsersPreviewComponent implements OnInit {
   @Input() fullValueUsers!: string | number
   @Input() generateLinkUrl!: boolean
   @Input() openUsersModal: boolean = false
+  navController: NavController = inject(NavController)
   @Input() users: User[] = []
   usersPreview: any[] = []
   @Input() spiner: boolean = false
   @Output() openModalEmit: EventEmitter<any> = new EventEmitter()
+  @Output() userSelected: EventEmitter<any> = new EventEmitter
   @Output() endScroll: EventEmitter<any> = new EventEmitter()
   @Output() closeModalEmit: EventEmitter<any> = new EventEmitter()
   @Output() generateLinkButtonClick: EventEmitter<any> = new EventEmitter()
@@ -45,6 +47,10 @@ export class UsersPreviewComponent implements OnInit {
   closeModal() {
     this.closeModalEmit.emit()
   }
+  openUser(user: User) {
+    this.userSelected.emit(user)
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
     this.usersPreview = this.users.slice(0, 8)
   }

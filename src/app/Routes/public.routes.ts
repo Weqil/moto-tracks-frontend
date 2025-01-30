@@ -28,7 +28,10 @@ export const publicRoutes: Routes = [
         path:'events',
         loadComponent: () => import('../Pages/Events/events-tape-page/events-tape-page.component').then((m) => m.EventsTapePageComponent),
       },
-      
+      {
+        path:'racer/:id',
+        loadComponent: () => import('../Pages/racer-view-page/racer-view-page.component').then((m) => m.RacerViewPageComponent)
+      },
       
     ]
   },
