@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
 import { ButtonsModule } from 'src/app/Shared/Modules/buttons/buttons.module';
 import { HeaderModule } from 'src/app/Shared/Modules/header/header.module';
-import { NavController } from '@ionic/angular/standalone';
+import { IonModal, NavController } from '@ionic/angular/standalone';
 import { EventModule } from 'src/app/Shared/Modules/event/event.module';
 import { EventService } from 'src/app/Shared/Data/Services/Event/event.service';
 import { IEvent } from 'src/app/Shared/Data/Interfaces/event';
@@ -13,7 +13,7 @@ import { LoadingService } from 'src/app/Shared/Services/loading.service';
   selector: 'app-my-events-page',
   templateUrl: './my-events-page.component.html',
   styleUrls: ['./my-events-page.component.scss'],
-  imports: [SharedModule,ButtonsModule,HeaderModule,EventModule]
+  imports: [SharedModule,ButtonsModule,HeaderModule,EventModule,IonModal]
 })
 export class MyEventsPageComponent  implements OnInit {
 
@@ -21,6 +21,8 @@ export class MyEventsPageComponent  implements OnInit {
   navController: NavController = inject(NavController)
   eventService: EventService = inject(EventService)
   events!:any
+  tableModalValue:boolean = false
+  googleTabsLink:string = ''
   userService: UserService = inject(UserService)
   loadingService:LoadingService = inject(LoadingService)
   redirectInCreate(){
@@ -31,7 +33,8 @@ export class MyEventsPageComponent  implements OnInit {
     this.eventService.generateGoogleLink(eventId).pipe(
       finalize(()=> this.loadingService.hideLoading())
     ).subscribe((res:any)=>{
-      window.open(res.table_url)
+      this.tableModalValue = true
+      this.googleTabsLink = res.table_url
     })
   }
 

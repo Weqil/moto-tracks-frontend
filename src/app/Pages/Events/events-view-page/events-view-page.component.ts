@@ -1,4 +1,4 @@
-import { Component, Inject, inject, OnInit } from '@angular/core';
+import { Component, Inject, inject, NgZone, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { finalize, Subject, takeUntil, tap } from 'rxjs';
 import { IEvent } from 'src/app/Shared/Data/Interfaces/event';
@@ -46,6 +46,8 @@ export class EventsViewPageComponent  implements OnInit {
   event!:IEvent
   openUserModalValue:boolean = false
   raceUser!:User
+
+  ngZone: NgZone = inject(NgZone)
   documents:any = []
   
   applicationFormValueState:boolean = false
@@ -261,6 +263,17 @@ export class EventsViewPageComponent  implements OnInit {
     this.changePersonalDateModalValue = false
   }
 
+  openRacer(user:User){
+    this.closeStateUsersModal()
+    setTimeout(()=>{
+      if(this.openUserModalValue == false){
+        this.ngZone.run(() => {
+          this.navController.navigateForward('/racer/1');
+        });
+      }
+    },0)
+ 
+  }
   checkChangeDocumentsForm(){
 
   }
@@ -438,6 +451,7 @@ export class EventsViewPageComponent  implements OnInit {
       })
     }
 
+    
   ngOnInit() {
     //Необходимо что бы не ломалась модалка
     window.addEventListener('popstate', (event) => {

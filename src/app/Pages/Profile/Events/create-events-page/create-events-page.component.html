@@ -3,10 +3,10 @@
   <main class="main-container--with-header">
     <app-step-container [maxStepsCount]="maxStepsCount" [stepCurrency]="stepCurrency">
       <app-step-container-item [maxStepsCount]="maxStepsCount" [stepCurrency]="stepCurrency" stepNum="1">
+        <div class="name-wrapper">
+          <app-standart-input label="Название" [control]="createEventForm.get('name')" placeholder="Введите название вашего соревнования"></app-standart-input>
 
-        <div class="step-description">
         </div>
-        <app-standart-input label="Название" [control]="createEventForm.get('name')" placeholder="Введите название вашего соревнования"></app-standart-input>
   
         <div class="photo-slider">
             <app-edit-slider (filesEmit)="getImages($event)" type="create"></app-edit-slider>
@@ -15,9 +15,9 @@
           <app-standart-rich-input [control]="createEventForm.get('desc')" label="Описание" placeholder="Введите описание вашего трека"></app-standart-rich-input>
         </div>
      
-        <!-- <div class="step-description">
+        <div class="step-description">
           На данном этапе необходимо выбрать дату начала гонки и выбрать на каком треке она будет проходить
-        </div> -->
+        </div>
         <app-standart-input type="datetime-local" label="Дата начала" [control]="createEventForm.get('dateStart')"></app-standart-input>
         <div class="select-track-wrapper">
           <div class="label">Трек гонки</div>

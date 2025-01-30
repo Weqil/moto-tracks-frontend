@@ -27,8 +27,8 @@
       <ion-content class="" class="ion-padding">
         <div class="card-grid">
             <ng-container *ngIf="users.length" >
-                <div *ngFor="let user of users" class="card-grid__item">
-                    <app-user-section [hideEmail]= "true"  [user]="user"></app-user-section>
+                <div *ngFor="let user of users" (click)="openUser(user)" class="card-grid__item">
+                    <app-user-section  [hideEmail]= "true"  [user]="user"></app-user-section>
                     <div *ngIf="user?.personal?.start_number" class="user-info__class">
                         {{user?.personal?.start_number}}
                     </div>

@@ -1,0 +1,43 @@
+@if (racer) {
+  <ion-content>
+    <div class="slider-container">
+      <div class="slider-container__header">
+          <app-back-button></app-back-button>
+      </div>
+      <app-show-slider *ngIf="racer.images" [files]="racer.images"></app-show-slider>
+    </div>
+    <main class="racer-view">
+      <div class="racer-info">
+        <div class="racer-info__text">
+          <div class="racer-name">{{racer.name}}</div>
+          <div class="racer-address">{{racer.address}}</div>
+        </div>
+        <div class="racer-info__start-number">
+          {{racer.start_number}}
+        </div>
+      </div>
+      <span class="racer-reward__text">Награды</span>
+      <div class="racer-reward">
+    
+        <div *ngFor="let reward of racer.rewards" class="racer-reward__item">
+          <div class="racer-reward__item__icon">
+            <img [src]="reward.icon" alt="">
+          </div>
+          <div class="racer-reward__item__name">{{reward.name}}</div>
+        </div>
+      </div>
+      <span class="racer-reward__text">Разряды и звания</span>
+      <div class="racer-ranks">
+        
+        <div class="racer-ranks__title">Мастер спорта:</div>
+        <div class="racer-ranks__option">- номер приказа: 152 НГ</div>
+        <div class="racer-ranks__option">- присвоен: 30.09.2024</div>
+
+        <div class="racer-ranks__title">Кандидат в мастера спорта:</div>
+        <div class="racer-ranks__option">- номер приказа: 152 НГ</div>
+        <div class="racer-ranks__option">- присвоен: 30.09.2024</div>
+      </div>
+    </main>
+  </ion-content>
+}
+

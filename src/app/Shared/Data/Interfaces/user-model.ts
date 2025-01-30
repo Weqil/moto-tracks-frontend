@@ -24,3 +24,12 @@ export interface User{
         engines:string              
     }
 }
+export interface Racer{
+    id: number,
+    name: string,
+    images:string[],
+    address:string,
+    start_number:number,
+    rewards:{name:string,icon:string}[]
+}
+
