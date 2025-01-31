@@ -1,0 +1,458 @@
+{
+  "" : {
+    "diagnostics" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/Capacitor-master.dia",
+    "emit-module-dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/Capacitor-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/Capacitor-master-emit-module.dia",
+    "swift-dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/Capacitor-master.swiftdeps"
+  },
+  "/Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/Capacitor/Capacitor/AppUUID.swift" : {
+    "const-values" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/AppUUID.swiftconstvalues",
+    "dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/AppUUID.d",
+    "diagnostics" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/AppUUID.dia",
+    "index-unit-output-path" : "/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/AppUUID.o",
+    "llvm-bc" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/AppUUID.bc",
+    "object" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/AppUUID.o",
+    "swift-dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/AppUUID.swiftdeps",
+    "swiftmodule" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/AppUUID~partial.swiftmodule"
+  },
+  "/Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/Capacitor/Capacitor/Array+Capacitor.swift" : {
+    "const-values" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/Array+Capacitor.swiftconstvalues",
+    "dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/Array+Capacitor.d",
+    "diagnostics" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/Array+Capacitor.dia",
+    "index-unit-output-path" : "/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/Array+Capacitor.o",
+    "llvm-bc" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/Array+Capacitor.bc",
+    "object" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/Array+Capacitor.o",
+    "swift-dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/Array+Capacitor.swiftdeps",
+    "swiftmodule" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/Array+Capacitor~partial.swiftmodule"
+  },
+  "/Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/Capacitor/Capacitor/CapacitorBridge.swift" : {
+    "const-values" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorBridge.swiftconstvalues",
+    "dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorBridge.d",
+    "diagnostics" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorBridge.dia",
+    "index-unit-output-path" : "/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorBridge.o",
+    "llvm-bc" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorBridge.bc",
+    "object" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorBridge.o",
+    "swift-dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorBridge.swiftdeps",
+    "swiftmodule" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorBridge~partial.swiftmodule"
+  },
+  "/Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/Capacitor/Capacitor/CapacitorExtension.swift" : {
+    "const-values" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorExtension.swiftconstvalues",
+    "dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorExtension.d",
+    "diagnostics" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorExtension.dia",
+    "index-unit-output-path" : "/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorExtension.o",
+    "llvm-bc" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorExtension.bc",
+    "object" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorExtension.o",
+    "swift-dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorExtension.swiftdeps",
+    "swiftmodule" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorExtension~partial.swiftmodule"
+  },
+  "/Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/Capacitor/Capacitor/CAPApplicationDelegateProxy.swift" : {
+    "const-values" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPApplicationDelegateProxy.swiftconstvalues",
+    "dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPApplicationDelegateProxy.d",
+    "diagnostics" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPApplicationDelegateProxy.dia",
+    "index-unit-output-path" : "/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPApplicationDelegateProxy.o",
+    "llvm-bc" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPApplicationDelegateProxy.bc",
+    "object" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPApplicationDelegateProxy.o",
+    "swift-dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPApplicationDelegateProxy.swiftdeps",
+    "swiftmodule" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPApplicationDelegateProxy~partial.swiftmodule"
+  },
+  "/Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/Capacitor/Capacitor/CAPBridge.swift" : {
+    "const-values" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPBridge.swiftconstvalues",
+    "dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPBridge.d",
+    "diagnostics" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPBridge.dia",
+    "index-unit-output-path" : "/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPBridge.o",
+    "llvm-bc" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPBridge.bc",
+    "object" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPBridge.o",
+    "swift-dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPBridge.swiftdeps",
+    "swiftmodule" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPBridge~partial.swiftmodule"
+  },
+  "/Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/Capacitor/Capacitor/CAPBridgeDelegate.swift" : {
+    "const-values" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPBridgeDelegate.swiftconstvalues",
+    "dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPBridgeDelegate.d",
+    "diagnostics" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPBridgeDelegate.dia",
+    "index-unit-output-path" : "/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPBridgeDelegate.o",
+    "llvm-bc" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPBridgeDelegate.bc",
+    "object" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPBridgeDelegate.o",
+    "swift-dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPBridgeDelegate.swiftdeps",
+    "swiftmodule" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPBridgeDelegate~partial.swiftmodule"
+  },
+  "/Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/Capacitor/Capacitor/CAPBridgedPlugin+getMethod.swift" : {
+    "const-values" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPBridgedPlugin+getMethod.swiftconstvalues",
+    "dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPBridgedPlugin+getMethod.d",
+    "diagnostics" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPBridgedPlugin+getMethod.dia",
+    "index-unit-output-path" : "/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPBridgedPlugin+getMethod.o",
+    "llvm-bc" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPBridgedPlugin+getMethod.bc",
+    "object" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPBridgedPlugin+getMethod.o",
+    "swift-dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPBridgedPlugin+getMethod.swiftdeps",
+    "swiftmodule" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPBridgedPlugin+getMethod~partial.swiftmodule"
+  },
+  "/Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/Capacitor/Capacitor/CAPBridgeProtocol.swift" : {
+    "const-values" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPBridgeProtocol.swiftconstvalues",
+    "dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPBridgeProtocol.d",
+    "diagnostics" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPBridgeProtocol.dia",
+    "index-unit-output-path" : "/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPBridgeProtocol.o",
+    "llvm-bc" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPBridgeProtocol.bc",
+    "object" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPBridgeProtocol.o",
+    "swift-dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPBridgeProtocol.swiftdeps",
+    "swiftmodule" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPBridgeProtocol~partial.swiftmodule"
+  },
+  "/Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/Capacitor/Capacitor/CAPBridgeViewController.swift" : {
+    "const-values" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPBridgeViewController.swiftconstvalues",
+    "dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPBridgeViewController.d",
+    "diagnostics" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPBridgeViewController.dia",
+    "index-unit-output-path" : "/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPBridgeViewController.o",
+    "llvm-bc" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPBridgeViewController.bc",
+    "object" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPBridgeViewController.o",
+    "swift-dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPBridgeViewController.swiftdeps",
+    "swiftmodule" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPBridgeViewController~partial.swiftmodule"
+  },
+  "/Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/Capacitor/Capacitor/CAPFile.swift" : {
+    "const-values" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPFile.swiftconstvalues",
+    "dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPFile.d",
+    "diagnostics" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPFile.dia",
+    "index-unit-output-path" : "/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPFile.o",
+    "llvm-bc" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPFile.bc",
+    "object" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPFile.o",
+    "swift-dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPFile.swiftdeps",
+    "swiftmodule" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPFile~partial.swiftmodule"
+  },
+  "/Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/Capacitor/Capacitor/CAPInstanceConfiguration.swift" : {
+    "const-values" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPInstanceConfiguration-2693072a376243a23ec0bdbe5a2123c6.swiftconstvalues",
+    "dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPInstanceConfiguration-2693072a376243a23ec0bdbe5a2123c6.d",
+    "diagnostics" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPInstanceConfiguration-2693072a376243a23ec0bdbe5a2123c6.dia",
+    "index-unit-output-path" : "/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPInstanceConfiguration-2693072a376243a23ec0bdbe5a2123c6.o",
+    "llvm-bc" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPInstanceConfiguration-2693072a376243a23ec0bdbe5a2123c6.bc",
+    "object" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPInstanceConfiguration-2693072a376243a23ec0bdbe5a2123c6.o",
+    "swift-dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPInstanceConfiguration-2693072a376243a23ec0bdbe5a2123c6.swiftdeps",
+    "swiftmodule" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPInstanceConfiguration-2693072a376243a23ec0bdbe5a2123c6~partial.swiftmodule"
+  },
+  "/Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/Capacitor/Capacitor/CAPInstanceDescriptor.swift" : {
+    "const-values" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPInstanceDescriptor-cfc98f6c02289065c54deef2c5c40a55.swiftconstvalues",
+    "dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPInstanceDescriptor-cfc98f6c02289065c54deef2c5c40a55.d",
+    "diagnostics" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPInstanceDescriptor-cfc98f6c02289065c54deef2c5c40a55.dia",
+    "index-unit-output-path" : "/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPInstanceDescriptor-cfc98f6c02289065c54deef2c5c40a55.o",
+    "llvm-bc" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPInstanceDescriptor-cfc98f6c02289065c54deef2c5c40a55.bc",
+    "object" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPInstanceDescriptor-cfc98f6c02289065c54deef2c5c40a55.o",
+    "swift-dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPInstanceDescriptor-cfc98f6c02289065c54deef2c5c40a55.swiftdeps",
+    "swiftmodule" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPInstanceDescriptor-cfc98f6c02289065c54deef2c5c40a55~partial.swiftmodule"
+  },
+  "/Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/Capacitor/Capacitor/CAPInstancePlugin.swift" : {
+    "const-values" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPInstancePlugin.swiftconstvalues",
+    "dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPInstancePlugin.d",
+    "diagnostics" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPInstancePlugin.dia",
+    "index-unit-output-path" : "/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPInstancePlugin.o",
+    "llvm-bc" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPInstancePlugin.bc",
+    "object" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPInstancePlugin.o",
+    "swift-dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPInstancePlugin.swiftdeps",
+    "swiftmodule" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPInstancePlugin~partial.swiftmodule"
+  },
+  "/Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/Capacitor/Capacitor/CAPLog.swift" : {
+    "const-values" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPLog.swiftconstvalues",
+    "dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPLog.d",
+    "diagnostics" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPLog.dia",
+    "index-unit-output-path" : "/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPLog.o",
+    "llvm-bc" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPLog.bc",
+    "object" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPLog.o",
+    "swift-dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPLog.swiftdeps",
+    "swiftmodule" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPLog~partial.swiftmodule"
+  },
+  "/Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/Capacitor/Capacitor/CAPNotifications.swift" : {
+    "const-values" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPNotifications.swiftconstvalues",
+    "dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPNotifications.d",
+    "diagnostics" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPNotifications.dia",
+    "index-unit-output-path" : "/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPNotifications.o",
+    "llvm-bc" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPNotifications.bc",
+    "object" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPNotifications.o",
+    "swift-dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPNotifications.swiftdeps",
+    "swiftmodule" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPNotifications~partial.swiftmodule"
+  },
+  "/Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/Capacitor/Capacitor/CAPPlugin+LoadInstance.swift" : {
+    "const-values" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPPlugin+LoadInstance.swiftconstvalues",
+    "dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPPlugin+LoadInstance.d",
+    "diagnostics" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPPlugin+LoadInstance.dia",
+    "index-unit-output-path" : "/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPPlugin+LoadInstance.o",
+    "llvm-bc" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPPlugin+LoadInstance.bc",
+    "object" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPPlugin+LoadInstance.o",
+    "swift-dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPPlugin+LoadInstance.swiftdeps",
+    "swiftmodule" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPPlugin+LoadInstance~partial.swiftmodule"
+  },
+  "/Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/Capacitor/Capacitor/CAPPluginCall.swift" : {
+    "const-values" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPPluginCall-103a3e4e38c1d95cd9f702602a5098b8.swiftconstvalues",
+    "dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPPluginCall-103a3e4e38c1d95cd9f702602a5098b8.d",
+    "diagnostics" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPPluginCall-103a3e4e38c1d95cd9f702602a5098b8.dia",
+    "index-unit-output-path" : "/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPPluginCall-103a3e4e38c1d95cd9f702602a5098b8.o",
+    "llvm-bc" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPPluginCall-103a3e4e38c1d95cd9f702602a5098b8.bc",
+    "object" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPPluginCall-103a3e4e38c1d95cd9f702602a5098b8.o",
+    "swift-dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPPluginCall-103a3e4e38c1d95cd9f702602a5098b8.swiftdeps",
+    "swiftmodule" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPPluginCall-103a3e4e38c1d95cd9f702602a5098b8~partial.swiftmodule"
+  },
+  "/Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/Capacitor/Capacitor/CAPPluginMethod.swift" : {
+    "const-values" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPPluginMethod-d7a07e44c85c09b0e6cfae9ac05ab91c.swiftconstvalues",
+    "dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPPluginMethod-d7a07e44c85c09b0e6cfae9ac05ab91c.d",
+    "diagnostics" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPPluginMethod-d7a07e44c85c09b0e6cfae9ac05ab91c.dia",
+    "index-unit-output-path" : "/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPPluginMethod-d7a07e44c85c09b0e6cfae9ac05ab91c.o",
+    "llvm-bc" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPPluginMethod-d7a07e44c85c09b0e6cfae9ac05ab91c.bc",
+    "object" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPPluginMethod-d7a07e44c85c09b0e6cfae9ac05ab91c.o",
+    "swift-dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPPluginMethod-d7a07e44c85c09b0e6cfae9ac05ab91c.swiftdeps",
+    "swiftmodule" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPPluginMethod-d7a07e44c85c09b0e6cfae9ac05ab91c~partial.swiftmodule"
+  },
+  "/Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/Capacitor/Capacitor/Codable/JSValueDecoder.swift" : {
+    "const-values" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/JSValueDecoder.swiftconstvalues",
+    "dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/JSValueDecoder.d",
+    "diagnostics" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/JSValueDecoder.dia",
+    "index-unit-output-path" : "/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/JSValueDecoder.o",
+    "llvm-bc" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/JSValueDecoder.bc",
+    "object" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/JSValueDecoder.o",
+    "swift-dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/JSValueDecoder.swiftdeps",
+    "swiftmodule" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/JSValueDecoder~partial.swiftmodule"
+  },
+  "/Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/Capacitor/Capacitor/Codable/JSValueEncoder.swift" : {
+    "const-values" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/JSValueEncoder.swiftconstvalues",
+    "dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/JSValueEncoder.d",
+    "diagnostics" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/JSValueEncoder.dia",
+    "index-unit-output-path" : "/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/JSValueEncoder.o",
+    "llvm-bc" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/JSValueEncoder.bc",
+    "object" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/JSValueEncoder.o",
+    "swift-dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/JSValueEncoder.swiftdeps",
+    "swiftmodule" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/JSValueEncoder~partial.swiftmodule"
+  },
+  "/Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/Capacitor/Capacitor/Data+Capacitor.swift" : {
+    "const-values" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/Data+Capacitor.swiftconstvalues",
+    "dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/Data+Capacitor.d",
+    "diagnostics" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/Data+Capacitor.dia",
+    "index-unit-output-path" : "/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/Data+Capacitor.o",
+    "llvm-bc" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/Data+Capacitor.bc",
+    "object" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/Data+Capacitor.o",
+    "swift-dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/Data+Capacitor.swiftdeps",
+    "swiftmodule" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/Data+Capacitor~partial.swiftmodule"
+  },
+  "/Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/Capacitor/Capacitor/DocLinks.swift" : {
+    "const-values" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/DocLinks.swiftconstvalues",
+    "dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/DocLinks.d",
+    "diagnostics" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/DocLinks.dia",
+    "index-unit-output-path" : "/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/DocLinks.o",
+    "llvm-bc" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/DocLinks.bc",
+    "object" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/DocLinks.o",
+    "swift-dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/DocLinks.swiftdeps",
+    "swiftmodule" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/DocLinks~partial.swiftmodule"
+  },
+  "/Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/Capacitor/Capacitor/JS.swift" : {
+    "const-values" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/JS.swiftconstvalues",
+    "dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/JS.d",
+    "diagnostics" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/JS.dia",
+    "index-unit-output-path" : "/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/JS.o",
+    "llvm-bc" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/JS.bc",
+    "object" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/JS.o",
+    "swift-dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/JS.swiftdeps",
+    "swiftmodule" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/JS~partial.swiftmodule"
+  },
+  "/Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/Capacitor/Capacitor/JSExport.swift" : {
+    "const-values" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/JSExport.swiftconstvalues",
+    "dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/JSExport.d",
+    "diagnostics" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/JSExport.dia",
+    "index-unit-output-path" : "/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/JSExport.o",
+    "llvm-bc" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/JSExport.bc",
+    "object" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/JSExport.o",
+    "swift-dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/JSExport.swiftdeps",
+    "swiftmodule" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/JSExport~partial.swiftmodule"
+  },
+  "/Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/Capacitor/Capacitor/JSTypes.swift" : {
+    "const-values" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/JSTypes.swiftconstvalues",
+    "dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/JSTypes.d",
+    "diagnostics" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/JSTypes.dia",
+    "index-unit-output-path" : "/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/JSTypes.o",
+    "llvm-bc" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/JSTypes.bc",
+    "object" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/JSTypes.o",
+    "swift-dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/JSTypes.swiftdeps",
+    "swiftmodule" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/JSTypes~partial.swiftmodule"
+  },
+  "/Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/Capacitor/Capacitor/KeyPath.swift" : {
+    "const-values" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/KeyPath.swiftconstvalues",
+    "dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/KeyPath.d",
+    "diagnostics" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/KeyPath.dia",
+    "index-unit-output-path" : "/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/KeyPath.o",
+    "llvm-bc" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/KeyPath.bc",
+    "object" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/KeyPath.o",
+    "swift-dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/KeyPath.swiftdeps",
+    "swiftmodule" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/KeyPath~partial.swiftmodule"
+  },
+  "/Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/Capacitor/Capacitor/KeyValueStore.swift" : {
+    "const-values" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/KeyValueStore.swiftconstvalues",
+    "dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/KeyValueStore.d",
+    "diagnostics" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/KeyValueStore.dia",
+    "index-unit-output-path" : "/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/KeyValueStore.o",
+    "llvm-bc" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/KeyValueStore.bc",
+    "object" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/KeyValueStore.o",
+    "swift-dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/KeyValueStore.swiftdeps",
+    "swiftmodule" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/KeyValueStore~partial.swiftmodule"
+  },
+  "/Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/Capacitor/Capacitor/NotificationHandlerProtocol.swift" : {
+    "const-values" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/NotificationHandlerProtocol.swiftconstvalues",
+    "dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/NotificationHandlerProtocol.d",
+    "diagnostics" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/NotificationHandlerProtocol.dia",
+    "index-unit-output-path" : "/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/NotificationHandlerProtocol.o",
+    "llvm-bc" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/NotificationHandlerProtocol.bc",
+    "object" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/NotificationHandlerProtocol.o",
+    "swift-dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/NotificationHandlerProtocol.swiftdeps",
+    "swiftmodule" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/NotificationHandlerProtocol~partial.swiftmodule"
+  },
+  "/Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/Capacitor/Capacitor/NotificationRouter.swift" : {
+    "const-values" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/NotificationRouter.swiftconstvalues",
+    "dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/NotificationRouter.d",
+    "diagnostics" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/NotificationRouter.dia",
+    "index-unit-output-path" : "/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/NotificationRouter.o",
+    "llvm-bc" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/NotificationRouter.bc",
+    "object" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/NotificationRouter.o",
+    "swift-dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/NotificationRouter.swiftdeps",
+    "swiftmodule" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/NotificationRouter~partial.swiftmodule"
+  },
+  "/Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/Capacitor/Capacitor/PluginCallResult.swift" : {
+    "const-values" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/PluginCallResult.swiftconstvalues",
+    "dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/PluginCallResult.d",
+    "diagnostics" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/PluginCallResult.dia",
+    "index-unit-output-path" : "/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/PluginCallResult.o",
+    "llvm-bc" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/PluginCallResult.bc",
+    "object" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/PluginCallResult.o",
+    "swift-dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/PluginCallResult.swiftdeps",
+    "swiftmodule" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/PluginCallResult~partial.swiftmodule"
+  },
+  "/Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/Capacitor/Capacitor/PluginConfig.swift" : {
+    "const-values" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/PluginConfig.swiftconstvalues",
+    "dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/PluginConfig.d",
+    "diagnostics" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/PluginConfig.dia",
+    "index-unit-output-path" : "/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/PluginConfig.o",
+    "llvm-bc" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/PluginConfig.bc",
+    "object" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/PluginConfig.o",
+    "swift-dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/PluginConfig.swiftdeps",
+    "swiftmodule" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/PluginConfig~partial.swiftmodule"
+  },
+  "/Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/Capacitor/Capacitor/Plugins/CapacitorCookieManager.swift" : {
+    "const-values" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorCookieManager.swiftconstvalues",
+    "dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorCookieManager.d",
+    "diagnostics" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorCookieManager.dia",
+    "index-unit-output-path" : "/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorCookieManager.o",
+    "llvm-bc" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorCookieManager.bc",
+    "object" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorCookieManager.o",
+    "swift-dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorCookieManager.swiftdeps",
+    "swiftmodule" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorCookieManager~partial.swiftmodule"
+  },
+  "/Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/Capacitor/Capacitor/Plugins/CapacitorCookies.swift" : {
+    "const-values" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorCookies.swiftconstvalues",
+    "dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorCookies.d",
+    "diagnostics" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorCookies.dia",
+    "index-unit-output-path" : "/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorCookies.o",
+    "llvm-bc" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorCookies.bc",
+    "object" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorCookies.o",
+    "swift-dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorCookies.swiftdeps",
+    "swiftmodule" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorCookies~partial.swiftmodule"
+  },
+  "/Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/Capacitor/Capacitor/Plugins/CapacitorHttp.swift" : {
+    "const-values" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorHttp.swiftconstvalues",
+    "dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorHttp.d",
+    "diagnostics" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorHttp.dia",
+    "index-unit-output-path" : "/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorHttp.o",
+    "llvm-bc" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorHttp.bc",
+    "object" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorHttp.o",
+    "swift-dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorHttp.swiftdeps",
+    "swiftmodule" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorHttp~partial.swiftmodule"
+  },
+  "/Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/Capacitor/Capacitor/Plugins/CapacitorUrlRequest.swift" : {
+    "const-values" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorUrlRequest.swiftconstvalues",
+    "dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorUrlRequest.d",
+    "diagnostics" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorUrlRequest.dia",
+    "index-unit-output-path" : "/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorUrlRequest.o",
+    "llvm-bc" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorUrlRequest.bc",
+    "object" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorUrlRequest.o",
+    "swift-dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorUrlRequest.swiftdeps",
+    "swiftmodule" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorUrlRequest~partial.swiftmodule"
+  },
+  "/Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/Capacitor/Capacitor/Plugins/Console.swift" : {
+    "const-values" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/Console.swiftconstvalues",
+    "dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/Console.d",
+    "diagnostics" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/Console.dia",
+    "index-unit-output-path" : "/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/Console.o",
+    "llvm-bc" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/Console.bc",
+    "object" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/Console.o",
+    "swift-dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/Console.swiftdeps",
+    "swiftmodule" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/Console~partial.swiftmodule"
+  },
+  "/Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/Capacitor/Capacitor/Plugins/HttpRequestHandler.swift" : {
+    "const-values" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/HttpRequestHandler.swiftconstvalues",
+    "dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/HttpRequestHandler.d",
+    "diagnostics" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/HttpRequestHandler.dia",
+    "index-unit-output-path" : "/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/HttpRequestHandler.o",
+    "llvm-bc" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/HttpRequestHandler.bc",
+    "object" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/HttpRequestHandler.o",
+    "swift-dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/HttpRequestHandler.swiftdeps",
+    "swiftmodule" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/HttpRequestHandler~partial.swiftmodule"
+  },
+  "/Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/Capacitor/Capacitor/Plugins/WebView.swift" : {
+    "const-values" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/WebView.swiftconstvalues",
+    "dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/WebView.d",
+    "diagnostics" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/WebView.dia",
+    "index-unit-output-path" : "/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/WebView.o",
+    "llvm-bc" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/WebView.bc",
+    "object" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/WebView.o",
+    "swift-dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/WebView.swiftdeps",
+    "swiftmodule" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/WebView~partial.swiftmodule"
+  },
+  "/Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/Capacitor/Capacitor/Router.swift" : {
+    "const-values" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/Router.swiftconstvalues",
+    "dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/Router.d",
+    "diagnostics" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/Router.dia",
+    "index-unit-output-path" : "/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/Router.o",
+    "llvm-bc" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/Router.bc",
+    "object" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/Router.o",
+    "swift-dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/Router.swiftdeps",
+    "swiftmodule" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/Router~partial.swiftmodule"
+  },
+  "/Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/Capacitor/Capacitor/TmpViewController.swift" : {
+    "const-values" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/TmpViewController.swiftconstvalues",
+    "dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/TmpViewController.d",
+    "diagnostics" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/TmpViewController.dia",
+    "index-unit-output-path" : "/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/TmpViewController.o",
+    "llvm-bc" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/TmpViewController.bc",
+    "object" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/TmpViewController.o",
+    "swift-dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/TmpViewController.swiftdeps",
+    "swiftmodule" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/TmpViewController~partial.swiftmodule"
+  },
+  "/Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/Capacitor/Capacitor/UIColor.swift" : {
+    "const-values" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/UIColor.swiftconstvalues",
+    "dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/UIColor.d",
+    "diagnostics" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/UIColor.dia",
+    "index-unit-output-path" : "/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/UIColor.o",
+    "llvm-bc" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/UIColor.bc",
+    "object" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/UIColor.o",
+    "swift-dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/UIColor.swiftdeps",
+    "swiftmodule" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/UIColor~partial.swiftmodule"
+  },
+  "/Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/Capacitor/Capacitor/WebViewAssetHandler.swift" : {
+    "const-values" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/WebViewAssetHandler.swiftconstvalues",
+    "dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/WebViewAssetHandler.d",
+    "diagnostics" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/WebViewAssetHandler.dia",
+    "index-unit-output-path" : "/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/WebViewAssetHandler.o",
+    "llvm-bc" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/WebViewAssetHandler.bc",
+    "object" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/WebViewAssetHandler.o",
+    "swift-dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/WebViewAssetHandler.swiftdeps",
+    "swiftmodule" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/WebViewAssetHandler~partial.swiftmodule"
+  },
+  "/Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/Capacitor/Capacitor/WebViewDelegationHandler.swift" : {
+    "const-values" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/WebViewDelegationHandler.swiftconstvalues",
+    "dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/WebViewDelegationHandler.d",
+    "diagnostics" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/WebViewDelegationHandler.dia",
+    "index-unit-output-path" : "/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/WebViewDelegationHandler.o",
+    "llvm-bc" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/WebViewDelegationHandler.bc",
+    "object" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/WebViewDelegationHandler.o",
+    "swift-dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/WebViewDelegationHandler.swiftdeps",
+    "swiftmodule" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/WebViewDelegationHandler~partial.swiftmodule"
+  },
+  "/Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/Capacitor/Capacitor/WKWebView+Capacitor.swift" : {
+    "const-values" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/WKWebView+Capacitor-1413eff94533ee529304e8f2f2f8308a.swiftconstvalues",
+    "dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/WKWebView+Capacitor-1413eff94533ee529304e8f2f2f8308a.d",
+    "diagnostics" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/WKWebView+Capacitor-1413eff94533ee529304e8f2f2f8308a.dia",
+    "index-unit-output-path" : "/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/WKWebView+Capacitor-1413eff94533ee529304e8f2f2f8308a.o",
+    "llvm-bc" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/WKWebView+Capacitor-1413eff94533ee529304e8f2f2f8308a.bc",
+    "object" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/WKWebView+Capacitor-1413eff94533ee529304e8f2f2f8308a.o",
+    "swift-dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/WKWebView+Capacitor-1413eff94533ee529304e8f2f2f8308a.swiftdeps",
+    "swiftmodule" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/WKWebView+Capacitor-1413eff94533ee529304e8f2f2f8308a~partial.swiftmodule"
+  }
+}

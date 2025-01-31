@@ -1,0 +1,18 @@
+{
+  "" : {
+    "diagnostics" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/581CD19E-ECCF-4FF3-843C-4199145FD2BE/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/CapacitorStatusBar.build/Objects-normal/arm64/CapacitorStatusBar-master.dia",
+    "emit-module-dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/581CD19E-ECCF-4FF3-843C-4199145FD2BE/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/CapacitorStatusBar.build/Objects-normal/arm64/CapacitorStatusBar-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/581CD19E-ECCF-4FF3-843C-4199145FD2BE/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/CapacitorStatusBar.build/Objects-normal/arm64/CapacitorStatusBar-master-emit-module.dia",
+    "swift-dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/581CD19E-ECCF-4FF3-843C-4199145FD2BE/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/CapacitorStatusBar.build/Objects-normal/arm64/CapacitorStatusBar-master.swiftdeps"
+  },
+  "/Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/status-bar/ios/Sources/StatusBarPlugin/StatusBarPlugin.swift" : {
+    "const-values" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/581CD19E-ECCF-4FF3-843C-4199145FD2BE/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/CapacitorStatusBar.build/Objects-normal/arm64/StatusBarPlugin.swiftconstvalues",
+    "dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/581CD19E-ECCF-4FF3-843C-4199145FD2BE/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/CapacitorStatusBar.build/Objects-normal/arm64/StatusBarPlugin.d",
+    "diagnostics" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/581CD19E-ECCF-4FF3-843C-4199145FD2BE/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/CapacitorStatusBar.build/Objects-normal/arm64/StatusBarPlugin.dia",
+    "index-unit-output-path" : "/Pods.build/Debug-iphonesimulator/CapacitorStatusBar.build/Objects-normal/arm64/StatusBarPlugin.o",
+    "llvm-bc" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/581CD19E-ECCF-4FF3-843C-4199145FD2BE/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/CapacitorStatusBar.build/Objects-normal/arm64/StatusBarPlugin.bc",
+    "object" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/581CD19E-ECCF-4FF3-843C-4199145FD2BE/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/CapacitorStatusBar.build/Objects-normal/arm64/StatusBarPlugin.o",
+    "swift-dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/581CD19E-ECCF-4FF3-843C-4199145FD2BE/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/CapacitorStatusBar.build/Objects-normal/arm64/StatusBarPlugin.swiftdeps",
+    "swiftmodule" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/581CD19E-ECCF-4FF3-843C-4199145FD2BE/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/CapacitorStatusBar.build/Objects-normal/arm64/StatusBarPlugin~partial.swiftmodule"
+  }
+}

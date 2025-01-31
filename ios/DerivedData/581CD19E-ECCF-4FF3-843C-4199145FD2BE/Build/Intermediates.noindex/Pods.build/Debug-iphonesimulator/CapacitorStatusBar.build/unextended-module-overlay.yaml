@@ -1,0 +1,23 @@
+{
+  'version': 0,
+  'use-external-names': 'false',
+  'case-sensitive': 'false',
+  'roots': [{
+    'type': 'directory',
+    'name': "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/581CD19E-ECCF-4FF3-843C-4199145FD2BE/Build/Products/Debug-iphonesimulator/CapacitorStatusBar/CapacitorStatusBar.framework/Modules"
+    'contents': [{
+      'type': 'file',
+      'name': "module.modulemap",
+      'external-contents': "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/581CD19E-ECCF-4FF3-843C-4199145FD2BE/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/CapacitorStatusBar.build/unextended-module.modulemap",
+    }]
+    },
+    {
+    'type': 'directory',
+    'name': "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/581CD19E-ECCF-4FF3-843C-4199145FD2BE/Build/Products/Debug-iphonesimulator/CapacitorStatusBar/CapacitorStatusBar.framework/Headers"
+    'contents': [{
+      'type': 'file',
+      'name': "CapacitorStatusBar-Swift.h",
+      'external-contents': "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/581CD19E-ECCF-4FF3-843C-4199145FD2BE/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/CapacitorStatusBar.build/unextended-interface-header.h",
+    }]
+    }]
+}
