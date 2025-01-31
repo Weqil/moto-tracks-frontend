@@ -39,6 +39,7 @@
     width: 100%;
     
 }
+
 .event-track{
     padding-top: var(--standart-padding);
     padding-bottom: 4rem;
@@ -90,5 +91,19 @@
     font-family: var(--font-bold);
     font-size: var(--font-regular-size);
     padding-bottom: var(--little-padding);
+}
+.event-date{
+    
+    justify-content: end;
+    color: var(--white-color);
+    padding: var(--little-padding);
+    margin-bottom: 1rem;
+    font-family: var(--font-bold);
+    font-size: var(--font-little-size);
+    background-color: var(--grey-color);
+    border-radius: 2px;
+    display: inline-flex;
+    margin-left: 37.5%;
+    
 }
 

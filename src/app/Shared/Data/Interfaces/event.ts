@@ -9,4 +9,5 @@ export interface IEvent {
     track:Track
     images?: string[],
     appointments_exists?:boolean
+    
 }

@@ -2,6 +2,7 @@
     max-width:20rem;
     min-width: 20rem;
     border-radius:10px;
+  
     background-color:var(--white-color);
     .card__header{
         padding-top: var(--little-padding);
@@ -38,7 +39,22 @@
 }
 .event-address{
     padding-top: var(--little-padding);
+    padding-bottom: var(--little-padding);
     font-family: var(--font-regular);
     font-size: var(--font-little-size);
-    padding-bottom: var(--little-bottom);
+    
+}
+.event-date{
+    display: flex;
+    justify-content: end;
+    color: var(--white-color);
+    padding: var(--little-padding);
+    font-family: var(--font-bold);
+    font-size: var(--font-little-size);
+    background-color: var(--blue-primary-color);
+    border-radius: 8px;
+    display: inline-flex;
+    
+    
+    
 }
