@@ -10,14 +10,19 @@ import { StandartInputComponent } from "../../../Shared/Components/Forms/standar
 import { ButtonsModule } from "../../../Shared/Modules/buttons/buttons.module";
 import { User } from 'src/app/Shared/Data/Interfaces/user-model';
 import { CheckImgUrlPipe } from "../../../Shared/Helpers/check-img-url.pipe";
+import { ProfileModule } from 'src/app/Shared/Modules/user/profile.module';
+import { UserModule } from 'src/app/Shared/Modules/user/user.module';
 
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss'],
-  imports: [SharedModule, CommonModule, HeaderModule, FormsModule, StandartInputComponent, ButtonsModule, CheckImgUrlPipe]
+  imports: [SharedModule, CommonModule, HeaderModule, FormsModule, StandartInputComponent, ButtonsModule, CheckImgUrlPipe,UserModule,
+    ProfileModule]
 })
 export class SettingsComponent  implements OnInit {
+  authService: any;
+  navControler: any;
 
   constructor() { }
 
@@ -35,6 +40,7 @@ export class SettingsComponent  implements OnInit {
   userService:UserService = inject(UserService)
   toastService:ToastService = inject(ToastService)
   loaderService:LoadingService = inject(LoadingService)
+  settingsAvatar:string = ''
   userSettingsForm: FormGroup = new FormGroup({
     name: new FormControl('', [Validators.required]),
     email:new FormControl('', [Validators.required])
@@ -45,12 +51,18 @@ export class SettingsComponent  implements OnInit {
   ionViewWillEnter(){
     this.userService.user.pipe().subscribe(()=>{
       this.user = this.userService.user.value
+      this.settingsAvatar = this.user?.avatar ? this.user?.avatar : ''
       console.log( this.user)
       this.userSettingsForm.patchValue({
         name: this.user?.personal?.name,
         email: this.user?.email
       })
     })
+  }
+
+  logoutInAccount() {
+    this.authService.logout()
+    this.navControler.navigateForward('/login',{  animated: false })
   }
 
   ngOnInit() {}

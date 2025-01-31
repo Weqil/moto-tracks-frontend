@@ -6,7 +6,7 @@
     <div class="document-container">
       <div class="up-container">
         <div class="user-section__avatar">
-          <img class="user-section__avatar__img" [src]="user?.avatar | checkImgUrl" alt="" alt="">
+          <img class="user-section__avatar__img" [src]="settingsAvatar | checkImgUrl" alt="" alt="">
         </div>
         <app-standart-input class="up-container__input" [control]="userSettingsForm.get('name')" [errorMessage]="formErrors.name.errorMessage" [invalid]="formErrors.name.errorMessage.length !== 0" placeholder="Введите имя пользователя" label="Имя пользователя"></app-standart-input>
       </div>
@@ -15,6 +15,9 @@
       </div>
     </div>      
     <app-standart-button  [disabled]="true" buttonText="Сохранить"></app-standart-button>
-
+    <div class="cabinet__delete_account">
+      <app-standart-button  theme="red" buttonText="Удалить учетную запись"></app-standart-button>
+    </div>
+    
   </main>
 </ion-content>

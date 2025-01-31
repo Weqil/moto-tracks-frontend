@@ -36,6 +36,8 @@ export class CabinetComponent  implements OnInit {
   statuses:any[] = [
     { id: 1, name: 'Гонщик', value: 'Гонщик' },
     { id: 2, name: 'Организатор', value: 'Организатор' },
+    { id: 3, name: 'Болельщик', value: 'Болельщик' },
+
   ];
 
   setNewStatusModalOpen(){
@@ -64,8 +66,10 @@ export class CabinetComponent  implements OnInit {
     console.log('чекаю юзера')
     if(userStatus == 1){
       this.selectedStatusItem = { id: 1, name: 'Гонщик', value: 'Гонщик' }
-    }else{
+    }else if(userStatus == 2){
       this.selectedStatusItem = { id: 2, name: 'Организатор', value: 'Организатор' }
+    }else if(userStatus == 3){
+      this.selectedStatusItem = { id: 3, name: 'Болельщик', value: 'Болельщик' }
     }
   }
   ngOnInit() {
