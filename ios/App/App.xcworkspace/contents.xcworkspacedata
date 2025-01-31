@@ -1,0 +1,1592 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <Group
+      location = "group:App"
+      name = "App">
+      <Group
+         location = "group:Assets.xcassets"
+         name = "Assets.xcassets">
+         <Group
+            location = "group:AppIcon.appiconset"
+            name = "AppIcon.appiconset">
+            <FileRef
+               location = "group:AppIcon-512@2x.png">
+            </FileRef>
+            <FileRef
+               location = "group:Contents.json">
+            </FileRef>
+         </Group>
+         <FileRef
+            location = "group:Contents.json">
+         </FileRef>
+         <Group
+            location = "group:Splash.imageset"
+            name = "Splash.imageset">
+            <FileRef
+               location = "group:splash-2732x2732.png">
+            </FileRef>
+            <FileRef
+               location = "group:splash-2732x2732-1.png">
+            </FileRef>
+            <FileRef
+               location = "group:Contents.json">
+            </FileRef>
+            <FileRef
+               location = "group:splash-2732x2732-2.png">
+            </FileRef>
+         </Group>
+      </Group>
+      <Group
+         location = "group:Base.lproj"
+         name = "Base.lproj">
+         <FileRef
+            location = "group:LaunchScreen.storyboard">
+         </FileRef>
+         <FileRef
+            location = "group:Main.storyboard">
+         </FileRef>
+      </Group>
+      <FileRef
+         location = "group:config.xml">
+      </FileRef>
+      <Group
+         location = "group:public"
+         name = "public">
+         <FileRef
+            location = "group:chunk-UDEGFX4N.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-5HRWHAOH.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-SFUOMXYE.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-C6ZKG3CJ.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-4U6PRYVA.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-OMB27VJZ.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-5OMUW5VI.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-JE3FXFC3.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-BUEU67G5.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-JWIEPCRG.js">
+         </FileRef>
+         <FileRef
+            location = "group:styles-C4KQ6QN3.css">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-ISA7CLY2.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-F5KI2ZBJ.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-6JGRGKDE.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-OIBNP2XX.js">
+         </FileRef>
+         <FileRef
+            location = "group:polyfills-4BK4MXU4.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-EZYWDOAE.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-72KDLSWN.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-7OJB2ULO.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-NUV3S4IR.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-E7XUYOOL.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-EKV77KXP.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-LF5XB4YN.js">
+         </FileRef>
+         <FileRef
+            location = "group:index.html">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-BKGNIVK7.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-5DHHLWCL.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-ADHSI2WB.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-XO6ZQQMK.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-C7XLKIFA.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-7VSVCZ7D.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-XU6GEJHA.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-HC6MZPB3.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-ATWNZUIE.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-ILNOLBVV.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-FH4UZ52G.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-J3P6K4MH.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-MNDBORQJ.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-YNP7CTLP.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-QPVVTFFW.js">
+         </FileRef>
+         <FileRef
+            location = "group:cordova.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-OZIMVGDH.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-IEY6ZC2G.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-3ZDSKETB.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-QUAOT3VU.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-I7DR2RGC.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-5YYRGFGF.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-QHWLCZUY.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-FUS7VFKT.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-OBXDPQ3V.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-KY3FK4A4.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-WSCMVZFT.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-HDAU6KSU.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-BUONJMFD.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-YMI2B6JE.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-K3WT5GKM.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-LLLOGGFI.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-F46RPIPY.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-NFLHAPBE.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-XJ6GA4LB.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-VEEMWNCU.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-A6SMAXUV.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-PY3LSXJ2.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-ZCIJOY76.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-D7DUDH43.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-RF6XKFEM.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-2CGCPUWE.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-5X4HMWFG.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-L3V7XXU6.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-3ZXTX737.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-QKP6AKFG.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-VBUHVQJ6.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-KOU4B3FF.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-WMEG6PAA.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-464WCKN6.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-GRTPZDYH.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-UB3WMOVF.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-AK3EOKM7.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-TS7MW7HG.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-IFNCDCK6.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-TRVJA27Y.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-2WNWRKHP.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-VBTCYKUR.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-NPRJJPHL.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-HMOUTJUP.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-D7CHJCW5.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-7SHWHCQ6.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-YZXVCURG.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-3GUFF4ZJ.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-UKLEBRLV.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-ANI5XEPI.js">
+         </FileRef>
+         <FileRef
+            location = "group:main-Z3UITDBS.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-4D6RHUVA.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-7QDNEOTL.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-MM5QLNJM.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-FERD25SW.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-7QVI4S4L.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-VBU7NMPV.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-JT3RB6TV.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-XODSA4YU.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-ENMEGMTS.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-YXJGOLNG.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-YNMNN5XH.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-J3CYG6CI.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-YE7L7MYE.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-GF6VGRIS.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-RC4RDDXA.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-G4HIKCL7.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-YKRCKNSE.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-LQRKRCUL.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-IB5AMKCI.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-DTGOGYCF.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-B33KFFBD.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-6ATGOKMM.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-GOWQWRZR.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-4FHAMROD.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-2TBD4ITF.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-ACGYCHS3.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-DNETMLXB.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-J6ICYO4L.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-MLUE3GC7.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-7KYDD3R6.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-F7XBNY6P.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-PLNTQRIK.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-SVLEFD36.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-Q6ZGCBFZ.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-GBZ37CTB.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-E4VTLUKT.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-GY5446QW.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-3MYL3FJ3.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-3TZHS7H3.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-5E46SPE4.js">
+         </FileRef>
+         <FileRef
+            location = "group:cordova_plugins.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-SYPE7VPX.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-GJZKZXL4.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-EQ35RWTM.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-UPZKHFAS.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-HU6UQ5WL.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-L3WJPVL4.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-BSFBEI64.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-LFIOHD3L.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-CP3KN2XS.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-UC2FJDBM.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-NQPTBYTI.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-C6TWYN5N.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-LNJ3S2LQ.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-JRTDRGUG.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-LB5WRDFC.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-MCRJI3T3.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-DZ557JLO.js">
+         </FileRef>
+         <Group
+            location = "group:assets"
+            name = "assets">
+            <Group
+               location = "group:images"
+               name = "images">
+               <FileRef
+                  location = "group:sliderImag1.jpg">
+               </FileRef>
+               <FileRef
+                  location = "group:girlLaptop.png">
+               </FileRef>
+               <FileRef
+                  location = "group:blur-image.jpg">
+               </FileRef>
+               <FileRef
+                  location = "group:sliderImag2.jpg">
+               </FileRef>
+               <FileRef
+                  location = "group:tapeSights.png">
+               </FileRef>
+               <FileRef
+                  location = "group:sliderImag3.jpg">
+               </FileRef>
+               <FileRef
+                  location = "group:tiketPC.png">
+               </FileRef>
+               <FileRef
+                  location = "group:peopleToOffice.png">
+               </FileRef>
+               <FileRef
+                  location = "group:undraw_knowledge_re_5v9l 1.png">
+               </FileRef>
+               <FileRef
+                  location = "group:thank_you.png">
+               </FileRef>
+               <FileRef
+                  location = "group:peopleOnTheBench.png">
+               </FileRef>
+               <FileRef
+                  location = "group:&#x420;&#x435;&#x441;&#x443;&#x440;&#x441; 17.png">
+               </FileRef>
+               <FileRef
+                  location = "group:moto-standart.jpg">
+               </FileRef>
+               <FileRef
+                  location = "group:userClassTemplate.png">
+               </FileRef>
+               <FileRef
+                  location = "group:tape.png">
+               </FileRef>
+               <FileRef
+                  location = "group:phone-wrapper.png">
+               </FileRef>
+               <FileRef
+                  location = "group:sliderImag3.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:userClassTemplate2.png">
+               </FileRef>
+               <FileRef
+                  location = "group:sliderImag2.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:moto-background.png">
+               </FileRef>
+               <FileRef
+                  location = "group:sliderImag1.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:delovye-meropriyatiya-3.jpg">
+               </FileRef>
+               <FileRef
+                  location = "group:0017387_0.jpeg">
+               </FileRef>
+               <FileRef
+                  location = "group:myEventsHeader.png">
+               </FileRef>
+               <FileRef
+                  location = "group:girlSearch.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:nophoto.jpg">
+               </FileRef>
+               <FileRef
+                  location = "group:background-deloevents.jpg">
+               </FileRef>
+               <FileRef
+                  location = "group:travellerGirl.png">
+               </FileRef>
+               <FileRef
+                  location = "group:clock.png">
+               </FileRef>
+               <FileRef
+                  location = "group:&#x420;&#x435;&#x441;&#x443;&#x440;&#x441; 19.png">
+               </FileRef>
+               <FileRef
+                  location = "group:girlWithDragonToUrban.png">
+               </FileRef>
+               <FileRef
+                  location = "group:&#x420;&#x435;&#x441;&#x443;&#x440;&#x441; 18.png">
+               </FileRef>
+               <FileRef
+                  location = "group:delovye-meropriyatiya-3.&#x43e;&#x437;&#x43f;.png">
+               </FileRef>
+            </Group>
+            <FileRef
+               location = "group:shapes.svg">
+            </FileRef>
+            <Group
+               location = "group:navigation"
+               name = "navigation">
+               <FileRef
+                  location = "group:user.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:tape.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:map.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:favorites.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:reiting.svg">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:icons"
+               name = "icons">
+               <FileRef
+                  location = "group:search.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:like.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:entertainment.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:create.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:event_map.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:circus.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:like-active.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:Repeat.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:geo-button.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:children.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:new_calendar-outline.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:user.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:open-input.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:events.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:seance-border.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:arrow.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:home-button.png">
+               </FileRef>
+               <FileRef
+                  location = "group:search-button.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:ticket.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:TablerTicket.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:show.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:rustore.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:map.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:google-play.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:call-outline.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:login_password.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:MakiMuseum.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:vk.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:question.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:lock.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:fire.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:map_metka.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:pen.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:natures.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:profile_active.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:eye_closed.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:map-button.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:settings.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:active-map.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:master.png">
+               </FileRef>
+               <FileRef
+                  location = "group:&#x430;ttraction.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:mail.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:emoji.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:new_map.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:ball.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:home-button.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:exposition.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:place.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:seance-border.png">
+               </FileRef>
+               <FileRef
+                  location = "group:bell.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:flag.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:not-found-seances.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:support.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:FlagStrong.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:factory.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:category.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:feed.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:phone_reg.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:lookout.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:email.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:star-active.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:add.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:update_app.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:close.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:architecture.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:initiative.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:historic.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:subtract.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:new-profile.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:favicon.png">
+               </FileRef>
+               <FileRef
+                  location = "group:religion.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:tresh.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:mask.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:heart_active.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:chat.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:map-arrow.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:eye_open.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:camera.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:museum.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:trash.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:star.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:geo.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:active-feed.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:app-store.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:theaters.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:fireOrange.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:person-outline.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:eye.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:new_calendar.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:tube.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:profile.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:share.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:addPhoto.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:menu-pen.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:business.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:medal.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:calendar.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:hearts.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:zoo.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:motorcycle.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:arrow-rounded.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:del.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:menu.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:ring.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:parking.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:eye-new.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:seance-borderpng.png">
+               </FileRef>
+               <FileRef
+                  location = "group:login_mail.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:favicon.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:small_calendar.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:update_app_3.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:documents.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:update_app_2.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:run.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:film.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:footer_map.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:student.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:heart.svg">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:fonts"
+               name = "fonts">
+               <Group
+                  location = "group:NunitoSans"
+                  name = "NunitoSans">
+                  <FileRef
+                     location = "group:NunitoSans-ExtraLight.ttf">
+                  </FileRef>
+                  <FileRef
+                     location = "group:NunitoSans-Light.ttf">
+                  </FileRef>
+                  <FileRef
+                     location = "group:NunitoSans-ExtraBold.ttf">
+                  </FileRef>
+                  <FileRef
+                     location = "group:NunitoSans-Regular.ttf">
+                  </FileRef>
+                  <Group
+                     location = "group:static"
+                     name = "static">
+                     <FileRef
+                        location = "group:NunitoSans_10pt_SemiExpanded-SemiBold.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_Expanded-Light.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_SemiCondensed-BlackItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt-ExtraLightItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_Condensed-BlackItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_Condensed-ExtraBoldItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_SemiExpanded-BoldItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_SemiCondensed-SemiBoldItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt-Medium.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_Condensed-Italic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_Condensed-Medium.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_SemiExpanded-Black.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_Condensed-LightItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_Expanded-Bold.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_Condensed-ExtraBold.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_SemiExpanded-ExtraLight.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt-LightItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_Condensed-Light.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_SemiCondensed-SemiBold.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_Expanded-BlackItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt-SemiBold.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_SemiCondensed-Light.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt-LightItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_SemiExpanded-LightItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_Condensed-ExtraLightItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_Condensed-MediumItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_SemiCondensed-BoldItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_Expanded-Medium.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_Expanded-Black.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_Expanded-BlackItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_SemiExpanded-Medium.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_SemiExpanded-ExtraBold.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt-Regular.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_Condensed-ExtraBoldItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_SemiCondensed-MediumItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_SemiCondensed-BlackItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_SemiCondensed-Regular.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_Expanded-Italic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_Condensed-Black.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_SemiCondensed-ExtraLight.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_Expanded-Regular.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_SemiExpanded-SemiBoldItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt-SemiBold.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_Condensed-SemiBold.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_Condensed-BoldItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_SemiCondensed-Regular.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_SemiCondensed-ExtraLightItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_SemiCondensed-Light.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt-BlackItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_SemiExpanded-BlackItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_Condensed-SemiBoldItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_SemiCondensed-SemiBoldItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_Condensed-ExtraBold.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_SemiExpanded-Light.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_Expanded-LightItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_SemiExpanded-Regular.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_SemiCondensed-ExtraBold.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_SemiCondensed-Italic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_SemiExpanded-SemiBoldItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_Expanded-SemiBoldItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_SemiCondensed-ExtraLightItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_SemiCondensed-Bold.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_Expanded-ExtraLightItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt-SemiBoldItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_Condensed-ExtraLight.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_SemiCondensed-LightItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_Expanded-ExtraLightItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt-Medium.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_Condensed-ExtraLight.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_SemiCondensed-LightItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_Condensed-LightItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_Expanded-ExtraBoldItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_Condensed-Bold.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt-Black.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_Expanded-ExtraBold.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_Condensed-BoldItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_Expanded-Bold.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt-BlackItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_SemiExpanded-Medium.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_Condensed-BlackItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt-Light.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_SemiExpanded-SemiBold.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt-ExtraBoldItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_Expanded-LightItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_SemiCondensed-Italic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_SemiExpanded-Regular.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt-Light.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_Expanded-SemiBold.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt-ExtraLight.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_SemiExpanded-BlackItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_Condensed-SemiBoldItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt-SemiBoldItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_Condensed-MediumItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_SemiExpanded-ExtraBold.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt-Bold.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_SemiExpanded-Bold.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_SemiCondensed-Medium.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_SemiCondensed-ExtraBoldItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_SemiExpanded-MediumItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt-Black.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt-BoldItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_SemiExpanded-Italic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_Expanded-ExtraBoldItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_SemiExpanded-ExtraBoldItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_SemiExpanded-Black.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_SemiExpanded-MediumItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_SemiCondensed-Medium.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_Expanded-ExtraLight.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_Condensed-Bold.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_SemiCondensed-MediumItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt-ExtraBold.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_Expanded-MediumItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt-ExtraBold.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_SemiCondensed-Black.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_SemiExpanded-ExtraLight.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_SemiCondensed-SemiBold.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt-ExtraBoldItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_Condensed-Regular.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt-Italic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_SemiExpanded-BoldItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_Condensed-ExtraLightItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_Expanded-BoldItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_SemiExpanded-ExtraLightItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt-MediumItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_Expanded-ExtraBold.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_Expanded-Light.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_Condensed-Italic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt-MediumItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_SemiExpanded-ExtraLightItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt-ExtraLightItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_SemiExpanded-Bold.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_Condensed-Light.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt-Italic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_Expanded-SemiBold.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_Condensed-Medium.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_Expanded-MediumItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt-Regular.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_Expanded-Medium.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_SemiCondensed-BoldItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt-BoldItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_SemiExpanded-ExtraBoldItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_SemiCondensed-Bold.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_Condensed-Regular.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_Expanded-BoldItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_Expanded-Black.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_SemiExpanded-LightItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_SemiCondensed-ExtraBoldItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_Condensed-Black.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt_Condensed-SemiBold.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_Expanded-ExtraLight.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_Expanded-Regular.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_Expanded-SemiBoldItalic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_SemiCondensed-Black.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_SemiCondensed-ExtraLight.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt-ExtraLight.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_SemiCondensed-ExtraBold.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_SemiExpanded-Light.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_SemiExpanded-Italic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_10pt_Expanded-Italic.ttf">
+                     </FileRef>
+                     <FileRef
+                        location = "group:NunitoSans_7pt-Bold.ttf">
+                     </FileRef>
+                  </Group>
+                  <FileRef
+                     location = "group:NunitoSans-Bold.ttf">
+                  </FileRef>
+                  <FileRef
+                     location = "group:NunitoSans-SemiBold.ttf">
+                  </FileRef>
+                  <FileRef
+                     location = "group:NunitoSans-Black.ttf">
+                  </FileRef>
+               </Group>
+            </Group>
+         </Group>
+         <FileRef
+            location = "group:chunk-VANPETW6.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-LFAVFFJB.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-DGJ3H4GJ.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-HGNGFJZX.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-ICYLPJNL.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-QFO5OYTV.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-3EXW2TJY.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-TOMKYGDP.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-M2DGAI6B.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-YRQMRGQZ.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-2HD3MFTH.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-H2TTQ5S5.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-ZXFZWMZA.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-3C4OQOAY.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-L7HMGOTT.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-3WBIAB6V.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-EHUH2MGZ.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-FYK4VEB7.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-22PFKWU3.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-4CTSZ67H.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-RHQI2CU4.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-ZO3FH6GF.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-M7745STU.js">
+         </FileRef>
+         <FileRef
+            location = "group:chunk-A6CHLIAB.js">
+         </FileRef>
+      </Group>
+      <FileRef
+         location = "group:capacitor.config.json">
+      </FileRef>
+      <FileRef
+         location = "group:AppDelegate.swift">
+      </FileRef>
+      <FileRef
+         location = "group:Info.plist">
+      </FileRef>
+   </Group>
+   <FileRef
+      location = "group:App.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Pods/Pods.xcodeproj">
+   </FileRef>
+</Workspace>

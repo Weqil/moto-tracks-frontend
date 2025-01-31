@@ -1,4 +1,4 @@
-package io.ionic.starter;
+package com.policam.motokros;
 
 import com.getcapacitor.BridgeActivity;
 
