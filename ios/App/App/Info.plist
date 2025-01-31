@@ -45,5 +45,11 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+	<key>WKAppBoundDomains</key>
+	<array>
+		<string>www.mydomain.com</string>
+		<string>api.mydomain.com</string>
+		<string>www.myothercooldomain.com</string>
+	</array>
 </dict>
 </plist>

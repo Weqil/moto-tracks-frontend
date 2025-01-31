@@ -1,0 +1,30 @@
+dependencies: \
+  /Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/581CD19E-ECCF-4FF3-843C-4199145FD2BE/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/module.modulemap \
+  /Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/Capacitor/Capacitor/CAPInstanceDescriptor.m \
+  /Users/aleksandrkolosov/moto-tracks-frontend/ios/App/Pods/Target\ Support\ Files/Capacitor/Capacitor-prefix.pch \
+  /Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/Capacitor/Capacitor/CAPInstanceDescriptor.h \
+  /Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/581CD19E-ECCF-4FF3-843C-4199145FD2BE/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/CapacitorCordova.build/module.modulemap \
+  /Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/CapacitorCordova/CapacitorCordova/CapacitorCordova.h \
+  /Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/CapacitorCordova/CapacitorCordova/Classes/Public/AppDelegate.h \
+  /Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/CapacitorCordova/CapacitorCordova/Classes/Public/CDVViewController.h \
+  /Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/CapacitorCordova/CapacitorCordova/Classes/Public/CDV.h \
+  /Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/CapacitorCordova/CapacitorCordova/Classes/Public/CDVAvailability.h \
+  /Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/CapacitorCordova/CapacitorCordova/Classes/Public/CDVPlugin.h \
+  /Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/CapacitorCordova/CapacitorCordova/Classes/Public/CDVPluginResult.h \
+  /Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/CapacitorCordova/CapacitorCordova/Classes/Public/CDVCommandDelegate.h \
+  /Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/CapacitorCordova/CapacitorCordova/Classes/Public/CDVInvokedUrlCommand.h \
+  /Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/CapacitorCordova/CapacitorCordova/Classes/Public/CDVURLProtocol.h \
+  /Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/CapacitorCordova/CapacitorCordova/Classes/Public/CDVScreenOrientationDelegate.h \
+  /Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/CapacitorCordova/CapacitorCordova/Classes/Public/CDVWebViewProcessPoolFactory.h \
+  /Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/CapacitorCordova/CapacitorCordova/Classes/Public/CDVCommandDelegateImpl.h \
+  /Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/CapacitorCordova/CapacitorCordova/Classes/Public/CDVPluginManager.h \
+  /Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/CapacitorCordova/CapacitorCordova/Classes/Public/CDVConfigParser.h \
+  /Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/CapacitorCordova/CapacitorCordova/Classes/Public/CDVPlugin+Resources.h \
+  /Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/CapacitorCordova/CapacitorCordova/Classes/Public/NSDictionary+CordovaPreferences.h \
+  /Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/581CD19E-ECCF-4FF3-843C-4199145FD2BE/Build/Products/Debug-iphonesimulator/Capacitor/Capacitor.framework/Headers/Capacitor-Swift.h \
+  /Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/Capacitor/Capacitor/Capacitor.h \
+  /Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/Capacitor/Capacitor/CAPPlugin.h \
+  /Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/Capacitor/Capacitor/CAPPluginCall.h \
+  /Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/Capacitor/Capacitor/CAPBridgedPlugin.h \
+  /Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/Capacitor/Capacitor/CAPPluginMethod.h \
+  /Users/aleksandrkolosov/moto-tracks-frontend/node_modules/@capacitor/ios/Capacitor/Capacitor/CAPInstanceConfiguration.h

@@ -1,0 +1,11 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "moto-tracks-frontend",
+	"webDir": "www/browser",
+	"packageClassList": [
+		"AppPlugin",
+		"HapticsPlugin",
+		"KeyboardPlugin",
+		"StatusBarPlugin"
+	]
+}

@@ -1,0 +1,2 @@
+import{Cb as r,Qa as o,ib as i,jb as p}from"./chunk-LFIOHD3L.js";import"./chunk-LNJ3S2LQ.js";var f=(()=>{let t=class t{constructor(){}ngOnInit(){}};t.\u0275fac=function(n){return new(n||t)},t.\u0275cmp=o({type:t,selectors:[["app-not-found-pages"]],decls:2,vars:0,template:function(n,a){n&1&&(i(0,"p"),r(1,` not-found-pages works!
+`),p())},encapsulation:2});let e=t;return e})();export{f as NotFoundPagesComponent};
