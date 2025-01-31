@@ -1,19 +1,21 @@
 <div class="header">
+  <div class="header-wrapper">
+      <ng-content *ngIf="!hiddenBackButton">
+        <app-back-button  *ngIf="!customBack"></app-back-button>
+    </ng-content>
 
-  <ng-content *ngIf="!hiddenBackButton">
-      <app-back-button  *ngIf="!customBack"></app-back-button>
-  </ng-content>
+    <app-circle-button *ngIf="customBack" (click)="backButtonClick()" icon="/assets/icons/arrow.svg"></app-circle-button>
+    <div class="header-title">{{headerTitle}}</div>
+    <ng-container *ngIf="customButton">
+      <ng-content>
 
-  <app-circle-button *ngIf="customBack" (click)="backButtonClick()" icon="/assets/icons/arrow.svg"></app-circle-button>
-  <div class="header-title">{{headerTitle}}</div>
-  <ng-container *ngIf="customButton">
-    <ng-content>
+      </ng-content>
+    </ng-container>
+    
+    <ng-content *ngIf="!hiddenBackButton">
+    <app-circle-button (click)="secondButtonClickFunction()" *ngIf="!customButton" [ngClass]="{'invisible': !secondButtonIcon}"  [icon]="secondButtonIcon"></app-circle-button>
 
     </ng-content>
-  </ng-container>
-  
-  <ng-content *ngIf="!hiddenBackButton">
-  <app-circle-button (click)="secondButtonClickFunction()" *ngIf="!customButton" [ngClass]="{'invisible': !secondButtonIcon}"  [icon]="secondButtonIcon"></app-circle-button>
-
-  </ng-content>
+  </div>
+ 
 </div>
