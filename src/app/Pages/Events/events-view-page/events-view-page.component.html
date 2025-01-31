@@ -12,7 +12,7 @@
         @if (usersInRace.length) {
           <app-users-preview (userSelected)="openRacer($event)"  [fullValueUsers]="usersInRace.length" [users]="usersInRace" [moreCount]="usersInRace.length" [openUsersModal]="openUserModalValue" (closeModalEmit)="closeStateUsersModal()" (openModalEmit)="openStateUsersModal()"></app-users-preview>
         }
-        <div class="event-description">{{event.desc}}</div>
+        <div [innerHTML]="clearDescription()" class="event-description">{{event.desc}}</div>
         <div class="event-track">
           <!-- <div class="event-track__title">Где проходит</div> -->
           <app-track-section (click)="redirectInRace()" [track]="event.track"></app-track-section>

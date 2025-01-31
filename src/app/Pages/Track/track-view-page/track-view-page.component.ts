@@ -10,6 +10,7 @@ import { finalize, Subject, takeUntil } from 'rxjs';
 import { TrackService } from 'src/app/Shared/Data/Services/Track/track.service';
 import { ButtonsModule } from 'src/app/Shared/Modules/buttons/buttons.module';
 import { LoadingService } from 'src/app/Shared/Services/loading.service';
+import { DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: 'app-track-view-page',
   templateUrl: './track-view-page.component.html',
@@ -29,6 +30,7 @@ export class TrackViewPageComponent  implements OnInit {
   track!:Track 
   trackService:TrackService = inject(TrackService)
   trackId!: string 
+  sanitizer:DomSanitizer = inject(DomSanitizer)
   constructor() { }
   route: ActivatedRoute = inject(ActivatedRoute)
   loadingService: LoadingService = inject(LoadingService)
@@ -58,6 +60,15 @@ export class TrackViewPageComponent  implements OnInit {
 
     })
   }
+  
+  formatingText(text:string): string{
+    return text.replace(/\n/g, '<br>');
+   }
+
+  clearDescription(){
+    return this.sanitizer.bypassSecurityTrustHtml(this.formatingText(String(this.track.desc)))
+   }
+
   ionViewDidLeave(){
     this.destroy$.next()
   }

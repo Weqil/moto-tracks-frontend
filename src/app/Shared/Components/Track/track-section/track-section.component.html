@@ -1,9 +1,15 @@
 <div *ngIf="track" class="track-section">
-  <div class="track-section__avatar"> 
-    <img class="track-section__avatar__img" src="{{track.images ? (track.images[0] | checkImgUrl) : '' | checkImgUrl}}" alt="">
+  <div class="track-section__info-group">
+    <div class="track-section__avatar"> 
+      <img class="track-section__avatar__img" src="{{track.images ? (track.images[0] | checkImgUrl) : '' | checkImgUrl}}" alt="">
+    </div>
+    <div class="track-section__info">
+      <h2 class="track-section__name">{{track.name}}</h2>
+    </div>
   </div>
-  <div class="track-section__info">
-    <h2 class="track-section__name">{{track.name}}</h2>
+  
+  <div class="track__status">
+    <div class="track__status__circle" style="background-color: {{track.is_work ? 'var(--green-color)' : 'var(--red-color)'}}"></div>
   </div>
 </div>
 
