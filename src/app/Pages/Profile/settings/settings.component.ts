@@ -8,12 +8,14 @@ import { LoadingService } from 'src/app/Shared/Services/loading.service';
 import { ToastService } from 'src/app/Shared/Services/toast.service';
 import { StandartInputComponent } from "../../../Shared/Components/Forms/standart-input/standart-input.component";
 import { ButtonsModule } from "../../../Shared/Modules/buttons/buttons.module";
+import { User } from 'src/app/Shared/Data/Interfaces/user-model';
+import { CheckImgUrlPipe } from "../../../Shared/Helpers/check-img-url.pipe";
 
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss'],
-  imports: [SharedModule, CommonModule, HeaderModule, FormsModule, StandartInputComponent, ButtonsModule]
+  imports: [SharedModule, CommonModule, HeaderModule, FormsModule, StandartInputComponent, ButtonsModule, CheckImgUrlPipe]
 })
 export class SettingsComponent  implements OnInit {
 
@@ -37,6 +39,19 @@ export class SettingsComponent  implements OnInit {
     name: new FormControl('', [Validators.required]),
     email:new FormControl('', [Validators.required])
   })
+
+  user!:User|null
+
+  ionViewWillEnter(){
+    this.userService.user.pipe().subscribe(()=>{
+      this.user = this.userService.user.value
+      console.log( this.user)
+      this.userSettingsForm.patchValue({
+        name: this.user?.personal?.name,
+        email: this.user?.email
+      })
+    })
+  }
 
   ngOnInit() {}
 

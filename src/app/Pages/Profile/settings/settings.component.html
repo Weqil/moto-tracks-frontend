@@ -6,9 +6,9 @@
     <div class="document-container">
       <div class="up-container">
         <div class="user-section__avatar">
-          <img class="user-section__avatar__img" [src]="" alt="">
+          <img class="user-section__avatar__img" [src]="user?.avatar | checkImgUrl" alt="" alt="">
         </div>
-        <app-standart-input class="up-container__input" [control]="userSettingsForm.get('name')" [errorMessage]="formErrors.name.errorMessage" [invalid]="formErrors.name.errorMessage.length !== 0" placeholder="Введите Имя" label="Имя"></app-standart-input>
+        <app-standart-input class="up-container__input" [control]="userSettingsForm.get('name')" [errorMessage]="formErrors.name.errorMessage" [invalid]="formErrors.name.errorMessage.length !== 0" placeholder="Введите имя пользователя" label="Имя пользователя"></app-standart-input>
       </div>
       <div class="bottom-container">
       <app-standart-input class="bottom-container__standart"[control]="userSettingsForm.get('email')" [errorMessage]="formErrors.email.errorMessage" [invalid]="formErrors.email.errorMessage.length !== 0" placeholder="Введите Email" label="Email"></app-standart-input> 
