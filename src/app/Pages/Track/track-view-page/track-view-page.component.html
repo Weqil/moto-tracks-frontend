@@ -8,7 +8,7 @@
             <img src="{{track.images ? (track.images[0] | checkImgUrl) : '' | checkImgUrl}}" alt="" class="track-header__avatar">
         
             <div class="track__status">
-              <div class="track__status__circle" style="background-color: {{track.is_work ? 'var(--green-color)' : 'var(--red-color)'}};"></div>
+              <div class="track__status__circle" style="background-color: {{track.is_work ? 'var(--green-color)' : 'var(--red-color)'}}"></div>
               {{track.is_work ? 'Работает' : 'Закрыто'}}
             </div>
         </div>
@@ -60,7 +60,7 @@
           </div>
           <div *ngIf="track.desc" class="description">
             <!-- <div class="standart-heading">Описание трека</div> -->
-            <div class="description__text">{{track.desc}}</div>
+            <div [innerHTML]="clearDescription()" class="description__text">{{track.desc}}</div>
           </div>
 
           <div class="map">

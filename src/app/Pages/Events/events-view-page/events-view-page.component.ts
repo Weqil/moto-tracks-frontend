@@ -22,6 +22,7 @@ import * as _ from 'lodash';
 
 import { UsersPreviewComponent } from 'src/app/Shared/Components/UI/users-preview/users-preview.component';
 import { ConfirmModalComponent } from 'src/app/Shared/Components/UI/confirm-modal/confirm-modal.component';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-events-view-page',
@@ -117,6 +118,7 @@ export class EventsViewPageComponent  implements OnInit {
     loaderService:LoadingService = inject(LoadingService)
     platform:Platform = inject(Platform)
     pasport:any
+    sanitizer:DomSanitizer = inject(DomSanitizer)
     licenses:any
     polis:any
     toastService:ToastService = inject(ToastService)
@@ -127,6 +129,10 @@ export class EventsViewPageComponent  implements OnInit {
     closeStateUsersModal(){
       this.openUserModalValue = false
     }
+
+    formatingText(text:string): string{
+      return text.replace(/\n/g, '<br>');
+     }
 
     cancelApplicationForm(){
       let currentForm = {
@@ -169,7 +175,9 @@ export class EventsViewPageComponent  implements OnInit {
       }
    }
 
-
+   clearDescription(){
+    return this.sanitizer.bypassSecurityTrustHtml(this.formatingText(String(this.event.desc)))
+   }
    createLicenses(){
     this.userService.createUserDocument({type: 'licenses', data:(this.licensesForm.value)}).pipe(
     finalize(()=>{
