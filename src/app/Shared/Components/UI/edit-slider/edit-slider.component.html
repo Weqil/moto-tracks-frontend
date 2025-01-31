@@ -24,11 +24,15 @@
  </ng-container>
 
  <ng-container *ngIf="type === 'create'">
-  <div class="label">Обложка</div>
-  <div *ngIf="previews[0]" style="background-image: url({{previews[0].link}}) ;" class="cover-add-button" >
-  </div>
-  <div *ngIf="previews.length == 0 && !categoryType" style="background-image: url('assets/images/nophoto.jpg') ;" class="cover-add-button" ></div>
-  <div *ngIf="previews.length == 0 && categoryType && categoryType.image_path " style="background-image: url('{{this.fileService.checkLinkString( categoryType.image_path)}}') ;" class="cover-add-button" ></div>
+  <ng-container *ngIf="previews.length !== 0">
+    <div class="label">Обложка</div>
+    <div *ngIf="previews[0]" style="background-image: url({{previews[0].link}}) ;" class="cover-add-button" >
+    </div>
+    <div *ngIf="previews.length == 0 && !categoryType" style="background-image: url('assets/images/nophoto.jpg') ;" class="cover-add-button" ></div>
+    <div *ngIf="previews.length == 0 && categoryType && categoryType.image_path " style="background-image: url('{{this.fileService.checkLinkString( categoryType.image_path)}}') ;" class="cover-add-button" ></div>
+    
+  </ng-container>
+  
   
   <div class="label">Фотографии</div>
   <div class="slider-container_create">

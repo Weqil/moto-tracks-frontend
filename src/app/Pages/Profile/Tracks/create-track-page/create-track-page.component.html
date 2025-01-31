@@ -66,7 +66,12 @@
                         <app-edit-slider (filesEmit)="getImages($event)" type="create"></app-edit-slider>
                     </div>
                 </form>
-             
+                <div class="contacts-form">
+                    <app-standart-input label="Сайт" [control]="createTrackForm.get('name')" placeholder="Введите ссылку на сайт вашего трека"></app-standart-input>
+                    <app-standart-input label="ВК" [control]="createTrackForm.get('name')" placeholder="Введите ссылку на группу вашего трека"></app-standart-input>
+                    <app-standart-input label="Телефон" [control]="createTrackForm.get('name')" placeholder="Введите номер телефона"></app-standart-input>
+                </div>
+
             </app-step-container-item>
         </app-step-container>
 

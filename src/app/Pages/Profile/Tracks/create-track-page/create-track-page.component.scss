@@ -26,6 +26,12 @@
     flex-direction: column;
     gap: var(--standart-padding);
 }
+.contacts-form{
+  padding-top: var(--standart-padding);
+  display: flex;
+  flex-direction: column;
+  gap: var(--standart-padding);
+}
 ion-radio {
     --border-radius: 4px;
     --inner-border-radius: 4px;
