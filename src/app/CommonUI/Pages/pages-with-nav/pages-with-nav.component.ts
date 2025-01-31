@@ -44,7 +44,7 @@ export class PagesWithNavComponent  {
         icon: '/assets/navigation/reiting.svg',
         name:'Рейтинг',
         active:false,
-        path: [],
+        path: ['/rating'],
       },
     
       {

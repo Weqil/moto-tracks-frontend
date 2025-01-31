@@ -32,6 +32,10 @@ export const publicRoutes: Routes = [
         path:'racer/:id',
         loadComponent: () => import('../Pages/racer-view-page/racer-view-page.component').then((m) => m.RacerViewPageComponent)
       },
+      {
+        path:'rating',
+        loadComponent: () => import('../Pages/rating/rating.component').then((m) => m.RatingComponent)
+      }
       
     ]
   },
