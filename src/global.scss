@@ -62,6 +62,7 @@
 
   ion-content {
     --background: var(--page-background);
+    --padding-top: var(--ion-safe-area-top, 0);
   }
 
   .invisible {
