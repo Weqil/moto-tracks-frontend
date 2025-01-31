@@ -1,0 +1,23 @@
+{
+  'version': 0,
+  'use-external-names': 'false',
+  'case-sensitive': 'false',
+  'roots': [{
+    'type': 'directory',
+    'name': "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Products/Debug-iphonesimulator/CapacitorHaptics/CapacitorHaptics.framework/Modules"
+    'contents': [{
+      'type': 'file',
+      'name': "module.modulemap",
+      'external-contents': "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/CapacitorHaptics.build/unextended-module.modulemap",
+    }]
+    },
+    {
+    'type': 'directory',
+    'name': "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Products/Debug-iphonesimulator/CapacitorHaptics/CapacitorHaptics.framework/Headers"
+    'contents': [{
+      'type': 'file',
+      'name': "CapacitorHaptics-Swift.h",
+      'external-contents': "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/CapacitorHaptics.build/unextended-interface-header.h",
+    }]
+    }]
+}

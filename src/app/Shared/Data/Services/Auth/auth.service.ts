@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { UserService } from '../User/user.service';
 import { BehaviorSubject } from 'rxjs';
 import {CookieService} from 'ngx-cookie-service';
+import { CapacitorCookies } from '@capacitor/core';
 @Injectable({
   providedIn: 'root'
 })
@@ -23,11 +24,7 @@ export class AuthService {
   }
 
   setAuthToken(token:string){
-    this.cookieService.set('authToken', token, {
-      secure: true,
-      sameSite: 'Strict',
-      expires: 365, 
-    })
+    localStorage.setItem('authToken',token)
   }
 
   logout(){
@@ -38,7 +35,7 @@ export class AuthService {
   }
 
   getAuthToken(){
-    return this.cookieService.get('authToken')
+    return String(localStorage.getItem('authToken'))
   }
 
 }

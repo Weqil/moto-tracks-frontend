@@ -1,0 +1,23 @@
+{
+  'version': 0,
+  'use-external-names': 'false',
+  'case-sensitive': 'false',
+  'roots': [{
+    'type': 'directory',
+    'name': "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/581CD19E-ECCF-4FF3-843C-4199145FD2BE/Build/Products/Debug-iphonesimulator/Capacitor/Capacitor.framework/Modules"
+    'contents': [{
+      'type': 'file',
+      'name': "module.modulemap",
+      'external-contents': "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/581CD19E-ECCF-4FF3-843C-4199145FD2BE/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/unextended-module.modulemap",
+    }]
+    },
+    {
+    'type': 'directory',
+    'name': "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/581CD19E-ECCF-4FF3-843C-4199145FD2BE/Build/Products/Debug-iphonesimulator/Capacitor/Capacitor.framework/Headers"
+    'contents': [{
+      'type': 'file',
+      'name': "Capacitor-Swift.h",
+      'external-contents': "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/581CD19E-ECCF-4FF3-843C-4199145FD2BE/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/unextended-interface-header.h",
+    }]
+    }]
+}

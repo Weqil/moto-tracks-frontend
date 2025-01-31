@@ -1,0 +1,28 @@
+{
+  "" : {
+    "diagnostics" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/App.build/Debug-iphonesimulator/App.build/Objects-normal/arm64/App-master.dia",
+    "emit-module-dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/App.build/Debug-iphonesimulator/App.build/Objects-normal/arm64/App-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/App.build/Debug-iphonesimulator/App.build/Objects-normal/arm64/App-master-emit-module.dia",
+    "swift-dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/App.build/Debug-iphonesimulator/App.build/Objects-normal/arm64/App-master.swiftdeps"
+  },
+  "/Users/aleksandrkolosov/moto-tracks-frontend/ios/App/App/AppDelegate.swift" : {
+    "const-values" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/App.build/Debug-iphonesimulator/App.build/Objects-normal/arm64/AppDelegate.swiftconstvalues",
+    "dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/App.build/Debug-iphonesimulator/App.build/Objects-normal/arm64/AppDelegate.d",
+    "diagnostics" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/App.build/Debug-iphonesimulator/App.build/Objects-normal/arm64/AppDelegate.dia",
+    "index-unit-output-path" : "/App.build/Debug-iphonesimulator/App.build/Objects-normal/arm64/AppDelegate.o",
+    "llvm-bc" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/App.build/Debug-iphonesimulator/App.build/Objects-normal/arm64/AppDelegate.bc",
+    "object" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/App.build/Debug-iphonesimulator/App.build/Objects-normal/arm64/AppDelegate.o",
+    "swift-dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/App.build/Debug-iphonesimulator/App.build/Objects-normal/arm64/AppDelegate.swiftdeps",
+    "swiftmodule" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/App.build/Debug-iphonesimulator/App.build/Objects-normal/arm64/AppDelegate~partial.swiftmodule"
+  },
+  "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/App.build/Debug-iphonesimulator/App.build/DerivedSources/GeneratedAssetSymbols.swift" : {
+    "const-values" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/App.build/Debug-iphonesimulator/App.build/Objects-normal/arm64/GeneratedAssetSymbols.swiftconstvalues",
+    "dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/App.build/Debug-iphonesimulator/App.build/Objects-normal/arm64/GeneratedAssetSymbols.d",
+    "diagnostics" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/App.build/Debug-iphonesimulator/App.build/Objects-normal/arm64/GeneratedAssetSymbols.dia",
+    "index-unit-output-path" : "/App.build/Debug-iphonesimulator/App.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "llvm-bc" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/App.build/Debug-iphonesimulator/App.build/Objects-normal/arm64/GeneratedAssetSymbols.bc",
+    "object" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/App.build/Debug-iphonesimulator/App.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "swift-dependencies" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/App.build/Debug-iphonesimulator/App.build/Objects-normal/arm64/GeneratedAssetSymbols.swiftdeps",
+    "swiftmodule" : "/Users/aleksandrkolosov/moto-tracks-frontend/ios/DerivedData/F910CFC3-DAC2-4170-855E-9E8CE68A3934/Build/Intermediates.noindex/App.build/Debug-iphonesimulator/App.build/Objects-normal/arm64/GeneratedAssetSymbols~partial.swiftmodule"
+  }
+}

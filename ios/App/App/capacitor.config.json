@@ -1,0 +1,11 @@
+{
+	"appId": "com.policam.motokros",
+	"appName": "motokros",
+	"webDir": "www/browser",
+	"packageClassList": [
+		"AppPlugin",
+		"HapticsPlugin",
+		"KeyboardPlugin",
+		"StatusBarPlugin"
+	]
+}

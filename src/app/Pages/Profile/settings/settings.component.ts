@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
 import { HeaderModule } from 'src/app/Shared/Modules/header/header.module';
@@ -12,19 +12,46 @@ import { User } from 'src/app/Shared/Data/Interfaces/user-model';
 import { CheckImgUrlPipe } from "../../../Shared/Helpers/check-img-url.pipe";
 import { ProfileModule } from 'src/app/Shared/Modules/user/profile.module';
 import { UserModule } from 'src/app/Shared/Modules/user/user.module';
+import { selectedModule } from "../../../Shared/Modules/selected/selected.module";
 
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss'],
-  imports: [SharedModule, CommonModule, HeaderModule, FormsModule, StandartInputComponent, ButtonsModule, CheckImgUrlPipe,UserModule,
-    ProfileModule]
+  encapsulation: ViewEncapsulation.None,
+  imports: [SharedModule, CommonModule, HeaderModule, FormsModule, StandartInputComponent, ButtonsModule, CheckImgUrlPipe, UserModule,
+    ProfileModule, selectedModule]
 })
 export class SettingsComponent  implements OnInit {
   authService: any;
   navControler: any;
 
+  statusesSelect:boolean = false
+  selectedStatusItem!:any 
+  statuses:any[] = [
+    { id: 1, name: 'Гонщик', value: 'Гонщик' },
+    { id: 2, name: 'Организатор', value: 'Организатор' },
+    { id: 3, name: 'Болельщик', value: 'Болельщик' },
+
+  ];
+
+  setNewStatusModalOpen(){
+  }
+  selectStatus(event:any){
+    this.selectedStatusItem = event;
+    localStorage.setItem('user-status', event.id)
+    console.log( this.selectedStatusItem)
+  }
+  openSelectedStatus(){
+    this.statusesSelect = true;
+  }
+  closeSelectedStatus(){
+    this.statusesSelect = false;
+  }
+
   constructor() { }
+
+  
 
   formErrors:any = {
     name: {
@@ -49,6 +76,15 @@ export class SettingsComponent  implements OnInit {
   user!:User|null
 
   ionViewWillEnter(){
+    let userStatus = Number(localStorage.getItem('user-status'))
+    console.log('чекаю юзера')
+    if(userStatus == 1){
+      this.selectedStatusItem = { id: 1, name: 'Гонщик', value: 'Гонщик' }
+    }else if(userStatus == 2){
+      this.selectedStatusItem = { id: 2, name: 'Организатор', value: 'Организатор' }
+    }else if(userStatus == 3){
+      this.selectedStatusItem = { id: 3, name: 'Болельщик', value: 'Болельщик' }
+    }
     this.userService.user.pipe().subscribe(()=>{
       this.user = this.userService.user.value
       this.settingsAvatar = this.user?.avatar ? this.user?.avatar : ''
@@ -65,6 +101,8 @@ export class SettingsComponent  implements OnInit {
     this.navControler.navigateForward('/login',{  animated: false })
   }
 
-  ngOnInit() {}
+  ngOnInit() { this.userService.user.pipe().subscribe(()=>{
+    this.user = this.userService.user.value 
+  })}
 
 }

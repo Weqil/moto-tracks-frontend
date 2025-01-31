@@ -8,9 +8,7 @@
             {{user?.personal?.start_number}}
         </div>
       </div>
-      <div class="cabinet__select-status">
-        <app-custom-selected [items]="statuses" [modalValue]="statusesSelect" [selectedValue]="selectedStatusItem" (openModal)="openSelectedStatus()" (closeModal)="closeSelectedStatus()" (selectItem)="selectStatus($event)"></app-custom-selected>
-      </div>
+      
       <app-profile-menu-item *ngIf="selectedStatusItem?.id == 1 || selectedStatusItem?.id == 2"[routing]="'documents'" [iconColor]="'#0000'" [icon]="'/assets/icons/documents.svg'"  [iconFilter]="''" [name]="'Мои документы'"></app-profile-menu-item>
       <app-profile-menu-item *ngIf="selectedStatusItem?.id == 2 " [routing]="'my-events'" [iconColor]="'#0000'" [icon]="'/assets/icons/FlagStrong.svg'" [name]="'Мои гонки'"></app-profile-menu-item>
       <app-profile-menu-item *ngIf="selectedStatusItem?.id == 2" [routing]="'my-tracks'" [iconColor]="'#0000'" [icon]="'/assets/icons/Repeat.svg'" [name]="'Мои трассы'"></app-profile-menu-item>
