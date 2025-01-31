@@ -12,6 +12,14 @@
     
     
 }
+.cabinet__select-status{
+    width: 100%;
+    padding-bottom: var(--standart-padding);
+    position: relative;
+    margin-top: var(--little-margin);
+    margin-left: var(--little-margin);
+
+}
 
 .cabinet__delete_account{
     padding-top: var(--little-padding);
@@ -38,7 +46,9 @@
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    
+    .bottom-container__standart{
+        margin-top: var(--little-margin);
+    }
 }
 
 .up-container__input{
@@ -57,5 +67,5 @@
     width: 100%;
     display: flex;
     flex-direction: row;
-    justify-content:space-between ;
+    justify-content:start ;
 }
