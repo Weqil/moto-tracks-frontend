@@ -36,6 +36,13 @@ export class CreateTrackPageComponent  implements OnInit {
   platform:Platform = inject(Platform)
 
   newParams: [{temp_id:any, title:string, value:string}]|any = []
+
+  contactsForm: FormGroup = new FormGroup({
+    site: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    vk: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    phone: new FormControl('', [Validators.required, Validators.minLength(3)]),
+  })
+
   createTrackForm: FormGroup = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(3)]),
     address: new FormControl('', [Validators.required, Validators.minLength(3)]),

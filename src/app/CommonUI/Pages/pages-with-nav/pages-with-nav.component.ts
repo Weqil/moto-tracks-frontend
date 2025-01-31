@@ -35,7 +35,7 @@ export class PagesWithNavComponent  {
       
       {
         icon: '/assets/icons/Repeat.svg',
-        name:'Треки',
+        name:'Трассы',
         active:false,
         path: ['/tracks'], 
       },
