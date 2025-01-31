@@ -14,6 +14,7 @@ import { NavController } from '@ionic/angular/standalone';
 import { MessagesErrors } from 'src/app/Shared/Enums/messages-errors';
 import { serverError } from 'src/app/Shared/Data/Interfaces/errors';
 import { Router } from '@angular/router';
+import { ToastService } from 'src/app/Shared/Services/toast.service';
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
@@ -26,6 +27,7 @@ export class LoginPageComponent  implements OnInit {
   loading:LoadingService = inject(LoadingService)
   loginService: LoginService = inject(LoginService)
   userService: UserService = inject(UserService)
+  toastService:ToastService = inject(ToastService)
   router:Router = inject(Router)
   navController: NavController = inject(NavController)
   authService: AuthService = inject(AuthService)
@@ -116,10 +118,13 @@ export class LoginPageComponent  implements OnInit {
           this.loading.hideLoading()
         })
       ).subscribe((res:Login)=>{
+
         this.userService.setUserInLocalStorage(res.user)
         this.authService.setAuthToken(String(res.access_token))
-        // this.navController.navigateForward('/cabinet', {  animated: false })
-        this.router.navigate(['/cabinet'])
+        setTimeout(()=>{
+          this.navController.navigateForward(['/cabinet'])
+        },100)
+
       })
     }
    

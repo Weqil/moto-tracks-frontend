@@ -1,6 +1,6 @@
 {
-	"appId": "io.ionic.starter",
-	"appName": "moto-tracks-frontend",
+	"appId": "com.policam.motokros",
+	"appName": "motokros",
 	"webDir": "www/browser",
 	"packageClassList": [
 		"AppPlugin",
