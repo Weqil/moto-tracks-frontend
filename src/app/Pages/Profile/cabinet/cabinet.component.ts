@@ -71,6 +71,8 @@ export class CabinetComponent  implements OnInit {
     }else if(userStatus == 3){
       this.selectedStatusItem = { id: 3, name: 'Болельщик', value: 'Болельщик' }
     }
+   
+
   }
   ngOnInit() {
     this.userService.user.pipe().subscribe(()=>{

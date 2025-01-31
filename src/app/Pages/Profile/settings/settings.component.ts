@@ -85,6 +85,9 @@ export class SettingsComponent  implements OnInit {
     }else if(userStatus == 3){
       this.selectedStatusItem = { id: 3, name: 'Болельщик', value: 'Болельщик' }
     }
+    if(!userStatus){
+      this.selectedStatusItem = { id: 3, name: 'Болельщик', value: 'Болельщик' }
+    }
     this.userService.user.pipe().subscribe(()=>{
       this.user = this.userService.user.value
       this.settingsAvatar = this.user?.avatar ? this.user?.avatar : ''
