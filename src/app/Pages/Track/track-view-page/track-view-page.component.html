@@ -33,10 +33,10 @@
         <div class="track__info main-container">
           <div class="specifications">
             <div class="standart-heading">О треке</div>
-            <div class="specifications__item">
+            <!-- <div class="specifications__item">
               <div class="specifications__item__title">Вход на трек</div>
               <div class="specifications__item__value">{{track.free ? 'Бесплатный' : 'Платный'}}</div>
-            </div>
+            </div> -->
             @for (specification of track.spec; track $index) {
               <div class="specifications__item">
                 <div class="specifications__item__title">{{specification.title}}</div>
