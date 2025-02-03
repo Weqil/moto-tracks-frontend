@@ -43,17 +43,25 @@
     margin-top: var(--standart-padding);
     display: flex;
     width: 100%;
-    align-items: center;
     gap: 10px;
+    flex-wrap: wrap;
     background-color: #ccdcf7;
     padding: 10px;
     font-size: 14px;
     font-family: var(--font-semi-bold);
 }
+.document-container__item{
+    display: flex;
+    align-items: center;
+    gap: 5px ;
+}
 .document-icon{
     width: 1.2rem;
 }
 
+.hidden-input{
+    display: none;
+}
 
 .standart-input{
     border: 1px solid #4c586141;

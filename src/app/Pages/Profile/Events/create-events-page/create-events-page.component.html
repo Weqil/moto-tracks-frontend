@@ -19,13 +19,17 @@
           <div class="label">Трасса гонки</div>
           <app-track-select-modal [selectedTrack]="trackSelected" (selectTrack)="selectTrack($event)" [trackSelectModalStateValue]="trackSelectedModalState" [tracks]="tracks" (closeTrackSelectModal)="closeTrackSelectModalFunction()" (openTrackSelectModal)="openTrackSelectModalFunction()"></app-track-select-modal>
         </div>
-        <div class="document-container">
+        <div (click)="fileResults.click()" class="document-container">
             <span>Регламент</span>
             <img class="document-icon" src="/assets/icons/documents.svg" alt="">
+            <input (change)="setReglamentFile($event)" #fileResults type="file" class="hidden-input" accept=".pdf">
+            <span>{{reglamentFile ? reglamentFile.name : '- файл не выбран'}}</span>
         </div>
-        <div class="document-container">
+        <div (click)="filePosition.click()" class="document-container">
             <span>Положение</span>
             <img class="document-icon" src="/assets/icons/documents.svg" alt="">
+            <input (change)="setPositionFile($event)" #filePosition type="file" class="hidden-input" accept=".pdf">
+            <span>{{positionFile ? positionFile.name : '- файл не выбран'}}</span>
         </div>
       </app-step-container-item>
     </app-step-container>

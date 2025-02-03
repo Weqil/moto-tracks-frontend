@@ -36,6 +36,9 @@ export class CreateEventsPageComponent  implements OnInit {
   maxStepsCount: number = 1
   stepCurrency: number = 1
 
+  reglamentFile!:File
+  positionFile!:File
+
   tracks!: Track[] 
 
   createEventForm: FormGroup = new FormGroup({
@@ -51,6 +54,24 @@ export class CreateEventsPageComponent  implements OnInit {
       this.stepCurrency--
     }else{
       this.navController.back()
+    }
+  }
+
+  setReglamentFile(file: any) {
+    const selectedFile = file.target.files[0];
+    if (selectedFile && selectedFile.type === "application/pdf") {
+      this.reglamentFile = selectedFile;
+    } else {
+      this.toastService.showToast('Документ должен быть фоматом pdf','warning')
+    }
+  }
+  
+  setPositionFile(file: any) {
+    const selectedFile = file.target.files[0];
+    if (selectedFile && selectedFile.type === "application/pdf") {
+      this.positionFile = selectedFile;
+    } else {
+      this.toastService.showToast('Документ должен быть фоматом pdf','warning')
     }
   }
   getTracks(){
@@ -122,6 +143,12 @@ export class CreateEventsPageComponent  implements OnInit {
    
     for(let key in this.createEventForm.value){
       createEventFormData.append(key, this.createEventForm.value[key])
+    }
+    if(this.reglamentFile){
+      createEventFormData.append('resultsFile', this.reglamentFile)
+    }
+    if(this.positionFile){
+      createEventFormData.append('positionFile', this.positionFile)
     }
     for (var i = 0; i < this.createEventForm.value.images.length; i++) {
       createEventFormData.append('images[]', this.createEventForm.value.images[i])
