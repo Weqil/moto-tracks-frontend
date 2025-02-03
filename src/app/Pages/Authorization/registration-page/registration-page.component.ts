@@ -104,7 +104,6 @@ export class RegistrationPageComponent  implements OnInit {
   register(data: FormData): void {
     this.registerService.registerUser(data).pipe(
       catchError((err: serverError) => {
-        console.log(err)
         // this.errorResponseAfterLogin(err)
         // this.errorText = err
         this.loading.hideLoading()
@@ -117,7 +116,6 @@ export class RegistrationPageComponent  implements OnInit {
     ).subscribe((res:Login)=>{
       this.userService.setUserInLocalStorage(res.user)
       this.authService.setAuthToken(String(res.access_token))
-      console.log(res.access_token)
       // this.navController.navigateForward('/cabinet', {  animated: false })
       this.router.navigate(['/cabinet'])
     })
@@ -128,7 +126,7 @@ export class RegistrationPageComponent  implements OnInit {
       this.loading.showLoading()
       const fd:FormData = this.createFormData()
       this.register(fd)
-      console.log(this.registerForm)
+  
     }
 
     redirectInLogin() {
