@@ -74,19 +74,12 @@ export class CreateEventsPageComponent  implements OnInit {
           if (
             this.createEventForm.value.name.length <= 3 ||
             this.createEventForm.value.desc.length <= 3 
-           || !this.createEventForm.value.images.length
+           || !this.createEventForm.value.images.length ||   
+           !this.createEventForm.value.dateStart 
+           ||  !this.trackSelected
           ) {
             return true
           } else {
-            return false
-          }
-        case 2:
-          if(
-            !this.createEventForm.value.dateStart ||  !this.trackSelected
-            
-          ){
-            return true
-          }else{
             return false
           }
           

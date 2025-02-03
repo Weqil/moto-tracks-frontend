@@ -131,7 +131,7 @@ export class EventsViewPageComponent  implements OnInit {
     }
 
     formatingText(text:string): string{
-      return text.replace(/\n/g, '<br>');
+      return text.replace(/\n/g, '<br>').replace(/  /g, '&nbsp;&nbsp;');;
      }
 
     cancelApplicationForm(){
