@@ -17,6 +17,10 @@
           <app-users-preview (userSelected)="openRacer($event)"  [fullValueUsers]="usersInRace.length" [users]="usersInRace" [moreCount]="usersInRace.length" [openUsersModal]="openUserModalValue" (closeModalEmit)="closeStateUsersModal()" (openModalEmit)="openStateUsersModal()"></app-users-preview>
         }
         <div [innerHTML]="clearDescription()" class="event-description">{{event.desc}}</div>
+        <div *ngIf="event.position_file && event.results_file" class="event-documents">
+          <a href="{{event.results_file | checkImgUrl }}">  <span  class="event-documents__text">Регламент <img class="event-documents__icon" src="/assets/icons/documents.svg" alt=""></span></a>
+          <a href="{{event.position_file | checkImgUrl }}"><span class="event-documents__text">Положение <img class="event-documents__icon" src="/assets/icons/documents.svg" alt=""></span></a>
+        </div>
         <div class="event-track">
           <!-- <div class="event-track__title">Где проходит</div> -->
           <app-track-section (click)="redirectInRace()" [track]="event.track"></app-track-section>

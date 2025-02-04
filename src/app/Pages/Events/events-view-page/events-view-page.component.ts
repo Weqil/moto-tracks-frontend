@@ -23,12 +23,13 @@ import * as _ from 'lodash';
 import { UsersPreviewComponent } from 'src/app/Shared/Components/UI/users-preview/users-preview.component';
 import { ConfirmModalComponent } from 'src/app/Shared/Components/UI/confirm-modal/confirm-modal.component';
 import { DomSanitizer } from '@angular/platform-browser';
+import { CheckImgUrlPipe } from "../../../Shared/Helpers/check-img-url.pipe";
 
 @Component({
   selector: 'app-events-view-page',
   templateUrl: './events-view-page.component.html',
   styleUrls: ['./events-view-page.component.scss'],
-  imports: [SharedModule, SlidersModule, ButtonsModule, TrackSectionComponent,IonModal,HeaderModule, StandartInputComponent,UsersPreviewComponent,ConfirmModalComponent]
+  imports: [SharedModule, SlidersModule, ButtonsModule, TrackSectionComponent, IonModal, HeaderModule, StandartInputComponent, UsersPreviewComponent, ConfirmModalComponent, CheckImgUrlPipe]
 })
 export class EventsViewPageComponent  implements OnInit {
 

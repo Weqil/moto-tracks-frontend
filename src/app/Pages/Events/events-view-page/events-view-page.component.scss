@@ -60,6 +60,30 @@
     display: flex;
     gap: 10px;
 }
+.event-documents{
+    background: #c4d5f275;
+    margin-bottom: var(--standart-padding);
+    margin-top: var(--standart-padding);
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-light);
+    display: flex;
+    gap: 1rem;
+    padding-top: var(--little-padding);
+    padding-bottom: var(--little-padding);
+    padding-left: 2rem;
+    padding-right: 2rem;
+
+}
+.event-documents__icon{
+    width: 1.25rem;
+
+}
+.event-documents__text{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
 .application-main{
     padding-bottom: 4rem;
 }

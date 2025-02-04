@@ -47,6 +47,11 @@ export const privateRoutes: Routes = [
                 path:'settings',
                 canActivate:[canActivateAuth],
                 loadComponent: () => import('../Pages/Profile/settings/settings.component').then((m) => m.SettingsComponent)
+            },
+            {
+                path:'verification',
+                canActivate:[canActivateAuth],
+                loadComponent: () => import('../Pages/Authorization/confirm-email-page/confirm-email-page.component').then((m) => m.ConfirmEmailPageComponent)
             }
         ]
     }

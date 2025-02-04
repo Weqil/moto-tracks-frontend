@@ -1,0 +1,11 @@
+<ion-content>
+  <app-header headerTitle="Подтверждение почты" ></app-header>
+  <div *ngIf="user" class="main-container--with-header">
+    <p class="verification__title">Введите код отправленный на вашу электронную почту {{user.email}} </p>
+    <ngx-otp-input [options]="otpOptions"></ngx-otp-input>
+    <div class="verification-timer">
+      <span [ngClass]="{'verification-timer__submit':timerActive,'verification-timer__submit--active':!timerActive}">Не пришёл код?</span>
+    </div>
+    <app-standart-button buttonText="Отправить"></app-standart-button>
+  </div>
+</ion-content>

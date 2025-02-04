@@ -22,5 +22,8 @@ export class LoginService {
     return this.http.post<Login>(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/login`, registerForm)
   }
 
+  getCodeInEmailConfirm(){
+    return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/confirm/code`)
+  }
  
 }
