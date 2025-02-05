@@ -52,7 +52,11 @@ export const privateRoutes: Routes = [
                 path:'verification',
                 canActivate:[canActivateAuth],
                 loadComponent: () => import('../Pages/Authorization/confirm-email-page/confirm-email-page.component').then((m) => m.ConfirmEmailPageComponent)
-            }
+            },
+            {
+                path:'racer/edit/:id',
+                loadComponent: () => import('../Pages/Profile/Events/edit-event/edit-event.component').then((m) => m.EditEventComponent)
+            },
         ]
     }
  

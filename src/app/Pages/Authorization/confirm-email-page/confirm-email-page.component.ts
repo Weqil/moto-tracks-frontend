@@ -6,6 +6,12 @@ import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
 import { User } from 'src/app/Shared/Data/Interfaces/user-model';
 import { ButtonsModule } from 'src/app/Shared/Modules/buttons/buttons.module';
 import { NgClass } from '@angular/common';
+import { AuthService } from 'src/app/Shared/Data/Services/Auth/auth.service';
+import { LoginService } from 'src/app/Shared/Data/Services/Auth/login.service';
+import { ToastService } from 'src/app/Shared/Services/toast.service';
+import { NavController } from '@ionic/angular';
+import { LoadingService } from 'src/app/Shared/Services/loading.service';
+import { catchError, EMPTY, finalize } from 'rxjs';
 @Component({
   selector: 'app-confirm-email-page',
   templateUrl: './confirm-email-page.component.html',
@@ -16,14 +22,72 @@ export class ConfirmEmailPageComponent  implements OnInit {
 
   constructor() { }
   userService: UserService = inject(UserService)
+  authService:AuthService = inject(AuthService)
+  toastService:ToastService = inject(ToastService)
+  loadingService:LoadingService = inject(LoadingService)
+  navController:NavController = inject(NavController)
+  codeValue:string = ''
+  loginService:LoginService = inject(LoginService)
   otpOptions: NgxOtpInputComponentOptions = {
     otpLength:4,
   }
   timerActive: boolean = false
   user!: User
   ionViewWillEnter() {
+    this.userService.refreshUser()
+    console.log(this.userService.getUserFromLocalStorage())
     this.user = this.userService.getUserFromLocalStorage()
+    this.getCodeInEmail()
   }
-  ngOnInit() {}
+
+  changeCode(code:any){
+    this.codeValue = code.join('')
+  }
+
+  getCodeInEmail(){
+    if(!this.user.email_verified_at && this.authService.isAuthenticated()){
+      this.loadingService.showLoading()
+      this.loginService.getCodeInEmailConfirm().pipe(
+        finalize(()=>{
+          this.loadingService.hideLoading()
+        }),
+      ).subscribe((res:any)=>{
+      
+      })
+    }else if(this.user.email_verified_at && this.authService.isAuthenticated()){
+      this.toastService.showToast('Почта уже подтверждена','warning')
+      this.navController.navigateForward('/cabinet')
+    }else{
+      this.toastService.showToast('Вы не авторизованы','warning')
+      this.navController.navigateForward('/login')
+    }
+  }
+
+  submitMessage(){
+   
+    if(this.codeValue.length == 4){
+       this.loadingService.showLoading()
+       this.loginService.submitCodeInEmail(this.codeValue).pipe(
+        finalize(()=>{
+          this.loadingService.hideLoading()
+        }),
+        catchError((err:any)=>{
+          if(err.error.message == 'messages.verification_email.verification.incorrect' ){
+            this.toastService.showToast('код не верный','danger')
+          }
+          return EMPTY
+        })
+       ).subscribe((res:any)=>{
+        this.toastService.showToast('Почта подтверждена','success')
+        this.navController.navigateForward('/cabinet')
+       })
+    } else {
+      this.toastService.showToast('код должен состоять из 4 символов','danger')
+    }
+  }
+
+  ngOnInit() {
+  
+  }
 
 }

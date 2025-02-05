@@ -10,6 +10,7 @@
           <app-event-card [event]="event"></app-event-card>
           <div class="buttons-container">
             <app-standart-button  (click)="generateGoogleLink(event.id)" buttonText="Получить таблицу"></app-standart-button>
+            <app-standart-button  (click)="redirectInEditPage(event.id)" buttonText="Редактировать"></app-standart-button>
           </div>
         </div>
       
