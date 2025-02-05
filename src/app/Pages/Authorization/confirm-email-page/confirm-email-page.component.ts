@@ -75,6 +75,7 @@ export class ConfirmEmailPageComponent  implements OnInit {
         })
        ).subscribe((res:any)=>{
         this.toastService.showToast('Почта подтверждена','success')
+        this.userService.refreshUser()
         this.navController.navigateForward('/cabinet')
        })
     } else {

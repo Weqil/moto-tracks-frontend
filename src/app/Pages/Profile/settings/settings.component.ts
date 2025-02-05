@@ -104,6 +104,7 @@ export class SettingsComponent  implements OnInit {
         this.loading.hideLoading()
       })
     ).subscribe((res:any)=>{
+      this.statuses = []
       res.role.forEach((roleItem:any) => {
         this.statuses.push({
           id:roleItem.id,
