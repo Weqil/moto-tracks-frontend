@@ -43,7 +43,12 @@ export class MyEventsPageComponent  implements OnInit {
   }
 
   ionViewWillEnter(){
-    this.eventService.getEventByUserId(String(this.userService.user.value?.id)).pipe().subscribe((res:any)=>{
+    this.loadingService.showLoading()
+    this.eventService.getEventByUserId(String(this.userService.user.value?.id)).pipe(
+      finalize(()=>{
+        this.loadingService.hideLoading()
+      })
+    ).subscribe((res:any)=>{
       this.events = res.races
     })
   }

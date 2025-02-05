@@ -1,27 +1,4 @@
 <!-- Не загруженные данные -->
- <ng-container *ngIf="type === ''">
-  <div *ngIf="previews.length > 0" #mainPhoto style="background-image: url({{previews[0].link}});" class="main-photo">
-    <app-back-button></app-back-button>
-  </div>
-  <div *ngIf="previews.length == 0 && !categoryType" style="background-image: url('assets/images/nophoto.jpg') ;" class="main-photo" >
-    <app-back-button></app-back-button>
-  </div>
-  <div *ngIf="previews.length == 0 && categoryType && categoryType.image_path " style="background-image: url('{{this.fileService.checkLinkString( categoryType.image_path)}}') ;" class="main-photo" >
-    <app-back-button></app-back-button>
-  </div>
-
-  <div class="slider-container">
-    <div (click)="file.click()" class="slider-container-add-button" >
-      <img src="/assets/icons/addPhoto.svg" alt="">
-      <span class="slider-container-add-button_text">Добавить фото</span>
-    </div>
-
-    <div (click)="setMainPhoto($event)" *ngFor="let img of previews; let i = index" style="background-image: url({{img.link}});" class="slider-container-item">
-      <div class="delete-button-wrapper"><app-circle-button (click)="deletePreview(img,i)" icon="/assets/icons/trash.svg"></app-circle-button></div>
-    </div>
-  </div>
-  <input (change)="fileChanged($event,file)" multiple="multiple" style="opacity: 0; position: absolute;" #file type="file" accept="image/*,video/*">
- </ng-container>
 
  <ng-container *ngIf="type === 'create'">
   <ng-container *ngIf="previews.length !== 0">
@@ -48,10 +25,4 @@
   <input (change)="fileChanged($event,file)" multiple="multiple" style="opacity: 0; position: absolute;" #file type="file" accept="image/*,video/*">
  </ng-container>
 
-<ng-container *ngIf="type === 'l-view' && !hideLSlider">
-  <div class="slider-container">
-    <ng-container *ngFor="let img of previews; let i = index">
-          <div style="background-image: url({{img.link}});" class="slider-container-item"></div>
-    </ng-container>
-  </div>
-</ng-container>
+

@@ -1,9 +1,13 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Injectable, Pipe, PipeTransform } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
 @Pipe({
   name: 'checkImgUrl',
-  standalone: true
+  standalone: true,
+  pure: false
+})
+@Injectable({
+  providedIn: 'root'
 })
 export class CheckImgUrlPipe implements PipeTransform {
 
@@ -17,7 +21,6 @@ export class CheckImgUrlPipe implements PipeTransform {
         return url;
       } else{
           url = `${this.backendUrl}/storage/${url}`
-          console.log(url)
         }
       return url;
     } 
