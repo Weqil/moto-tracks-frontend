@@ -70,4 +70,16 @@ export class UserService {
     return JSON.parse(String(localStorage.getItem('user')));
    
   }
+  getChangeRoles(){
+    return this.http.get<any>(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/roles-change`)
+  }
+
+  changeRoleForDefaultUser(roleId:string){
+    return this.http.post<any>(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/roles-change`, { roleId: roleId })
+  }
+
+  //Проверка подтвержденной почты
+  isEmailVerified(): boolean {
+    return this.user.value?.email_verified_at!== null;
+  }
 }

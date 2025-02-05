@@ -22,7 +22,11 @@ export interface User{
         coach:string,
         moto_stamp:string,
         engines:string              
-    }
+    },
+    roles:{
+        id:number,
+        name:string
+    }[]
 }
 export interface Racer{
     id: number,
