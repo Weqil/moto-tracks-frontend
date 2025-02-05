@@ -9,10 +9,10 @@
         </div>
       </div>
       
-      <app-profile-menu-item *ngIf="selectedStatusItem?.id == 1 || selectedStatusItem?.id == 2"[routing]="'documents'" [iconColor]="'#0000'" [icon]="'/assets/icons/documents.svg'"  [iconFilter]="''" [name]="'Мои документы'"></app-profile-menu-item>
-      <app-profile-menu-item *ngIf="selectedStatusItem?.id == 2 " [routing]="'my-events'" [iconColor]="'#0000'" [icon]="'/assets/icons/FlagStrong.svg'" [name]="'Мои гонки'"></app-profile-menu-item>
-      <app-profile-menu-item *ngIf="selectedStatusItem?.id == 2" [routing]="'my-tracks'" [iconColor]="'#0000'" [icon]="'/assets/icons/Repeat.svg'" [name]="'Мои трассы'"></app-profile-menu-item>
-      <app-profile-menu-item  *ngIf="selectedStatusItem?.id == 1 || selectedStatusItem?.id == 2" [routing]="'personal-info'" [iconColor]="'#0000'" [icon]="'/assets/icons/documents.svg'" [name]="'Анкета участника'"></app-profile-menu-item>
+      <app-profile-menu-item *ngIf="selectedStatusItem?.id == 3 || selectedStatusItem?.id == 4"[routing]="'documents'" [iconColor]="'#0000'" [icon]="'/assets/icons/documents.svg'"  [iconFilter]="''" [name]="'Мои документы'"></app-profile-menu-item>
+      <app-profile-menu-item *ngIf="selectedStatusItem?.id == 4 " [routing]="'my-events'" [iconColor]="'#0000'" [icon]="'/assets/icons/FlagStrong.svg'" [name]="'Мои гонки'"></app-profile-menu-item>
+      <app-profile-menu-item *ngIf="selectedStatusItem?.id == 4" [routing]="'my-tracks'" [iconColor]="'#0000'" [icon]="'/assets/icons/Repeat.svg'" [name]="'Мои трассы'"></app-profile-menu-item>
+      <app-profile-menu-item  *ngIf="selectedStatusItem?.id == 3 || selectedStatusItem?.id == 4" [routing]="'personal-info'" [iconColor]="'#0000'" [icon]="'/assets/icons/documents.svg'" [name]="'Анкета участника'"></app-profile-menu-item>
       <app-profile-menu-item  [routing]="'settings'" [iconColor]="'#0000'" [icon]="'/assets/icons/settings.svg'" [name]="'Настройки'"></app-profile-menu-item>
       
       <div class="cabinet__logout">

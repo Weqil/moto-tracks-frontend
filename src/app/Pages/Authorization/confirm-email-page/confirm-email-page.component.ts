@@ -34,19 +34,7 @@ export class ConfirmEmailPageComponent  implements OnInit {
   timerActive: boolean = false
   user!: User
   private readonly destroy$ = new Subject<void>()
-  ionViewWillEnter() {
-    this.userService.refreshUser()
-  
-    this.userService.user.pipe().subscribe((res:any)=>{
-      this.user = res
-      this.getCodeInEmail()
-    })
- 
-  }
-  ionViewDidEnter() {
-    this.destroy$.next()
-    this.destroy$.complete()
-  }
+
 
   changeCode(code:any){
     this.codeValue = code.join('')
@@ -92,6 +80,19 @@ export class ConfirmEmailPageComponent  implements OnInit {
     } else {
       this.toastService.showToast('код должен состоять из 4 символов','danger')
     }
+  }
+
+  ionViewWillEnter() {
+  
+    this.userService.user.pipe().subscribe((res:any)=>{
+      this.user = res
+      this.getCodeInEmail()
+    })
+ 
+  }
+  ionViewDidEnter() {
+    this.destroy$.next()
+    this.destroy$.complete()
   }
 
   ngOnInit() {

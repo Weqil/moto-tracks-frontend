@@ -33,7 +33,11 @@ export class SettingsComponent  implements OnInit {
   private readonly loading:LoadingService = inject(LoadingService)
 
   statusesSelect:boolean = false
-  selectedStatusItem!:any 
+  selectedStatusItem:any  = {
+    id: 0,
+    name: 'Болельщик',
+    value: 'Болельщик',
+  }
   statuses:any[] = [];
 
   constructor() { }
@@ -65,10 +69,15 @@ export class SettingsComponent  implements OnInit {
   selectStatus(event:any){
     if(event.id !== 0){
       if(this.userService.isEmailVerified()){
-
+        this.loaderService.showLoading()
+        this.userService.changeRoleForDefaultUser(event.id).pipe(finalize(()=>{
+          this.loaderService.hideLoading()
+        })).subscribe((res:any)=>{
+          this.toastService.showToast('Статус успешно изменен','success')
+          this.userService.refreshUser()
+        })
       }else{
         this.toastService.showToast('Для смены статуса подтвердите вашу почту','warning')
-        this.userService.refreshUser()
         this.navControler.navigateForward('/verification')
       }
     
@@ -95,7 +104,6 @@ export class SettingsComponent  implements OnInit {
         this.loading.hideLoading()
       })
     ).subscribe((res:any)=>{
-      console.log(res.role)
       res.role.forEach((roleItem:any) => {
         this.statuses.push({
           id:roleItem.id,
@@ -111,7 +119,7 @@ export class SettingsComponent  implements OnInit {
           this.selectedStatusItem = matchingStatus
         }else{
         }
-      }else{
+      } else{
         this.selectedStatusItem = {
           id: 0,
           name: 'Болельщик',

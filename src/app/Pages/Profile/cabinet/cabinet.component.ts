@@ -1,6 +1,7 @@
 import { Component, inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { finalize } from 'rxjs';
+import { userRoles } from 'src/app/Shared/Data/Enums/roles';
 import { User } from 'src/app/Shared/Data/Interfaces/user-model';
 import { AuthService } from 'src/app/Shared/Data/Services/Auth/auth.service';
 import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
@@ -47,8 +48,7 @@ export class CabinetComponent  implements OnInit {
   setNewStatusModalOpen(){
   }
   selectStatus(event:any){
-    this.selectedStatusItem = event;
-    localStorage.setItem('user-status', event.id)
+    this.selectedStatusItem = this.user?.roles[0];
     console.log( this.selectedStatusItem)
   }
   openSelectedStatus(){
@@ -66,17 +66,7 @@ export class CabinetComponent  implements OnInit {
     this.navControler.navigateForward('/personal-info')
   }
   ionViewWillEnter(){
-
-    let userStatus = Number(localStorage.getItem('user-status'))
-    if(userStatus == 1){
-      this.selectedStatusItem = { id: 1, name: 'Гонщик', value: 'Гонщик' }
-    }else if(userStatus == 2){
-      this.selectedStatusItem = { id: 2, name: 'Организатор', value: 'Организатор' }
-    }else if(userStatus == 3){
-      this.selectedStatusItem = { id: 3, name: 'Болельщик', value: 'Болельщик' }
-    }
-   
-
+    this.selectedStatusItem = this.user?.roles[0];
   }
   ngOnInit() {
     this.userService.user.pipe().subscribe(()=>{
