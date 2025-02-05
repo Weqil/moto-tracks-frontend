@@ -11,7 +11,7 @@ import { LoginService } from 'src/app/Shared/Data/Services/Auth/login.service';
 import { ToastService } from 'src/app/Shared/Services/toast.service';
 import { NavController } from '@ionic/angular';
 import { LoadingService } from 'src/app/Shared/Services/loading.service';
-import { catchError, EMPTY, finalize } from 'rxjs';
+import { catchError, EMPTY, finalize, Subject } from 'rxjs';
 @Component({
   selector: 'app-confirm-email-page',
   templateUrl: './confirm-email-page.component.html',
@@ -33,11 +33,19 @@ export class ConfirmEmailPageComponent  implements OnInit {
   }
   timerActive: boolean = false
   user!: User
+  private readonly destroy$ = new Subject<void>()
   ionViewWillEnter() {
     this.userService.refreshUser()
-    console.log(this.userService.getUserFromLocalStorage())
-    this.user = this.userService.getUserFromLocalStorage()
-    this.getCodeInEmail()
+  
+    this.userService.user.pipe().subscribe((res:any)=>{
+      this.user = res
+      this.getCodeInEmail()
+    })
+ 
+  }
+  ionViewDidEnter() {
+    this.destroy$.next()
+    this.destroy$.complete()
   }
 
   changeCode(code:any){

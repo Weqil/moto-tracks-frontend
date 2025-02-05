@@ -4,7 +4,7 @@
     align-items: center;
     background:#DCE9FF;
     color: #3880FF;
-    min-height: 2.5rem;
+    min-height: 2.4rem;
     padding-left: 10px;
     padding-right: 10px;
     width: 50%;
@@ -23,7 +23,7 @@
     background:#3880FF;
     color: #fff;
     border: 1px solid #3881ff6e;
-    min-height: 2.5rem;
+    min-height: 2.4rem;
     width: 100%;
 
     border-radius: 5px;
@@ -40,7 +40,7 @@
     background:none;
     color: #ff0303;
     border: 1px solid #ff030381;
-    min-height: 2.5rem;
+    min-height: 2.4rem;
     padding-left: 10px;
     padding-right: 10px;
     width: 50%;
@@ -60,7 +60,7 @@
     background:#ff0303;
     color: #fff;
     border: 1px solid #ff030381;
-    min-height: 2.5rem;
+    min-height: 2.4rem;
     width: 100%;
 
     border-radius: 5px;
@@ -70,6 +70,38 @@
     font-size: 0.75rem;
     transition: 0.3s all;
 }
+.standart-button--orange{
+    font-family: var(--font-regular);
+    display: flex;
+    align-items: center;
+    background-color: #ef7b08be;
+    color: #fff;
+    min-height: 2.4rem;
+    width: 100%;
+    gap: 0.5rem;
+    border-radius: 5px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    font-size: 0.75rem;
+    transition: 0.3s all;
+}
+.standart-button--orange:active{
+    transition: 0.3s all;
+    font-family: var(--font-regular);
+    display: flex;
+    align-items: center;
+    background-color: #ef7b08;
+    color: #fff;
+    min-height: 2.4rem;
+    width: 100%;
+
+    border-radius: 5px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    font-size: 0.75rem;
+}
 
 .standart-button{
     font-family: var(--font-regular);
@@ -77,7 +109,7 @@
     align-items: center;
     background-color: #3880FF;
     color: #fff;
-    min-height: 2.5rem;
+    min-height: 2.4rem;
     width: 100%;
     gap: 0.5rem;
     border-radius: 5px;
@@ -94,7 +126,7 @@
     align-items: center;
     background-color: #3880FF;
     color: #fff;
-    min-height: 2.5rem;
+    min-height: 2.4rem;
     width: 100%;
     gap: 0.5rem;
     border-radius: 5px;
@@ -111,7 +143,7 @@
     align-items: center;
     background-color: #3880FF;
     color: #fff;
-    min-height: 2.5rem;
+    min-height: 2.4rem;
     width: 100%;
     gap: 0.5rem;
     border-radius: 5px;
@@ -129,7 +161,7 @@
     align-items: center;
     background-color: #3d6ec4;
     color: #fff;
-    min-height: 2.5rem;
+    min-height: 2.4rem;
     width: 100%;
 
     border-radius: 5px;
@@ -165,7 +197,7 @@
     background-color: #F99011;
     color: #fff;
   
-    min-height: 2.5rem;
+    min-height: 2.4rem;
     width: 100%;
 
     gap: 0.5rem;
@@ -199,7 +231,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 2.5rem;
+    min-height: 2.4rem;
     width: 100%;
     background: #E83940;
     border: none;

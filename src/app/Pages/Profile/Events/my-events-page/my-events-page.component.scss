@@ -10,7 +10,11 @@
 }
 .buttons-container{
     width: 100%;
-    padding-top: var(--little-padding);
+    display: flex;
+    padding: var(--little-padding);
+    justify-content: center;
+    gap: 10px;
+
 }
 ion-modal{
     --max-height: 12rem;
