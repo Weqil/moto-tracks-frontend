@@ -100,9 +100,8 @@ export class RegistrationPageComponent  implements OnInit {
         this.registerInvalid.password.message = ''
       }
       
-      console.log(this.registerForm.get('password_confirmation')?.value == this.registerForm.get('password')?.value)
+     
       if(this.registerForm.get('password_confirmation')?.value !== this.registerForm.get('password')?.value){
-        console.log(this.registerForm.get('password_confirmation')?.value == this.registerForm.get('password')?.value)
         this.registerInvalid.localError = true
         this.registerInvalid.password_confirmation.status = true
         this.registerInvalid.password.status = true

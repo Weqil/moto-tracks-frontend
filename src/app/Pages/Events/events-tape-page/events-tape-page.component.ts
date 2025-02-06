@@ -50,7 +50,6 @@ export class EventsTapePageComponent  implements OnInit {
   ionViewWillEnter(){
     this.loaderService.showLoading()
     this.switchTypeService.setTypeInLocalSorage('events')
-    console.log(this.switchTypeService.getTypeFromLocalSorage())
     this.eventService.getAllEvents().pipe(
       finalize(()=> this.loaderService.hideLoading())
     ).subscribe((res:any) => {

@@ -103,13 +103,11 @@ export class CreateTrackPageComponent  implements OnInit {
     }
   }
   getImages(event:any){
-    console.log(event)
     this.createTrackForm.patchValue({
       images: event
     })
   }
   changeAddress(event:any){
-    console.log(event)
     if(event.latitude && event.longitude){
       this.createTrackForm.patchValue({
         latitude: event.latitude,
@@ -150,7 +148,6 @@ export class CreateTrackPageComponent  implements OnInit {
         }),
         finalize(()=> this.loadingService.hideLoading())
       ).subscribe((res:any)=>{
-        console.log(res)
         this.toastService.showToast('Трек успешно создан','success')
         this.navController.back()
       })

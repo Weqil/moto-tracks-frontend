@@ -233,9 +233,6 @@ export class EventsViewPageComponent  implements OnInit {
       delete oldPersonal.rank_number;
       delete oldPersonal.moto_stamp;
     
-      console.log("Old Personal:", oldPersonal);
-      console.log("Form Data:", this.personalUserForm.value);
-    
       // Приводим объекты к единому виду
       const normalizedOld = normalizeObject(oldPersonal);
       const normalizedForm = normalizeObject(this.personalUserForm.value);
@@ -245,7 +242,6 @@ export class EventsViewPageComponent  implements OnInit {
 
       //Если обьекты различаются
       if(!personalFormChange){
-        console.log('хочу сохранить данные')
         this.changePersonalDateModalValue = true
       }
     }
@@ -384,7 +380,6 @@ export class EventsViewPageComponent  implements OnInit {
         rankNumber: this.userService.user.value?.personal.rank_number,
         motoStamp:  this.userService.user.value?.personal.moto_stamp
       })
-      console.log(this.personalUserForm.value)
     }else{
       this.personalUserForm.reset()
     }
@@ -405,7 +400,7 @@ export class EventsViewPageComponent  implements OnInit {
 
   getUserDocuments(){
     this.userService.getUserDocuments().pipe().subscribe((res:any)=>{
-      console.log(res)
+  
     })
   }
   submitForm(){
@@ -414,7 +409,6 @@ export class EventsViewPageComponent  implements OnInit {
   getUsersInRace(){
     this.eventService.getUsersInRace(this.eventId).pipe().subscribe((res:any)=>{
       this.usersInRace = res.users
-      console.log(res)
     })
   }
 

@@ -19,7 +19,6 @@ export class LoadingService {
 
   async hideLoading() {
     this.checkAndCloseLoader()
-    // console.log(this.loadingController.getTop())
     // setTimeout(() => this.checkAndCloseLoader(), 500);
   }
 

@@ -118,7 +118,6 @@ export class LoginPageComponent  implements OnInit {
       this.loading.showLoading()
       this.loginService.loginUser(fd).pipe(
         catchError((err: serverError) => {
-          console.log(err)
           this.errorResponseAfterLogin(err)
           this.errorText = err
           return EMPTY

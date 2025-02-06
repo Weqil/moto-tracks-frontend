@@ -106,7 +106,6 @@ export class UserDocumentsComponent  implements OnInit {
         this.loaderService.hideLoading()
       })
     ).subscribe((res:any)=>{
-      console.log(res)
       this.toastService.showToast('Данные паспорте успешно сохранены','success')
     })
   }
@@ -118,7 +117,6 @@ export class UserDocumentsComponent  implements OnInit {
         this.loaderService.hideLoading()
       })
     ).subscribe((res:any)=>{
-      console.log(res)
       this.toastService.showToast('Данные полиса успешно сохранены','success')
     })
   }
@@ -168,7 +166,6 @@ export class UserDocumentsComponent  implements OnInit {
         this.polisForm.patchValue((res.documents.find((doc:any)=> doc.type === 'polis')?.data))
         this.pasportForm.patchValue((res.documents.find((doc:any)=> doc.type === 'pasport')?.data))
         this.oldLicensesValue = (res.documents.find((doc:any)=> doc.type === 'licenses'))
-        console.log( this.oldLicensesValue)
         this.oldPolisValue = (res.documents.find((doc:any)=> doc.type === 'polis'))
         this.oldPasportValue = (res.documents.find((doc:any)=> doc.type === 'pasport'))
       }

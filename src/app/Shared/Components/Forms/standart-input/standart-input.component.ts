@@ -32,7 +32,6 @@ export class StandartInputComponent implements OnInit {
 
   renderMask() {
     if (this.maskType == 'phone') {
-      console.log('маска для телефона')
       this.optionMask = {
         mask: ['+', '7', ' ', '(', /\d/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
       }
