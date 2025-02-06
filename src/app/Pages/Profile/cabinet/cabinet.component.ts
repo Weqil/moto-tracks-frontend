@@ -42,7 +42,6 @@ export class CabinetComponent  implements OnInit {
     { id: 1, name: 'Гонщик', value: 'Гонщик' },
     { id: 2, name: 'Организатор', value: 'Организатор' },
     { id: 3, name: 'Болельщик', value: 'Болельщик' },
-
   ];
 
   setNewStatusModalOpen(){

@@ -2,6 +2,7 @@
 
 import { Routes } from '@angular/router';
 import { canActivateAuth } from '../Shared/Guards/Auth/auth.guard';
+import { canActivateEmailConfirm } from '../Shared/Guards/Auth/email-confirm.guard';
 
 export const privateRoutes: Routes = [
     {
@@ -15,32 +16,32 @@ export const privateRoutes: Routes = [
             },
             {
                 path:'my-tracks',
-                canActivate:[canActivateAuth],
+                canActivate:[canActivateAuth,canActivateEmailConfirm],
                 loadComponent: () => import('../Pages/Profile/Tracks/my-tracks-page/my-tracks-page.component').then((m) => m.MyTracksPageComponent)
             },
             {
                 path:'create-track',
-                canActivate:[canActivateAuth],
+                canActivate:[canActivateAuth,canActivateEmailConfirm],
                 loadComponent: () => import('../Pages/Profile/Tracks/create-track-page/create-track-page.component').then((m) => m.CreateTrackPageComponent)
             },
             {
                 path: 'create-event',
-                canActivate:[canActivateAuth],
+                canActivate:[canActivateAuth,canActivateEmailConfirm],
                 loadComponent: () => import('../Pages/Profile/Events/create-events-page/create-events-page.component').then((m) => m.CreateEventsPageComponent)
             },
             {
                 path:'my-events',
-                canActivate:[canActivateAuth],
+                canActivate:[canActivateAuth,canActivateEmailConfirm],
                 loadComponent: () => import('../Pages/Profile/Events/my-events-page/my-events-page.component').then((m) => m.MyEventsPageComponent)
             },
             {
                 path:'personal-info',
-                canActivate:[canActivateAuth],
+                canActivate:[canActivateAuth,canActivateEmailConfirm],
                 loadComponent: () => import('../Pages/Profile/personal-info/personal-info.component').then((m) => m.PersonalInfoComponent)
             },
             {
                 path:'documents',
-                canActivate:[canActivateAuth],
+                canActivate:[canActivateAuth,canActivateEmailConfirm],
                 loadComponent: () => import('../Pages/Profile/user-documents/user-documents.component').then((m) => m.UserDocumentsComponent)
             },
             {
@@ -55,6 +56,7 @@ export const privateRoutes: Routes = [
             },
             {
                 path:'racer/edit/:id',
+                canActivate:[canActivateAuth,canActivateEmailConfirm],
                 loadComponent: () => import('../Pages/Profile/Events/edit-event/edit-event.component').then((m) => m.EditEventComponent)
             },
         ]
