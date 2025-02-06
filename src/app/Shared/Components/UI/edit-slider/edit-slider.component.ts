@@ -32,7 +32,6 @@ export class EditSliderComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges): void {
     let previewsCount = this.previews.length
     if (changes['vkFiles']) {
-      console.log(this.vkFiles)
       for (let i = 0; i < previewsCount; i++) {
         if (this.previews[i] && this.previews[i].vk) {
           this.previews.splice(i)
@@ -99,7 +98,6 @@ export class EditSliderComponent implements OnInit {
   }
 
   deletePreview(file: any, i: number) {
-    console.log('удаляю файл', file)
     if (!file.vk) {
       if (file.id) {
         this.previews = this.previews.filter((fileArrayItem) => fileArrayItem.id !== file.id)

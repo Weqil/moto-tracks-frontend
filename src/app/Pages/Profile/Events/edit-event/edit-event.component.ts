@@ -155,13 +155,11 @@ export class EditEventComponent  implements OnInit {
       }
 
       getImages(event:any){
-        console.log(event)
         if(event.length < this.sliderImages.length ){
           if(this.sliderImages.find((image:any) => !event.includes(image)).link){
             let link = this.sliderImages.find((image:any) => !event.includes(image)).link
             if (this.deletesImages.indexOf(link) === -1) {
               this.deletesImages.push(link)
-              console.log(this.deletesImages)
             }
           }
         }
@@ -191,7 +189,6 @@ export class EditEventComponent  implements OnInit {
           })
         ).subscribe((res:any)=>{
           this.event = res.race
-          console.log(this.event)
           this.trackSelected = this.event.track
           if(this.event.results_file){
             this.reglamentFile = {

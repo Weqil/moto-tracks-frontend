@@ -81,7 +81,6 @@ export class PersonalInfoComponent  implements OnInit {
   }
 
   submitForm(){
-    console.log(this.submitValidate())
     if(this.submitValidate()){
       this.loaderService.showLoading()
       if(this.userService.user.value?.personal){
@@ -131,7 +130,6 @@ export class PersonalInfoComponent  implements OnInit {
         rankNumber: this.userService.user.value?.personal.rank_number,
         motoStamp:  this.userService.user.value?.personal.moto_stamp
       })
-      console.log(this.personalUserForm.value)
     }else{
       this.personalUserForm.reset()
     }
