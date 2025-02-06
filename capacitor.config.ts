@@ -6,7 +6,7 @@ const config: CapacitorConfig = {
   webDir: 'www/browser',
   bundledWebRuntime: false,
   server: {
-    url: 'https://dev-moto.vokrug.city/events',
+    url: 'https://moto.vokrug.city/events',
   },
 };
 
