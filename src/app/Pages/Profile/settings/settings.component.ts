@@ -42,6 +42,9 @@ export class SettingsComponent  implements OnInit {
 
   constructor() { }
 
+  backNavigate() {
+    this.navControler.back();
+  }
   
 
   formErrors:any = {

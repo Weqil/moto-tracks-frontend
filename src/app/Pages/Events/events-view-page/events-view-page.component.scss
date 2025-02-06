@@ -1,9 +1,9 @@
 .slider-container{
     position: relative;
 }
-.slider-container{
-    
-}
+
+
+
 .slider-container__header{
     position: absolute;
     top: var(--standart-padding);
@@ -116,18 +116,19 @@
     font-size: var(--font-regular-size);
     padding-bottom: var(--little-padding);
 }
-.event-date{
-    
+
+.event-container{
+    width: 100%;
+    display: flex;
+    padding-bottom: 1rem;
     justify-content: end;
+}
+.event-date{
     color: var(--white-color);
     padding: var(--little-padding);
-    margin-bottom: 1rem;
     font-family: var(--font-bold);
     font-size: var(--font-little-size);
     background-color: var(--grey-color);
     border-radius: 2px;
-    display: inline-flex;
-    margin-left: 37.5%;
-    
 }
 
