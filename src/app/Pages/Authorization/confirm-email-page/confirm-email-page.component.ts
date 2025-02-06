@@ -68,7 +68,7 @@ export class ConfirmEmailPageComponent  implements OnInit {
           this.loadingService.hideLoading()
         }),
         catchError((err:any)=>{
-          if(err.error.message == 'messages.verification_email.verification.incorrect' ){
+          if(err.error.message == 'Код не подходит' ){
             this.toastService.showToast('код не верный','danger')
           }
           return EMPTY
