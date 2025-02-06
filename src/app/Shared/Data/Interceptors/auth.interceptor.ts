@@ -4,7 +4,11 @@ import { AuthService } from "../Services/Auth/auth.service";
 
 //Добавляю токен к кажджому запросу
 export const authTokenInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next:HttpHandlerFn)=>{
-    const token = inject(AuthService).token.value
+    
+    let token = ''
+    inject(AuthService).token.pipe().subscribe((res)=>{
+        token = String(res)
+    })
     if(!token) return next(req)
     //Добавляю токен в заголовки запроса если он есть. Для этого нужно склонировать запрос.
     req = req.clone({
