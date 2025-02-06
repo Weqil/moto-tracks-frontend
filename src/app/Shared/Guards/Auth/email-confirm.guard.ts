@@ -6,7 +6,8 @@ import { UserService } from "../../Data/Services/User/user.service"
 export const canActivateEmailConfirm = ()=>{
     const navController:NavController = inject(NavController)
     let isEmailVerificate:boolean = inject(UserService).isEmailVerified()
-    if(isEmailVerificate && inject(UserService).user.value){
+    let isLoggedIn:boolean = inject(AuthService).isAuthenticated()
+    if(isEmailVerificate && isLoggedIn){
         return true
     }
     return navController.navigateForward('/verification')
