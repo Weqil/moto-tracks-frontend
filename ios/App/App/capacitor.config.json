@@ -4,7 +4,7 @@
 	"webDir": "www/browser",
 	"bundledWebRuntime": false,
 	"server": {
-		"url": "https://moto.vokrug.city/events"
+		"url": "https://moto.vokrug.city"
 	},
 	"packageClassList": [
 		"AppPlugin",
