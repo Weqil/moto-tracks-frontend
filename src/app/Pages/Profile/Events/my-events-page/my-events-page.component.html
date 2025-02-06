@@ -9,11 +9,10 @@
         <div>
           <app-event-card [event]="event">
             <div class="buttons-container">
-              <app-standart-button style="width: 100%;" (click)="generateGoogleLink(event.id)" buttonText="Выгрузить список"></app-standart-button>
+              <app-standart-button *ngIf="userHaveRoot()" style="width: 100%;" (click)="generateGoogleLink(event.id)" buttonText="Выгрузить список"></app-standart-button>
               <app-standart-button theme="orange" style="width: 100%;" (click)="redirectInEditPage(event.id)" buttonText="Редактировать"></app-standart-button>
             </div>
           </app-event-card>
-         
         </div>
       
       }
