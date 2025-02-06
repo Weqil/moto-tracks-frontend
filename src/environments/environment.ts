@@ -28,7 +28,7 @@ export const environment = {
   APP_NAME: 'VOKRUG',
   BASE_URL: 'https://dev.vokrug.city',
   PORT: '8100',
-  BACKEND_URL: 'https://api.dev-moto.vokrug.city',
+  BACKEND_URL: 'https://api-moto.vokrug.city',
   BACKEND_PORT: '443',
   DOMAIN: 'mlcity.ru',
   appleClientId: 'mlcity.ru',
@@ -37,7 +37,6 @@ export const environment = {
   yandexAuthUrl: 'https://api-dev.vokrug.city/api/social-auth/yandex/',
   vkontakteServiceKey: '7c6d50047c6d50047c6d5004647f7f17fc77c6d7c6d50041fa47869a3cc84a7c0bed429',
 }
-
 //Локальный  сервер
 // export const environment = {
 //   production: true,
