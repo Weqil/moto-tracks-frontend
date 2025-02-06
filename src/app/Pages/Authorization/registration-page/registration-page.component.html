@@ -2,9 +2,9 @@
   <app-header headerTitle="Регистрация" secondButtonIcon="/assets/icons/menu-pen.svg"></app-header>
   <div class="main-container--with-header">
     <div class="login">
-        <div class="login__logo">
+        <!-- <div class="login__logo">
           <img class="login__logo__img" src="/assets/icons/favicon.png" alt="">
-        </div>
+        </div> -->
         <form action="" class="login__form">
           <app-standart-input [invalid]="registerInvalid.name.status" [errorMessage]="registerInvalid.name.message"  [label]="'Имя'" [control] = "registerForm.get('name')" name="name"></app-standart-input>
           <app-standart-input [invalid]="registerInvalid.email.status" [errorMessage]="registerInvalid.email.message" [label]="'E-mail'" [control] = "registerForm.get('email')" name="email"></app-standart-input>

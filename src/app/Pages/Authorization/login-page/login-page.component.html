@@ -2,9 +2,9 @@
   <app-header headerTitle="Вход" ></app-header>
   <div class="main-container--with-header">
     <div class="login">
-        <div class="login__logo">
+        <!-- <div class="login__logo">
           <img class="login__logo__img" src="/assets/icons/favicon.png" alt="">
-        </div>
+        </div> -->
         <form action="" class="login__form">
           <app-standart-input (changeInput)="clearErrors()" [invalid]="loginInvalid.name.status" [errorMessage]="loginInvalid.name.message" [label]="'E-mail'" [control] = "loginForm.get('name')" name="email"></app-standart-input>
           <app-standart-input (changeInput)="clearErrors()" [invalid]="loginInvalid.password.status" [errorMessage]="loginInvalid.password.message" [openPassword]="true" type="password"  [label]="'Пароль'" [control] = "loginForm.get('password')" password="email"></app-standart-input>
