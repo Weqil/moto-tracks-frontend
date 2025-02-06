@@ -11,7 +11,7 @@ import { LoginService } from 'src/app/Shared/Data/Services/Auth/login.service';
 import { ToastService } from 'src/app/Shared/Services/toast.service';
 import { NavController } from '@ionic/angular';
 import { LoadingService } from 'src/app/Shared/Services/loading.service';
-import { catchError, EMPTY, finalize, Subject } from 'rxjs';
+import { catchError, EMPTY, finalize, Subject, takeUntil } from 'rxjs';
 @Component({
   selector: 'app-confirm-email-page',
   templateUrl: './confirm-email-page.component.html',
@@ -85,7 +85,7 @@ export class ConfirmEmailPageComponent  implements OnInit {
 
   ionViewWillEnter() {
   
-    this.userService.user.pipe().subscribe((res:any)=>{
+    this.userService.user.pipe(takeUntil(this.destroy$)).subscribe((res:any)=>{
       this.user = res
       this.getCodeInEmail()
     })
