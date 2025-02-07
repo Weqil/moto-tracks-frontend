@@ -33,7 +33,9 @@
           <div class="document-header">Лицензии</div>
           <div class="licenses document-container">
             <app-standart-input [control]="licensesForm.get('licensesNumber')" placeholder="Лицензия МФР" label="Лицензия МФР (тип, №):"></app-standart-input>
-            <app-standart-input [control]="licensesForm.get('licensesFileLink')" placeholder="Введите ссылку на файл документа" label="Введите ссылку на файл"></app-standart-input>
+            <span class="scan-header">Скан или фотография Лицензии</span>
+            <app-file-input (click)="licensesFile.click()"></app-file-input>
+            <input #licensesFile style="display: none;"  type="file">
           </div>
     
           @if (!oldLicensesValue) {
@@ -44,16 +46,15 @@
           }
         </div>
 
-        
-
         <div class="user-document-container">
           <div class="document-header">Страховой полис</div>
           <div class="polis document-container">
             <app-standart-input [control]="polisForm.get('polisNumber')" placeholder="Серия, номер" label="Серия и номер"></app-standart-input>
             <app-standart-input [control]="polisForm.get('issuedWhom')" placeholder="Кем выдан" label="Кем выдан"></app-standart-input>
             <app-standart-input [control]="polisForm.get('itWorksDate')" placeholder="Срок действия" type="date" label="Срок действия"></app-standart-input>
-            <app-standart-input [control]="polisForm.get('polisFileLink')" placeholder="Введите ссылку на скан документа" label="Введите ссылку на файл документа"></app-standart-input>
-            <app-file-input></app-file-input>
+            <span class="scan-header">Скан или фотография Страхового полиса</span>
+            <app-file-input (click)="polisFile.click()"></app-file-input>
+            <input #polisFile style="display: none;"  type="file">
           </div>
 
             @if (!oldPolisValue) {
@@ -67,8 +68,9 @@
         <div class="user-document-container">
           <div class="document-header">Нотариальное согласие</div>
           <div class="polis document-container">
-            <app-standart-input [control]="polisForm.get('itWorksDate')" placeholder="Срок действия" type="date" label="Срок действия"></app-standart-input>
-            <app-standart-input [control]="polisForm.get('polisFileLink')" placeholder="Введите ссылку на скан документа" label="Введите ссылку на файл документа"></app-standart-input>
+            <span class="scan-header">Скан или фотография Нотариального согласия</span>
+            <app-file-input (click)="notariusFile.click()"></app-file-input>
+            <input #notariusFile style="display: none;"  type="file">
           </div>
 
             @if (!oldPolisValue) {
@@ -91,21 +93,11 @@
             <app-standart-button (click)="updatePasport()" [disabled]="!validatePasport()" buttonText="Изменить"></app-standart-button>
           }
       </div> -->
-       
       
-       
-        
         <!-- <app-standart-button [disabled]="true" (click)="cancelEdit()"  buttonText="Отмена"></app-standart-button> -->
-        <app-standart-button (click)="submitForm()" buttonText="Сохранить"></app-standart-button>
-
+          <app-standart-button (click)="submitForm()" buttonText="Сохранить"></app-standart-button>
         </div>     
 
-    
-    
-    
-
-   
-       
   </main>
 </ion-content>
 

@@ -191,6 +191,12 @@ submitForm(){
     })
   }
 
+  setPolisFile(){}
+
+  setLicensesFile(){}
+
+  
+
   createPasport(){
       this.loaderService.showLoading()
       this.userService.createUserDocument({type: 'pasport', data:(this.pasportForm.value)}).pipe(
