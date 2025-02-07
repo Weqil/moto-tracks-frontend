@@ -139,14 +139,11 @@ submitForm(){
   }else{
     this.toastService.showToast('Заполните обязательные поля - Фамилия, имя, адрес, спортивное звание','danger')
   }
-
-  
 }
 
-cancelEdit(){
-  this.navController.back()
-}
-
+  cancelEdit(){
+    this.navController.back()
+  }
 
   checkFormInDublicatsOldValue(form: FormGroup, oldValue: any) {
     let dublicates: boolean = false;
@@ -168,8 +165,7 @@ cancelEdit(){
       return false
     }
   }
-  validatePolis(){
-    
+  validatePolis(){ 
     if(this.polisForm.valid){
       return true
     }else{
@@ -190,9 +186,9 @@ cancelEdit(){
     finalize(()=>{
       this.loaderService.hideLoading()
     })
-  ).subscribe((res:any)=>{
-    this.toastService.showToast('Данные лицензии успешно сохранены','success')
-  })
+    ).subscribe((res:any)=>{
+      this.toastService.showToast('Данные лицензии успешно сохранены','success')
+    })
   }
 
   createPasport(){

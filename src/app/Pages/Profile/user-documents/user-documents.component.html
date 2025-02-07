@@ -3,32 +3,34 @@
   <main class="main-container--with-header">
 
         <div class="input-container">
-          <app-standart-input [control]="personalUserForm.get('surname')" [errorMessage]="formErrors.surname.errorMessage" [invalid]="formErrors.surname.errorMessage.length !== 0" placeholder="Введите фмилию" label="Фамилия"></app-standart-input>
+        <app-standart-input [control]="personalUserForm.get('surname')" [errorMessage]="formErrors.surname.errorMessage" [invalid]="formErrors.surname.errorMessage.length !== 0" placeholder="Введите фмилию" label="Фамилия"></app-standart-input>
         <app-standart-input [control]="personalUserForm.get('name')" [errorMessage]="formErrors.name.errorMessage" [invalid]="formErrors.name.errorMessage.length !== 0" placeholder="Введите имя" label="Имя"></app-standart-input>
         <app-standart-input [control]="personalUserForm.get('patronymic')" placeholder="Введите отчество" label="Отчество"></app-standart-input>
+        
         <div class="start-number-container">
           <app-standart-input  [control]="personalUserForm.get('startNumber')" [invalid]="formErrors.startNumber.errorMessage.length !== 0" [errorMessage]="formErrors.startNumber.errorMessage" placeholder="Стартовый номер" label="Стартовый номер"></app-standart-input>
           <app-standart-input [control]="personalUserForm.get('group')" placeholder="Класс (группа)" label="Класс"></app-standart-input>
         </div>
+
         <app-standart-input [control]="personalUserForm.get('motoStamp')" placeholder="Марка мотоцикла" label="Мотоцикл"></app-standart-input>
         <app-standart-input [control]="personalUserForm.get('engine')" placeholder="Двигатель мотоцикла" label="Двигатель"></app-standart-input>
  
         <div class="user-document-container">
           <div class="document-header">Лицензии</div>
-        <div class="licenses document-container">
-          <app-standart-input [control]="licensesForm.get('licensesNumber')" placeholder="Лицензия МФР" label="Лицензия МФР (тип, №):"></app-standart-input>
-          <app-standart-input [control]="licensesForm.get('licensesFileLink')" placeholder="Введите ссылку на файл документа" label="Введите ссылку на файл"></app-standart-input>
-        </div>
+          <div class="licenses document-container">
+            <app-standart-input [control]="licensesForm.get('licensesNumber')" placeholder="Лицензия МФР" label="Лицензия МФР (тип, №):"></app-standart-input>
+            <app-standart-input [control]="licensesForm.get('licensesFileLink')" placeholder="Введите ссылку на файл документа" label="Введите ссылку на файл"></app-standart-input>
+          </div>
     
-         @if (!oldLicensesValue) {
-          <app-standart-button (click)="createLicenses()" [disabled]="!validateLicenses()" buttonText="Сохранить"></app-standart-button>
-         }
-         @else {
-          <app-standart-button (click)="updateLicenses()" [disabled]="!validateLicenses()" buttonText="Изменить"></app-standart-button>
-         }
+          @if (!oldLicensesValue) {
+           <app-standart-button (click)="createLicenses()" [disabled]="!validateLicenses()" buttonText="Сохранить"></app-standart-button>
+          }
+          @else {
+           <app-standart-button (click)="updateLicenses()" [disabled]="!validateLicenses()" buttonText="Изменить"></app-standart-button>
+          }
         </div>
 
-         <app-standart-input  [control]="personalUserForm.get('rank')" placeholder="Спортивное звание, разряд" label="Спортивное звание" [invalid]="formErrors.rank.errorMessage.length !== 0" [errorMessage]="formErrors.rank.errorMessage"></app-standart-input>
+        <app-standart-input  [control]="personalUserForm.get('rank')" placeholder="Спортивное звание, разряд" label="Спортивное звание" [invalid]="formErrors.rank.errorMessage.length !== 0" [errorMessage]="formErrors.rank.errorMessage"></app-standart-input>
 
         <app-standart-input [control]="personalUserForm.get('dateOfBirth')" placeholder="Выберите дату" label="Дата рождения" type="date"></app-standart-input>
         <app-standart-input [control]="personalUserForm.get('city')" placeholder="Город (край, область, регион)" label="Город" [invalid]="formErrors.city.errorMessage.length !== 0" [errorMessage]="formErrors.city.errorMessage"></app-standart-input>
@@ -43,6 +45,7 @@
             <app-standart-input [control]="polisForm.get('issuedWhom')" placeholder="Кем выдан" label="Кем выдан"></app-standart-input>
             <app-standart-input [control]="polisForm.get('itWorksDate')" placeholder="Срок действия" type="date" label="Срок действия"></app-standart-input>
             <app-standart-input [control]="polisForm.get('polisFileLink')" placeholder="Введите ссылку на скан документа" label="Введите ссылку на файл документа"></app-standart-input>
+            <app-file-input></app-file-input>
           </div>
 
             @if (!oldPolisValue) {
@@ -68,26 +71,19 @@
        
       <app-standart-input [control]="personalUserForm.get('numberAndSeria')" placeholder="Серия, номер" label="Паспорт"></app-standart-input>
 
-
         <div class="start-number-container">
           <app-standart-input [control]="personalUserForm.get('inn')" placeholder="ИНН" label="ИНН"></app-standart-input>
           <app-standart-input [control]="personalUserForm.get('snils')" placeholder="СНИЛС" label="СНИЛС"></app-standart-input>
         </div>
+        
         <app-standart-input [control]="personalUserForm.get('phoneNumber')" placeholder="Номер телефона" label="Телефон"></app-standart-input>
-        
         <app-standart-input [control]="personalUserForm.get('rankNumber')" placeholder="№ удостоверения (МСМК, МС, КМС)" label="№ удостоверения"></app-standart-input>
-        
-        <app-standart-button [disabled]="true" (click)="cancelEdit()"  buttonText="Отмена"></app-standart-button>
-        <app-standart-button (click)="submitForm()" buttonText="Сохранить"></app-standart-button>
-
-        </div>     
-
-    
-    
-    
-
-   
-       
+          
+        <div class="buttons-container">
+            <app-standart-button [disabled]="true" (click)="cancelEdit()"  buttonText="Отмена"></app-standart-button>
+            <app-standart-button (click)="submitForm()" buttonText="Сохранить"></app-standart-button>
+          </div>
+    </div>         
   </main>
 </ion-content>
 
