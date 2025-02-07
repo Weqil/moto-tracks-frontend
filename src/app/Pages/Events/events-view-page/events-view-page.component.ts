@@ -72,6 +72,7 @@ export class EventsViewPageComponent  implements OnInit {
       coach:new FormControl('', [Validators.required]),
       motoStamp:new FormControl('', [Validators.required]),
       engine:new FormControl('', [Validators.required]),
+      numberAndSeria:new FormControl('', [Validators.required]),
     })
 
     licensesForm: FormGroup = new FormGroup(
@@ -378,7 +379,8 @@ export class EventsViewPageComponent  implements OnInit {
         phoneNumber: this.userService.user.value?.personal.phone_number,
         startNumber: this.userService.user.value?.personal.start_number,
         rankNumber: this.userService.user.value?.personal.rank_number,
-        motoStamp:  this.userService.user.value?.personal.moto_stamp
+        motoStamp:  this.userService.user.value?.personal.moto_stamp,
+        numberAndSeria: this.userService.user.value?.personal.number_and_seria
       })
     }else{
       this.personalUserForm.reset()
