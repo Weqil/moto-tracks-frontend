@@ -130,9 +130,10 @@ export class LoginPageComponent  implements OnInit {
 
         this.userService.setUserInLocalStorage(res.user)
         this.authService.setAuthToken(String(res.access_token))
+       
         setTimeout(()=>{
           this.navController.navigateForward(['/cabinet'])
-        },100)
+        },150)
 
       })
     }

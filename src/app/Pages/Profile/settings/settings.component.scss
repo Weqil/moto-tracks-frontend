@@ -13,7 +13,7 @@
     
 }
 .cabinet__select-status{
-    width: 100%;
+    width: 80%;
     padding-bottom: var(--standart-padding);
     position: relative;
     margin-top: var(--little-margin);
@@ -57,12 +57,9 @@
 }
 
 .document-container{
-    min-height: 150px;
-    
     margin-bottom: 10px;
-
-    
 }
+
 .up-container{
     width: 100%;
     display: flex;

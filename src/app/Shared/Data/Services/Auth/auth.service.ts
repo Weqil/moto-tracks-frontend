@@ -15,7 +15,6 @@ export class AuthService {
 
   constructor() { }
 
-  //Проверяю куку на токен и если его нет то не авторизован
   isAuthenticated(): boolean {
     if (!this.token.value) {
       this.token.next(this.getAuthToken())
@@ -26,9 +25,11 @@ export class AuthService {
   setAuthToken(token:string){
     this.token.next(token)
     localStorage.setItem('authToken',token)
+    this.userService.refreshUser()
   }
 
   logout(){
+    localStorage.removeItem('authToken')
     this.cookieService.delete('authToken')
     this.token.next(null)
     this.authenticationState.next(false)
@@ -36,7 +37,12 @@ export class AuthService {
   }
 
   getAuthToken(){
-    return String(localStorage.getItem('authToken'))
+    if(localStorage.getItem('authToken')){
+      return String(localStorage.getItem('authToken'))
+    }else{
+      return null
+    }
+   
   }
 
 }

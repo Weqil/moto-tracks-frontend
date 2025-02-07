@@ -16,6 +16,7 @@
 }
 .start-number-container{
     display: flex;
+    justify-content: space-between;
     gap: 10px;
 }
 
@@ -30,4 +31,10 @@
 .user-document-container{
     padding-top: 1rem;
     
+}
+.buttons-container{
+    padding-top: var(--standart-padding);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }

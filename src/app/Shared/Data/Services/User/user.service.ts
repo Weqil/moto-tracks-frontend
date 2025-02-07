@@ -4,6 +4,7 @@ import { User } from '../../Interfaces/user-model';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { userRoles } from '../../Enums/roles';
 
 @Injectable({
   providedIn: 'root'
@@ -21,13 +22,17 @@ export class UserService {
     if(user){
       this.user.next(user);
       localStorage.setItem('user', JSON.stringify(user));
+
     }
   }
 
   deleteUser(){
     
   }
+  userHaveRoot(){
 
+    return this.user.value?.roles.find((role:any)=> role.name == userRoles.admin || role.name == userRoles.root) !== undefined
+  }
   createUserDocument(document:any){
     return this.http.post<any>(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/users/cabinet/documents`, document)
   }
@@ -67,7 +72,9 @@ export class UserService {
   //Получил данные о пользователе
   getUserFromLocalStorage():User {
     return JSON.parse(String(localStorage.getItem('user')));
-   
+  }
+  editUser(editForm:FormData){
+    return this.http.post(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/users/update`, editForm)
   }
   getChangeRoles(){
     return this.http.get<any>(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/roles-change`)
