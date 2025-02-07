@@ -21,7 +21,8 @@ export interface User{
         community:string,
         coach:string,
         moto_stamp:string,
-        engines:string              
+        engines:string
+        number_and_seria :string             
     },
     roles:{
         id:number,

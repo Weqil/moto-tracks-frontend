@@ -28,8 +28,10 @@
         <app-standart-input [control]="personalUserForm.get('coach')" placeholder="Тренер" label="ФИО тренера"></app-standart-input>
         <app-standart-input [control]="personalUserForm.get('motoStamp')" placeholder="Марка мотоцикла" label="Мотоцикл"></app-standart-input>
         <app-standart-input [control]="personalUserForm.get('engine')" placeholder="Двигатель мотоцикла" label="Двигатель"></app-standart-input>
+        <app-standart-input [control]="personalUserForm.get('numberAndSeria')" placeholder="Серия, номер" label="Паспорт"></app-standart-input>
+
         <app-standart-button [disabled]="true" (click)="cancelEdit()"  buttonText="Отмена"></app-standart-button>
         <app-standart-button (click)="submitForm()" buttonText="Сохранить"></app-standart-button>
       </form>
     </div>
-</ion-content>
+</ion-content>  
