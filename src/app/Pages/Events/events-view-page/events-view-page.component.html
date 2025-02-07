@@ -60,6 +60,8 @@
           <app-standart-input [control]="personalUserForm.get('patronymic')" placeholder="Введите отчество" label="Отчество"></app-standart-input>
           <app-standart-input [control]="personalUserForm.get('dateOfBirth')" placeholder="Выберите дату" label="Дата рождения" type="date"></app-standart-input>
           <app-standart-input [control]="personalUserForm.get('city')" placeholder="Город (край, область, регион)" label="Город" [invalid]="formErrors.city.errorMessage.length !== 0" [errorMessage]="formErrors.city.errorMessage"></app-standart-input>
+          <app-standart-input [control]="personalUserForm.get('numberAndSeria')" placeholder="Серия, номер" label="Паспорт"></app-standart-input>
+
           <div class="start-number-container">
             <app-standart-input [control]="personalUserForm.get('inn')" placeholder="ИНН" label="ИНН"></app-standart-input>
             <app-standart-input [control]="personalUserForm.get('snils')" placeholder="СНИЛС" label="СНИЛС"></app-standart-input>
@@ -92,10 +94,10 @@
               <app-standart-input [control]="polisForm.get('polisFileLink')" placeholder="Введите ссылку на скан документа" label="Введите ссылку на файл документа"></app-standart-input>
             </div>
 
-            <div class="document-header">Паспорт / Свидетельство о рождении</div>
+            <!-- <div class="document-header">Паспорт / Свидетельство о рождении</div>
             <div class="pasportForm document-container">
-              <app-standart-input [control]="pasportForm.get('numberAndSeria')" placeholder="Серия, номер" label="Серия, номер"></app-standart-input>
-            </div>
+              <app-standart-input [control]="personalUserForm.get('numberAndSeria')" placeholder="Серия, номер" label="Серия, номер"></app-standart-input>
+            </div> -->
             
         </div>
       </div>
