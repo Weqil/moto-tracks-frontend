@@ -14,9 +14,10 @@ import { ProfileModule } from 'src/app/Shared/Modules/user/profile.module';
 
 import { UserModule } from 'src/app/Shared/Modules/user/user.module';
 import { selectedModule } from "../../../Shared/Modules/selected/selected.module";
-import { finalize } from 'rxjs';
+import { catchError, EMPTY, finalize } from 'rxjs';
 import { userRoles } from 'src/app/Shared/Data/Enums/roles';
 import { NavController } from '@ionic/angular';
+import { serverError } from 'src/app/Shared/Data/Interfaces/errors';
 
 @Component({
   selector: 'app-settings',
@@ -29,7 +30,7 @@ import { NavController } from '@ionic/angular';
 export class SettingsComponent  implements OnInit {
   authService: any;
   navControler: NavController = inject(NavController);
-
+  checkImgUrlPipe:CheckImgUrlPipe = inject(CheckImgUrlPipe)
   private readonly loading:LoadingService = inject(LoadingService)
 
   statusesSelect:boolean = false
@@ -65,8 +66,7 @@ export class SettingsComponent  implements OnInit {
   loaderService:LoadingService = inject(LoadingService)
   settingsAvatar:string = ''
   userSettingsForm: FormGroup = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    email:new FormControl('', [Validators.required])
+    avatar: new FormControl('', [Validators.required])
   })
 
   user!:User|null
@@ -104,14 +104,31 @@ export class SettingsComponent  implements OnInit {
   setAvatar(event:any){
     const file = event.target.files[0]
     if(file){
+      this.userSettingsForm.patchValue({ avatar: file })
       const reader: FileReader = new FileReader()
       reader.onload = (e: any) => {
         this.settingsAvatar = e.target.result
         this.avatarUrl = e.target.result
-        console.log(this.avatarUrl)
       }
       reader.readAsDataURL(file)
     }
+  }
+
+  submitEditForm(){
+    this.loaderService.showLoading()
+    let fd : FormData = new FormData()
+    fd.append('avatar', this.userSettingsForm.value.avatar)
+    this.userService.editUser(fd).pipe(finalize(()=>{
+      this.loaderService.hideLoading()
+    }),
+    catchError((err:serverError)=>{
+      this.toastService.showToast(err.error.message,'danger')
+      return EMPTY
+    })
+  ).subscribe(()=>{
+      this.toastService.showToast('Изменения сохранены','success')
+      this.userService.refreshUser()
+    })
   }
 
   ionViewWillEnter(){
@@ -149,11 +166,7 @@ export class SettingsComponent  implements OnInit {
    
     this.userService.user.pipe().subscribe(()=>{
       this.user = this.userService.user.value
-      this.settingsAvatar = this.user?.avatar ? this.user?.avatar : ''
-      this.userSettingsForm.patchValue({
-        name: this.user?.personal?.name,
-        email: this.user?.email
-      })
+      this.settingsAvatar = this.checkImgUrlPipe.checkUrlDontType(this.user?.avatar) 
     })
   }
 

@@ -67,7 +67,9 @@ export class UserService {
   //Получил данные о пользователе
   getUserFromLocalStorage():User {
     return JSON.parse(String(localStorage.getItem('user')));
-   
+  }
+  editUser(editForm:FormData){
+    return this.http.post(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/users/update`, editForm)
   }
   getChangeRoles(){
     return this.http.get<any>(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/roles-change`)
