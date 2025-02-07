@@ -26,6 +26,7 @@ export class AuthService {
   setAuthToken(token:string){
     this.token.next(token)
     localStorage.setItem('authToken',token)
+    this.userService.refreshUser()
   }
 
   logout(){

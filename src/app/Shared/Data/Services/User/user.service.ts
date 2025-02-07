@@ -21,6 +21,7 @@ export class UserService {
     if(user){
       this.user.next(user);
       localStorage.setItem('user', JSON.stringify(user));
+
     }
   }
 
