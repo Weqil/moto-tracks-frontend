@@ -8,18 +8,20 @@
     <div class="document-container">
       <div class="up-container">
         <div class="user-section__avatar">
-          <img class="user-section__avatar__img" [src]="settingsAvatar | checkImgUrl" alt="" alt="">
+          <img (click)="file.click()" class="user-section__avatar__img" [src]="settingsAvatar" alt="" alt="">
+          <input (change)="setAvatar($event)" #file style="display: none;" accept="image/png, image/jpeg"   type="file">
         </div>
         <div class="cabinet__select-status">
           <app-custom-selected [items]="statuses" [modalValue]="statusesSelect" [selectedValue]="selectedStatusItem" (openModal)="openSelectedStatus()" (closeModal)="closeSelectedStatus()" (selectItem)="selectStatus($event)"></app-custom-selected>
         </div>
       </div>
-      <div class="bottom-container">
+
+      <!-- <div class="bottom-container">
       <app-standart-input class="bottom-container__standart" [control]="userSettingsForm.get('name')" [errorMessage]="formErrors.name.errorMessage" [invalid]="formErrors.name.errorMessage.length !== 0" placeholder="Введите имя пользователя" label="Имя пользователя"></app-standart-input>
       <app-standart-input class="bottom-container__standart"[control]="userSettingsForm.get('email')" [errorMessage]="formErrors.email.errorMessage" [invalid]="formErrors.email.errorMessage.length !== 0" placeholder="Введите Email" label="Email"></app-standart-input> 
-      </div>
+      </div> -->
     </div>      
-    <app-standart-button  (click)="backNavigate()" [disabled]="true" buttonText="Сохранить"></app-standart-button>
+    <app-standart-button (click)="submitEditForm()" buttonText="Сохранить"></app-standart-button>
     <div class="cabinet__delete_account">
       <app-standart-button  theme="red" buttonText="Удалить учетную запись"></app-standart-button>
     </div>

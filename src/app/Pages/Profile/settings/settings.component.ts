@@ -14,9 +14,10 @@ import { ProfileModule } from 'src/app/Shared/Modules/user/profile.module';
 
 import { UserModule } from 'src/app/Shared/Modules/user/user.module';
 import { selectedModule } from "../../../Shared/Modules/selected/selected.module";
-import { finalize } from 'rxjs';
+import { catchError, EMPTY, finalize } from 'rxjs';
 import { userRoles } from 'src/app/Shared/Data/Enums/roles';
 import { NavController } from '@ionic/angular';
+import { serverError } from 'src/app/Shared/Data/Interfaces/errors';
 
 @Component({
   selector: 'app-settings',
@@ -29,15 +30,11 @@ import { NavController } from '@ionic/angular';
 export class SettingsComponent  implements OnInit {
   authService: any;
   navControler: NavController = inject(NavController);
-
+  checkImgUrlPipe:CheckImgUrlPipe = inject(CheckImgUrlPipe)
   private readonly loading:LoadingService = inject(LoadingService)
 
   statusesSelect:boolean = false
-  selectedStatusItem:any  = {
-    id: 0,
-    name: 'Болельщик',
-    value: 'Болельщик',
-  }
+  selectedStatusItem:any  = {}
   statuses:any[] = [];
 
   constructor() { }
@@ -58,13 +55,14 @@ export class SettingsComponent  implements OnInit {
    
 }
 
+  avatarUrl:string = ''
+
   userService:UserService = inject(UserService)
   toastService:ToastService = inject(ToastService)
   loaderService:LoadingService = inject(LoadingService)
   settingsAvatar:string = ''
   userSettingsForm: FormGroup = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    email:new FormControl('', [Validators.required])
+    avatar: new FormControl('', [Validators.required])
   })
 
   user!:User|null
@@ -88,7 +86,9 @@ export class SettingsComponent  implements OnInit {
     this.selectedStatusItem = event;
   }
   openSelectedStatus(){
-    this.statusesSelect = true;
+    if(!this.userService.userHaveRoot()){
+      this.statusesSelect = true;
+    }
   }
   closeSelectedStatus(){
     this.statusesSelect = false;
@@ -97,6 +97,36 @@ export class SettingsComponent  implements OnInit {
   logoutInAccount() {
     this.authService.logout()
     this.navControler.navigateForward('/login',{  animated: false })
+  }
+
+  setAvatar(event:any){
+    const file = event.target.files[0]
+    if(file){
+      this.userSettingsForm.patchValue({ avatar: file })
+      const reader: FileReader = new FileReader()
+      reader.onload = (e: any) => {
+        this.settingsAvatar = e.target.result
+        this.avatarUrl = e.target.result
+      }
+      reader.readAsDataURL(file)
+    }
+  }
+
+  submitEditForm(){
+    this.loaderService.showLoading()
+    let fd : FormData = new FormData()
+    fd.append('avatar', this.userSettingsForm.value.avatar)
+    this.userService.editUser(fd).pipe(finalize(()=>{
+      this.loaderService.hideLoading()
+    }),
+    catchError((err:serverError)=>{
+      this.toastService.showToast(err.error.message,'danger')
+      return EMPTY
+    })
+  ).subscribe(()=>{
+      this.toastService.showToast('Изменения сохранены','success')
+      this.userService.refreshUser()
+    })
   }
 
   ionViewWillEnter(){
@@ -114,15 +144,24 @@ export class SettingsComponent  implements OnInit {
           value: roleItem.name,
         })
       });
-      if(this.user?.roles.length){
+      if(this.user?.roles.length && !this.userService.userHaveRoot()){
         const matchingStatus = this.statuses.find((statusItem: any) => 
           this.user?.roles.some((role: any) => role.id === statusItem.id)
         );
         if(matchingStatus){
           this.selectedStatusItem = matchingStatus
         }else{
+
         }
-      } else{
+      } 
+      else if(this.userService.userHaveRoot()){
+        this.selectedStatusItem = {
+          id: 4,
+          name: 'Комиссия',
+          value: 'Комиссия',
+        }
+      }
+      else{
         this.selectedStatusItem = {
           id: 0,
           name: 'Болельщик',
@@ -134,11 +173,7 @@ export class SettingsComponent  implements OnInit {
    
     this.userService.user.pipe().subscribe(()=>{
       this.user = this.userService.user.value
-      this.settingsAvatar = this.user?.avatar ? this.user?.avatar : ''
-      this.userSettingsForm.patchValue({
-        name: this.user?.personal?.name,
-        email: this.user?.email
-      })
+      this.settingsAvatar = this.checkImgUrlPipe.checkUrlDontType(this.user?.avatar) 
     })
   }
 
