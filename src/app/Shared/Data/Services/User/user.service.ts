@@ -4,6 +4,7 @@ import { User } from '../../Interfaces/user-model';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { userRoles } from '../../Enums/roles';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +29,9 @@ export class UserService {
   deleteUser(){
     
   }
-
+  userHaveRoot(){
+    return !!this.user.value?.roles.find((role:any)=>role.name == userRoles.admin || role.name == userRoles.root) !== undefined
+  }
   createUserDocument(document:any){
     return this.http.post<any>(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/users/cabinet/documents`, document)
   }

@@ -34,11 +34,7 @@ export class SettingsComponent  implements OnInit {
   private readonly loading:LoadingService = inject(LoadingService)
 
   statusesSelect:boolean = false
-  selectedStatusItem:any  = {
-    id: 0,
-    name: 'Болельщик',
-    value: 'Болельщик',
-  }
+  selectedStatusItem:any  = {}
   statuses:any[] = [];
 
   constructor() { }
@@ -90,7 +86,9 @@ export class SettingsComponent  implements OnInit {
     this.selectedStatusItem = event;
   }
   openSelectedStatus(){
-    this.statusesSelect = true;
+    if(!this.userService.userHaveRoot()){
+      this.statusesSelect = true;
+    }
   }
   closeSelectedStatus(){
     this.statusesSelect = false;
@@ -146,15 +144,24 @@ export class SettingsComponent  implements OnInit {
           value: roleItem.name,
         })
       });
-      if(this.user?.roles.length){
+      if(this.user?.roles.length && !this.userService.userHaveRoot()){
         const matchingStatus = this.statuses.find((statusItem: any) => 
           this.user?.roles.some((role: any) => role.id === statusItem.id)
         );
         if(matchingStatus){
           this.selectedStatusItem = matchingStatus
         }else{
+
         }
-      } else{
+      } 
+      else if(this.userService.userHaveRoot()){
+        this.selectedStatusItem = {
+          id: 4,
+          name: 'Комиссия',
+          value: 'Комиссия',
+        }
+      }
+      else{
         this.selectedStatusItem = {
           id: 0,
           name: 'Болельщик',

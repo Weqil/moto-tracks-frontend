@@ -300,16 +300,22 @@ export class EventsViewPageComponent  implements OnInit {
    }
 
     openApplicationForm(){
-      if(this.authService.isAuthenticated()){
+      let isLoggedIn:boolean = this.authService.isAuthenticated()
+      if(this.authService.isAuthenticated() && this.userService.user.value?.roles.length){
         this.applicationFormValueState = true
-      }else{
+      }else if(this.authService.isAuthenticated() && !this.userService.user.value?.roles.length){
+        this.toastService.showToast('Что бы отправить заявку измените статус','warning')
+        this.navController.navigateForward('/settings')
+      } else{
+        this.toastService.showToast('Что бы отправить заявку авторизируйтесь','warning')
         this.navController.navigateForward('/login')
       }
-     
     }
     closeApplicationForm(){
       this.applicationFormValueState = false
     }
+
+
 
   getEvent(){
     this.loadingService.showLoading()
@@ -439,6 +445,7 @@ export class EventsViewPageComponent  implements OnInit {
   }
 
   ionViewWillEnter(){
+
     this.route.params.pipe(takeUntil(this.destroy$)).pipe(
       finalize(()=>{
       })
