@@ -34,13 +34,12 @@ export class UserService {
     return this.user.value?.roles.find((role:any)=> role.name == userRoles.admin || role.name == userRoles.root) !== undefined
   }
   createUserDocument(document:any){
+    console.log(document)
     return this.http.post<any>(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/users/cabinet/documents`, document)
   }
 
   updateDocument(id:number,document:any){
-    const fd: FormData = new FormData();
-    fd.append('data',  JSON.stringify(document))
-    return this.http.post<any>(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/users/cabinet/documents/${id}/update`, fd)
+    return this.http.post<any>(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/users/cabinet/documents/${id}/update`, document)
   }
 
   getUserDocuments(){

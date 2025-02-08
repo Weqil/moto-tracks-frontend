@@ -31,6 +31,11 @@
     font-size: 20px;
     color: #1c2226;
 }
+.scan-header{
+    margin-top: 0.5rem;
+    font-family: var(--font-regular);
+    font-size: var(--font-regular-size);
+}
 .footer{
     padding: var(--standart-padding);
     position: fixed;

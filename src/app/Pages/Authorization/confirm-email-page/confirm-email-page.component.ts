@@ -42,7 +42,6 @@ export class ConfirmEmailPageComponent  implements OnInit {
 
   getCodeInEmail(){
     if(!this.user.email_verified_at && this.authService.isAuthenticated()){
-      this.loadingService.showLoading()
       this.loginService.getCodeInEmailConfirm().pipe(
         finalize(()=>{
           this.loadingService.hideLoading()

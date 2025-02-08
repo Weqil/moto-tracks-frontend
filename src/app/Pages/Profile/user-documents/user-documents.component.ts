@@ -3,7 +3,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { IonContent } from '@ionic/angular';
 import { IonModal } from '@ionic/angular/standalone';
-import { finalize } from 'rxjs';
+import { catchError, EMPTY, finalize } from 'rxjs';
 import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
 import { ButtonsModule } from 'src/app/Shared/Modules/buttons/buttons.module';
 import { FormsModule } from 'src/app/Shared/Modules/forms/forms.module';
@@ -12,6 +12,7 @@ import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
 import { LoadingService } from 'src/app/Shared/Services/loading.service';
 import { ToastService } from 'src/app/Shared/Services/toast.service';
 import { NavController } from '@ionic/angular/standalone';
+import { serverError } from 'src/app/Shared/Data/Interfaces/errors';
 
 @Component({
   selector: 'app-user-documents',
@@ -30,10 +31,18 @@ export class UserDocumentsComponent  implements OnInit {
   userService:UserService = inject(UserService)
   toastService:ToastService = inject(ToastService)
 
+
+  licensesFile:any =''
+  polisFile:any = ''
+  notariusFile:any = ''
+
+  oldNotariusFile:any
+
+  oldPolisFile:any
+  
   licensesForm: FormGroup = new FormGroup(
     {
       licensesNumber: new FormControl('',[Validators.required, Validators.minLength(3), ]), //номер лицензии
-      licensesFileLink: new FormControl('',[Validators.required, Validators.minLength(3), ]), // путь до файла
     }
   )
 
@@ -42,9 +51,15 @@ export class UserDocumentsComponent  implements OnInit {
       polisNumber: new FormControl('',[Validators.required, Validators.minLength(3), ]), //Серия и номер полиса
       issuedWhom: new FormControl('',[Validators.required, Validators.minLength(3), ]), //Кем выдан
       itWorksDate: new FormControl('',[Validators.required, Validators.minLength(3), ]), //Срок действия
-      polisFileLink: new FormControl('',[Validators.required, Validators.minLength(3), ]), // путь до файла
     }
   )
+
+  notariusForm:FormGroup = new FormGroup (
+    {
+      notariusFile: new FormControl('',[Validators.required,]), // путь до файла
+    }
+  )
+
   pasportForm: FormGroup = new FormGroup(
     {
       numberAndSeria: new FormControl('',[Validators.required, Validators.minLength(3)]), //Серия и номер полиса
@@ -159,14 +174,14 @@ submitForm(){
   }
 
   validateLicenses(){
-    if(this.licensesForm.valid){
+    if(this.licensesForm.valid && this.licensesFile){
       return true
     }else{
       return false
     }
   }
   validatePolis(){ 
-    if(this.polisForm.valid){
+    if(this.polisForm.valid && this.polisFile){
       return true
     }else{
       return false
@@ -182,19 +197,39 @@ submitForm(){
 
   createLicenses(){
     this.loaderService.showLoading()
-    this.userService.createUserDocument({type: 'licenses', data:(this.licensesForm.value)}).pipe(
+    let fd:FormData = new FormData()
+    fd.append('type','licenses')
+    fd.append('data',JSON.stringify(this.licensesForm.value))
+    fd.append('file',this.licensesFile)
+    this.userService.createUserDocument(fd).pipe(
     finalize(()=>{
       this.loaderService.hideLoading()
+    }),
+    catchError((err:serverError)=>{
+      this.toastService.showToast(err.error.message,'danger')
+      return EMPTY
     })
     ).subscribe((res:any)=>{
       this.toastService.showToast('Данные лицензии успешно сохранены','success')
+      this.setFormValue()
     })
   }
 
-  setPolisFile(){}
+  setPolisFile(event:any){
+    let file = event.target.files[0]
+    this.polisFile = file
+    console.log(this.polisFile)
+  }
 
-  setLicensesFile(){}
+  setLicensesFile(event:any){
+    let file = event.target.files[0]
+    this.licensesFile = file
+  }
 
+  setNotariusFile(event:any){
+    let file = event.target.files[0]
+    this.notariusFile = file
+  }
   
 
   createPasport(){
@@ -205,23 +240,32 @@ submitForm(){
       })
     ).subscribe((res:any)=>{
       this.toastService.showToast('Данные паспорте успешно сохранены','success')
+      this.setFormValue()
     })
   }
 
   createPolis(){
      this.loaderService.showLoading()
-      this.userService.createUserDocument({type: 'polis', data:(this.polisForm.value)}).pipe(
+     let fd: FormData = new FormData()
+     fd.append('type','polis')
+     fd.append('data',JSON.stringify(this.polisForm.value))
+     fd.append('file',this.polisFile)
+      this.userService.createUserDocument(fd).pipe(
       finalize(()=>{
         this.loaderService.hideLoading()
       })
     ).subscribe((res:any)=>{
       this.toastService.showToast('Данные полиса успешно сохранены','success')
+      this.setFormValue()
     })
   }
 
   updateLicenses(){
     this.loaderService.showLoading()
-    this.userService.updateDocument(Number(this.oldLicensesValue?.id),this.licensesForm.value).pipe(
+    let fd:FormData = new FormData()
+    fd.append('data',JSON.stringify(this.licensesForm.value))
+    fd.append('file' ,this.licensesFile)
+    this.userService.updateDocument(Number(this.oldLicensesValue?.id), fd).pipe(
       finalize(()=>{
         this.loaderService.hideLoading()
       })
@@ -230,16 +274,6 @@ submitForm(){
     })
   }
 
-  // updatePasport(){
-  //   this.loaderService.showLoading()
-  //   this.userService.updateDocument(Number(this.oldPasportValue?.id),this.pasportForm.value).pipe(
-  //     finalize(()=>{
-  //       this.loaderService.hideLoading()
-  //     })
-  //   ).subscribe((res:any)=>{
-  //     this.toastService.showToast('Данные паспорта успешно обновлены','success')
-  //   })
-  // }
 
   updatePolis(){
     this.loaderService.showLoading()
@@ -252,6 +286,22 @@ submitForm(){
     })
   }
 
+  createNotarius(){
+    this.loaderService.showLoading()
+     let fd: FormData = new FormData()
+     fd.append('type','notarius')
+     fd.append('data',JSON.stringify({}))
+     fd.append('file',this.notariusFile)
+      this.userService.createUserDocument(fd).pipe(
+      finalize(()=>{
+        this.loaderService.hideLoading()
+      })
+    ).subscribe((res:any)=>{
+      this.toastService.showToast('Данные успешно сохранены','success')
+      this.setFormValue()
+    })
+  }
+
   setFormValue(){
     this.loaderService.showLoading()
     this.userService.getUserDocuments().pipe(
@@ -260,9 +310,24 @@ submitForm(){
       })
     ).subscribe((res:any)=>{
       if(res.documents){
-        this.licensesForm.patchValue((res.documents.find((doc:any)=> doc.type === 'licenses')?.data))
-        this.polisForm.patchValue((res.documents.find((doc:any)=> doc.type === 'polis')?.data))
-        this.pasportForm.patchValue((res.documents.find((doc:any)=> doc.type === 'pasport')?.data))
+        if(res.documents.find((doc:any)=> doc.type === 'licenses')?.data){
+          let licensesDocument = res.documents.find((doc:any)=> doc.type === 'licenses')
+          this.licensesForm.patchValue(JSON.parse((res.documents.find((doc:any)=> doc.type === 'licenses')?.data)))
+          this.licensesFile = {name:'Лицензия загружена'} 
+        }
+        if((res.documents.find((doc:any)=> doc.type === 'polis')?.data)){
+          this.polisForm.patchValue(JSON.parse((res.documents.find((doc:any)=> doc.type === 'polis')?.data)))
+          this.polisFile = {name:'Полис загружен'}
+        }
+        if(res.documents.find((doc:any)=> doc.type === 'pasport')?.data){
+          this.pasportForm.patchValue(JSON.parse(res.documents.find((doc:any)=> doc.type === 'pasport')?.data))
+        } 
+        if(res.documents.find((doc:any)=> doc.type === 'notarius')?.path){
+          this.notariusFile = {name:'Согласие загружено'}
+          this.oldNotariusFile = {name:'Согласие загружено'}
+        } 
+
+      
         this.oldLicensesValue = (res.documents.find((doc:any)=> doc.type === 'licenses'))
         this.oldPolisValue = (res.documents.find((doc:any)=> doc.type === 'polis'))
         this.oldPasportValue = (res.documents.find((doc:any)=> doc.type === 'pasport'))

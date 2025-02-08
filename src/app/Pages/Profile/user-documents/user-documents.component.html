@@ -3,7 +3,7 @@
   <main class="main-container--with-header">
 
         <div class="input-container">
-        <app-standart-input [control]="personalUserForm.get('surname')" [errorMessage]="formErrors.surname.errorMessage" [invalid]="formErrors.surname.errorMessage.length !== 0" placeholder="Введите фмилию" label="Фамилия"></app-standart-input>
+        <app-standart-input [control]="personalUserForm.get('surname')" [errorMessage]="formErrors.surname.errorMessage" [invalid]="formErrors.surname.errorMessage.length !== 0" placeholder="Введите фамилию" label="Фамилия"></app-standart-input>
         <app-standart-input [control]="personalUserForm.get('name')" [errorMessage]="formErrors.name.errorMessage" [invalid]="formErrors.name.errorMessage.length !== 0" placeholder="Введите имя" label="Имя"></app-standart-input>
         <app-standart-input [control]="personalUserForm.get('patronymic')" placeholder="Введите отчество" label="Отчество"></app-standart-input>
         <app-standart-input [control]="personalUserForm.get('phoneNumber')" placeholder="Номер телефона" label="Телефон"></app-standart-input>
@@ -34,15 +34,15 @@
           <div class="licenses document-container">
             <app-standart-input [control]="licensesForm.get('licensesNumber')" placeholder="Лицензия МФР" label="Лицензия МФР (тип, №):"></app-standart-input>
             <span class="scan-header">Скан или фотография Лицензии</span>
-            <app-file-input (click)="licensesFile.click()"></app-file-input>
-            <input #licensesFile style="display: none;"  type="file">
+            <app-file-input (click)="licensesFileInput.click()" [fileName]="licensesFile.name"></app-file-input>
+            <input (change)="setLicensesFile($event)" #licensesFileInput style="display: none;"  type="file">
           </div>
     
           @if (!oldLicensesValue) {
            <app-standart-button (click)="createLicenses()" [disabled]="!validateLicenses()" buttonText="Сохранить"></app-standart-button>
           }
           @else {
-           <app-standart-button (click)="updateLicenses()" [disabled]="!validateLicenses()" buttonText="Изменить"></app-standart-button>
+           <!-- <app-standart-button (click)="updateLicenses()" [disabled]="!validateLicenses()" buttonText="Изменить"></app-standart-button> -->
           }
         </div>
 
@@ -53,15 +53,15 @@
             <app-standart-input [control]="polisForm.get('issuedWhom')" placeholder="Кем выдан" label="Кем выдан"></app-standart-input>
             <app-standart-input [control]="polisForm.get('itWorksDate')" placeholder="Срок действия" type="date" label="Срок действия"></app-standart-input>
             <span class="scan-header">Скан или фотография Страхового полиса</span>
-            <app-file-input (click)="polisFile.click()"></app-file-input>
-            <input #polisFile style="display: none;"  type="file">
+            <app-file-input [fileName]="polisFile.name" (click)="polisFileInput.click()"></app-file-input>
+            <input (change)="setPolisFile($event)" #polisFileInput style="display: none;"  type="file">
           </div>
 
             @if (!oldPolisValue) {
               <app-standart-button (click)="createPolis()" [disabled]="!validatePolis()" buttonText="Сохранить"></app-standart-button>
             }
             @else {
-              <app-standart-button (click)="updatePolis()" [disabled]="!validatePolis()" buttonText="Изменить"></app-standart-button>
+              <!-- <app-standart-button (click)="updatePolis()" [disabled]="!validatePolis()" buttonText="Изменить"></app-standart-button> -->
             }
         </div>
 
@@ -69,15 +69,15 @@
           <div class="document-header">Нотариальное согласие</div>
           <div class="polis document-container">
             <span class="scan-header">Скан или фотография Нотариального согласия</span>
-            <app-file-input (click)="notariusFile.click()"></app-file-input>
-            <input #notariusFile style="display: none;"  type="file">
+            <app-file-input [fileName]="notariusFile.name" (click)="notariusFileInput.click()"></app-file-input>
+            <input (change)="setNotariusFile($event)" #notariusFileInput style="display: none;"  type="file">
           </div>
 
-            @if (!oldPolisValue) {
-              <app-standart-button [disabled]="!validatePolis()" buttonText="Сохранить"></app-standart-button>
+            @if (!oldNotariusFile) {
+              <app-standart-button [disabled]="!validatePolis()" (click)="createNotarius()" buttonText="Сохранить"></app-standart-button>
             }
             @else {
-              <app-standart-button [disabled]="!validatePolis()" buttonText="Изменить"></app-standart-button>
+              <!-- <app-standart-button [disabled]="!validatePolis()" buttonText="Изменить"></app-standart-button> -->
             }
         </div>
 

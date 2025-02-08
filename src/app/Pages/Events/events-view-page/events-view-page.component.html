@@ -55,7 +55,7 @@
         <div class="race-name">{{event.name}}</div>
         <div class="race-date-start">{{event.date_start |date}}</div>
         <form class="personal-form">
-          <app-standart-input [control]="personalUserForm.get('surname')" placeholder="Введите фмилию" [errorMessage]="formErrors.surname.errorMessage" [invalid]="formErrors.surname.errorMessage.length !== 0" label="Фамилия"></app-standart-input>
+          <app-standart-input [control]="personalUserForm.get('surname')" placeholder="Введите фамилию" [errorMessage]="formErrors.surname.errorMessage" [invalid]="formErrors.surname.errorMessage.length !== 0" label="Фамилия"></app-standart-input>
           <app-standart-input [control]="personalUserForm.get('name')" [errorMessage]="formErrors.name.errorMessage" [invalid]="formErrors.name.errorMessage.length !== 0" placeholder="Введите имя" label="Имя"></app-standart-input>
           <app-standart-input [control]="personalUserForm.get('patronymic')" placeholder="Введите отчество" label="Отчество"></app-standart-input>
           <app-standart-input [control]="personalUserForm.get('dateOfBirth')" placeholder="Выберите дату" label="Дата рождения" type="date"></app-standart-input>
@@ -83,7 +83,9 @@
             <div class="document-header">Лицензия</div>
             <div class="licenses document-container">
               <app-standart-input [control]="licensesForm.get('licensesNumber')" placeholder="Лицензия МФР" label="Лицензия МФР (тип, №):"></app-standart-input>
-              <app-standart-input [control]="licensesForm.get('licensesFileLink')" placeholder="Введите ссылку на файл документа" label="Введите ссылку на файл"></app-standart-input>
+              <span class="scan-header">Скан или фотография Лицензии</span>
+              <app-file-input (click)="licensesFileInput.click()" [fileName]="licensesFile.name"></app-file-input>
+              <input (change)="setLicensesFile($event)" #licensesFileInput style="display: none;"  type="file">
             </div>
 
             <div class="document-header">Страховой полис</div>
@@ -91,7 +93,15 @@
               <app-standart-input [control]="polisForm.get('polisNumber')" placeholder="Серия, номер" label="Серия и номер"></app-standart-input>
               <app-standart-input [control]="polisForm.get('issuedWhom')" placeholder="Кем выдан" label="Кем выдан"></app-standart-input>
               <app-standart-input [control]="polisForm.get('itWorksDate')" placeholder="Срок действия" type="date" label="Срок действия"></app-standart-input>
-              <app-standart-input [control]="polisForm.get('polisFileLink')" placeholder="Введите ссылку на скан документа" label="Введите ссылку на файл документа"></app-standart-input>
+              <span class="scan-header">Скан или фотография Лицензии</span>
+              <app-file-input [fileName]="polisFile.name" (click)="polisFileInput.click()"></app-file-input>
+              <input (change)="setPolisFile($event)" #polisFileInput style="display: none;"  type="file">
+            </div>
+            <div class="document-header">Нотариальное согласие родителей</div>
+            <div class="polis document-container">
+              <span class="scan-header">Скан или фотография Нотариального согласия</span>
+            <app-file-input [fileName]="notariusFile.name" (click)="notariusFileInput.click()"></app-file-input>
+            <input (change)="setNotariusFile($event)" #notariusFileInput style="display: none;"  type="file">
             </div>
 
             <!-- <div class="document-header">Паспорт / Свидетельство о рождении</div>
@@ -100,6 +110,7 @@
             </div> -->
             
         </div>
+        
       </div>
       <div class="footer">
         <app-standart-button (click)="toggleAplicationInRace()" buttonText="Заявиться"></app-standart-button>

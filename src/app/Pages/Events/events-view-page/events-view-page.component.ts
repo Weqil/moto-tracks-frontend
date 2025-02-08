@@ -1,6 +1,6 @@
 import { Component, Inject, inject, NgZone, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { finalize, Subject, takeUntil, tap } from 'rxjs';
+import { catchError, EMPTY, finalize, Subject, takeUntil, tap } from 'rxjs';
 import { IEvent } from 'src/app/Shared/Data/Interfaces/event';
 import { EventService } from 'src/app/Shared/Data/Services/Event/event.service';
 import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
@@ -24,12 +24,15 @@ import { UsersPreviewComponent } from 'src/app/Shared/Components/UI/users-previe
 import { ConfirmModalComponent } from 'src/app/Shared/Components/UI/confirm-modal/confirm-modal.component';
 import { DomSanitizer } from '@angular/platform-browser';
 import { CheckImgUrlPipe } from "../../../Shared/Helpers/check-img-url.pipe";
+import { FormsModule } from 'src/app/Shared/Modules/forms/forms.module';
+import { serverError } from 'src/app/Shared/Data/Interfaces/errors';
 
 @Component({
   selector: 'app-events-view-page',
   templateUrl: './events-view-page.component.html',
   styleUrls: ['./events-view-page.component.scss'],
-  imports: [SharedModule, SlidersModule, ButtonsModule, TrackSectionComponent, IonModal, HeaderModule, StandartInputComponent, UsersPreviewComponent, ConfirmModalComponent, CheckImgUrlPipe]
+  imports: [SharedModule, SlidersModule, ButtonsModule, TrackSectionComponent, IonModal, HeaderModule, StandartInputComponent, UsersPreviewComponent, 
+    ConfirmModalComponent, CheckImgUrlPipe,FormsModule]
 })
 export class EventsViewPageComponent  implements OnInit {
 
@@ -48,6 +51,14 @@ export class EventsViewPageComponent  implements OnInit {
   event!:IEvent
   openUserModalValue:boolean = false
   raceUser!:User
+
+  licensesFile:any =''
+  polisFile:any = ''
+  notariusFile:any = ''
+
+  oldNotariusFile:any
+
+  oldPolisFile:any
 
   ngZone: NgZone = inject(NgZone)
   documents:any = []
@@ -177,35 +188,68 @@ export class EventsViewPageComponent  implements OnInit {
       }
    }
 
+   setPolisFile(event:any){
+    let file = event.target.files[0]
+    this.polisFile = file
+    console.log(this.polisFile)
+  }
+
    clearDescription(){
     return this.sanitizer.bypassSecurityTrustHtml(this.formatingText(String(this.event.desc)))
    }
-   createLicenses(){
-    this.userService.createUserDocument({type: 'licenses', data:(this.licensesForm.value)}).pipe(
+
+  createLicenses(){
+    if(this.licensesFile){
+      this.loaderService.showLoading()
+      let fd:FormData = new FormData()
+      fd.append('type','licenses')
+      fd.append('data',JSON.stringify(this.licensesForm.value))
+      fd.append('file',this.licensesFile)
+      this.userService.createUserDocument(fd).pipe(
+      finalize(()=>{
+        this.loaderService.hideLoading()
+      }),
+      catchError((err:serverError)=>{
+        this.toastService.showToast(err.error.message,'danger')
+        return EMPTY
+      })
+      ).subscribe((res:any)=>{
+      })
+    }
+   }
+
+
+  createPolis(){
+    if(this.polisFile){
+      let fd: FormData = new FormData()
+      fd.append('type','polis')
+      fd.append('data',JSON.stringify(this.polisForm.value))
+      fd.append('file',this.polisFile)
+       this.userService.createUserDocument(fd).pipe(
+       finalize(()=>{
+         this.loaderService.hideLoading()
+       })
+     ).subscribe((res:any)=>{
+     })
+    }
+   
+ }
+
+ createNotarius(){
+  if(this.notariusFile){
+  let fd: FormData = new FormData()
+   fd.append('type','notarius')
+   fd.append('data',JSON.stringify({}))
+   fd.append('file',this.notariusFile)
+    this.userService.createUserDocument(fd).pipe(
     finalize(()=>{
       this.loaderService.hideLoading()
     })
-  ).subscribe((res:any)=>{
-  })
-  }
-
-  createPasport(){
-      this.userService.createUserDocument({type: 'pasport', data:(this.pasportForm.value)}).pipe(
-      finalize(()=>{
-        this.loaderService.hideLoading()
-      })
     ).subscribe((res:any)=>{
     })
   }
-
-  createPolis(){
-      this.userService.createUserDocument({type: 'polis', data:(this.polisForm.value)}).pipe(
-      finalize(()=>{
-        this.loaderService.hideLoading()
-      })
-    ).subscribe((res:any)=>{
-    })
-  }
+   
+ }
 
   //Проверяю изменились ли данные у пользователя
   checkChangeInPersonalform(){
@@ -226,16 +270,18 @@ export class EventsViewPageComponent  implements OnInit {
       oldPersonal.startNumber = oldPersonal.start_number;
       oldPersonal.rankNumber = oldPersonal.rank_number;
       oldPersonal.motoStamp = oldPersonal.moto_stamp;
-    
+      oldPersonal.numberAndSeria = oldPersonal.number_and_seria
       // Удаляем старые названия
       delete oldPersonal.date_of_birth;
       delete oldPersonal.phone_number;
       delete oldPersonal.start_number;
       delete oldPersonal.rank_number;
       delete oldPersonal.moto_stamp;
-    
+      delete oldPersonal.number_and_seria
       // Приводим объекты к единому виду
       const normalizedOld = normalizeObject(oldPersonal);
+      console.log(oldPersonal)
+      console.log(this.personalUserForm.value)
       const normalizedForm = normalizeObject(this.personalUserForm.value);
     
       // Используем Lodash
@@ -294,8 +340,8 @@ export class EventsViewPageComponent  implements OnInit {
       documents = res.documents
       if(documents.length == 0){
         this.createLicenses()
-        this.createPasport()
         this.createPolis()
+        this.createNotarius()
       }
     })
    }
@@ -392,26 +438,44 @@ export class EventsViewPageComponent  implements OnInit {
       this.personalUserForm.reset()
     }
   }
-  setUserInDocuments(){
+  setFormValue(){
     this.userService.getUserDocuments().pipe(
       finalize(()=>{
         this.loaderService.hideLoading()
       })
     ).subscribe((res:any)=>{
-      if(res.documents.length){
-        this.licensesForm.patchValue((res.documents.find((doc:any)=> doc.type === 'licenses').data))
-        this.polisForm.patchValue((res.documents.find((doc:any)=> doc.type === 'polis').data))
-        this.pasportForm.patchValue((res.documents.find((doc:any)=> doc.type === 'pasport').data))
+      if(res.documents){
+        if(res.documents.find((doc:any)=> doc.type === 'licenses')?.data){
+          let licensesDocument = res.documents.find((doc:any)=> doc.type === 'licenses')
+          this.licensesForm.patchValue(JSON.parse((res.documents.find((doc:any)=> doc.type === 'licenses')?.data)))
+          this.licensesFile = {name:'Лицензия загружена'} 
+        }
+        if((res.documents.find((doc:any)=> doc.type === 'polis')?.data)){
+          this.polisForm.patchValue(JSON.parse((res.documents.find((doc:any)=> doc.type === 'polis')?.data)))
+          this.polisFile = {name:'Полис загружен'}
+        }
+        if(res.documents.find((doc:any)=> doc.type === 'pasport')?.data){
+          this.pasportForm.patchValue(JSON.parse(res.documents.find((doc:any)=> doc.type === 'pasport')?.data))
+        } 
+        if(res.documents.find((doc:any)=> doc.type === 'notarius')?.path){
+          this.notariusFile = {name:'Согласие загружено'}
+          this.oldNotariusFile = {name:'Согласие загружено'}
+        } 
+
+
       }
+     
     })
   }
 
-  getUserDocuments(){
-    this.userService.getUserDocuments().pipe().subscribe((res:any)=>{
-  
-    })
+  setLicensesFile(event:any){
+    let file = event.target.files[0]
+    this.licensesFile = file
   }
-  submitForm(){
+
+  setNotariusFile(event:any){
+    let file = event.target.files[0]
+    this.notariusFile = file
   }
 
   getUsersInRace(){
@@ -456,8 +520,7 @@ export class EventsViewPageComponent  implements OnInit {
         this.getEvent()
         this.getUsersInRace()
         if(this.authService.isAuthenticated()){
-          this.getUserDocuments()
-          this.setUserInDocuments()
+          this.setFormValue()
           this.setUserInForm()
         }
       })
