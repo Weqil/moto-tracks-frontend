@@ -30,7 +30,6 @@ export class UserService {
     
   }
   userHaveRoot(){
-
     return this.user.value?.roles.find((role:any)=> role.name == userRoles.admin || role.name == userRoles.root) !== undefined
   }
   createUserDocument(document:any){
