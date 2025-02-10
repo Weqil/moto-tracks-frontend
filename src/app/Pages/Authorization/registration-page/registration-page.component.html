@@ -14,8 +14,19 @@
           </div>
         </form>
     </div>
+
+    <div class="ion-checkbox-container">
+      <ion-checkbox 
+      [checked]="isChecked" 
+      (ionChange)="onCheckboxChange($event)" 
+      class="custom-checkbox">
+    </ion-checkbox>
+      <span (click)="redirectInUserAgreement()">Согласен(-а) с </span>
+      <span class="fake-link" (click)="redirectInUserAgreement()"> пользовательским соглашением</span>
+    </div>
+
     <div class="submit-button">
-      <app-standart-button (onClick)="submitLoginForm()" buttonText="Регистрация" type="submit"></app-standart-button>
+      <app-standart-button [disabled]="!isChecked" (onClick)="submitLoginForm()" buttonText="Регистрация" type="submit"></app-standart-button>
     </div>
     <div class="dont-have-account">
       <span (click)="redirectInLogin()" class="dont-have-account__registration-link">Уже есть аккаунта? <span class="dont-have-account__registration-link__route">Войти в аккаунт</span></span>

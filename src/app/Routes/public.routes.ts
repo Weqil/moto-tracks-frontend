@@ -35,7 +35,11 @@ export const publicRoutes: Routes = [
       {
         path:'rating',
         loadComponent: () => import('../Pages/rating/rating.component').then((m) => m.RatingComponent)
-      }
+      },
+      {
+        path:'user-agreement',
+        loadComponent: () => import('../Pages/Authorization/user-agreement/user-agreement.component').then((m) => m.UserAgreementComponent)
+      },
       
     ]
   },

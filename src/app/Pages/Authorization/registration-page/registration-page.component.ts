@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonsModule } from 'src/app/Shared/Modules/buttons/buttons.module';
 import { FormsModule } from 'src/app/Shared/Modules/forms/forms.module';
 import { HeaderModule } from 'src/app/Shared/Modules/header/header.module';
@@ -13,12 +13,14 @@ import { Login } from 'src/app/Shared/Data/Interfaces/login-model';
 import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
 import { AuthService } from 'src/app/Shared/Data/Services/Auth/auth.service';
 import { Router } from '@angular/router';
+import { IonCheckbox } from '@ionic/angular/standalone';
+
 
 @Component({
   selector: 'app-registration-page',
   templateUrl: './registration-page.component.html',
   styleUrls: ['./registration-page.component.scss'],
-  imports: [SharedModule, HeaderModule, FormsModule, ButtonsModule]
+  imports: [SharedModule, HeaderModule, FormsModule, ButtonsModule,IonCheckbox]
 })
 export class RegistrationPageComponent  implements OnInit {
 
@@ -28,9 +30,17 @@ export class RegistrationPageComponent  implements OnInit {
   private userService: UserService = inject(UserService)
   private authService: AuthService = inject(AuthService)
   private router:Router = inject(Router)
+  isChecked: boolean = false;
+
+  
   
 
   constructor() { }
+
+  onCheckboxChange(event:any){
+    this.isChecked=event.detail.checked;
+    console.log('чекбокс изменился', this.isChecked)
+  }
 
     registerForm: FormGroup = new FormGroup({
       name: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]),
@@ -162,6 +172,11 @@ export class RegistrationPageComponent  implements OnInit {
     redirectInLogin() {
       this.navController.navigateForward('/login', {animationDirection: 'forward'})
     }
+
+    redirectInUserAgreement() {
+      this.navController.navigateForward('/user-agreement', {animationDirection: 'forward'})
+    }
+    
 
   ngOnInit() {
   
