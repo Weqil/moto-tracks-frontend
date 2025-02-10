@@ -37,7 +37,7 @@ export class UserDocumentsComponent  implements OnInit {
   notariusFile:any = ''
 
   oldNotariusFile:any
-
+  oldNotariusValue:any
   oldPolisFile:any
   
   licensesForm: FormGroup = new FormGroup(
@@ -264,7 +264,9 @@ submitForm(){
     this.loaderService.showLoading()
     let fd:FormData = new FormData()
     fd.append('data',JSON.stringify(this.licensesForm.value))
-    fd.append('file' ,this.licensesFile)
+    if(!this.licensesFile.dontFile){
+      fd.append('file',this.licensesFile)
+    }
     this.userService.updateDocument(Number(this.oldLicensesValue?.id), fd).pipe(
       finalize(()=>{
         this.loaderService.hideLoading()
@@ -277,13 +279,43 @@ submitForm(){
 
   updatePolis(){
     this.loaderService.showLoading()
-    this.userService.updateDocument(Number(this.oldPolisValue?.id),this.polisForm.value).pipe(
+    let fd:FormData = new FormData()
+    fd.append('data',JSON.stringify(this.polisForm.value))
+    if(!this.polisFile.dontFile){
+      fd.append('file',this.polisFile)
+    }
+    this.userService.updateDocument(Number(this.oldPolisValue?.id),fd).pipe(
       finalize(()=>{
         this.loaderService.hideLoading()
       })
     ).subscribe((res:any)=>{
       this.toastService.showToast('Данные полиса успешно обновлены','success')
     })
+  }
+
+  updateNotarius(){
+    this.loaderService.showLoading()
+    let fd: FormData = new FormData()
+    fd.append('data',JSON.stringify({}))
+    if(!this.notariusFile.dontFile){
+      fd.append('file',this.notariusFile)
+      this.userService.updateDocument(Number(this.oldNotariusValue?.id),fd).pipe(
+        finalize(()=>{
+          this.loaderService.hideLoading()
+        })
+      ).subscribe((res:any)=>{
+        this.toastService.showToast('Данные удостоверения успешно обновлены','success')
+      })
+    }
+    
+  }
+
+  validateNotarius(){
+    if(this.notariusFile && !this.notariusFile.dontFile){
+      return true
+    } else{
+      return false
+    }
   }
 
   createNotarius(){
@@ -313,23 +345,24 @@ submitForm(){
         if(res.documents.find((doc:any)=> doc.type === 'licenses')?.data){
           let licensesDocument = res.documents.find((doc:any)=> doc.type === 'licenses')
           this.licensesForm.patchValue(JSON.parse((res.documents.find((doc:any)=> doc.type === 'licenses')?.data)))
-          this.licensesFile = {name:'Лицензия загружена'} 
+          this.licensesFile = {name:'Лицензия загружена', dontFile:true} 
         }
         if((res.documents.find((doc:any)=> doc.type === 'polis')?.data)){
           this.polisForm.patchValue(JSON.parse((res.documents.find((doc:any)=> doc.type === 'polis')?.data)))
-          this.polisFile = {name:'Полис загружен'}
+          this.polisFile = {name:'Полис загружен', dontFile:true}
         }
         if(res.documents.find((doc:any)=> doc.type === 'pasport')?.data){
           this.pasportForm.patchValue(JSON.parse(res.documents.find((doc:any)=> doc.type === 'pasport')?.data))
         } 
         if(res.documents.find((doc:any)=> doc.type === 'notarius')?.path){
-          this.notariusFile = {name:'Согласие загружено'}
-          this.oldNotariusFile = {name:'Согласие загружено'}
+          this.notariusFile = {name:'Согласие загружено', dontFile:true}
+          this.oldNotariusFile = {name:'Согласие загружено', dontFile:true}
         } 
 
       
         this.oldLicensesValue = (res.documents.find((doc:any)=> doc.type === 'licenses'))
         this.oldPolisValue = (res.documents.find((doc:any)=> doc.type === 'polis'))
+        this.oldNotariusValue = (res.documents.find((doc:any)=> doc.type === 'notarius'))
         this.oldPasportValue = (res.documents.find((doc:any)=> doc.type === 'pasport'))
       }
      

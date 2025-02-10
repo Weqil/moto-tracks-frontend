@@ -28,7 +28,7 @@
         <app-standart-input  [control]="personalUserForm.get('rank')" placeholder="Спортивное звание, разряд" label="Спортивное звание" [invalid]="formErrors.rank.errorMessage.length !== 0" [errorMessage]="formErrors.rank.errorMessage"></app-standart-input>
         <app-standart-input [control]="personalUserForm.get('community')" placeholder="Команда" label="Навзание команды"></app-standart-input>
         <app-standart-input [control]="personalUserForm.get('coach')" placeholder="Тренер" label="ФИО тренера"></app-standart-input>
-
+        <app-standart-button (click)="submitForm()" buttonText="Сохранить"></app-standart-button>
         <div class="user-document-container">
           <div class="document-header">Лицензии</div>
           <div class="licenses document-container">
@@ -42,7 +42,7 @@
            <app-standart-button (click)="createLicenses()" [disabled]="!validateLicenses()" buttonText="Сохранить"></app-standart-button>
           }
           @else {
-           <!-- <app-standart-button (click)="updateLicenses()" [disabled]="!validateLicenses()" buttonText="Изменить"></app-standart-button> -->
+           <app-standart-button (click)="updateLicenses()" [disabled]="!validateLicenses()" buttonText="Изменить"></app-standart-button>
           }
         </div>
 
@@ -61,7 +61,7 @@
               <app-standart-button (click)="createPolis()" [disabled]="!validatePolis()" buttonText="Сохранить"></app-standart-button>
             }
             @else {
-              <!-- <app-standart-button (click)="updatePolis()" [disabled]="!validatePolis()" buttonText="Изменить"></app-standart-button> -->
+              <app-standart-button (click)="updatePolis()" [disabled]="!validatePolis()" buttonText="Изменить"></app-standart-button>
             }
         </div>
 
@@ -74,10 +74,10 @@
           </div>
 
             @if (!oldNotariusFile) {
-              <app-standart-button [disabled]="!validatePolis()" (click)="createNotarius()" buttonText="Сохранить"></app-standart-button>
+              <app-standart-button [disabled]="!validateNotarius()" (click)="createNotarius()" buttonText="Сохранить"></app-standart-button>
             }
             @else {
-              <!-- <app-standart-button [disabled]="!validatePolis()" buttonText="Изменить"></app-standart-button> -->
+              <app-standart-button [disabled]="!validateNotarius()" (click)="updateNotarius()"  buttonText="Изменить"></app-standart-button>
             }
         </div>
 
@@ -95,7 +95,6 @@
       </div> -->
       
         <!-- <app-standart-button [disabled]="true" (click)="cancelEdit()"  buttonText="Отмена"></app-standart-button> -->
-          <app-standart-button (click)="submitForm()" buttonText="Сохранить"></app-standart-button>
         </div>     
 
   </main>
