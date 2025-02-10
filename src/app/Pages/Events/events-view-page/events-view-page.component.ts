@@ -197,6 +197,9 @@ export class EventsViewPageComponent  implements OnInit {
         ...this.polisForm.value,
         ...this.licensesForm.value,
         ...this.pasportForm.value,
+        licensesFileLink:``,
+        polisFileLink:``,
+        notariuFileLink:``,   
       }
       const fd: FormData = new FormData();
       fd.append('data',  JSON.stringify(currentForm))
@@ -375,19 +378,22 @@ export class EventsViewPageComponent  implements OnInit {
   }
 
    setFirstDocuments(){
-    let documents = []
-    this.userService.getUserDocuments().pipe(
+    return new Promise((resolve, reject) => {
+      let documents = []
+      this.userService.getUserDocuments().pipe(
       finalize(()=>{
         this.loaderService.hideLoading()
       }),
-    ).subscribe((res:any)=>{
-      documents = res.documents
-      if(documents.length == 0){
-        this.createLicenses()
-        this.createPolis()
-        this.createNotarius()
-      }
+      ).subscribe((res:any)=>{
+        documents = res.documents
+        if(documents.length == 0){
+          this.createLicenses()
+          this.createPolis()
+          this.createNotarius()
+        }
+      })
     })
+    
    }
 
     openApplicationForm(){
@@ -434,12 +440,18 @@ export class EventsViewPageComponent  implements OnInit {
 
 
   toggleAplicationInRace(){
+    this.setFirstDocuments().then(()=>{
+      
+    })
     if(this.submitValidate()){
       let currentForm = {
         ...this.personalUserForm.value,
         ...this.polisForm.value,
         ...this.licensesForm.value,
         ...this.pasportForm.value,
+        licensesFileLink: this.licensesFile.path,
+        polisFileLink: this.polisFile.path,
+        notariusFileLink: this.notariusFile.path,
       }
       const fd: FormData = new FormData();
       fd.append('data',  JSON.stringify(currentForm))
@@ -454,7 +466,6 @@ export class EventsViewPageComponent  implements OnInit {
           this.getEvent()
           //Если пользователь не имел персональных данных
           this.setFirstUserPersonal()
-          this.setFirstDocuments()
           this.checkChangeInPersonalform()
           this.toastService.showToast('Заявка успешно отправленна','success')
       })
@@ -482,34 +493,40 @@ export class EventsViewPageComponent  implements OnInit {
       this.personalUserForm.reset()
     }
   }
-  setFormValue(){
+
+
+  setDocuments(){
     this.userService.getUserDocuments().pipe(
       finalize(()=>{
         this.loaderService.hideLoading()
       })
-    ).subscribe((res:any)=>{
+      ).subscribe((res:any)=>{
       if(res.documents){
         if(res.documents.find((doc:any)=> doc.type === 'licenses')?.data){
           let licensesDocument = res.documents.find((doc:any)=> doc.type === 'licenses')
           this.licensesForm.patchValue(JSON.parse((res.documents.find((doc:any)=> doc.type === 'licenses')?.data)))
-          this.licensesFile = {name:'Лицензия загружена'} 
+          this.licensesFile = {name:'Лицензия загружена', path:licensesDocument.path} 
         }
         if((res.documents.find((doc:any)=> doc.type === 'polis')?.data)){
+          let polisDocument = res.documents.find((doc:any)=> doc.type === 'polis')
           this.polisForm.patchValue(JSON.parse((res.documents.find((doc:any)=> doc.type === 'polis')?.data)))
-          this.polisFile = {name:'Полис загружен'}
+          this.polisFile = {name:'Полис загружен', path: polisDocument.path}
         }
         if(res.documents.find((doc:any)=> doc.type === 'pasport')?.data){
           this.pasportForm.patchValue(JSON.parse(res.documents.find((doc:any)=> doc.type === 'pasport')?.data))
         } 
         if(res.documents.find((doc:any)=> doc.type === 'notarius')?.path){
-          this.notariusFile = {name:'Согласие загружено'}
-          this.oldNotariusFile = {name:'Согласие загружено'}
+          let notariusDocument = res.documents.find((doc:any)=> doc.type === 'notarius')
+          this.notariusFile = {name:'Согласие загружено', path:notariusDocument.path}
+          this.oldNotariusFile = {name:'Согласие загружено',  path:notariusDocument.path}
         } 
-
-
       }
      
     })
+  }
+
+  setFormValue(){
+    this.setDocuments()
   }
 
   setLicensesFile(event:any){
