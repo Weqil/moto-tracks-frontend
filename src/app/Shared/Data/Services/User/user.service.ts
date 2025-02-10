@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Login } from '../../Interfaces/login-model';
 import { User } from '../../Interfaces/user-model';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { userRoles } from '../../Enums/roles';
@@ -26,6 +26,10 @@ export class UserService {
     }
   }
 
+  hasRole(roleName: string): boolean {
+    return this.user.value?.roles.find((role: any) => role.name === roleName) !== undefined;
+  }
+
   deleteUser(){
     
   }
@@ -43,6 +47,11 @@ export class UserService {
 
   getUserDocuments(){
     return this.http.get<any>(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/users/cabinet/documents`)
+  }
+
+  getUserDocumentFileBiId(id: number): Observable<Blob> {
+    return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/users/cabinet/documents/${id}/files`, { responseType: 'blob' })
+
   }
 
   getUserFromServerWithToken(){

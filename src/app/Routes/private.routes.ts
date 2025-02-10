@@ -3,6 +3,7 @@
 import { Routes } from '@angular/router';
 import { canActivateAuth } from '../Shared/Guards/Auth/auth.guard';
 import { canActivateEmailConfirm } from '../Shared/Guards/Auth/email-confirm.guard';
+import { canActivateRoleAdmin } from '../Shared/Guards/Auth/role-admin.guard';
 
 export const privateRoutes: Routes = [
     {
@@ -10,9 +11,15 @@ export const privateRoutes: Routes = [
         loadComponent: () => import('../CommonUI/Pages/pages-with-nav/pages-with-nav.component').then((m) => m.PagesWithNavComponent),
         children:[
             {
+                path:'document/:id',
+                canActivate:[canActivateAuth,canActivateEmailConfirm, canActivateRoleAdmin],
+                loadComponent: () => import('../CommonUI/Pages/private-files/private-files.component').then((m) => m.PrivateFilesComponent)
+            },
+            {
                 path:'cabinet',
                 canActivate:[canActivateAuth],
-                loadComponent: () => import('../Pages/Profile/cabinet/cabinet.component').then((m) => m.CabinetComponent)
+                loadComponent: () => import('../Pages/Profile/cabinet/cabinet.component').then((m) => m.CabinetComponent),
+
             },
             {
                 path:'my-tracks',
