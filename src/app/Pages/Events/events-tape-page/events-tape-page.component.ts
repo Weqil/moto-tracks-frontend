@@ -55,6 +55,10 @@ export class EventsTapePageComponent  implements OnInit {
     this.navController.navigateForward('/tracks')
   }
 
+  closetTableModal(){
+    this.tableModalValue = false
+  }
+
   generateGoogleLink(eventId:any){
     this.loadingService.showLoading()
     this.eventService.generateGoogleLink(eventId).pipe(

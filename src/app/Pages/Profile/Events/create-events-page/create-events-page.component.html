@@ -6,6 +6,7 @@
         <div class="name-wrapper">
           <app-standart-input label="Название" [control]="createEventForm.get('name')" placeholder="Введите название вашего соревнования"></app-standart-input>
         </div>
+
   
         <div class="photo-slider">
             <app-edit-slider (filesEmit)="getImages($event)" type="create"></app-edit-slider>

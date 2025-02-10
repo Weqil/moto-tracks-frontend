@@ -13,12 +13,14 @@ import { LoadingService } from 'src/app/Shared/Services/loading.service';
 import { ToastService } from 'src/app/Shared/Services/toast.service';
 import { NavController } from '@ionic/angular/standalone';
 import { serverError } from 'src/app/Shared/Data/Interfaces/errors';
+import { StandartInputSelectComponent } from 'src/app/Shared/Components/UI/Selecteds/standart-input-select/standart-input-select.component';
+
 
 @Component({
   selector: 'app-user-documents',
   templateUrl: './user-documents.component.html',
   styleUrls: ['./user-documents.component.scss'],
-  imports: [SharedModule,HeaderModule,FormsModule,ButtonsModule]
+  imports: [SharedModule,HeaderModule,FormsModule,ButtonsModule,StandartInputSelectComponent]
 })
 export class UserDocumentsComponent  implements OnInit {
   navController:NavController = inject(NavController)
@@ -84,27 +86,57 @@ export class UserDocumentsComponent  implements OnInit {
     startNumber: {
        errorMessage:''
     },
-}
+  }
 
-personalUserForm: FormGroup = new FormGroup({
-  name: new FormControl('', [Validators.required]),
-  surname: new FormControl('', [Validators.required]),
-  patronymic: new FormControl('', [Validators.required]),
-  dateOfBirth: new FormControl('', [Validators.required]),
-  city: new FormControl('', [Validators.required]),
-  inn: new FormControl('', [Validators.required]),
-  snils: new FormControl('', [Validators.required]),
-  phoneNumber: new FormControl('', [Validators.required]),
-  startNumber: new FormControl('', [Validators.required]),
-  group:new FormControl('', [Validators.required]),
-  rank:new FormControl('', [Validators.required]),
-  rankNumber:new FormControl('', [Validators.required]),
-  community:new FormControl('', [Validators.required]),
-  coach:new FormControl('', [Validators.required]),
-  motoStamp:new FormControl('', [Validators.required]),
-  engine:new FormControl('', [Validators.required]),
-  numberAndSeria:new FormControl('', [Validators.required]),
-})
+  engineItems:{name:string, value:string}[] = [
+    {name:'2Т', value:'2Т'},
+    {name:'4Т', value:'4Т'},
+  ]
+
+  sportRankItems:{name:string, value:string}[] = [
+    {name:'МСМК', value:'МСМК'},
+    {name:'МС', value:'МС'},
+    {name:'КМС', value:'КМС'},
+    {name:'I', value:'I'},
+    {name:'II', value:'II'},
+    {name:'III', value:'III'},
+    {name:'Iю', value:'Iю'},
+    {name:'IIю', value:'IIю'},
+    {name:'IIIю', value:'IIIю'},
+    {name:'б/р', value:'б/р'},
+  ]
+
+  motoStampItems: {name:string, value:string}[] = [
+    {name:'Kaw', value:'Kaw'},
+    {name:'KTM', value:'KTM'},
+    {name:'Yam', value:'Yam'},
+    {name:'Gas-Gas', value:'Gas-Gas'},
+    {name:'Hon', value:'Hon'},
+    {name:'BSE', value:'BSE'},
+    {name:'Husq', value:'Husq'},
+    {name:'Kayo', value:'Kayo'},
+    {name:'Fantic', value:'Fantic'},
+  ]
+
+  personalUserForm: FormGroup = new FormGroup({
+    name: new FormControl('', [Validators.required]),
+    surname: new FormControl('', [Validators.required]),
+    patronymic: new FormControl('', [Validators.required]),
+    dateOfBirth: new FormControl('', [Validators.required]),
+    city: new FormControl('', [Validators.required]),
+    inn: new FormControl('', [Validators.required]),
+    snils: new FormControl('', [Validators.required]),
+    phoneNumber: new FormControl('', [Validators.required]),
+    startNumber: new FormControl('', [Validators.required]),
+    group:new FormControl('', [Validators.required]),
+    rank:new FormControl('', [Validators.required]),
+    rankNumber:new FormControl('', [Validators.required]),
+    community:new FormControl('', [Validators.required]),
+    coach:new FormControl('', [Validators.required]),
+    motoStamp:new FormControl('', [Validators.required]),
+    engine:new FormControl('', [Validators.required]),
+    numberAndSeria:new FormControl('', [Validators.required]),
+  })
 
 submitValidate(){
   let valid = true
@@ -122,6 +154,19 @@ submitValidate(){
     }
   });
   return valid
+}
+
+
+setEngine(event:any){
+  this.personalUserForm.patchValue({engine: event.name})
+}
+
+setRank(event:any){
+  this.personalUserForm.patchValue({rank: event.name})
+}
+
+setMotoStamp(event:any){
+  this.personalUserForm.patchValue({motoStamp: event.name})
 }
 
 submitForm(){

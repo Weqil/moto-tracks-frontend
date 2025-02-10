@@ -15,12 +15,14 @@ import { catchError, EMPTY, finalize } from 'rxjs';
 import { EventService } from 'src/app/Shared/Data/Services/Event/event.service';
 import { serverError } from 'src/app/Shared/Data/Interfaces/errors';
 import { ToastService } from 'src/app/Shared/Services/toast.service';
+import { selectedModule } from 'src/app/Shared/Modules/selected/selected.module';
+import { StandartInputSelectComponent } from "../../../../Shared/Components/UI/Selecteds/standart-input-select/standart-input-select.component";
 
 @Component({
   selector: 'app-create-events-page',
   templateUrl: './create-events-page.component.html',
   styleUrls: ['./create-events-page.component.scss'],
-  imports: [SharedModule,HeaderModule,StepsModule,ButtonsModule,FormsModule,EditSliderComponent,TrackModule]
+  imports: [SharedModule, HeaderModule, StepsModule, ButtonsModule, FormsModule, EditSliderComponent, TrackModule, selectedModule, StandartInputSelectComponent]
 })
 export class CreateEventsPageComponent  implements OnInit {
 

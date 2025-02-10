@@ -48,3 +48,30 @@
     flex-direction: column;
     padding-bottom: 2rem;
 }
+
+ion-modal{
+    --max-height: 12rem;
+    --max-width: 22rem;
+    --border-radius: 5px;
+    --overflow: hidden;
+}
+.google-tabs{
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    padding: var(--standart-padding);
+    gap: var(--standart-padding);
+    align-items: center;
+    justify-content: center;
+    .google-tabs__modal-text{
+        border-radius: 5px;
+        font-family: var(--font-semi-bold);
+        padding: var(--standart-padding);
+        color: #000000;
+        border: 1px solid rgba(76, 88, 97, 0.2549019608);
+     .google-tabs__modal-text__link{
+        font-family: var(--font-bold);
+        border-bottom: solid 1px #000000;
+    }
+    }
+}
