@@ -1,13 +1,11 @@
 <ion-content>
   <div class="container">
-    <header>
-        <h1>Скачать документ</h1>
-    </header>
-    <main>
-        <p>Нажмите кнопку ниже, чтобы скачать документ:</p>
-        <button class="download-btn" (click)="getDocument()">Скачать</button>
-    </main>
-    <footer>
-    </footer>
+    <lib-ngx-image-zoom
+     [thumbImage]=fileUrl
+     [fullImage]=fileUrl
+    >
+
+    </lib-ngx-image-zoom>
+       <img class="file__img" src="{{fileUrl}}" alt="">
   </div>
 </ion-content>

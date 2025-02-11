@@ -1,51 +1,9 @@
-/* Стили для ion-content */
-ion-content {
-    --background: #f0f0f0; /* Светло-серый фон */
-    --color: #333; /* Темно-серый цвет текста */
-    padding: auto;
-  }
-  
-  /* Контейнер */
-  .container {
-    max-width: 600px;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: #ffffff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    text-align: center;
-  }
-  
-  /* Заголовок */
-  header h1 {
-    color: #333;
-  }
-  
-  /* Основной контент */
-  main p {
-    font-size: 1.1em;
-    margin-bottom: 20px;
-  }
-  
-  /* Кнопка скачивания */
-  .download-btn {
-    background-color: #007BFF; /* Голубой цвет */
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    font-size: 1em;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .download-btn:hover {
-    background-color: #0056b3; /* Темно-голубой цвет при наведении */
-  }
-  
-  /* Футер */
-  footer p {
-    font-size: 0.9em;
-    color: #777;
-    margin-top: 30px;
-  }
+.container{
+  width: 100%;
+  height: 100%;
+}
+.file__img{
+  width: 100%;
+  object-fit: contain;
+  height: 100%;
+}
