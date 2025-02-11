@@ -187,7 +187,6 @@ export class EventsViewPageComponent  implements OnInit {
     }
 
     setMotoStamp(event:any){
-      console.log(event)
       this.personalUserForm.patchValue({motoStamp: event.name})
     }
 
@@ -239,6 +238,7 @@ export class EventsViewPageComponent  implements OnInit {
     let file = event.target.files[0]
     this.polisFile = file
     console.log(this.polisFile)
+    this.createPolis()
   }
 
    clearDescription(){
@@ -327,8 +327,6 @@ export class EventsViewPageComponent  implements OnInit {
       delete oldPersonal.number_and_seria
       // Приводим объекты к единому виду
       const normalizedOld = normalizeObject(oldPersonal);
-      console.log(oldPersonal)
-      console.log(this.personalUserForm.value)
       const normalizedForm = normalizeObject(this.personalUserForm.value);
     
       // Используем Lodash
@@ -377,23 +375,19 @@ export class EventsViewPageComponent  implements OnInit {
 
   }
 
-   setFirstDocuments(){
-    return new Promise((resolve, reject) => {
-      let documents = []
-      this.userService.getUserDocuments().pipe(
+   setFirstDocuments() {
+    this.userService.getUserDocuments().pipe(
       finalize(()=>{
         this.loaderService.hideLoading()
       }),
       ).subscribe((res:any)=>{
-        documents = res.documents
-        if(documents.length == 0){
+        console.log(res.documents)
+        if(res.documents.length == 0){
           this.createLicenses()
           this.createPolis()
           this.createNotarius()
         }
       })
-    })
-    
    }
 
     openApplicationForm(){
@@ -438,11 +432,9 @@ export class EventsViewPageComponent  implements OnInit {
   }
 
 
-
-  toggleAplicationInRace(){
-    this.setFirstDocuments().then(()=>{
-      
-    })
+  async toggleAplicationInRace(){
+    await this.setFirstDocuments()
+    await this.setDocuments()
     if(this.submitValidate()){
       let currentForm = {
         ...this.personalUserForm.value,
@@ -472,7 +464,6 @@ export class EventsViewPageComponent  implements OnInit {
     }else{
       this.toastService.showToast('Заполните обязательные поля - Фамилия, имя, адрес, спортивное звание','danger')
     }
-      
   }
 
   
@@ -496,7 +487,7 @@ export class EventsViewPageComponent  implements OnInit {
 
 
   setDocuments(){
-    this.userService.getUserDocuments().pipe(
+    return this.userService.getUserDocuments().pipe(
       finalize(()=>{
         this.loaderService.hideLoading()
       })
@@ -505,20 +496,20 @@ export class EventsViewPageComponent  implements OnInit {
         if(res.documents.find((doc:any)=> doc.type === 'licenses')?.data){
           let licensesDocument = res.documents.find((doc:any)=> doc.type === 'licenses')
           this.licensesForm.patchValue(JSON.parse((res.documents.find((doc:any)=> doc.type === 'licenses')?.data)))
-          this.licensesFile = {name:'Лицензия загружена', path:licensesDocument.path} 
+          this.licensesFile = {name:'Лицензия загружена', path: 'http://localhost:4200/cabinet/document/' + licensesDocument.id} 
         }
         if((res.documents.find((doc:any)=> doc.type === 'polis')?.data)){
           let polisDocument = res.documents.find((doc:any)=> doc.type === 'polis')
           this.polisForm.patchValue(JSON.parse((res.documents.find((doc:any)=> doc.type === 'polis')?.data)))
-          this.polisFile = {name:'Полис загружен', path: polisDocument.path}
+          this.polisFile = {name:'Полис загружен', path: 'http://localhost:4200/cabinet/document/' + polisDocument.id}
         }
         if(res.documents.find((doc:any)=> doc.type === 'pasport')?.data){
           this.pasportForm.patchValue(JSON.parse(res.documents.find((doc:any)=> doc.type === 'pasport')?.data))
         } 
         if(res.documents.find((doc:any)=> doc.type === 'notarius')?.path){
           let notariusDocument = res.documents.find((doc:any)=> doc.type === 'notarius')
-          this.notariusFile = {name:'Согласие загружено', path:notariusDocument.path}
-          this.oldNotariusFile = {name:'Согласие загружено',  path:notariusDocument.path}
+          this.notariusFile = {name:'Согласие загружено', path: 'http://localhost:4200/cabinet/document/' + notariusDocument.id}
+          this.oldNotariusFile = {name:'Согласие загружено',  path: 'http://localhost:4200/cabinet/document/' + notariusDocument.id}
         } 
       }
      
@@ -532,11 +523,13 @@ export class EventsViewPageComponent  implements OnInit {
   setLicensesFile(event:any){
     let file = event.target.files[0]
     this.licensesFile = file
+    this.createLicenses()
   }
 
   setNotariusFile(event:any){
     let file = event.target.files[0]
     this.notariusFile = file
+    this.createNotarius()
   }
 
   getUsersInRace(){
