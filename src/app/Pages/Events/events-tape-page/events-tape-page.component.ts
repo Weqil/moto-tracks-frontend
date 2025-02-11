@@ -62,7 +62,8 @@ export class EventsTapePageComponent  implements OnInit {
   generateGoogleLink(eventId:any){
     this.loadingService.showLoading()
     this.eventService.generateGoogleLink(eventId).pipe(
-      finalize(()=> this.loadingService.hideLoading())
+      finalize(()=>
+         this.loadingService.hideLoading())
     ).subscribe((res:any)=>{
       this.tableModalValue = true
       this.googleTabsLink = res.table_url

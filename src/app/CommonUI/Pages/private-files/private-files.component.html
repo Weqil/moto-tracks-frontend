@@ -8,6 +8,8 @@
       <pdf-viewer [src]="fileUrl"
       [render-text]="true"
       [original-size]="false"
+      (pages-initialized)="hidePdfLoader()"
+      
       class="file__img"
       ></pdf-viewer>
     </ng-container>

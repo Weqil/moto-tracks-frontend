@@ -6,6 +6,7 @@ import { IonRouterOutlet, IonContent } from '@ionic/angular/standalone';
 import { NgxImageZoomModule } from 'ngx-image-zoom';
 import { CommonModule } from '@angular/common';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { LoadingService } from 'src/app/Shared/Services/loading.service';
 
 
 
@@ -26,6 +27,7 @@ export class PrivateFilesComponent  implements OnInit {
   userService: UserService = inject(UserService)
   fileType: string = ''
   fileUrl: string = ''
+  loadingService: LoadingService = inject(LoadingService)
   documentId!: number 
 
   getDocument(): void {
@@ -53,7 +55,9 @@ export class PrivateFilesComponent  implements OnInit {
             break
           case 'application/pdf':
             ras = '.pdf'
+            this.loadingService.showLoading()
             this.fileType = 'pdf'
+            
             break
           case 'image/png':
             ras = '.png'
@@ -75,6 +79,9 @@ export class PrivateFilesComponent  implements OnInit {
   }
   
 
+  hidePdfLoader(){
+    this.loadingService.hideLoading()
+  }
   ionViewWillEnter(){
     this.route.params.pipe(takeUntil(this.destroy$)).pipe(
           finalize(()=>{
