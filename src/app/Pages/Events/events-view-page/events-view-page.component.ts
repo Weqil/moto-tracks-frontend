@@ -27,6 +27,7 @@ import { CheckImgUrlPipe } from "../../../Shared/Helpers/check-img-url.pipe";
 import { FormsModule } from 'src/app/Shared/Modules/forms/forms.module';
 import { serverError } from 'src/app/Shared/Data/Interfaces/errors';
 import { StandartInputSelectComponent } from 'src/app/Shared/Components/UI/Selecteds/standart-input-select/standart-input-select.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-events-view-page',
@@ -502,20 +503,20 @@ export class EventsViewPageComponent  implements OnInit {
         if(res.documents.find((doc:any)=> doc.type === 'licenses')?.data){
           let licensesDocument = res.documents.find((doc:any)=> doc.type === 'licenses')
           this.licensesForm.patchValue(JSON.parse((res.documents.find((doc:any)=> doc.type === 'licenses')?.data)))
-          this.licensesFile = {name:'Лицензия загружена', path: 'http://localhost:4200/cabinet/document/' + licensesDocument.id} 
+          this.licensesFile = {name:'Лицензия загружена', path:  `${environment.BASE_URL}` + '/document/'+ licensesDocument.id } 
         }
         if((res.documents.find((doc:any)=> doc.type === 'polis')?.data)){
           let polisDocument = res.documents.find((doc:any)=> doc.type === 'polis')
           this.polisForm.patchValue(JSON.parse((res.documents.find((doc:any)=> doc.type === 'polis')?.data)))
-          this.polisFile = {name:'Полис загружен', path: 'http://localhost:4200/cabinet/document/' + polisDocument.id}
+          this.polisFile = {name:'Полис загружен', path:  `${environment.BASE_URL}` + '/document/' + polisDocument.id}
         }
         if(res.documents.find((doc:any)=> doc.type === 'pasport')?.data){
           this.pasportForm.patchValue(JSON.parse(res.documents.find((doc:any)=> doc.type === 'pasport')?.data))
         } 
         if(res.documents.find((doc:any)=> doc.type === 'notarius')?.path){
           let notariusDocument = res.documents.find((doc:any)=> doc.type === 'notarius')
-          this.notariusFile = {name:'Согласие загружено', path: 'http://localhost:4200/cabinet/document/' + notariusDocument.id}
-          this.oldNotariusFile = {name:'Согласие загружено',  path: 'http://localhost:4200/cabinet/document/' + notariusDocument.id}
+          this.notariusFile = {name:'Согласие загружено', path: `${environment.BASE_URL}` + '/document/' + notariusDocument.id}
+          this.oldNotariusFile = {name:'Согласие загружено',  path:  `${environment.BASE_URL}` + '/document/'+ notariusDocument.id}
         } 
       }
      
