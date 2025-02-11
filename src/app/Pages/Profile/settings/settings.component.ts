@@ -126,6 +126,7 @@ export class SettingsComponent  implements OnInit {
   ).subscribe(()=>{
       this.toastService.showToast('Изменения сохранены','success')
       this.userService.refreshUser()
+      this.navControler.back()
     })
   }
 
