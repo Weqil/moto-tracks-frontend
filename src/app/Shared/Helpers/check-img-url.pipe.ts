@@ -10,8 +10,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class CheckImgUrlPipe implements PipeTransform {
-
- backendUrl: string = `${environment.BACKEND_URL}:${environment.BACKEND_PORT}`
+backendUrl: string = `${environment.BACKEND_URL}:${environment.BACKEND_PORT}`
 
   checkUrlDontType(url: string|undefined|null): string{
    
@@ -25,7 +24,7 @@ export class CheckImgUrlPipe implements PipeTransform {
       return url;
     } 
     else {
-      return 'assets/images/moto-standart.jpg';
+      return 'assets/images/standartAvatar.jpg';
     }
   }
 

@@ -30,16 +30,22 @@ export class RegistrationPageComponent  implements OnInit {
   private userService: UserService = inject(UserService)
   private authService: AuthService = inject(AuthService)
   private router:Router = inject(Router)
-  isChecked: boolean = false;
-
+  isCheckedFirst: boolean = false;
+  isCheckedSecond: boolean = false;
   
   
 
   constructor() { }
 
   onCheckboxChange(event:any){
-    this.isChecked=event.detail.checked;
-    console.log('чекбокс изменился', this.isChecked)
+    this.isCheckedFirst=event.detail.checked;
+   
+    console.log('чекбокс изменился', this.isCheckedFirst)
+  }
+  onCheckboxChange2(event:any){
+    
+    this.isCheckedSecond=event.detail.checked;
+    console.log('чекбокс изменился', this.isCheckedSecond)
   }
 
     registerForm: FormGroup = new FormGroup({
@@ -175,6 +181,10 @@ export class RegistrationPageComponent  implements OnInit {
 
     redirectInUserAgreement() {
       this.navController.navigateForward('/user-agreement', {animationDirection: 'forward'})
+    }
+
+    redirectInUserPolitic() {
+      this.navController.navigateForward('/user-politic', {animationDirection: 'forward'})
     }
     
 
