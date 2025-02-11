@@ -10,6 +10,7 @@ export class FileInputComponent  implements OnInit {
   constructor() { }
   @Input() fileName: string = ''
   @Input() fileIcon: string = ''
+  @Input() disabled: boolean = false
   @Input() updateFile: boolean = false
 
   ngOnInit() {}

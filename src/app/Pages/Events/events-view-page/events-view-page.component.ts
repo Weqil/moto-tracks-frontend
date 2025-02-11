@@ -147,9 +147,6 @@ export class EventsViewPageComponent  implements OnInit {
       surname: {
          errorMessage:''
       },
-      rank: {
-        errorMessage:''
-      },
       city: {
          errorMessage:''
       },
@@ -173,6 +170,11 @@ export class EventsViewPageComponent  implements OnInit {
     closeStateUsersModal(){
       this.openUserModalValue = false
     }
+
+   showToastInfoFileUpload(){
+     this.toastService.showToast('Файл уже был загружен, измените его в анкете участника','primary')
+ 
+   }
 
     formatingText(text:string): string{
       return text.replace(/\n/g, '<br>').replace(/  /g, '&nbsp;&nbsp;');;
@@ -216,7 +218,6 @@ export class EventsViewPageComponent  implements OnInit {
 
    redirectInRace(){
      this.navController.navigateForward(`/track/${this.event.track.id}`)
-      
    }
 
    //Если у пользователя не было данных создаём их
@@ -237,8 +238,6 @@ export class EventsViewPageComponent  implements OnInit {
    setPolisFile(event:any){
     let file = event.target.files[0]
     this.polisFile = file
-    console.log(this.polisFile)
-    this.createPolis()
   }
 
    clearDescription(){
@@ -382,9 +381,16 @@ export class EventsViewPageComponent  implements OnInit {
       }),
       ).subscribe((res:any)=>{
         console.log(res.documents)
-        if(res.documents.length == 0){
+        let licensesDocument = res.documents.find((doc:any)=> doc.type === 'licenses')
+        let polisDocument = res.documents.find((doc:any)=> doc.type === 'polis')
+        let notariusDocument = res.documents.find((doc:any)=> doc.type === 'notarius')
+        if(!licensesDocument){
           this.createLicenses()
+        }
+        if(!polisDocument){
           this.createPolis()
+        }
+        if(!notariusDocument){
           this.createNotarius()
         }
       })
@@ -523,13 +529,11 @@ export class EventsViewPageComponent  implements OnInit {
   setLicensesFile(event:any){
     let file = event.target.files[0]
     this.licensesFile = file
-    this.createLicenses()
   }
 
   setNotariusFile(event:any){
     let file = event.target.files[0]
     this.notariusFile = file
-    this.createNotarius()
   }
 
   getUsersInRace(){
@@ -552,7 +556,7 @@ export class EventsViewPageComponent  implements OnInit {
       const control = this.personalUserForm.get(key); // Доступ к контролу
       if (!control!.valid) {
         if(this.formErrors[key]){
-          this.formErrors[key].errorMessage = 'Обязательное поле'; // Сообщение об ошибке
+          this.formErrors[key].errorMessage = 'Обязательное поле'; 
            valid = false
         }
       } else {

@@ -84,7 +84,7 @@
             <div class="licenses document-container">
               <app-standart-input [control]="licensesForm.get('licensesNumber')" placeholder="Лицензия МФР" label="Лицензия МФР (тип, №):"></app-standart-input>
               <span class="scan-header">Скан или фотография Лицензии</span>
-              <app-file-input (click)="licensesFileInput.click()" [fileName]="licensesFile.name"></app-file-input>
+              <app-file-input (click)="!licensesFile ? licensesFileInput.click(): showToastInfoFileUpload()" [fileName]="licensesFile.name"></app-file-input>
               <input (change)="setLicensesFile($event)" #licensesFileInput style="display: none;"  type="file">
             </div>
 
@@ -93,14 +93,14 @@
               <app-standart-input [control]="polisForm.get('polisNumber')" placeholder="Серия, номер" label="Серия и номер"></app-standart-input>
               <app-standart-input [control]="polisForm.get('issuedWhom')" placeholder="Кем выдан" label="Кем выдан"></app-standart-input>
               <app-standart-input [control]="polisForm.get('itWorksDate')" placeholder="Срок действия" type="date" label="Срок действия"></app-standart-input>
-              <span class="scan-header">Скан или фотография Лицензии</span>
-              <app-file-input [fileName]="polisFile.name" (click)="polisFileInput.click()"></app-file-input>
+              <span class="scan-header">Скан или фотография Полиса</span>
+              <app-file-input [fileName]="polisFile.name" (click)="!polisFile ? polisFileInput.click(): showToastInfoFileUpload()"></app-file-input>
               <input (change)="setPolisFile($event)" #polisFileInput style="display: none;"  type="file">
             </div>
             <div class="document-header">Нотариальное согласие родителей</div>
             <div class="polis document-container">
               <span class="scan-header">Скан или фотография Нотариального согласия</span>
-            <app-file-input [fileName]="notariusFile.name" (click)="notariusFileInput.click()"></app-file-input>
+            <app-file-input [fileName]="notariusFile.name" (click)="!notariusFile ? notariusFileInput.click(): showToastInfoFileUpload()"></app-file-input>
               <input (change)="setNotariusFile($event)" #notariusFileInput style="display: none;"  type="file">
             </div>
 
