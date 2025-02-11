@@ -154,6 +154,9 @@ export class EventsViewPageComponent  implements OnInit {
       startNumber: {
          errorMessage:''
       },
+      group:{
+         errorMessage:''
+      }
   }
 
 

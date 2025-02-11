@@ -18,7 +18,7 @@
 
         <div class="event-name">{{event.name}}</div>
         @if (usersInRace.length) {
-          <app-users-preview (userSelected)="openRacer($event)"  [fullValueUsers]="usersInRace.length" [users]="usersInRace" [moreCount]="usersInRace.length" [openUsersModal]="openUserModalValue" (closeModalEmit)="closeStateUsersModal()" (openModalEmit)="openStateUsersModal()"></app-users-preview>
+          <app-users-preview [fullValueUsers]="usersInRace.length" [users]="usersInRace" [moreCount]="usersInRace.length" [openUsersModal]="openUserModalValue" (closeModalEmit)="closeStateUsersModal()" (openModalEmit)="openStateUsersModal()"></app-users-preview>
         }
         <div [innerHTML]="clearDescription()" class="event-description">{{event.desc}}</div>
         <div *ngIf="event.position_file || event.results_file" class="event-documents">
