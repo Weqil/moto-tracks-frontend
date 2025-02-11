@@ -24,7 +24,7 @@ export class ViewDocumentComponent  implements OnInit {
   }
 
   ionViewWillEnter() {
-
+    this.loadingService.showLoading()
     this.route.params.pipe(takeUntil(this.destroy$)).pipe( finalize(()=>{})).subscribe((params) => {
       this.documentUrl = params['url'] 
       console.log(this.documentUrl)})
