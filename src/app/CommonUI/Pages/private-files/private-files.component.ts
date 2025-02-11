@@ -4,13 +4,16 @@ import { catchError, EMPTY, finalize, of, Subject, takeUntil } from 'rxjs';
 import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
 import { IonRouterOutlet, IonContent } from '@ionic/angular/standalone';
 import { NgxImageZoomModule } from 'ngx-image-zoom';
+import { CommonModule } from '@angular/common';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+
 
 
 @Component({
   selector: 'app-private-files',
   templateUrl: './private-files.component.html',
   styleUrls: ['./private-files.component.scss'],
-  imports:[IonRouterOutlet, IonContent, NgxImageZoomModule]
+  imports:[IonRouterOutlet, IonContent, CommonModule, PdfViewerModule  ]
   
 })
 export class PrivateFilesComponent  implements OnInit {
@@ -43,6 +46,7 @@ export class PrivateFilesComponent  implements OnInit {
         // a.href = url;
         let ras;
         this.fileType = 'img'
+        console.log(response.type)
         switch(response.type) {
           case 'image/jpeg':
             ras = '.jpg'

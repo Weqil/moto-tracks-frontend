@@ -1,11 +1,17 @@
 <ion-content>
   <div class="container">
-    <lib-ngx-image-zoom
-     [thumbImage]=fileUrl
-     [fullImage]=fileUrl
-    >
-
-    </lib-ngx-image-zoom>
-       <img class="file__img" src="{{fileUrl}}" alt="">
+    <ng-container *ngIf="fileType == 'img'">
+      <img class="file__img" src="{{fileUrl}}" alt="">
+    </ng-container>
+    
+    <ng-container *ngIf="fileType == 'pdf'">
+      <pdf-viewer [src]="fileUrl"
+      [render-text]="true"
+      [original-size]="false"
+      class="file__img"
+      ></pdf-viewer>
+    </ng-container>
+    
+  
   </div>
 </ion-content>
