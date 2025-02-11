@@ -39,7 +39,23 @@ export class PrivateFilesComponent  implements OnInit {
         const url = window.URL.createObjectURL(response);
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'document_'+ this.documentId +'.pdf'; // Укажите имя файла и расширение
+        let ras;
+        switch(response.type) {
+          case 'image/jpeg':
+            ras = '.jpg'
+            break
+          case 'application/pdf':
+            ras = '.pdf'
+            break
+          case 'image/png':
+            ras = '.png'
+            break
+          case 'image/jpg':
+            ras = '.jpg'
+            break
+        }
+
+        a.download = 'document_'+ this.documentId + ras; // Укажите имя файла и расширение
         document.body.appendChild(a);
         a.click();
         window.URL.revokeObjectURL(url);
