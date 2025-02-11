@@ -336,20 +336,23 @@ submitForm(){
   }
 
   updateNotarius(){
-    this.loaderService.showLoading()
-    let fd: FormData = new FormData()
-    fd.append('data',JSON.stringify({}))
-    if(!this.notariusFile.dontFile){
-      fd.append('file',this.notariusFile)
-      this.userService.updateDocument(Number(this.oldNotariusValue?.id),fd).pipe(
-        finalize(()=>{
-          this.loaderService.hideLoading()
+    if(this.validateNotarius()){
+      this.loaderService.showLoading()
+      let fd: FormData = new FormData()
+      fd.append('data',JSON.stringify({}))
+      if(!this.notariusFile.dontFile){
+        fd.append('file',this.notariusFile)
+        this.userService.updateDocument(Number(this.oldNotariusValue?.id),fd).pipe(
+          finalize(()=>{
+            this.loaderService.hideLoading()
+          })
+        ).subscribe((res:any)=>{
+          this.toastService.showToast('Данные удостоверения успешно обновлены','success')
         })
-      ).subscribe((res:any)=>{
-        this.toastService.showToast('Данные удостоверения успешно обновлены','success')
-      })
+      }
+      
     }
-    
+  
   }
 
   validateNotarius(){
@@ -361,19 +364,22 @@ submitForm(){
   }
 
   createNotarius(){
-    this.loaderService.showLoading()
-     let fd: FormData = new FormData()
-     fd.append('type','notarius')
-     fd.append('data',JSON.stringify({}))
-     fd.append('file',this.notariusFile)
-      this.userService.createUserDocument(fd).pipe(
-      finalize(()=>{
-        this.loaderService.hideLoading()
-      })
-    ).subscribe((res:any)=>{
-      this.toastService.showToast('Данные успешно сохранены','success')
-      this.setFormValue()
-    })
+    if(this.validateNotarius()){
+      this.loaderService.showLoading()
+      let fd: FormData = new FormData()
+      fd.append('type','notarius')
+      fd.append('data',JSON.stringify({}))
+      fd.append('file',this.notariusFile)
+       this.userService.createUserDocument(fd).pipe(
+       finalize(()=>{
+         this.loaderService.hideLoading()
+       })
+     ).subscribe((res:any)=>{
+       this.toastService.showToast('Данные успешно сохранены','success')
+       this.setFormValue()
+     })
+    }
+   
   }
 
   setFormValue(){
