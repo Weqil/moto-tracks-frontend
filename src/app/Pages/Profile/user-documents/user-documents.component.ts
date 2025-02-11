@@ -73,19 +73,16 @@ export class UserDocumentsComponent  implements OnInit {
     name: {
       errorMessage:''
 
-    },
+      },
     surname: {
        errorMessage:''
-    },
-    rank: {
-      errorMessage:''
-    },
+      },
     city: {
        errorMessage:''
-    },
+      },
     startNumber: {
        errorMessage:''
-    },
+      },
   }
 
   engineItems:{name:string, value:string}[] = [
