@@ -1,5 +1,5 @@
 import { Component, Inject, inject, NgZone, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { catchError, EMPTY, finalize, Subject, takeUntil, tap } from 'rxjs';
 import { IEvent } from 'src/app/Shared/Data/Interfaces/event';
 import { EventService } from 'src/app/Shared/Data/Services/Event/event.service';
@@ -34,7 +34,7 @@ import { environment } from 'src/environments/environment';
   templateUrl: './events-view-page.component.html',
   styleUrls: ['./events-view-page.component.scss'],
   imports: [SharedModule, SlidersModule, ButtonsModule, TrackSectionComponent, IonModal, HeaderModule, StandartInputComponent, UsersPreviewComponent, 
-    ConfirmModalComponent, CheckImgUrlPipe,FormsModule, StandartInputSelectComponent]
+    ConfirmModalComponent, CheckImgUrlPipe,FormsModule, StandartInputSelectComponent,RouterLink]
 })
 export class EventsViewPageComponent  implements OnInit {
 

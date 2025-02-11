@@ -1,0 +1,15 @@
+<ion-content>
+  <div class="container">
+    <ng-container>
+      <pdf-viewer [src]="documentUrl"
+      [render-text]="true"
+      [original-size]="false"
+      (pages-initialized)="hidePdfLoader()"
+      
+      class="file__img"
+      ></pdf-viewer>
+    </ng-container>
+    
+  
+  </div>
+</ion-content>

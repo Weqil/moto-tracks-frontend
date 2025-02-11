@@ -35,7 +35,12 @@ export const publicRoutes: Routes = [
       {
         path:'rating',
         loadComponent: () => import('../Pages/rating/rating.component').then((m) => m.RatingComponent)
+      },
+      {
+        path:'view-document/:url',
+        loadComponent: () => import('../CommonUI/Pages/view-document/view-document.component').then((m) => m.ViewDocumentComponent)
       }
+
       
     ]
   },

@@ -22,8 +22,8 @@
         }
         <div [innerHTML]="clearDescription()" class="event-description">{{event.desc}}</div>
         <div *ngIf="event.position_file && event.results_file" class="event-documents">
-          <a href="{{event.results_file | checkImgUrl }}">  <span  class="event-documents__text">Регламент <img class="event-documents__icon" src="/assets/icons/documents.svg" alt=""></span></a>
-          <a href="{{event.position_file | checkImgUrl }}"><span class="event-documents__text">Положение <img class="event-documents__icon" src="/assets/icons/documents.svg" alt=""></span></a>
+           <span [routerLink]="['/view-document', event.results_file | checkImgUrl]" class="event-documents__text">Регламент <img class="event-documents__icon" src="/assets/icons/documents.svg" alt=""></span>
+          <span [routerLink]="['/view-document', event.position_file | checkImgUrl]" class="event-documents__text">Положение <img class="event-documents__icon" src="/assets/icons/documents.svg" alt=""></span>
         </div>
         <div class="event-track">
           <!-- <div class="event-track__title">Где проходит</div> -->
