@@ -9,16 +9,21 @@ export class LoadingService {
   constructor(private loadingController: LoadingController) {}
 
   async showLoading(message: string = MessagesLoading.default) {
-    const loader = await this.loadingController.create({
+    const loader:HTMLIonLoadingElement = await this.loadingController.create({
       message: message,
       spinner: 'circular',
     })
-
     await loader.present()
+    return loader
   }
 
-  async hideLoading() {
-    this.checkAndCloseLoader()
+  async hideLoading(loader?: HTMLIonLoadingElement) {
+    if(!loader) {
+      this.checkAndCloseLoader()
+    }else{
+      await loader.dismiss();
+    }
+  
     // setTimeout(() => this.checkAndCloseLoader(), 500);
   }
 

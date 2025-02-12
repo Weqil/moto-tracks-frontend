@@ -14,7 +14,8 @@ import { ToastService } from 'src/app/Shared/Services/toast.service';
 import { NavController } from '@ionic/angular/standalone';
 import { serverError } from 'src/app/Shared/Data/Interfaces/errors';
 import { StandartInputSelectComponent } from 'src/app/Shared/Components/UI/Selecteds/standart-input-select/standart-input-select.component';
-
+import cloneDeep from 'lodash/cloneDeep';
+import _ from 'lodash';
 
 @Component({
   selector: 'app-user-documents',
@@ -25,10 +26,11 @@ import { StandartInputSelectComponent } from 'src/app/Shared/Components/UI/Selec
 export class UserDocumentsComponent  implements OnInit {
   navController:NavController = inject(NavController)
   constructor() { }
-  oldLicensesValue?: {id:number,data:{licensesNumber:string,fileLink:string}} //Здесь будет храниться прошлое значение, которое мы получаем с сервера
-  oldPolisValue?: { id:number, data:{polisNumber:string, issuedWhom:string,itWorksDate:string, fileLink:string}} //Здесь будет храниться прошлое значение, которое мы получаем с сервера
+  oldLicensesValue?: any
+  oldPolisValue?: any
   loaderService:LoadingService = inject(LoadingService)
-  oldPasportValue?:{id:number,data:{numberAndSeria:string, fileLink:string}} //Здесь будет храниться прошлое значение, которое мы получаем с сервера
+  
+  oldPasportValue?:{id:number,data:{numberAndSeria:string, fileLink:string}} 
   httpClient:HttpClient = inject(HttpClient)
   userService:UserService = inject(UserService)
   toastService:ToastService = inject(ToastService)
@@ -50,9 +52,9 @@ export class UserDocumentsComponent  implements OnInit {
 
   polisForm: FormGroup = new FormGroup(
     {
-      polisNumber: new FormControl('',[Validators.required, Validators.minLength(3), ]), //Серия и номер полиса
-      issuedWhom: new FormControl('',[Validators.required, Validators.minLength(3), ]), //Кем выдан
-      itWorksDate: new FormControl('',[Validators.required, Validators.minLength(3), ]), //Срок действия
+      polisNumber: new FormControl('',[Validators.required]), //Серия и номер полиса
+      issuedWhom: new FormControl('',[Validators.required]), //Кем выдан
+      itWorksDate: new FormControl('',[Validators.required]), //Срок действия
     }
   )
 
@@ -167,13 +169,49 @@ setMotoStamp(event:any){
 }
 
 submitForm(){
+
   if(this.submitValidate()){
-    this.loaderService.showLoading()
+
+    if(!this.oldLicensesValue && this.validateLicenses()){
+      this.createLicenses()
+    }
+    
+    if(!this.oldPolisValue && this.validatePolis()){
+      this.createPolis()
+    }
+    
+    if(!this.oldNotariusValue && this.validateNotarius()){
+      this.createNotarius()
+    }
+  
+    if(this.oldLicensesValue && this.validateLicenses()){
+  
+      let oldLicensesValue:any = JSON.parse(this.oldLicensesValue.data)
+      if(!_.isEqual(oldLicensesValue,this.licensesForm.value) || !this.licensesFile.dontFile){
+        console.log
+        this.updateLicenses()
+      }
+    }
+  
+    if(this.oldPolisValue && this.validatePolis()){
+      let oldPolisValue:any = JSON.parse(this.oldPolisValue.data)
+      if(!_.isEqual(oldPolisValue,this.polisForm.value) || !this.polisFile.dontFile ){
+        this.updatePolis()
+      }
+    }
+    if(this.oldNotariusFile){
+      this.updateNotarius()
+    }
+
+    let loader:HTMLIonLoadingElement
+    this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+      loader = res
+    })
     if(this.userService.user.value?.personal){
       this.userService.updatePersonalInfo(this.personalUserForm.value).pipe(
         finalize(
           ()=>{
-            this.loaderService.hideLoading()
+            this.loaderService.hideLoading(loader)
           }
         )
       ).subscribe((res:any)=>{
@@ -238,14 +276,17 @@ submitForm(){
   }
 
   createLicenses(){
-    this.loaderService.showLoading()
+    let loader:HTMLIonLoadingElement
+    this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+      loader = res
+    })
     let fd:FormData = new FormData()
     fd.append('type','licenses')
     fd.append('data',JSON.stringify(this.licensesForm.value))
     fd.append('file',this.licensesFile)
     this.userService.createUserDocument(fd).pipe(
     finalize(()=>{
-      this.loaderService.hideLoading()
+      this.loaderService.hideLoading(loader)
     }),
     catchError((err:serverError)=>{
       this.toastService.showToast(err.error.message,'danger')
@@ -275,10 +316,13 @@ submitForm(){
   
 
   createPasport(){
-      this.loaderService.showLoading()
+      let loader:HTMLIonLoadingElement
+      this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+        loader = res
+      })
       this.userService.createUserDocument({type: 'pasport', data:(this.pasportForm.value)}).pipe(
       finalize(()=>{
-        this.loaderService.hideLoading()
+        this.loaderService.hideLoading(loader)
       })
     ).subscribe((res:any)=>{
       this.toastService.showToast('Данные паспорте успешно сохранены','success')
@@ -287,14 +331,17 @@ submitForm(){
   }
 
   createPolis(){
-     this.loaderService.showLoading()
+    let loader:HTMLIonLoadingElement
+    this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+      loader = res
+     })
      let fd: FormData = new FormData()
      fd.append('type','polis')
      fd.append('data',JSON.stringify(this.polisForm.value))
      fd.append('file',this.polisFile)
       this.userService.createUserDocument(fd).pipe(
       finalize(()=>{
-        this.loaderService.hideLoading()
+        this.loaderService.hideLoading(loader)
       })
     ).subscribe((res:any)=>{
       this.toastService.showToast('Данные полиса успешно сохранены','success')
@@ -303,7 +350,10 @@ submitForm(){
   }
 
   updateLicenses(){
-    this.loaderService.showLoading()
+    let loader:HTMLIonLoadingElement
+    this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+      loader = res
+     })
     let fd:FormData = new FormData()
     fd.append('data',JSON.stringify(this.licensesForm.value))
     if(!this.licensesFile.dontFile){
@@ -311,7 +361,7 @@ submitForm(){
     }
     this.userService.updateDocument(Number(this.oldLicensesValue?.id), fd).pipe(
       finalize(()=>{
-        this.loaderService.hideLoading()
+        this.loaderService.hideLoading(loader)
       })
     ).subscribe((res:any)=>{
       this.toastService.showToast('Данные лицензии успешно обновлены','success')
@@ -320,7 +370,10 @@ submitForm(){
 
 
   updatePolis(){
-    this.loaderService.showLoading()
+    let loader:HTMLIonLoadingElement
+    this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+      loader = res
+    })
     let fd:FormData = new FormData()
     fd.append('data',JSON.stringify(this.polisForm.value))
     if(!this.polisFile.dontFile){
@@ -328,7 +381,7 @@ submitForm(){
     }
     this.userService.updateDocument(Number(this.oldPolisValue?.id),fd).pipe(
       finalize(()=>{
-        this.loaderService.hideLoading()
+        this.loaderService.hideLoading(loader)
       })
     ).subscribe((res:any)=>{
       this.toastService.showToast('Данные полиса успешно обновлены','success')
@@ -337,14 +390,17 @@ submitForm(){
 
   updateNotarius(){
     if(this.validateNotarius()){
-      this.loaderService.showLoading()
+      let loader:HTMLIonLoadingElement
+      this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+        loader = res
+      })
       let fd: FormData = new FormData()
       fd.append('data',JSON.stringify({}))
       if(!this.notariusFile.dontFile){
         fd.append('file',this.notariusFile)
         this.userService.updateDocument(Number(this.oldNotariusValue?.id),fd).pipe(
           finalize(()=>{
-            this.loaderService.hideLoading()
+            this.loaderService.hideLoading(loader)
           })
         ).subscribe((res:any)=>{
           this.toastService.showToast('Данные удостоверения успешно обновлены','success')
@@ -365,14 +421,18 @@ submitForm(){
 
   createNotarius(){
     if(this.validateNotarius()){
-      this.loaderService.showLoading()
+        let loader:HTMLIonLoadingElement
+       this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+        loader = res
+       })
+
       let fd: FormData = new FormData()
       fd.append('type','notarius')
       fd.append('data',JSON.stringify({}))
       fd.append('file',this.notariusFile)
        this.userService.createUserDocument(fd).pipe(
        finalize(()=>{
-         this.loaderService.hideLoading()
+         this.loaderService.hideLoading(loader)
        })
      ).subscribe((res:any)=>{
        this.toastService.showToast('Данные успешно сохранены','success')
@@ -383,16 +443,20 @@ submitForm(){
   }
 
   setFormValue(){
-    this.loaderService.showLoading()
+    let loader:HTMLIonLoadingElement
+    this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+      loader = res
+     })
     this.userService.getUserDocuments().pipe(
       finalize(()=>{
-        this.loaderService.hideLoading()
+        this.loaderService.hideLoading(loader)
       })
     ).subscribe((res:any)=>{
       if(res.documents){
         if(res.documents.find((doc:any)=> doc.type === 'licenses')?.data){
           let licensesDocument = res.documents.find((doc:any)=> doc.type === 'licenses')
           this.licensesForm.patchValue(JSON.parse((res.documents.find((doc:any)=> doc.type === 'licenses')?.data)))
+         
           this.licensesFile = {name:'Лицензия загружена', dontFile:true} 
         }
         if((res.documents.find((doc:any)=> doc.type === 'polis')?.data)){

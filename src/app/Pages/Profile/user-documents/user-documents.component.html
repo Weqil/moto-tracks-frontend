@@ -41,12 +41,6 @@
             <input (change)="setLicensesFile($event)" #licensesFileInput style="display: none;"  type="file">
           </div>
     
-          @if (!oldLicensesValue) {
-           <app-standart-button (click)="createLicenses()" [disabled]="!validateLicenses()" buttonText="Сохранить"></app-standart-button>
-          }
-          @else {
-           <app-standart-button (click)="updateLicenses()" [disabled]="!validateLicenses()" buttonText="Изменить"></app-standart-button>
-          }
         </div>
 
         <div class="user-document-container">
@@ -60,12 +54,6 @@
             <input (change)="setPolisFile($event)" #polisFileInput style="display: none;"  type="file">
           </div>
 
-            @if (!oldPolisValue) {
-              <app-standart-button (click)="createPolis()" [disabled]="!validatePolis()" buttonText="Сохранить"></app-standart-button>
-            }
-            @else {
-              <app-standart-button (click)="updatePolis()" [disabled]="!validatePolis()" buttonText="Изменить"></app-standart-button>
-            }
         </div>
 
         <div class="user-document-container">
@@ -76,14 +64,10 @@
             <input (change)="setNotariusFile($event)" #notariusFileInput style="display: none;"  type="file">
           </div>
 
-            @if (!oldNotariusFile) {
-              <app-standart-button [disabled]="!validateNotarius()" (click)="createNotarius()" buttonText="Сохранить"></app-standart-button>
-            }
-            @else {
-              <app-standart-button [disabled]="!validateNotarius()" (click)="updateNotarius()"  buttonText="Изменить"></app-standart-button>
-            }
+           
         </div>
-        </div>     
+        
+      </div>     
 
   </main>
 </ion-content>

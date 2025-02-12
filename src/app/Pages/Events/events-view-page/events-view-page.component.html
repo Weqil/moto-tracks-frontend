@@ -69,7 +69,7 @@
           <app-standart-input [control]="personalUserForm.get('phoneNumber')" placeholder="Номер телефона" label="Телефон"></app-standart-input>
           <div class="start-number-container">
             <app-standart-input [control]="personalUserForm.get('startNumber')" [invalid]="formErrors.startNumber.errorMessage.length !== 0" [errorMessage]="formErrors.startNumber.errorMessage" placeholder="Стартовый номер" label="Стартовый номер"></app-standart-input>
-            <app-standart-input [control]="personalUserForm.get('group')" placeholder="Класс (группа)" label="Класс"></app-standart-input>
+            <app-standart-input [control]="personalUserForm.get('group')" [invalid]="formErrors.group.errorMessage.length !== 0"  [errorMessage]="formErrors.group.errorMessage" placeholder="Класс (группа)" label="Класс"></app-standart-input>
           </div>
           <app-standart-input-select [items]="sportRankItems" (onChange)="setRank($event)" [selectedItem]="{name:personalUserForm.value.rank, value:personalUserForm.value.rank}" label="Спортивное звание, разряд"></app-standart-input-select>
           <app-standart-input [control]="personalUserForm.get('rankNumber')" placeholder="№ удостоверения (МСМК, МС, КМС)" label="№ удостоверения"></app-standart-input>
@@ -119,7 +119,7 @@
   </ng-template>
   
   
-</ion-modal>
+  </ion-modal>
 
 <app-confirm-modal text="Ваши данные были изменены, сохранить их?" [openModal]="changePersonalDateModalValue" (confirm)="saveNewPersonal()" (cancel)="closePersonalNewModal()" ></app-confirm-modal>
 }
