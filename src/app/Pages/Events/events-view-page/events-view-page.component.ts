@@ -28,6 +28,7 @@ import { FormsModule } from 'src/app/Shared/Modules/forms/forms.module';
 import { serverError } from 'src/app/Shared/Data/Interfaces/errors';
 import { StandartInputSelectComponent } from 'src/app/Shared/Components/UI/Selecteds/standart-input-select/standart-input-select.component';
 import { environment } from 'src/environments/environment';
+import { group } from '@angular/animations';
 
 @Component({
   selector: 'app-events-view-page',
@@ -117,6 +118,17 @@ export class EventsViewPageComponent  implements OnInit {
     {name:'Kayo', value:'Kayo'},
     {name:'Fantic', value:'Fantic'},
    ]
+   groupItems: {name:string, value:string}[] = [
+    {name:'Тренер', value:'Тренер'},
+    {name:'Стажер', value:'Стажер'},
+    {name:'Контролер', value:'Контролер'},
+    {name:'Мастер', value:'Мастер'},
+    {name:'Менеджер', value:'Менеджер'},
+    {name:'Старший менеджер', value:'Старший менеджер'},
+    {name:'Специалист', value:'Специалист'},
+    {name:'Мастер-контролер', value:'Мастер-контролер'},
+    {name:'Менеджер-контролер', value:'Менеджер-контролер'},
+   ]
 
     licensesForm: FormGroup = new FormGroup(
       {
@@ -159,7 +171,6 @@ export class EventsViewPageComponent  implements OnInit {
       }
   }
 
-
     loaderService:LoadingService = inject(LoadingService)
     platform:Platform = inject(Platform)
     pasport:any
@@ -186,6 +197,9 @@ export class EventsViewPageComponent  implements OnInit {
 
     setEngine(event:any){
       this.personalUserForm.patchValue({engine: event.name})
+    }
+    setGroup(event:any){
+      this.personalUserForm.patchValue({group: event.name})
     }
     
     setRank(event:any){
@@ -319,6 +333,10 @@ export class EventsViewPageComponent  implements OnInit {
       oldPersonal.phoneNumber = oldPersonal.phone_number;
       oldPersonal.startNumber = oldPersonal.start_number;
       oldPersonal.rankNumber = oldPersonal.rank_number;
+      oldPersonal.group = ''
+      this.personalUserForm.patchValue({
+        group:''
+      })
       oldPersonal.motoStamp = oldPersonal.moto_stamp;
       oldPersonal.numberAndSeria = oldPersonal.number_and_seria
       // Удаляем старые названия
@@ -332,9 +350,14 @@ export class EventsViewPageComponent  implements OnInit {
       const normalizedOld = normalizeObject(oldPersonal);
       const normalizedForm = normalizeObject(this.personalUserForm.value);
     
+      this.personalUserForm.patchValue({
+        group:""
+      })
+
       // Используем Lodash
       personalFormChange = _.isEqual(normalizedOld, normalizedForm);
 
+      console.log()
       //Если обьекты различаются
       if(!personalFormChange){
         this.changePersonalDateModalValue = true
@@ -468,10 +491,12 @@ export class EventsViewPageComponent  implements OnInit {
           this.getEvent()
           //Если пользователь не имел персональных данных
           this.setFirstUserPersonal()
+      
           this.checkChangeInPersonalform()
           this.toastService.showToast('Заявка успешно отправленна','success')
       })
     }else{
+    
       this.toastService.showToast('Заполните обязательные поля - Фамилия, имя, адрес, спортивное звание','danger')
     }
   }
@@ -488,7 +513,8 @@ export class EventsViewPageComponent  implements OnInit {
         startNumber: this.userService.user.value?.personal.start_number,
         rankNumber: this.userService.user.value?.personal.rank_number,
         motoStamp:  this.userService.user.value?.personal.moto_stamp,
-        numberAndSeria: this.userService.user.value?.personal.number_and_seria
+        numberAndSeria: this.userService.user.value?.personal.number_and_seria,
+        group:''
       })
     }else{
       this.personalUserForm.reset()
@@ -569,6 +595,7 @@ export class EventsViewPageComponent  implements OnInit {
           }
       }
     });
+    console.log(this.formErrors)
     return valid
   }
 

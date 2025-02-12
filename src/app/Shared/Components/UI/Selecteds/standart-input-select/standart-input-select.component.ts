@@ -13,7 +13,7 @@ export class StandartInputSelectComponent  implements OnInit {
 @HostListener('document:click', ['$event'])
 onClick(event: MouseEvent): void {
     let target = event.target as HTMLElement
-  if (target.getAttribute('name') !== 'selectedModal') {
+  if (target.getAttribute('name') !== this.selectedName) {
         this.stateValue = false
     }
  }
@@ -24,6 +24,7 @@ onClick(event: MouseEvent): void {
     {name: 'Option 2', value: '2'},
     {name: 'Option 3', value: '3'}
   ];
+  @Input() selectedName:string = 'selectedModal'
   @Input() label: string = '';
   @Input() stateValue: boolean = false;
 

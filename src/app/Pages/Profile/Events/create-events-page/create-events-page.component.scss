@@ -26,6 +26,9 @@
 }
 .name-wrapper{
     padding-top: var(--standart-padding);
+    display:flex;
+    flex-direction: column;
+    gap: var(--little-padding);
 }
 .step-description{
     text-align: center;

@@ -1,8 +1,8 @@
-<label name="selectedModal" class="label" for="{{label}}">{{label}}</label>
-<div name="selectedModal" (click)="changeState()" class="standart-input">
+<label [attr.name]="selectedName" class="label" for="{{label}}">{{label}}</label>
+<div [attr.name]="selectedName" (click)="changeState()" class="standart-input">
     {{selectedItem.name}}
 </div>
-<div name="selectedModal" class="dropdown-wrapper">
+<div [attr.name]="selectedName" class="dropdown-wrapper">
     <div *ngIf="items && items.length > 0" [ngClass]="{'dropdown-content':!stateValue, 'dropdown-content--active':stateValue}">
         <div (click)="changeSelectedItem(item)" *ngFor="let item of items" class="dropdown-content__item standart-input">
             {{item.name}}
