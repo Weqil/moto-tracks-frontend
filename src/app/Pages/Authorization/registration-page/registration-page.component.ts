@@ -149,6 +149,9 @@ export class RegistrationPageComponent  implements OnInit {
   }
 
     submitLoginForm() {
+      this.registerForm.patchValue({
+        name: this.registerForm.value.email
+      })
       this.validateForm()
       if (!this.registerInvalid.localError) {
         this.loading.showLoading()

@@ -6,7 +6,6 @@
           <img class="login__logo__img" src="/assets/icons/favicon.png" alt="">
         </div> -->
         <form action="" class="login__form">
-          <app-standart-input [invalid]="registerInvalid.name.status" [errorMessage]="registerInvalid.name.message"  [label]="'Имя'" [control] = "registerForm.get('name')" name="name"></app-standart-input>
           <app-standart-input [invalid]="registerInvalid.email.status" [errorMessage]="registerInvalid.email.message" [label]="'E-mail'" [control] = "registerForm.get('email')" name="email"></app-standart-input>
           <app-standart-input [invalid]="registerInvalid.password.status" [errorMessage]="registerInvalid.password.message" [openPassword]="true" type="password"  [label]="'Пароль'" [control] = "registerForm.get('password')" password="password"></app-standart-input>
           <app-standart-input [invalid]="registerInvalid.password_confirmation.status" [errorMessage]="registerInvalid.password_confirmation.message" [openPassword]="true" type="password"  [label]="'Повторите пароль'" [control] = "registerForm.get('password_confirmation')" password="password"></app-standart-input>
