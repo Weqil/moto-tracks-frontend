@@ -31,7 +31,6 @@
 
         <app-standart-input [control]="personalUserForm.get('community')" placeholder="Команда" label="Навзание команды"></app-standart-input>
         <app-standart-input [control]="personalUserForm.get('coach')" placeholder="Тренер" label="ФИО тренера"></app-standart-input>
-        <app-standart-button (click)="submitForm()" buttonText="Сохранить"></app-standart-button>
         <div class="user-document-container">
           <div class="document-header">Лицензии</div>
           <div class="licenses document-container">
@@ -64,7 +63,7 @@
             <input (change)="setNotariusFile($event)" #notariusFileInput style="display: none;"  type="file">
           </div>
 
-           
+          <app-standart-button (click)="submitForm()" buttonText="Сохранить"></app-standart-button>
         </div>
         
       </div>     
