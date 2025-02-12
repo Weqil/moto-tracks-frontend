@@ -24,7 +24,7 @@ import { serverError } from 'src/app/Shared/Data/Interfaces/errors';
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  imports: [SharedModule, CommonModule, HeaderModule, FormsModule, StandartInputComponent, ButtonsModule, CheckImgUrlPipe, UserModule,
+  imports: [SharedModule, CommonModule, HeaderModule, FormsModule,  ButtonsModule, UserModule,
     ProfileModule, selectedModule]
 })
 export class SettingsComponent  implements OnInit {

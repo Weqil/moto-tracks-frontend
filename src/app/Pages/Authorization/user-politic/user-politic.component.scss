@@ -1,0 +1,36 @@
+ul{
+    padding-left: var(--middle-padding);
+    font-size: var(--font-headers-size);
+}
+
+li{
+    font-size: var(--font-regular-size);
+    font-style: var(--font-regular);
+    padding-top: var(--little-padding);
+}
+
+p{
+    font-size: var(--font-regular-size);
+    font-style: var(--font-regular);
+    padding-top: var(--little-padding);
+}
+
+.text-container{
+    display: flex;
+    flex-direction: column;
+    padding: var(--standart-padding);
+    padding-top: var(--little-padding);
+}
+
+h1{
+    padding-top: 5.5rem;
+    padding-left: var(--standart-padding);
+    padding-right: var(--standart-padding);
+    font-size: var(--font-headers-size);
+    margin: 0;
+    text-align:left;
+}
+
+h2{
+    font-size: var(--font-headers-size-little);
+}
