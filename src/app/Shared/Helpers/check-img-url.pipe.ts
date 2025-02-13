@@ -1,13 +1,16 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Injectable, Pipe, PipeTransform } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
 @Pipe({
   name: 'checkImgUrl',
-  standalone: true
+  standalone: true,
+  pure: false
+})
+@Injectable({
+  providedIn: 'root'
 })
 export class CheckImgUrlPipe implements PipeTransform {
-
- backendUrl: string = `${environment.BACKEND_URL}:${environment.BACKEND_PORT}`
+backendUrl: string = `${environment.BACKEND_URL}:${environment.BACKEND_PORT}`
 
   checkUrlDontType(url: string|undefined|null): string{
    
@@ -17,12 +20,11 @@ export class CheckImgUrlPipe implements PipeTransform {
         return url;
       } else{
           url = `${this.backendUrl}/storage/${url}`
-          console.log(url)
         }
       return url;
     } 
     else {
-      return 'assets/images/moto-standart.jpg';
+      return 'assets/images/standartAvatar.jpg';
     }
   }
 

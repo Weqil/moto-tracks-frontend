@@ -1,0 +1,57 @@
+<ion-content>
+  <app-header  headerTitle="Редактирование гонки"></app-header>
+  <main class="main-container--with-header">
+    <app-step-container [maxStepsCount]="maxStepsCount" [stepCurrency]="stepCurrency">
+      <app-step-container-item [maxStepsCount]="maxStepsCount" [stepCurrency]="stepCurrency" stepNum="1">
+        <div class="name-wrapper">
+          <app-standart-input label="Название" [control]="createEventForm.get('name')" placeholder="Введите название вашего соревнования"></app-standart-input>
+          <app-standart-input (click)="openRegionModal()" [readonly]="true" label="Область/край" [control]="createEventForm.get('region')" placeholder="Выберите область вашего соревнования"></app-standart-input>          
+        </div>
+  
+        <div class="photo-slider">
+            <app-edit-slider [files]="sliderImages" (filesEmit)="getImages($event)" type="create"></app-edit-slider>
+        </div>
+
+        <div class="description">
+          <app-standart-rich-input [control]="createEventForm.get('desc')" label="Описание" placeholder="Введите описание вашего трека"></app-standart-rich-input>
+        </div>
+     
+        <app-standart-input type="datetime-local" label="Дата начала" [control]="createEventForm.get('dateStart')"></app-standart-input>
+        <div class="select-track-wrapper">
+          <div class="label">Трасса гонки</div>
+          <app-track-select-modal [selectedTrack]="trackSelected" (selectTrack)="selectTrack($event)" [trackSelectModalStateValue]="trackSelectedModalState" [tracks]="tracks" (closeTrackSelectModal)="closeTrackSelectModalFunction()" (openTrackSelectModal)="openTrackSelectModalFunction()"></app-track-select-modal>
+        </div>
+        <div (click)="fileResults.click()" class="document-container">
+            <span>Регламент</span>
+            <img class="document-icon" src="/assets/icons/documents.svg" alt="">
+            <input (change)="setReglamentFile($event)" #fileResults type="file" class="hidden-input" accept=".pdf">
+            <span>{{reglamentFile ? reglamentFile.name : '- файл не выбран'}}</span>
+        </div>
+        <div (click)="filePosition.click()" class="document-container">
+            <span>Положение</span>
+            <img class="document-icon" src="/assets/icons/documents.svg" alt="">
+            <input (change)="setPositionFile($event)" #filePosition type="file" class="hidden-input" accept=".pdf">
+            <span>{{positionFile ? positionFile.name : '- файл не выбран'}}</span>
+        </div>
+      </app-step-container-item>
+    </app-step-container>
+
+    <ion-modal (didDismiss)="closeRegionModal()"  [isOpen]="regionModalState">
+      <ng-template>
+        <ion-content>
+          <div class="region-modal-container">
+            <app-standart-input-search label="Область/край" [searchCurrentItems]="searchRegionItems" [searchItems]="searchRegionItems" (changeSearchValue)="setRegion($event)"></app-standart-input-search>
+          </div>
+        </ion-content>
+      </ng-template>  
+    </ion-modal>
+
+    <div class="navigate-buttons-container">
+      <app-standart-button [disabled]="stepInvalidate()"  *ngIf="stepCurrency !== maxStepsCount" (click)="stepNext()" buttonText="Далее" theme="standart"></app-standart-button>
+      <app-standart-button [disabled]="stepInvalidate()" (click)="submitForm()"  *ngIf="stepCurrency === maxStepsCount" buttonText="Сохранить" theme="standart"></app-standart-button>
+      <div>
+        <app-standart-button [disabled]="true" (click)="cancelCreate()"  buttonText="Отмена" theme="light"></app-standart-button>
+      </div>
+  </div>
+  </main>
+</ion-content>

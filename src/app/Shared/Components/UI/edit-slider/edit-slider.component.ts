@@ -39,6 +39,15 @@ export class EditSliderComponent implements OnInit {
       }
       this.previews.push(...this.vkFiles)
     }
+    
+    if (changes['files']) {
+      if (this.files) {
+        this.files.forEach((file) => {
+          let link = this.fileService.checkLinkFile(file)
+          if (link !== '') this.previews.push({ id: file.id, link: link, name: file.name })
+        })
+      }
+    }
   }
   deleteVkFiles(file: any) {
     this.deleteVkfilesEmit.emit(file)
@@ -94,7 +103,8 @@ export class EditSliderComponent implements OnInit {
         this.previews = this.previews.filter((fileArrayItem) => fileArrayItem.id !== file.id)
         this.files.find((fileArrayItem) => fileArrayItem.id === file.id).on_delete = true
         this.filesEmit.emit(this.files)
-      } else {
+      }
+       else {
         let index = this.files.map((e) => e.name).indexOf(file.name)
         let previewsIndex = this.files.find((fileArrayItem) => fileArrayItem.name === file.name)
         this.files = this.files.filter((fileArrayItem) => fileArrayItem.name !== file.name)
@@ -111,11 +121,6 @@ export class EditSliderComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.files) {
-      this.files.forEach((file) => {
-        let link = this.fileService.checkLinkFile(file)
-        if (link !== '') this.previews.push({ id: file.id, link: link, name: file.name })
-      })
-    }
+    
   }
 }

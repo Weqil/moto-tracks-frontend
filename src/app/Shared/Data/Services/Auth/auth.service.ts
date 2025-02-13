@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { UserService } from '../User/user.service';
 import { BehaviorSubject } from 'rxjs';
 import {CookieService} from 'ngx-cookie-service';
+import { CapacitorCookies } from '@capacitor/core';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,7 +15,6 @@ export class AuthService {
 
   constructor() { }
 
-  //Проверяю куку на токен и если его нет то не авторизован
   isAuthenticated(): boolean {
     if (!this.token.value) {
       this.token.next(this.getAuthToken())
@@ -23,14 +23,13 @@ export class AuthService {
   }
 
   setAuthToken(token:string){
-    this.cookieService.set('authToken', token, {
-      secure: true,
-      sameSite: 'Strict',
-      expires: 365, 
-    })
+    this.token.next(token)
+    localStorage.setItem('authToken',token)
+    this.userService.refreshUser()
   }
 
   logout(){
+    localStorage.removeItem('authToken')
     this.cookieService.delete('authToken')
     this.token.next(null)
     this.authenticationState.next(false)
@@ -38,7 +37,12 @@ export class AuthService {
   }
 
   getAuthToken(){
-    return this.cookieService.get('authToken')
+    if(localStorage.getItem('authToken')){
+      return String(localStorage.getItem('authToken'))
+    }else{
+      return null
+    }
+   
   }
 
 }

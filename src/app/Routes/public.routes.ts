@@ -32,6 +32,23 @@ export const publicRoutes: Routes = [
         path:'racer/:id',
         loadComponent: () => import('../Pages/racer-view-page/racer-view-page.component').then((m) => m.RacerViewPageComponent)
       },
+      {
+        path:'rating',
+        loadComponent: () => import('../Pages/rating/rating.component').then((m) => m.RatingComponent)
+      },
+      {
+        path:'view-document/:url',
+        loadComponent: () => import('../CommonUI/Pages/view-document/view-document.component').then((m) => m.ViewDocumentComponent)
+      },
+      {
+        path:'user-agreement',
+        loadComponent: () => import('../Pages/Authorization/user-agreement/user-agreement.component').then((m) => m.UserAgreementComponent)
+      },
+      {
+        path:'user-politic',
+        loadComponent: () => import('../Pages/Authorization/user-politic/user-politic.component').then((m) => m.UserPoliticComponent)
+      },
+
       
     ]
   },

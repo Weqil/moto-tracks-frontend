@@ -9,6 +9,7 @@ import { IEvent } from 'src/app/Shared/Data/Interfaces/event';
 import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
 import { finalize } from 'rxjs/operators';
 import { LoadingService } from 'src/app/Shared/Services/loading.service';
+import { userRoles } from 'src/app/Shared/Data/Enums/roles';
 @Component({
   selector: 'app-my-events-page',
   templateUrl: './my-events-page.component.html',
@@ -38,8 +39,24 @@ export class MyEventsPageComponent  implements OnInit {
     })
   }
 
+  redirectInEditPage(eventId:any){
+    this.navController.navigateForward(`/racer/edit/${eventId}`)
+  }
+
+
+  userHaveRoot(){
+    console.log()
+    return this.userService.user.value?.roles.find((role:any)=>role.name == userRoles.admin || role.name == userRoles.root) !== undefined
+  }
+
   ionViewWillEnter(){
-    this.eventService.getEventByUserId(String(this.userService.user.value?.id)).pipe().subscribe((res:any)=>{
+    this.loadingService.showLoading()
+
+    this.eventService.getEventByUserId(String(this.userService.user.value?.id)).pipe(
+      finalize(()=>{
+        this.loadingService.hideLoading()
+      })
+    ).subscribe((res:any)=>{
       this.events = res.races
     })
   }

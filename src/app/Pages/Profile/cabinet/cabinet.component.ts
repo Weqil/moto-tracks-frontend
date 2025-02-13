@@ -1,5 +1,7 @@
 import { Component, inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { finalize } from 'rxjs';
+import { userRoles } from 'src/app/Shared/Data/Enums/roles';
 import { User } from 'src/app/Shared/Data/Interfaces/user-model';
 import { AuthService } from 'src/app/Shared/Data/Services/Auth/auth.service';
 import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
@@ -9,6 +11,7 @@ import { selectedModule } from 'src/app/Shared/Modules/selected/selected.module'
 import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
 import { ProfileModule } from 'src/app/Shared/Modules/user/profile.module';
 import { UserModule } from 'src/app/Shared/Modules/user/user.module';
+import { LoadingService } from 'src/app/Shared/Services/loading.service';
 
 @Component({
   selector: 'app-cabinet',
@@ -31,19 +34,20 @@ export class CabinetComponent  implements OnInit {
   authService:AuthService = inject(AuthService)
   navControler:NavController = inject(NavController)
 
+  private readonly loading:LoadingService = inject(LoadingService)
+
   statusesSelect:boolean = false
-  selectedStatusItem:any =  { id: 1, name: 'Гонщик', value: 'Гонщик' }
+  selectedStatusItem!:any 
   statuses:any[] = [
     { id: 1, name: 'Гонщик', value: 'Гонщик' },
     { id: 2, name: 'Организатор', value: 'Организатор' },
+    { id: 3, name: 'Болельщик', value: 'Болельщик' },
   ];
 
   setNewStatusModalOpen(){
   }
   selectStatus(event:any){
-    this.selectedStatusItem = event;
-    localStorage.setItem('user-status', event.id)
-    console.log( this.selectedStatusItem)
+    this.selectedStatusItem = this.user?.roles[0];
   }
   openSelectedStatus(){
     this.statusesSelect = true;
@@ -60,13 +64,7 @@ export class CabinetComponent  implements OnInit {
     this.navControler.navigateForward('/personal-info')
   }
   ionViewWillEnter(){
-    let userStatus = Number(localStorage.getItem('user-status'))
-    console.log('чекаю юзера')
-    if(userStatus == 1){
-      this.selectedStatusItem = { id: 1, name: 'Гонщик', value: 'Гонщик' }
-    }else{
-      this.selectedStatusItem = { id: 2, name: 'Организатор', value: 'Организатор' }
-    }
+    this.selectedStatusItem = this.user?.roles[0];
   }
   ngOnInit() {
     this.userService.user.pipe().subscribe(()=>{

@@ -1,0 +1,12 @@
+<form [formGroup]="searchForm">
+  <label class="label" for="{{label}}">{{label}}</label>
+  <input (input)="searchInputChange($event)" formControlName="searchInput" class="standart-input"  type="text">
+</form>
+
+<div [attr.name]="selectedName" class="dropdown-wrapper">
+  <div сlass='dropdown-content--active'>
+      <div (click)="setSearchItem(item)" *ngFor="let item of searchCurrentItems" class="dropdown-content__item standart-input">
+          {{item.name}}
+      </div>
+  </div>
+</div>

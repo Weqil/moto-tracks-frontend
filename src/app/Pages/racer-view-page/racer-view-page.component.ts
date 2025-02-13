@@ -22,7 +22,6 @@ export class RacerViewPageComponent  implements OnInit {
   }
   constructor() { }
   ionViewWillEnter(){
-    console.log('страница гонщика')
   }
   ngOnInit() {}
 

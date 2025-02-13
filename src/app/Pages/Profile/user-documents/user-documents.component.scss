@@ -9,9 +9,47 @@
 }
 
 .document-header{
-    padding-top: 1rem;
+    padding-top: 0.5rem;
     font-family: var(--font-bold);
     font-size: var(--font-regular-size);
     padding-bottom: var(--little-padding);
 }
+.start-number-container{
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
 
+
+.input-container{
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0px 10px 0px;
+    gap: 10px;
+}
+
+.user-document-container{
+    padding-top: 1rem;
+    
+}
+.buttons-container{
+    padding-top: var(--standart-padding);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.scan-header{
+    margin-top: 0.5rem;
+    font-family: var(--font-regular);
+    font-size: var(--font-regular-size);
+}
+
+ion-modal{
+    --max-height:50%;
+    --width:90%;
+    --border-radius: 12px;
+    --overflow-y: hidden;
+}
+.region-modal-container{
+    padding: var(--standart-padding);
+}

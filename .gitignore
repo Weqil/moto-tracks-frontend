@@ -55,6 +55,10 @@ yarn-error.log
 
 # Miscellaneous
 /.angular
+/.android
+/.ios
+/.www
+
 /.angular/cache
 .sass-cache/
 /.nx
@@ -68,3 +72,6 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+resources/ios/**/*
+resources/android/**/*

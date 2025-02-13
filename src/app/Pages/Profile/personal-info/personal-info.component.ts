@@ -58,8 +58,10 @@ export class PersonalInfoComponent  implements OnInit {
     coach:new FormControl('', [Validators.required]),
     motoStamp:new FormControl('', [Validators.required]),
     engine:new FormControl('', [Validators.required]),
-    email:new FormControl('', [Validators.required])
+    numberAndSeria:new FormControl('', [Validators.required]),
   })
+
+  
 
   submitValidate(){
     let valid = true
@@ -80,7 +82,6 @@ export class PersonalInfoComponent  implements OnInit {
   }
 
   submitForm(){
-    console.log(this.submitValidate())
     if(this.submitValidate()){
       this.loaderService.showLoading()
       if(this.userService.user.value?.personal){
@@ -128,9 +129,9 @@ export class PersonalInfoComponent  implements OnInit {
         phoneNumber: this.userService.user.value?.personal.phone_number,
         startNumber: this.userService.user.value?.personal.start_number,
         rankNumber: this.userService.user.value?.personal.rank_number,
-        motoStamp:  this.userService.user.value?.personal.moto_stamp
+        motoStamp:  this.userService.user.value?.personal.moto_stamp,
+        numberAndSeria: this.userService.user.value?.personal.number_and_seria
       })
-      console.log(this.personalUserForm.value)
     }else{
       this.personalUserForm.reset()
     }

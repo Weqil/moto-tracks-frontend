@@ -1,5 +1,6 @@
 .user-section{
     display: inline-flex;
+    flex-wrap: wrap;
     gap: 10px;
     .user-section__avatar{
         display: flex;

@@ -1,6 +1,6 @@
 import { Component, Inject, inject, NgZone, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { finalize, Subject, takeUntil, tap } from 'rxjs';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { catchError, EMPTY, finalize, Subject, takeUntil, tap } from 'rxjs';
 import { IEvent } from 'src/app/Shared/Data/Interfaces/event';
 import { EventService } from 'src/app/Shared/Data/Services/Event/event.service';
 import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
@@ -22,12 +22,21 @@ import * as _ from 'lodash';
 
 import { UsersPreviewComponent } from 'src/app/Shared/Components/UI/users-preview/users-preview.component';
 import { ConfirmModalComponent } from 'src/app/Shared/Components/UI/confirm-modal/confirm-modal.component';
+import { DomSanitizer } from '@angular/platform-browser';
+import { CheckImgUrlPipe } from "../../../Shared/Helpers/check-img-url.pipe";
+import { FormsModule } from 'src/app/Shared/Modules/forms/forms.module';
+import { serverError } from 'src/app/Shared/Data/Interfaces/errors';
+import { StandartInputSelectComponent } from 'src/app/Shared/Components/UI/Selecteds/standart-input-select/standart-input-select.component';
+import { environment } from 'src/environments/environment';
+import { group } from '@angular/animations';
+import { MapService } from 'src/app/Shared/Data/Services/Map/map.service';
 
 @Component({
   selector: 'app-events-view-page',
   templateUrl: './events-view-page.component.html',
   styleUrls: ['./events-view-page.component.scss'],
-  imports: [SharedModule, SlidersModule, ButtonsModule, TrackSectionComponent,IonModal,HeaderModule, StandartInputComponent,UsersPreviewComponent,ConfirmModalComponent]
+  imports: [SharedModule, SlidersModule, ButtonsModule, TrackSectionComponent, IonModal, HeaderModule, StandartInputComponent, UsersPreviewComponent, 
+    ConfirmModalComponent, CheckImgUrlPipe,FormsModule, StandartInputSelectComponent,RouterLink]
 })
 export class EventsViewPageComponent  implements OnInit {
 
@@ -41,11 +50,22 @@ export class EventsViewPageComponent  implements OnInit {
   navController: NavController = inject(NavController)
   loadingService: LoadingService = inject(LoadingService)
   switchTypeService:SwitchTypeService = inject(SwitchTypeService)
+  mapService:MapService = inject(MapService)
   changePersonalDateModalValue:boolean = false
   usersInRace:User[] = []
   event!:IEvent
   openUserModalValue:boolean = false
   raceUser!:User
+  searchRegionItems:any[] = []
+  licensesFile:any =''
+  polisFile:any = ''
+  notariusFile:any = ''
+
+  oldNotariusFile:any
+
+  oldPolisFile:any
+
+  regionModalState:boolean = false
 
   ngZone: NgZone = inject(NgZone)
   documents:any = []
@@ -54,23 +74,65 @@ export class EventsViewPageComponent  implements OnInit {
   userService:UserService = inject(UserService)
   eventId: string = ''
   personalUserForm: FormGroup = new FormGroup({
-      name: new FormControl('', [Validators.required]),
-      surname: new FormControl('', [Validators.required]),
-      patronymic: new FormControl('', [Validators.required]),
-      dateOfBirth: new FormControl('', [Validators.required]),
-      city: new FormControl('', [Validators.required]),
-      inn: new FormControl('', [Validators.required]),
-      snils: new FormControl('', [Validators.required]),
-      phoneNumber: new FormControl('', [Validators.required]),
-      startNumber: new FormControl('', [Validators.required]),
-      group:new FormControl('', [Validators.required]),
-      rank:new FormControl('', [Validators.required]),
-      rankNumber:new FormControl('', [Validators.required]),
-      community:new FormControl('', [Validators.required]),
-      coach:new FormControl('', [Validators.required]),
-      motoStamp:new FormControl('', [Validators.required]),
-      engine:new FormControl('', [Validators.required]),
-    })
+    name: new FormControl('', [Validators.required]),
+    surname: new FormControl('', [Validators.required]),
+    patronymic: new FormControl('', [Validators.required]),
+    dateOfBirth: new FormControl('', [Validators.required]),
+    city: new FormControl('', [Validators.required]),
+    inn: new FormControl('', [Validators.required]),
+    snils: new FormControl('', [Validators.required]),
+    phoneNumber: new FormControl('', [Validators.required]),
+    startNumber: new FormControl('', [Validators.required]),
+    group:new FormControl('', [Validators.required]),
+    rank:new FormControl('', [Validators.required]),
+    rankNumber:new FormControl('', [Validators.required]),
+    community:new FormControl('', [Validators.required]),
+    coach:new FormControl('', [Validators.required]),
+    motoStamp:new FormControl('', [Validators.required]),
+    engine:new FormControl('', [Validators.required]),
+    numberAndSeria:new FormControl('', [Validators.required]),
+  })
+
+  engineItems:{name:string, value:string}[] = [
+    {name:'2Т', value:'2Т'},
+    {name:'4Т', value:'4Т'},
+  ]
+
+  sportRankItems:{name:string, value:string}[] = [
+    {name:'МСМК', value:'МСМК'},
+    {name:'МС', value:'МС'},
+    {name:'КМС', value:'КМС'},
+    {name:'I', value:'I'},
+    {name:'II', value:'II'},
+    {name:'III', value:'III'},
+    {name:'Iю', value:'Iю'},
+    {name:'IIю', value:'IIю'},
+    {name:'IIIю', value:'IIIю'},
+    {name:'б/р', value:'б/р'},
+  ]
+
+  motoStampItems: {name:string, value:string}[] = [
+    {name:'Kaw', value:'Kaw'},
+    {name:'KTM', value:'KTM'},
+    {name:'Yam', value:'Yam'},
+    {name:'Gas-Gas', value:'Gas-Gas'},
+    {name:'Hon', value:'Hon'},
+    {name:'BSE', value:'BSE'},
+    {name:'Husq', value:'Husq'},
+    {name:'Kayo', value:'Kayo'},
+    {name:'Fantic', value:'Fantic'},
+   ]
+   groupItems: {name:string, value:string}[] = [
+    {name:'Тренер', value:'Тренер'},
+    {name:'Стажер', value:'Стажер'},
+    {name:'Контролер', value:'Контролер'},
+    {name:'Мастер', value:'Мастер'},
+    {name:'Менеджер', value:'Менеджер'},
+    {name:'Старший менеджер', value:'Старший менеджер'},
+    {name:'Специалист', value:'Специалист'},
+    {name:'Мастер-контролер', value:'Мастер-контролер'},
+    {name:'Менеджер-контролер', value:'Менеджер-контролер'},
+   ]
 
     licensesForm: FormGroup = new FormGroup(
       {
@@ -102,21 +164,21 @@ export class EventsViewPageComponent  implements OnInit {
       surname: {
          errorMessage:''
       },
-      rank: {
-        errorMessage:''
-      },
       city: {
          errorMessage:''
       },
       startNumber: {
          errorMessage:''
       },
+      group:{
+         errorMessage:''
+      }
   }
-
 
     loaderService:LoadingService = inject(LoadingService)
     platform:Platform = inject(Platform)
     pasport:any
+    sanitizer:DomSanitizer = inject(DomSanitizer)
     licenses:any
     polis:any
     toastService:ToastService = inject(ToastService)
@@ -128,12 +190,55 @@ export class EventsViewPageComponent  implements OnInit {
       this.openUserModalValue = false
     }
 
+   showToastInfoFileUpload(){
+     this.toastService.showToast('Файл уже был загружен, измените его в анкете участника','primary')
+ 
+   }
+
+   setRegion(region:any){
+    this.closeRegionModal()
+    this.personalUserForm.patchValue({city:region.name})
+   }
+
+   getRegions(){
+    this.mapService.getAllRegions().pipe().subscribe((res:any)=>{
+      res.data.forEach((region:any) => {
+        this.searchRegionItems.push({
+          name:`${region.name} ${region.type}`,
+          value:region.id
+        })
+      });
+    })
+  }
+
+    formatingText(text:string): string{
+      return text.replace(/\n/g, '<br>').replace(/  /g, '&nbsp;&nbsp;');;
+    }
+
+    setEngine(event:any){
+      this.personalUserForm.patchValue({engine: event.name})
+    }
+    setGroup(event:any){
+      this.personalUserForm.patchValue({group: event.name})
+    }
+    
+    setRank(event:any){
+      this.personalUserForm.patchValue({rank: event.name})
+    }
+
+    setMotoStamp(event:any){
+      this.personalUserForm.patchValue({motoStamp: event.name})
+    }
+
     cancelApplicationForm(){
       let currentForm = {
         ...this.personalUserForm.value,
         ...this.polisForm.value,
         ...this.licensesForm.value,
         ...this.pasportForm.value,
+        licensesFileLink:``,
+        polisFileLink:``,
+        notariuFileLink:``,   
       }
       const fd: FormData = new FormData();
       fd.append('data',  JSON.stringify(currentForm))
@@ -151,7 +256,6 @@ export class EventsViewPageComponent  implements OnInit {
 
    redirectInRace(){
      this.navController.navigateForward(`/track/${this.event.track.id}`)
-      
    }
 
    //Если у пользователя не было данных создаём их
@@ -169,33 +273,67 @@ export class EventsViewPageComponent  implements OnInit {
       }
    }
 
+   setPolisFile(event:any){
+    let file = event.target.files[0]
+    this.polisFile = file
+  }
 
-   createLicenses(){
-    this.userService.createUserDocument({type: 'licenses', data:(this.licensesForm.value)}).pipe(
+   clearDescription(){
+    return this.sanitizer.bypassSecurityTrustHtml(this.formatingText(String(this.event.desc)))
+   }
+
+  createLicenses(){
+    if(this.licensesFile){
+      this.loaderService.showLoading()
+      let fd:FormData = new FormData()
+      fd.append('type','licenses')
+      fd.append('data',JSON.stringify(this.licensesForm.value))
+      fd.append('file',this.licensesFile)
+      this.userService.createUserDocument(fd).pipe(
+      finalize(()=>{
+        this.loaderService.hideLoading()
+      }),
+      catchError((err:serverError)=>{
+        this.toastService.showToast(err.error.message,'danger')
+        return EMPTY
+      })
+      ).subscribe((res:any)=>{
+      })
+    }
+   }
+
+
+  createPolis(){
+    if(this.polisFile){
+      let fd: FormData = new FormData()
+      fd.append('type','polis')
+      fd.append('data',JSON.stringify(this.polisForm.value))
+      fd.append('file',this.polisFile)
+       this.userService.createUserDocument(fd).pipe(
+       finalize(()=>{
+         this.loaderService.hideLoading()
+       })
+     ).subscribe((res:any)=>{
+     })
+    }
+   
+ }
+
+ createNotarius(){
+  if(this.notariusFile){
+  let fd: FormData = new FormData()
+   fd.append('type','notarius')
+   fd.append('data',JSON.stringify({}))
+   fd.append('file',this.notariusFile)
+    this.userService.createUserDocument(fd).pipe(
     finalize(()=>{
       this.loaderService.hideLoading()
     })
-  ).subscribe((res:any)=>{
-  })
-  }
-
-  createPasport(){
-      this.userService.createUserDocument({type: 'pasport', data:(this.pasportForm.value)}).pipe(
-      finalize(()=>{
-        this.loaderService.hideLoading()
-      })
     ).subscribe((res:any)=>{
     })
   }
-
-  createPolis(){
-      this.userService.createUserDocument({type: 'polis', data:(this.polisForm.value)}).pipe(
-      finalize(()=>{
-        this.loaderService.hideLoading()
-      })
-    ).subscribe((res:any)=>{
-    })
-  }
+   
+ }
 
   //Проверяю изменились ли данные у пользователя
   checkChangeInPersonalform(){
@@ -215,28 +353,33 @@ export class EventsViewPageComponent  implements OnInit {
       oldPersonal.phoneNumber = oldPersonal.phone_number;
       oldPersonal.startNumber = oldPersonal.start_number;
       oldPersonal.rankNumber = oldPersonal.rank_number;
+      oldPersonal.group = ''
+      this.personalUserForm.patchValue({
+        group:''
+      })
       oldPersonal.motoStamp = oldPersonal.moto_stamp;
-    
+      oldPersonal.numberAndSeria = oldPersonal.number_and_seria
       // Удаляем старые названия
       delete oldPersonal.date_of_birth;
       delete oldPersonal.phone_number;
       delete oldPersonal.start_number;
       delete oldPersonal.rank_number;
       delete oldPersonal.moto_stamp;
-    
-      console.log("Old Personal:", oldPersonal);
-      console.log("Form Data:", this.personalUserForm.value);
-    
+      delete oldPersonal.number_and_seria
       // Приводим объекты к единому виду
       const normalizedOld = normalizeObject(oldPersonal);
       const normalizedForm = normalizeObject(this.personalUserForm.value);
     
+      this.personalUserForm.patchValue({
+        group:""
+      })
+
       // Используем Lodash
       personalFormChange = _.isEqual(normalizedOld, normalizedForm);
 
+      console.log()
       //Если обьекты различаются
       if(!personalFormChange){
-        console.log('хочу сохранить данные')
         this.changePersonalDateModalValue = true
       }
     }
@@ -278,33 +421,51 @@ export class EventsViewPageComponent  implements OnInit {
 
   }
 
-   setFirstDocuments(){
-    let documents = []
+   setFirstDocuments() {
     this.userService.getUserDocuments().pipe(
       finalize(()=>{
         this.loaderService.hideLoading()
       }),
-    ).subscribe((res:any)=>{
-      documents = res.documents
-      if(documents.length == 0){
-        this.createLicenses()
-        this.createPasport()
-        this.createPolis()
-      }
-    })
+      ).subscribe((res:any)=>{
+        console.log(res.documents)
+        let licensesDocument = res.documents.find((doc:any)=> doc.type === 'licenses')
+        let polisDocument = res.documents.find((doc:any)=> doc.type === 'polis')
+        let notariusDocument = res.documents.find((doc:any)=> doc.type === 'notarius')
+        if(!licensesDocument){
+          this.createLicenses()
+        }
+        if(!polisDocument){
+          this.createPolis()
+        }
+        if(!notariusDocument){
+          this.createNotarius()
+        }
+      })
    }
 
     openApplicationForm(){
-      if(this.authService.isAuthenticated()){
+      let isLoggedIn:boolean = this.authService.isAuthenticated()
+      if(this.authService.isAuthenticated() && this.userService.user.value?.roles.length){
         this.applicationFormValueState = true
-      }else{
+      }else if(this.authService.isAuthenticated() && !this.userService.user.value?.roles.length){
+        this.toastService.showToast('Что бы отправить заявку измените статус','warning')
+        this.navController.navigateForward('/settings')
+      } else{
+        this.toastService.showToast('Что бы отправить заявку авторизируйтесь','warning')
         this.navController.navigateForward('/login')
       }
-     
     }
     closeApplicationForm(){
       this.applicationFormValueState = false
     }
+
+    closeRegionModal(){
+      this.regionModalState = false
+    }
+    openRegionModal(){
+      this.regionModalState = true
+    }
+  
 
   getEvent(){
     this.loadingService.showLoading()
@@ -330,14 +491,18 @@ export class EventsViewPageComponent  implements OnInit {
   }
 
 
-
-  toggleAplicationInRace(){
+  async toggleAplicationInRace(){
+    await this.setFirstDocuments()
+    await this.setDocuments()
     if(this.submitValidate()){
       let currentForm = {
         ...this.personalUserForm.value,
         ...this.polisForm.value,
         ...this.licensesForm.value,
         ...this.pasportForm.value,
+        licensesFileLink: this.licensesFile.path,
+        polisFileLink: this.polisFile.path,
+        notariusFileLink: this.notariusFile.path,
       }
       const fd: FormData = new FormData();
       fd.append('data',  JSON.stringify(currentForm))
@@ -352,14 +517,13 @@ export class EventsViewPageComponent  implements OnInit {
           this.getEvent()
           //Если пользователь не имел персональных данных
           this.setFirstUserPersonal()
-          this.setFirstDocuments()
+      
           this.checkChangeInPersonalform()
           this.toastService.showToast('Заявка успешно отправленна','success')
       })
     }else{
-      this.toastService.showToast('Заполните обязательные поля - Фамилия, имя, адрес, спортивное звание','danger')
+      this.toastService.showToast('Заполните обязательные поля - Фамилия, имя, область, класс, спортивное звание','danger')
     }
-      
   }
 
   
@@ -373,39 +537,63 @@ export class EventsViewPageComponent  implements OnInit {
         phoneNumber: this.userService.user.value?.personal.phone_number,
         startNumber: this.userService.user.value?.personal.start_number,
         rankNumber: this.userService.user.value?.personal.rank_number,
-        motoStamp:  this.userService.user.value?.personal.moto_stamp
+        motoStamp:  this.userService.user.value?.personal.moto_stamp,
+        numberAndSeria: this.userService.user.value?.personal.number_and_seria,
+        group:''
       })
-      console.log(this.personalUserForm.value)
     }else{
       this.personalUserForm.reset()
     }
   }
-  setUserInDocuments(){
-    this.userService.getUserDocuments().pipe(
+
+
+  setDocuments(){
+    return this.userService.getUserDocuments().pipe(
       finalize(()=>{
         this.loaderService.hideLoading()
       })
-    ).subscribe((res:any)=>{
-      if(res.documents.length){
-        this.licensesForm.patchValue((res.documents.find((doc:any)=> doc.type === 'licenses').data))
-        this.polisForm.patchValue((res.documents.find((doc:any)=> doc.type === 'polis').data))
-        this.pasportForm.patchValue((res.documents.find((doc:any)=> doc.type === 'pasport').data))
+      ).subscribe((res:any)=>{
+      if(res.documents){
+        if(res.documents.find((doc:any)=> doc.type === 'licenses')?.data){
+          let licensesDocument = res.documents.find((doc:any)=> doc.type === 'licenses')
+          this.licensesForm.patchValue(JSON.parse((res.documents.find((doc:any)=> doc.type === 'licenses')?.data)))
+          this.licensesFile = {name:'Лицензия загружена', path:  `${environment.BASE_URL}` + '/document/'+ licensesDocument.id } 
+        }
+        if((res.documents.find((doc:any)=> doc.type === 'polis')?.data)){
+          let polisDocument = res.documents.find((doc:any)=> doc.type === 'polis')
+          this.polisForm.patchValue(JSON.parse((res.documents.find((doc:any)=> doc.type === 'polis')?.data)))
+          this.polisFile = {name:'Полис загружен', path:  `${environment.BASE_URL}` + '/document/' + polisDocument.id}
+        }
+        if(res.documents.find((doc:any)=> doc.type === 'pasport')?.data){
+          this.pasportForm.patchValue(JSON.parse(res.documents.find((doc:any)=> doc.type === 'pasport')?.data))
+        } 
+        if(res.documents.find((doc:any)=> doc.type === 'notarius')?.path){
+          let notariusDocument = res.documents.find((doc:any)=> doc.type === 'notarius')
+          this.notariusFile = {name:'Согласие загружено', path: `${environment.BASE_URL}` + '/document/' + notariusDocument.id}
+          this.oldNotariusFile = {name:'Согласие загружено',  path:  `${environment.BASE_URL}` + '/document/'+ notariusDocument.id}
+        } 
       }
+     
     })
   }
 
-  getUserDocuments(){
-    this.userService.getUserDocuments().pipe().subscribe((res:any)=>{
-      console.log(res)
-    })
+  setFormValue(){
+    this.setDocuments()
   }
-  submitForm(){
+
+  setLicensesFile(event:any){
+    let file = event.target.files[0]
+    this.licensesFile = file
+  }
+
+  setNotariusFile(event:any){
+    let file = event.target.files[0]
+    this.notariusFile = file
   }
 
   getUsersInRace(){
     this.eventService.getUsersInRace(this.eventId).pipe().subscribe((res:any)=>{
       this.usersInRace = res.users
-      console.log(res)
     })
   }
 
@@ -423,7 +611,7 @@ export class EventsViewPageComponent  implements OnInit {
       const control = this.personalUserForm.get(key); // Доступ к контролу
       if (!control!.valid) {
         if(this.formErrors[key]){
-          this.formErrors[key].errorMessage = 'Обязательное поле'; // Сообщение об ошибке
+          this.formErrors[key].errorMessage = 'Обязательное поле'; 
            valid = false
         }
       } else {
@@ -432,10 +620,12 @@ export class EventsViewPageComponent  implements OnInit {
           }
       }
     });
+    console.log(this.formErrors)
     return valid
   }
 
   ionViewWillEnter(){
+    this.getRegions()
     this.route.params.pipe(takeUntil(this.destroy$)).pipe(
       finalize(()=>{
       })
@@ -444,8 +634,7 @@ export class EventsViewPageComponent  implements OnInit {
         this.getEvent()
         this.getUsersInRace()
         if(this.authService.isAuthenticated()){
-          this.getUserDocuments()
-          this.setUserInDocuments()
+          this.setFormValue()
           this.setUserInForm()
         }
       })

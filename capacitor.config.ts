@@ -2,8 +2,12 @@ import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'com.policam.motokros',
-  appName: 'motokros',
-  webDir: 'www/browser'
+  appName: 'Мотокросс',
+  webDir: 'www/browser',
+  bundledWebRuntime: false,
+  server: {
+    url: 'https://dev-moto.vokrug.city',
+  },
 };
 
 export default config;

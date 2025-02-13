@@ -6,9 +6,8 @@
         <div class="main-container--with-header">
           <div class="track__header">
             <img src="{{track.images ? (track.images[0] | checkImgUrl) : '' | checkImgUrl}}" alt="" class="track-header__avatar">
-        
             <div class="track__status">
-              <div class="track__status__circle" style="background-color: {{track.is_work ? 'var(--green-color)' : 'var(--red-color)'}};"></div>
+              <div class="track__status__circle" style="background-color: {{track.is_work ? 'var(--green-color)' : 'var(--red-color)'}}"></div>
               {{track.is_work ? 'Работает' : 'Закрыто'}}
             </div>
         </div>
@@ -33,10 +32,10 @@
         <div class="track__info main-container">
           <div class="specifications">
             <div class="standart-heading">О треке</div>
-            <div class="specifications__item">
+            <!-- <div class="specifications__item">
               <div class="specifications__item__title">Вход на трек</div>
               <div class="specifications__item__value">{{track.free ? 'Бесплатный' : 'Платный'}}</div>
-            </div>
+            </div> -->
             @for (specification of track.spec; track $index) {
               <div class="specifications__item">
                 <div class="specifications__item__title">{{specification.title}}</div>
@@ -60,7 +59,7 @@
           </div>
           <div *ngIf="track.desc" class="description">
             <!-- <div class="standart-heading">Описание трека</div> -->
-            <div class="description__text">{{track.desc}}</div>
+            <div [innerHTML]="clearDescription()" class="description__text">{{track.desc}}</div>
           </div>
 
           <div class="map">

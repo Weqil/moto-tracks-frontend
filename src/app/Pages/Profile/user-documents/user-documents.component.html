@@ -1,47 +1,79 @@
 <ion-content>
-  <app-header headerTitle="Документы участника"></app-header>
+  <app-header headerTitle="Анкета"></app-header>
   <main class="main-container--with-header">
 
-    <div class="document-header">Лицензии</div>
-    <div class="licenses document-container">
-      <app-standart-input [control]="licensesForm.get('licensesNumber')" placeholder="Лицензия МФР" label="Лицензия МФР (тип, №):"></app-standart-input>
-      <app-standart-input [control]="licensesForm.get('licensesFileLink')" placeholder="Введите ссылку на файл документа" label="Введите ссылку на файл"></app-standart-input>
-    </div>
+        <div class="input-container">
+        <app-standart-input [control]="personalUserForm.get('surname')" [errorMessage]="formErrors.surname.errorMessage" [invalid]="formErrors.surname.errorMessage.length !== 0" placeholder="Введите фамилию" label="Фамилия"></app-standart-input>
+        <app-standart-input [control]="personalUserForm.get('name')" [errorMessage]="formErrors.name.errorMessage" [invalid]="formErrors.name.errorMessage.length !== 0" placeholder="Введите имя" label="Имя"></app-standart-input>
+        <app-standart-input [control]="personalUserForm.get('patronymic')" placeholder="Введите отчество" label="Отчество"></app-standart-input>
+        <app-standart-input [control]="personalUserForm.get('phoneNumber')" placeholder="Номер телефона" label="Телефон"></app-standart-input>
+        <app-standart-input [control]="personalUserForm.get('numberAndSeria')" placeholder="Серия, номер" label="Паспорт"></app-standart-input>
+        <app-standart-input [control]="personalUserForm.get('dateOfBirth')" placeholder="Выберите дату" label="Дата рождения" type="date"></app-standart-input>
+        <app-standart-input (click)="openRegionModal()" [readonly]="true" label="Область/край" [control]="personalUserForm.get('city')" placeholder="Выберите область вашу область"></app-standart-input>          
+        <ion-modal  (didDismiss)="closeRegionModal()"  [isOpen]="regionModalState">
+          <ng-template>
+            <ion-content>
+              <div class="region-modal-container">
+                <app-standart-input-search label="Область/край" [searchCurrentItems]="searchRegionItems" [searchItems]="searchRegionItems" (changeSearchValue)="setRegion($event)"></app-standart-input-search>
+              </div>
+            </ion-content>
+          </ng-template>  
+        </ion-modal>
+        <div class="start-number-container">
+          <app-standart-input [control]="personalUserForm.get('inn')" placeholder="ИНН" label="ИНН"></app-standart-input>
+          <app-standart-input [control]="personalUserForm.get('snils')" placeholder="СНИЛС" label="СНИЛС"></app-standart-input>
+        </div>
 
-     @if (!oldLicensesValue) {
-      <app-standart-button (click)="createLicenses()" [disabled]="!validateLicenses()" buttonText="Сохранить"></app-standart-button>
-     }
-     @else {
-      <app-standart-button (click)="updateLicenses()" [disabled]="!validateLicenses()" buttonText="Изменить"></app-standart-button>
-     }
+        <app-standart-input [control]="personalUserForm.get('rankNumber')" placeholder="№ удостоверения (МСМК, МС, КМС)" label="№ удостоверения"></app-standart-input>
+
+        <div class="start-number-container">
+          <app-standart-input  [control]="personalUserForm.get('startNumber')" [maxLength]="3" type="number" [invalid]="formErrors.startNumber.errorMessage.length !== 0" [errorMessage]="formErrors.startNumber.errorMessage" placeholder="Стартовый номер" label="Стартовый номер"></app-standart-input>
+        </div>
+        <app-standart-input-select selectedName="engineSelect" [items]="engineItems" (onChange)="setEngine($event)" [selectedItem]="{name:personalUserForm.value.engine, value:personalUserForm.value.engine}" label="Тип двигателя"></app-standart-input-select>
+  
+        <app-standart-input-select selectedName="motoStampSelect" [items]="motoStampItems" (onChange)="setMotoStamp($event)" [selectedItem]="{name:personalUserForm.value.motoStamp, value:personalUserForm.value.motoStamp}" label="Марка мотоцикла"></app-standart-input-select>
+        <app-standart-input-select selectedName="rankSelect" [items]="sportRankItems" (onChange)="setRank($event)" [selectedItem]="{name:personalUserForm.value.rank, value:personalUserForm.value.rank}" label="Спортивное звание, разряд"></app-standart-input-select>
+
+        
+
+        <app-standart-input [control]="personalUserForm.get('community')" placeholder="Команда" label="Навзание команды"></app-standart-input>
+        <app-standart-input [control]="personalUserForm.get('coach')" placeholder="Тренер" label="ФИО тренера"></app-standart-input>
+        <div class="user-document-container">
+          <div class="document-header">Лицензии</div>
+          <div class="licenses document-container">
+            <app-standart-input [control]="licensesForm.get('licensesNumber')" placeholder="Лицензия МФР" label="Лицензия МФР (тип, №):"></app-standart-input>
+            <span class="scan-header">Скан или фотография Лицензии</span>
+            <app-file-input (click)="licensesFileInput.click()" [fileName]="licensesFile.name"></app-file-input>
+            <input (change)="setLicensesFile($event)" #licensesFileInput style="display: none;"  type="file">
+          </div>
     
-    <div class="document-header">Страховой полис</div>
-    <div class="polis document-container">
-      <app-standart-input [control]="polisForm.get('polisNumber')" placeholder="Серия, номер" label="Серия и номер"></app-standart-input>
-      <app-standart-input [control]="polisForm.get('issuedWhom')" placeholder="Кем выдан" label="Кем выдан"></app-standart-input>
-      <app-standart-input [control]="polisForm.get('itWorksDate')" placeholder="Срок действия" type="date" label="Срок действия"></app-standart-input>
-      <app-standart-input [control]="polisForm.get('polisFileLink')" placeholder="Введите ссылку на скан документа" label="Введите ссылку на файл документа"></app-standart-input>
-    </div>
+        </div>
 
-      @if (!oldPolisValue) {
-        <app-standart-button (click)="createPolis()" [disabled]="!validatePolis()" buttonText="Сохранить"></app-standart-button>
-      }
-      @else {
-        <app-standart-button (click)="updatePolis()" [disabled]="!validatePolis()" buttonText="Изменить"></app-standart-button>
-      }
+        <div class="user-document-container">
+          <div class="document-header">Страховой полис</div>
+          <div class="polis document-container">
+            <app-standart-input [control]="polisForm.get('polisNumber')" placeholder="Серия, номер" label="Серия и номер"></app-standart-input>
+            <app-standart-input [control]="polisForm.get('issuedWhom')" placeholder="Кем выдан" label="Кем выдан"></app-standart-input>
+            <app-standart-input [control]="polisForm.get('itWorksDate')" placeholder="Срок действия" type="date" label="Срок действия"></app-standart-input>
+            <span class="scan-header">Скан или фотография Страхового полиса</span>
+            <app-file-input  [fileName]="polisFile.name" (click)="polisFileInput.click()"></app-file-input>
+            <input (change)="setPolisFile($event)" #polisFileInput style="display: none;"  type="file">
+          </div>
 
-    <div class="document-header">Паспорт / Свидетельство о рождении</div>
-    <div class="pasportForm document-container">
-      <app-standart-input [control]="pasportForm.get('numberAndSeria')" placeholder="Серия, номер" label="Серия, номер"></app-standart-input>
-    </div>
-      @if (!oldPasportValue) {
-        <app-standart-button (click)="createPasport()" [disabled]="!validatePasport()" buttonText="Сохранить"></app-standart-button>
-      }
-      @else {
-        <app-standart-button (click)="updatePasport()" [disabled]="!validatePasport()" buttonText="Изменить"></app-standart-button>
-      }
-     
-   
+        </div>
+
+        <div class="user-document-container">
+          <div class="document-header">Нотариальное согласие</div>
+          <div class="polis document-container">
+            <span class="scan-header">Скан или фотография Нотариального согласия</span>
+            <app-file-input [fileName]="notariusFile.name" (click)="notariusFileInput.click()"></app-file-input>
+            <input (change)="setNotariusFile($event)" #notariusFileInput style="display: none;"  type="file">
+          </div>
+
+          <app-standart-button (click)="submitForm()" buttonText="Сохранить"></app-standart-button>
+        </div>
+        
+      </div>     
 
   </main>
 </ion-content>

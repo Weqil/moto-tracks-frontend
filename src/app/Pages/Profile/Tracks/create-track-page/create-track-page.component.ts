@@ -36,6 +36,13 @@ export class CreateTrackPageComponent  implements OnInit {
   platform:Platform = inject(Platform)
 
   newParams: [{temp_id:any, title:string, value:string}]|any = []
+
+  contactsForm: FormGroup = new FormGroup({
+    site: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    vk: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    phone: new FormControl('', [Validators.required, Validators.minLength(3)]),
+  })
+
   createTrackForm: FormGroup = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(3)]),
     address: new FormControl('', [Validators.required, Validators.minLength(3)]),
@@ -81,18 +88,10 @@ export class CreateTrackPageComponent  implements OnInit {
           if (
             this.createTrackForm.value.name.length <= 3 ||
             this.createTrackForm.value.desc.length <= 3 
-           || !this.createTrackForm.value.images.length
+           || !this.createTrackForm.value.address.length ||  !this.createTrackForm.value.latitude || !this.createTrackForm.value.longitude
           ) {
             return true
           } else {
-            return false
-          }
-        case 2:
-          if(
-            !this.createTrackForm.value.address.length ||  !this.createTrackForm.value.latitude || !this.createTrackForm.value.longitude
-          ){
-            return true
-          }else{
             return false
           }
           
@@ -104,13 +103,11 @@ export class CreateTrackPageComponent  implements OnInit {
     }
   }
   getImages(event:any){
-    console.log(event)
     this.createTrackForm.patchValue({
       images: event
     })
   }
   changeAddress(event:any){
-    console.log(event)
     if(event.latitude && event.longitude){
       this.createTrackForm.patchValue({
         latitude: event.latitude,
@@ -134,28 +131,29 @@ export class CreateTrackPageComponent  implements OnInit {
     }
   }
   submitForm(){
-
-    this.loadingService.showLoading()
-    let createTrackFormData: FormData = new FormData()
+    if(!this.stepInvalidate()){
+      this.loadingService.showLoading()
+      let createTrackFormData: FormData = new FormData()
+     
+      for(let key in this.createTrackForm.value){
+        createTrackFormData.append(key, this.createTrackForm.value[key])
+      }
+      for (var i = 0; i < this.createTrackForm.value.images.length; i++) {
+        createTrackFormData.append('images[]', this.createTrackForm.value.images[i])
+      }
+      this.trackService.createTrack(createTrackFormData).pipe(
+        catchError((err:serverError)=>{
+          this.toastService.showToast('Возникла ошибка','danger')
+          return EMPTY
+        }),
+        finalize(()=> this.loadingService.hideLoading())
+      ).subscribe((res:any)=>{
+        this.toastService.showToast('Трек успешно создан','success')
+        this.navController.back()
+      })
+    
+    } 
    
-    for(let key in this.createTrackForm.value){
-      createTrackFormData.append(key, this.createTrackForm.value[key])
-    }
-    for (var i = 0; i < this.createTrackForm.value.images.length; i++) {
-      createTrackFormData.append('images[]', this.createTrackForm.value.images[i])
-    }
-    this.trackService.createTrack(createTrackFormData).pipe(
-      catchError((err:serverError)=>{
-        this.toastService.showToast('Возникла ошибка','danger')
-        return EMPTY
-      }),
-      finalize(()=> this.loadingService.hideLoading())
-    ).subscribe((res:any)=>{
-      console.log(res)
-      this.toastService.showToast('Трек успешно создан','success')
-      this.navController.back()
-    })
-  
   }
 
   cancelCreate(){

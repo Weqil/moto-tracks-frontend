@@ -22,5 +22,12 @@ export class LoginService {
     return this.http.post<Login>(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/login`, registerForm)
   }
 
+  getCodeInEmailConfirm(){
+    return this.http.post(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/verification-email/send`,{})
+  }
+
+  submitCodeInEmail(code:string){
+    return this.http.post(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/verification-email/verify`,{code:Number(code)})
+  }
  
 }

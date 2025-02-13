@@ -1,7 +1,10 @@
 @if (event) {
+    
+   
  <div class="card">
+    
     <div (click)="redirectInTrack()" class="card__header">
-        <div class="card__header__track-avatar">
+        <div *ngIf="event.track" class="card__header__track-avatar">
             <img src="{{event.track.images ? (event.track.images[0] | checkImgUrl) : '' | checkImgUrl}}" class="card__header__track-avatar__img" src="" alt="">
         </div>
         {{event.track?.name}}
@@ -11,15 +14,18 @@
             <img src="{{event.images ? (event.images[0] | checkImgUrl) : '' | checkImgUrl}}" alt="">
         </div>
         <div class="card__footer">
+            
             <div class="event-name">
                 {{event.name}}
             </div>
             <div class="event-address">
                 {{event.track?.address}}
             </div>
-           
+           <div class="event-date">
+                {{event.date_start | date :'dd.MM.YYYY'}}
+            </div>
         </div>
     </div>
-   
+    <ng-content></ng-content>
  </div>
 }

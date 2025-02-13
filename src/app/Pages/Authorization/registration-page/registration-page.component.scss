@@ -1,10 +1,15 @@
 .login__logo{
     display: flex;
     justify-content: center;
+    opacity: 0;
     .login__logo__img{
         width: 7rem;
     }
   
+}
+
+.login{
+    padding-top: var(--standart-padding);
 }
 
 .login__form{
@@ -44,4 +49,35 @@
       color: var(--blue-primary-color);
       cursor: pointer;
     }
+  }
+
+  .ion-checkbox-container{
+    width: 90%;
+    display: flex;
+    font-size: var(--font-little-size);
+    padding-bottom: 1rem;
+    justify-content:flex-start;
+    align-items: center;
+    margin-left: 1rem;
+
+  }
+
+  /* Кастомизация чекбокса */
+
+    .fake-link{
+        color: var(--blue-primary-color);
+        padding-left: 2px;
+    }
+
+    .custom-checkbox {
+        --size: 24px; /* Устанавливаем размер чекбокса */
+        --border-radius: 0; /* Снимаем скругление, делаем квадратным */
+        --background-checked: #3880ff; /* Цвет для отмеченного состояния */
+        --background-unchecked: #fff; /* Цвет фона для неотмеченного состояния */
+        --border-width: 1px; /* Толщина рамки */
+        --border-color: #3880ff; /* Цвет рамки */
+        --checkmark-color: #ffffff; /* Цвет галочки */
+       
+        --checkbox-background: white;
+        margin-right: 10px; /* Отступ справа от чекбокса */
   }

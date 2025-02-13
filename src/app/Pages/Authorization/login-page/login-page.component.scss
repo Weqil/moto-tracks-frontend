@@ -1,10 +1,15 @@
 .login__logo{
     display: flex;
     justify-content: center;
+    opacity: 0;
     .login__logo__img{
         width: 7rem;
     }
   
+}
+
+.login{
+    padding-top: var(--standart-padding);
 }
 
 .login__form{

@@ -17,6 +17,8 @@ export class StandartInputComponent implements OnInit {
   @Input() placeholder: string = ''
   @Input() readonly: boolean = false
   @Input() maskType!: string
+  @Input() minLength: number = 0
+  @Input() maxLength!: number
   @Input() openPassword: boolean = false
   @Input() invalid: boolean = false
   @Input() disabled: boolean = false
@@ -32,7 +34,6 @@ export class StandartInputComponent implements OnInit {
 
   renderMask() {
     if (this.maskType == 'phone') {
-      console.log('маска для телефона')
       this.optionMask = {
         mask: ['+', '7', ' ', '(', /\d/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
       }

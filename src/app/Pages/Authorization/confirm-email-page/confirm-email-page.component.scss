@@ -1,0 +1,27 @@
+
+
+.verification__title{
+    margin-top: 3rem;
+    padding-bottom: .5rem;
+    font-family: var(--font-regular);
+    display: flex;
+    text-align: center;
+    font-size: 0.95rem;
+    padding-bottom: var(--standart-padding);
+}
+.verification-timer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: var(--standart-padding);
+    padding-bottom: var(--standart-padding);
+}
+
+.verification-timer__submit{
+
+}
+.verification-timer__submit--active{
+    font-family: var(--font-bold);
+    color: #3880ff;
+}

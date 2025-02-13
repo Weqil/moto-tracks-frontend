@@ -20,7 +20,7 @@ jobs:
 
           script: |
             cd ${{ secrets.DEV_PROJECT_DIR }};
-            git checkout Main;
+            git checkout Develop;
             git checkout -- .
             git -c credential.helper='!f() { echo "username=${{secrets.GIT_AUTH_NAME}}"; echo "password=${{secrets.GIT_AUTH_TOKEN}}"; }; f' pull
             docker service update --force moto_front_moto_node

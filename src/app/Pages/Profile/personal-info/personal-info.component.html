@@ -1,19 +1,11 @@
 <ion-content>
     <app-header headerTitle="Профиль участника"></app-header>
     <div class="main-container--with-header">
-      <div class="document-header">Лицензии</div>
-    <div class="document-container">
-      <div class="up-container">
-        <div class="user-section__avatar">
-          <img class="user-section__avatar__img" [src]="" alt="">
-        </div>
-        <app-standart-input class="up-container__input" [control]="personalUserForm.get('name')" [errorMessage]="formErrors.name.errorMessage" [invalid]="formErrors.name.errorMessage.length !== 0" placeholder="Введите Имя" label="Имя"></app-standart-input>
-      </div>
-      <div class="bottom-container">
-      <app-standart-input class="bottom-container__standart"[control]="personalUserForm.get('email')" [errorMessage]="formErrors.surname.errorMessage" [invalid]="formErrors.surname.errorMessage.length !== 0" placeholder="Введите Email" label="Email"></app-standart-input> 
-      </div>
-    </div>
-    <app-standart-button  [disabled]="true" buttonText="Сохранить"></app-standart-button>
+
+      
+    
+    
+
 
       <form class="personal-form">
         <app-standart-input [control]="personalUserForm.get('surname')" [errorMessage]="formErrors.surname.errorMessage" [invalid]="formErrors.surname.errorMessage.length !== 0" placeholder="Введите фмилию" label="Фамилия"></app-standart-input>
@@ -36,8 +28,10 @@
         <app-standart-input [control]="personalUserForm.get('coach')" placeholder="Тренер" label="ФИО тренера"></app-standart-input>
         <app-standart-input [control]="personalUserForm.get('motoStamp')" placeholder="Марка мотоцикла" label="Мотоцикл"></app-standart-input>
         <app-standart-input [control]="personalUserForm.get('engine')" placeholder="Двигатель мотоцикла" label="Двигатель"></app-standart-input>
+        <app-standart-input [control]="personalUserForm.get('numberAndSeria')" placeholder="Серия, номер" label="Паспорт"></app-standart-input>
+
         <app-standart-button [disabled]="true" (click)="cancelEdit()"  buttonText="Отмена"></app-standart-button>
         <app-standart-button (click)="submitForm()" buttonText="Сохранить"></app-standart-button>
       </form>
     </div>
-</ion-content>
+</ion-content>  
