@@ -58,6 +58,8 @@ export class SettingsComponent  implements OnInit {
    
 }
 
+  avatarUrl:string = ''
+
   userService:UserService = inject(UserService)
   toastService:ToastService = inject(ToastService)
   loaderService:LoadingService = inject(LoadingService)
@@ -97,6 +99,19 @@ export class SettingsComponent  implements OnInit {
   logoutInAccount() {
     this.authService.logout()
     this.navControler.navigateForward('/login',{  animated: false })
+  }
+
+  setAvatar(event:any){
+    const file = event.target.files[0]
+    if(file){
+      const reader: FileReader = new FileReader()
+      reader.onload = (e: any) => {
+        this.settingsAvatar = e.target.result
+        this.avatarUrl = e.target.result
+        console.log(this.avatarUrl)
+      }
+      reader.readAsDataURL(file)
+    }
   }
 
   ionViewWillEnter(){

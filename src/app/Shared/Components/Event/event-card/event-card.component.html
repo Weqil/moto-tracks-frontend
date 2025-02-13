@@ -4,7 +4,7 @@
  <div class="card">
     
     <div (click)="redirectInTrack()" class="card__header">
-        <div class="card__header__track-avatar">
+        <div *ngIf="event.track" class="card__header__track-avatar">
             <img src="{{event.track.images ? (event.track.images[0] | checkImgUrl) : '' | checkImgUrl}}" class="card__header__track-avatar__img" src="" alt="">
         </div>
         {{event.track?.name}}

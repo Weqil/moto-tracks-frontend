@@ -29,6 +29,7 @@ export class AuthService {
   }
 
   logout(){
+    localStorage.removeItem('authToken')
     this.cookieService.delete('authToken')
     this.token.next(null)
     this.authenticationState.next(false)
