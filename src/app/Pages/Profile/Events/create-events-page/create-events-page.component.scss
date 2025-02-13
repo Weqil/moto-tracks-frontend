@@ -39,6 +39,17 @@
 .step-description{
     padding-bottom: var(--standart-padding);
 }
+
+ion-modal{
+    --max-height:50%;
+    --width:90%;
+    --border-radius: 12px;
+    --overflow-y: hidden;
+}
+.region-modal-container{
+    padding: var(--standart-padding);
+}
+
 .photo-slider{
     padding-top: var(--standart-padding);
 }

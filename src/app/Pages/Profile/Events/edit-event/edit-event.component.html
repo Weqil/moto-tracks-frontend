@@ -5,6 +5,7 @@
       <app-step-container-item [maxStepsCount]="maxStepsCount" [stepCurrency]="stepCurrency" stepNum="1">
         <div class="name-wrapper">
           <app-standart-input label="Название" [control]="createEventForm.get('name')" placeholder="Введите название вашего соревнования"></app-standart-input>
+          <app-standart-input (click)="openRegionModal()" [readonly]="true" label="Область/край" [control]="createEventForm.get('region')" placeholder="Выберите область вашего соревнования"></app-standart-input>          
         </div>
   
         <div class="photo-slider">
@@ -34,6 +35,17 @@
         </div>
       </app-step-container-item>
     </app-step-container>
+
+    <ion-modal (didDismiss)="closeRegionModal()"  [isOpen]="regionModalState">
+      <ng-template>
+        <ion-content>
+          <div class="region-modal-container">
+            <app-standart-input-search label="Область/край" [searchCurrentItems]="searchRegionItems" [searchItems]="searchRegionItems" (changeSearchValue)="setRegion($event)"></app-standart-input-search>
+          </div>
+        </ion-content>
+      </ng-template>  
+    </ion-modal>
+
     <div class="navigate-buttons-container">
       <app-standart-button [disabled]="stepInvalidate()"  *ngIf="stepCurrency !== maxStepsCount" (click)="stepNext()" buttonText="Далее" theme="standart"></app-standart-button>
       <app-standart-button [disabled]="stepInvalidate()" (click)="submitForm()"  *ngIf="stepCurrency === maxStepsCount" buttonText="Сохранить" theme="standart"></app-standart-button>

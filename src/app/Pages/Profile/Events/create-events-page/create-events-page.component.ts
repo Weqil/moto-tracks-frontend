@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
 import { HeaderModule } from 'src/app/Shared/Modules/header/header.module';
-import { NavController } from '@ionic/angular/standalone';
+import { IonModal, NavController } from '@ionic/angular/standalone';
 import { StepsModule } from 'src/app/Shared/Modules/steps/steps.module';
 import { ButtonsModule } from 'src/app/Shared/Modules/buttons/buttons.module';
 import { FormsModule } from 'src/app/Shared/Modules/forms/forms.module';
@@ -19,11 +19,13 @@ import { selectedModule } from 'src/app/Shared/Modules/selected/selected.module'
 import { StandartInputSelectComponent } from "../../../../Shared/Components/UI/Selecteds/standart-input-select/standart-input-select.component";
 import { MapService } from 'src/app/Shared/Data/Services/Map/map.service';
 
+
 @Component({
   selector: 'app-create-events-page',
   templateUrl: './create-events-page.component.html',
   styleUrls: ['./create-events-page.component.scss'],
-  imports: [SharedModule, HeaderModule, StepsModule, ButtonsModule, FormsModule, EditSliderComponent, TrackModule, selectedModule, StandartInputSelectComponent]
+  imports: [SharedModule, HeaderModule, StepsModule, ButtonsModule, FormsModule, EditSliderComponent, TrackModule,
+     selectedModule, StandartInputSelectComponent, IonModal]
 })
 export class CreateEventsPageComponent  implements OnInit {
 
@@ -39,12 +41,16 @@ export class CreateEventsPageComponent  implements OnInit {
   maxStepsCount: number = 1
   stepCurrency: number = 1
 
-  searchRegionItems:string[] = []
+  locationId:string = ''
+
+  searchRegionItems:any[] = []
 
   mapService:MapService = inject(MapService)
 
   reglamentFile!:File
   positionFile!:File
+
+  regionModalState:boolean = false
 
   tracks!: Track[] 
 
@@ -53,6 +59,7 @@ export class CreateEventsPageComponent  implements OnInit {
     desc: new FormControl('', [Validators.required, Validators.minLength(3)]),
     images: new FormControl('', [Validators.required, Validators.minLength(1)]),
     region:new FormControl('', [Validators.required, Validators.minLength(1)]),
+    locationId: new FormControl('', [Validators.required, Validators.minLength(1)]),
     dateStart: new FormControl('', [Validators.required, Validators.minLength(1)]),
   })
   navController: NavController = inject(NavController)
@@ -64,11 +71,21 @@ export class CreateEventsPageComponent  implements OnInit {
       this.navController.back()
     }
   }
+  closeRegionModal(){
+    this.regionModalState = false
+  }
+  openRegionModal(){
+    this.regionModalState = true
+  }
+  
 
   getRegions(){
     this.mapService.getAllRegions().pipe().subscribe((res:any)=>{
       res.data.forEach((region:any) => {
-        this.searchRegionItems.push(`${region.name} ${region.type}`)
+        this.searchRegionItems.push({
+          name:`${region.name} ${region.type}`,
+          value:region.id
+        })
       });
     })
   }
@@ -82,8 +99,11 @@ export class CreateEventsPageComponent  implements OnInit {
     }
   }
   
-  setRegion(region:string){
-    this.createEventForm.patchValue({region})
+  setRegion(region:any){
+    this.closeRegionModal()
+    this.locationId = region.value
+    this.createEventForm.patchValue({region:region.name})
+    this.createEventForm.patchValue({locationId:region.value})
   }
 
   setPositionFile(file: any) {
@@ -104,10 +124,12 @@ export class CreateEventsPageComponent  implements OnInit {
       this.tracks = res.tracks
     })
   }
+
   selectTrack(track:Track){
     this.trackSelected = track
     this.closeTrackSelectModalFunction()
   }
+
   stepInvalidate() {
     if (this.createEventForm.value) {
       switch (this.stepCurrency) {
@@ -117,7 +139,7 @@ export class CreateEventsPageComponent  implements OnInit {
             this.createEventForm.value.desc.length <= 3 
            || !this.createEventForm.value.images.length ||   
            !this.createEventForm.value.dateStart 
-           ||  !this.trackSelected
+           ||  !this.trackSelected || !this.locationId
           ) {
             return true
           } else {

@@ -4,9 +4,9 @@
 </form>
 
 <div [attr.name]="selectedName" class="dropdown-wrapper">
-  <div *ngIf="searchCurrentItems && searchCurrentItems.length > 0" [ngClass]="{'dropdown-content':!searchCurrentItems.length, 'dropdown-content--active':searchCurrentItems.length}">
+  <div сlass='dropdown-content--active'>
       <div (click)="setSearchItem(item)" *ngFor="let item of searchCurrentItems" class="dropdown-content__item standart-input">
-          {{item}}
+          {{item.name}}
       </div>
   </div>
 </div>

@@ -29,6 +29,7 @@ import { serverError } from 'src/app/Shared/Data/Interfaces/errors';
 import { StandartInputSelectComponent } from 'src/app/Shared/Components/UI/Selecteds/standart-input-select/standart-input-select.component';
 import { environment } from 'src/environments/environment';
 import { group } from '@angular/animations';
+import { MapService } from 'src/app/Shared/Data/Services/Map/map.service';
 
 @Component({
   selector: 'app-events-view-page',
@@ -49,12 +50,13 @@ export class EventsViewPageComponent  implements OnInit {
   navController: NavController = inject(NavController)
   loadingService: LoadingService = inject(LoadingService)
   switchTypeService:SwitchTypeService = inject(SwitchTypeService)
+  mapService:MapService = inject(MapService)
   changePersonalDateModalValue:boolean = false
   usersInRace:User[] = []
   event!:IEvent
   openUserModalValue:boolean = false
   raceUser!:User
-
+  searchRegionItems:any[] = []
   licensesFile:any =''
   polisFile:any = ''
   notariusFile:any = ''
@@ -62,6 +64,8 @@ export class EventsViewPageComponent  implements OnInit {
   oldNotariusFile:any
 
   oldPolisFile:any
+
+  regionModalState:boolean = false
 
   ngZone: NgZone = inject(NgZone)
   documents:any = []
@@ -190,6 +194,22 @@ export class EventsViewPageComponent  implements OnInit {
      this.toastService.showToast('Файл уже был загружен, измените его в анкете участника','primary')
  
    }
+
+   setRegion(region:any){
+    this.closeRegionModal()
+    this.personalUserForm.patchValue({city:region.name})
+   }
+
+   getRegions(){
+    this.mapService.getAllRegions().pipe().subscribe((res:any)=>{
+      res.data.forEach((region:any) => {
+        this.searchRegionItems.push({
+          name:`${region.name} ${region.type}`,
+          value:region.id
+        })
+      });
+    })
+  }
 
     formatingText(text:string): string{
       return text.replace(/\n/g, '<br>').replace(/  /g, '&nbsp;&nbsp;');;
@@ -439,7 +459,13 @@ export class EventsViewPageComponent  implements OnInit {
       this.applicationFormValueState = false
     }
 
-
+    closeRegionModal(){
+      this.regionModalState = false
+    }
+    openRegionModal(){
+      this.regionModalState = true
+    }
+  
 
   getEvent(){
     this.loadingService.showLoading()
@@ -496,8 +522,7 @@ export class EventsViewPageComponent  implements OnInit {
           this.toastService.showToast('Заявка успешно отправленна','success')
       })
     }else{
-    
-      this.toastService.showToast('Заполните обязательные поля - Фамилия, имя, адрес, спортивное звание','danger')
+      this.toastService.showToast('Заполните обязательные поля - Фамилия, имя, область, класс, спортивное звание','danger')
     }
   }
 
@@ -600,7 +625,7 @@ export class EventsViewPageComponent  implements OnInit {
   }
 
   ionViewWillEnter(){
-
+    this.getRegions()
     this.route.params.pipe(takeUntil(this.destroy$)).pipe(
       finalize(()=>{
       })
