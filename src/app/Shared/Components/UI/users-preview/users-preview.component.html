@@ -4,7 +4,7 @@
             <div  style="background-image:url('{{user.avatar | checkImgUrl}}');" class="users_avatars-user"></div>
         </ng-container>
        
-        <div *ngIf="moreCount" class="users_avatars-user-more">+{{moreCount}}</div>
+        <div *ngIf="moreCount" class="users_avatars-user-more">{{fullValueUsers}}</div>
     </div>
 </div>
 
