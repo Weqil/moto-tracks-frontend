@@ -11,8 +11,8 @@ export class StandartInputSelectComponent  implements OnInit {
 
   constructor() { }
 @HostListener('document:click', ['$event'])
-onClick(event: MouseEvent): void {
-    let target = event.target as HTMLElement
+ onClick(event: MouseEvent): void {
+let target = event.target as HTMLElement
   if (target.getAttribute('name') !== this.selectedName) {
         this.stateValue = false
     }

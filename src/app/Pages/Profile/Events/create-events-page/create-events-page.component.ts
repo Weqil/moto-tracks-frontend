@@ -17,6 +17,7 @@ import { serverError } from 'src/app/Shared/Data/Interfaces/errors';
 import { ToastService } from 'src/app/Shared/Services/toast.service';
 import { selectedModule } from 'src/app/Shared/Modules/selected/selected.module';
 import { StandartInputSelectComponent } from "../../../../Shared/Components/UI/Selecteds/standart-input-select/standart-input-select.component";
+import { MapService } from 'src/app/Shared/Data/Services/Map/map.service';
 
 @Component({
   selector: 'app-create-events-page',
@@ -37,6 +38,10 @@ export class CreateEventsPageComponent  implements OnInit {
   
   maxStepsCount: number = 1
   stepCurrency: number = 1
+
+  searchRegionItems:string[] = []
+
+  mapService:MapService = inject(MapService)
 
   reglamentFile!:File
   positionFile!:File
@@ -60,6 +65,14 @@ export class CreateEventsPageComponent  implements OnInit {
     }
   }
 
+  getRegions(){
+    this.mapService.getAllRegions().pipe().subscribe((res:any)=>{
+      res.data.forEach((region:any) => {
+        this.searchRegionItems.push(`${region.name} ${region.type}`)
+      });
+    })
+  }
+
   setReglamentFile(file: any) {
     const selectedFile = file.target.files[0];
     if (selectedFile && selectedFile.type === "application/pdf") {
@@ -69,6 +82,10 @@ export class CreateEventsPageComponent  implements OnInit {
     }
   }
   
+  setRegion(region:string){
+    this.createEventForm.patchValue({region})
+  }
+
   setPositionFile(file: any) {
     const selectedFile = file.target.files[0];
     if (selectedFile && selectedFile.type === "application/pdf") {
@@ -136,6 +153,7 @@ export class CreateEventsPageComponent  implements OnInit {
   }
 
   ionViewWillEnter(){
+    this.getRegions()
     this.getTracks()
   }
 

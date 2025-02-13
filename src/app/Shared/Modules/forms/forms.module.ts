@@ -4,6 +4,7 @@ import { StandartInputComponent } from '../../Components/Forms/standart-input/st
 import { StandartRichInputComponent } from '../../Components/Forms/standart-rich-input/standart-rich-input.component';
 import { AddressInputComponent } from '../../Components/Forms/address-input/address-input.component';
 import { FileInputComponent } from '../../Components/Forms/file-input/file-input.component';
+import { StandartInputSearchComponent } from '../../Components/Forms/standart-input-search/standart-input-search.component';
 
 @NgModule({
   declarations: [],
@@ -13,11 +14,13 @@ import { FileInputComponent } from '../../Components/Forms/file-input/file-input
     StandartRichInputComponent,
     AddressInputComponent,
     FileInputComponent,
+    StandartInputSearchComponent
   ],
   exports: [
     StandartInputComponent,
     StandartRichInputComponent,
-    FileInputComponent
+    FileInputComponent,
+    StandartInputSearchComponent
   ]
 })
 export class FormsModule { }
