@@ -53,8 +53,27 @@
     font-size: var(--font-little-size);
     background-color: var(--blue-primary-color);
     border-radius: 8px;
-    display: inline-flex;
-    
-    
-    
+    display: inline-flex;   
+    height: 2rem;
+}
+
+.users-in-event{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.5rem;
+    img{
+        height: 1rem;
+        max-width: 1rem;
+    }
+}
+.bottom-info{
+    display: flex;
+    justify-content: space-between;
+    padding: var(--little-padding);
+    padding-right: var(--standart-padding);
+    height: 4rem;
+    align-items: center;
+    max-width: 100%;
 }

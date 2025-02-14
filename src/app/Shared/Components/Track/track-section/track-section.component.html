@@ -11,7 +11,7 @@
     </div>
   </div>
   
-  <div class="track__status">
+  <div class="track__status" *ngIf="!hidhtStatus">
     <div class="track__status__circle" style="background-color: {{track.is_work ? 'var(--green-color)' : 'var(--red-color)'}}"></div>
   </div>
 </div>

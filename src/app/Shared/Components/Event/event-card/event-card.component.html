@@ -21,9 +21,19 @@
             <div class="event-address">
                 {{event.track?.address}}
             </div>
-           <div class="event-date">
+
+            <div class="bottom-info">
+
+            <div class="event-date">
                 {{event.date_start | date :'dd.MM.YYYY'}}
             </div>
+
+                <div *ngIf="event.appointment_count" class="users-in-event">
+                    <img src="/assets/navigation/user.svg" alt="">
+                    {{event.appointment_count?.count}} 
+                </div>
+        </div>
+
         </div>
     </div>
     <ng-content></ng-content>

@@ -13,7 +13,7 @@ import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
 export class TrackSectionComponent  implements OnInit {
 
   constructor() { }
-
+  @Input() hidhtStatus!:boolean
   @Input() track!:Track
   @Input() loading!:boolean
   checkImage(){
