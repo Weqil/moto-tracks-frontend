@@ -8,7 +8,6 @@ import { EventService } from 'src/app/Shared/Data/Services/Event/event.service';
 import { TrackService } from 'src/app/Shared/Data/Services/Track/track.service';
 import { ButtonsModule } from 'src/app/Shared/Modules/buttons/buttons.module';
 import { FormsModule } from 'src/app/Shared/Modules/forms/forms.module';
-import { NavController } from '@ionic/angular';
 import { HeaderModule } from 'src/app/Shared/Modules/header/header.module';
 import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
 import { StepsModule } from 'src/app/Shared/Modules/steps/steps.module';
@@ -21,15 +20,16 @@ import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
 import { IEvent } from 'src/app/Shared/Data/Interfaces/event';
 import { CheckImgUrlPipe } from 'src/app/Shared/Helpers/check-img-url.pipe';
 import { environment } from 'src/environments/environment';
-import { IonModal } from '@ionic/angular/standalone';
+import { IonCheckbox, IonModal, NavController } from '@ionic/angular/standalone';
 import { MapService } from 'src/app/Shared/Data/Services/Map/map.service';
+import { GroupService } from 'src/app/Shared/Data/Services/Race/group.service';
 
 
 @Component({
   selector: 'app-edit-event',
   templateUrl: './edit-event.component.html',
   styleUrls: ['./edit-event.component.scss'],
-  imports: [SharedModule,HeaderModule,StepsModule,ButtonsModule,FormsModule,EditSliderComponent,TrackModule,IonModal]
+  imports: [SharedModule,HeaderModule,StepsModule,ButtonsModule,FormsModule,EditSliderComponent,TrackModule,IonModal,IonCheckbox]
 })
 export class EditEventComponent  implements OnInit {
 
@@ -42,6 +42,8 @@ export class EditEventComponent  implements OnInit {
 
     eventId: string = ''
     
+    groupModal:boolean = false
+
     checkImgUrlPipe:CheckImgUrlPipe = inject(CheckImgUrlPipe)
 
     route: ActivatedRoute = inject(ActivatedRoute)
@@ -63,12 +65,19 @@ export class EditEventComponent  implements OnInit {
 
     maxStepsCount: number = 1
     stepCurrency: number = 1
+    allClassesState:boolean = true
 
     locationId:string = ''
 
     sliderImages:any
 
+    newGroupInputValue:string = ''
+    userGroups:any[] = []
+    allUsersGroups:any[] = []
+    selectedGroup:any[] = []
+
     searchRegionItems:any[] = []
+    groupService:GroupService = inject(GroupService)
 
     mapService:MapService = inject(MapService)
 
@@ -97,7 +106,48 @@ export class EditEventComponent  implements OnInit {
         }else{
           this.navController.back()
         }
+     }
+
+    trackHaveInUserSelected(event:any){
+      return !!this.selectedGroup.find((item:any) => item.id === event.id)
+    }
+
+    changeGroup(event:any, group:any){
+      if(this.selectedGroup.find((item:any) => item.id === group.id)){
+        this.selectedGroup = this.selectedGroup.filter((item: any) => item.id !== group.id)
       }
+      else {
+        this.selectedGroup.push(group)
+      }
+     }
+     
+     setNewGroupInputValue(event:any){
+      this.newGroupInputValue = event.target.value
+     }
+
+     getAllGroups(){
+      this.groupService.getAllGroup({userId:this.userService.user.value?.id}).pipe().subscribe((res:any)=>{
+       this.userGroups = res.grades
+      })
+      this.groupService.getAllGroup().pipe().subscribe((res:any)=>{
+       this.allUsersGroups = res.grades
+      })
+     }
+
+     createNewGroup(){
+      if(this.newGroupInputValue.length){
+        this.loadingService.showLoading()
+        this.groupService.createGroup({name:this.newGroupInputValue}).pipe(
+          finalize(()=>{
+            this.loadingService.hideLoading()
+          })
+        ).subscribe((res:any)=>{
+          this.getAllGroups()
+          this.toastService.showToast('Новый класс гонки создан успешно','success')
+          this.newGroupInputValue = ''
+        })
+      }
+    }
 
       setRegion(region:any){
         this.closeRegionModal()
@@ -114,6 +164,17 @@ export class EditEventComponent  implements OnInit {
             })
           });
         })
+      }
+
+      changeAllClassesState(){
+        this.allClassesState =!this.allClassesState
+      }
+
+      openModalGroupModal(){
+        this.groupModal = true
+      }
+      closeGroupModal(){
+        this.groupModal = false
       }
     
     setReglamentFile(file: any) {
@@ -254,7 +315,7 @@ export class EditEventComponent  implements OnInit {
             })
           })
           this.sliderImages = this.createEventForm.value.images
-         
+          this.selectedGroup = this.event.grades
         })
       }
 
@@ -279,6 +340,9 @@ export class EditEventComponent  implements OnInit {
       editEventFormData.append('locationId',String(editForm.locationId))
       editEventFormData.append('dateStart',editForm.dateStart)
       editEventFormData.append('trackId',String(editForm.trackId))
+      for (var i = 0; i < this.selectedGroup.length; i++) {
+        editEventFormData.append('gradeIds[]', this.selectedGroup[i].id)
+      }
 
       if(this.reglamentFile instanceof File){
         editEventFormData.append('resultsFile', this.reglamentFile)
@@ -309,7 +373,7 @@ export class EditEventComponent  implements OnInit {
 
     ionViewWillEnter(){
          this.getRegions()
-
+         this.getAllGroups()
          this.route.params.pipe(takeUntil(this.destroy$)).pipe(
                 finalize(()=>{
               })

@@ -40,7 +40,7 @@ export class CreateEventsPageComponent  implements OnInit {
 
   trackService:TrackService = inject(TrackService)
 
-  allClassesState:boolean = false
+  allClassesState:boolean = true
 
  userService:UserService = inject(UserService)
 
@@ -60,8 +60,6 @@ export class CreateEventsPageComponent  implements OnInit {
   positionFile!:File
 
   groupModal:boolean = false
-
-
 
   newGroupInputValue:string = ''
   userGroups:any[] = []

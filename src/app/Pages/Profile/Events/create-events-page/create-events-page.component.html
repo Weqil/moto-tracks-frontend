@@ -16,7 +16,7 @@
                     <li class="race-groups__selected__item" *ngIf="!selectedGroup.length">Классы не добавлены</li>
                       <li class="race-groups__selected__item" *ngFor="let group of selectedGroup">{{ group.name }}</li>
                   </ul>
-                  <app-standart-button (click)="openModalGroupModal()" [buttonText]="selectedGroup.length ? 'Изменить':'Добавить'"></app-standart-button>
+                  <app-standart-button (click)="openModalGroupModal()" [buttonText]="selectedGroup.length ? 'Выбрать':'Выбрать'"></app-standart-button>
                 </ng-container>
           </div>
          
@@ -51,29 +51,22 @@
                         </ng-container>
                       </ng-container>
                       
-                     
                     </div>
                     <div class="race-groups__add-container__wrapper">
                       <div class="race-groups__add-container">
                           <input (input)="setNewGroupInputValue($event)" placeholder = "Название класса" class="standart-input" type="text">
                       </div>
+
                       <div class="race-groups__buttons">
-                        <app-standart-button (click)="createNewGroup()" style="width: 100%;" buttonText="Добавить класс" theme="standart"></app-standart-button>
-                        <app-standart-button [disabled]="true" (click)="closeGroupModal()" buttonText="Закрыть" theme="standart"></app-standart-button>
+                        <app-standart-button theme="light" (click)="createNewGroup()" style="width: 100%;" buttonText="Добавить класс"></app-standart-button>
+                        <app-standart-button (click)="closeGroupModal()" buttonText="Выбрать" theme="standart"></app-standart-button>
                       </div>
-              
                     </div>
-                  
                   </div>
-                 
                 </ion-content>
               </ng-template>
-            </ion-modal>
-            
-          </div>
-        
-         
-     
+            </ion-modal>   
+        </div>
   
         <div class="photo-slider">
             <app-edit-slider (filesEmit)="getImages($event)" type="create"></app-edit-slider>

@@ -33,6 +33,9 @@ export class StandartButtonComponent  implements OnInit {
       if(this.theme == 'orange'){
         return 'standart-button--orange'
       }
+      if(this.theme == 'light'){
+        return 'standart-button_light'
+      }
     }
 
     return 'standart-button_disabled'
