@@ -649,6 +649,7 @@ export class EventsViewPageComponent  implements OnInit {
     //Необходимо что бы не ломалась модалка
     window.addEventListener('popstate', (event) => {
       this.closeStateUsersModal()
+      this.closeApplicationForm()
     });
   }
 }

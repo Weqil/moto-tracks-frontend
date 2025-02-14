@@ -285,8 +285,12 @@ export class CreateEventsPageComponent  implements OnInit {
   }
 
   ngOnInit() {
-
+    window.addEventListener('popstate', (event) => {
+        this.closeGroupModal()
+    })
   }
+
+
 
 }
 
