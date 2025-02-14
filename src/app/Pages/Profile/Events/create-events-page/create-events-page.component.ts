@@ -20,7 +20,7 @@ import { StandartInputSelectComponent } from "../../../../Shared/Components/UI/S
 import { MapService } from 'src/app/Shared/Data/Services/Map/map.service';
 import { GroupService } from 'src/app/Shared/Data/Services/Race/group.service';
 import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
-
+import moment from 'moment-timezone';
 
 @Component({
   selector: 'app-create-events-page',
@@ -76,7 +76,7 @@ export class CreateEventsPageComponent  implements OnInit {
     images: new FormControl('', [Validators.required, Validators.minLength(1)]),
     region:new FormControl('', [Validators.required, Validators.minLength(1)]),
     locationId: new FormControl('', [Validators.required, Validators.minLength(1)]),
-    dateStart: new FormControl('', [Validators.required, Validators.minLength(1)]),
+    dateStart: new FormControl( this.getDefaultDateTime(),  [Validators.required, Validators.minLength(1)]),
   })
   navController: NavController = inject(NavController)
 
@@ -87,6 +87,13 @@ export class CreateEventsPageComponent  implements OnInit {
       this.navController.back()
     }
   }
+
+  getDefaultDateTime(): string {
+    const userTimezone = moment.tz.guess(); // Определяет текущий часовой пояс пользователя
+    return moment().tz(userTimezone).set({ hour: 9, minute: 0, second: 0 }).format('YYYY-MM-DDTHH:mm');
+  }
+
+ 
 
  changeAllClassesState(){
    this.allClassesState =!this.allClassesState
@@ -177,8 +184,7 @@ export class CreateEventsPageComponent  implements OnInit {
             this.createEventForm.value.name.length <= 3 ||
             this.createEventForm.value.desc.length <= 3 
            || !this.createEventForm.value.images.length ||   
-           !this.createEventForm.value.dateStart 
-           ||  !this.trackSelected || !this.locationId
+           !this.createEventForm.value.dateStart ||  !this.trackSelected || !this.locationId
           ) {
             return true
           } else {

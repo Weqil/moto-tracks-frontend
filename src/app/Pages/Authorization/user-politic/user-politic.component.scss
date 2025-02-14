@@ -22,15 +22,34 @@ p{
     padding-top: var(--little-padding);
 }
 
-h1{
-    padding-top: 5.5rem;
-    padding-left: var(--standart-padding);
-    padding-right: var(--standart-padding);
-    font-size: var(--font-headers-size);
-    margin: 0;
-    text-align:left;
-}
-
 h2{
     font-size: var(--font-headers-size-little);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-family: Arial, sans-serif;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    width: 30%; /* Устанавливает ширину столбцов */
+}
+
+
+
+.text-container{
+    padding-top:var(--standart-header-padding);
+    padding-left:var(--standart-padding);
+    padding-right:var(--standart-padding);
+    width: 100%;
 }

@@ -12,5 +12,6 @@ export interface IEvent {
     grades: any[],
     images?: string[],
     appointments_exists?:boolean
+    appointment_count?:{count:number}
     
 }

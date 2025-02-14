@@ -13,7 +13,7 @@ import { ButtonsModule } from 'src/app/Shared/Modules/buttons/buttons.module'
   selector: 'app-users-preview',
   templateUrl: './users-preview.component.html',
   styleUrls: ['./users-preview.component.scss'],
-  imports: [CommonModule, IonIcon, SharedModule, IonModal, UserSectionComponent, IonHeader, CheckImgUrlPipe,IonToolbar,ButtonsModule],
+  imports: [CommonModule, SharedModule, IonModal, UserSectionComponent, IonHeader, CheckImgUrlPipe,IonToolbar,ButtonsModule],
 })
 export class UsersPreviewComponent implements OnInit {
   @Input() moreCount!: string|number

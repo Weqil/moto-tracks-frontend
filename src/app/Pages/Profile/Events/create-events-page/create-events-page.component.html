@@ -7,7 +7,6 @@
           <app-standart-input label="Название" [control]="createEventForm.get('name')" placeholder="Введите название вашего соревнования"></app-standart-input>
           <app-standart-input (click)="openRegionModal()" [readonly]="true" label="Область/край" [control]="createEventForm.get('region')" placeholder="Выберите область вашего соревнования"></app-standart-input>          
         </div>
-
         <div class="race-groups">
           <span class="label">Классы гонки</span>
           <div class="race-groups__selected">
@@ -19,7 +18,6 @@
                   <app-standart-button (click)="openModalGroupModal()" [buttonText]="selectedGroup.length ? 'Выбрать':'Выбрать'"></app-standart-button>
                 </ng-container>
           </div>
-         
             <ion-modal class="group-modal" [isOpen]="groupModal" (didDismiss)="closeGroupModal()">
               <ng-template>
                 <ion-content>
@@ -54,7 +52,7 @@
                     </div>
                     <div class="race-groups__add-container__wrapper">
                       <div class="race-groups__add-container">
-                          <input (input)="setNewGroupInputValue($event)" placeholder = "Название класса" class="standart-input" type="text">
+                        <input (input)="setNewGroupInputValue($event)" placeholder = "Название класса" class="standart-input" type="text">
                       </div>
 
                       <div class="race-groups__buttons">
