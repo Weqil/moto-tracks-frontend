@@ -78,6 +78,7 @@ export class EventsViewPageComponent  implements OnInit {
     surname: new FormControl('', [Validators.required]),
     patronymic: new FormControl('', [Validators.required]),
     dateOfBirth: new FormControl('', [Validators.required]),
+    region: new FormControl('', [Validators.required]),
     city: new FormControl('', [Validators.required]),
     inn: new FormControl('', [Validators.required]),
     snils: new FormControl('', [Validators.required]),
@@ -164,6 +165,9 @@ export class EventsViewPageComponent  implements OnInit {
       surname: {
          errorMessage:''
       },
+      region: {
+         errorMessage:''
+      },
       city: {
          errorMessage:''
       },
@@ -197,7 +201,7 @@ export class EventsViewPageComponent  implements OnInit {
 
    setRegion(region:any){
     this.closeRegionModal()
-    this.personalUserForm.patchValue({city:region.name})
+    this.personalUserForm.patchValue({region:region.name})
    }
 
    getRegions(){
@@ -377,7 +381,6 @@ export class EventsViewPageComponent  implements OnInit {
       // Используем Lodash
       personalFormChange = _.isEqual(normalizedOld, normalizedForm);
 
-      console.log()
       //Если обьекты различаются
       if(!personalFormChange){
         this.changePersonalDateModalValue = true
@@ -479,6 +482,7 @@ export class EventsViewPageComponent  implements OnInit {
     ).subscribe((res:any)=>{
       this.raceUser = res.race.user
       this.event = res.race
+      this.groupItems = this.event.grades
     })
   }
 

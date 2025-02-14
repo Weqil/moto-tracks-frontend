@@ -88,6 +88,9 @@ export class UserDocumentsComponent  implements OnInit {
     city: {
        errorMessage:''
       },
+      region:{
+        errorMessage:''
+      },
     startNumber: {
        errorMessage:''
       },
@@ -129,6 +132,7 @@ export class UserDocumentsComponent  implements OnInit {
     patronymic: new FormControl('', [Validators.required]),
     dateOfBirth: new FormControl('', [Validators.required]),
     city: new FormControl('', [Validators.required]),
+    region: new FormControl('', [Validators.required]),
     inn: new FormControl('', [Validators.required]),
     snils: new FormControl('', [Validators.required]),
     phoneNumber: new FormControl('', [Validators.required]),
@@ -505,7 +509,7 @@ submitForm(){
 
   setRegion(region:any){
     this.closeRegionModal()
-    this.personalUserForm.patchValue({city:region.name})
+    this.personalUserForm.patchValue({region:region.name})
   }
 
   ionViewWillEnter(){

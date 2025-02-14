@@ -1,18 +1,12 @@
 <ion-content>
     <app-header headerTitle="Профиль участника"></app-header>
     <div class="main-container--with-header">
-
-      
-    
-    
-
-
       <form class="personal-form">
         <app-standart-input [control]="personalUserForm.get('surname')" [errorMessage]="formErrors.surname.errorMessage" [invalid]="formErrors.surname.errorMessage.length !== 0" placeholder="Введите фмилию" label="Фамилия"></app-standart-input>
         <app-standart-input [control]="personalUserForm.get('name')" [errorMessage]="formErrors.name.errorMessage" [invalid]="formErrors.name.errorMessage.length !== 0" placeholder="Введите имя" label="Имя"></app-standart-input>
         <app-standart-input [control]="personalUserForm.get('patronymic')" placeholder="Введите отчество" label="Отчество"></app-standart-input>
         <app-standart-input [control]="personalUserForm.get('dateOfBirth')" placeholder="Выберите дату" label="Дата рождения" type="date"></app-standart-input>
-        <app-standart-input [control]="personalUserForm.get('city')" placeholder="Город (край, область, регион)" label="Город" [invalid]="formErrors.city.errorMessage.length !== 0" [errorMessage]="formErrors.city.errorMessage"></app-standart-input>
+        <app-standart-input [control]="personalUserForm.get('city')" placeholder="Город" label="Город" [invalid]="formErrors.city.errorMessage.length !== 0" [errorMessage]="formErrors.city.errorMessage"></app-standart-input>
         <div class="start-number-container">
           <app-standart-input [control]="personalUserForm.get('inn')" placeholder="ИНН" label="ИНН"></app-standart-input>
           <app-standart-input [control]="personalUserForm.get('snils')" placeholder="СНИЛС" label="СНИЛС"></app-standart-input>

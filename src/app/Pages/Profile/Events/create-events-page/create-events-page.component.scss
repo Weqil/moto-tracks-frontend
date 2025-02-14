@@ -65,6 +65,108 @@ ion-modal{
     font-size: 14px;
     font-family: var(--font-semi-bold);
 }
+
+.race-groups{
+    padding-top: var(--standart-padding);
+}
+.group-container{
+    display: flex;
+    flex-direction: column;
+    padding-bottom:15rem;
+}
+.race-groups__add-container{
+    padding-top: var(--little-padding);
+    display: flex;
+    align-items: center;
+    padding-bottom: var(--little-padding);
+    gap: 15px;
+}
+.race-groups__add-container__wrapper{
+    position: fixed;
+    width: 100%;
+    right: 0;
+    z-index: 100;
+    background: var(--page-background);
+    padding: var(--standart-padding);
+    bottom: 1rem;
+}
+.race-groups__buttons{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+.rounded-classes{
+    background: var(--white-color);
+    display: inline;
+    font-family: var(--font-semi-bold);
+    border-radius: 8px;
+    transition: 0.3s all;
+    height: 2rem;
+    padding: 0.3rem;
+}
+.rounded-classes__active{
+    background: var(--blue-primary-color);
+    display: inline;
+    transition: 0.3s all;
+    color: var(--white-color);
+    font-family: var(--font-semi-bold);
+    border-radius: 8px;
+    height: 2rem;
+    padding: 0.3rem;
+}
+.group-modal-header__select{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.race-groups__selected{
+ 
+  
+}
+.race-groups__selected__item{
+    margin-top: 3px;
+    list-style-type: none;
+    padding: 0.3rem;
+    color: #4C5861;
+    border: 1px solid rgba(76, 88, 97, 0.2549019608);
+    font-family: var(--font-regular);
+    font-size: 0.75rem;
+}
+.race-groups__selected{
+    padding-bottom: var(--little-padding);
+}
+.group-modal{
+    --max-height:100%;
+    --width:100%;
+    --padding: 1rem;
+    --border-radius: 0px;
+    --overflow-y: hidden;
+}
+.group-modal-container{
+    padding: var(--standart-padding);
+}
+.group-item{
+    display: inline-flex;
+    gap: 10px;
+}
+.group-item{
+    padding-top: 10px;
+}
+
+.standart-input{
+    border: 1px solid rgba(76, 88, 97, 0.2549019608);
+    border-radius: 5px;
+    width: 100%;
+    min-height: 2.25rem;
+    font-size: 12px;
+    padding-left: 0.8rem;
+    transition: 0.1s;
+    margin-top: 3px;
+    color: #363d42;
+    font-family: var(--font-regular);
+    background: none;
+}
+
 .document-container__item{
     display: flex;
     align-items: center;
