@@ -31,23 +31,7 @@ export class EventsTapePageComponent  implements OnInit {
   userService: UserService = inject(UserService)
   tableModalValue:boolean = false
   googleTabsLink:string = ''
-  testEvent: IEvent = {
-    id: 1,
-    name: 'Гонка на крутом треке',
-    desc:'Ну очень крутая гонка',
-    is_work: true,
-    date_start:'25-01-2025',
-    images:['https://i.ytimg.com/vi/rxudkfHZNBA/maxresdefault.jpg', 'https://motogonki.ru/images/news/30-09-2023_motogp_2023_aleix_espargaro_ustal_ot_problem_s_aprilia.jpg'],
-    track:{
-      id:16,
-      name:'Крутой трек',
-      desc:'Очень крутой трек',
-      address:'Свердловская область, город Асбест, улица Ленина 22',
-      longitude:0,
-      latitude:0,
-      level: {name:'', color:''}
-    }
-  }
+ 
 
   
 

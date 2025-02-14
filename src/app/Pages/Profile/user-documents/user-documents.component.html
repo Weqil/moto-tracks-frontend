@@ -9,9 +9,18 @@
         <app-standart-input [control]="personalUserForm.get('phoneNumber')" placeholder="Номер телефона" label="Телефон"></app-standart-input>
         <app-standart-input [control]="personalUserForm.get('numberAndSeria')" placeholder="Серия, номер" label="Паспорт"></app-standart-input>
         <app-standart-input [control]="personalUserForm.get('dateOfBirth')" placeholder="Выберите дату" label="Дата рождения" type="date"></app-standart-input>
-        <app-standart-input [control]="personalUserForm.get('city')" placeholder="Город (край, область, регион)" label="Город" [invalid]="formErrors.city.errorMessage.length !== 0" [errorMessage]="formErrors.city.errorMessage"></app-standart-input>
+        <app-standart-input (click)="openRegionModal()" [readonly]="true" label="Область/край" [control]="personalUserForm.get('region')" placeholder="Выберите область вашу область"></app-standart-input>          
+        <app-standart-input [control]="personalUserForm.get('city')" [errorMessage]="formErrors.city.errorMessage" [invalid]="formErrors.city.errorMessage.length !== 0" placeholder="Введите город" label="Город"></app-standart-input>     
 
-
+        <ion-modal  (didDismiss)="closeRegionModal()"  [isOpen]="regionModalState">
+          <ng-template>
+            <ion-content>
+              <div class="region-modal-container">
+                <app-standart-input-search label="Область/край" [searchCurrentItems]="searchRegionItems" [searchItems]="searchRegionItems" (changeSearchValue)="setRegion($event)"></app-standart-input-search>
+              </div>
+            </ion-content>
+          </ng-template>  
+        </ion-modal>
         <div class="start-number-container">
           <app-standart-input [control]="personalUserForm.get('inn')" placeholder="ИНН" label="ИНН"></app-standart-input>
           <app-standart-input [control]="personalUserForm.get('snils')" placeholder="СНИЛС" label="СНИЛС"></app-standart-input>

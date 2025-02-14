@@ -8,7 +8,8 @@ export interface IEvent {
     position_file?: string,
     results_file?: string,
     date_start?: string,
-    track:Track
+    track:Track,
+    grades: any[],
     images?: string[],
     appointments_exists?:boolean
     

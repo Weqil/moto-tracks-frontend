@@ -21,12 +21,15 @@ import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
 import { IEvent } from 'src/app/Shared/Data/Interfaces/event';
 import { CheckImgUrlPipe } from 'src/app/Shared/Helpers/check-img-url.pipe';
 import { environment } from 'src/environments/environment';
+import { IonModal } from '@ionic/angular/standalone';
+import { MapService } from 'src/app/Shared/Data/Services/Map/map.service';
+
 
 @Component({
   selector: 'app-edit-event',
   templateUrl: './edit-event.component.html',
   styleUrls: ['./edit-event.component.scss'],
-  imports: [SharedModule,HeaderModule,StepsModule,ButtonsModule,FormsModule,EditSliderComponent,TrackModule,]
+  imports: [SharedModule,HeaderModule,StepsModule,ButtonsModule,FormsModule,EditSliderComponent,TrackModule,IonModal]
 })
 export class EditEventComponent  implements OnInit {
 
@@ -61,7 +64,15 @@ export class EditEventComponent  implements OnInit {
     maxStepsCount: number = 1
     stepCurrency: number = 1
 
+    locationId:string = ''
+
     sliderImages:any
+
+    searchRegionItems:any[] = []
+
+    mapService:MapService = inject(MapService)
+
+    regionModalState:boolean = false
   
     reglamentFile!:File | {name: string, path: string}
     positionFile!:File  | {name: string, path: string}
@@ -74,6 +85,8 @@ export class EditEventComponent  implements OnInit {
         name: new FormControl('', [Validators.required, Validators.minLength(3)]),
         desc: new FormControl('', [Validators.required, Validators.minLength(3)]),
         images: new FormControl('', [Validators.required, Validators.minLength(1)]),
+        region: new FormControl('', [Validators.required, Validators.minLength(1)]),
+        locationId: new FormControl('', [Validators.required, Validators.minLength(1)]),
         dateStart: new FormControl('2018-06-12T19:30', [Validators.required, Validators.minLength(1)]),
     })
    
@@ -84,6 +97,23 @@ export class EditEventComponent  implements OnInit {
         }else{
           this.navController.back()
         }
+      }
+
+      setRegion(region:any){
+        this.closeRegionModal()
+        this.locationId = region.value
+        this.createEventForm.patchValue({region:region.name})
+        this.createEventForm.patchValue({locationId:region.value})
+      }
+    getRegions(){
+        this.mapService.getAllRegions().pipe().subscribe((res:any)=>{
+          res.data.forEach((region:any) => {
+            this.searchRegionItems.push({
+              name:`${region.name} ${region.type}`,
+              value:region.id
+            })
+          });
+        })
       }
     
     setReglamentFile(file: any) {
@@ -102,6 +132,13 @@ export class EditEventComponent  implements OnInit {
         } else {
           this.toastService.showToast('Документ должен быть фоматом pdf','warning')
         }
+      }
+
+      closeRegionModal(){
+        this.regionModalState = false
+      }
+      openRegionModal(){
+        this.regionModalState = true
       }
 
      getTracks(){
@@ -129,10 +166,11 @@ export class EditEventComponent  implements OnInit {
                 this.createEventForm.value.desc.length <= 3 
                || 
                !this.createEventForm.value.dateStart 
-               ||  !this.trackSelected
+               ||  !this.trackSelected || !this.createEventForm.value.locationId
               ) {
                 return true
-              } else {
+              } 
+              else {
                 return false
               }
               
@@ -206,10 +244,12 @@ export class EditEventComponent  implements OnInit {
           
           this.createEventForm.patchValue({
             ...res.race,
+            locationId: res.race?.location?.id,
+            region: `${res.race?.location?.type} ${ res.race?.location?.name}`,
             dateStart: moment(res.race.date_start).format('YYYY-MM-DD HH:mm:ss'),
             images: this.event.images?.map((image:string)=>{ return {
-                link:this.checkImgUrlPipe.checkUrlDontType(image),
-                name:`${crypto.randomUUID()}`
+            link:this.checkImgUrlPipe.checkUrlDontType(image),
+            name:`${crypto.randomUUID()}`
               }
             })
           })
@@ -223,6 +263,7 @@ export class EditEventComponent  implements OnInit {
       if(!this.stepInvalidate()){
         this.loadingService.showLoading()
       this.createEventForm.value.images = this.createEventForm.value.images.filter((image:any)=>!image.link)
+      console.log( this.createEventForm.value)
       let editForm = {
         ...this.createEventForm.value,
         trackId: this.trackSelected!.id,
@@ -235,6 +276,7 @@ export class EditEventComponent  implements OnInit {
       let editEventFormData:FormData = new FormData()
       editEventFormData.append('name',editForm.name)
       editEventFormData.append('desc',editForm.desc)
+      editEventFormData.append('locationId',String(editForm.locationId))
       editEventFormData.append('dateStart',editForm.dateStart)
       editEventFormData.append('trackId',String(editForm.trackId))
 
@@ -266,6 +308,8 @@ export class EditEventComponent  implements OnInit {
     }  
 
     ionViewWillEnter(){
+         this.getRegions()
+
          this.route.params.pipe(takeUntil(this.destroy$)).pipe(
                 finalize(()=>{
               })

@@ -16,12 +16,13 @@ import { serverError } from 'src/app/Shared/Data/Interfaces/errors';
 import { StandartInputSelectComponent } from 'src/app/Shared/Components/UI/Selecteds/standart-input-select/standart-input-select.component';
 import cloneDeep from 'lodash/cloneDeep';
 import _ from 'lodash';
+import { MapService } from 'src/app/Shared/Data/Services/Map/map.service';
 
 @Component({
   selector: 'app-user-documents',
   templateUrl: './user-documents.component.html',
   styleUrls: ['./user-documents.component.scss'],
-  imports: [SharedModule,HeaderModule,FormsModule,ButtonsModule,StandartInputSelectComponent]
+  imports: [SharedModule,HeaderModule,FormsModule,ButtonsModule,StandartInputSelectComponent,IonModal]
 })
 export class UserDocumentsComponent  implements OnInit {
   navController:NavController = inject(NavController)
@@ -35,10 +36,15 @@ export class UserDocumentsComponent  implements OnInit {
   userService:UserService = inject(UserService)
   toastService:ToastService = inject(ToastService)
 
+  regionModalState:boolean = false
 
   licensesFile:any =''
   polisFile:any = ''
   notariusFile:any = ''
+
+  mapService:MapService = inject(MapService)
+
+  searchRegionItems:any[] = []
 
   oldNotariusFile:any
   oldNotariusValue:any
@@ -82,6 +88,9 @@ export class UserDocumentsComponent  implements OnInit {
     city: {
        errorMessage:''
       },
+      region:{
+        errorMessage:''
+      },
     startNumber: {
        errorMessage:''
       },
@@ -123,6 +132,7 @@ export class UserDocumentsComponent  implements OnInit {
     patronymic: new FormControl('', [Validators.required]),
     dateOfBirth: new FormControl('', [Validators.required]),
     city: new FormControl('', [Validators.required]),
+    region: new FormControl('', [Validators.required]),
     inn: new FormControl('', [Validators.required]),
     snils: new FormControl('', [Validators.required]),
     phoneNumber: new FormControl('', [Validators.required]),
@@ -155,6 +165,16 @@ submitValidate(){
   return valid
 }
 
+getRegions(){
+  this.mapService.getAllRegions().pipe().subscribe((res:any)=>{
+    res.data.forEach((region:any) => {
+      this.searchRegionItems.push({
+        name:`${region.name} ${region.type}`,
+        value:region.id
+      })
+    });
+  })
+}
 
 setEngine(event:any){
   this.personalUserForm.patchValue({engine: event.name})
@@ -232,7 +252,7 @@ submitForm(){
         })
     }
   }else{
-    this.toastService.showToast('Заполните обязательные поля - Фамилия, имя, адрес, спортивное звание','danger')
+    this.toastService.showToast('Заполните обязательные поля - Фамилия, имя, область, спортивное звание,','danger')
   }
 }
 
@@ -314,6 +334,12 @@ submitForm(){
     this.notariusFile = file
   }
   
+  closeRegionModal(){
+    this.regionModalState = false
+  }
+  openRegionModal(){
+    this.regionModalState = true
+  }
 
   createPasport(){
       let loader:HTMLIonLoadingElement
@@ -480,8 +506,15 @@ submitForm(){
      
     })
   }
+
+  setRegion(region:any){
+    this.closeRegionModal()
+    this.personalUserForm.patchValue({region:region.name})
+  }
+
   ionViewWillEnter(){
     this.setFormValue()
+    this.getRegions()
     this.userService.refreshUser()
     if(this.userService.user.value?.personal){
       this.personalUserForm.patchValue(this.userService.user.value?.personal)
