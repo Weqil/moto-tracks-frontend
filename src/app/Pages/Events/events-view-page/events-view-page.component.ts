@@ -1,6 +1,6 @@
 import { Component, Inject, inject, NgZone, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { catchError, EMPTY, finalize, Subject, takeUntil, tap } from 'rxjs';
+import { catchError, EMPTY, finalize, forkJoin, map, Observable, of, Subject, switchMap, takeUntil, tap } from 'rxjs';
 import { IEvent } from 'src/app/Shared/Data/Interfaces/event';
 import { EventService } from 'src/app/Shared/Data/Services/Event/event.service';
 import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
@@ -343,44 +343,50 @@ export class EventsViewPageComponent  implements OnInit {
     return this.sanitizer.bypassSecurityTrustHtml(this.formatingText(String(this.event.desc)))
    }
 
-  createLicenses(){
-    if(this.licensesFile){
-      this.loaderService.showLoading()
-      let fd:FormData = new FormData()
-      fd.append('type','licenses')
-      fd.append('data',JSON.stringify(this.licensesForm.value))
-      fd.append('file',this.licensesFile)
-      this.userService.createUserDocument(fd).pipe(
-      finalize(()=>{
-        this.loaderService.hideLoading()
-      }),
-      catchError((err:serverError)=>{
-        this.toastService.showToast(err.error.message,'danger')
-        return EMPTY
-      })
-      ).subscribe((res:any)=>{
-      })
+   createLicenses(): Observable<any> {
+    if (this.licensesFile) {
+      this.loaderService.showLoading();
+      let fd: FormData = new FormData();
+      fd.append('type', 'licenses');
+      fd.append('data', JSON.stringify(this.licensesForm.value));
+      fd.append('file', this.licensesFile);
+      
+      return this.userService.createUserDocument(fd).pipe(
+        finalize(() => {
+          this.loaderService.hideLoading();
+        }),
+        catchError((err: serverError) => {
+          this.toastService.showToast(err.error.message, 'danger');
+          return EMPTY;
+        })
+      );
     }
-   }
+    return of(null);
+  }
 
 
-  createPolis(){
-    if(this.polisFile){
-      let fd: FormData = new FormData()
-      fd.append('type','polis')
-      fd.append('data',JSON.stringify(this.polisForm.value))
-      fd.append('file',this.polisFile)
-       this.userService.createUserDocument(fd).pipe(
-       finalize(()=>{
-         this.loaderService.hideLoading()
-       })
-     ).subscribe((res:any)=>{
-     })
+  createPolis(): Observable<any> {
+    if (this.polisFile) {
+      this.loaderService.showLoading();
+      let fd: FormData = new FormData();
+      fd.append('type', 'polis');
+      fd.append('data', JSON.stringify(this.polisForm.value));
+      fd.append('file', this.polisFile);
+      
+      return this.userService.createUserDocument(fd).pipe(
+        finalize(() => {
+          this.loaderService.hideLoading();
+        }),
+        catchError((err: serverError) => {
+          this.toastService.showToast(err.error.message, 'danger');
+          return EMPTY;
+        })
+      );
     }
-   
- }
+    return of(null);
+  }
 
- createNotarius(){
+ createNotarius(): Observable<any>{
   if(this.notariusFile){
   let fd: FormData = new FormData()
    fd.append('type','notarius')
@@ -393,7 +399,7 @@ export class EventsViewPageComponent  implements OnInit {
     ).subscribe((res:any)=>{
     })
   }
-   
+    return of(null);
  }
 
   //Проверяю изменились ли данные у пользователя
@@ -481,27 +487,31 @@ export class EventsViewPageComponent  implements OnInit {
 
   }
 
-   setFirstDocuments() {
-    this.userService.getUserDocuments().pipe(
-      finalize(()=>{
-        this.loaderService.hideLoading()
+  setFirstDocuments(): Observable<void> {
+    return this.userService.getUserDocuments().pipe(
+      finalize(() => {
+        this.loaderService.hideLoading();
       }),
-      ).subscribe((res:any)=>{
-        console.log(res.documents)
-        let licensesDocument = res.documents.find((doc:any)=> doc.type === 'licenses')
-        let polisDocument = res.documents.find((doc:any)=> doc.type === 'polis')
-        let notariusDocument = res.documents.find((doc:any)=> doc.type === 'notarius')
-        if(!licensesDocument){
-          this.createLicenses()
+      switchMap((res: any) => {
+        console.log(res.documents);
+        
+        let operations: Observable<any>[] = [];
+        
+        if (!res.documents.find((doc: any) => doc.type === 'licenses')) {
+          operations.push(this.createLicenses());
         }
-        if(!polisDocument){
-          this.createPolis()
+        if (!res.documents.find((doc: any) => doc.type === 'polis')) {
+          operations.push(this.createPolis());
         }
-        if(!notariusDocument){
-          this.createNotarius()
+        if (!res.documents.find((doc: any) => doc.type === 'notarius')) {
+          operations.push(this.createNotarius());
         }
-      })
-   }
+        
+        return operations.length ? forkJoin(operations) : of(null);
+      }),
+      map(() => void 0)
+    );
+  }
 
     openApplicationForm(){
       let isLoggedIn:boolean = this.authService.isAuthenticated()
@@ -553,46 +563,40 @@ export class EventsViewPageComponent  implements OnInit {
 
 
   async toggleAplicationInRace(){
-    let currentForm = {
-      ...this.personalUserForm.value,
-      
-      ...this.polisForm.value,
-      ...this.licensesForm.value,
-      licensesFileLink: this.licensesFile.path,
-      polisFileLink: this.polisFile.path,
-      notariusFileLink: this.notariusFile.path,
-    }
-    console.log(currentForm)
-    console.log(this.personalUserForm.value)
+ 
     if(this.submitValidate()){
-      await this.setFirstDocuments()
-      await this.setDocuments()
-      let currentForm = {
-        ...this.personalUserForm.value,
-        ...this.polisForm.value,
-        ...this.licensesForm.value,
-        licensesFileLink: this.licensesFile.path,
-        polisFileLink: this.polisFile.path,
-        notariusFileLink: this.notariusFile.path,
-      }
-      const fd: FormData = new FormData();
-      fd.append('data',  JSON.stringify(currentForm))
-  
-      // this.loaderService.showLoading()
-      // this.eventService.toggleAplicationInRace(this.eventId, fd).pipe(
-      //   finalize(()=>{
-      //     this.loadingService.hideLoading()
-      //   })
-      // ).subscribe((res:any)=>{
-      //     this.getUsersInRace()
-      //     this.closeApplicationForm()
-      //     this.getEvent()
-      //     //Если пользователь не имел персональных данных
-      //     this.setFirstUserPersonal()
+      await this.setFirstDocuments().pipe().subscribe(()=>{
+         this.setDocuments().pipe().subscribe(()=>{
+          let currentForm = {
+            ...this.personalUserForm.value,
+            ...this.polisForm.value,
+            ...this.licensesForm.value,
+            licensesFileLink: this.licensesFile.path,
+            polisFileLink: this.polisFile.path,
+            notariusFileLink: this.notariusFile.path,
+          }
+          const fd: FormData = new FormData();
+          fd.append('data',  JSON.stringify(currentForm))
       
-      //     this.checkChangeInPersonalform()
-      //     this.toastService.showToast('Заявка успешно отправленна','success')
-      // })
+          this.loaderService.showLoading()
+          this.eventService.toggleAplicationInRace(this.eventId, fd).pipe(
+            finalize(()=>{
+              this.loadingService.hideLoading()
+            })
+          ).subscribe((res:any)=>{
+              this.getUsersInRace()
+              this.closeApplicationForm()
+              this.getEvent()
+              //Если пользователь не имел персональных данных
+              this.setFirstUserPersonal()
+          
+              this.checkChangeInPersonalform()
+              this.toastService.showToast('Заявка успешно отправленна','success')
+          })
+         })
+      })
+    
+    
     }else{
       this.toastService.showToast('Заполните обязательные поля - Фамилия, имя, область, класс, спортивное звание','danger')
     }
@@ -619,8 +623,8 @@ export class EventsViewPageComponent  implements OnInit {
   }
 
 
-  setDocuments(){
-    return this.userService.getUserDocuments().pipe(
+  setDocuments(): Observable<any>{
+     this.userService.getUserDocuments().pipe(
       finalize(()=>{
         this.loaderService.hideLoading()
       })
@@ -645,6 +649,7 @@ export class EventsViewPageComponent  implements OnInit {
       }
      
     })
+    return of(null);
   }
 
   setFormValue(){
