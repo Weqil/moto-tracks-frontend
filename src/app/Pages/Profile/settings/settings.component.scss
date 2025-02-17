@@ -72,3 +72,36 @@
     padding-bottom: var(--standart-padding);
     font-family: var(--font-regular);
 }
+ion-modal{
+    --max-height:180px;
+    --width:90%;
+    --border-radius: 12px;
+    --overflow-y: hidden;
+}
+.agreed-select-status-checkbox{
+    --size: 18px;
+    --border-radius: 0; 
+    --background-checked: #3880ff;
+    --background-unchecked: #fff; 
+    --border-width: 1px;
+    --border-color: #3880ff; 
+    --checkmark-color: #ffffff; 
+   
+    --checkbox-background: white;
+    margin-right: 10px; 
+}
+.agreed-select__main{
+    padding: var(--standart-padding);
+    display: flex;
+    gap: 10px;
+    font-family: var(--font-regular);
+    justify-content: space-between;
+    flex-direction: column;
+}
+.user-agreed{
+    display: flex;
+    gap: 10px;
+    span{
+        color: #3880ff; 
+    }
+}
