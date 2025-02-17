@@ -73,9 +73,10 @@
     font-family: var(--font-regular);
 }
 ion-modal{
-    --max-height:180px;
+    --max-height:200px;
     --width:90%;
     --border-radius: 12px;
+    
     --overflow-y: hidden;
 }
 .agreed-select-status-checkbox{
@@ -94,7 +95,8 @@ ion-modal{
     padding: var(--standart-padding);
     display: flex;
     gap: 10px;
-    font-family: var(--font-regular);
+    font-size: 0.95rem;
+    font-family: var(--font-light);
     justify-content: space-between;
     flex-direction: column;
 }
