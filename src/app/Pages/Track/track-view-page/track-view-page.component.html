@@ -2,7 +2,6 @@
   <ng-container *ngIf="track">
     <app-header [headerTitle]= "track.name" ></app-header>
     <div>
-
         <div class="main-container--with-header">
           <div class="track__header">
             <img src="{{track.images ? (track.images[0] | checkImgUrl) : '' | checkImgUrl}}" alt="" class="track-header__avatar">
