@@ -154,12 +154,8 @@ export class EventsViewPageComponent  implements OnInit {
         polisFileLink: new FormControl('',[Validators.required, ]), // путь до файла
       }
     )
-    pasportForm: FormGroup = new FormGroup(
-      {
-        numberAndSeria: new FormControl('',[Validators.required]), //Серия и номер полиса
-        pasportFileLink: new FormControl(''), // путь до файла
-      }
-    )
+   
+
 
     formErrors:any = {
       name: {
@@ -301,7 +297,6 @@ export class EventsViewPageComponent  implements OnInit {
         ...this.personalUserForm.value,
         ...this.polisForm.value,
         ...this.licensesForm.value,
-        ...this.pasportForm.value,
         licensesFileLink:``,
         polisFileLink:``,
         notariuFileLink:``,   
@@ -558,7 +553,17 @@ export class EventsViewPageComponent  implements OnInit {
 
 
   async toggleAplicationInRace(){
-
+    let currentForm = {
+      ...this.personalUserForm.value,
+      
+      ...this.polisForm.value,
+      ...this.licensesForm.value,
+      licensesFileLink: this.licensesFile.path,
+      polisFileLink: this.polisFile.path,
+      notariusFileLink: this.notariusFile.path,
+    }
+    console.log(currentForm)
+    console.log(this.personalUserForm.value)
     if(this.submitValidate()){
       await this.setFirstDocuments()
       await this.setDocuments()
@@ -566,28 +571,28 @@ export class EventsViewPageComponent  implements OnInit {
         ...this.personalUserForm.value,
         ...this.polisForm.value,
         ...this.licensesForm.value,
-        ...this.pasportForm.value,
         licensesFileLink: this.licensesFile.path,
         polisFileLink: this.polisFile.path,
         notariusFileLink: this.notariusFile.path,
       }
       const fd: FormData = new FormData();
       fd.append('data',  JSON.stringify(currentForm))
-      this.loaderService.showLoading()
-      this.eventService.toggleAplicationInRace(this.eventId, fd).pipe(
-        finalize(()=>{
-          this.loadingService.hideLoading()
-        })
-      ).subscribe((res:any)=>{
-          this.getUsersInRace()
-          this.closeApplicationForm()
-          this.getEvent()
-          //Если пользователь не имел персональных данных
-          this.setFirstUserPersonal()
+  
+      // this.loaderService.showLoading()
+      // this.eventService.toggleAplicationInRace(this.eventId, fd).pipe(
+      //   finalize(()=>{
+      //     this.loadingService.hideLoading()
+      //   })
+      // ).subscribe((res:any)=>{
+      //     this.getUsersInRace()
+      //     this.closeApplicationForm()
+      //     this.getEvent()
+      //     //Если пользователь не имел персональных данных
+      //     this.setFirstUserPersonal()
       
-          this.checkChangeInPersonalform()
-          this.toastService.showToast('Заявка успешно отправленна','success')
-      })
+      //     this.checkChangeInPersonalform()
+      //     this.toastService.showToast('Заявка успешно отправленна','success')
+      // })
     }else{
       this.toastService.showToast('Заполните обязательные поля - Фамилия, имя, область, класс, спортивное звание','danger')
     }
@@ -631,9 +636,7 @@ export class EventsViewPageComponent  implements OnInit {
           this.polisForm.patchValue(JSON.parse((res.documents.find((doc:any)=> doc.type === 'polis')?.data)))
           this.polisFile = {name:'Полис загружен', path:  `${environment.BASE_URL}` + '/document/' + polisDocument.id}
         }
-        if(res.documents.find((doc:any)=> doc.type === 'pasport')?.data){
-          this.pasportForm.patchValue(JSON.parse(res.documents.find((doc:any)=> doc.type === 'pasport')?.data))
-        } 
+        
         if(res.documents.find((doc:any)=> doc.type === 'notarius')?.path){
           let notariusDocument = res.documents.find((doc:any)=> doc.type === 'notarius')
           this.notariusFile = {name:'Согласие загружено', path: `${environment.BASE_URL}` + '/document/' + notariusDocument.id}
@@ -665,7 +668,7 @@ export class EventsViewPageComponent  implements OnInit {
   }
 
   invalidRequest(){
-    if(this.personalUserForm.invalid || this.polisForm.invalid || this.pasportForm.invalid || this.licensesForm.invalid ){
+    if(this.personalUserForm.invalid || this.polisForm.invalid || this.licensesForm.invalid ){
       return true
     }else{
       return false
