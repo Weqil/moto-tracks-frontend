@@ -15,13 +15,13 @@
           <app-custom-selected [items]="statuses" [modalValue]="statusesSelect" [selectedValue]="selectedStatusItem" (openModal)="openSelectedStatus()" (closeModal)="closeSelectedStatus()" (selectItem)="selectStatus($event)"></app-custom-selected>
         </div>
       </div>
-      <ion-modal [isOpen]="userAgreedModalState" [canDismiss]="false">
+      <ion-modal [isOpen]="userAgreedModalState" (didDismiss)="closeModalAgreedNotVerificated()">
           <ng-template>
               <ion-content>
                 <div class="agreed-select__main">
                    <label name="agreed">Подтверждаю что ознакомлен и согласен с политикой для гонщика и организатора</label>
                   <div class="user-agreed">
-                    <span [routerLink]="['/distribution-agreement']">Пользовательское соглашение</span>
+                    <span (click)="navigateInAgreed()">Пользовательское соглашение</span>
                     <ion-checkbox (ionChange)="changeAgreedState($event)"  for="agreed" class="agreed-select-status-checkbox"></ion-checkbox>
                   </div>
                   <div>

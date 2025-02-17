@@ -36,7 +36,7 @@ export class SettingsComponent  implements OnInit {
   checkImgUrlPipe:CheckImgUrlPipe = inject(CheckImgUrlPipe)
   private readonly loading:LoadingService = inject(LoadingService)
 
-  userAgreedStatus:any = Boolean(localStorage.getItem('userAgreedStatus'))
+  userAgreedStatus:any = localStorage.getItem('userAgreedStatus')
   userAgreedModalState:boolean = false
   statusesSelect:boolean = false
   selectedStatusItem:any  = {}
@@ -96,7 +96,7 @@ export class SettingsComponent  implements OnInit {
   }
   openSelectedStatus(){
     this.openModalStateAgreed()
-    if(!this.userService.userHaveRoot() && this.userAgreedStatus){
+    if(!this.userService.userHaveRoot() && this.userAgreedStatus !== 'false' && this.userAgreedStatus){
       this.statusesSelect = true;
     }
   }
@@ -105,16 +105,26 @@ export class SettingsComponent  implements OnInit {
   }
 
   openModalStateAgreed(){
-    if(!this.userAgreedStatus){
+    this.userAgreedStatus = localStorage.getItem('userAgreedStatus')
+    if(this.userAgreedStatus == 'false' || !this.userAgreedStatus){
       this.userAgreedModalState = true
     }
   
   }
   closeStateAgreedModal(){
-    if(this.disabledAgreedButton){
+  
+    if(!this.disabledAgreedButton){
       localStorage.setItem('userAgreedStatus','true')
+      this.userAgreedStatus = true
       this.userAgreedModalState = false
+  
     }
+  }
+  navigateInAgreed(){
+    this.userAgreedModalState = false
+    setTimeout(()=>{
+      this.navControler.navigateForward('/distribution-agreement')
+    },0)
   }
 
   logoutInAccount() {
@@ -199,6 +209,11 @@ export class SettingsComponent  implements OnInit {
       this.user = this.userService.user.value
       this.settingsAvatar = this.checkImgUrlPipe.checkUrlDontType(this.user?.avatar) 
     })
+  }
+
+  closeModalAgreedNotVerificated(){
+    this.userAgreedStatus = 'false'
+    this.userAgreedModalState = false
   }
 
   ionViewDidLeave(){
