@@ -88,6 +88,7 @@ export class EventsViewPageComponent  implements OnInit {
     rank:new FormControl('', [Validators.required]),
     rankNumber:new FormControl('', [Validators.required]),
     community:new FormControl('', [Validators.required]),
+    locationId: new FormControl(10, [Validators.required]),
     coach:new FormControl('', [Validators.required]),
     motoStamp:new FormControl('', [Validators.required]),
     engine:new FormControl('', [Validators.required]),
