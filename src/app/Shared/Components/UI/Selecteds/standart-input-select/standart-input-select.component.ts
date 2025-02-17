@@ -26,6 +26,8 @@ let target = event.target as HTMLElement
   ];
   @Input() selectedName:string = 'selectedModal'
   @Input() label: string = '';
+  @Input() invalid:boolean = false
+  @Input() errorMessage:string = ''
   @Input() stateValue: boolean = false;
 
   changeState(){

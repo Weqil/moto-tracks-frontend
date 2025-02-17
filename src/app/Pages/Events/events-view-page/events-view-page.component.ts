@@ -160,8 +160,32 @@ export class EventsViewPageComponent  implements OnInit {
     formErrors:any = {
       name: {
         errorMessage:''
-
       },
+      patronymic:{
+         errorMessage:''
+      },
+      dateOfBirth:{
+         errorMessage:''
+      },
+      inn:{
+        errorMessage:''
+      },
+      snils:{
+        errorMessage:''
+      },
+      phoneNumber:{
+        errorMessage:''
+      },
+      startNumber:{
+        errorMessage:''
+      },
+      group:{
+        errorMessage:''
+      },
+      rank:{
+        errorMessage:''
+      },
+
       surname: {
          errorMessage:''
       },
@@ -171,13 +195,47 @@ export class EventsViewPageComponent  implements OnInit {
       city: {
          errorMessage:''
       },
-      startNumber: {
-         errorMessage:''
+      rankNumber:{
+        errorMessage:''
       },
-      group:{
-         errorMessage:''
+      community:{
+        errorMessage:''
+      },
+      coach:{
+        errorMessage:''
+      },
+      motoStamp:{
+        errorMessage:''
+      },
+      engine:{
+        errorMessage:''
+      },
+      numberAndSeria:{
+        errorMessage:''
       }
-  }
+    }
+
+    documentsError:any = {
+      licensesNumber:{
+        errorMessage:''
+      },
+      polisNumber:{
+        errorMessage:''
+      },
+      issuedWhom:{
+        errorMessage:''
+      },
+      itWorksDate:{
+        errorMessage:''
+      },
+      licensesFile:{
+        errorMessage:''
+      },
+      polisFile:{
+        errorMessage:''
+      },
+
+    }
 
     loaderService:LoadingService = inject(LoadingService)
     platform:Platform = inject(Platform)
@@ -496,9 +554,10 @@ export class EventsViewPageComponent  implements OnInit {
 
 
   async toggleAplicationInRace(){
-    await this.setFirstDocuments()
-    await this.setDocuments()
+
     if(this.submitValidate()){
+      await this.setFirstDocuments()
+      await this.setDocuments()
       let currentForm = {
         ...this.personalUserForm.value,
         ...this.polisForm.value,
@@ -612,7 +671,7 @@ export class EventsViewPageComponent  implements OnInit {
   submitValidate(){
     let valid = true
     Object.keys(this.personalUserForm.controls).forEach((key) => {
-      const control = this.personalUserForm.get(key); // Доступ к контролу
+      const control = this.personalUserForm.get(key); 
       if (!control!.valid) {
         if(this.formErrors[key]){
           this.formErrors[key].errorMessage = 'Обязательное поле'; 
@@ -620,11 +679,50 @@ export class EventsViewPageComponent  implements OnInit {
         }
       } else {
           if( this.formErrors[key]){
-            this.formErrors[key].errorMessage = ''; // Очистка сообщения об ошибке
+            this.formErrors[key].errorMessage = ''; 
           }
       }
     });
-    console.log(this.formErrors)
+    Object.keys(this.polisForm.controls).forEach((key) => {
+      const control = this.polisForm.get(key);
+      if (!control!.valid) {
+        if(this.documentsError[key]){
+          this.documentsError[key].errorMessage = 'Обязательное поле'; 
+           valid = false
+        }
+      } else {
+          if( this.documentsError[key]){
+            this.documentsError[key].errorMessage = ''; 
+          }
+      }
+    })
+
+    Object.keys(this.licensesForm.controls).forEach((key) => {
+      const control = this.licensesForm.get(key);
+      if (!control!.valid) {
+        if(this.documentsError[key]){
+          this.documentsError[key].errorMessage = 'Обязательное поле'; 
+           valid = false
+        }
+      } else {
+          if( this.documentsError[key]){
+            this.documentsError[key].errorMessage = ''; 
+          }
+      }
+    })
+    if(!this.licensesFile){
+      this.documentsError.licensesFile.errorMessage = 'Файл не загружен'
+      valid = false
+    }else{
+      this.documentsError.licensesFile.errorMessage = '';
+    }
+    if(!this.polisFile){
+      this.documentsError.polisFile.errorMessage = 'Файл не загружен'
+      valid = false
+    }else{
+      this.documentsError.polisFile.errorMessage = '';
+    }
+
     return valid
   }
 

@@ -90,6 +90,13 @@
     --border-radius: 12px;
     --overflow-y: hidden;
 }
+.error-message{
+    color: #ff0000;
+    display: flex;
+    font-family: var(--font-regular);
+    font-size: 12px;
+    padding-top: 6px;
+}
 .groups-header{
     display: flex;
     padding-top: var(--little-padding);
