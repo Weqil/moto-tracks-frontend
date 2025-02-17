@@ -12,7 +12,7 @@
       <div class="main-container">
         <div class="event-container">
           <div class="event-date">
-            {{event.date_start | date :'Дата проведения: dd.MM.YYYY'}}
+            Дата проведения {{ event.date_start | date: 'dd.MM.YYYY HH:mm' : 'UTC' }}
           </div>
         </div>
         

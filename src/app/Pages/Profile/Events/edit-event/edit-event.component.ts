@@ -307,7 +307,7 @@ export class EditEventComponent  implements OnInit {
             ...res.race,
             locationId: res.race?.location?.id,
             region: `${res.race?.location?.type} ${ res.race?.location?.name}`,
-            dateStart: moment(res.race.date_start).format('YYYY-MM-DD HH:mm:ss'),
+            dateStart: moment(res.race.date_start).utc().format('YYYY-MM-DD HH:mm:ss'),
             images: this.event.images?.map((image:string)=>{ return {
             link:this.checkImgUrlPipe.checkUrlDontType(image),
             name:`${crypto.randomUUID()}`
