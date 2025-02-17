@@ -1,6 +1,6 @@
 .user-section{
     display: inline-flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     gap: 10px;
     .user-section__avatar{
         display: flex;
@@ -23,10 +23,15 @@
         justify-content: center;
         flex-direction: column;
         .user-section__name{
+            display: flex;
+            gap:5px;
+            word-break: break-all;
             margin: 0;
             color: var(--font-standart-color);
             font-family: var(--font-bold);
-            font-size: var( --font-headers-size) ;
+            font-size: var(--font-headers-size-little) ;
+            flex-wrap: wrap;
+            text-wrap: wrap;
         }
         .user-section__email{
             font-family: var(--font-bold);
@@ -54,3 +59,4 @@
     font-size: var(--font-little-size);
     margin-right: 0.5rem;
 }
+
