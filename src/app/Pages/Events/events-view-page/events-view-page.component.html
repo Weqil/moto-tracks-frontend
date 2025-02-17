@@ -24,7 +24,7 @@
         <div [innerHTML]="clearDescription()" class="event-description">{{event.desc}}</div>
 
         <div *ngIf="event.grades && event.grades.length" class="groups">
-          <span class="groups-header">Классы сорвевнования:</span>
+          <span class="groups-header">Классы соревнования:</span>
           <div class="group-item" *ngFor="let group of event.grades">
             <div class="group-item__name">{{group.name}}</div>
           </div>
