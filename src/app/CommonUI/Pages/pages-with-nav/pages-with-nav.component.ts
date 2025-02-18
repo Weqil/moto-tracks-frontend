@@ -41,13 +41,6 @@ export class PagesWithNavComponent  {
       },
 
       {
-        icon: '/assets/navigation/reiting.svg',
-        name:'Рейтинг',
-        active:false,
-        path: ['/rating'],
-      },
-    
-      {
         icon: '/assets/navigation/user.svg',
         name:'Профиль',
         active:false,

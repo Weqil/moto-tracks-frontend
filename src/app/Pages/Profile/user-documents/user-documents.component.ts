@@ -52,7 +52,7 @@ export class UserDocumentsComponent  implements OnInit {
   
   licensesForm: FormGroup = new FormGroup(
     {
-      licensesNumber: new FormControl('',[Validators.required, Validators.minLength(3), ]), //номер лицензии
+      licensesNumber: new FormControl('',[Validators.required, Validators.minLength(1), ]), //номер лицензии
     }
   )
 
@@ -72,7 +72,7 @@ export class UserDocumentsComponent  implements OnInit {
 
   pasportForm: FormGroup = new FormGroup(
     {
-      numberAndSeria: new FormControl('',[Validators.required, Validators.minLength(3)]), //Серия и номер полиса
+      numberAndSeria: new FormControl('',[Validators.required, Validators.minLength(1)]), //Серия и номер полиса
       pasportFileLink: new FormControl(''), // путь до файла
     }
   )
@@ -124,6 +124,10 @@ export class UserDocumentsComponent  implements OnInit {
     {name:'Husq', value:'Husq'},
     {name:'Kayo', value:'Kayo'},
     {name:'Fantic', value:'Fantic'},
+    {name:'Урал',value:'Урал'},
+    {name:'Zabel', value:'Zabel'},
+    {name:'MTX', value:'MTX'},
+    {name:'TRIUMPH', value:'TRIUMPH'},
   ]
 
   personalUserForm: FormGroup = new FormGroup({
@@ -274,14 +278,14 @@ submitForm(){
   }
 
   validateLicenses(){
-    if(this.licensesForm.valid && this.licensesFile){
+    if(this.licensesForm.valid){
       return true
     }else{
       return false
     }
   }
   validatePolis(){ 
-    if(this.polisForm.valid && this.polisFile){
+    if(this.polisForm.valid){
       return true
     }else{
       return false

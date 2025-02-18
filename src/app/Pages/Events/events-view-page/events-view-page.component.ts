@@ -122,6 +122,10 @@ export class EventsViewPageComponent  implements OnInit {
     {name:'Husq', value:'Husq'},
     {name:'Kayo', value:'Kayo'},
     {name:'Fantic', value:'Fantic'},
+    {name:'Урал',value:'Урал'},
+    {name:'Zabel', value:'Zabel'},
+    {name:'MTX', value:'MTX'},
+    {name:'TRIUMPH', value:'TRIUMPH'},
    ]
    groupItems: {name:string, value:string}[] = [
     {name:'Тренер', value:'Тренер'},
@@ -195,13 +199,7 @@ export class EventsViewPageComponent  implements OnInit {
       city: {
          errorMessage:''
       },
-      rankNumber:{
-        errorMessage:''
-      },
       community:{
-        errorMessage:''
-      },
-      coach:{
         errorMessage:''
       },
       motoStamp:{
@@ -216,9 +214,6 @@ export class EventsViewPageComponent  implements OnInit {
     }
 
     documentsError:any = {
-      licensesNumber:{
-        errorMessage:''
-      },
       polisNumber:{
         errorMessage:''
       },
@@ -226,9 +221,6 @@ export class EventsViewPageComponent  implements OnInit {
         errorMessage:''
       },
       itWorksDate:{
-        errorMessage:''
-      },
-      licensesFile:{
         errorMessage:''
       },
       polisFile:{
@@ -344,7 +336,7 @@ export class EventsViewPageComponent  implements OnInit {
    }
 
    createLicenses(): Observable<any> {
-    if (this.licensesFile) {
+   
       this.loaderService.showLoading();
       let fd: FormData = new FormData();
       fd.append('type', 'licenses');
@@ -360,12 +352,12 @@ export class EventsViewPageComponent  implements OnInit {
           return EMPTY;
         })
       );
-    }
+    
     return of(null);
   }
 
   createPolis(): Observable<any> {
-    if (this.polisFile) {
+ 
       this.loaderService.showLoading();
       let fd: FormData = new FormData();
       fd.append('type', 'polis');
@@ -381,12 +373,12 @@ export class EventsViewPageComponent  implements OnInit {
           return EMPTY;
         })
       );
-    }
+    
     return of(null);
   }
 
  createNotarius(): Observable<any>{
-  if(this.notariusFile){
+ 
   let fd: FormData = new FormData()
    fd.append('type','notarius')
    fd.append('data',JSON.stringify({}))
@@ -397,7 +389,7 @@ export class EventsViewPageComponent  implements OnInit {
     })
     ).subscribe((res:any)=>{
     })
-  }
+  
     return of(null);
  }
 
@@ -636,10 +628,9 @@ export class EventsViewPageComponent  implements OnInit {
          let polisDocument = res.documents.find((doc:any)=> doc.type === 'polis')
          this.polisForm.patchValue(JSON.parse((res.documents.find((doc:any)=> doc.type === 'polis')?.data)))
          this.polisFile = {name:'Полис загружен', path:  `${environment.BASE_URL}/document/${polisDocument.id}`}
-        
        }
        
-       if(res.documents.find((doc:any)=> doc.type === 'notarius')?.path){
+       if(res.documents.find((doc:any)=> doc.type === 'notarius')?.path.length){
          let notariusDocument = res.documents.find((doc:any)=> doc.type === 'notarius')
          this.notariusFile = {name:'Согласие загружено', path: `${environment.BASE_URL}/document/${notariusDocument.id}`}
          this.oldNotariusFile = {name:'Согласие загружено',  path:  `${environment.BASE_URL}/document/${notariusDocument.id}`}
@@ -707,31 +698,7 @@ export class EventsViewPageComponent  implements OnInit {
       }
     })
 
-    Object.keys(this.licensesForm.controls).forEach((key) => {
-      const control = this.licensesForm.get(key);
-      if (!control!.valid) {
-        if(this.documentsError[key]){
-          this.documentsError[key].errorMessage = 'Обязательное поле'; 
-           valid = false
-        }
-      } else {
-          if( this.documentsError[key]){
-            this.documentsError[key].errorMessage = ''; 
-          }
-      }
-    })
-    if(!this.licensesFile){
-      this.documentsError.licensesFile.errorMessage = 'Файл не загружен'
-      valid = false
-    }else{
-      this.documentsError.licensesFile.errorMessage = '';
-    }
-    if(!this.polisFile){
-      this.documentsError.polisFile.errorMessage = 'Файл не загружен'
-      valid = false
-    }else{
-      this.documentsError.polisFile.errorMessage = '';
-    }
+  
 
     return valid
   }
