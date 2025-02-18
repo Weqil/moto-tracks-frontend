@@ -1,8 +1,9 @@
 <div class="header">
   <div class="header-wrapper">
+    
       <ng-content *ngIf="!hiddenBackButton">
         <app-back-button  *ngIf="!customBack"></app-back-button>
-    </ng-content>
+      </ng-content>
 
     <app-circle-button *ngIf="customBack" (click)="backButtonClick()" icon="/assets/icons/arrow.svg"></app-circle-button>
     <div class="header-title">{{headerTitle}}</div>
