@@ -25,7 +25,7 @@
             <div class="bottom-info">
 
             <div class="event-date">
-             {{ event.date_start | date: 'dd.MM.YYYY HH:mm' : 'UTC' }}
+             {{ event.date_start | date: 'dd.MM.YYYY' }}
             </div>
 
                 <div *ngIf="event.appointment_count" class="users-in-event">

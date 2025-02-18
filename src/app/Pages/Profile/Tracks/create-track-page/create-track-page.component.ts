@@ -3,7 +3,7 @@ import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
 import { HeaderComponent } from 'src/app/Shared/Components/UI/header/header.component';
 import { ButtonsModule } from 'src/app/Shared/Modules/buttons/buttons.module';
 import { StepsModule } from 'src/app/Shared/Modules/steps/steps.module';
-import { NavController, Platform } from '@ionic/angular/standalone';
+import { IonModal, NavController, Platform } from '@ionic/angular/standalone';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FormsModule } from 'src/app/Shared/Modules/forms/forms.module';
 import { EditSliderComponent } from 'src/app/Shared/Components/UI/edit-slider/edit-slider.component';
@@ -15,12 +15,13 @@ import { LoadingService } from 'src/app/Shared/Services/loading.service';
 import { catchError, EMPTY, finalize } from 'rxjs';
 import { ToastService } from 'src/app/Shared/Services/toast.service';
 import { serverError } from 'src/app/Shared/Data/Interfaces/errors';
+import { MapService } from 'src/app/Shared/Data/Services/Map/map.service';
 
 @Component({
   selector: 'app-create-track-page',
   templateUrl: './create-track-page.component.html',
   styleUrls: ['./create-track-page.component.scss'],
-  imports: [SharedModule, HeaderComponent, ButtonsModule, StepsModule, FormsModule, EditSliderComponent, StandartRichInputComponent, AddressInputComponent]
+  imports: [SharedModule, HeaderComponent, ButtonsModule, StepsModule, FormsModule, EditSliderComponent, StandartRichInputComponent, AddressInputComponent,IonModal]
 })
 export class CreateTrackPageComponent  implements OnInit {
 
@@ -29,6 +30,13 @@ export class CreateTrackPageComponent  implements OnInit {
 
   maxStepsCount: number = 1
   stepCurrency: number = 1
+
+  regionModalState:boolean = false
+  mapService:MapService = inject(MapService)
+
+  searchRegionItems:any[] = []
+
+  locationId:string = ''
 
   trackService: TrackService = inject(TrackService)
   loadingService: LoadingService = inject(LoadingService)
@@ -50,6 +58,8 @@ export class CreateTrackPageComponent  implements OnInit {
     longitude: new FormControl('', [Validators.required, Validators.minLength(3)]),
     free: new FormControl('', [Validators.required, Validators.minLength(3)]),
     turns: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    region: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    locationId: new FormControl('', [Validators.required, Validators.minLength(1)]),
     length: new FormControl('', [Validators.required, Validators.minLength(3)]),
     desc: new FormControl(`Длина: - 
 Ширина: -
@@ -88,7 +98,7 @@ export class CreateTrackPageComponent  implements OnInit {
           if (
             this.createTrackForm.value.name.length <= 3 ||
             this.createTrackForm.value.desc.length <= 3 
-           || !this.createTrackForm.value.address.length ||  !this.createTrackForm.value.latitude || !this.createTrackForm.value.longitude
+           || !this.createTrackForm.value.address.length ||  !this.createTrackForm.value.latitude || !this.createTrackForm.value.longitude || !this.locationId
           ) {
             return true
           } else {
@@ -102,6 +112,24 @@ export class CreateTrackPageComponent  implements OnInit {
       return true
     }
   }
+
+  getRegions(){
+    this.mapService.getAllRegions().pipe().subscribe((res:any)=>{
+      res.data.forEach((region:any) => {
+        this.searchRegionItems.push({
+          name:`${region.name} ${region.type}`,
+          value:region.id
+        })
+      });
+    })
+  }
+  setRegion(region:any){
+    this.closeRegionModal()
+    this.locationId = region.value
+    this.createTrackForm.patchValue({region:region.name})
+    this.createTrackForm.patchValue({locationId:region.value})
+  }
+
   getImages(event:any){
     this.createTrackForm.patchValue({
       images: event
@@ -156,6 +184,13 @@ export class CreateTrackPageComponent  implements OnInit {
    
   }
 
+  closeRegionModal(){
+    this.regionModalState = false
+  }
+  openRegionModal(){
+    this.regionModalState = true
+  }
+
   cancelCreate(){
     this.navController.back()
   }
@@ -165,7 +200,7 @@ export class CreateTrackPageComponent  implements OnInit {
     this.createTrackForm.reset()
   }
   ngOnInit() {
-
+    this.getRegions()
   }
 
 }

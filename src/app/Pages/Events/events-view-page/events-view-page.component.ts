@@ -1,6 +1,6 @@
 import { Component, Inject, inject, NgZone, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { catchError, EMPTY, finalize, forkJoin, map, Observable, of, forkJoin, map, Observable, of, Subject, switchMap, switchMap, takeUntil, tap } from 'rxjs';
+import { catchError, EMPTY, finalize,forkJoin, map, Observable, of, Subject, switchMap, takeUntil, tap } from 'rxjs';
 import { IEvent } from 'src/app/Shared/Data/Interfaces/event';
 import { EventService } from 'src/app/Shared/Data/Services/Event/event.service';
 import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';

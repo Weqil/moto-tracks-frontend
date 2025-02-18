@@ -17,8 +17,17 @@
     padding-top: var(--standart-padding);
 }
 .decription{
-    
-    padding-top: var(--standart-padding);
+    padding-bottom: var(--standart-padding);
+}
+ion-modal{
+  --max-height:50%;
+  --width:90%;
+  --border-radius: 12px;
+  --overflow-y: hidden;
+}
+.region-modal-container{
+  display: flex;
+  padding: var(--standart-padding);
 }
 .specifications{
     padding-top: var(--standart-padding);
