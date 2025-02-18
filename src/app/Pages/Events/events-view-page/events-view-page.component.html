@@ -4,23 +4,22 @@
       <div class="slider-container">
         <app-show-slider [files]="event.images"></app-show-slider>
         <div class="slider-container__header">
-          <app-back-button ></app-back-button>
-          
-        </div>
+         
+          <!-- <app-back-button ></app-back-button> -->
+        </div> 
+        <app-header >
+          <div class="event-date">
+            {{ event.date_start | date: 'dd.MM.YYYY ' : 'UTC' }}
+          </div> 
+        </app-header>
       </div>
 
       <div class="main-container">
-        <div class="event-container">
-          <div class="event-date">
-            Дата проведения {{ event.date_start | date: 'dd.MM.YYYY HH:mm' : 'UTC' }}
-          </div>
-        </div>
+        
         
 
         <div class="event-name">{{event.name}}</div>
-        @if (usersInRace.length) {
-          <app-users-preview [fullValueUsers]="usersInRace.length" [users]="usersInRace" [moreCount]="usersInRace.length" [openUsersModal]="openUserModalValue" (closeModalEmit)="closeStateUsersModal()" (openModalEmit)="openStateUsersModal()"></app-users-preview>
-        }
+        
         <div [innerHTML]="clearDescription()" class="event-description">{{event.desc}}</div>
 
         <div *ngIf="event.grades && event.grades.length" class="groups">
@@ -34,10 +33,24 @@
            <span *ngIf="event.results_file" [routerLink]="['/view-document', event.results_file | checkImgUrl]" class="event-documents__text">Регламент <img class="event-documents__icon" src="/assets/icons/documents.svg" alt=""></span>
           <span *ngIf="event.position_file" [routerLink]="['/view-document', event.position_file | checkImgUrl]" class="event-documents__text">Положение <img class="event-documents__icon" src="/assets/icons/documents.svg" alt=""></span>
         </div>
+
+        
+
         <div class="event-track">
           <!-- <div class="event-track__title">Где проходит</div> -->
-          <app-track-section (click)="redirectInRace()" [track]="event.track"></app-track-section>
+          <app-track-section [hidhtStatus]="true" (click)="redirectInRace()" [track]="event.track"></app-track-section>
         </div>
+        
+        <div class="user-modal-header">
+          Участники 
+          <!-- {{usersInRace.length}} --> 
+        </div>
+        <div class="list-users-container">
+          @if (usersInRace.length) {
+          <app-users-preview [fullValueUsers]="usersInRace.length" [users]="usersInRace" [moreCount]="usersInRace.length" [openUsersModal]="openUserModalValue" (closeModalEmit)="closeStateUsersModal()" (openModalEmit)="openStateUsersModal()"></app-users-preview>
+        }
+        </div>
+
       </div>
       
       <div class="footer">

@@ -97,7 +97,7 @@ export class LoginPageComponent  implements OnInit {
     if(err.status == '422' && message ==  AuthErrosMessages.emailNotFound){
       this.loginInvalid.name.status = true
       this.loginInvalid.password.status = true
-      this.loginInvalid.password.message = 'Такого аккаунта не существует'
+      this.loginInvalid.password.message = 'Такого аккаунта не существует, зарегестрировать?'
     }
     this.loginForm.enable()
   }

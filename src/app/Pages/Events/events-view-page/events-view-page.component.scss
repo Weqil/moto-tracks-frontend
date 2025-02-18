@@ -47,7 +47,7 @@
 
 .event-track{
     padding-top: var(--standart-padding);
-    padding-bottom: 4rem;
+    padding-bottom: 1rem;
 }
 .personal-form{
     padding-top: var(--standart-padding);
@@ -153,18 +153,26 @@
     padding-bottom: var(--little-padding);
 }
 
-.event-container{
-    width: 100%;
-    display: flex;
-    padding-bottom: 1rem;
-    justify-content: end;
-}
+
 .event-date{
+    display: inline-flex;
+    width: 100%;
+    justify-content: center;
+    margin: auto;
+    margin-right: 2rem;
     color: var(--white-color);
-    padding: var(--little-padding);
     font-family: var(--font-bold);
-    font-size: var(--font-little-size);
-    background-color: var(--grey-color);
-    border-radius: 2px;
+    font-size: var(--font-headers-size-little);
 }
 
+.list-users-container{
+    padding-bottom: 4rem;
+}
+
+.user-modal-header{
+    display: flex;
+    width: 100%;
+    gap: 1rem;
+    font-family: var(--font-bold);
+    color: var(--dark-grey-color);
+}
