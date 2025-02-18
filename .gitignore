@@ -57,7 +57,7 @@ yarn-error.log
 /.angular
 /.android
 /.ios
-/.www
+
 
 /.angular/cache
 .sass-cache/

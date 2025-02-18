@@ -61,3 +61,41 @@
 }
 
 
+.label_invalid{
+    color: #ff0000;
+    font-size: 12px;
+    padding-bottom: 1px;
+}
+.error-message{
+    color: #ff0000;
+    display: flex;
+    font-family: var(--font-regular);
+    font-size: 12px;
+    padding-top: 6px;
+}
+.standart-input_inavlid{
+    border: 1px solid #ff0000;
+    border-radius: 5px;
+    width: 100%;
+    min-height: 2.25rem;
+    font-size: 12px;
+    padding-left: 0.8rem;
+    margin-top: 3px;
+    padding: 0.5rem;
+    background: none;
+    transition: 0.1s;
+    color: #363d42;
+}
+.standart-input_inavlid:focus{
+    outline: none;
+    border-radius: 5px;
+    width: 100%;
+    min-height: 2.25rem;
+    margin-top: 3px;
+    transition: 0.2s;
+    background: none;
+    font-size: 12px;
+    padding-left: 0.8rem;
+    transition: 0.1s;
+    color: #363d42;
+}

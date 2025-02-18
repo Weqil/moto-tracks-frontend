@@ -18,6 +18,9 @@ import { catchError, EMPTY, finalize } from 'rxjs';
 import { userRoles } from 'src/app/Shared/Data/Enums/roles';
 import { NavController } from '@ionic/angular';
 import { serverError } from 'src/app/Shared/Data/Interfaces/errors';
+import { IonCheckbox, IonModal } from '@ionic/angular/standalone';
+import { RouterLink } from '@angular/router';
+
 
 @Component({
   selector: 'app-settings',
@@ -25,7 +28,7 @@ import { serverError } from 'src/app/Shared/Data/Interfaces/errors';
   styleUrls: ['./settings.component.scss'],
   encapsulation: ViewEncapsulation.None,
   imports: [SharedModule, CommonModule, HeaderModule, FormsModule,  ButtonsModule, UserModule,
-    ProfileModule, selectedModule]
+    ProfileModule, selectedModule, IonModal,IonCheckbox,RouterLink]
 })
 export class SettingsComponent  implements OnInit {
   authService: any;
@@ -33,8 +36,11 @@ export class SettingsComponent  implements OnInit {
   checkImgUrlPipe:CheckImgUrlPipe = inject(CheckImgUrlPipe)
   private readonly loading:LoadingService = inject(LoadingService)
 
+  userAgreedStatus:any = localStorage.getItem('userAgreedStatus')
+  userAgreedModalState:boolean = false
   statusesSelect:boolean = false
   selectedStatusItem:any  = {}
+  disabledAgreedButton:boolean = true
   statuses:any[] = [];
 
   constructor() { }
@@ -85,13 +91,40 @@ export class SettingsComponent  implements OnInit {
     }
     this.selectedStatusItem = event;
   }
+  changeAgreedState(event:any){
+    this.disabledAgreedButton = !event.target.checked
+  }
   openSelectedStatus(){
-    if(!this.userService.userHaveRoot()){
+    this.openModalStateAgreed()
+    if(!this.userService.userHaveRoot() && this.userAgreedStatus !== 'false' && this.userAgreedStatus){
       this.statusesSelect = true;
     }
   }
   closeSelectedStatus(){
     this.statusesSelect = false;
+  }
+
+  openModalStateAgreed(){
+    this.userAgreedStatus = localStorage.getItem('userAgreedStatus')
+    if(this.userAgreedStatus == 'false' || !this.userAgreedStatus){
+      this.userAgreedModalState = true
+    }
+  
+  }
+  closeStateAgreedModal(){
+  
+    if(!this.disabledAgreedButton){
+      localStorage.setItem('userAgreedStatus','true')
+      this.userAgreedStatus = true
+      this.userAgreedModalState = false
+  
+    }
+  }
+  navigateInAgreed(){
+    this.userAgreedModalState = false
+    setTimeout(()=>{
+      this.navControler.navigateForward('/distribution-agreement')
+    },0)
   }
 
   logoutInAccount() {
@@ -176,6 +209,15 @@ export class SettingsComponent  implements OnInit {
       this.user = this.userService.user.value
       this.settingsAvatar = this.checkImgUrlPipe.checkUrlDontType(this.user?.avatar) 
     })
+  }
+
+  closeModalAgreedNotVerificated(){
+    this.userAgreedStatus = 'false'
+    this.userAgreedModalState = false
+  }
+
+  ionViewDidLeave(){
+    this.userAgreedModalState = false
   }
 
   ngOnInit() { this.userService.user.pipe().subscribe(()=>{
