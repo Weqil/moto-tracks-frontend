@@ -39,7 +39,6 @@ export class PagesWithNavComponent  {
         active:false,
         path: ['/tracks'], 
       },
-    
       {
         icon: '/assets/navigation/user.svg',
         name:'Профиль',

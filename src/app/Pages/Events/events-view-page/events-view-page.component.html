@@ -15,7 +15,11 @@
       </div>
 
       <div class="main-container">
-        
+        <div class="event-container">
+          <div class="event-date">
+            Дата проведения {{ event.date_start | date: 'dd.MM.YYYY' }}
+          </div>
+        </div>
         
 
         <div class="event-name">{{event.name}}</div>
@@ -105,9 +109,9 @@
           </div>
           <app-standart-input-select [errorMessage]="formErrors.group.errorMessage" [invalid]="formErrors.group.errorMessage.length !== 0"  selectedName="groupSelect" [items]="groupItems" (onChange)="setGroup($event)" [selectedItem]="{name:personalUserForm.value.group, value:personalUserForm.value.group}" label="Класс, группа*"></app-standart-input-select>
           <app-standart-input-select [errorMessage]="formErrors.rank.errorMessage" [invalid]="formErrors.rank.errorMessage.length !== 0" selectedName="rankSelect" [items]="sportRankItems" (onChange)="setRank($event)" [selectedItem]="{name:personalUserForm.value.rank, value:personalUserForm.value.rank}" label="Спортивное звание, разряд*"></app-standart-input-select>
-          <app-standart-input [errorMessage]="formErrors.rankNumber.errorMessage" [invalid]="formErrors.rankNumber.errorMessage.length !== 0" [control]="personalUserForm.get('rankNumber')" placeholder="№ удостоверения (МСМК, МС, КМС)" label="№ удостоверения*"></app-standart-input>
+          <app-standart-input [control]="personalUserForm.get('rankNumber')" placeholder="№ удостоверения (МСМК, МС, КМС)" label="№ удостоверения"></app-standart-input>
           <app-standart-input [errorMessage]="formErrors.community.errorMessage" [invalid]="formErrors.community.errorMessage.length !== 0" [control]="personalUserForm.get('community')" placeholder="Команда" label="Навзание команды*"></app-standart-input>
-          <app-standart-input [errorMessage]="formErrors.coach.errorMessage" [invalid]="formErrors.coach.errorMessage.length !== 0" [control]="personalUserForm.get('coach')" placeholder="Тренер" label="ФИО тренера*"></app-standart-input>
+          <app-standart-input [control]="personalUserForm.get('coach')" placeholder="Тренер" label="ФИО тренера"></app-standart-input>
           <app-standart-input-select [errorMessage]="formErrors.motoStamp.errorMessage" [invalid]="formErrors.motoStamp.errorMessage.length !== 0" selectedName="motoStampSelect" [items]="motoStampItems" (onChange)="setMotoStamp($event)" [selectedItem]="{name:personalUserForm.value.motoStamp, value:personalUserForm.value.motoStamp}" label="Марка мотоцикла*"></app-standart-input-select>
           <app-standart-input-select [errorMessage]="formErrors.engine.errorMessage" [invalid]="formErrors.engine.errorMessage.length !== 0" selectedName="engineSelect" [items]="engineItems" (onChange)="setEngine($event)" [selectedItem]="{name:personalUserForm.value.engine, value:personalUserForm.value.engine}" label="Тип двигателя*"></app-standart-input-select>
         </form>
@@ -115,11 +119,10 @@
         <div class="documents">
             <div class="document-header">Лицензия</div>
             <div class="licenses document-container">
-              <app-standart-input [errorMessage]="documentsError.licensesNumber.errorMessage" [invalid]="documentsError.licensesNumber.errorMessage.length !== 0" [control]="licensesForm.get('licensesNumber')" placeholder="Лицензия МФР" label="Лицензия МФР (тип, №)*"></app-standart-input>
+              <app-standart-input [control]="licensesForm.get('licensesNumber')" placeholder="Лицензия МФР" label="Лицензия МФР (тип, №)*"></app-standart-input>
               <span class="scan-header">Скан или фотография Лицензии</span>
               <app-file-input (click)="!licensesFile ? licensesFileInput.click(): showToastInfoFileUpload()" [fileName]="licensesFile.name"></app-file-input>
               <input (change)="setLicensesFile($event)" #licensesFileInput style="display: none;"  type="file">
-              <span class="error-message" *ngIf="documentsError.licensesFile.errorMessage.length">{{documentsError.licensesFile.errorMessage}}</span>
             </div>
 
             <div class="document-header">Страховой полис</div>
@@ -130,7 +133,6 @@
               <span class="scan-header">Скан или фотография Полиса</span>
               <app-file-input [fileName]="polisFile.name" (click)="!polisFile ? polisFileInput.click(): showToastInfoFileUpload()"></app-file-input>
               <input (change)="setPolisFile($event)" #polisFileInput style="display: none;"  type="file">
-              <span class="error-message" *ngIf="documentsError.polisFile.errorMessage.length">{{documentsError.polisFile.errorMessage}}</span>
             </div>
 
             <div class="document-header">Нотариальное согласие родителей</div>
