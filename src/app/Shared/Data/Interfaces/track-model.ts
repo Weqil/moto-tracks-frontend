@@ -13,7 +13,7 @@ export interface Track {
         name:string,
         type:string
     }
-    free?:boolean;
+    free?:string;
     length?:number
     turns?:number
     desc?: string,

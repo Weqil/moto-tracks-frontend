@@ -1,14 +1,23 @@
 .track-page-header{
     padding: var(--standart-padding);
 }
+
 .tracks-grid__item{
     border-bottom: 1px solid rgba(76, 88, 97, .1568627451);
     padding-top: var(--little-padding);
     padding-bottom: var(--little-padding);
 }
+
 .tracks-grid{
     padding-top: var(--standart-padding);
     display: flex;
     flex-direction: column;
     gap: 16px;
+}
+
+.edit-button-container{
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
 }

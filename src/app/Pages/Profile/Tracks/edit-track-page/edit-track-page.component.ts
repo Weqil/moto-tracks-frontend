@@ -59,7 +59,7 @@ export class EditTrackPageComponent  implements OnInit {
     address: new FormControl('', [Validators.required, Validators.minLength(3)]),
     latitude: new FormControl('', [Validators.required, Validators.minLength(3)]),
     longitude: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    free: new FormControl(true, [Validators.required, Validators.minLength(3)]),
+    free: new FormControl(1, [Validators.required, Validators.minLength(3)]),
     turns: new FormControl('', [Validators.required, Validators.minLength(3)]),
     desc: new FormControl('', [Validators.required, Validators.minLength(3)]),
     region: new FormControl('', [Validators.required, Validators.minLength(3)]),
@@ -67,7 +67,7 @@ export class EditTrackPageComponent  implements OnInit {
     length: new FormControl('', [Validators.required, Validators.minLength(3)]),
     level: new FormControl('', [Validators.required, Validators.minLength(3)]),
     images: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    is_work: new FormControl(true),
+    is_work: new FormControl(1),
  })
 
   getTrack(){
@@ -93,9 +93,6 @@ export class EditTrackPageComponent  implements OnInit {
           desc: this.track.desc!.replace(/  /g, '&nbsp;&nbsp;')
         });
         this.sliderImages = this.editTrackForm.value.images
-        console.log(this.editTrackForm.get('region')?.value)
-      
-  
     })
   }
 
@@ -154,9 +151,12 @@ export class EditTrackPageComponent  implements OnInit {
       console.log(this.editTrackForm.value)
       let editForm = {
           ...this.editTrackForm.value,
+          free:1,
+          is_work:1,
           imagesAdd: _.cloneDeep(this.editTrackForm.value.images),
           imagesDel: this.deletesImages.map((image:string)=>image.split(`${this.backendUrl}/storage/`)[1])
       }
+   
       let editEventFormData:FormData = new FormData()
       for (let key in editForm) {
         if (Array.isArray(editForm[key])) {
