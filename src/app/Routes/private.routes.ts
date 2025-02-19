@@ -54,9 +54,14 @@ export const privateRoutes: Routes = [
                 loadComponent: () => import('../Pages/Authorization/confirm-email-page/confirm-email-page.component').then((m) => m.ConfirmEmailPageComponent)
             },
             {
-                path:'racer/edit/:id',
+                path:'race/edit/:id',
                 canActivate:[canActivateAuth,canActivateEmailConfirm],
                 loadComponent: () => import('../Pages/Profile/Events/edit-event/edit-event.component').then((m) => m.EditEventComponent)
+            },
+            {
+                path:'track/edit/:id',
+                canActivate:[canActivateAuth,canActivateEmailConfirm],
+                loadComponent: () => import('../Pages/Profile/Tracks/edit-track-page/edit-track-page.component').then((m) => m.EditTrackPageComponent)
             },
         ]
     },

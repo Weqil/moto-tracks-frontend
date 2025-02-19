@@ -6,7 +6,7 @@ import { UserService } from './Shared/Data/Services/User/user.service';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
-  imports: [IonApp, IonRouterOutlet],
+  imports: [IonApp, IonRouterOutlet,],
 })
 
 export class AppComponent {

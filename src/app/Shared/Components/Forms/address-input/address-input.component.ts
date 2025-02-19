@@ -33,7 +33,11 @@ export class AddressInputComponent implements OnInit {
   addressForm!: FormGroup
   public addressChange: BehaviorSubject<boolean> = new BehaviorSubject(true)
   setFirstCoords() {
-    this.coords = [55.751574, 37.573856] // Москва по умолчанию
+  
+    if(!this.coords){
+      this.coords = [55.751574, 37.573856] // Москва по умолчанию
+    }
+  
     this.addressForm.patchValue({
       longitude: this.coords[0],
       latitude: this.coords[1]

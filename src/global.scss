@@ -69,6 +69,63 @@
     opacity: 0;
     pointer-events: none;
   }
+
+  .zoom-icons{
+    filter: brightness(0) saturate(100%);
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    background-image: url('/assets/icons/plus.svg');
+    display: block;
+  }
+  .zoom-out{
+    filter: brightness(0) saturate(100%);
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    background-image: url('/assets/icons/minus.svg');
+    display: block;
+  }
+  .rotate-icons__right{
+    width: 60%;
+    margin: auto;
+    height: 60%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-image: url('/assets/icons/rotate.svg');
+    display: block;
+  }
+  .rotate-icons__left{
+    width: 60%;
+    margin: auto;
+    height: 60%;
+    background-repeat: no-repeat;
+    background-position: center;
+    transform: scale(-1, 1);
+    background-size: cover;
+    background-image: url('/assets/icons/rotate.svg');
+    display: block;
+  }
+
+  .full-screen-icons{
+    filter: brightness(0) saturate(100%);
+    width: 60%;
+    margin: auto;
+    height: 60%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-image: url('/assets/icons/full-screen.svg');
+    display: block;
+  }
+  
+
+
   *{
     padding: 0;
     margin: 0;

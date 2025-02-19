@@ -40,7 +40,7 @@ export class MyEventsPageComponent  implements OnInit {
   }
 
   redirectInEditPage(eventId:any){
-    this.navController.navigateForward(`/racer/edit/${eventId}`)
+    this.navController.navigateForward(`/race/edit/${eventId}`)
   }
 
 

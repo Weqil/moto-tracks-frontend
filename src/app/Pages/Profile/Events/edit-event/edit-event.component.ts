@@ -289,6 +289,7 @@ export class EditEventComponent  implements OnInit {
         ).subscribe((res:any)=>{
           this.event = res.race
           this.trackSelected = this.event.track
+
           if(this.event.results_file){
             this.reglamentFile = {
               name:'Файл загружен',
@@ -308,11 +309,14 @@ export class EditEventComponent  implements OnInit {
             locationId: res.race?.location?.id,
             region: `${res.race?.location?.type} ${ res.race?.location?.name}`,
             dateStart: moment(res.race.date_start).utc().format('YYYY-MM-DD HH:mm:ss'),
-            images: this.event.images?.map((image:string)=>{ return {
-            link:this.checkImgUrlPipe.checkUrlDontType(image),
-            name:`${crypto.randomUUID()}`
+            images:  this.event.images? this.event.images?.map((image:string)=>{ return {
+               link:this.checkImgUrlPipe.checkUrlDontType(image),
+              name:`${crypto.randomUUID()}`
               }
-            })
+            }):[]
+          })
+          this.createEventForm.patchValue({
+            desc:this.event.desc!.replace(/  /g, '&nbsp;&nbsp;')
           })
           this.sliderImages = this.createEventForm.value.images
           this.selectedGroup = this.event.grades
@@ -322,9 +326,10 @@ export class EditEventComponent  implements OnInit {
 
     submitForm(){
       if(!this.stepInvalidate()){
-        this.loadingService.showLoading()
+
+      this.loadingService.showLoading()
       this.createEventForm.value.images = this.createEventForm.value.images.filter((image:any)=>!image.link)
-      console.log( this.createEventForm.value)
+  
       let editForm = {
         ...this.createEventForm.value,
         trackId: this.trackSelected!.id,
@@ -335,11 +340,12 @@ export class EditEventComponent  implements OnInit {
       }
   
       let editEventFormData:FormData = new FormData()
-      editEventFormData.append('name',editForm.name)
-      editEventFormData.append('desc',editForm.desc)
+      editEventFormData.append('name', editForm.name)
+      editEventFormData.append('desc', editForm.desc)
       editEventFormData.append('locationId',String(editForm.locationId))
       editEventFormData.append('dateStart',editForm.dateStart)
       editEventFormData.append('trackId',String(editForm.trackId))
+
       for (var i = 0; i < this.selectedGroup.length; i++) {
         editEventFormData.append('gradeIds[]', this.selectedGroup[i].id)
       }

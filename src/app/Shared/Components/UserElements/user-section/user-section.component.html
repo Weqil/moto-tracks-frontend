@@ -3,11 +3,10 @@
     <img class="user-section__avatar__img" [src]="user.avatar | checkImgUrl" alt="">
   </div>
   <div class="user-section__info">
-    <div *ngIf="user?.personal?.name && user?.personal?.surname" class="user-section__name">
-
-      <div >{{user.personal.name}}</div>
-      <div>{{user.personal.surname}}</div>
-
+    <div class="user-section__name">
+      <div *ngIf="user?.personal?.name && user?.personal?.surname" >{{user.personal.name}}</div>
+      <div *ngIf="user?.personal?.name && user?.personal?.surname">{{user.personal.surname}}</div>
+      <div *ngIf="!user?.personal?.name && !user?.personal?.surname" >{{user.name}}</div>
     </div>
     <!-- <h2 class="user-section__name">{{ (user?.personal?.name && user?.personal?.surname) ? (user.personal.name +  ' ' +  user.personal.surname) : user.name}}</h2> -->
     <!-- <h2 class="user-section__name">{{ (user?.personal?.name && user?.personal?.surname) ? (user.personal.name +  ' ' +  user.personal.surname) : user.name}}</h2> -->
