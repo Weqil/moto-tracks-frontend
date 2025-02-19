@@ -3,14 +3,25 @@
 
   <ng-container *ngIf="!disabled">
     <label [ngClass]="{'label':!invalid,'label_invalid':invalid}" for="{{label}}">{{label}}</label>
-    <input  [maskito]="optionMask" [maxlength]="maxLength" [ngClass]="{'standart-input':!invalid,'standart-input_inavlid':invalid}" (input)="emitInput($event)" #input [readonly]="readonly" placeholder="{{placeholder}}" type="{{type}}" name="{{label}}"  [formControl]="control" name="new_name">
+    <input  
+    [maskito]="optionMask" 
+    [maxlength]="maxLength" 
+    [ngClass]="{'standart-input':!invalid,'standart-input_inavlid':invalid}" 
+    (input)="emitInput($event)" 
+    #input 
+    (blur)="TrimValue()"
+    [readonly]="readonly" 
+    placeholder="{{placeholder}}"  
+    type="{{type}}" name="{{label}}"  
+    [formControl]="control" 
+    name="new_name">
     <button (click)="openPasword(input)" *ngIf="openPassword" type="button" class="open-input"><img class="open-input-icon" src="/assets/icons/open-input.svg" alt=""></button>
     <span *ngIf="errorMessage" class="error-message">{{errorMessage}}</span>
   </ng-container>
 
   <ng-container *ngIf="disabled">
     <label class="label" for="{{label}}">{{label}}</label>
-    <input (input)="emitInput($event)" #input  [readonly]="readonly" placeholder="{{placeholder}}" type="{{type}}" name="{{label}}" class="standart-input_disabled" [formControl]="control" name="new_name">
+    <input (input)="emitInput($event)" #input (blur)="TrimValue()" [readonly]="readonly" placeholder="{{placeholder}}" type="{{type}}" name="{{label}}" class="standart-input_disabled" [formControl]="control" name="new_name">
     <button (click)="openPasword(input)" *ngIf="openPassword" type="button" class="open-input"><img class="open-input-icon" src="/assets/icons/open-input.svg" alt=""></button>
   </ng-container>
 </div>

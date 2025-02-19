@@ -41,6 +41,11 @@ export class StandartInputComponent implements OnInit {
     }
   }
 
+  TrimValue():void {
+    const trimmedValue = this.control.value?.trim();
+    this.control.setValue(trimmedValue, {emitEvent: false});
+  }
+
   ngOnChanges() {}
   openPasword(input: any) {
     input.type = input.type === 'password' ? 'text' : 'password'
