@@ -176,3 +176,38 @@
     font-family: var(--font-bold);
     color: var(--dark-grey-color);
 }
+
+@media (min-width: 500px){
+    .footer{
+
+        padding-left: 25%;
+        padding-right: 25%;
+        position: fixed;
+        bottom: 0;
+        background-color: var(--page-background);
+        width: 100%;
+    }
+
+    .main-container-parent{
+       
+        display: flex;
+        
+        justify-content: center;
+        width: 100%;
+    }
+    .main-container{
+       
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 50%;
+    }
+
+    
+}
+
+@media(min-width: 875px) {
+
+
+    
+}

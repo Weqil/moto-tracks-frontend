@@ -1,9 +1,4 @@
-swiper-slide img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius:0px 0px 16px 16px;
-}
+
 .video-content{
     height: 100%;
     width: 100%;
@@ -33,6 +28,40 @@ swiper-slide img{
     top: 11.5rem;
     right: 1rem;
 }
+
+swiper-slide img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius:0px 0px 16px 16px;
+    
+}
+
 swiper-slide{
     max-height: 33rem;
+    margin-top: var(--standart-header-padding);
+}
+
+@media (min-width: 500px){
+    
+    swiper-slide img{
+        display: flex;
+        justify-content: center;
+        width: 33rem;
+        max-height: 100%;
+        object-fit: cover;
+        border-radius:0px 0px 16px 16px;
+    }
+
+    swiper-slide{
+        
+        max-height: 33rem;
+        width:100%;
+        display: flex;
+        justify-content: center;
+        margin-top: var(--standart-header-padding);
+    }
+
+    
+
 }

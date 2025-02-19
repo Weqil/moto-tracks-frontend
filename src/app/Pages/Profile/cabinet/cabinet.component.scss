@@ -21,6 +21,7 @@
 }
 
 .cabinet__logout{
+    width: 100%;
     padding-top: var(--middle-padding);
 }
 
@@ -39,3 +40,35 @@
     height: 3rem;
     font-family: var(--font-bold);
 }
+
+@media(min-width: 500px){
+
+    .cabinet__logout{
+        margin-left: 25%;
+        width: 50%;
+        padding-top: var(--middle-padding);
+    }
+
+
+    .main-container--with-header{
+        display: flex;
+        justify-content: center;
+    }
+
+    .cabinet{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 50%;
+        padding-top: var(--standart-padding);
+    }
+
+}
+
+@media(min-width: 500px){
+
+    .cabinet__logout{
+        margin-left: 25%;
+        width: 50%;
+        padding-top: var(--middle-padding);
+    }}

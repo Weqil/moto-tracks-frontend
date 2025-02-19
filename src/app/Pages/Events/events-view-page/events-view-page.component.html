@@ -13,13 +13,10 @@
           </div> 
         </app-header>
       </div>
-
+      
+      <div class="main-container-parent">
       <div class="main-container">
-        <div class="event-container">
-          <div class="event-date">
-            Дата проведения {{ event.date_start | date: 'dd.MM.YYYY' }}
-          </div>
-        </div>
+        
         
 
         <div class="event-name">{{event.name}}</div>
@@ -66,6 +63,7 @@
           }
     
         </div>
+      </div>
        
     }
   </main>
