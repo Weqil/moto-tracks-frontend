@@ -51,15 +51,17 @@
 }
 .event-date{
     display: flex;
-    justify-content: end;
+    justify-content: center;
     color: var(--white-color);
     padding: var(--little-padding);
     font-family: var(--font-bold);
     font-size: var(--font-little-size);
-    background-color: var(--blue-primary-color);
-    border-radius: 8px;
+    background-color: var(--grey-color);
+    width: 100%;
     display: inline-flex;   
     height: 2rem;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
 }
 
 .users-in-event{
