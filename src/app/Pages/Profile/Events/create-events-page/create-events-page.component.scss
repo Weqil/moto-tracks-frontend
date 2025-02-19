@@ -3,6 +3,7 @@
     display: flex;
     flex-direction: column;
     gap: var(--little-padding);
+    padding-bottom: var(--standart-padding);
 }
 .step-description{
     text-align: center;
@@ -18,12 +19,6 @@
     padding-bottom: var(--standart-padding);
 }
 
-.navigate-buttons-container{
-    padding-top: var(--standart-padding);
-    display: flex;
-    flex-direction: column;
-    gap: var(--little-padding);
-}
 .name-wrapper{
     padding-top: var(--standart-padding);
     display:flex;

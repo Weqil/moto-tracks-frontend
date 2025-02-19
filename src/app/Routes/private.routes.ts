@@ -26,16 +26,8 @@ export const privateRoutes: Routes = [
                 canActivate:[canActivateAuth,canActivateEmailConfirm],
                 loadComponent: () => import('../Pages/Profile/Tracks/my-tracks-page/my-tracks-page.component').then((m) => m.MyTracksPageComponent)
             },
-            {
-                path:'create-track',
-                canActivate:[canActivateAuth,canActivateEmailConfirm],
-                loadComponent: () => import('../Pages/Profile/Tracks/create-track-page/create-track-page.component').then((m) => m.CreateTrackPageComponent)
-            },
-            {
-                path: 'create-event',
-                canActivate:[canActivateAuth,canActivateEmailConfirm],
-                loadComponent: () => import('../Pages/Profile/Events/create-events-page/create-events-page.component').then((m) => m.CreateEventsPageComponent)
-            },
+            
+            
             {
                 path:'my-events',
                 canActivate:[canActivateAuth,canActivateEmailConfirm],
@@ -72,6 +64,18 @@ export const privateRoutes: Routes = [
                 loadComponent: () => import('../Pages/Profile/Tracks/edit-track-page/edit-track-page.component').then((m) => m.EditTrackPageComponent)
             },
         ]
-    }
+    },
+
+    {
+        path: 'create-event',
+        canActivate:[canActivateAuth,canActivateEmailConfirm],
+        loadComponent: () => import('../Pages/Profile/Events/create-events-page/create-events-page.component').then((m) => m.CreateEventsPageComponent)
+    },
+    
+    {
+        path:'create-track',
+        canActivate:[canActivateAuth,canActivateEmailConfirm],
+        loadComponent: () => import('../Pages/Profile/Tracks/create-track-page/create-track-page.component').then((m) => m.CreateTrackPageComponent)
+    },
  
 ];

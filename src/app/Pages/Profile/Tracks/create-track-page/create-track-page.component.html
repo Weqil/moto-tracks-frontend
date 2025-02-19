@@ -1,5 +1,10 @@
 <ion-content>
-    <app-header (customBackClick)="stepPrevious()" [customBack]="true"  headerTitle="Создание трека"></app-header>
+    <app-header (customBackClick)="stepPrevious()" 
+
+    [hiddenBackButton]="true"
+    [customBack]="false" 
+
+    headerTitle="Создание трека"></app-header>
     <main class="main-container--with-header">
         <app-step-container [maxStepsCount]="maxStepsCount" [stepCurrency]="stepCurrency">
             <app-step-container-item [maxStepsCount]="maxStepsCount" [stepCurrency]="stepCurrency" stepNum="1">

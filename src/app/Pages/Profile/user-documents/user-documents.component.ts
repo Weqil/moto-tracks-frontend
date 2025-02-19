@@ -128,6 +128,7 @@ export class UserDocumentsComponent  implements OnInit {
     {name:'Zabel', value:'Zabel'},
     {name:'MTX', value:'MTX'},
     {name:'TRIUMPH', value:'TRIUMPH'},
+    {name:'Другое', value:'Другое'}
   ]
 
   personalUserForm: FormGroup = new FormGroup({

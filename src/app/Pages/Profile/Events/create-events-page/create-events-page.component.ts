@@ -72,7 +72,18 @@ export class CreateEventsPageComponent  implements OnInit {
 
   createEventForm: FormGroup = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    desc: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    desc: new FormControl(`📕С собой иметь паспорт или свидетельство о рождении для спортсменов младше 18 лет.
+
+📄Лицензия
+
+👨‍👩‍👦 Для несовершеннолетних спортсменов требуется нотариально заверенное согласие от обоих родителей с указанием вида спорта "мотоспорт-мотокросс"
+
+📚 Зачётная книжка:
+
+🩺 Мед. справка от спортивного врача или физ.диспансера:
+
+📃 Страховка на сумму не менее 100 т.р. с указанием вида спорта "Мотокросс"
+`, [Validators.required, Validators.minLength(3)]),
     images: new FormControl('', [Validators.required, Validators.minLength(1)]),
     region:new FormControl('', [Validators.required, Validators.minLength(1)]),
     locationId: new FormControl('', [Validators.required, Validators.minLength(1)]),
