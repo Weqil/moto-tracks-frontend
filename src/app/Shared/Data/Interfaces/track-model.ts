@@ -8,6 +8,11 @@ export interface Track {
     longitude: number;
     avatar?: string|null;
     is_work?:boolean;
+    location:{
+        id:number,
+        name:string,
+        type:string
+    }
     free?:boolean;
     length?:number
     turns?:number

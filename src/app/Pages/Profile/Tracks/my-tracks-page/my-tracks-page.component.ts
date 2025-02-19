@@ -38,6 +38,10 @@ export class MyTracksPageComponent  implements OnInit {
       this.tracks = res.tracks
     })
   }
+  redirectInEditPage(eventId:any){
+    this.navController.navigateForward(`/track/edit/${eventId}`)
+  }
+
   ionViewWillEnter(){
     this.getMyTracks()
   }

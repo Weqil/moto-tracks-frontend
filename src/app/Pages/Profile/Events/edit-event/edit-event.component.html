@@ -106,12 +106,12 @@
       </ng-template>  
     </ion-modal>
 
-    <div class="navigate-buttons-container">
-      <app-standart-button [disabled]="stepInvalidate()"  *ngIf="stepCurrency !== maxStepsCount" (click)="stepNext()" buttonText="Далее" theme="standart"></app-standart-button>
-      <app-standart-button [disabled]="stepInvalidate()" (click)="submitForm()"  *ngIf="stepCurrency === maxStepsCount" buttonText="Сохранить" theme="standart"></app-standart-button>
-      <div>
-        <app-standart-button [disabled]="true" (click)="cancelCreate()"  buttonText="Отмена" theme="light"></app-standart-button>
-      </div>
-  </div>
+      <div class="navigate-buttons-container">
+          <app-standart-button [disabled]="stepInvalidate()"  *ngIf="stepCurrency !== maxStepsCount" (click)="stepNext()" buttonText="Далее" theme="standart"></app-standart-button>
+          <app-standart-button [disabled]="stepInvalidate()" (click)="submitForm()"  *ngIf="stepCurrency === maxStepsCount" buttonText="Сохранить" theme="standart"></app-standart-button>
+        <div>
+          <app-standart-button [disabled]="true" (click)="cancelCreate()"  buttonText="Отмена" theme="light"></app-standart-button>
+        </div>
+     </div>
   </main>
 </ion-content>

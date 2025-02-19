@@ -8,4 +8,7 @@
 }
 .tracks-grid{
     padding-top: var(--standart-padding);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }

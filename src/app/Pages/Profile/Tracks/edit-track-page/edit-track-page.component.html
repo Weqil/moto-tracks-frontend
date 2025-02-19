@@ -1,0 +1,40 @@
+<ion-content>
+    <header>
+        <app-header  headerTitle="Редактирование трека"></app-header>
+    </header> 
+    <main *ngIf="track" class="main-container--with-header">
+        <section>
+            <form class="edit-form">
+                <app-standart-input label="Название" [control]="editTrackForm.get('name')" placeholder="Введите название вашего трека"></app-standart-input>
+                <div class="description">
+                    <app-standart-rich-input [control]="editTrackForm.get('desc')" label="Описание" placeholder="Введите описание вашего трека"></app-standart-rich-input>
+                </div>
+                <app-standart-input (click)="openRegionModal()" [readonly]="true" label="Область/край" [control]="editTrackForm.get('region')" placeholder="Выберите область вашего соревнования"></app-standart-input>
+                <div class="address-container">
+                    <label class="label">Адрес гонки</label>
+                    <app-address-input *ngIf="track.latitude &&  track.longitude" [coords]="[track.latitude, track.longitude]" (addressEditEmit)="changeAddress($event)"></app-address-input>                        
+                </div>
+                
+                <div class="photo-slider">
+                    <app-edit-slider [files]="sliderImages" (filesEmit)="getImages($event)" type="create"></app-edit-slider>
+                </div>
+            </form>
+            <div class="navigate-buttons-container">
+                <app-standart-button [disabled]="stepInvalidate()" (click)="submitForm()" buttonText="Сохранить" theme="standart"></app-standart-button>
+              <div>
+                <app-standart-button [disabled]="true" (click)="cancelCreate()"  buttonText="Отмена" theme="light"></app-standart-button>
+              </div>
+           </div>
+        </section>
+    </main>
+</ion-content>
+
+<ion-modal (didDismiss)="closeRegionModal()"  [isOpen]="regionModalState">
+    <ng-template>
+      <ion-content>
+        <div class="region-modal-container">
+          <app-standart-input-search label="Область/край" [searchCurrentItems]="searchRegionItems" [searchItems]="searchRegionItems" (changeSearchValue)="setRegion($event)"></app-standart-input-search>
+        </div>
+      </ion-content>
+    </ng-template>  
+</ion-modal>  
