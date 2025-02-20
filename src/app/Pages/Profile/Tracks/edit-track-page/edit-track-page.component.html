@@ -11,7 +11,7 @@
                 </div>
                 <app-standart-input (click)="openRegionModal()" [readonly]="true" label="Область/край" [control]="editTrackForm.get('region')" placeholder="Выберите область вашего соревнования"></app-standart-input>
                 <div class="address-container">
-                    <label class="label">Адрес гонки</label>
+                    <label class="label">Адрес трассы</label>
                     <app-address-input *ngIf="track.latitude &&  track.longitude" [coords]="[track.latitude, track.longitude]" (addressEditEmit)="changeAddress($event)"></app-address-input>                        
                 </div>
                 
