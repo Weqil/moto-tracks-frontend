@@ -90,7 +90,7 @@ export class EditTrackPageComponent  implements OnInit {
         })
         
         this.editTrackForm.patchValue({
-          desc: this.track.desc!.replace(/  /g, '&nbsp;&nbsp;')
+          desc: this.track.desc ? this.track.desc!.replace(/  /g, '&nbsp;&nbsp;') : ''
         });
         this.sliderImages = this.editTrackForm.value.images
     })
@@ -190,7 +190,6 @@ export class EditTrackPageComponent  implements OnInit {
   stepInvalidate(){
     if (
       this.editTrackForm.value.name.length <= 3 ||
-      this.editTrackForm.value.desc.length <= 3 || 
       !this.editTrackForm.value.locationId || 
       !this.editTrackForm.value.address.length ||
       !this.editTrackForm.value.latitude || 

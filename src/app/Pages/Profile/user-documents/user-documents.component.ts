@@ -139,6 +139,7 @@ export class UserDocumentsComponent  implements OnInit {
     city: new FormControl('', [Validators.required]),
     region: new FormControl('', [Validators.required]),
     inn: new FormControl('', [Validators.required]),
+    locationId: new FormControl('', [Validators.required]),
     snils: new FormControl('', [Validators.required]),
     phoneNumber: new FormControl('', [Validators.required]),
     startNumber: new FormControl('', [Validators.required]),
@@ -196,7 +197,7 @@ setMotoStamp(event:any){
 submitForm(){
 
   if(this.submitValidate()){
-
+    console.log(this.personalUserForm.value)
     if(!this.oldLicensesValue && this.validateLicenses()){
       this.createLicenses()
     }
@@ -213,7 +214,7 @@ submitForm(){
   
       let oldLicensesValue:any = JSON.parse(this.oldLicensesValue.data)
       if(!_.isEqual(oldLicensesValue,this.licensesForm.value) || !this.licensesFile.dontFile){
-        console.log
+     
         this.updateLicenses()
       }
     }
@@ -514,7 +515,7 @@ submitForm(){
 
   setRegion(region:any){
     this.closeRegionModal()
-    this.personalUserForm.patchValue({region:region.name})
+    this.personalUserForm.patchValue({locationId:region.value,region:region.name})
   }
 
   ionViewWillEnter(){

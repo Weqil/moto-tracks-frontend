@@ -15,7 +15,7 @@
           <app-custom-selected [items]="statuses" [modalValue]="statusesSelect" [selectedValue]="selectedStatusItem" (openModal)="openSelectedStatus()" (closeModal)="closeSelectedStatus()" (selectItem)="selectStatus($event)"></app-custom-selected>
         </div>
       </div>
-      <ion-modal [isOpen]="userAgreedModalState" (didDismiss)="closeModalAgreedNotVerificated()">
+      <ion-modal class="agreed-modal" [isOpen]="userAgreedModalState" (didDismiss)="closeModalAgreedNotVerificated()">
           <ng-template>
               <ion-content>
                 <div class="agreed-select__main">
@@ -36,11 +36,14 @@
       <app-standart-input class="bottom-container__standart"[control]="userSettingsForm.get('email')" [errorMessage]="formErrors.email.errorMessage" [invalid]="formErrors.email.errorMessage.length !== 0" placeholder="Введите Email" label="Email"></app-standart-input> 
       </div> -->
     </div>   
-    <span class="user_id">UI {{user?.id}}</span>   
-    <app-standart-button (click)="submitEditForm()" buttonText="Сохранить"></app-standart-button>
-    <div class="cabinet__delete_account">
-      <app-standart-button  theme="red" buttonText="Удалить учетную запись"></app-standart-button>
+    <div class="buttons-wrapper">
+      <span class="user_id">UI {{user?.id}}</span>   
+      <app-standart-button (click)="submitEditForm()" buttonText="Сохранить"></app-standart-button>
+      <div class="cabinet__delete_account">
+        <app-standart-button  theme="red" buttonText="Удалить учетную запись"></app-standart-button>
+      </div>
     </div>
+ 
     
   </main>
 </ion-content>

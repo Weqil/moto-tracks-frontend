@@ -40,19 +40,20 @@
           <app-track-section [hidhtStatus]="true" (click)="redirectInRace()" [track]="event.track"></app-track-section>
         </div>
         
-        <div class="user-modal-header">
-          Участники гонки
-          <!-- {{usersInRace.length}} --> 
-        </div>
+
         <div class="list-users-container">
           @if (usersInRace.length) {
-          <app-users-preview [fullValueUsers]="usersInRace.length" [users]="usersInRace" [moreCount]="usersInRace.length" [openUsersModal]="openUserModalValue" (closeModalEmit)="closeStateUsersModal()" (openModalEmit)="openStateUsersModal()"></app-users-preview>
+            <div class="user-modal-header">
+              Участники гонки
+              <!-- {{usersInRace.length}} --> 
+            </div>
+          <app-users-preview [groups]="event.grades" [fullValueUsers]="usersInRace.length" [users]="usersInRace" [moreCount]="usersInRace.length" [openUsersModal]="openUserModalValue" (closeModalEmit)="closeStateUsersModal()" (openModalEmit)="openStateUsersModal()"></app-users-preview>
         }
         </div>
 
       </div>
       
-      <div class="footer">
+      <div *ngIf="!checkRecordEnd()" class="footer">
           @if (!this.event.appointments_exists) {
             <app-standart-button (click)="openApplicationForm()" buttonText="Заявиться" theme="big"></app-standart-button>
           }

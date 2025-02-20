@@ -91,18 +91,6 @@
           </ng-template>  
         </ion-modal>
         <app-standart-input type="datetime-local" label="Дата начала" [control]="createEventForm.get('dateStart')"></app-standart-input>
-       
-        <div class="select-track-wrapper">
-          <div class="label">Трасса гонки</div>
-          <app-track-select-modal 
-          [selectedTrack]="trackSelected" 
-          (selectTrack)="selectTrack($event)" 
-          [trackSelectModalStateValue]="trackSelectedModalState" 
-          [tracks]="tracks" 
-          (closeTrackSelectModal)="closeTrackSelectModalFunction()" 
-          (openTrackSelectModal)="openTrackSelectModalFunction()">
-        </app-track-select-modal>
-        </div>
         
         <div (click)="fileResults.click()" class="document-container">
             <span>Регламент</span>

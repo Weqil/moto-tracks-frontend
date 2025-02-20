@@ -30,6 +30,7 @@ import { StandartInputSelectComponent } from 'src/app/Shared/Components/UI/Selec
 import { environment } from 'src/environments/environment';
 import { group } from '@angular/animations';
 import { MapService } from 'src/app/Shared/Data/Services/Map/map.service';
+import moment from 'moment';
 
 @Component({
   selector: 'app-events-view-page',
@@ -88,7 +89,7 @@ export class EventsViewPageComponent  implements OnInit {
     rank:new FormControl('', [Validators.required]),
     rankNumber:new FormControl('', [Validators.required]),
     community:new FormControl('', [Validators.required]),
-    locationId: new FormControl(10, [Validators.required]),
+    locationId: new FormControl('', [Validators.required]),
     coach:new FormControl('', [Validators.required]),
     motoStamp:new FormControl('', [Validators.required]),
     engine:new FormControl('', [Validators.required]),
@@ -248,7 +249,7 @@ export class EventsViewPageComponent  implements OnInit {
 
    setRegion(region:any){
     this.closeRegionModal()
-    this.personalUserForm.patchValue({region:region.name})
+    this.personalUserForm.patchValue({locationId:region.value, region:region.name})
    }
 
    getRegions(){
@@ -263,7 +264,12 @@ export class EventsViewPageComponent  implements OnInit {
   }
 
     formatingText(text:string): string{
-      return text.replace(/\n/g, '<br>').replace(/  /g, '&nbsp;&nbsp;');;
+        return text.replace(/\n/g, '<br>').replace(/  /g, '&nbsp;&nbsp;');;
+    }
+
+    checkRecordEnd(){
+        let now = moment()
+        return moment(this.event?.record_end) < now
     }
 
     setEngine(event:any){
@@ -292,10 +298,13 @@ export class EventsViewPageComponent  implements OnInit {
       }
       const fd: FormData = new FormData();
       fd.append('data',  JSON.stringify(currentForm))
-      this.loaderService.showLoading()
+      let loader:HTMLIonLoadingElement
+      this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+        loader = res
+      })
       this.eventService.toggleAplicationInRace(this.eventId, fd).pipe(
         finalize(()=>{
-          this.loadingService.hideLoading()
+          this.loadingService.hideLoading(loader)
         })
       ).subscribe((res:any)=>{
           this.toastService.showToast('Заявка успешно отменена','success')
@@ -311,11 +320,14 @@ export class EventsViewPageComponent  implements OnInit {
    //Если у пользователя не было данных создаём их
    setFirstUserPersonal(){
     if(!this.userService.user.value?.personal){
-      this.loaderService.showLoading()
+        let loader:HTMLIonLoadingElement
+        this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+          loader = res
+        })
         this.userService.createPersonalInfo(this.personalUserForm.value).pipe(
           finalize(
             ()=>{
-              this.loaderService.hideLoading()
+              this.loaderService.hideLoading(loader)
             })
         ).subscribe((res:any)=>{
           this.userService.refreshUser()
@@ -334,7 +346,10 @@ export class EventsViewPageComponent  implements OnInit {
 
    createLicenses(): Observable<any> {
    
-      this.loaderService.showLoading();
+    let loader:HTMLIonLoadingElement
+    this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+      loader = res
+    })
       let fd: FormData = new FormData();
       fd.append('type', 'licenses');
       fd.append('data', JSON.stringify(this.licensesForm.value));
@@ -342,7 +357,7 @@ export class EventsViewPageComponent  implements OnInit {
       
       return this.userService.createUserDocument(fd).pipe(
         finalize(() => {
-          this.loaderService.hideLoading();
+          this.loaderService.hideLoading(loader);
         }),
         catchError((err: serverError) => {
           this.toastService.showToast(err.error.message, 'danger');
@@ -354,8 +369,10 @@ export class EventsViewPageComponent  implements OnInit {
   }
 
   createPolis(): Observable<any> {
- 
-      this.loaderService.showLoading();
+    let loader:HTMLIonLoadingElement
+    this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+      loader = res
+    })
       let fd: FormData = new FormData();
       fd.append('type', 'polis');
       fd.append('data', JSON.stringify(this.polisForm.value));
@@ -363,7 +380,7 @@ export class EventsViewPageComponent  implements OnInit {
       
       return this.userService.createUserDocument(fd).pipe(
         finalize(() => {
-          this.loaderService.hideLoading();
+          this.loaderService.hideLoading(loader);
         }),
         catchError((err: serverError) => {
           this.toastService.showToast(err.error.message, 'danger');
@@ -441,11 +458,14 @@ export class EventsViewPageComponent  implements OnInit {
   }
 
   saveNewPersonal(){
-    this.loaderService.showLoading()
+    let loader:HTMLIonLoadingElement
+    this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+          loader = res
+    })
     this.userService.updatePersonalInfo(this.personalUserForm.value).pipe(
       finalize(
         ()=>{
-          this.loaderService.hideLoading()
+          this.loaderService.hideLoading(loader)
         }
       )
     ).subscribe((res:any)=>{
@@ -536,6 +556,7 @@ export class EventsViewPageComponent  implements OnInit {
     ).subscribe((res:any)=>{
       this.raceUser = res.race.user
       this.event = res.race
+      this.checkRecordEnd()
       this.groupItems = this.event.grades
     })
   }
@@ -552,6 +573,7 @@ export class EventsViewPageComponent  implements OnInit {
   async toggleAplicationInRace(){
  
     if(this.submitValidate()){
+   
       await this.setFirstDocuments().pipe().subscribe(()=>{
         this.setDocuments().pipe().subscribe(()=>{
          let currentForm = {
@@ -565,10 +587,13 @@ export class EventsViewPageComponent  implements OnInit {
          const fd: FormData = new FormData();
          fd.append('data',  JSON.stringify(currentForm))
      
-         this.loaderService.showLoading()
+         let loader:HTMLIonLoadingElement
+         this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+               loader = res
+         })
          this.eventService.toggleAplicationInRace(this.eventId, fd).pipe(
            finalize(()=>{
-             this.loadingService.hideLoading()
+             this.loadingService.hideLoading(loader)
            })
          ).subscribe((res:any)=>{
              this.getUsersInRace()
