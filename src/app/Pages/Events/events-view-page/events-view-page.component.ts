@@ -292,10 +292,13 @@ export class EventsViewPageComponent  implements OnInit {
       }
       const fd: FormData = new FormData();
       fd.append('data',  JSON.stringify(currentForm))
-      this.loaderService.showLoading()
+      let loader:HTMLIonLoadingElement
+      this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+        loader = res
+      })
       this.eventService.toggleAplicationInRace(this.eventId, fd).pipe(
         finalize(()=>{
-          this.loadingService.hideLoading()
+          this.loadingService.hideLoading(loader)
         })
       ).subscribe((res:any)=>{
           this.toastService.showToast('Заявка успешно отменена','success')
@@ -311,11 +314,14 @@ export class EventsViewPageComponent  implements OnInit {
    //Если у пользователя не было данных создаём их
    setFirstUserPersonal(){
     if(!this.userService.user.value?.personal){
-      this.loaderService.showLoading()
+        let loader:HTMLIonLoadingElement
+        this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+          loader = res
+        })
         this.userService.createPersonalInfo(this.personalUserForm.value).pipe(
           finalize(
             ()=>{
-              this.loaderService.hideLoading()
+              this.loaderService.hideLoading(loader)
             })
         ).subscribe((res:any)=>{
           this.userService.refreshUser()
@@ -334,7 +340,10 @@ export class EventsViewPageComponent  implements OnInit {
 
    createLicenses(): Observable<any> {
    
-      this.loaderService.showLoading();
+    let loader:HTMLIonLoadingElement
+    this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+      loader = res
+    })
       let fd: FormData = new FormData();
       fd.append('type', 'licenses');
       fd.append('data', JSON.stringify(this.licensesForm.value));
@@ -342,7 +351,7 @@ export class EventsViewPageComponent  implements OnInit {
       
       return this.userService.createUserDocument(fd).pipe(
         finalize(() => {
-          this.loaderService.hideLoading();
+          this.loaderService.hideLoading(loader);
         }),
         catchError((err: serverError) => {
           this.toastService.showToast(err.error.message, 'danger');
@@ -354,8 +363,10 @@ export class EventsViewPageComponent  implements OnInit {
   }
 
   createPolis(): Observable<any> {
- 
-      this.loaderService.showLoading();
+    let loader:HTMLIonLoadingElement
+    this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+      loader = res
+    })
       let fd: FormData = new FormData();
       fd.append('type', 'polis');
       fd.append('data', JSON.stringify(this.polisForm.value));
@@ -363,7 +374,7 @@ export class EventsViewPageComponent  implements OnInit {
       
       return this.userService.createUserDocument(fd).pipe(
         finalize(() => {
-          this.loaderService.hideLoading();
+          this.loaderService.hideLoading(loader);
         }),
         catchError((err: serverError) => {
           this.toastService.showToast(err.error.message, 'danger');
@@ -441,11 +452,14 @@ export class EventsViewPageComponent  implements OnInit {
   }
 
   saveNewPersonal(){
-    this.loaderService.showLoading()
+    let loader:HTMLIonLoadingElement
+    this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+          loader = res
+    })
     this.userService.updatePersonalInfo(this.personalUserForm.value).pipe(
       finalize(
         ()=>{
-          this.loaderService.hideLoading()
+          this.loaderService.hideLoading(loader)
         }
       )
     ).subscribe((res:any)=>{
@@ -565,10 +579,13 @@ export class EventsViewPageComponent  implements OnInit {
          const fd: FormData = new FormData();
          fd.append('data',  JSON.stringify(currentForm))
      
-         this.loaderService.showLoading()
+         let loader:HTMLIonLoadingElement
+         this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+               loader = res
+         })
          this.eventService.toggleAplicationInRace(this.eventId, fd).pipe(
            finalize(()=>{
-             this.loadingService.hideLoading()
+             this.loadingService.hideLoading(loader)
            })
          ).subscribe((res:any)=>{
              this.getUsersInRace()
