@@ -96,7 +96,8 @@ export class EditEventComponent  implements OnInit {
         images: new FormControl('', [Validators.required, Validators.minLength(1)]),
         region: new FormControl('', [Validators.required, Validators.minLength(1)]),
         locationId: new FormControl('', [Validators.required, Validators.minLength(1)]),
-        dateStart: new FormControl('2018-06-12T19:30', [Validators.required, Validators.minLength(1)]),
+        dateStart: new FormControl('', [Validators.required, Validators.minLength(1)]),
+        recordEnd:new FormControl('', [Validators.required, Validators.minLength(1)]),
     })
    
     
@@ -302,13 +303,14 @@ export class EditEventComponent  implements OnInit {
               path: String(this.event.position_file)
             }
           }
-         
-          
+         console.log(moment(res.race.date_start).utc().format('YYYY-MM-DD HH:mm'))
+
           this.createEventForm.patchValue({
             ...res.race,
             locationId: res.race?.location?.id,
             region: `${res.race?.location?.type} ${ res.race?.location?.name}`,
-            dateStart: moment(res.race.date_start).utc().format('YYYY-MM-DD HH:mm:ss'),
+            recordEnd: moment(res.race.record_end).utc().format('YYYY-MM-DD HH:mm'),
+            dateStart: moment(res.race.date_start).utc().format('YYYY-MM-DD HH:mm'),
             images:  this.event.images? this.event.images?.map((image:string)=>{ return {
                link:this.checkImgUrlPipe.checkUrlDontType(image),
               name:`${crypto.randomUUID()}`
