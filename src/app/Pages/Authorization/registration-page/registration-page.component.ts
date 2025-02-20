@@ -40,12 +40,12 @@ export class RegistrationPageComponent  implements OnInit {
   onCheckboxChange(event:any){
     this.isCheckedFirst=event.detail.checked;
    
-    console.log('чекбокс изменился', this.isCheckedFirst)
+    
   }
   onCheckboxChange2(event:any){
     
     this.isCheckedSecond=event.detail.checked;
-    console.log('чекбокс изменился', this.isCheckedSecond)
+    
   }
 
     registerForm: FormGroup = new FormGroup({

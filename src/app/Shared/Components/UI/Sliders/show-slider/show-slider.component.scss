@@ -33,7 +33,7 @@ swiper-slide img{
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius:16px 16px 16px 16px;
+    border-radius:0px;
     
 }
 
@@ -50,10 +50,8 @@ swiper-container{
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 4.5rem;
-    margin-bottom: 1rem;
-    margin-left: 1rem;
-    margin-right: 1rem;
+    margin-top: 4rem;
+    
 }
 
 @media (min-width: 600px){
@@ -80,7 +78,7 @@ swiper-container{
         height: 70%;
         display: flex;
         object-fit: cover;
-        border-radius:16px 16px 16px 16px;
+        border-radius:0px;
         margin: auto;
     }
 
@@ -90,7 +88,7 @@ swiper-container{
         justify-content: center;
         align-items: center;
         object-fit: cover;
-        border-radius:0px 0px 16px 16px;
+        
         
     }
 }
