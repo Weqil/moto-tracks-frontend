@@ -96,7 +96,7 @@
             </ng-template>  
           </ion-modal>        
           
-          <app-standart-input [errorMessage]="formErrors.numberAndSeria.errorMessage" [invalid]="formErrors.numberAndSeria.errorMessage.length !== 0" [control]="personalUserForm.get('numberAndSeria')" placeholder="Серия, номер" label="Паспорт*"></app-standart-input>
+          <app-standart-input [errorMessage]="formErrors.numberAndSeria.errorMessage" [invalid]="formErrors.numberAndSeria.errorMessage.length !== 0" [control]="personalUserForm.get('numberAndSeria')" placeholder="Серия, номер" label="Паспорт/Свидетельство о рождении*"></app-standart-input>
 
           <div class="start-number-container">
             <app-standart-input [errorMessage]="formErrors.inn.errorMessage" [invalid]="formErrors.inn.errorMessage.length !== 0" [control]="personalUserForm.get('inn')" placeholder="ИНН" label="ИНН*"></app-standart-input>
