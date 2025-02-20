@@ -28,7 +28,6 @@
 .card-grid{
     display: flex;
     gap: 1rem;
-    padding-bottom: 2rem;
     flex-direction: column;
     height: 100%;
 }
@@ -68,8 +67,8 @@ ion-header{
     --background: var(--white-color);
 }
 ion-modal{
-  
     --background:#fff;
+    --padding-bottom:4rem;
 }
 .modal-content{
     background:#fff;

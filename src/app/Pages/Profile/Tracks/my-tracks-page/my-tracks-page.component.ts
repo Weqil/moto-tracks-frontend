@@ -16,7 +16,7 @@ import { finalize } from 'rxjs';
   selector: 'app-my-tracks-page',
   templateUrl: './my-tracks-page.component.html',
   styleUrls: ['./my-tracks-page.component.scss'],
-  imports: [SharedModule, HeaderModule, ButtonsModule, RoundedButtonComponent,TrackModule,RouterLink] 
+  imports: [SharedModule, HeaderModule, ButtonsModule, RoundedButtonComponent,TrackModule,RouterLink,] 
 })
 export class MyTracksPageComponent  implements OnInit {
 
@@ -38,6 +38,10 @@ export class MyTracksPageComponent  implements OnInit {
       this.tracks = res.tracks
     })
   }
+  redirectInEditPage(eventId:any){
+    this.navController.navigateForward(`/track/edit/${eventId}`)
+  }
+
   ionViewWillEnter(){
     this.getMyTracks()
   }

@@ -7,6 +7,7 @@ import { NgxImageZoomModule } from 'ngx-image-zoom';
 import { CommonModule } from '@angular/common';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { LoadingService } from 'src/app/Shared/Services/loading.service';
+import { AngularImageViewerModule } from "@clarivate/angular-image-viewer";
 
 
 
@@ -14,7 +15,7 @@ import { LoadingService } from 'src/app/Shared/Services/loading.service';
   selector: 'app-private-files',
   templateUrl: './private-files.component.html',
   styleUrls: ['./private-files.component.scss'],
-  imports:[IonRouterOutlet, IonContent, CommonModule, PdfViewerModule  ]
+  imports:[IonRouterOutlet, IonContent, CommonModule, PdfViewerModule,AngularImageViewerModule ]
   
 })
 export class PrivateFilesComponent  implements OnInit {
@@ -24,6 +25,8 @@ export class PrivateFilesComponent  implements OnInit {
   constructor() { }
 
   route: ActivatedRoute = inject(ActivatedRoute)
+  images:any = []
+  imageIndex:number = 1
   userService: UserService = inject(UserService)
   fileType: string = ''
   fileUrl: string = ''
@@ -66,7 +69,7 @@ export class PrivateFilesComponent  implements OnInit {
             ras = '.jpg'
             break
         }
-
+       
         // a.download = 'document_'+ this.documentId + ras; // Укажите имя файла и расширение
         // document.body.appendChild(a);
         // a.click();
@@ -74,6 +77,11 @@ export class PrivateFilesComponent  implements OnInit {
         // document.body.removeChild(a);
         const url = window.URL.createObjectURL(response);
         this.fileUrl = url;
+        if(this.fileType === 'img'){
+          this.images.push(this.fileUrl)
+          console.log(this.images)
+        }
+
       }
     })
   }

@@ -4,6 +4,7 @@ import { IonContent,IonSkeletonText, } from '@ionic/angular/standalone';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 
+
 @NgModule({
   declarations: [
   
@@ -19,7 +20,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    IonSkeletonText
+    IonSkeletonText,
   ],
 
 })

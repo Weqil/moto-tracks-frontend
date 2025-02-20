@@ -1,0 +1,26 @@
+.edit-form{
+    padding-top: var(--standart-padding);
+}
+
+.description{
+    padding-bottom: var(--standart-padding);
+}
+ion-modal{
+    --max-height:50%;
+    --width:90%;
+    --border-radius: 12px;
+    --overflow-y: hidden;
+}
+.region-modal-container{
+    padding: var(--standart-padding);
+}
+.address-container{
+    padding-top: var(--standart-padding);
+    padding-bottom: var(--standart-padding);
+}
+.navigate-buttons-container{
+    display: flex;
+    padding-top: var(--standart-padding);
+    flex-direction: column;
+    gap: var(--little-padding);
+}
