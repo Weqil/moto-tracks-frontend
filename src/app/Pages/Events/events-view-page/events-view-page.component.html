@@ -1,17 +1,15 @@
 <ion-content>
   <main>
     @if (this.event) {
-      <div class="slider-container">
-        <app-show-slider [files]="event.images"></app-show-slider>
-        <div class="slider-container__header">
-         
-          <!-- <app-back-button ></app-back-button> -->
-        </div> 
-        <app-header >
+      
+      <app-header >
           <div class="event-date">
             {{ event.date_start | date: 'dd.MM.YYYY ' : 'UTC' }}
           </div> 
         </app-header>
+
+      <div class="slider-container">
+        <app-show-slider [files]="event.images"></app-show-slider>
       </div>
       
       <div class="main-container-parent">
