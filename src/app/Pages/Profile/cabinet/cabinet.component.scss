@@ -49,15 +49,10 @@
         padding-top: var(--middle-padding);
     }
 
-
-    .main-container--with-header{
-        display: flex;
-        justify-content: center;
-    }
-
     .cabinet{
         display: flex;
         flex-direction: column;
+        margin: auto;
         justify-content: center;
         width: 50%;
         padding-top: var(--standart-padding);

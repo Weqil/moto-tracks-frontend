@@ -42,12 +42,13 @@
           <app-track-section [hidhtStatus]="true" (click)="redirectInRace()" [track]="event.track"></app-track-section>
         </div>
         
-        <div class="user-modal-header">
-          Участники гонки
-          <!-- {{usersInRace.length}} --> 
-        </div>
+
         <div class="list-users-container">
           @if (usersInRace.length) {
+            <div class="user-modal-header">
+              Участники гонки
+              <!-- {{usersInRace.length}} --> 
+            </div>
           <app-users-preview [fullValueUsers]="usersInRace.length" [users]="usersInRace" [moreCount]="usersInRace.length" [openUsersModal]="openUserModalValue" (closeModalEmit)="closeStateUsersModal()" (openModalEmit)="openStateUsersModal()"></app-users-preview>
         }
         </div>

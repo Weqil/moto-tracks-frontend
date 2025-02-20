@@ -8,9 +8,25 @@
     border-radius: 5px;
     gap: var(--little-padding);
     flex-direction: column;
-
-    
-    
+}
+@media(min-width: 960px){
+    .document-container{
+        margin-top: var(--standart-margin);
+        padding-top: 2rem;
+        border: 1px solid rgba(76, 88, 97, 0.2549019608);
+        padding: var(--standart-padding);
+        margin-bottom: var(--little-padding);
+        display: flex;
+        width: 960px;
+        margin: auto;
+        border-radius: 5px;
+        gap: var(--little-padding);
+        flex-direction: column;
+    }
+    .buttons-wrapper{
+        width: 960px;
+        margin: auto;
+    }
 }
 .cabinet__select-status{
     width: 80%;
@@ -57,7 +73,7 @@
 }
 
 .document-container{
-    margin-bottom: 10px;
+   margin-top: var(--standart-padding);
 }
 
 .up-container{
@@ -72,12 +88,21 @@
     padding-bottom: var(--standart-padding);
     font-family: var(--font-regular);
 }
-ion-modal{
-    --max-height:200px;
-    --width:90%;
+.agreed-modal{
+    --max-height:26vh;
+    --width:90vw;
     --border-radius: 12px;
     
     --overflow-y: hidden;
+}
+@media(min-width: 960px){
+    .agreed-modal{
+        --max-height:20vh;
+        --width:40vw;
+        --border-radius: 12px;
+        
+        --overflow-y: hidden;
+    }
 }
 .agreed-select-status-checkbox{
     --size: 18px;
@@ -94,10 +119,12 @@ ion-modal{
 .agreed-select__main{
     padding: var(--standart-padding);
     display: flex;
-    gap: 10px;
+    height: 100%;
+    margin: auto;
+    gap: 2vh;
     font-size: 0.95rem;
     font-family: var(--font-light);
-    justify-content: space-between;
+    justify-content: center;
     flex-direction: column;
 }
 .user-agreed{
@@ -107,3 +134,5 @@ ion-modal{
         color: #3880ff; 
     }
 }
+
+
