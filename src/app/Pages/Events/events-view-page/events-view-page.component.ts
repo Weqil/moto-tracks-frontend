@@ -88,7 +88,7 @@ export class EventsViewPageComponent  implements OnInit {
     rank:new FormControl('', [Validators.required]),
     rankNumber:new FormControl('', [Validators.required]),
     community:new FormControl('', [Validators.required]),
-    locationId: new FormControl(10, [Validators.required]),
+    locationId: new FormControl('', [Validators.required]),
     coach:new FormControl('', [Validators.required]),
     motoStamp:new FormControl('', [Validators.required]),
     engine:new FormControl('', [Validators.required]),
@@ -248,7 +248,7 @@ export class EventsViewPageComponent  implements OnInit {
 
    setRegion(region:any){
     this.closeRegionModal()
-    this.personalUserForm.patchValue({region:region.name})
+    this.personalUserForm.patchValue({locationId:region.value, region:region.name})
    }
 
    getRegions(){
@@ -566,6 +566,7 @@ export class EventsViewPageComponent  implements OnInit {
   async toggleAplicationInRace(){
  
     if(this.submitValidate()){
+   
       await this.setFirstDocuments().pipe().subscribe(()=>{
         this.setDocuments().pipe().subscribe(()=>{
          let currentForm = {

@@ -12,7 +12,7 @@ import { environment } from 'src/environments/environment';
 export class CheckImgUrlPipe implements PipeTransform {
 backendUrl: string = `${environment.BACKEND_URL}:${environment.BACKEND_PORT}`
 
-  checkUrlDontType(url: string|undefined|null): string{
+  checkUrlDontType(url: string|undefined|null, standartImageUrl?:string): string{
    
     if (url) {
  
@@ -24,12 +24,17 @@ backendUrl: string = `${environment.BACKEND_URL}:${environment.BACKEND_PORT}`
       return url;
     } 
     else {
-      return 'assets/images/standartAvatar.jpg';
+      if(standartImageUrl){
+        return standartImageUrl;
+      }else{
+        return 'assets/images/standartAvatar.jpg';
+      }
+     
     }
   }
 
-  transform(url: string|undefined|null, type?:string): string {
-    return this.checkUrlDontType(url) 
+  transform(url: string|undefined|null, standartImageUrl?:string): string {
+    return this.checkUrlDontType(url,standartImageUrl) 
   }
 
 }

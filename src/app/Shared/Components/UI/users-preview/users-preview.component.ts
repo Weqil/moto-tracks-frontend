@@ -19,8 +19,10 @@ export class UsersPreviewComponent implements OnInit {
   @Input() moreCount!: string|number
   @Input() fullValueUsers!: string | number
   @Input() generateLinkUrl!: boolean
+  @Input() groups:any = []
   @Input() openUsersModal: boolean = false
   navController: NavController = inject(NavController)
+  sortUsers: any = {}
   @Input() users: User[] = []
   usersPreview: any[] = []
   @Input() spiner: boolean = false
@@ -53,6 +55,13 @@ export class UsersPreviewComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges): void {
     this.usersPreview = this.users.slice(0, 8)
+    if(this.groups && this.groups.length){
+      this.groups.forEach((group:any) => {
+        this.sortUsers[group.name] = []
+      });
+    }
+    
+    
   }
   ngOnInit() {}
 }

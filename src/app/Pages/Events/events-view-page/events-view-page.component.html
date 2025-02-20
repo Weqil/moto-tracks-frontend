@@ -49,7 +49,7 @@
               Участники гонки
               <!-- {{usersInRace.length}} --> 
             </div>
-          <app-users-preview [fullValueUsers]="usersInRace.length" [users]="usersInRace" [moreCount]="usersInRace.length" [openUsersModal]="openUserModalValue" (closeModalEmit)="closeStateUsersModal()" (openModalEmit)="openStateUsersModal()"></app-users-preview>
+          <app-users-preview [groups]="event.grades" [fullValueUsers]="usersInRace.length" [users]="usersInRace" [moreCount]="usersInRace.length" [openUsersModal]="openUserModalValue" (closeModalEmit)="closeStateUsersModal()" (openModalEmit)="openStateUsersModal()"></app-users-preview>
         }
         </div>
 
