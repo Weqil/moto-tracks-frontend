@@ -13,5 +13,6 @@ export interface IEvent {
     images?: string[],
     appointments_exists?:boolean
     appointment_count?:{count:number}
+    // location?:{name: string}
     
 }
