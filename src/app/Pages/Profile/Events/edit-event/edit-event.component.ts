@@ -312,7 +312,7 @@ export class EditEventComponent  implements OnInit {
             dateStart: moment(res.race.date_start).utc().format('YYYY-MM-DD HH:mm'),
             images:  this.event.images? this.event.images?.map((image:string)=>{ return {
                link:this.checkImgUrlPipe.checkUrlDontType(image),
-              name:`${crypto.randomUUID()}`
+               name:`${crypto.randomUUID()}`
               }
             }):[]
           })
