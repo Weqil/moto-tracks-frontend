@@ -30,6 +30,7 @@ import { StandartInputSelectComponent } from 'src/app/Shared/Components/UI/Selec
 import { environment } from 'src/environments/environment';
 import { group } from '@angular/animations';
 import { MapService } from 'src/app/Shared/Data/Services/Map/map.service';
+import moment from 'moment';
 
 @Component({
   selector: 'app-events-view-page',
@@ -88,7 +89,7 @@ export class EventsViewPageComponent  implements OnInit {
     rank:new FormControl('', [Validators.required]),
     rankNumber:new FormControl('', [Validators.required]),
     community:new FormControl('', [Validators.required]),
-    locationId: new FormControl(10, [Validators.required]),
+    locationId: new FormControl('', [Validators.required]),
     coach:new FormControl('', [Validators.required]),
     motoStamp:new FormControl('', [Validators.required]),
     engine:new FormControl('', [Validators.required]),
@@ -248,7 +249,7 @@ export class EventsViewPageComponent  implements OnInit {
 
    setRegion(region:any){
     this.closeRegionModal()
-    this.personalUserForm.patchValue({region:region.name})
+    this.personalUserForm.patchValue({locationId:region.value, region:region.name})
    }
 
    getRegions(){
@@ -263,7 +264,12 @@ export class EventsViewPageComponent  implements OnInit {
   }
 
     formatingText(text:string): string{
-      return text.replace(/\n/g, '<br>').replace(/  /g, '&nbsp;&nbsp;');;
+        return text.replace(/\n/g, '<br>').replace(/  /g, '&nbsp;&nbsp;');;
+    }
+
+    checkRecordEnd(){
+        let now = moment()
+        return moment(this.event?.record_end) < now
     }
 
     setEngine(event:any){
@@ -550,6 +556,7 @@ export class EventsViewPageComponent  implements OnInit {
     ).subscribe((res:any)=>{
       this.raceUser = res.race.user
       this.event = res.race
+      this.checkRecordEnd()
       this.groupItems = this.event.grades
     })
   }
@@ -566,6 +573,7 @@ export class EventsViewPageComponent  implements OnInit {
   async toggleAplicationInRace(){
  
     if(this.submitValidate()){
+   
       await this.setFirstDocuments().pipe().subscribe(()=>{
         this.setDocuments().pipe().subscribe(()=>{
          let currentForm = {

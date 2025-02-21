@@ -77,6 +77,9 @@
         </div>
      
         <app-standart-input type="datetime-local" label="Дата начала" [control]="createEventForm.get('dateStart')"></app-standart-input>
+        <div class="records-end">
+          <app-standart-input type="datetime-local" label="Дата закрытия регистрации" [control]="createEventForm.get('recordEnd')"></app-standart-input>
+        </div>
         <div class="select-track-wrapper">
           <div class="label">Трасса гонки</div>
           <app-track-select-modal [selectedTrack]="trackSelected" (selectTrack)="selectTrack($event)" [trackSelectModalStateValue]="trackSelectedModalState" [tracks]="tracks" (closeTrackSelectModal)="closeTrackSelectModalFunction()" (openTrackSelectModal)="openTrackSelectModalFunction()"></app-track-select-modal>

@@ -96,7 +96,8 @@ export class EditEventComponent  implements OnInit {
         images: new FormControl('', [Validators.required, Validators.minLength(1)]),
         region: new FormControl('', [Validators.required, Validators.minLength(1)]),
         locationId: new FormControl('', [Validators.required, Validators.minLength(1)]),
-        dateStart: new FormControl('2018-06-12T19:30', [Validators.required, Validators.minLength(1)]),
+        dateStart: new FormControl('', [Validators.required, Validators.minLength(1)]),
+        recordEnd:new FormControl('', [Validators.required, Validators.minLength(1)]),
     })
    
     
@@ -302,16 +303,16 @@ export class EditEventComponent  implements OnInit {
               path: String(this.event.position_file)
             }
           }
-         
-          
+
           this.createEventForm.patchValue({
             ...res.race,
             locationId: res.race?.location?.id,
             region: `${res.race?.location?.type} ${ res.race?.location?.name}`,
-            dateStart: moment(res.race.date_start).utc().format('YYYY-MM-DD HH:mm:ss'),
+            recordEnd: moment(res.race.record_end).format('YYYY-MM-DD HH:mm'),
+            dateStart: moment(res.race.date_start).utc().format('YYYY-MM-DD HH:mm'),
             images:  this.event.images? this.event.images?.map((image:string)=>{ return {
                link:this.checkImgUrlPipe.checkUrlDontType(image),
-              name:`${crypto.randomUUID()}`
+               name:`${crypto.randomUUID()}`
               }
             }):[]
           })
@@ -321,6 +322,7 @@ export class EditEventComponent  implements OnInit {
           this.sliderImages = this.createEventForm.value.images
           this.selectedGroup = this.event.grades
         })
+        
       }
 
 
@@ -329,7 +331,6 @@ export class EditEventComponent  implements OnInit {
 
       this.loadingService.showLoading()
       this.createEventForm.value.images = this.createEventForm.value.images.filter((image:any)=>!image.link)
-  
       let editForm = {
         ...this.createEventForm.value,
         trackId: this.trackSelected!.id,
@@ -344,6 +345,7 @@ export class EditEventComponent  implements OnInit {
       editEventFormData.append('desc', editForm.desc)
       editEventFormData.append('locationId',String(editForm.locationId))
       editEventFormData.append('dateStart',editForm.dateStart)
+      editEventFormData.append('recordEnd',editForm.recordEnd)
       editEventFormData.append('trackId',String(editForm.trackId))
 
       for (var i = 0; i < this.selectedGroup.length; i++) {

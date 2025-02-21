@@ -64,7 +64,7 @@ export const environment = {
   APP_NAME: 'VOKRUG',
   BASE_URL: 'https://moto.vokrug.city',
   PORT: '8100',
-  BACKEND_URL: 'https://api-moto.vokrug.city',
+  BACKEND_URL: 'https://api.dev-moto.vokrug.city',
   BACKEND_PORT: '443',
   DOMAIN: 'mlcity.ru',
   appleClientId: 'mlcity.ru',

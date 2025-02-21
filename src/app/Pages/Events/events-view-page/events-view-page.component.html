@@ -49,13 +49,13 @@
               Участники гонки
               <!-- {{usersInRace.length}} --> 
             </div>
-          <app-users-preview [fullValueUsers]="usersInRace.length" [users]="usersInRace" [moreCount]="usersInRace.length" [openUsersModal]="openUserModalValue" (closeModalEmit)="closeStateUsersModal()" (openModalEmit)="openStateUsersModal()"></app-users-preview>
+          <app-users-preview [groups]="event.grades" [fullValueUsers]="usersInRace.length" [users]="usersInRace" [moreCount]="usersInRace.length" [openUsersModal]="openUserModalValue" (closeModalEmit)="closeStateUsersModal()" (openModalEmit)="openStateUsersModal()"></app-users-preview>
         }
         </div>
 
       </div>
       
-      <div class="footer">
+      <div *ngIf="!checkRecordEnd()" class="footer">
           @if (!this.event.appointments_exists) {
             <app-standart-button (click)="openApplicationForm()" buttonText="Заявиться" theme="big"></app-standart-button>
           }
