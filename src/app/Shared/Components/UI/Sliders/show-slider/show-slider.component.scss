@@ -33,7 +33,8 @@ swiper-slide img{
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius:0px;
+    padding: 1rem;
+    border-radius: 1.5rem;
     
 }
 
@@ -44,6 +45,7 @@ swiper-slide{
     align-items: center;
     height: 100%;
     margin: auto;
+    
 }
 
 swiper-container{
@@ -51,6 +53,16 @@ swiper-container{
     justify-content: center;
     align-items: center;
     margin-top: 4rem;
+    
+}
+
+.img-container{
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    object-fit: cover;
+    
     
 }
 
@@ -65,10 +77,8 @@ swiper-container{
     
     swiper-slide{
         display: flex;
-        
         justify-content: center;
         align-items: center;
-        
         margin: auto;
 
     }
@@ -78,17 +88,15 @@ swiper-container{
         height: 70%;
         display: flex;
         object-fit: cover;
-        border-radius:0px;
+        border-radius:16px;
         margin: auto;
     }
 
-    img-container{
+    .img-container{
         margin: auto;
         display: flex;
         justify-content: center;
         align-items: center;
         object-fit: cover;
-        
-        
     }
 }
