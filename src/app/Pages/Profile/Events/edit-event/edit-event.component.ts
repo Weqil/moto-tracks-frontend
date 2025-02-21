@@ -303,13 +303,12 @@ export class EditEventComponent  implements OnInit {
               path: String(this.event.position_file)
             }
           }
-         console.log(moment(res.race.date_start).utc().format('YYYY-MM-DD HH:mm'))
 
           this.createEventForm.patchValue({
             ...res.race,
             locationId: res.race?.location?.id,
             region: `${res.race?.location?.type} ${ res.race?.location?.name}`,
-            recordEnd: moment(res.race.record_end).utc().format('YYYY-MM-DD HH:mm'),
+            recordEnd: moment(res.race.record_end).format('YYYY-MM-DD HH:mm'),
             dateStart: moment(res.race.date_start).utc().format('YYYY-MM-DD HH:mm'),
             images:  this.event.images? this.event.images?.map((image:string)=>{ return {
                link:this.checkImgUrlPipe.checkUrlDontType(image),
@@ -323,6 +322,7 @@ export class EditEventComponent  implements OnInit {
           this.sliderImages = this.createEventForm.value.images
           this.selectedGroup = this.event.grades
         })
+        
       }
 
 
@@ -331,7 +331,6 @@ export class EditEventComponent  implements OnInit {
 
       this.loadingService.showLoading()
       this.createEventForm.value.images = this.createEventForm.value.images.filter((image:any)=>!image.link)
-  
       let editForm = {
         ...this.createEventForm.value,
         trackId: this.trackSelected!.id,
@@ -346,6 +345,7 @@ export class EditEventComponent  implements OnInit {
       editEventFormData.append('desc', editForm.desc)
       editEventFormData.append('locationId',String(editForm.locationId))
       editEventFormData.append('dateStart',editForm.dateStart)
+      editEventFormData.append('recordEnd',editForm.recordEnd)
       editEventFormData.append('trackId',String(editForm.trackId))
 
       for (var i = 0; i < this.selectedGroup.length; i++) {
