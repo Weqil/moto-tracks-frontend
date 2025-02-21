@@ -26,6 +26,8 @@
     height: 2rem;
 }
 .card-grid{
+    padding: var(--standart-padding);
+    padding-bottom: 4rem;
     display: flex;
     gap: 1rem;
     flex-direction: column;
@@ -42,6 +44,7 @@
     bottom:0rem;
     right: 0;
     padding: var(--standart-padding);
+    padding-top: var(--little-padding);
     background: var(--page-background)
 }
 .users_avatars-user-more{

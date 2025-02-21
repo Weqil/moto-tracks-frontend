@@ -37,6 +37,7 @@
 
 }
 
+
 .cabinet__delete_account{
     padding-top: var(--little-padding);
 }
@@ -92,7 +93,6 @@
     --max-height:26vh;
     --width:90vw;
     --border-radius: 12px;
-    
     --overflow-y: hidden;
 }
 @media(min-width: 960px){
@@ -100,7 +100,6 @@
         --max-height:20vh;
         --width:40vw;
         --border-radius: 12px;
-        
         --overflow-y: hidden;
     }
 }
@@ -133,5 +132,12 @@
     span{
         color: #3880ff; 
     }
+}
+.button-conteiner{
+    margin-bottom: 1rem;
+}
+
+.agreed{
+    margin-top: 1rem;
 }
 
