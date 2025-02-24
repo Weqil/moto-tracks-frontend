@@ -12,6 +12,7 @@ import { SwitchTypeService } from 'src/app/Shared/Services/switch-type.service';
 import { LoadingService } from 'src/app/Shared/Services/loading.service';
 import { finalize } from 'rxjs';
 import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
+import moment from 'moment';
 
 
 @Component({
@@ -57,7 +58,7 @@ export class EventsTapePageComponent  implements OnInit {
   ionViewWillEnter(){
     this.loadingService.showLoading()
     this.switchTypeService.setTypeInLocalSorage('events')
-    this.eventService.getAllEvents().pipe(
+    this.eventService.getAllEvents({dateStart:moment().format('YYYY-MM-DD')}).pipe(
       finalize(()=> this.loadingService.hideLoading())
     ).subscribe((res:any) => {
         this.eventTapeService.events = res.races
