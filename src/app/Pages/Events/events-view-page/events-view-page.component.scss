@@ -162,7 +162,7 @@
 }
 
 .list-users-container{
-    padding-bottom: 4rem;
+    padding-bottom: 1.5rem;
 }
 
 .user-modal-header{
@@ -174,7 +174,15 @@
 }
 
 
-
+.record-end{
+    width: 100%;
+    display: flex;
+    align-items: start;
+    padding-bottom: 4rem;
+    gap: 5px;
+    font-family: var(--font-bold);
+    color: var(--dark-grey-color);
+}
 
 
 @media (min-width: 900px){
@@ -207,6 +215,8 @@
         margin: auto;
          
      }
+
+    
     
 }
 

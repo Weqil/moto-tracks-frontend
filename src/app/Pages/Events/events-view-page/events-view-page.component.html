@@ -8,6 +8,7 @@
           </div> 
         </app-header>
 
+        
       <div class="slider-container">
         <app-show-slider [files]="event.images"></app-show-slider>
       </div>
@@ -49,6 +50,13 @@
             </div>
           <app-users-preview [groups]="event.grades" [fullValueUsers]="usersInRace.length" [users]="usersInRace" [moreCount]="usersInRace.length" [openUsersModal]="openUserModalValue" (closeModalEmit)="closeStateUsersModal()" (openModalEmit)="openStateUsersModal()"></app-users-preview>
         }
+        </div>
+
+        <div class="record-end">
+          <p>Окончание регистрации: </p>
+          <div class="date-record-end">          
+            {{event.record_end | date: 'dd.MM.YYYY HH:mm '}}
+          </div>
         </div>
 
       </div>
