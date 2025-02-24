@@ -16,6 +16,8 @@ import { environment } from "./environments/environment";
 import { importProvidersFrom, LOCALE_ID } from "@angular/core";
 import { AngularYandexMapsModule } from "angular8-yandex-maps";
 import config from "capacitor.config";
+import { MetrikaModule } from "ng-yandex-metrika";
+import { YandexMetrikaModule } from "./app/Shared/Modules/yandex-metrika/yandex-metrika.module";
 
 const yandexMapConfig: YaConfig = {
   apikey: environment.apiKeyYandex + '&' + `suggest_apikey=${environment.apiKeyYandexSubject}`,
@@ -29,7 +31,12 @@ bootstrapApplication(AppComponent, {
         provideRouter(publicRoutes),
         provideRouter(privateRoutes),
         provideRouter(authRoutes),
-        
+        importProvidersFrom(
+          MetrikaModule.forRoot([
+            { id: environment.metrikaId, webvisor: true,  },
+            { id: environment.metrikaId },
+          ])
+        ),
         provideRouter(errorsRoutes),
         importProvidersFrom(AngularYandexMapsModule.forRoot(yandexMapConfig)),
         provideHttpClient(withInterceptors([authTokenInterceptor])),

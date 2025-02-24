@@ -9,6 +9,7 @@ export const environment = {
   PORT: '8100',
   BACKEND_URL: 'https://api-moto.vokrug.city',
   BACKEND_PORT: '443',
+  metrikaId:100026583,
   DOMAIN: 'mlcity.ru',
   appleClientId: 'mlcity.ru',
   appleAuthUrl: 'https://api.dev-moto.vokrug.city/api/social-auth/apple',

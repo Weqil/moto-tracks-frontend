@@ -2,6 +2,7 @@
 import { Component, inject } from '@angular/core';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 import { UserService } from './Shared/Data/Services/User/user.service';
+import { MetrikaModule } from 'ng-yandex-metrika';
 
 @Component({
   selector: 'app-root',
@@ -14,5 +15,6 @@ export class AppComponent {
   userService:UserService = inject(UserService)
   ngOnInit() {
     this.userService.refreshUser();
+    
   }
 }

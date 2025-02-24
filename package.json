@@ -41,6 +41,7 @@
     "lodash": "^4.17.21",
     "moment": "^2.30.1",
     "moment-timezone": "^0.5.47",
+    "ng-yandex-metrika": "^18.0.0",
     "ng2-pdf-viewer": "^10.4.0",
     "ngx-cookie-service": "^19.0.0",
     "ngx-image-zoom": "^3.0.0",
