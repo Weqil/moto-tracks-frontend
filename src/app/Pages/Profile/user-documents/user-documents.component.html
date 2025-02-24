@@ -43,7 +43,7 @@
         <div class="user-document-container">
           <div class="document-header">Лицензии</div>
           <div class="licenses document-container">
-            <app-standart-input [control]="licensesForm.get('licensesNumber')" placeholder="Лицензия МФР" label="Лицензия МФР (тип, №):"></app-standart-input>
+            <app-standart-input [control]="licensesForm.get('number')" placeholder="Лицензия МФР" label="Лицензия МФР (тип, №):"></app-standart-input>
             <span class="scan-header">Скан или фотография Лицензии</span>
             <app-file-input (click)="licensesFileInput.click()" [fileName]="licensesFile.name"></app-file-input>
             <input (change)="setLicensesFile($event)" #licensesFileInput style="display: none;"  type="file">
@@ -54,7 +54,7 @@
         <div class="user-document-container">
           <div class="document-header">Страховой полис</div>
           <div class="polis document-container">
-            <app-standart-input [control]="polisForm.get('polisNumber')" placeholder="Серия, номер" label="Серия и номер"></app-standart-input>
+            <app-standart-input [control]="polisForm.get('number')" placeholder="Серия, номер" label="Серия и номер"></app-standart-input>
             <app-standart-input [control]="polisForm.get('issuedWhom')" placeholder="Кем выдан" label="Кем выдан"></app-standart-input>
             <app-standart-input [control]="polisForm.get('itWorksDate')" placeholder="Срок действия" type="date" label="Срок действия"></app-standart-input>
             <span class="scan-header">Скан или фотография Страхового полиса</span>

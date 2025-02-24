@@ -31,6 +31,7 @@ import { environment } from 'src/environments/environment';
 import { group } from '@angular/animations';
 import { MapService } from 'src/app/Shared/Data/Services/Map/map.service';
 import moment from 'moment';
+import { formdataService } from 'src/app/Shared/Helpers/formdata.service';
 
 @Component({
   selector: 'app-events-view-page',
@@ -62,6 +63,10 @@ export class EventsViewPageComponent  implements OnInit {
   polisFile:any = ''
   notariusFile:any = ''
 
+  licensesId:string = ''
+  polisId:string = ''
+  notariusId:string = ''
+
   oldNotariusFile:any
 
   oldPolisFile:any
@@ -71,6 +76,8 @@ export class EventsViewPageComponent  implements OnInit {
   ngZone: NgZone = inject(NgZone)
   documents:any = []
   
+  formdataService:formdataService = inject(formdataService)
+
   applicationFormValueState:boolean = false
   userService:UserService = inject(UserService)
   eventId: string = ''
@@ -87,6 +94,7 @@ export class EventsViewPageComponent  implements OnInit {
     startNumber: new FormControl('', [Validators.required]),
     group:new FormControl('', [Validators.required]),
     rank:new FormControl('', [Validators.required]),
+    gradeId:new FormControl('', [Validators.required]),
     rankNumber:new FormControl('', [Validators.required]),
     community:new FormControl('', [Validators.required]),
     locationId: new FormControl('', [Validators.required]),
@@ -143,14 +151,14 @@ export class EventsViewPageComponent  implements OnInit {
 
     licensesForm: FormGroup = new FormGroup(
       {
-        licensesNumber: new FormControl('',[Validators.required, ]), //номер лицензии
+        number: new FormControl('',[Validators.required, ]), //номер лицензии
         licensesFileLink: new FormControl('',[Validators.required, ]), // путь до файла
       }
     )
   
     polisForm: FormGroup = new FormGroup(
       {
-        polisNumber: new FormControl('',[Validators.required, ]), //Серия и номер полиса
+        number: new FormControl('',[Validators.required, ]), //Серия и номер полиса
         issuedWhom: new FormControl('',[Validators.required, ]), //Кем выдан
         itWorksDate: new FormControl('',[Validators.required, ]), //Срок действия
         polisFileLink: new FormControl('',[Validators.required, ]), // путь до файла
@@ -250,6 +258,7 @@ export class EventsViewPageComponent  implements OnInit {
    setRegion(region:any){
     this.closeRegionModal()
     this.personalUserForm.patchValue({locationId:region.value, region:region.name})
+    console.log(this.personalUserForm.value)
    }
 
    getRegions(){
@@ -276,7 +285,7 @@ export class EventsViewPageComponent  implements OnInit {
       this.personalUserForm.patchValue({engine: event.name})
     }
     setGroup(event:any){
-      this.personalUserForm.patchValue({group: event.name})
+      this.personalUserForm.patchValue({group: event.name, gradeId:event.id})
     }
     
     setRank(event:any){
@@ -287,31 +296,31 @@ export class EventsViewPageComponent  implements OnInit {
       this.personalUserForm.patchValue({motoStamp: event.name})
     }
 
-    cancelApplicationForm(){
-      let currentForm = {
-        ...this.personalUserForm.value,
-        ...this.polisForm.value,
-        ...this.licensesForm.value,
-        licensesFileLink:``,
-        polisFileLink:``,
-        notariuFileLink:``,   
-      }
-      const fd: FormData = new FormData();
-      fd.append('data',  JSON.stringify(currentForm))
-      let loader:HTMLIonLoadingElement
-      this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
-        loader = res
-      })
-      this.eventService.toggleAplicationInRace(this.eventId, fd).pipe(
-        finalize(()=>{
-          this.loadingService.hideLoading(loader)
-        })
-      ).subscribe((res:any)=>{
-          this.toastService.showToast('Заявка успешно отменена','success')
-          this.getUsersInRace()
-          this.getEvent()
-      })
-    }
+    // cancelApplicationForm(){
+ 
+    //   let currentForm = {
+    //     ...this.personalUserForm.value, 
+    //     licensesFileLink:``,
+    //     polisFileLink:``,
+    //     notariuFileLink:``,   
+    //     documentIds:[this.polisId,this.licensesId,this.notariusId]   
+    //   }
+    //   const fd: FormData = new FormData();
+    //   this.formdataService.formdataAppendJson(fd, currentForm)
+    //   let loader:HTMLIonLoadingElement
+    //   this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+    //     loader = res
+    //   })
+    //   this.eventService.toggleAplicationInRace(this.eventId, fd).pipe(
+    //     finalize(()=>{
+    //       this.loadingService.hideLoading(loader)
+    //     })
+    //   ).subscribe((res:any)=>{
+    //       this.toastService.showToast('Заявка успешно отменена','success')
+    //       this.getUsersInRace()
+    //       this.getEvent()
+    //   })
+    // }
 
    redirectInRace(){
      this.navController.navigateForward(`/track/${this.event.track.id}`)
@@ -352,7 +361,8 @@ export class EventsViewPageComponent  implements OnInit {
     })
       let fd: FormData = new FormData();
       fd.append('type', 'licenses');
-      fd.append('data', JSON.stringify(this.licensesForm.value));
+      fd = this.formdataService.formdataAppendJson(fd,this.licensesForm.value)
+
       fd.append('file', this.licensesFile);
       
       return this.userService.createUserDocument(fd).pipe(
@@ -375,7 +385,7 @@ export class EventsViewPageComponent  implements OnInit {
     })
       let fd: FormData = new FormData();
       fd.append('type', 'polis');
-      fd.append('data', JSON.stringify(this.polisForm.value));
+      fd = this.formdataService.formdataAppendJson(fd, this.polisForm.value);
       fd.append('file', this.polisFile);
       
       return this.userService.createUserDocument(fd).pipe(
@@ -392,10 +402,8 @@ export class EventsViewPageComponent  implements OnInit {
   }
 
  createNotarius(): Observable<any>{
- 
   let fd: FormData = new FormData()
    fd.append('type','notarius')
-   fd.append('data',JSON.stringify({}))
    fd.append('file',this.notariusFile)
     this.userService.createUserDocument(fd).pipe(
     finalize(()=>{
@@ -571,21 +579,18 @@ export class EventsViewPageComponent  implements OnInit {
 
 
   async toggleAplicationInRace(){
- 
+    console.log(this.personalUserForm.value)
     if(this.submitValidate()){
-   
+    
       await this.setFirstDocuments().pipe().subscribe(()=>{
         this.setDocuments().pipe().subscribe(()=>{
+      
          let currentForm = {
            ...this.personalUserForm.value,
-           ...this.polisForm.value,
-           ...this.licensesForm.value,
-           licensesFileLink: this.licensesFile.path,
-           polisFileLink: this.polisFile.path,
-           notariusFileLink: this.notariusFile.path,
+           documentIds:[this.polisId, this.licensesId,this.notariusId]   
          }
-         const fd: FormData = new FormData();
-         fd.append('data',  JSON.stringify(currentForm))
+         let fd: FormData = new FormData();
+         fd = this.formdataService.formdataAppendJson(fd, currentForm)
      
          let loader:HTMLIonLoadingElement
          this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
@@ -622,6 +627,7 @@ export class EventsViewPageComponent  implements OnInit {
         dateOfBirth: this.userService.user.value?.personal.date_of_birth,
         phoneNumber: this.userService.user.value?.personal.phone_number,
         startNumber: this.userService.user.value?.personal.start_number,
+        locationId: this.userService.user.value?.personal.location.id,
         rankNumber: this.userService.user.value?.personal.rank_number,
         motoStamp:  this.userService.user.value?.personal.moto_stamp,
         numberAndSeria: this.userService.user.value?.personal.number_and_seria,
@@ -640,20 +646,27 @@ export class EventsViewPageComponent  implements OnInit {
      })
      ).subscribe((res:any)=>{
      if(res.documents){
-       if(res.documents.find((doc:any)=> doc.type === 'licenses')?.data){
+       if(res.documents.find((doc:any)=> doc.type === 'licenses')){
          let licensesDocument = res.documents.find((doc:any)=> doc.type === 'licenses')
-         this.licensesForm.patchValue(JSON.parse((res.documents.find((doc:any)=> doc.type === 'licenses')?.data)))
+         this.licensesId = licensesDocument.id
+         this.licensesForm.patchValue(((res.documents.find((doc:any)=> doc.type === 'licenses'))))
          this.licensesFile = {name:'Лицензия загружена', path:  `${environment.BASE_URL}/document/${licensesDocument.id } ` }
        
        }
-       if((res.documents.find((doc:any)=> doc.type === 'polis')?.data)){
+       if((res.documents.find((doc:any)=> doc.type === 'polis'))){
          let polisDocument = res.documents.find((doc:any)=> doc.type === 'polis')
-         this.polisForm.patchValue(JSON.parse((res.documents.find((doc:any)=> doc.type === 'polis')?.data)))
+         this.polisId = polisDocument.id
+         this.polisForm.patchValue({
+          number: polisDocument.number,
+          issuedWhom: polisDocument.issued_whom,
+          itWorksDate: moment(polisDocument.it_works_date).format('YYYY-MM-DD')
+         })
          this.polisFile = {name:'Полис загружен', path:  `${environment.BASE_URL}/document/${polisDocument.id}`}
        }
        
-       if(res.documents.find((doc:any)=> doc.type === 'notarius')?.path.length){
+       if(res.documents.find((doc:any)=> doc.type === 'notarius')){
          let notariusDocument = res.documents.find((doc:any)=> doc.type === 'notarius')
+         this.notariusId = notariusDocument.id
          this.notariusFile = {name:'Согласие загружено', path: `${environment.BASE_URL}/document/${notariusDocument.id}`}
          this.oldNotariusFile = {name:'Согласие загружено',  path:  `${environment.BASE_URL}/document/${notariusDocument.id}`}
        } 

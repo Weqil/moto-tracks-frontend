@@ -17,6 +17,9 @@ import { StandartInputSelectComponent } from 'src/app/Shared/Components/UI/Selec
 import cloneDeep from 'lodash/cloneDeep';
 import _ from 'lodash';
 import { MapService } from 'src/app/Shared/Data/Services/Map/map.service';
+import { formdataService } from 'src/app/Shared/Helpers/formdata.service';
+import moment from 'moment';
+
 
 @Component({
   selector: 'app-user-documents',
@@ -35,6 +38,7 @@ export class UserDocumentsComponent  implements OnInit {
   httpClient:HttpClient = inject(HttpClient)
   userService:UserService = inject(UserService)
   toastService:ToastService = inject(ToastService)
+  formdataService:formdataService = inject(formdataService)
 
   regionModalState:boolean = false
 
@@ -52,13 +56,13 @@ export class UserDocumentsComponent  implements OnInit {
   
   licensesForm: FormGroup = new FormGroup(
     {
-      licensesNumber: new FormControl('',[Validators.required, Validators.minLength(1), ]), //номер лицензии
+      number: new FormControl('',[Validators.required, Validators.minLength(1), ]), //номер лицензии
     }
   )
 
   polisForm: FormGroup = new FormGroup(
     {
-      polisNumber: new FormControl('',[Validators.required]), //Серия и номер полиса
+      number: new FormControl('',[Validators.required]), //Серия и номер полиса
       issuedWhom: new FormControl('',[Validators.required]), //Кем выдан
       itWorksDate: new FormControl('',[Validators.required]), //Срок действия
     }
@@ -212,7 +216,7 @@ submitForm(){
   
     if(this.oldLicensesValue && this.validateLicenses()){
   
-      let oldLicensesValue:any = JSON.parse(this.oldLicensesValue.data)
+      let oldLicensesValue:any = this.oldLicensesValue
       if(!_.isEqual(oldLicensesValue,this.licensesForm.value) || !this.licensesFile.dontFile){
      
         this.updateLicenses()
@@ -220,7 +224,7 @@ submitForm(){
     }
   
     if(this.oldPolisValue && this.validatePolis()){
-      let oldPolisValue:any = JSON.parse(this.oldPolisValue.data)
+      let oldPolisValue:any = this.oldPolisValue
       if(!_.isEqual(oldPolisValue,this.polisForm.value) || !this.polisFile.dontFile ){
         this.updatePolis()
       }
@@ -307,9 +311,10 @@ submitForm(){
       loader = res
     })
     let fd:FormData = new FormData()
+    fd = this.formdataService.formdataAppendJson(fd,this.licensesForm.value)
     fd.append('type','licenses')
-    fd.append('data',JSON.stringify(this.licensesForm.value))
     fd.append('file',this.licensesFile)
+
     this.userService.createUserDocument(fd).pipe(
     finalize(()=>{
       this.loaderService.hideLoading(loader)
@@ -369,7 +374,7 @@ submitForm(){
      })
      let fd: FormData = new FormData()
      fd.append('type','polis')
-     fd.append('data',JSON.stringify(this.polisForm.value))
+     fd = this.formdataService.formdataAppendJson(fd,this.polisForm.value)
      fd.append('file',this.polisFile)
       this.userService.createUserDocument(fd).pipe(
       finalize(()=>{
@@ -387,7 +392,8 @@ submitForm(){
       loader = res
      })
     let fd:FormData = new FormData()
-    fd.append('data',JSON.stringify(this.licensesForm.value))
+    fd = this.formdataService.formdataAppendJson(fd,this.licensesForm.value)
+  
     if(!this.licensesFile.dontFile){
       fd.append('file',this.licensesFile)
     }
@@ -407,7 +413,7 @@ submitForm(){
       loader = res
     })
     let fd:FormData = new FormData()
-    fd.append('data',JSON.stringify(this.polisForm.value))
+    fd = this.formdataService.formdataAppendJson(fd,this.polisForm.value)
     if(!this.polisFile.dontFile){
       fd.append('file',this.polisFile)
     }
@@ -427,7 +433,6 @@ submitForm(){
         loader = res
       })
       let fd: FormData = new FormData()
-      fd.append('data',JSON.stringify({}))
       if(!this.notariusFile.dontFile){
         fd.append('file',this.notariusFile)
         this.userService.updateDocument(Number(this.oldNotariusValue?.id),fd).pipe(
@@ -460,7 +465,6 @@ submitForm(){
 
       let fd: FormData = new FormData()
       fd.append('type','notarius')
-      fd.append('data',JSON.stringify({}))
       fd.append('file',this.notariusFile)
        this.userService.createUserDocument(fd).pipe(
        finalize(()=>{
@@ -485,20 +489,25 @@ submitForm(){
       })
     ).subscribe((res:any)=>{
       if(res.documents){
-        if(res.documents.find((doc:any)=> doc.type === 'licenses')?.data){
+        console.log(res.documents)
+        if(res.documents.find((doc:any)=> doc.type === 'licenses')){
           let licensesDocument = res.documents.find((doc:any)=> doc.type === 'licenses')
-          this.licensesForm.patchValue(JSON.parse((res.documents.find((doc:any)=> doc.type === 'licenses')?.data)))
-         
+          this.licensesForm.patchValue((res.documents.find((doc:any)=> doc.type === 'licenses')))
           this.licensesFile = {name:'Лицензия загружена', dontFile:true} 
         }
-        if((res.documents.find((doc:any)=> doc.type === 'polis')?.data)){
-          this.polisForm.patchValue(JSON.parse((res.documents.find((doc:any)=> doc.type === 'polis')?.data)))
+        if((res.documents.find((doc:any)=> doc.type === 'polis'))){
+          let polis = (res.documents.find((doc:any)=> doc.type === 'polis'))
+          this.polisForm.patchValue({
+            number: polis.number,
+            issuedWhom: polis.issued_whom,
+            itWorksDate: moment(polis.it_works_date).format('YYYY-MM-DD')
+          })
           this.polisFile = {name:'Полис загружен', dontFile:true}
         }
-        if(res.documents.find((doc:any)=> doc.type === 'pasport')?.data){
-          this.pasportForm.patchValue(JSON.parse(res.documents.find((doc:any)=> doc.type === 'pasport')?.data))
+        if(res.documents.find((doc:any)=> doc.type === 'pasport')){
+          this.pasportForm.patchValue((res.documents.find((doc:any)=> doc.type === 'pasport')))
         } 
-        if(res.documents.find((doc:any)=> doc.type === 'notarius')?.path){
+        if(res.documents.find((doc:any)=> doc.type === 'notarius')){
           this.notariusFile = {name:'Согласие загружено', dontFile:true}
           this.oldNotariusFile = {name:'Согласие загружено', dontFile:true}
         } 

@@ -19,6 +19,10 @@ export interface User{
         rank:string,
         rank_number:string,
         community:string,
+        location:{
+            id:string,
+            name:string,
+        }
         coach:string,
         moto_stamp:string,
         engines:string

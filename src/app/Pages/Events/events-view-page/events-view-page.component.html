@@ -118,7 +118,7 @@
         <div class="documents">
             <div class="document-header">Лицензия</div>
             <div class="licenses document-container">
-              <app-standart-input [control]="licensesForm.get('licensesNumber')" placeholder="Лицензия МФР" label="Лицензия МФР (тип, №)*"></app-standart-input>
+              <app-standart-input [control]="licensesForm.get('number')" placeholder="Лицензия МФР" label="Лицензия МФР (тип, №)*"></app-standart-input>
               <span class="scan-header">Скан или фотография Лицензии</span>
               <app-file-input (click)="!licensesFile ? licensesFileInput.click(): showToastInfoFileUpload()" [fileName]="licensesFile.name"></app-file-input>
               <input (change)="setLicensesFile($event)" #licensesFileInput style="display: none;"  type="file">
@@ -126,7 +126,7 @@
 
             <div class="document-header">Страховой полис</div>
             <div class="polis document-container">
-              <app-standart-input [errorMessage]="documentsError.polisNumber.errorMessage" [invalid]="documentsError.polisNumber.errorMessage.length !== 0"  [control]="polisForm.get('polisNumber')" placeholder="Серия, номер" label="Серия и номер*"></app-standart-input>
+              <app-standart-input [errorMessage]="documentsError.polisNumber.errorMessage" [invalid]="documentsError.polisNumber.errorMessage.length !== 0"  [control]="polisForm.get('number')" placeholder="Серия, номер" label="Серия и номер*"></app-standart-input>
               <app-standart-input [errorMessage]="documentsError.issuedWhom.errorMessage" [invalid]="documentsError.issuedWhom.errorMessage.length !== 0" [control]="polisForm.get('issuedWhom')" placeholder="Кем выдан" label="Кем выдан*"></app-standart-input>
               <app-standart-input [errorMessage]="documentsError.itWorksDate.errorMessage" [invalid]="documentsError.itWorksDate.errorMessage.length !== 0" [control]="polisForm.get('itWorksDate')" placeholder="Срок действия" type="date" label="Срок действия*"></app-standart-input>
               <span class="scan-header">Скан или фотография Полиса</span>
