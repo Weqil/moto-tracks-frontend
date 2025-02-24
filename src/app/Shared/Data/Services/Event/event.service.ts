@@ -10,15 +10,15 @@ export class EventService {
 
   constructor() { }
   http:HttpClient = inject(HttpClient)
-  getAllEvents(){
-    return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races`)
+  getAllEvents(params?:{userId?:string,appointmentUser?:number, dateStart?:string}){
+    return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races`, {params:{...params}})
   }
 
   generateGoogleLink(id:string){
     return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races/${id}/appointment-race/users-table`)
   }
 
-  getEventById(eventId:string,params?:{userId?:string,appointmentUser?:number}){
+  getEventById(eventId:string,params?:{userId?:string,appointmentUser?:number, dateStart?:string}){
     return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races/${eventId}`,{
       params:{...params}
     })
