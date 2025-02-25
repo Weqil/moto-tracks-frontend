@@ -77,6 +77,9 @@ export class EventsViewPageComponent  implements OnInit {
 
   ngZone: NgZone = inject(NgZone)
   documents:any = []
+
+  statusImagesModal: boolean = false
+  
   
   formdataService:formdataService = inject(formdataService)
 
@@ -167,6 +170,7 @@ export class EventsViewPageComponent  implements OnInit {
       }
     )
    
+    
 
 
     formErrors:any = {
@@ -743,10 +747,10 @@ export class EventsViewPageComponent  implements OnInit {
   }
 
   closeImagesModal() {
-    this.openImagesModal = false
+    this.statusImagesModal = false
   }
   openImagesModalFunction() {
-    this.openImagesModal = true
+    this.statusImagesModal = true
   }
 
   ionViewWillEnter(){

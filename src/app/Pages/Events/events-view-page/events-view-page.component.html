@@ -7,15 +7,19 @@
   <main>
     @if (this.event) {
       <div class="slider-container">
-        <app-show-slider [files]="event.images"></app-show-slider>
+        <app-show-slider [files]="event.images" (click)="openImagesModalFunction()"></app-show-slider>
         <div class="slider-container__header">
          
           <!-- <app-back-button ></app-back-button> -->
         </div> 
        
       </div>
+
       
     <div class="main-container-parent">
+
+      <app-images-modal *ngIf="event.images" [openModal]="statusImagesModal" (closeModalEmit)="closeImagesModal()" [imagesPathArray]="event.images"></app-images-modal>
+
       <div class="main-container">
         <div class="event-name">{{event.name}}</div>
         
