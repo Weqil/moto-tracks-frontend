@@ -24,7 +24,7 @@
           </ion-header>
          
       <ion-content class="">
-        <div class="card-grid">
+        <div class="users-content">
             <ng-container *ngIf="users && !formattedUsers" >
                 <div *ngFor="let user of users" (click)="openUser(user)" class="card-grid__item">
                     <app-user-section  [hideEmail]= "true"  [user]="user"></app-user-section>
@@ -37,14 +37,26 @@
             <ng-container *ngIf="users && formattedUsers" >
                 <div *ngFor="let group of formattedUsers">
                     <h2>{{group.group}}:</h2>
-
-                    <div *ngFor="let user of group.users" (click)="openUser(user)" class="card-grid__item">
-                       
-                        <app-user-section [showRank]="true"  [hideEmail]= "true"  [user]="user"></app-user-section>
-                        <div *ngIf="user?.start_number" class="user-info__class">
-                            {{user?.start_number}}
-                        </div>
+                    <div class="card-grid">
+                        <ng-container *ngFor="let user of group.users; let i = index">
+                            <div>
+                                <div (click)="openUser(user)" class="card-grid__item">
+                                    <div class="racer-number">
+                                        {{i+1}}
+                                    </div>
+                                    <app-user-section [showRank]="true"  [hideEmail]= "true"  [user]="user"></app-user-section>
+                                    <div *ngIf="user?.start_number" class="user-info__class">
+                                        {{user?.start_number}}
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            
+                        </ng-container>
+                        
+                     
                     </div>
+                   
                 </div>
                
   
