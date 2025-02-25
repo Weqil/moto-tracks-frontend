@@ -1,19 +1,20 @@
 import { CommonModule } from '@angular/common'
-import { Component, EventEmitter, inject, Input, OnInit, Output, SimpleChanges } from '@angular/core'
+import { Component, ElementRef, EventEmitter, inject, Input, OnInit, Output, SimpleChanges } from '@angular/core'
 import { InfiniteScrollCustomEvent } from '@ionic/angular'
-import { IonHeader, IonIcon, IonModal, IonToolbar, NavController } from '@ionic/angular/standalone'
+import { IonButton, IonHeader, IonIcon, IonModal, IonToolbar, NavController } from '@ionic/angular/standalone'
 import { User } from 'src/app/Shared/Data/Interfaces/user-model'
 import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module'
 import { UserSectionComponent } from "../../UserElements/user-section/user-section.component";
 import { CheckImgUrlPipe } from "../../../Helpers/check-img-url.pipe";
 import { ButtonsModule } from 'src/app/Shared/Modules/buttons/buttons.module'
+import { RouterLink } from '@angular/router'
 
 
 @Component({
   selector: 'app-users-preview',
   templateUrl: './users-preview.component.html',
   styleUrls: ['./users-preview.component.scss'],
-  imports: [CommonModule, SharedModule, IonModal, UserSectionComponent, IonHeader, CheckImgUrlPipe,IonToolbar,ButtonsModule],
+  imports: [CommonModule, SharedModule, IonModal, UserSectionComponent, IonHeader, CheckImgUrlPipe,IonToolbar,ButtonsModule,IonButton,RouterLink],
 })
 export class UsersPreviewComponent implements OnInit {
   @Input() moreCount!: string|number
@@ -52,6 +53,13 @@ export class UsersPreviewComponent implements OnInit {
   
   openUser(user: User) {
     this.userSelected.emit(user)
+  }
+
+  scrollToItem(group: string) {
+    const element = document.getElementById(group);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
   }
 
   ngOnChanges(changes: SimpleChanges) {

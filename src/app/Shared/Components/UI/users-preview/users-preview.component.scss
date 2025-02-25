@@ -140,7 +140,32 @@ ion-toolbar{
     justify-content: space-between;
     align-items: center;
 }
-
+.group-grid{
+    padding: var(--standart-padding);
+    display: flex;
+    gap: 1rem;
+}
+.group-grid__item{
+    font-family: var(--font-bold);
+    background-color: #fff;
+    display: inline-flex;
+    padding: 0.6rem;
+    border-radius: 8px;
+    transition: 0.15s;
+    align-items: center;
+    justify-content: center;
+}
+.group-grid__item:active{
+    font-family: var(--font-bold);
+    background-color: #1b1b1b;
+    display: inline-flex;
+    padding: 0.6rem;
+    transition: 0.15s;
+    color: #fff;
+    border-radius: 8px;
+    align-items: center;
+    justify-content: center;
+}
 .user-info__class{
     background-color: var(--dark-grey-color);
     color: var(--white-color);

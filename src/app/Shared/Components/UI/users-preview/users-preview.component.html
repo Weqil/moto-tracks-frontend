@@ -35,15 +35,17 @@
   
             </ng-container> 
             <ng-container *ngIf="users && formattedUsers" >
+                <div class="group-grid">
+                    <button (click)="scrollToItem(group.group)" *ngFor="let group of formattedUsers" class="group-grid__item">
+                        {{group.group}}
+                    </button>
+                </div>
                 <div *ngFor="let group of formattedUsers">
-                    <h2>{{group.group}}:</h2>
+                    <h2 id="{{group.group}}">{{group.group}}:</h2>
                     <div class="card-grid">
                         <ng-container *ngFor="let user of group.users; let i = index">
                             <div>
                                 <div (click)="openUser(user)" class="card-grid__item">
-                                    <div class="racer-number">
-                                        {{i+1}}
-                                    </div>
                                     <app-user-section [showRank]="true"  [hideEmail]= "true"  [user]="user"></app-user-section>
                                     <div *ngIf="user?.start_number" class="user-info__class">
                                         {{user?.start_number}}
