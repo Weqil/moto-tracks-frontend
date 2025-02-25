@@ -695,6 +695,7 @@ export class EventsViewPageComponent  implements OnInit {
 
   getUsersInRace(){
     this.eventService.getUsersInRace(this.eventId).pipe().subscribe((res:any)=>{
+      console.log(typeof res.users)
       this.usersInRace = res.users
     })
   }

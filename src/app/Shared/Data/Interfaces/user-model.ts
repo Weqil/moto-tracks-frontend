@@ -4,7 +4,11 @@ export interface User{
     email: string;
     email_verified_at:string|null,
     avatar:string|null,
-    personal:{
+    surname?:string,
+    city?:string,
+    rank?:string,
+    start_number?:number|null,
+    personal?:{
         name: string,
         surname:string,
         patronymic:string,

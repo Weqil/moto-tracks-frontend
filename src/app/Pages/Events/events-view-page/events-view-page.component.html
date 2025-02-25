@@ -1,23 +1,22 @@
 <ion-content>
+  <app-header *ngIf="this.event" >
+    <div class="event-date">
+      {{ event.date_start | date: 'dd.MM.YYYY ' : 'UTC' }}
+    </div> 
+  </app-header>
   <main>
     @if (this.event) {
-      
-      <app-header >
-          <div class="event-date">
-            {{ event.date_start | date: 'dd.MM.YYYY ' : 'UTC' }}
-          </div> 
-        </app-header>
-
-        
       <div class="slider-container">
-        <app-show-slider [files]="event.images" (click)="openImagesModalFunction()" ></app-show-slider>
+        <app-show-slider [files]="event.images"></app-show-slider>
+        <div class="slider-container__header">
+         
+          <!-- <app-back-button ></app-back-button> -->
+        </div> 
+       
       </div>
       
-      <div class="main-container-parent">
+    <div class="main-container-parent">
       <div class="main-container">
-        
-        
-
         <div class="event-name">{{event.name}}</div>
         
         <div [innerHTML]="clearDescription()" class="event-description">{{event.desc}}</div>
@@ -43,20 +42,13 @@
         
 
         <div class="list-users-container">
-          @if (usersInRace.length) {
+          @if (usersInRace) {
             <div class="user-modal-header">
               Участники гонки
               <!-- {{usersInRace.length}} --> 
             </div>
-          <app-users-preview [groups]="event.grades" [fullValueUsers]="usersInRace.length" [users]="usersInRace" [moreCount]="usersInRace.length" [openUsersModal]="openUserModalValue" (closeModalEmit)="closeStateUsersModal()" (openModalEmit)="openStateUsersModal()"></app-users-preview>
+          <app-users-preview [groups]="event.grades"  [fullValueUsers]="usersInRace.length" [users]="usersInRace" [moreCount]="usersInRace.length" [openUsersModal]="openUserModalValue" (closeModalEmit)="closeStateUsersModal()" (openModalEmit)="openStateUsersModal()"></app-users-preview>
         }
-        </div>
-
-        <div class="record-end">
-          <p>Окончание регистрации: </p>
-          <div class="date-record-end">          
-            {{event.record_end | date: 'dd.MM.YYYY HH:mm '}}
-          </div>
         </div>
 
       </div>
@@ -158,8 +150,6 @@
   
   
   </ion-modal>
-
-  <app-images-modal *ngIf="event && event.images" [openModal]="openImagesModal" (closeModalEmit)="closeImagesModal()" [imagesPathArray]="event.images"></app-images-modal>
 
 <app-confirm-modal text="Ваши данные были изменены, сохранить их?" [openModal]="changePersonalDateModalValue" (confirm)="saveNewPersonal()" (cancel)="closePersonalNewModal()" ></app-confirm-modal>
 }
