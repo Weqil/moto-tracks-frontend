@@ -16,7 +16,7 @@ import { LoadingService } from 'src/app/Shared/Services/loading.service';
   selector: 'app-track-tape-page',
   templateUrl: './track-tape-page.component.html',
   styleUrls: ['./track-tape-page.component.scss'],
-  imports: [SharedModule, HeaderModule, ButtonsModule, TrackModule, RouterLink]
+  imports: [SharedModule, HeaderModule, TrackModule, RouterLink]
 })
 
 export class TrackTapePageComponent  implements OnInit {

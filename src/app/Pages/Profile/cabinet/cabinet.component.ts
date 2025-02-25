@@ -23,7 +23,6 @@ import { LoadingService } from 'src/app/Shared/Services/loading.service';
     HeaderModule,
     UserModule,
     ProfileModule,
-    ButtonsModule,
     selectedModule
   ]
 })

@@ -20,7 +20,7 @@ import { IonCheckbox } from '@ionic/angular/standalone';
   selector: 'app-registration-page',
   templateUrl: './registration-page.component.html',
   styleUrls: ['./registration-page.component.scss'],
-  imports: [SharedModule, HeaderModule, FormsModule, ButtonsModule,IonCheckbox]
+  imports: [SharedModule, HeaderModule, FormsModule,IonCheckbox]
 })
 export class RegistrationPageComponent  implements OnInit {
 

@@ -21,7 +21,7 @@ import { AuthErrosMessages } from 'src/app/Shared/Data/Enums/erros';
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.scss'],
-  imports: [SharedModule, HeaderModule, StandartInputComponent,ButtonsModule],
+  imports: [SharedModule, HeaderModule, StandartInputComponent],
 })
 export class LoginPageComponent  implements OnInit {
 

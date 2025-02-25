@@ -11,6 +11,7 @@ import { TrackService } from 'src/app/Shared/Data/Services/Track/track.service';
 import { ButtonsModule } from 'src/app/Shared/Modules/buttons/buttons.module';
 import { LoadingService } from 'src/app/Shared/Services/loading.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ImagesModalComponent } from "../../../Shared/Components/UI/images-modal/images-modal.component";
 @Component({
   selector: 'app-track-view-page',
   templateUrl: './track-view-page.component.html',
@@ -21,7 +22,7 @@ import { DomSanitizer } from '@angular/platform-browser';
     CheckImgUrlPipe,
     SlidersModule,
     AngularYandexMapsModule,
-    ButtonsModule,
+    ImagesModalComponent
 ]
 })
 
@@ -34,6 +35,14 @@ export class TrackViewPageComponent  implements OnInit {
   constructor() { }
   route: ActivatedRoute = inject(ActivatedRoute)
   loadingService: LoadingService = inject(LoadingService)
+  statusImagesModal: boolean = false
+
+  openImagesModalFunction(){
+    this.statusImagesModal = true
+  }
+  closeImagesModal(){
+    this.statusImagesModal = false
+  }
 
    getTrack(){
     this.loadingService.showLoading()

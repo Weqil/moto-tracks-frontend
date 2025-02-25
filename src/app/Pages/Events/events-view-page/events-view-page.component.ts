@@ -31,13 +31,14 @@ import { environment } from 'src/environments/environment';
 import { group } from '@angular/animations';
 import { MapService } from 'src/app/Shared/Data/Services/Map/map.service';
 import moment from 'moment';
+import { ImagesModalComponent } from "../../../Shared/Components/UI/images-modal/images-modal.component";
 
 @Component({
   selector: 'app-events-view-page',
   templateUrl: './events-view-page.component.html',
   styleUrls: ['./events-view-page.component.scss'],
-  imports: [SharedModule, SlidersModule, ButtonsModule, TrackSectionComponent, IonModal, HeaderModule, StandartInputComponent, UsersPreviewComponent, 
-    ConfirmModalComponent, CheckImgUrlPipe,FormsModule, StandartInputSelectComponent,RouterLink]
+  imports: [SharedModule, SlidersModule, ButtonsModule, TrackSectionComponent, IonModal, HeaderModule, StandartInputComponent, UsersPreviewComponent,
+    ConfirmModalComponent, CheckImgUrlPipe, FormsModule, StandartInputSelectComponent, RouterLink, ImagesModalComponent]
 })
 export class EventsViewPageComponent  implements OnInit {
 
@@ -61,7 +62,7 @@ export class EventsViewPageComponent  implements OnInit {
   licensesFile:any =''
   polisFile:any = ''
   notariusFile:any = ''
-
+  openImagesModal: boolean = false
   oldNotariusFile:any
 
   oldPolisFile:any
@@ -723,6 +724,13 @@ export class EventsViewPageComponent  implements OnInit {
   
 
     return valid
+  }
+
+  closeImagesModal() {
+    this.openImagesModal = false
+  }
+  openImagesModalFunction() {
+    this.openImagesModal = true
   }
 
   ionViewWillEnter(){

@@ -10,7 +10,7 @@
 
         
       <div class="slider-container">
-        <app-show-slider [files]="event.images"></app-show-slider>
+        <app-show-slider [files]="event.images" (click)="openImagesModalFunction()" ></app-show-slider>
       </div>
       
       <div class="main-container-parent">
@@ -158,6 +158,8 @@
   
   
   </ion-modal>
+
+  <app-images-modal *ngIf="event && event.images" [openModal]="openImagesModal" (closeModalEmit)="closeImagesModal()" [imagesPathArray]="event.images"></app-images-modal>
 
 <app-confirm-modal text="Ваши данные были изменены, сохранить их?" [openModal]="changePersonalDateModalValue" (confirm)="saveNewPersonal()" (cancel)="closePersonalNewModal()" ></app-confirm-modal>
 }

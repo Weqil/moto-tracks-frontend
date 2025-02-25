@@ -24,9 +24,12 @@
           
       </div>
       
-        <div *ngIf="track.images" class="track__files">
-            <app-horizontal-swiper [files]="track.images"></app-horizontal-swiper>
+        <div *ngIf="track.images" (click)="openImagesModalFunction()" class="track__files">
+            <app-horizontal-swiper [files]="track.images"> </app-horizontal-swiper>
         </div>
+
+        <app-images-modal *ngIf="track.images" [openModal]="statusImagesModal" (closeModalEmit)="closeImagesModal()" [imagesPathArray]="track.images"></app-images-modal>
+
 
         <div class="track__info main-container">
           <div class="specifications">
@@ -83,13 +86,12 @@
             <div class="map__open-button">
               <app-standart-button buttonText="Проложить маршрут" (onClick) = "goToPoint()"></app-standart-button>
             </div>
-       
           </div>
         </div>
     </div>
   </ng-container>
-  
-  
+</ion-content>
+
   
 
-</ion-content>
+

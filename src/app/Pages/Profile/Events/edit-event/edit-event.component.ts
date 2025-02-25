@@ -29,7 +29,7 @@ import { GroupService } from 'src/app/Shared/Data/Services/Race/group.service';
   selector: 'app-edit-event',
   templateUrl: './edit-event.component.html',
   styleUrls: ['./edit-event.component.scss'],
-  imports: [SharedModule,HeaderModule,StepsModule,ButtonsModule,FormsModule,EditSliderComponent,TrackModule,IonModal,IonCheckbox]
+  imports: [SharedModule,HeaderModule,StepsModule,FormsModule,EditSliderComponent,TrackModule,IonModal,IonCheckbox]
 })
 export class EditEventComponent  implements OnInit {
 

@@ -75,3 +75,11 @@ ion-modal{
     }
     }
 }
+ .tabs-container{
+    display: flex;
+    justify-content: center;
+    padding-top: var(--standart-header-padding);
+    padding-bottom: 1rem;
+    width: 100%;
+    height: 2rem;
+ }

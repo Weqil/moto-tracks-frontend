@@ -12,13 +12,16 @@ import { SwitchTypeService } from 'src/app/Shared/Services/switch-type.service';
 import { LoadingService } from 'src/app/Shared/Services/loading.service';
 import { finalize } from 'rxjs';
 import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
+import { TabsComponent } from "../../../Shared/Components/UI/tabs/tabs.component";
+import { TabsItemComponent } from "../../../Shared/Components/UI/tabs-item/tabs-item.component";
+
 
 
 @Component({
   selector: 'app-events-tape-page',
   templateUrl: './events-tape-page.component.html',
   styleUrls: ['./events-tape-page.component.scss'],
-  imports: [SharedModule,CommonModule, HeaderModule, ButtonsModule, EventModule, IonModal]
+  imports: [SharedModule, CommonModule, HeaderModule, EventModule, IonModal, TabsComponent, TabsItemComponent]
 })
 export class EventsTapePageComponent  implements OnInit {
 

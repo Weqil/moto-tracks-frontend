@@ -26,7 +26,7 @@ import moment from 'moment-timezone';
   selector: 'app-create-events-page',
   templateUrl: './create-events-page.component.html',
   styleUrls: ['./create-events-page.component.scss'],
-  imports: [SharedModule, HeaderModule, StepsModule, ButtonsModule, FormsModule, EditSliderComponent, TrackModule,
+  imports: [SharedModule, HeaderModule, StepsModule, FormsModule, EditSliderComponent, TrackModule,
      selectedModule, StandartInputSelectComponent, IonModal, IonCheckbox, IonLabel]
 })
 export class CreateEventsPageComponent  implements OnInit {

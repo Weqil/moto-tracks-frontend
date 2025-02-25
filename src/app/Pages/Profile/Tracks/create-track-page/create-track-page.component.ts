@@ -21,7 +21,7 @@ import { MapService } from 'src/app/Shared/Data/Services/Map/map.service';
   selector: 'app-create-track-page',
   templateUrl: './create-track-page.component.html',
   styleUrls: ['./create-track-page.component.scss'],
-  imports: [SharedModule, HeaderComponent, ButtonsModule, StepsModule, FormsModule, EditSliderComponent, StandartRichInputComponent, AddressInputComponent,IonModal]
+  imports: [SharedModule, HeaderComponent, StepsModule, FormsModule, EditSliderComponent, StandartRichInputComponent, AddressInputComponent,IonModal]
 })
 export class CreateTrackPageComponent  implements OnInit {
 

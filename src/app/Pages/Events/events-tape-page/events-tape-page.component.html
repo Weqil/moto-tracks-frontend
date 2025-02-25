@@ -2,7 +2,16 @@
 
   <app-header  [hiddenBackButton]="true" headerTitle="Календарь гонок" ></app-header>
 
-  <main class="main-container--with-header">
+  <div class="tabs-container">
+    <app-tabs>
+      <app-tabs-item name="Текущие события"></app-tabs-item>      
+      <app-tabs-item name="Прошедшие"></app-tabs-item>
+    </app-tabs>
+  </div>
+    
+ 
+  
+  <main class="main-container">
     <div class="events-grid">
         @for (event of this.eventTapeService.events; track $index) {
           <app-event-card [event]="event">
