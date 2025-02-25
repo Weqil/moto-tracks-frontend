@@ -606,7 +606,6 @@ export class EventsViewPageComponent  implements OnInit {
              this.getEvent()
              //Если пользователь не имел персональных данных
              this.setFirstUserPersonal()
-         
              this.checkChangeInPersonalform()
              this.toastService.showToast('Заявка успешно отправленна','success')
          })
@@ -649,6 +648,7 @@ export class EventsViewPageComponent  implements OnInit {
        if(res.documents.find((doc:any)=> doc.type === 'licenses')){
          let licensesDocument = res.documents.find((doc:any)=> doc.type === 'licenses')
          this.licensesId = licensesDocument.id
+         console.log(this.licensesId)
          this.licensesForm.patchValue(((res.documents.find((doc:any)=> doc.type === 'licenses'))))
          this.licensesFile = {name:'Лицензия загружена', path:  `${environment.BASE_URL}/document/${licensesDocument.id } ` }
        
@@ -656,6 +656,7 @@ export class EventsViewPageComponent  implements OnInit {
        if((res.documents.find((doc:any)=> doc.type === 'polis'))){
          let polisDocument = res.documents.find((doc:any)=> doc.type === 'polis')
          this.polisId = polisDocument.id
+         console.log(this.polisId)
          this.polisForm.patchValue({
           number: polisDocument.number,
           issuedWhom: polisDocument.issued_whom,
