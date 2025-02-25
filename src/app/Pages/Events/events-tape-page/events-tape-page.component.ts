@@ -35,10 +35,9 @@ export class EventsTapePageComponent  implements OnInit {
   userService: UserService = inject(UserService)
   tableModalValue:boolean = false
   googleTabsLink:string = ''
- 
-
   
-
+  expiredEvents:IEvent[]=[]
+ 
   redirectInTracks(){
     this.navController.navigateForward('/tracks')
   }
@@ -58,14 +57,47 @@ export class EventsTapePageComponent  implements OnInit {
     })
   }
 
-  ionViewWillEnter(){
-    this.loadingService.showLoading()
-    this.switchTypeService.setTypeInLocalSorage('events')
+  getExpiredEvents(){
+    let loader:HTMLIonLoadingElement
+    this.loadingService.showLoading().then((res: HTMLIonLoadingElement)=>{
+        loader = res
+    })
+
+    this.eventService.getAllEvents({dateEnd:moment().format('YYYY-MM-DD')}).pipe(
+      finalize(()=>{
+        this.loadingService.hideLoading(loader)
+      })
+    ).subscribe((res:any)=>{
+      this.expiredEvents = res.races
+    })
+
+  }
+
+  getStartEvents(){
+    let loader:HTMLIonLoadingElement
+    this.loadingService.showLoading().then((res: HTMLIonLoadingElement)=>{
+        loader = res
+    })
+
     this.eventService.getAllEvents({dateStart:moment().format('YYYY-MM-DD')}).pipe(
-      finalize(()=> this.loadingService.hideLoading())
-    ).subscribe((res:any) => {
+      finalize(()=>{ 
+        this.loadingService.hideLoading(loader)
+      })).subscribe((res:any)=>{
         this.eventTapeService.events = res.races
     })
+
+  }
+
+  ionViewWillEnter(){
+  
+    this.getExpiredEvents()
+    this.getStartEvents()
+    this.switchTypeService.setTypeInLocalSorage('events')
+    // this.eventService.getAllEvents({dateStart:moment().format('YYYY-MM-DD')}).pipe(
+    //   finalize(()=> this.loadingService.hideLoading())
+    // ).subscribe((res:any) => {
+    //     this.eventTapeService.events = res.races
+    // })
   }
  
   ngOnInit() {}

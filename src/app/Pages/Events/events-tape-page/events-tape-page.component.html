@@ -4,23 +4,36 @@
 
   <div class="tabs-container">
     <app-tabs>
-      <app-tabs-item name="Текущие события"></app-tabs-item>      
-      <app-tabs-item name="Прошедшие"></app-tabs-item>
+      <app-tabs-item name="Текущие события">
+
+      <div class="events-grid"> 
+        @for (event of this.eventTapeService.events; track $index) {
+          <app-event-card [event]="event">
+            <div *ngIf="userService.userHaveRoot()" class="button-container">
+              <app-standart-button style="width: 100%;" (click)="generateGoogleLink(event.id)" buttonText="Выгрузить список"></app-standart-button>
+            </div>
+          </app-event-card>}
+      </div>
+
+      </app-tabs-item>      
+      
+      <app-tabs-item name="Прошедшие">
+        <div class="events-grid"> 
+          @for (event of this.expiredEvents; track $index) {
+            <app-event-card [event]="event">
+              <div *ngIf="userService.userHaveRoot()" class="button-container">
+                <app-standart-button style="width: 100%;" (click)="generateGoogleLink(event.id)" buttonText="Выгрузить список"></app-standart-button>
+              </div>
+            </app-event-card>}
+        </div>
+      </app-tabs-item>
     </app-tabs>
   </div>
     
  
   
   <main class="main-container">
-    <div class="events-grid">
-        @for (event of this.eventTapeService.events; track $index) {
-          <app-event-card [event]="event">
-            <div *ngIf="userService.userHaveRoot()" class="button-container">
-              <app-standart-button style="width: 100%;" (click)="generateGoogleLink(event.id)" buttonText="Выгрузить список"></app-standart-button>
-            </div>
-          </app-event-card>
-        }
-    </div>
+    
 
   </main>
 </ion-content>

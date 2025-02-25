@@ -31,9 +31,14 @@
                   <div class="group-modal-container">
                     <div class="group-modal-header">
                       <div class="group-modal-header__select">
+                        <div class="header-text">
                         <h2>Классы гонки</h2>
-                        <div (click)="changeAllClassesState()" [ngClass]="{'rounded-classes__active':allClassesState, 'rounded-classes':!allClassesState}">
-                          Все классы
+                        </div>
+                        <div class="toggle-container">
+                          <ion-label >Все</ion-label>
+                          <ion-toggle class="custom-toggle" (ionChange)="changeAllClassesState()" [ngClass]="{'rounded-classes__active':allClassesState, 'rounded-classes':!allClassesState}">
+                          </ion-toggle>
+                          <ion-label >Мои</ion-label>
                         </div>
                       </div>
                       <span class="label">Создайте свои или выберите из существующих</span>

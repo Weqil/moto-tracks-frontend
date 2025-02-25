@@ -85,6 +85,7 @@ export class EventsViewPageComponent  implements OnInit {
   formdataService:formdataService = inject(formdataService)
 
   applicationFormValueState:boolean = false
+  statusImagesModal:boolean = false
   userService:UserService = inject(UserService)
   eventId: string = ''
   personalUserForm: FormGroup = new FormGroup({
@@ -171,6 +172,7 @@ export class EventsViewPageComponent  implements OnInit {
       }
     )
    
+    
 
 
     formErrors:any = {
@@ -752,10 +754,10 @@ export class EventsViewPageComponent  implements OnInit {
   }
 
   closeImagesModal() {
-    this.openImagesModal = false
+    this.statusImagesModal = false
   }
   openImagesModalFunction() {
-    this.openImagesModal = true
+    this.statusImagesModal = true
   }
 
   ionViewWillEnter(){

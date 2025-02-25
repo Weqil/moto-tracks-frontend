@@ -92,29 +92,78 @@ ion-modal{
     flex-direction: column;
     gap: 30px;
 }
-.rounded-classes{
-    background: var(--white-color);
-    display: inline;
-    font-family: var(--font-semi-bold);
-    border-radius: 8px;
-    transition: 0.3s all;
-    height: 2rem;
-    padding: 0.3rem;
+
+.toggle-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
 }
-.rounded-classes__active{
-    background: var(--blue-primary-color);
-    display: inline;
-    transition: 0.3s all;
-    color: var(--white-color);
-    font-family: var(--font-semi-bold);
-    border-radius: 8px;
+
+// .rounded-classes{
+    
+//     display: inline;
+//     font-family: var(--font-semi-bold);
+//     border-radius: 8px;
+//     transition: 0.3s all;
+//     height: 2rem;
+//     padding: 0.3rem;
+//     background: var(--white-color);
+// }
+
+// .rounded-classes__active{
+//     background: var(--white-color);
+//     display: inline;
+//     transition: 0.3s all;
+//     color: var(--white-color);
+//     font-family: var(--font-semi-bold);
+//     border-radius: 8px;
+//     height: 2rem;
+//     padding: 0.3rem;
+// }
+
+ion-toggle {
+    --background: #ffffff; /* фон, когда выключен */
+    --handle-background: #ffffff; /* цвет ползунка */
+    --handle-border-radius: 50%;
+    --track-border-width: 2px;
+    --track-border-color: #3880FF;
+  }
+  
+  ion-toggle::part(track) {
+    background-color: var(--background);
     height: 2rem;
-    padding: 0.3rem;
-}
+  }
+  
+  ion-toggle::part(handle) {
+    background-color: var(--handle-background);
+    border-width: var(--track-border-width);
+    border-style: solid;
+    border-color: var(--track-border-color);
+    box-sizing: border-box;
+    
+  }
+
+  .header-text{
+    display: flex;
+    flex-direction: column;
+    
+    align-items: center;
+    height: 100%;
+    h2{
+        margin-bottom: 18px;
+    }
+
+  }
+
+  .group-modal-header{
+    display: flex;
+    flex-direction: column;
+  }
+
 .group-modal-header__select{
     display: flex;
     justify-content: space-between;
-    align-items: center;
 }
 .race-groups__selected{
  

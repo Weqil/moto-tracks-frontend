@@ -4,7 +4,7 @@
     <p class="verification__title">Введите код отправленный на вашу электронную почту {{user.email}} </p>
     <ngx-otp-input  (otpChange)="changeCode($event)" [options]="otpOptions"></ngx-otp-input>
     <div class="verification-timer">
-      <span (click)="getCodeInEmail()" [ngClass]="{'verification-timer__submit':timerActive,'verification-timer__submit--active':!timerActive}">Не пришёл код?</span>
+      <span (click)="getCodeInEmail(); showMessage();" [ngClass]="{'verification-timer__submit--active':timerActive,'verification-timer__submit':!timerActive}">Не пришёл код? Отправить повторно</span>
     </div>
     <app-standart-button (click)="submitMessage()" [disabled]=" this.codeValue.length !== 4" buttonText="Отправить"></app-standart-button>
   </div>
