@@ -15,6 +15,7 @@ import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
 import { TabsComponent } from "../../../Shared/Components/UI/tabs/tabs.component";
 import { TabsItemComponent } from "../../../Shared/Components/UI/tabs-item/tabs-item.component";
 
+import moment from 'moment';
 
 
 @Component({
@@ -60,7 +61,7 @@ export class EventsTapePageComponent  implements OnInit {
   ionViewWillEnter(){
     this.loadingService.showLoading()
     this.switchTypeService.setTypeInLocalSorage('events')
-    this.eventService.getAllEvents().pipe(
+    this.eventService.getAllEvents({dateStart:moment().format('YYYY-MM-DD')}).pipe(
       finalize(()=> this.loadingService.hideLoading())
     ).subscribe((res:any) => {
         this.eventTapeService.events = res.races
