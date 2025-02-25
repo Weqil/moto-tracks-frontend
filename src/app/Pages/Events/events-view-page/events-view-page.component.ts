@@ -77,6 +77,10 @@ export class EventsViewPageComponent  implements OnInit {
 
   ngZone: NgZone = inject(NgZone)
   documents:any = []
+
+  usersPreviewConfig:{usersCount:number}={
+    usersCount:0
+  }
   
   formdataService:formdataService = inject(formdataService)
 
@@ -650,7 +654,6 @@ export class EventsViewPageComponent  implements OnInit {
        if(res.documents.find((doc:any)=> doc.type === 'licenses')){
          let licensesDocument = res.documents.find((doc:any)=> doc.type === 'licenses')
          this.licensesId = licensesDocument.id
-         console.log(this.licensesId)
          this.licensesForm.patchValue(((res.documents.find((doc:any)=> doc.type === 'licenses'))))
          this.licensesFile = {name:'Лицензия загружена', path:  `${environment.BASE_URL}/document/${licensesDocument.id } ` }
        
@@ -658,7 +661,6 @@ export class EventsViewPageComponent  implements OnInit {
        if((res.documents.find((doc:any)=> doc.type === 'polis'))){
          let polisDocument = res.documents.find((doc:any)=> doc.type === 'polis')
          this.polisId = polisDocument.id
-         console.log(this.polisId)
          this.polisForm.patchValue({
           number: polisDocument.number,
           issuedWhom: polisDocument.issued_whom,
@@ -695,8 +697,15 @@ export class EventsViewPageComponent  implements OnInit {
 
   getUsersInRace(){
     this.eventService.getUsersInRace(this.eventId).pipe().subscribe((res:any)=>{
-      console.log(typeof res.users)
+      
       this.usersInRace = res.users
+      if(this.usersInRace){
+        Object.keys(this.usersInRace).forEach((res:any)=>{
+        let tempArray:any = Array(this.usersInRace[res])[0]
+         this.usersPreviewConfig.usersCount += tempArray.length
+        })
+      }
+      
     })
   }
 
