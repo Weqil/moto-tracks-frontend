@@ -143,10 +143,27 @@ ion-toggle {
     box-sizing: border-box;
     
   }
+
+  .header-text{
+    display: flex;
+    flex-direction: column;
+    
+    align-items: center;
+    height: 100%;
+    h2{
+        margin-bottom: 18px;
+    }
+
+  }
+
+  .group-modal-header{
+    display: flex;
+    flex-direction: column;
+  }
+
 .group-modal-header__select{
     display: flex;
     justify-content: space-between;
-    align-items: center;
 }
 .race-groups__selected{
  

@@ -25,22 +25,15 @@
                   <app-standart-button (click)="openModalGroupModal()" [buttonText]="selectedGroup.length ? 'Выбрать':'Выбрать'"></app-standart-button>
                 </ng-container>
           </div>
-
-
-
-
-
-
-
-
             <ion-modal class="group-modal" [isOpen]="groupModal" (didDismiss)="closeGroupModal()">
               <ng-template>
                 <ion-content>
                   <div class="group-modal-container">
                     <div class="group-modal-header">
                       <div class="group-modal-header__select">
+                        <div class="header-text">
                         <h2>Классы гонки</h2>
-                        
+                        </div>
                         <div class="toggle-container">
                           <ion-label >Все</ion-label>
                           <ion-toggle class="custom-toggle" (ionChange)="changeAllClassesState()" [ngClass]="{'rounded-classes__active':allClassesState, 'rounded-classes':!allClassesState}">
