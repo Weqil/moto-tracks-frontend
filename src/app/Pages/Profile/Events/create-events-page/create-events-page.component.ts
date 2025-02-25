@@ -68,8 +68,9 @@ export class CreateEventsPageComponent  implements OnInit {
 
   regionModalState:boolean = false
 
-  tracks!: Track[] 
-
+  tracks!: Track[]
+  allTracks!: Track[]
+ 
   createEventForm: FormGroup = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(3)]),
     desc: new FormControl(`📕С собой иметь паспорт или свидетельство о рождении для спортсменов младше 18 лет.
@@ -160,6 +161,7 @@ export class CreateEventsPageComponent  implements OnInit {
   setRegion(region:any){
     this.closeRegionModal()
     this.locationId = region.value
+    this.trackSelected = undefined
     this.createEventForm.patchValue({region:region.name})
     this.createEventForm.patchValue({locationId:region.value})
   }
@@ -180,11 +182,15 @@ export class CreateEventsPageComponent  implements OnInit {
       })
     ).subscribe((res:any)=>{
       this.tracks = res.tracks
+      this.allTracks = res.tracks
     })
   }
 
   selectTrack(track:Track){
     this.trackSelected = track
+    let region = this.searchRegionItems.find((item)=>item.value == this.trackSelected!.location.id)
+    this.createEventForm.patchValue({region:region.name})
+    this.createEventForm.patchValue({locationId:region.value})
     this.closeTrackSelectModalFunction()
   }
 
@@ -224,7 +230,10 @@ export class CreateEventsPageComponent  implements OnInit {
     })
   }
    openTrackSelectModalFunction(){
-    this.trackSelectedModalState = true;
+      if(this.createEventForm.value.locationId){
+        this.tracks = this.allTracks.filter((track) => Number(track.location?.id) == Number(this.createEventForm.value.locationId))
+      }
+      this.trackSelectedModalState = true;
     }
 
    closeTrackSelectModalFunction(){

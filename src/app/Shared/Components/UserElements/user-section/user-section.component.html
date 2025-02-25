@@ -4,10 +4,10 @@
   </div>
   <div class="user-section__info">
     <div class="user-section__name">
-      <div *ngIf="user?.personal?.name && user?.personal?.surname" >{{user.personal?.name}}</div>
-      <div *ngIf="user?.personal?.name && user?.personal?.surname">{{user.personal?.surname}}</div>
-      <div *ngIf="user?.name && !user?.personal" >{{user.name}}</div>
-      <div *ngIf="user?.surname && !user?.personal" >{{user.surname}}</div>
+      <div class="user-section-text" *ngIf="user?.personal?.name && user?.personal?.surname" >{{user.personal?.name}}</div>
+      <div class="user-section-text" *ngIf="user?.personal?.name && user?.personal?.surname">{{user.personal?.surname}}</div>
+      <div class="user-section-text" *ngIf="user?.name && !user?.personal" >{{user.name}}</div>
+      <div class="user-section-text" *ngIf="user?.surname && !user?.personal" >{{user.surname}}</div>
     </div>
     <!-- <h2 class="user-section__name">{{ (user?.personal?.name && user?.personal?.surname) ? (user.personal.name +  ' ' +  user.personal.surname) : user.name}}</h2> -->
     <!-- <h2 class="user-section__name">{{ (user?.personal?.name && user?.personal?.surname) ? (user.personal.name +  ' ' +  user.personal.surname) : user.name}}</h2> -->
