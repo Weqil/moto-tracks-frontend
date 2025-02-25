@@ -23,7 +23,7 @@ export class UsersPreviewComponent implements OnInit {
   @Input() openUsersModal: boolean = false
   navController: NavController = inject(NavController)
   sortUsers: any = {}
-  @Input() users: User[] = []
+  @Input() users: any
   usersPreview: any[] = []
   @Input() spiner: boolean = false
   @Output() openModalEmit: EventEmitter<any> = new EventEmitter()
@@ -32,7 +32,7 @@ export class UsersPreviewComponent implements OnInit {
   @Output() closeModalEmit: EventEmitter<any> = new EventEmitter()
   @Output() generateLinkButtonClick: EventEmitter<any> = new EventEmitter()
 
-
+  formattedUsers: {group:string,users:User[]}[] = []
 
   generateLinkButtonClickFunction(){
     this.generateLinkButtonClick.emit()
@@ -54,14 +54,31 @@ export class UsersPreviewComponent implements OnInit {
     this.userSelected.emit(user)
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    this.usersPreview = this.users.slice(0, 8)
-    if(this.groups && this.groups.length){
-      this.groups.forEach((group:any) => {
-        this.sortUsers[group.name] = []
-      });
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['users']) {
+      if (typeof this.users !== 'object') {
+        this.usersPreview = this.users.slice(0, 8);
+        if (this.groups && this.groups.length) {
+          this.groups.forEach((group: any) => {
+            this.sortUsers[group.name] = [];
+          });
+        }
+      } else {
+      
+        this.usersPreview = [];
+        this.formattedUsers = []; 
+  
+        Object.keys(this.users).forEach((res: any) => {
+          this.formattedUsers.push({ group: res, users: this.users[res]});
+          this.users[res].forEach((user: any) => {
+            if (this.usersPreview.length < 8) {
+              this.usersPreview.push(user);
+            }
+          });
+        });
+      }
     }
-    
+
     
   }
   ngOnInit() {}
