@@ -1,0 +1,7 @@
+<div class="tabs">
+  <div #item *ngFor="let tabsItem of tabsItems" (click)="setActiveTab(tabsItem,item)" id="{{tabsItem.name}}" class="tabs__item">{{tabsItem.name}}</div>
+</div>
+
+<ng-content>
+  
+</ng-content>

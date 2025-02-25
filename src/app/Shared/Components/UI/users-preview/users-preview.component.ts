@@ -49,6 +49,7 @@ export class UsersPreviewComponent implements OnInit {
   closeModal() {
     this.closeModalEmit.emit()
   }
+  
   openUser(user: User) {
     this.userSelected.emit(user)
   }

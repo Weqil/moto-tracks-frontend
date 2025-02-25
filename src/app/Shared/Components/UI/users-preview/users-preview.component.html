@@ -19,7 +19,6 @@
                     <!-- <div class="close-wrapper">
                         <img (click)="closeModal()" class="user-modal-header_close-image" src="assets/icons/close.svg" alt="">
                     </div> -->
-                   
                 </div>
             </ion-toolbar>
           </ion-header>
@@ -35,11 +34,12 @@
                 </div>
   
             </ng-container> 
-            <div class="close-container">
-                <app-standart-button (click)="closeModal()" [disabled]="true" buttonText="Вернуться"></app-standart-button>
-            </div>   
-            
         </div>
+
+        <div class="close-container">
+            <app-standart-button (click)="closeModal()" [disabled]="true" buttonText="Вернуться"></app-standart-button>
+        </div> 
+        
       </ion-content>
     </ng-template>
 </ion-modal>

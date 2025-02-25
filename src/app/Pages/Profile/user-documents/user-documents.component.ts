@@ -25,7 +25,7 @@ import moment from 'moment';
   selector: 'app-user-documents',
   templateUrl: './user-documents.component.html',
   styleUrls: ['./user-documents.component.scss'],
-  imports: [SharedModule,HeaderModule,FormsModule,ButtonsModule,StandartInputSelectComponent,IonModal]
+  imports: [SharedModule,HeaderModule,FormsModule,StandartInputSelectComponent,IonModal]
 })
 export class UserDocumentsComponent  implements OnInit {
   navController:NavController = inject(NavController)

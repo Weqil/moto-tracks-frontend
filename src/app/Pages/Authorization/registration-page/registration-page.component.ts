@@ -20,7 +20,7 @@ import { IonCheckbox } from '@ionic/angular/standalone';
   selector: 'app-registration-page',
   templateUrl: './registration-page.component.html',
   styleUrls: ['./registration-page.component.scss'],
-  imports: [SharedModule, HeaderModule, FormsModule, ButtonsModule,IonCheckbox]
+  imports: [SharedModule, HeaderModule, FormsModule,IonCheckbox]
 })
 export class RegistrationPageComponent  implements OnInit {
 
@@ -40,12 +40,12 @@ export class RegistrationPageComponent  implements OnInit {
   onCheckboxChange(event:any){
     this.isCheckedFirst=event.detail.checked;
    
-    console.log('чекбокс изменился', this.isCheckedFirst)
+    
   }
   onCheckboxChange2(event:any){
     
     this.isCheckedSecond=event.detail.checked;
-    console.log('чекбокс изменился', this.isCheckedSecond)
+    
   }
 
     registerForm: FormGroup = new FormGroup({

@@ -14,7 +14,7 @@ import { userRoles } from 'src/app/Shared/Data/Enums/roles';
   selector: 'app-my-events-page',
   templateUrl: './my-events-page.component.html',
   styleUrls: ['./my-events-page.component.scss'],
-  imports: [SharedModule,ButtonsModule,HeaderModule,EventModule,IonModal]
+  imports: [SharedModule,HeaderModule,EventModule,IonModal]
 })
 export class MyEventsPageComponent  implements OnInit {
 

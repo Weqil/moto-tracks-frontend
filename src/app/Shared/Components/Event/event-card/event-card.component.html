@@ -2,43 +2,35 @@
     
    
  <div class="card">
-    
      <div class="event-date">
              {{ event.date_start | date: 'dd.MM.YYYY' }}
             </div>
-
     <div (click)="redirectInEvent()" >
         <div class="card__content">
             <img src="{{event.images ? (event.images[0] | checkImgUrl) : '' | checkImgUrl}}" alt="">
         </div>
-        <div class="card__footer">
-            
+        <div class="card__footer"> 
             <div class="event-name">
                 {{event.name}}
             </div>
-            
-
             <div class="bottom-info">
             <div class="event-address">
-                {{event.track?.address}}
+                {{event.track.location?.name}} {{event.track.location?.type}}
             </div>
-
             <!-- <div (click)="redirectInTrack()" class="card__header">
                     <div *ngIf="event.track" class="card__header__track-avatar">
                         <img src="{{event.track.images ? (event.track.images[0] | checkImgUrl) : '' | checkImgUrl}}" class="card__header__track-avatar__img" src="" alt="">
                     </div>
                     {{event.track?.name}}
                 </div> -->
-
-           
-                <div *ngIf="event.appointment_count" class="users-in-event">
-                    <img src="/assets/navigation/user.svg" alt="">
-                    {{event.appointment_count?.count}} 
-                </div>
-        </div>
-
+            <div *ngIf="event.appointment_count" class="users-in-event">
+                <img src="/assets/images/standartAvatar.jpg" alt="">
+                {{event.appointment_count?.count}} 
+            </div>
         </div>
     </div>
-    <ng-content></ng-content>
- </div>
+</div>
+<ng-content>
+</ng-content>
+</div>
 }

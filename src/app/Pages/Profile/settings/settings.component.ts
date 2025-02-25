@@ -27,7 +27,7 @@ import { RouterLink } from '@angular/router';
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  imports: [SharedModule, CommonModule, HeaderModule, FormsModule,  ButtonsModule, UserModule,
+  imports: [SharedModule, CommonModule, HeaderModule, FormsModule, UserModule,
     ProfileModule, selectedModule, IonModal,IonCheckbox,RouterLink]
 })
 export class SettingsComponent  implements OnInit {

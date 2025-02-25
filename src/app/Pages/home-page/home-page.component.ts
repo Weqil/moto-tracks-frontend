@@ -7,7 +7,7 @@ import { HeaderModule } from 'src/app/Shared/Modules/header/header.module';
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss'],
-  imports: [SharedModule, ButtonsModule, HeaderModule],
+  imports: [SharedModule, HeaderModule],
   providers:[
     SharedModule,
     ButtonsModule,

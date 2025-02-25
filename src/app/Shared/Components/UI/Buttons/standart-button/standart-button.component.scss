@@ -2,8 +2,9 @@
     font-family: var(--font-regular);
     display: flex;
     align-items: center;
-    background:#DCE9FF;
-    color: #3880FF;
+    // background:#DCE9FF;
+    background: var(--light-blue-color);
+    color: var(--blue-primary-color);
     min-height: 2.4rem;
     padding-left: 10px;
     padding-right: 10px;
@@ -20,8 +21,8 @@
     font-family: var(--font-regular);
     display: flex;
     align-items: center;
-    background:#3880FF;
-    color: #fff;
+    background:var(--blue-primary-color);
+    color:var(--white-color);
     border: 1px solid #3881ff6e;
     min-height: 2.4rem;
     width: 100%;
@@ -38,7 +39,7 @@
     display: flex;
     align-items: center;
     background:none;
-    color: #ff0303;
+    color: var(--red-color);
     border: 1px solid #ff030381;
     min-height: 2.4rem;
     padding-left: 10px;
@@ -57,8 +58,8 @@
     font-family: var(--font-regular);
     display: flex;
     align-items: center;
-    background:#ff0303;
-    color: #fff;
+    background:var(--red-color);
+    color: var( --white-color);
     border: 1px solid #ff030381;
     min-height: 2.4rem;
     width: 100%;
@@ -75,7 +76,7 @@
     display: flex;
     align-items: center;
     background-color: #ef7b08be;
-    color: #fff;
+    color: var(--white-color);
     min-height: 2.4rem;
     width: 100%;
     gap: 0.5rem;
@@ -92,7 +93,7 @@
     display: flex;
     align-items: center;
     background-color: #ef7b08;
-    color: #fff;
+    color:var(--white-color);
     min-height: 2.4rem;
     width: 100%;
 
@@ -107,8 +108,8 @@
     font-family: var(--font-regular);
     display: flex;
     align-items: center;
-    background-color: #3880FF;
-    color: #fff;
+    background-color: var(--blue-primary-color);
+    color: var(--white-color);
     min-height: 2.4rem;
     width: 100%;
     gap: 0.5rem;
@@ -124,8 +125,8 @@
     font-family: var(--font-regular);
     display: flex;
     align-items: center;
-    background-color: #3880FF;
-    color: #fff;
+    background-color: var(--blue-primary-color);
+    color:var(--white-color);
     min-height: 2.4rem;
     width: 100%;
     gap: 0.5rem;
@@ -141,8 +142,8 @@
     font-family: var(--font-regular);
     display: flex;
     align-items: center;
-    background-color: #3880FF;
-    color: #fff;
+    background-color: var(--blue-primary-color);
+    color:var(--white-color);
     min-height: 2.4rem;
     width: 100%;
     gap: 0.5rem;
@@ -158,8 +159,8 @@
     font-family: var(--font-regular);
     display: flex;
     align-items: center;
-    background-color: #3d6ec4;
-    color: #fff;
+    background-color: var(--blue-primary-color);
+    color: var(--white-color);
     min-height: 2.4rem;
     width: 100%;
     border-radius: 5px;
@@ -174,7 +175,7 @@
     display: flex;
     align-items: center;
     background-color: #656668c7;
-    color: #fff;
+    color: var(--white-color);
     min-height: 2.4rem;
     width: 100%;
     border-radius: 5px;
@@ -191,7 +192,7 @@
     display: flex;
     align-items: center;
     background-color: #F99011;
-    color: #fff;
+    color: var(--white-color);
     min-height: 2.4rem;
     width: 100%;
     gap: 0.5rem;
@@ -215,7 +216,7 @@
     width: 100%;
     background: none;
     border: 1px solid #e8393f60;
-    color: #E83940;
+    color: var(--red-color);
     font-size: 0.75rem;
     transition: 0.2s;
     border-radius: 5px;
@@ -229,7 +230,7 @@
     width: 100%;
     background: #E83940;
     border: none;
-    color: #fff;
+    color: var(--white-color);
     font-size: 0.75rem;
     border-radius: 5px;
 }
