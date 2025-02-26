@@ -12,6 +12,50 @@
     color: #363d42;
     font-family: var(--font-regular);
 }
+
+.standart-input:focus{
+    transition: 0.2s;
+    outline: 1px solid #52b1fab0;
+    border-radius: 5px;
+    width: 100%;
+    padding-top: 0.9rem;
+    min-height: 8rem;
+    background: none;
+    font-size: 12px;
+    padding-left: 0.8rem;
+    color: #363d42;
+}
+
+.standart-input__dunamic{
+    border: 1px solid #4c586141;
+    border-radius: 5px;
+    width: 100%;
+    min-height: 2.25rem;
+    font-size: 12px;
+    background: none;
+    padding-top: 0.9rem;
+    min-height: 8rem;
+    padding-left: 0.8rem;
+    transition: 0.1s;
+    color: #363d42;
+    font-family: var(--font-regular);
+}
+
+.standart-input__dunamic:focus{
+    transition: 0.2s;
+    outline: 1px solid #52b1fab0;
+    border-radius: 5px;
+    width: 100%;
+    padding-top: 0.9rem;
+    min-height: 19rem;
+    background: none;
+    font-size: 12px;
+    padding-left: 0.8rem;
+    color: #363d42;
+}
+
+
+
 .standart-input_inavlid{
     border: 1px solid #ff0000;
     border-radius: 5px;
@@ -25,6 +69,8 @@
     transition: 0.1s;
     color: #363d42;
 }
+
+
 .standart-input_inavlid:focus{
     border: 1px solid #ff0000;
     border-radius: 5px;
@@ -39,18 +85,7 @@
     transition: 0.1s;
     color: #363d42;
 }
-.standart-input:focus{
-    transition: 0.2s;
-    outline: 1px solid #52b1fab0;
-    border-radius: 5px;
-    width: 100%;
-    padding-top: 0.9rem;
-    min-height: 17rem;
-    background: none;
-    font-size: 12px;
-    padding-left: 0.8rem;
-    color: #363d42;
-}
+
 
 .label{
     color: #4C5861;

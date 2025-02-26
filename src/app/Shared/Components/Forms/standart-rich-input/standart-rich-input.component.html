@@ -2,13 +2,13 @@
 <div  class="input-wrapper">
   <ng-container *ngIf="invalid && !disabled">
     <label class="label_invalid" for="{{label}}">{{label}}</label>
-    <textarea #input [readonly]="readonly" placeholder="{{placeholder}}" name="{{label}}" class="standart-input_inavlid"  [formControl]="control" name="new_name"></textarea>
+    <textarea #input [readonly]="readonly" placeholder="{{placeholder}}" name="{{label}}" [ngClass]="{'standart-input': inputStatus, 'standart-input__dunamic': !inputStatus}" [formControl]="control" name="new_name"></textarea>
     <button (click)="openPasword(input)" *ngIf="openPassword" type="button" class="open-input"><img class="open-input-icon" src="/assets/icons/open-input.svg" alt=""></button>
   </ng-container>
   
   <ng-container *ngIf="!invalid && !disabled">
     <label class="label" for="{{label}}">{{label}}</label>
-    <textarea #input [readonly]="readonly" placeholder="{{placeholder}}"  name="{{label}}" class="standart-input" [formControl]="control" name="new_name"></textarea>
+    <textarea #input [readonly]="readonly" placeholder="{{placeholder}}"  name="{{label}}" [ngClass]="{'standart-input': inputStatus, 'standart-input__dunamic': !inputStatus}" [formControl]="control" name="new_name"></textarea>
     <button (click)="openPasword(input)" *ngIf="openPassword" type="button" class="open-input"><img class="open-input-icon" src="/assets/icons/open-input.svg" alt=""></button>
   </ng-container>
 
