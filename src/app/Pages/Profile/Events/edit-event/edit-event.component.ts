@@ -88,6 +88,7 @@ export class EditEventComponent  implements OnInit {
     
   
     tracks!: Track[] 
+    allTracks!: Track[]
 
 
     createEventForm: FormGroup = new FormGroup({
@@ -150,12 +151,14 @@ export class EditEventComponent  implements OnInit {
       }
     }
 
-      setRegion(region:any){
-        this.closeRegionModal()
-        this.locationId = region.value
-        this.createEventForm.patchValue({region:region.name})
-        this.createEventForm.patchValue({locationId:region.value})
-      }
+    setRegion(region:any){
+      this.closeRegionModal()
+      this.locationId = region.value
+      this.trackSelected = undefined
+      this.createEventForm.patchValue({region:region.name})
+      this.createEventForm.patchValue({locationId:region.value})
+    }
+
     getRegions(){
         this.mapService.getAllRegions().pipe().subscribe((res:any)=>{
           res.data.forEach((region:any) => {
@@ -211,11 +214,15 @@ export class EditEventComponent  implements OnInit {
           })
         ).subscribe((res:any)=>{
           this.tracks = res.tracks
+          this.allTracks = res.tracks
         })
       }
 
       selectTrack(track:Track){
         this.trackSelected = track
+        let region = this.searchRegionItems.find((item)=>item.value == this.trackSelected!.location.id)
+        this.createEventForm.patchValue({region:region.name})
+        this.createEventForm.patchValue({locationId:region.value})
         this.closeTrackSelectModalFunction()
       }
 
@@ -270,6 +277,9 @@ export class EditEventComponent  implements OnInit {
       }
 
       openTrackSelectModalFunction(){
+        if(this.createEventForm.value.locationId){
+          this.tracks = this.allTracks.filter((track) => Number(track.location?.id) == Number(this.createEventForm.value.locationId))
+        }
         this.trackSelectedModalState = true;
       }
     

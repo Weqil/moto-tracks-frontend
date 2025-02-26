@@ -46,12 +46,12 @@
         
 
         <div class="list-users-container">
-          @if (usersInRace) {
+          @if (usersPreviewConfig.usersCount) {
             <div class="user-modal-header">
               Участники гонки
               {{usersInRace.length}}
             </div>
-          <app-users-preview [groups]="event.grades"  [fullValueUsers]="usersInRace.length" [users]="usersInRace" [moreCount]="usersInRace.length" [openUsersModal]="openUserModalValue" (closeModalEmit)="closeStateUsersModal()" (openModalEmit)="openStateUsersModal()"></app-users-preview>
+          <app-users-preview [groups]="event.grades"  [fullValueUsers]="usersPreviewConfig.usersCount" [users]="usersInRace" [moreCount]="usersPreviewConfig.usersCount" [openUsersModal]="openUserModalValue" (closeModalEmit)="closeStateUsersModal()" (openModalEmit)="openStateUsersModal()"></app-users-preview>
         }
         </div>
 
