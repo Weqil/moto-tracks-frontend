@@ -26,7 +26,11 @@ export const privateRoutes: Routes = [
                 canActivate:[canActivateAuth,canActivateEmailConfirm],
                 loadComponent: () => import('../Pages/Profile/Tracks/my-tracks-page/my-tracks-page.component').then((m) => m.MyTracksPageComponent)
             },
-            
+            {
+                path:'my-comands',
+                canActivate:[canActivateAuth,canActivateEmailConfirm],
+                loadComponent: () => import('../Pages/Profile/comands/comands.component').then((m) => m.ComandsComponent)
+            },      
             
             {
                 path:'my-events',
