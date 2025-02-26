@@ -49,7 +49,7 @@ export class ConfirmEmailPageComponent  implements OnInit {
   }
 
   showMessage(){
-    this.toastService.showToast('Повторный пароль отправлен на почту','success')
+    this.toastService.showToast('Повторный код отправлен на почту','success')
   }
 
   getCodeInEmail(){

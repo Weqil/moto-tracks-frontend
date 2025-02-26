@@ -7,3 +7,20 @@
     object-fit: contain;
     height: 100%;
   }
+  .button-container{
+   position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+    background-color: var(--grey-color);
+    border-radius: 15px;
+    padding: 5px;
+    gap:8px;
+    opacity: 0.5;
+    
+  }
+  .circle-button{
+      
+    }

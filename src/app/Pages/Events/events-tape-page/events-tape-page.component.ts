@@ -63,7 +63,8 @@ export class EventsTapePageComponent  implements OnInit {
         loader = res
     })
 
-    this.eventService.getAllEvents({dateEnd:moment().format('YYYY-MM-DD')}).pipe(
+    this.eventService.getAllEvents({dateEnd:moment().subtract(1,'days').format('YYYY-MM-DD')}
+  ).pipe(
       finalize(()=>{
         this.loadingService.hideLoading(loader)
       })
@@ -89,9 +90,9 @@ export class EventsTapePageComponent  implements OnInit {
   }
 
   ionViewWillEnter(){
-  
-    this.getExpiredEvents()
+
     this.getStartEvents()
+    this.getExpiredEvents()
     this.switchTypeService.setTypeInLocalSorage('events')
     // this.eventService.getAllEvents({dateStart:moment().format('YYYY-MM-DD')}).pipe(
     //   finalize(()=> this.loadingService.hideLoading())
