@@ -392,14 +392,13 @@ export class EventsViewPageComponent  implements OnInit {
   }
 
  createNotarius(): Observable<any>{
- 
   let fd: FormData = new FormData()
    fd.append('type','notarius')
    fd.append('data',JSON.stringify({}))
    fd.append('file',this.notariusFile)
     this.userService.createUserDocument(fd).pipe(
     finalize(()=>{
-      this.loaderService.hideLoading()
+
     })
     ).subscribe((res:any)=>{
     })
@@ -498,7 +497,6 @@ export class EventsViewPageComponent  implements OnInit {
   setFirstDocuments(): Observable<void> {
     return this.userService.getUserDocuments().pipe(
       finalize(() => {
-        this.loaderService.hideLoading();
       }),
       switchMap((res: any) => {
         
@@ -545,13 +543,16 @@ export class EventsViewPageComponent  implements OnInit {
   
 
   getEvent(){
-    this.loadingService.showLoading()
+    let loader:HTMLIonLoadingElement
+    this.loadingService.showLoading().then((res)=>{
+      loader = res
+    })
     this.eventService.getEventById(this.eventId,{
       userId:String(this.userService.user.value?.id ? this.userService.user.value?.id : '' ),
       appointmentUser:1,
     }).pipe(
       finalize(()=>{
-        this.loadingService.hideLoading()
+        this.loadingService.hideLoading(loader)
       })
     ).subscribe((res:any)=>{
       this.raceUser = res.race.user
@@ -636,7 +637,6 @@ export class EventsViewPageComponent  implements OnInit {
   setDocuments(): Observable<any>{
     this.userService.getUserDocuments().pipe(
      finalize(()=>{
-       this.loaderService.hideLoading()
      })
      ).subscribe((res:any)=>{
      if(res.documents){
