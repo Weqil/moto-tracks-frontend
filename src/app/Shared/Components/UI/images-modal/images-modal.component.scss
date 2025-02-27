@@ -1,15 +1,16 @@
 .main-content{
     background: #3c3c3c;
-    min-height: 100vh;
+    min-height: 100.1vh;
     min-width: 100vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    
 }
 
 .conteiner-slider{
     width: 100vw;
-    height: 100vh;
+    height: 95vh;
    
     display: flex;
     justify-content: center;
@@ -34,6 +35,8 @@ swiper-slide{
     display: flex;
     justify-content: center;
     overflow: hidden;
+    
+    
 }
 
 .swiper-zoom-container{
@@ -42,32 +45,29 @@ swiper-slide{
     overflow: visible; /* Разрешает увеличению выходить за границы */
     transform-origin: center;
     transition: transform 0.3s ease;
+    
 }
 
 swiper-slide img{
     min-width: 100%;
     min-height: 100%;
-    border-radius: 0%;
+    border-radius: 1rem;
     object-fit: contain; /* Чтобы изображение масштабировалось без обрезки */
     transition: transform 0.3s ease;
+    padding: 1.2rem;
+    
 }
 
 
-
-
 .swiper-index{
-    color: #fff;
-    bottom: 0;
+     color: #fff;
     font-family: var(--font-regular);
     z-index: 100;
-}
-
-.swiper-index{
-    padding-top: 1rem;
-    padding-bottom: 1rem;
     letter-spacing: 4px;
     display: flex;
     justify-content: center;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
 }
 
 .close-modal-button{
@@ -82,6 +82,6 @@ swiper-slide img{
     left: 0.5rem;
     position: absolute;
     top: 1rem;
-    z-index: 100;
+    z-index: 120;
 }
 

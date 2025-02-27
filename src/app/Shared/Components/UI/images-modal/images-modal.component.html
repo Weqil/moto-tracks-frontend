@@ -21,11 +21,9 @@
 
               <ng-container *ngFor = "let file of imagesPathArray">
                 <swiper-slide>
-                  
                     <div class="swiper-zoom-container">
                       <img [src]="checkUrl(file)"/>
                     </div>
-                  
                 </swiper-slide>
               </ng-container>
             </swiper-container>

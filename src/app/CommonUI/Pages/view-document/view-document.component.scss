@@ -21,6 +21,20 @@
     opacity: 0.5;
     
   }
+
+  .button-container__back-button{
+    position: absolute;
+     top: 1rem;
+     left: 1rem;
+     display: flex;
+     flex-direction: column;
+     z-index: 100;
+     padding: 5px;
+     gap:8px;
+     opacity: 0.5;
+   }
+
+
   .circle-button{
       
     }
