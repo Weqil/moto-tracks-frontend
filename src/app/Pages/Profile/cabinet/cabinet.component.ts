@@ -74,9 +74,9 @@ export class CabinetComponent  implements OnInit {
         name:'Мои трассы'
       },
       {
-        routing:'my-tracks',
+        routing:'my-comands',
         iconColor:'#0000',
-        icon:'/assets/icons/Repeat.svg',
+        icon:'/assets/icons/team.svg',
         iconFilter:'',
         name:'Мои команды'
       }
@@ -104,9 +104,9 @@ export class CabinetComponent  implements OnInit {
         name:'Мои трассы'
       },
       {
-        routing:'my-tracks',
+        routing:'my-comands',
         iconColor:'#0000',
-        icon:'/assets/icons/Repeat.svg',
+        icon:'/assets/icons/team.svg',
         iconFilter:'',
         name:'Мои команды'
       }

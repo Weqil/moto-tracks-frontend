@@ -1,0 +1,49 @@
+.create-command-main{
+    padding-top:var(--standart-padding);
+    display: flex;
+    gap:var(--standart-padding);
+    width: 100%;
+    flex-direction: column;
+}
+
+ion-modal{
+    --max-height:50%;
+    --width:90%;
+    --border-radius: 12px;
+    --overflow-y: hidden;
+}
+.avatar{
+    min-width: 3.75rem;
+    min-height: 3.75rem;
+    max-width: 3.75rem;
+    border-radius: 50%;
+    max-height: 3.75rem;
+}
+.region-modal-container{
+    padding: var(--standart-padding);
+}
+.upload-button{
+    display: inline-flex;
+    height: 2rem;
+    align-items: center;
+    border-radius: 12px;
+    font-family: var(--font-bold);
+    padding: 0.5rem;
+    background-color: var(--white-color);
+}
+.upload-container{
+    padding-top: var(--little-padding);
+    display: flex;
+    align-items: center;
+    gap: var(--standart-padding);
+}
+.address-container{
+    padding-top: var(--standart-padding);
+    padding-bottom: var(--standart-padding);
+}
+.navigate-buttons-container{
+    display: flex;
+    padding-top: var(--standart-padding);
+    flex-direction: column;
+    gap: var(--little-padding);
+}

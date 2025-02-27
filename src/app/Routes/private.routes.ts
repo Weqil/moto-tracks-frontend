@@ -31,6 +31,16 @@ export const privateRoutes: Routes = [
                 canActivate:[canActivateAuth,canActivateEmailConfirm],
                 loadComponent: () => import('../Pages/Profile/comands/comands.component').then((m) => m.ComandsComponent)
             },      
+            {
+                path:'create-comands',
+                canActivate:[canActivateAuth,canActivateEmailConfirm],
+                loadComponent: () => import('../Pages/Profile/comands/create-comand-page/create-comand-page.component').then((m) => m.CreateComandPageComponent)
+            },      
+            {
+                path:'edit-comands',
+                canActivate:[canActivateAuth,canActivateEmailConfirm],
+                loadComponent: () => import('../Pages/Profile/comands/edit-comand-page/edit-comand-page.component').then((m) => m.EditComandPageComponent)
+            },      
             
             {
                 path:'my-events',

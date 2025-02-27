@@ -81,7 +81,7 @@ export class UserDocumentsComponent  implements OnInit {
     }
   )
 
-  formErrors:any = {
+formErrors:any = {
     name: {
       errorMessage:''
 
