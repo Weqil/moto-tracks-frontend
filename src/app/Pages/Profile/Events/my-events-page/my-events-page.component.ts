@@ -26,9 +26,11 @@ export class MyEventsPageComponent  implements OnInit {
   googleTabsLink:string = ''
   userService: UserService = inject(UserService)
   loadingService:LoadingService = inject(LoadingService)
+
   redirectInCreate(){
-    this.navController.navigateForward('/create-event')
+    this.navController.navigateRoot('/create-event')
   }
+  
   generateGoogleLink(eventId:any){
     this.loadingService.showLoading()
     this.eventService.generateGoogleLink(eventId).pipe(
@@ -40,7 +42,7 @@ export class MyEventsPageComponent  implements OnInit {
   }
 
   redirectInEditPage(eventId:any){
-    this.navController.navigateForward(`/race/edit/${eventId}`)
+    this.navController.navigateForward(`/race/edit/${eventId}`,{ animationDirection: 'forward' })
   }
 
 closetTableModal(){
@@ -52,8 +54,8 @@ closetTableModal(){
   }
 
   ionViewWillEnter(){
+    console.log('показали лоадер ionViewWillEnter запущен')
     this.loadingService.showLoading()
-
     this.eventService.getEventByUserId(String(this.userService.user.value?.id)).pipe(
       finalize(()=>{
         this.loadingService.hideLoading()
@@ -62,6 +64,11 @@ closetTableModal(){
       this.events = res.races
     })
   }
+
+  ionViewDidLeave(){
+    console.log('я умер')
+  }
+
   ngOnInit() {
     window.addEventListener('popstate', (event) => {
       this.closetTableModal()

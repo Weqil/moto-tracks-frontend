@@ -211,7 +211,8 @@ export class CreateEventsPageComponent  implements OnInit {
     }
   }
   cancelCreate(){
-    this.navController.back()
+    this.navController.navigateForward('/my-events')
+    
   }
   getImages(event:any){
     this.createEventForm.patchValue({
@@ -295,7 +296,7 @@ export class CreateEventsPageComponent  implements OnInit {
     })
   ).subscribe((res)=>{
       this.toastService.showToast('Событие успешно создано', 'primary')
-      this.navController.back()
+      this.navController.navigateForward('/my-events')
     })
    }
   }
