@@ -218,6 +218,14 @@ export class EditTrackPageComponent  implements OnInit {
     })
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+
+    window.addEventListener('popstate', (event) => {
+      
+      this.closeRegionModal()
+  })
+
+   
+  }
 
 }

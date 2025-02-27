@@ -89,5 +89,11 @@ export class UsersPreviewComponent implements OnInit {
 
     
   }
-  ngOnInit() {}
+  ngOnInit() {
+
+    window.addEventListener('popstate', (event) => {
+      this.closeModal()
+  })
+
+  }
 }

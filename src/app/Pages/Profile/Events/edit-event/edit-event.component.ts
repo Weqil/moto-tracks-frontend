@@ -401,6 +401,12 @@ export class EditEventComponent  implements OnInit {
               })
       }
 
-  ngOnInit() {}
+  ngOnInit() {
+    window.addEventListener('popstate', (event) => {
+      this.closeGroupModal()
+      
+  })
+   
+  }
 
 }

@@ -546,6 +546,11 @@ submitForm(){
     }
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    window.addEventListener('popstate', (event) => {
+      this.closeRegionModal()
+      
+  })
+  }
 
 }

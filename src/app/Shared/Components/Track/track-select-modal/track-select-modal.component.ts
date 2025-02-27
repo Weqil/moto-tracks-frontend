@@ -33,6 +33,11 @@ export class TrackSelectModalComponent  implements OnInit {
   select(event:Track){
     this.selectTrack.emit(event);
   }
-  ngOnInit() {}
+  ngOnInit() {
+    window.addEventListener('popstate', (event) => {
+      this.closeModal()
+      
+  })
+  }
 
 }

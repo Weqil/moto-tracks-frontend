@@ -43,7 +43,9 @@ export class MyEventsPageComponent  implements OnInit {
     this.navController.navigateForward(`/race/edit/${eventId}`)
   }
 
-
+closetTableModal(){
+  this.tableModalValue = false
+}
   userHaveRoot(){
     console.log()
     return this.userService.user.value?.roles.find((role:any)=>role.name == userRoles.admin || role.name == userRoles.root) !== undefined
@@ -60,6 +62,11 @@ export class MyEventsPageComponent  implements OnInit {
       this.events = res.races
     })
   }
-  ngOnInit() {}
+  ngOnInit() {
+    window.addEventListener('popstate', (event) => {
+      this.closetTableModal()
+      
+  })
+  }
 
 }

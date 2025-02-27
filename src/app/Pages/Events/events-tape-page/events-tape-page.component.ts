@@ -101,6 +101,11 @@ export class EventsTapePageComponent  implements OnInit {
     // })
   }
  
-  ngOnInit() {}
+  ngOnInit() {
+    window.addEventListener('popstate', (event) => {
+      this.closetTableModal()
+      
+    });
+  }
 
 }
