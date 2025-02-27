@@ -1,7 +1,6 @@
 <ion-content>
   <app-header (customBackClick)="stepPrevious()" 
-  [hiddenBackButton]="true"
-  [customBack]="false"
+  
   headerTitle="Создание гонки"></app-header>
   <main class="main-container--with-header">
     <app-step-container [maxStepsCount]="maxStepsCount" [stepCurrency]="stepCurrency">
