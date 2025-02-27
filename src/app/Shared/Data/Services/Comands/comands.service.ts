@@ -14,8 +14,15 @@ export class ComandsService {
   createComand(formdata:FormData){
     return this.http.post(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/commands`, formdata)
   }
+  editComand(formdata:FormData, eventId:string){
+    return this.http.post(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/commands/${eventId}`, formdata)
+  }
 
   getComands(params?:{userId?:number}){
     return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/commands`,{params:{...params}})
+  }
+
+  getCommandById(id:number){
+    return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/commands/${id}`)
   }
 }

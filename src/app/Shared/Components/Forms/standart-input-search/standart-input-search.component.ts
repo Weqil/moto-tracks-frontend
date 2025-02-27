@@ -1,12 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, HostListener, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommandSectionComponent } from '../../Commands/command-section/command-section.component';
 
 @Component({
   selector: 'app-standart-input-search',
   templateUrl: './standart-input-search.component.html',
   styleUrls: ['./standart-input-search.component.scss'],
-  imports: [CommonModule,FormsModule,ReactiveFormsModule]
+  imports: [CommonModule,FormsModule,ReactiveFormsModule,CommandSectionComponent]
 })
 export class StandartInputSearchComponent  implements OnInit {
 
@@ -18,7 +19,7 @@ export class StandartInputSearchComponent  implements OnInit {
 
 
   @Input() searchItems: any[] = []
-
+  @Input() searchCommands: boolean = false
   @Input() label:string = 'Поиск области' 
   searchValue: string = ''
   seacrhObject: any 

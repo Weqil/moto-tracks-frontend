@@ -1,0 +1,9 @@
+<ion-modal [isOpen]="comandSelectModalStateValue" (didDismiss)="closeModal()">
+  <ng-template>
+    <ion-content>
+      <div *ngIf="commands" class="commands-grid">
+        <app-standart-input-search [searchCommands]="true" label="Название команды" [searchCurrentItems]="commands" [searchItems]="commands" (changeSearchValue)="setComands($event)"></app-standart-input-search>
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>

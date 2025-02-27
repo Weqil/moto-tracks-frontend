@@ -33,13 +33,16 @@ import { MapService } from 'src/app/Shared/Data/Services/Map/map.service';
 import moment from 'moment';
 import { ImagesModalComponent } from "../../../Shared/Components/UI/images-modal/images-modal.component";
 import { formdataService } from 'src/app/Shared/Helpers/formdata.service';
+import { SelectComandsComponent } from 'src/app/Shared/Components/Commands/select-comands/select-comands.component';
+import { ICommand } from 'src/app/Shared/Data/Interfaces/command';
+import { ComandsService } from 'src/app/Shared/Data/Services/Comands/comands.service';
 
 @Component({
   selector: 'app-events-view-page',
   templateUrl: './events-view-page.component.html',
   styleUrls: ['./events-view-page.component.scss'],
   imports: [SharedModule, SlidersModule, ButtonsModule, TrackSectionComponent, IonModal, HeaderModule, StandartInputComponent, UsersPreviewComponent,
-    ConfirmModalComponent, CheckImgUrlPipe, FormsModule, StandartInputSelectComponent, RouterLink, ImagesModalComponent]
+    ConfirmModalComponent, CheckImgUrlPipe, FormsModule, StandartInputSelectComponent, RouterLink, ImagesModalComponent,SelectComandsComponent]
 })
 export class EventsViewPageComponent  implements OnInit {
 
@@ -54,6 +57,9 @@ export class EventsViewPageComponent  implements OnInit {
   loadingService: LoadingService = inject(LoadingService)
   switchTypeService:SwitchTypeService = inject(SwitchTypeService)
   mapService:MapService = inject(MapService)
+
+  comandSelectModalStateValue:boolean = false
+
   changePersonalDateModalValue:boolean = false
   usersInRace:User[] = []
   event!:IEvent
@@ -83,11 +89,13 @@ export class EventsViewPageComponent  implements OnInit {
   }
   
   formdataService:formdataService = inject(formdataService)
+  commandService:ComandsService = inject(ComandsService)
 
   applicationFormValueState:boolean = false
   statusImagesModal:boolean = false
   userService:UserService = inject(UserService)
   eventId: string = ''
+  allComands:ICommand[] = []
   personalUserForm: FormGroup = new FormGroup({
     name: new FormControl('', [Validators.required]),
     surname: new FormControl('', [Validators.required]),
@@ -97,12 +105,14 @@ export class EventsViewPageComponent  implements OnInit {
     city: new FormControl('', [Validators.required]),
     inn: new FormControl('', [Validators.required]),
     snils: new FormControl('', [Validators.required]),
+    commandId:new FormControl('', [Validators.required]),
     phoneNumber: new FormControl('', [Validators.required]),
     startNumber: new FormControl('', [Validators.required]),
     group:new FormControl('', [Validators.required]),
     rank:new FormControl('', [Validators.required]),
     gradeId:new FormControl('', [Validators.required]),
     rankNumber:new FormControl('', [Validators.required]),
+    
     community:new FormControl('', [Validators.required]),
     locationId: new FormControl('', [Validators.required]),
     coach:new FormControl('', [Validators.required]),
@@ -277,6 +287,11 @@ export class EventsViewPageComponent  implements OnInit {
           value:region.id
         })
       });
+    })
+  }
+  getAllComands(){
+    this.commandService.getComands().pipe().subscribe((res:any)=>{
+      this.allComands = res.commands
     })
   }
 
@@ -496,6 +511,12 @@ export class EventsViewPageComponent  implements OnInit {
     this.changePersonalDateModalValue = false
   }
 
+  setComand(event:any){
+    this.personalUserForm.patchValue({community:event.name})
+    this.personalUserForm.patchValue({commandId:event.id})
+    this.closeComandSelectModalStateValue()
+  }
+
   openRacer(user:User){
     this.closeStateUsersModal()
     setTimeout(()=>{
@@ -507,8 +528,11 @@ export class EventsViewPageComponent  implements OnInit {
     },0)
  
   }
-  checkChangeDocumentsForm(){
-
+  closeComandSelectModalStateValue(){
+    this.comandSelectModalStateValue = false
+  }
+  openComandSelectModalStateValue(){
+    this.comandSelectModalStateValue = true
   }
 
   setFirstDocuments(): Observable<void> {
@@ -635,6 +659,7 @@ export class EventsViewPageComponent  implements OnInit {
         phoneNumber: this.userService.user.value?.personal.phone_number,
         startNumber: this.userService.user.value?.personal.start_number,
         locationId: this.userService.user.value?.personal.location.id,
+        commandId: this.userService.user.value?.personal.command?.id,
         rankNumber: this.userService.user.value?.personal.rank_number,
         motoStamp:  this.userService.user.value?.personal.moto_stamp,
         numberAndSeria: this.userService.user.value?.personal.number_and_seria,
@@ -762,6 +787,7 @@ export class EventsViewPageComponent  implements OnInit {
 
   ionViewWillEnter(){
     this.getRegions()
+    
     this.route.params.pipe(takeUntil(this.destroy$)).pipe(
       finalize(()=>{
       })
@@ -772,6 +798,7 @@ export class EventsViewPageComponent  implements OnInit {
         if(this.authService.isAuthenticated()){
           this.setFormValue()
           this.setUserInForm()
+          this.getAllComands()
         }
       })
     }

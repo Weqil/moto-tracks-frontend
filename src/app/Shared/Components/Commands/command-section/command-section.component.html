@@ -1,0 +1,17 @@
+<ng-container *ngIf="command">
+  <article class="track-section">
+    <div class="track-section__info-group">
+      <div class="track-section__avatar"> 
+        <img class="track-section__avatar__img" src="{{ command.avatar | checkImgUrl:'/assets/icons/team-bg.png'}}" alt="">
+      </div>
+      <div class="track-section__info">
+        <h2 class="track-section__name">{{command.name}}</h2>
+        <div class="track-section__address">
+          {{command.location?.name}} {{command.location?.type}}
+        </div>
+      </div>
+    </div>
+    
+  </article>
+</ng-container>
+

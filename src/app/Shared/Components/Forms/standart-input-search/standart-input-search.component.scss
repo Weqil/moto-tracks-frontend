@@ -31,6 +31,12 @@
     color: #363d42;
 }
 
+.commands-grid{
+    display: flex;
+    flex-direction: column;
+    gap: var(--little-padding);
+    padding-top: var(--standart-padding);
+}
 .dropdown-wrapper{
     position: relative;
     width: 100%;

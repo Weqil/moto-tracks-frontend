@@ -77,6 +77,11 @@ export const privateRoutes: Routes = [
                 canActivate:[canActivateAuth,canActivateEmailConfirm],
                 loadComponent: () => import('../Pages/Profile/Tracks/edit-track-page/edit-track-page.component').then((m) => m.EditTrackPageComponent)
             },
+            {
+                path:'command/edit/:id',
+                canActivate:[canActivateAuth,canActivateEmailConfirm],
+                loadComponent: () => import('../Pages/Profile/comands/edit-comand-page/edit-comand-page.component').then((m) => m.EditComandPageComponent)
+            }
         ]
     },
 

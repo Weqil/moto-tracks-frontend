@@ -1,7 +1,10 @@
+import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { IonContent, NavController } from '@ionic/angular/standalone';
 import { finalize } from 'rxjs';
+import { CommandSectionComponent } from 'src/app/Shared/Components/Commands/command-section/command-section.component';
 import { RoundedButtonComponent } from 'src/app/Shared/Components/UI/Buttons/rounded-button/rounded-button.component';
+import { StandartButtonComponent } from 'src/app/Shared/Components/UI/Buttons/standart-button/standart-button.component';
 import { HeaderComponent } from 'src/app/Shared/Components/UI/header/header.component';
 import { ICommand } from 'src/app/Shared/Data/Interfaces/command';
 import { ComandsService } from 'src/app/Shared/Data/Services/Comands/comands.service';
@@ -12,7 +15,7 @@ import { LoadingService } from 'src/app/Shared/Services/loading.service';
   selector: 'app-comands',
   templateUrl: './comands.component.html',
   styleUrls: ['./comands.component.scss'],
-  imports:[IonContent,HeaderComponent,RoundedButtonComponent]
+  imports:[IonContent,HeaderComponent,RoundedButtonComponent,CommandSectionComponent,CommonModule,StandartButtonComponent]
 })
 export class ComandsComponent  implements OnInit {
 
@@ -26,6 +29,9 @@ export class ComandsComponent  implements OnInit {
 
   redirectInCreate(){
     this.navController.navigateForward('/create-comands')
+  }
+  redirectInEditPage(eventId:any){
+    this.navController.navigateForward(`/command/edit/${eventId}`)
   }
   getMyComands(){
     let loader:HTMLIonLoadingElement

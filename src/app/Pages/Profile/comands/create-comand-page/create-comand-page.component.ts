@@ -100,7 +100,6 @@ getRegions(){
   }
 
   setAvatarFile(event:any){
-    console.log(event)
     this.avatar = event.target.files[0]
     let reader = new FileReader()
     reader.onload = (e:any) => {
