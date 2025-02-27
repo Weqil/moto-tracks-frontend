@@ -7,6 +7,8 @@ describe('ViewDocumentComponent', () => {
   let component: ViewDocumentComponent;
   let fixture: ComponentFixture<ViewDocumentComponent>;
 
+  
+
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ViewDocumentComponent ],

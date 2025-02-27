@@ -201,6 +201,10 @@ export class CreateTrackPageComponent  implements OnInit {
   }
   ngOnInit() {
     this.getRegions()
+
+    window.addEventListener('popstate', (event) => {
+      this.closeRegionModal()
+  })
   }
 
 }

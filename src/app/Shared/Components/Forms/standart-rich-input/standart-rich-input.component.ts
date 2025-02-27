@@ -17,6 +17,7 @@ export class StandartRichInputComponent implements OnInit {
   @Input() openPassword: boolean = false
   @Input() invalid: boolean = false
   @Input() disabled: boolean = false
+  @Input() inputStatus?: boolean = true 
 
   openPasword(input: any) {
     input.type = input.type === 'password' ? 'text' : 'password'

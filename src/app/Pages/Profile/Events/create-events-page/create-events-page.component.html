@@ -1,7 +1,6 @@
 <ion-content>
   <app-header (customBackClick)="stepPrevious()" 
-  [hiddenBackButton]="true"
-  [customBack]="false"
+  
   headerTitle="Создание гонки"></app-header>
   <main class="main-container--with-header">
     <app-step-container [maxStepsCount]="maxStepsCount" [stepCurrency]="stepCurrency">
@@ -83,7 +82,7 @@
         </div>
 
         <div class="description">
-          <app-standart-rich-input [control]="createEventForm.get('desc')" label="Описание" placeholder="Введите описание вашего трека"></app-standart-rich-input>
+          <app-standart-rich-input [inputStatus]="false" [control]="createEventForm.get('desc')" label="Описание" placeholder="Введите описание вашего трека"></app-standart-rich-input>
         </div>
 
         <ion-modal (didDismiss)="closeRegionModal()"  [isOpen]="regionModalState">

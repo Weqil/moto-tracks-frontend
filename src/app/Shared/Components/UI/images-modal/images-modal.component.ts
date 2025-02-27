@@ -48,6 +48,10 @@ export class ImagesModalComponent  implements OnInit {
   }
 
   
-  ngOnInit() {}
+  ngOnInit() {
+    window.addEventListener('popstate', (event) => {
+      this.closeModal()
+  })
+  }
 
 }

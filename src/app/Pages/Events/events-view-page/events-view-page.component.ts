@@ -119,6 +119,7 @@ export class EventsViewPageComponent  implements OnInit {
     motoStamp:new FormControl('', [Validators.required]),
     engine:new FormControl('', [Validators.required]),
     numberAndSeria:new FormControl('', [Validators.required]),
+    comment:new FormControl('', [Validators.required])
   })
 
   engineItems:{name:string, value:string}[] = [
@@ -809,6 +810,8 @@ export class EventsViewPageComponent  implements OnInit {
     window.addEventListener('popstate', (event) => {
       this.closeStateUsersModal()
       this.closeApplicationForm()
+      this.closeImagesModal()
+      this.closeRegionModal()
     });
   }
 }

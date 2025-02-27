@@ -26,5 +26,10 @@ export class ConfirmModalComponent implements OnInit {
     this.confirm.emit()
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    window.addEventListener('popstate', (event) => {
+      this.closeModal()
+      
+  })
+  }
 }

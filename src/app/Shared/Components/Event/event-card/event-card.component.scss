@@ -44,10 +44,10 @@
     padding-left: var(--little-padding);
 }
 .event-address{
-    padding-top: var(--little-padding);
-    padding-bottom: var(--little-padding);
+   
     font-family: var(--font-regular);
     font-size: var(--font-little-size);
+    padding-left: var(--little-padding);
     
 }
 .event-date{
@@ -81,8 +81,25 @@
     display: flex;
     justify-content: space-between;
     padding: var(--little-padding);
-    padding-right: var(--standart-padding);
-    height: 4rem;
+    
+    
     align-items: center;
     max-width: 100%;
+}
+
+.track-name{
+    display: flex;
+    justify-content: space-between;
+    padding-left: var(--little-padding);
+    padding-right: var(--standart-padding);
+    height: 3rem;
+    align-items: center;
+    max-width: 100%;
+}
+
+.users-in-track-container{
+    display: flex;
+    justify-content: space-between  ;
+    padding-right: var(--standart-padding);
+    
 }
