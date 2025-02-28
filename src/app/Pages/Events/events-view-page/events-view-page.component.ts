@@ -784,7 +784,6 @@ export class EventsViewPageComponent  implements OnInit {
 
   openImagesModalFunction() {
     this.statusImagesModal = true
-    console.log('модалка открылась')
   }
 
   ionViewWillEnter(){
