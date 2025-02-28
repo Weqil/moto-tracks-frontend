@@ -51,3 +51,40 @@
       cursor: pointer;
     }
   }
+
+  .recovery-modal{
+    --height:22rem;
+    --max-width: 386px;
+    --border-radius: 17px;
+  }
+  .recovery-icon{
+    margin-left: 1rem;
+  }
+  .password-recovery{
+    font-family: var(--font-regular);
+    cursor: pointer;
+    display: flex;
+    font-size: 0.75rem;
+    padding-top: 0.5rem;
+    color: var(--blue-color);
+    justify-content: center;
+  }
+  .recovery-password-buttons{
+    padding-top: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .recovery-main_label{
+     font-size: 16pt; 
+     color:var(--dark-gray-color); 
+     font-family: var(--font-regular);
+    margin-left: auto; 
+    margin-right: auto;
+  }
+  .recovery-main{
+    display: flex;
+    justify-content: center;
+    gap: var(--standart-padding);
+    padding:var(--standart-padding);
+    flex-direction: column;
+  }

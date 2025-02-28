@@ -10,29 +10,35 @@ import { catchError, EMPTY, empty, finalize } from 'rxjs';
 import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
 import { AuthService } from 'src/app/Shared/Data/Services/Auth/auth.service';
 import { ButtonsModule } from 'src/app/Shared/Modules/buttons/buttons.module';
-import { NavController } from '@ionic/angular/standalone';
+import { IonModal, NavController } from '@ionic/angular/standalone';
 import { MessagesErrors } from 'src/app/Shared/Enums/messages-errors';
 
 import { serverError } from 'src/app/Shared/Data/Interfaces/errors';
 import { Router } from '@angular/router';
 import { ToastService } from 'src/app/Shared/Services/toast.service';
 import { AuthErrosMessages } from 'src/app/Shared/Data/Enums/erros';
+import { RecoveryPasswordService } from 'src/app/Shared/Data/Services/Auth/recovery-password.service';
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.scss'],
-  imports: [SharedModule, HeaderModule, StandartInputComponent],
+  imports: [SharedModule, HeaderModule, StandartInputComponent,IonModal],
 })
 export class LoginPageComponent  implements OnInit {
 
   constructor() { }
   loading:LoadingService = inject(LoadingService)
   loginService: LoginService = inject(LoginService)
+
   userService: UserService = inject(UserService)
   toastService:ToastService = inject(ToastService)
+
   router:Router = inject(Router)
   navController: NavController = inject(NavController)
+
   authService: AuthService = inject(AuthService)
+  recoveryPasswordService: RecoveryPasswordService = inject(RecoveryPasswordService)
+
   loginForm!: FormGroup
   errorText:any
   loginInvalid = {
@@ -47,7 +53,31 @@ export class LoginPageComponent  implements OnInit {
       message: '',
     },
   }
+  timer: any
+  timerReady: boolean = true
+  seconds: number = 60
 
+  recoveryForm: FormGroup = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]),
+  })
+
+
+  validateRecovery() {
+    this.timerReady = false
+    this.timer = setInterval(() => {
+      if (this.seconds != 0 && !this.timerReady) {
+        this.seconds--
+      } else {
+        clearInterval(this.timer)
+        this.seconds = 60
+        this.timerReady = true
+      }
+    }, 1000)
+  }
+  submitRecovery() {
+    this.validateRecovery()
+
+  }
   validateForm() {
     this.loginInvalid.localError = false
     if (this.loginForm.get('name')?.errors) {
