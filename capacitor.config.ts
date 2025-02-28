@@ -5,9 +5,9 @@ const config: CapacitorConfig = {
   appName: 'Мотокросс',
   webDir: 'www/browser',
   bundledWebRuntime: false,
-  // server: {
-  //   url: 'https://dev-moto.vokrug.city',
-  // },
+  server: {
+    url: 'https://dev-moto.vokrug.city',
+  },
 };
 
 export default config;

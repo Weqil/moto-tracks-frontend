@@ -69,7 +69,7 @@ export class EventsViewPageComponent  implements OnInit {
   licensesFile:any =''
   polisFile:any = ''
   notariusFile:any = ''
-  openImagesModal: boolean = false
+  
 
   licensesId:string = ''
   polisId:string = ''
@@ -92,7 +92,9 @@ export class EventsViewPageComponent  implements OnInit {
   commandService:ComandsService = inject(ComandsService)
 
   applicationFormValueState:boolean = false
-  statusImagesModal:boolean = false
+
+  statusImagesModal?:boolean = false;
+
   userService:UserService = inject(UserService)
   eventId: string = ''
   allComands:ICommand[] = []
@@ -779,8 +781,10 @@ export class EventsViewPageComponent  implements OnInit {
   closeImagesModal() {
     this.statusImagesModal = false
   }
+
   openImagesModalFunction() {
     this.statusImagesModal = true
+    console.log('модалка открылась')
   }
 
   ionViewWillEnter(){
