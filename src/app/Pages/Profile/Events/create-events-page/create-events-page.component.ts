@@ -21,13 +21,14 @@ import { MapService } from 'src/app/Shared/Data/Services/Map/map.service';
 import { GroupService } from 'src/app/Shared/Data/Services/Race/group.service';
 import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
 import moment from 'moment-timezone';
+import { IonToggle } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-create-events-page',
   templateUrl: './create-events-page.component.html',
   styleUrls: ['./create-events-page.component.scss'],
   imports: [SharedModule, HeaderModule, StepsModule, FormsModule, EditSliderComponent, TrackModule,
-     selectedModule, StandartInputSelectComponent, IonModal, IonCheckbox, IonLabel]
+     selectedModule, StandartInputSelectComponent, IonModal, IonCheckbox, IonLabel, IonToggle]
 })
 export class CreateEventsPageComponent  implements OnInit {
 
