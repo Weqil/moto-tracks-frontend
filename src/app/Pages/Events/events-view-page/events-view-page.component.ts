@@ -613,9 +613,7 @@ export class EventsViewPageComponent  implements OnInit {
 
 
   async toggleAplicationInRace(){
-    console.log(this.personalUserForm.value)
     if(this.submitValidate()){
-    
       await this.setFirstDocuments().pipe().subscribe(()=>{
         this.setDocuments().pipe().subscribe(()=>{
       
@@ -649,8 +647,6 @@ export class EventsViewPageComponent  implements OnInit {
       this.toastService.showToast('Заполните обязательные поля - Фамилия, имя, область, класс, спортивное звание','danger')
     }
   }
-
-  
 
   setUserInForm(){
     this.userService.refreshUser()
