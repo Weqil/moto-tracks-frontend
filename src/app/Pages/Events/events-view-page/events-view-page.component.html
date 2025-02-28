@@ -145,15 +145,12 @@
             </div>
 
         </div>
-        
       </div>
       <div class="footer">
         <app-standart-button theme="big" (click)="toggleAplicationInRace()" buttonText="Заявиться"></app-standart-button>
       </div>
     </ion-content>
   </ng-template>
-  
-  
   </ion-modal>
 
 <app-confirm-modal text="Ваши данные были изменены, сохранить их?" [openModal]="changePersonalDateModalValue" (confirm)="saveNewPersonal()" (cancel)="closePersonalNewModal()" ></app-confirm-modal>
