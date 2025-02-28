@@ -54,7 +54,7 @@ closetTableModal(){
   }
 
   ionViewWillEnter(){
-    console.log('показали лоадер ionViewWillEnter запущен')
+    
     this.loadingService.showLoading()
     this.eventService.getEventByUserId(String(this.userService.user.value?.id)).pipe(
       finalize(()=>{
@@ -66,7 +66,7 @@ closetTableModal(){
   }
 
   ionViewDidLeave(){
-    console.log('я умер')
+    
   }
 
   ngOnInit() {
