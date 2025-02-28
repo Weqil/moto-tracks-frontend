@@ -580,6 +580,7 @@ submitForm(){
   ngOnInit() {
     window.addEventListener('popstate', (event) => {
       this.closeRegionModal()
+      this.closeComandSelectModalStateValue()
       
   })
   }

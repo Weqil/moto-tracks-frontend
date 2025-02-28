@@ -812,6 +812,7 @@ export class EventsViewPageComponent  implements OnInit {
       this.closeApplicationForm()
       this.closeImagesModal()
       this.closeRegionModal()
+      this.closeComandSelectModalStateValue()
     });
   }
 }
