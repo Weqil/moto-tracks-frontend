@@ -1,3 +1,5 @@
+import { ICommand } from "./command";
+
 export interface User{
     id: number;
     name: string;
@@ -15,11 +17,13 @@ export interface User{
         date_of_birth:string,
         city:string,
         inn:string,
+        command_id:string,
         snils:number,
         phone_number:string,
         start_number:string,
         group:string,
         ranks:string,
+        command?:ICommand,
         rank:string,
         rank_number:string,
         community:string,

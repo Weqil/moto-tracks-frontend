@@ -19,13 +19,16 @@ import _ from 'lodash';
 import { MapService } from 'src/app/Shared/Data/Services/Map/map.service';
 import { formdataService } from 'src/app/Shared/Helpers/formdata.service';
 import moment from 'moment';
+import { SelectComandsComponent } from 'src/app/Shared/Components/Commands/select-comands/select-comands.component';
+import { ComandsService } from 'src/app/Shared/Data/Services/Comands/comands.service';
+import { ICommand } from 'src/app/Shared/Data/Interfaces/command';
 
 
 @Component({
   selector: 'app-user-documents',
   templateUrl: './user-documents.component.html',
   styleUrls: ['./user-documents.component.scss'],
-  imports: [SharedModule,HeaderModule,FormsModule,StandartInputSelectComponent,IonModal]
+  imports: [SharedModule,HeaderModule,FormsModule,StandartInputSelectComponent,IonModal,SelectComandsComponent]
 })
 export class UserDocumentsComponent  implements OnInit {
   navController:NavController = inject(NavController)
@@ -37,6 +40,7 @@ export class UserDocumentsComponent  implements OnInit {
   oldPasportValue?:{id:number,data:{numberAndSeria:string, fileLink:string}} 
   httpClient:HttpClient = inject(HttpClient)
   userService:UserService = inject(UserService)
+  comandSelectModalStateValue:boolean = false
   toastService:ToastService = inject(ToastService)
   formdataService:formdataService = inject(formdataService)
 
@@ -45,6 +49,10 @@ export class UserDocumentsComponent  implements OnInit {
   licensesFile:any =''
   polisFile:any = ''
   notariusFile:any = ''
+
+  allComands:ICommand[] = []
+
+  commandService:ComandsService = inject(ComandsService)
 
   mapService:MapService = inject(MapService)
 
@@ -81,7 +89,15 @@ export class UserDocumentsComponent  implements OnInit {
     }
   )
 
-  formErrors:any = {
+  closeComandSelectModalStateValue(){
+    this.comandSelectModalStateValue = false
+  }
+  openComandSelectModalStateValue(){
+    this.comandSelectModalStateValue = true
+  }
+  
+
+ formErrors:any = {
     name: {
       errorMessage:''
 
@@ -155,6 +171,7 @@ export class UserDocumentsComponent  implements OnInit {
     motoStamp:new FormControl('', [Validators.required]),
     engine:new FormControl('', [Validators.required]),
     numberAndSeria:new FormControl('', [Validators.required]),
+    commandId:new FormControl('', [Validators.required]),
   })
 
 submitValidate(){
@@ -456,6 +473,17 @@ submitForm(){
     }
   }
 
+  getAllComands(){
+    this.commandService.getComands().pipe().subscribe((res:any)=>{
+      this.allComands = res.commands
+    })
+  }
+
+  setComand(event:any){
+    this.personalUserForm.patchValue({community:event.name})
+    this.personalUserForm.patchValue({commandId:event.id})
+    this.closeComandSelectModalStateValue()
+  }
   createNotarius(){
     if(this.validateNotarius()){
         let loader:HTMLIonLoadingElement
@@ -530,6 +558,7 @@ submitForm(){
   ionViewWillEnter(){
     this.setFormValue()
     this.getRegions()
+    this.getAllComands()
     this.userService.refreshUser()
     if(this.userService.user.value?.personal){
       this.personalUserForm.patchValue(this.userService.user.value?.personal)
@@ -538,6 +567,8 @@ submitForm(){
         phoneNumber: this.userService.user.value?.personal.phone_number,
         startNumber: this.userService.user.value?.personal.start_number,
         rankNumber: this.userService.user.value?.personal.rank_number,
+        commandId: this.userService.user.value?.personal.command?.id,
+        locationId: this.userService.user.value?.personal.location.id,
         motoStamp:  this.userService.user.value?.personal.moto_stamp,
         numberAndSeria: this.userService.user.value?.personal.number_and_seria
       })

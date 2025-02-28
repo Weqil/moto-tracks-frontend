@@ -37,9 +37,7 @@
         <app-standart-input-select selectedName="motoStampSelect" [items]="motoStampItems" (onChange)="setMotoStamp($event)" [selectedItem]="{name:personalUserForm.value.motoStamp, value:personalUserForm.value.motoStamp}" label="Марка мотоцикла"></app-standart-input-select>
         <app-standart-input-select selectedName="rankSelect" [items]="sportRankItems" (onChange)="setRank($event)" [selectedItem]="{name:personalUserForm.value.rank, value:personalUserForm.value.rank}" label="Спортивное звание, разряд"></app-standart-input-select>
 
-        
-
-        <app-standart-input [control]="personalUserForm.get('community')" placeholder="Команда" label="Навзание команды"></app-standart-input>
+        <app-standart-input  [control]="personalUserForm.get('community')" style="cursor: pointer;" (click)="openComandSelectModalStateValue()" [readonly]="true" placeholder="Команда" label="Навзание команды"></app-standart-input>
         <app-standart-input [control]="personalUserForm.get('coach')" placeholder="Тренер" label="ФИО тренера"></app-standart-input>
         <div class="user-document-container">
           <div class="document-header">Лицензии</div>
@@ -72,12 +70,11 @@
             <app-file-input [fileName]="notariusFile.name" (click)="notariusFileInput.click()"></app-file-input>
             <input (change)="setNotariusFile($event)" #notariusFileInput style="display: none;"  type="file">
           </div>
-
           <app-standart-button (click)="submitForm()" buttonText="Сохранить"></app-standart-button>
         </div>
         
       </div>     
-
   </main>
 </ion-content>
 
+<app-select-comands (openComandSelectModal)="openComandSelectModalStateValue()" (closeComandSelectModal)="closeComandSelectModalStateValue()" [comandSelectModalStateValue]="comandSelectModalStateValue" (selectComand)="setComand($event)"  [commands]="allComands"></app-select-comands>

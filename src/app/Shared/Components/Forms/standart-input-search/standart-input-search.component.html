@@ -5,8 +5,20 @@
 
 <div [attr.name]="selectedName" class="dropdown-wrapper">
   <div сlass='dropdown-content--active'>
+    <ng-container *ngIf="!searchCommands">
       <div (click)="setSearchItem(item)" *ngFor="let item of searchCurrentItems" class="dropdown-content__item standart-input">
-          {{item.name}}
+        {{item.name}}
       </div>
+    </ng-container>
+
+    <ng-container *ngIf="searchCommands">
+      <div class="commands-grid">
+        <ng-container *ngFor="let item of searchCurrentItems">
+          <app-command-section (click)="setSearchItem(item)" [command]="item"></app-command-section>
+        </ng-container>
+      </div>
+   
+    </ng-container>
+    
   </div>
 </div>

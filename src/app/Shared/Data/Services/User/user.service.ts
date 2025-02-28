@@ -60,7 +60,9 @@ export class UserService {
   }
   refreshUser(){
     this.getUserFromServerWithToken().pipe().subscribe((res:any)=>{
+
       this.setUserInLocalStorage(res.user);
+      this.user.next(res.user);
     })
   }
   

@@ -1,0 +1,18 @@
+<ion-content>
+  <app-header headerTitle="Мои команды">
+    <app-rounded-button (click)="redirectInCreate()" icon="assets/icons/create.svg" buttonText="Создать"></app-rounded-button>
+  </app-header>
+  <main class="main-container--with-header">
+    <article class="commands-grid">
+    <ng-container *ngFor="let command of comands">
+      <div class="commands-grid__item">
+        <app-command-section [command]="command"></app-command-section>
+        <div class="edit-button-container">
+          <app-standart-button theme="orange" style="width: 100%;" (click)="redirectInEditPage(command.id)" buttonText="Редактировать"></app-standart-button>
+        </div>
+      </div>
+   
+    </ng-container> 
+    </article>
+  </main>
+</ion-content>
