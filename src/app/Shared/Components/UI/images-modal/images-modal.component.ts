@@ -24,15 +24,17 @@ export class ImagesModalComponent  implements OnInit {
 
   @Input() imagesPathArray: any = []
   @Output() closeModalEmit: EventEmitter<any> = new EventEmitter()
-  @Input() openModal!: boolean
+  @Input() openModal?: boolean = false
   sanitizer: DomSanitizer = inject(DomSanitizer)
   checkImgUrlPipe: CheckImgUrlPipe = inject(CheckImgUrlPipe)
   swiperIndex: number = 1
 
  
   closeModal() {
-    this.closeModalEmit.emit()
+    this.openModal = false;
   }
+
+
   checkUrl(file: any) {
     return this.checkImgUrlPipe.checkUrlDontType(file)
   }
