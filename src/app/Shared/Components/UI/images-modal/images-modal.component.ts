@@ -16,7 +16,7 @@ register()
   selector: 'app-images-modal',
   templateUrl: './images-modal.component.html',
   styleUrls: ['./images-modal.component.scss'],
-  imports: [IonModal, IonContent, ButtonsModule, SlidersModule, SharedModule, CheckImgUrlPipe],
+  imports: [IonModal, IonContent, ButtonsModule, SlidersModule, SharedModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ImagesModalComponent  implements OnInit {
@@ -24,15 +24,19 @@ export class ImagesModalComponent  implements OnInit {
 
   @Input() imagesPathArray: any = []
   @Output() closeModalEmit: EventEmitter<any> = new EventEmitter()
-  @Input() openModal!: boolean
+  @Input() openModal?: boolean = false
   sanitizer: DomSanitizer = inject(DomSanitizer)
   checkImgUrlPipe: CheckImgUrlPipe = inject(CheckImgUrlPipe)
   swiperIndex: number = 1
 
  
   closeModal() {
-    this.closeModalEmit.emit()
+    this.closeModalEmit.emit();
   }
+
+  
+
+
   checkUrl(file: any) {
     return this.checkImgUrlPipe.checkUrlDontType(file)
   }
@@ -45,6 +49,11 @@ export class ImagesModalComponent  implements OnInit {
 
   slideChange(event: any) {
     this.swiperIndex = event.detail[0].activeIndex + 1
+  }
+
+  ionViewWillEnter() {
+    
+    console.log('модалка активна')
   }
 
   

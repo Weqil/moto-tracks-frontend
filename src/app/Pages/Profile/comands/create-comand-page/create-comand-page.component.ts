@@ -54,13 +54,18 @@ export class CreateComandPageComponent  implements OnInit {
     region:{
         errorMessage:''
     },
+    fullname:{
+      errorMessage:''
+  },
   }
 
   createCommandForm: FormGroup = new FormGroup({
       name: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      fullname: new FormControl('', [Validators.required, Validators.minLength(3)]),
       city: new FormControl('', [Validators.required, Validators.minLength(3)]),
       region: new FormControl('', [Validators.required, Validators.minLength(3)]),
       locationId: new FormControl('', [Validators.required, Validators.minLength(3)]),
+
    })
 
    submitValidate(){

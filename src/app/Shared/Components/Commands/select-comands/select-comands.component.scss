@@ -27,6 +27,7 @@ ion-modal{
     flex-direction: column;
     gap: var(--standart-padding);
     padding-right: var(--standart-padding);
+    background-color: white;
 }
 .commands-grid__item{
     border-bottom: 1px solid rgba(76, 88, 97, .1568627451);
