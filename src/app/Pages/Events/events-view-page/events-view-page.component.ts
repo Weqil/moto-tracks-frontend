@@ -293,6 +293,7 @@ export class EventsViewPageComponent  implements OnInit {
   getAllComands(){
     this.commandService.getComands().pipe().subscribe((res:any)=>{
       this.allComands = res.commands
+      console.log('test')
     })
   }
 
@@ -659,7 +660,7 @@ export class EventsViewPageComponent  implements OnInit {
         dateOfBirth: this.userService.user.value?.personal.date_of_birth,
         phoneNumber: this.userService.user.value?.personal.phone_number,
         startNumber: this.userService.user.value?.personal.start_number,
-        locationId: this.userService.user.value?.personal.location.id,
+        locationId: this.userService.user.value?.personal.location?.id,
         commandId: this.userService.user.value?.personal.command?.id,
         rankNumber: this.userService.user.value?.personal.rank_number,
         motoStamp:  this.userService.user.value?.personal.moto_stamp,
