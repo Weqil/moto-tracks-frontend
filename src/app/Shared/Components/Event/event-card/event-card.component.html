@@ -10,6 +10,12 @@
             <img src="{{event.images ? (event.images[0] | checkImgUrl) : '' | checkImgUrl}}" alt="">
         </div>
         <div class="card__footer"> 
+            
+            <div *ngIf="event.appointment_count" class="users-in-event">
+                <img src="/assets/images/standartAvatar.jpg" alt="">
+                {{event.appointment_count?.count}} 
+            </div>
+
             <div class="event-name">
                 {{event.name}}
             </div>
@@ -18,10 +24,7 @@
                 <div class="track-name">
                     {{event.track?.name}}
                 </div>
-                <div *ngIf="event.appointment_count" class="users-in-event">
-                    <img src="/assets/images/standartAvatar.jpg" alt="">
-                    {{event.appointment_count?.count}} 
-                </div>
+
             </div>
 
 

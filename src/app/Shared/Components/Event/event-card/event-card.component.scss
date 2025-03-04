@@ -35,6 +35,7 @@
 
 }
 .card__footer{
+    position: relative;
     padding-left: var(--little-padding);
     padding-top: var(--little-padding);
     padding-bottom: var(--little-padding);
@@ -43,11 +44,23 @@
     font-family: var(--font-bold);
     padding-left: var(--little-padding);
 }
+
+.track-name{
+    display: flex;
+    justify-content: space-between;
+    padding-left: var(--little-padding);
+    padding-right: var(--standart-padding);
+    height: 1rem;
+    align-items: center;
+    width: 100%;
+    font-family: var(--font-bold);
+}
 .event-address{
    
     font-family: var(--font-regular);
     font-size: var(--font-little-size);
     padding-left: var(--little-padding);
+    font-style: italic;
     
 }
 .event-date{
@@ -66,6 +79,9 @@
 }
 
 .users-in-event{
+    position: absolute;
+    right: var(--standart-padding);
+    top: 0.5rem;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -87,19 +103,13 @@
     max-width: 100%;
 }
 
-.track-name{
-    display: flex;
-    justify-content: space-between;
-    padding-left: var(--little-padding);
-    padding-right: var(--standart-padding);
-    height: 3rem;
-    align-items: center;
-    max-width: 100%;
-}
+
 
 .users-in-track-container{
     display: flex;
-    justify-content: space-between  ;
+    justify-content: center;
+    align-items: center;
     padding-right: var(--standart-padding);
-    
+    padding-bottom: 0.2rem;
+    padding-top: 0.2rem;
 }
