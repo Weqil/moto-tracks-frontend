@@ -97,7 +97,7 @@ export class EventsViewPageComponent  implements OnInit {
 
   userService:UserService = inject(UserService)
   eventId: string = ''
-  allComands:ICommand[] = []
+  allComands:any[] = []
   personalUserForm: FormGroup = new FormGroup({
     name: new FormControl('', [Validators.required]),
     surname: new FormControl('', [Validators.required]),
@@ -115,7 +115,7 @@ export class EventsViewPageComponent  implements OnInit {
     gradeId:new FormControl('', [Validators.required]),
     rankNumber:new FormControl('', [Validators.required]),
     
-    community:new FormControl('', [Validators.required]),
+    community:new FormControl('Лично', [Validators.required]),
     locationId: new FormControl('', [Validators.required]),
     coach:new FormControl('', [Validators.required]),
     motoStamp:new FormControl('', [Validators.required]),
@@ -294,8 +294,12 @@ export class EventsViewPageComponent  implements OnInit {
   }
   getAllComands(){
     this.commandService.getComands().pipe().subscribe((res:any)=>{
-      this.allComands = res.commands
-      console.log('test')
+      this.allComands = []
+      this.allComands.push(
+          {id: '', name: 'Лично',}
+      )
+      this.allComands.push(...res.commands) 
+     
     })
   }
 

@@ -50,7 +50,7 @@ export class UserDocumentsComponent  implements OnInit {
   polisFile:any = ''
   notariusFile:any = ''
 
-  allComands:ICommand[] = []
+  allComands:any[] = []
 
   commandService:ComandsService = inject(ComandsService)
 
@@ -166,7 +166,7 @@ export class UserDocumentsComponent  implements OnInit {
     group:new FormControl('', [Validators.required]),
     rank:new FormControl('', [Validators.required]),
     rankNumber:new FormControl('', [Validators.required]),
-    community:new FormControl('', [Validators.required]),
+    community:new FormControl('Лично', [Validators.required]),
     coach:new FormControl('', [Validators.required]),
     motoStamp:new FormControl('', [Validators.required]),
     engine:new FormControl('', [Validators.required]),
@@ -475,7 +475,12 @@ submitForm(){
 
   getAllComands(){
     this.commandService.getComands().pipe().subscribe((res:any)=>{
-      this.allComands = res.commands
+      this.allComands = []
+      this.allComands.push(
+          {id: '', name: 'Лично',}
+      )
+      this.allComands.push(...res.commands) 
+     
     })
   }
 

@@ -16,13 +16,15 @@ import { TabsComponent } from "../../../Shared/Components/UI/tabs/tabs.component
 import { TabsItemComponent } from "../../../Shared/Components/UI/tabs-item/tabs-item.component";
 
 import moment from 'moment';
+import { StandartInputSearchComponent } from 'src/app/Shared/Components/Forms/standart-input-search/standart-input-search.component';
+import { MapService } from 'src/app/Shared/Data/Services/Map/map.service';
 
 
 @Component({
   selector: 'app-events-tape-page',
   templateUrl: './events-tape-page.component.html',
   styleUrls: ['./events-tape-page.component.scss'],
-  imports: [SharedModule, CommonModule, HeaderModule, EventModule, IonModal, TabsComponent, TabsItemComponent]
+  imports: [SharedModule, CommonModule, HeaderModule, EventModule, IonModal, TabsComponent, TabsItemComponent,StandartInputSearchComponent]
 })
 export class EventsTapePageComponent  implements OnInit {
 
@@ -32,11 +34,17 @@ export class EventsTapePageComponent  implements OnInit {
   loadingService:LoadingService = inject(LoadingService)
   eventTapeService: EventTapeService = inject(EventTapeService)
   switchTypeService:SwitchTypeService = inject(SwitchTypeService)
+  regionModalState:boolean = false
   userService: UserService = inject(UserService)
   tableModalValue:boolean = false
   googleTabsLink:string = ''
-  
+
+  searchRegionItems:any[] = []
+
+  regionFilterName:string = 'Россия'
+  regionFilterId:string = ''
   expiredEvents:IEvent[]=[]
+  mapService:MapService = inject(MapService)
  
   redirectInTracks(){
     this.navController.navigateForward('/tracks')
@@ -46,6 +54,26 @@ export class EventsTapePageComponent  implements OnInit {
     this.tableModalValue = false
   }
 
+ 
+
+  getRegions(){
+    this.mapService.getAllRegions().pipe().subscribe((res:any)=>{
+      this.searchRegionItems.push({
+        name:'Россия',
+        value:''
+      })
+      res.data.forEach((region:any) => {
+        this.searchRegionItems.push({
+          name:`${region.name} ${region.type}`,
+          value:region.id
+        })
+      });
+    })
+  }
+
+  setRegion(event:any){
+
+  }
   generateGoogleLink(eventId:any){
     this.loadingService.showLoading()
     this.eventService.generateGoogleLink(eventId).pipe(
@@ -57,13 +85,29 @@ export class EventsTapePageComponent  implements OnInit {
     })
   }
 
+  openRegionModal(){
+    this.regionModalState = true
+  }
+  closeRegionModal(){
+    this.regionModalState = false
+  }
+
+  filterEventsInLocation(event:any){
+    this.regionFilterName = event.name
+    this.regionFilterId = event.value
+    this.closeRegionModal()
+    this.getExpiredEvents()
+    this.getStartEvents()
+    console.log(event)
+  }
+
   getExpiredEvents(){
     let loader:HTMLIonLoadingElement
     this.loadingService.showLoading().then((res: HTMLIonLoadingElement)=>{
         loader = res
     })
 
-    this.eventService.getAllEvents({dateEnd:moment().subtract(1,'days').format('YYYY-MM-DD')}
+    this.eventService.getAllEvents({dateEnd:moment().subtract(1,'days').format('YYYY-MM-DD'), locationId:[this.regionFilterId]}
   ).pipe(
       finalize(()=>{
         this.loadingService.hideLoading(loader)
@@ -80,7 +124,7 @@ export class EventsTapePageComponent  implements OnInit {
         loader = res
     })
 
-    this.eventService.getAllEvents({dateStart:moment().format('YYYY-MM-DD')}).pipe(
+    this.eventService.getAllEvents({dateStart:moment().format('YYYY-MM-DD'),locationId:[this.regionFilterId]}).pipe(
       finalize(()=>{ 
         this.loadingService.hideLoading(loader)
       })).subscribe((res:any)=>{
@@ -102,6 +146,7 @@ export class EventsTapePageComponent  implements OnInit {
   }
  
   ngOnInit() {
+    this.getRegions()
     window.addEventListener('popstate', (event) => {
       this.closetTableModal()
       
