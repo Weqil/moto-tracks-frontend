@@ -98,7 +98,6 @@ export class EventsTapePageComponent  implements OnInit {
     this.closeRegionModal()
     this.getExpiredEvents()
     this.getStartEvents()
-    console.log(event)
   }
 
   getExpiredEvents(){

@@ -53,7 +53,6 @@ export class ImagesModalComponent  implements OnInit {
 
   ionViewWillEnter() {
     
-    console.log('модалка активна')
   }
 
   

@@ -20,9 +20,9 @@ export class AppComponent {
       if (state.isActive) {
         
         let diff = moment().diff(moment(this.lastBackgroundTime), 'minutes');
-        console.log(`Active - diff ${diff}`);
+        // console.log(`Active - diff ${diff}`);
         if(diff>=20){
-          console.log(diff)
+          // console.log(diff)
           window.location.reload()
           // console.log('Приложение обновилось спустя')
         }

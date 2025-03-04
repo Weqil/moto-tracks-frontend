@@ -218,7 +218,6 @@ setMotoStamp(event:any){
 submitForm(){
 
   if(this.submitValidate()){
-    console.log(this.personalUserForm.value)
     if(!this.oldLicensesValue && this.validateLicenses()){
       this.createLicenses()
     }
@@ -349,7 +348,6 @@ submitForm(){
   setPolisFile(event:any){
     let file = event.target.files[0]
     this.polisFile = file
-    console.log(this.polisFile)
   }
 
   setLicensesFile(event:any){
@@ -522,7 +520,6 @@ submitForm(){
       })
     ).subscribe((res:any)=>{
       if(res.documents){
-        console.log(res.documents)
         if(res.documents.find((doc:any)=> doc.type === 'licenses')){
           let licensesDocument = res.documents.find((doc:any)=> doc.type === 'licenses')
           this.licensesForm.patchValue((res.documents.find((doc:any)=> doc.type === 'licenses')))

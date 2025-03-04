@@ -130,7 +130,6 @@ export class EditTrackPageComponent  implements OnInit {
   }
 
   getImages(event:any){
-    console.log(event)
     if(event.length < this.sliderImages.length ){
       if(this.sliderImages.find((image:any) => !event.includes(image)).link){
         let link = this.sliderImages.find((image:any) => !event.includes(image)).link
@@ -148,7 +147,6 @@ export class EditTrackPageComponent  implements OnInit {
     if(!this.stepInvalidate()){
       this.loadingService.showLoading()
       this.editTrackForm.value.images = this.editTrackForm.value.images.filter((image:any)=>!image.link)
-      console.log(this.editTrackForm.value)
       let editForm = {
           ...this.editTrackForm.value,
           free:1,

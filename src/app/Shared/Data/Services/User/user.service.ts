@@ -37,7 +37,6 @@ export class UserService {
     return this.user.value?.roles.find((role:any)=> role.name == userRoles.admin || role.name == userRoles.root) !== undefined
   }
   createUserDocument(document:any){
-    console.log(document)
     document.append('url', `${environment.BASE_URL}/document/`)
     return this.http.post<any>(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/users/cabinet/documents`, document)
   }

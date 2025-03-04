@@ -279,7 +279,6 @@ export class EventsViewPageComponent  implements OnInit {
    setRegion(region:any){
     this.closeRegionModal()
     this.personalUserForm.patchValue({locationId:region.value, region:region.name})
-    console.log(this.personalUserForm.value)
    }
 
    getRegions(){

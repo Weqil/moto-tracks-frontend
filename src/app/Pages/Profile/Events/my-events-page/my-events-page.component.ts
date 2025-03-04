@@ -49,7 +49,6 @@ closetTableModal(){
   this.tableModalValue = false
 }
   userHaveRoot(){
-    console.log()
     return this.userService.user.value?.roles.find((role:any)=>role.name == userRoles.admin || role.name == userRoles.root) !== undefined
   }
 
