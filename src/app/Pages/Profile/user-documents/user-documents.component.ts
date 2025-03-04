@@ -567,16 +567,23 @@ submitForm(){
     this.userService.refreshUser()
     if(this.userService.user.value?.personal){
       this.personalUserForm.patchValue(this.userService.user.value?.personal)
+    
       this.personalUserForm.patchValue({
         dateOfBirth: this.userService.user.value?.personal.date_of_birth,
         phoneNumber: this.userService.user.value?.personal.phone_number,
         startNumber: this.userService.user.value?.personal.start_number,
         rankNumber: this.userService.user.value?.personal.rank_number,
         commandId: this.userService.user.value?.personal.command?.id,
-        locationId: this.userService.user.value?.personal.location.id,
+        locationId: this.userService.user.value?.personal.location?.id,
         motoStamp:  this.userService.user.value?.personal.moto_stamp,
         numberAndSeria: this.userService.user.value?.personal.number_and_seria
       })
+      if(!this.userService.user.value?.personal.location?.id){
+        this.personalUserForm.patchValue({
+          region:'',
+        })
+      }
+
     }else{
       this.personalUserForm.reset()
     }

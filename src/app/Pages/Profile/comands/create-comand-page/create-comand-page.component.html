@@ -5,7 +5,7 @@
   <main class="main-container--with-header">
     <div class="create-command-main">
       <app-standart-input [errorMessage]="formErrors.name.errorMessage" [invalid]="formErrors.name.errorMessage.length !== 0" label="Название" [control]="createCommandForm.get('name')" placeholder="Введите название вашей команды"></app-standart-input>
-      <app-standart-input [errorMessage]="formErrors.fullname.errorMessage" [invalid]="formErrors.fullname.errorMessage.length !== 0" label="Полное название" [control]="createCommandForm.get('fullname')" placeholder="Введите полное название вашей команды"></app-standart-input>
+      <app-standart-input [errorMessage]="formErrors.fullName.errorMessage" [invalid]="formErrors.fullName.errorMessage.length !== 0" label="Полное название" [control]="createCommandForm.get('fullName')" placeholder="Введите полное название вашей команды"></app-standart-input>
       <app-standart-input (click)="openRegionModal()" [errorMessage]="formErrors.city.errorMessage" [invalid]="formErrors.city.errorMessage.length !== 0" [readonly]="true" label="Область/край" [control]="createCommandForm.get('region')" placeholder="Выберите область вашей команды"></app-standart-input>
       <app-standart-input label="Город" [errorMessage]="formErrors.city.errorMessage" [invalid]="formErrors.city.errorMessage.length !== 0" label="Город" [control]="createCommandForm.get('city')" placeholder="Введите город вашей команды"></app-standart-input>
       <section class="create-command-main__upload-avatar">
