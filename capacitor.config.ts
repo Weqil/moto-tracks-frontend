@@ -5,6 +5,7 @@ const config: CapacitorConfig = {
   appName: 'Мотокросс',
   webDir: 'www/browser',
   bundledWebRuntime: false,
+  
   plugins:{
       SplashScreen: {
         launchShowDuration: 1000,    // Время показа (мс)
@@ -16,7 +17,11 @@ const config: CapacitorConfig = {
         iosSpinnerStyle: "large", // Размер спиннера (iOS)
         splashFullScreen: false,  // Полноэкранный режим
         splashImmersive: true    // Скрывает системные панели
-      }
+      },
+      Browser: {
+      clearSessionCache: true, // Очищает сессию WebView
+      clearCache: true, // Очищает весь кеш WebView
+  },
     },
   // server: {
   //   url: 'https://dev-moto.vokrug.city',

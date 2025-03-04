@@ -14,6 +14,10 @@
 			"iosSpinnerStyle": "large",
 			"splashFullScreen": false,
 			"splashImmersive": true
+		},
+		"Browser": {
+			"clearSessionCache": true,
+			"clearCache": true
 		}
 	},
 	"packageClassList": [
