@@ -111,6 +111,36 @@ export class CabinetComponent  implements OnInit {
         name:'Мои команды'
       }
     ],
+    [UserStatuses.root]:[
+      {
+        routing:'documents',
+        iconColor:'#0000',
+        icon:'/assets/icons/documents.svg',
+        iconFilter:'',
+        name:'Анкета участника'
+      },
+      {
+        routing:'my-events',
+        iconColor:'#0000',
+        icon:'/assets/icons/FlagStrong.svg',
+        iconFilter:'',
+        name:'Мои гонки'
+      },
+      {
+        routing:'my-tracks',
+        iconColor:'#0000',
+        icon:'/assets/icons/Repeat.svg',
+        iconFilter:'',
+        name:'Мои трассы'
+      },
+      {
+        routing:'my-comands',
+        iconColor:'#0000',
+        icon:'/assets/icons/team.svg',
+        iconFilter:'',
+        name:'Мои команды'
+      }
+    ],
   }
   statuses:any[] = [
     { id: 1, name: 'Гонщик', value: 'Гонщик' },
