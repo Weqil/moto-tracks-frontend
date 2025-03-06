@@ -1,7 +1,7 @@
 <ion-content>
   <ng-container *ngIf="track">
     <app-header [headerTitle]= "track.name" ></app-header>
-    <div>
+    <!-- <div>
         <div class="main-container--with-header">
           <div class="track__header">
             <img src="{{track.images ? (track.images[0] | checkImgUrl) : '' | checkImgUrl}}" alt="" class="track-header__avatar">
@@ -34,10 +34,10 @@
         <div class="track__info main-container">
           <div class="specifications">
             <div class="standart-heading">О треке</div>
-            <!-- <div class="specifications__item">
+             <div class="specifications__item">
               <div class="specifications__item__title">Вход на трек</div>
               <div class="specifications__item__value">{{track.free ? 'Бесплатный' : 'Платный'}}</div>
-            </div> -->
+            </div> 
             @for (specification of track.spec; track $index) {
               <div class="specifications__item">
                 <div class="specifications__item__title">{{specification.title}}</div>
@@ -60,12 +60,12 @@
           
           </div>
           <div *ngIf="track.desc" class="description">
-            <!-- <div class="standart-heading">Описание трека</div> -->
+            <div class="standart-heading">Описание трека</div> 
             <div [innerHTML]="clearDescription()" class="description__text">{{track.desc}}</div>
           </div>
 
           <div class="map">
-            <!-- <div class="standart-heading">На карте</div> -->
+             <div class="standart-heading">На карте</div> 
             <div class="map__container">
               <ya-map
               [center]="[track.latitude,track.longitude,]"
@@ -88,7 +88,34 @@
             </div>
           </div>
         </div>
+    </div> -->
+            <!-- <app-images-modal odal *ngIf="track.images" [openModal]="statusImagesModal" (closeModalEmit)="closeImagesModal()" [imagesPathArray]="track.images"></app-images-modal> -->
+
+    <!-- <img src="{{track.images ? (track.images[0] | checkImgUrl) : '' | checkImgUrl}}" alt="" class="track-header__avatar"> -->
+
+    <div class="main-container--with-header">
+      <div class="track__header">
+        <img src="{{track.images ? (track.images[0] | checkImgUrl) : '' | checkImgUrl}}" alt="" class="track-header__avatar">
+      </div>
+
+      <div class="list-track-parametrs">
+
+        <div class="name-track-parametrs">
+
+        </div>
+        <div class="parametrs">
+          <div class="parametr">
+            <div class="icon"><img src="/assets/icons/arrow-rounded.svg" alt="" class="arrow-icon"></div>
+            <div class="name"><span>Длина трассы</span></div>
+            <div class="result"></div>
+            <div class="information"></div>
+          </div>
+        </div>
+
+      </div>
+
     </div>
+
   </ng-container>
 </ion-content>
 
