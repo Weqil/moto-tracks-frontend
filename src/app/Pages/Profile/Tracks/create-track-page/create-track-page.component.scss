@@ -36,6 +36,89 @@ ion-modal{
     flex-direction: column;
     gap: var(--standart-padding);
 }
+.logo-track{
+  padding-top: var(--standart-padding);
+  display: flex;
+  align-items: center;
+  position: relative;
+  gap: 1rem;
+}
+.track-settings{
+  padding-top: var(--standart-padding);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--standart-padding);
+}
+.track-settings{
+  display: flex;
+  gap:var(--standart-padding);
+}
+.track-settings__spec{
+  padding-top: var(--standart-padding);
+}
+.track-settings__spec__item__label{
+  font-family: var(--font-regular);
+  font-size: 14px;
+}
+.track-settings__spec{
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: var(--standart-padding);
+}
+.track-settings__spec__item__icon{
+  width: 1rem;
+  height: 1rem;
+}
+.track-settings__spec__item__label__wrapper{
+  display: flex;
+  gap: 0.5rem;
+}
+.info{
+  position: absolute;
+  right: 0;
+}
+.track-settings__spec__item__input{
+    border: 1px solid rgba(76, 88, 97, 0.2549019608);
+    border-radius: 5px;
+    padding: 0.6rem;
+    font-size: 12px;
+    padding-left: 0.8rem;
+    transition: 0.1s;
+    margin-top: 3px;
+    color: #363d42;
+    font-family: var(--font-regular);
+    background: none;
+  max-width: 3rem;
+}
+.custom-toggle{
+  font-family: var(--font-regular);
+  font-size: 14px;
+}
+.track-settings__spec__item{
+  display: flex;
+  align-items: center;
+  position: relative;
+  gap: 1rem;
+  font-family: var(--font-regular);
+  font-size: 14px;
+}
+.logo-track__header{
+  font-family: var(--font-bold);
+  font-size: 12px;
+}
+.logo-track__file-name{
+  font-family: var(--font-regular);
+  font-size: var(--font-little-size);
+  color: var(--font-gray-color);
+}
+.logo-track__text{
+  display: flex;
+  flex-direction: column;
+}
+.upload-logo{
+  background-color: #DCE9FF;
+}
 .contacts-form{
   padding-top: var(--standart-padding);
   display: flex;

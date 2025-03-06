@@ -14,8 +14,6 @@
                         <app-standart-rich-input [control]="createTrackForm.get('desc')" label="Описание" placeholder="Введите описание вашего трека"></app-standart-rich-input>
                     </div>
                     <!-- <div class="specifications">
-                        <app-standart-input label= "Количество поворотов" [control]="createTrackForm.get('turns')" placeholder="Введите количество поворотов"></app-standart-input>
-                        <app-standart-input label= "Длинна трека" [control]="createTrackForm.get('length')" placeholder="Введите длинну в метрах"></app-standart-input>
                         @for (param of newParams; track param.temp_id) {
                             <div>
                                 <div class="select-level__label">
@@ -32,37 +30,6 @@
                         }
                    
                         <app-standart-button (click)="addNewParameter()" buttonText="Добавить параметр"></app-standart-button>
-                        <div class="select-level">
-                            <div class="select-level__label">Выберите сложность трека</div>
-                            <ion-radio-group value="custom-checked">
-                                <div class="custom-checked__item">
-                                    <ion-radio value="custom" aria-label="Custom checkbox">Лёгкая</ion-radio>
-                                </div>
-                                <div class="custom-checked__item">
-                                    <ion-radio value="custom" aria-label="Custom checkbox">Средняя</ion-radio>
-                                    
-                                </div>
-                                <div class="custom-checked__item">
-                                    <ion-radio value="custom" aria-label="Custom checkbox">Высокая</ion-radio>
-                                    
-                                </div>
-                             
-                             
-                              </ion-radio-group>
-                        </div>
-                        <div class="select-level">
-                            <div class="select-level__label">Вход на трек</div>
-                            <ion-radio-group value="custom-checked">
-                                <div class="custom-checked__item">
-                                    <ion-radio value="custom" aria-label="Custom checkbox">Платный</ion-radio>
-                                </div>
-    
-                                <div class="custom-checked__item">
-                                    <ion-radio value="custom" aria-label="Custom checkbox">Бесплатный</ion-radio>
-                                </div>
-                    
-                              </ion-radio-group>
-                        </div>
                     </div> -->
                     <app-standart-input (click)="openRegionModal()" [readonly]="true" label="Область/край" [control]="createTrackForm.get('region')" placeholder="Выберите область вашего соревнования"></app-standart-input>
                     <div class="select-level__label">Адрес трека</div>
@@ -80,10 +47,100 @@
                     <div class="photo-slider">
                         <app-edit-slider (filesEmit)="getImages($event)" type="create"></app-edit-slider>
                     </div>
+                    <div class="logo-track">
+                        <button class="upload-logo">
+                            <img src="/assets/icons/addPhoto.svg" alt="">
+                        </button>
+                        <div class="logo-track__text">
+                            <span class="logo-track__header">Логотип трека</span>
+                            <span class="logo-track__file-name">Фото не загружено</span>
+                        </div>
+                    </div>
+
+                    <div class="track-settings">
+                        <ion-toggle name="light" id="light" mode="ios" class="custom-toggle">Освещение</ion-toggle>
+                        <ion-toggle name="light" id="light" mode="ios" class="custom-toggle">Всесезонность</ion-toggle>
+                        <ion-toggle name="light" id="light" mode="ios" class="custom-toggle">Парковка</ion-toggle>
+                        <ion-toggle name="light" id="light" mode="ios" class="custom-toggle">Открытый</ion-toggle>
+                    </div>
+                    <div class="track-settings__spec">
+                        <div class="track-settings__spec__item">
+                            <img style="opacity: 60%;" src="/assets/icons/length.png" alt="" class="track-settings__spec__item__icon">
+                            <div class="track-settings__spec__item__label__wrapper">
+                                <label class="track-settings__spec__item__label" for="length">Протяжённость круга</label>
+                            </div>
+                            
+                            <input class="track-settings__spec__item__input" id="length" type="number">
+                            м
+                            <div class="info">
+                                <app-info-popover text="Замерьте полную длину летнего круга трассы. Можете воспользоваться линейкой яндекс карт."></app-info-popover>
+                            </div>
+                        </div>
+
+
+                        <div class="track-settings__spec__item">
+                            <img src="/assets/icons/coverage.svg" alt="" class="track-settings__spec__item__icon">
+                            <app-standart-input-select   selectedName="groupSelect" [items]="coverageItems"  label="Покрытие трека"></app-standart-input-select>
+                            <div class="info">
+                                <app-info-popover text="какое покрытие большую часть времени, летом, имеет трасса"></app-info-popover>
+                            </div>
+                        </div>
+
+                        <div class="track-settings__spec__item">
+                            <img src="/assets/icons/heigth.svg" alt="" class="track-settings__spec__item__icon">
+                            <label class="track-settings__spec__item__label" for="heigth">Перепад высот</label>
+                            <input class="track-settings__spec__item__input" id="heigth" type="number">
+                            <div class="info">
+                                <app-info-popover text="от самой низкой точки до самой высокой точке на трассе"></app-info-popover>
+                            </div>
+                        </div>
+
+                        <div class="track-settings__spec__item">
+                            <img src="/assets/icons/left-arr.svg" alt="" class="track-settings__spec__item__icon">
+                            <label class="track-settings__spec__item__label" for="left-arr">Левых поворотов</label>
+                            <input class="track-settings__spec__item__input" id="left-arr" type="number">
+                        </div>
+
+                        <div class="track-settings__spec__item">
+                            <img src="/assets/icons/right-arr.svg" alt="" class="track-settings__spec__item__icon">
+                            <label class="track-settings__spec__item__label" for="right-arr">Правых поворотов</label>
+                            <input class="track-settings__spec__item__input" id="right-arr" type="number">
+                        </div>
+
+                        <div class="track-settings__spec__item">
+                            <img src="/assets/icons/elements-list.svg" alt="" class="track-settings__spec__item__icon">
+                            <label class="track-settings__spec__item__label" for="elements-list">Количество элементов</label>
+                            <input class="track-settings__spec__item__input" id="elements-list" type="number">
+                        </div>
+
+                        <div class="track-settings__spec__item">
+                            <img style="opacity: 60%;" src="/assets/icons/speed.svg" alt="" class="track-settings__spec__item__icon">
+                            <label class="track-settings__spec__item__label" for="speed">Длина самого скоростного участка</label>
+                            <input class="track-settings__spec__item__input" id="speed" type="number">
+                        </div>
+                    </div>
+
+                    <div class="logo-track">
+                        <button class="upload-logo">
+                            <img src="/assets/icons/addPhoto.svg" alt="">
+                        </button>
+                        <div class="logo-track__text">
+                            <span class="logo-track__header">Схема трека</span>
+                            <span class="logo-track__file-name">Фото не загружено</span>
+                            <div class="info">
+                                <app-info-popover text="какое покрытие большую часть времени, летом, имеет трасса"></app-info-popover>
+                            </div>
+                        </div>
+                    </div>
+                    
                 </form>
+                
                 <div class="contacts-form">
                     <app-standart-input label="Сайт" [control]="contactsForm.get('site')" placeholder="Введите ссылку на сайт вашего трека"></app-standart-input>
+                    <app-standart-input label="Видео трека" [control]="contactsForm.get('site')" placeholder="Введите ссылку на видео вашего трека"></app-standart-input>
                     <app-standart-input label="ВК" [control]="contactsForm.get('vk')" placeholder="Введите ссылку на группу вашего трека"></app-standart-input>
+                    <app-standart-input label="Telegram" [control]="contactsForm.get('vk')" placeholder="Введите ссылку на группу вашего трека"></app-standart-input>
+                    <app-standart-input label="WhatsApp" [control]="contactsForm.get('vk')" placeholder="Введите ссылку на группу вашего трека"></app-standart-input>
                     <app-standart-input label="Телефон" [control]="contactsForm.get('phone')" placeholder="Введите номер телефона"></app-standart-input>
                 </div>
 

@@ -3,7 +3,7 @@ import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
 import { HeaderComponent } from 'src/app/Shared/Components/UI/header/header.component';
 import { ButtonsModule } from 'src/app/Shared/Modules/buttons/buttons.module';
 import { StepsModule } from 'src/app/Shared/Modules/steps/steps.module';
-import { IonModal, NavController, Platform } from '@ionic/angular/standalone';
+import { IonLabel, IonModal, IonToggle, NavController, Platform } from '@ionic/angular/standalone';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FormsModule } from 'src/app/Shared/Modules/forms/forms.module';
 import { EditSliderComponent } from 'src/app/Shared/Components/UI/edit-slider/edit-slider.component';
@@ -16,12 +16,15 @@ import { catchError, EMPTY, finalize } from 'rxjs';
 import { ToastService } from 'src/app/Shared/Services/toast.service';
 import { serverError } from 'src/app/Shared/Data/Interfaces/errors';
 import { MapService } from 'src/app/Shared/Data/Services/Map/map.service';
+import { StandartInputSelectComponent } from 'src/app/Shared/Components/UI/Selecteds/standart-input-select/standart-input-select.component';
+import { InfoPopoverComponent } from 'src/app/Shared/Components/UI/info-popover/info-popover.component';
 
 @Component({
   selector: 'app-create-track-page',
   templateUrl: './create-track-page.component.html',
   styleUrls: ['./create-track-page.component.scss'],
-  imports: [SharedModule, HeaderComponent, StepsModule, FormsModule, EditSliderComponent, StandartRichInputComponent, AddressInputComponent,IonModal]
+  imports: [SharedModule, HeaderComponent, StepsModule, FormsModule, EditSliderComponent, StandartRichInputComponent, 
+    AddressInputComponent,IonModal,IonToggle,IonLabel,StandartInputSelectComponent,InfoPopoverComponent,IonRadioGroup,IonRadio]
 })
 export class CreateTrackPageComponent  implements OnInit {
 
@@ -30,6 +33,12 @@ export class CreateTrackPageComponent  implements OnInit {
 
   maxStepsCount: number = 1
   stepCurrency: number = 1
+
+coverageItems:any[] = [
+  {name:'soft', value:'soft'},
+  {name:'hard', value:'hard'},
+  {name:'full', value:'full'},
+]
 
   regionModalState:boolean = false
   mapService:MapService = inject(MapService)
