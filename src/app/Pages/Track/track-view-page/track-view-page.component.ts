@@ -12,6 +12,7 @@ import { ButtonsModule } from 'src/app/Shared/Modules/buttons/buttons.module';
 import { LoadingService } from 'src/app/Shared/Services/loading.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ImagesModalComponent } from "../../../Shared/Components/UI/images-modal/images-modal.component";
+import { AddressInputComponent } from "../../../Shared/Components/Forms/address-input/address-input.component";
 @Component({
   selector: 'app-track-view-page',
   templateUrl: './track-view-page.component.html',
@@ -22,7 +23,8 @@ import { ImagesModalComponent } from "../../../Shared/Components/UI/images-modal
     CheckImgUrlPipe,
     SlidersModule,
     AngularYandexMapsModule,
-    ImagesModalComponent
+    ImagesModalComponent,
+    AddressInputComponent
 ]
 })
 
@@ -42,6 +44,13 @@ export class TrackViewPageComponent  implements OnInit {
   }
   closeImagesModal(){
     this.statusImagesModal = false
+  }
+
+  changeAddress(event:any){
+    if(event.latitude && event.longitude){
+      
+    }
+   
   }
 
    getTrack(){

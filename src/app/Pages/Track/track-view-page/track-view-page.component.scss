@@ -20,6 +20,25 @@
     }
 }
 
+.track-gopro{
+    display: flex;
+    min-width: 20rem;
+    
+    max-width: 95%;
+    
+    border:1px solid rgb(150, 54, 54);
+    background-color: rgb(99, 99, 99);
+    border-radius: 5px;
+    justify-content: center;
+
+
+    img{
+        width: 100%;
+        height: 100%;
+
+    }
+}
+
 .track__header{
     display: flex;
     justify-content: center;
@@ -63,6 +82,19 @@
     padding-top: var(--standart-padding);
 }
 
+.video{
+    padding-top: var(--standart-padding);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: var(--standart-padding);
+    height: 100%;
+    width: 100%;
+    
+}
+
+
+
 .specifications__item{
     padding-top: var(--little-padding);
     display: flex;
@@ -104,23 +136,34 @@
 }
 
 .description{
-    padding-top: var(--little-padding);
+    display: flex;
+    flex-direction: column;
+
     font-family: var(--font-regular);
     font-size: var( --font-regular-size);
     color: var(--text-color);
+    width: 100%;
     .description__text{
-        padding-top: var(--little-padding);
+        padding: var(--standart-padding);
     }
+} 
+ya-map{
+    // border-radius: 5px;
 }
 .map{
 
     .map__container{
+       
+        overflow: hidden; /* Обрезаем всё, что выходит за границы */
         height: 12rem;
-        padding-top: var(--standart-padding);
+        margin: var(--standart-padding);
+        border-radius: 0.5rem;
+       
     }
     .map__open-button{
-        padding-top: var(--little-padding);
+       
     }
+
 }
 
 .map__address{
@@ -146,74 +189,137 @@
 
 .name{
     margin-right: 0rem;
+    font-size: 0.8rem;
 }
 
 .information{
     right: 0rem;
     opacity: 0.4;
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1.3rem;
+    height: 1.3rem;
     img{
-        min-width: 1.5rem;
-        min-height: 1.5rem; 
+        min-width: 1rem;
+        min-height: 1rem; 
     }
 }
 
 .icon-lenght{
-    
+    margin-right: 1.5rem;
     display: flex;
     justify-content: center;
-    margin-right: 1rem;
+    
     .arrow-icon{
-        height: 100%;
-        width: 100%;
+        width: 1.5rem;
+        height: 1.5rem; 
     }
     
 }
 
-.icon-lenght2{
-    margin-top: 5px;
-    display: flex;
-    justify-content: center;
-    margin-right: 1rem;
-    .arrow-icon{
-        height: 100%;
-        width: 100%;
-    }
-    
-}
+
 
 .icon{
     
-    margin-right: 1rem;
+    margin-right: 1.5rem;
     display: flex;
     justify-content: center;
     img{
-        width: 2rem;
-        height: 2rem; 
+        min-width: 1.5rem;
+        min-height: 1.5rem; 
     }
     
+}
+
+.arrow-icon{
+    margin: auto;
+    width: 1.5rem;
+    height: 1.5rem;
 }
 
 .name-track-parametrs{
     font-size: 1.3rem;
-    padding: var(--standart-padding);
+    padding: var(--little-padding);
     border-bottom: 1.5px solid rgba(0, 0, 0, 0.402);
+    margin-top:1rem;
+    width: 100%;
+}
+
+.tape-sponsors{
+    display: flex ;
+    justify-content: flex-start;
+    align-items: center;
+    
+    font-size: 1.3rem;
+    padding: var(--little-padding);
+    border-bottom: 1.5px solid rgba(0, 0, 0, 0.402);
+    padding-top: var(--little-padding);
+    padding-bottom: var(--little-padding);
+    min-height: 5rem;
+    width: 100%;
+    margin-bottom: 1rem;
+
+    overflow-x: auto; /* Добавляем горизонтальный скролл */
+    white-space: nowrap; /* Запрещаем перенос элементов */
+    scrollbar-width: thin; /* Для Firefox */
+    scrollbar-color: darkgray lightgray; /* Цвета скроллбара */
+}
+
+.tape-sponsors__item{
+    width: 4rem;
+    height: 4rem;
+    background-color: beige;
+    margin-right:1rem;
+
+    flex-shrink: 0; /* Запрещаем уменьшение элементов */
+    min-width: 4rem; /* Фиксируем минимальную ширину */
+    
+}
+
+.tape-gallery{
+    display: flex ;
+    justify-content: flex-start;
+    align-items: center;
+    
+    font-size: 1.3rem;
+    padding: var(--little-padding);
+    border-bottom: 1.5px solid rgba(0, 0, 0, 0.402);
+    padding-top: var(--little-padding);
+    padding-bottom: var(--little-padding);
+    min-height: 5rem;
+    width: 100%;
+    margin-bottom: 1rem;
+
+    overflow-x: auto; /* Добавляем горизонтальный скролл */
+    white-space: nowrap; /* Запрещаем перенос элементов */
+    scrollbar-width: thin; /* Для Firefox */
+    scrollbar-color: darkgray lightgray; /* Цвета скроллбара */
+}
+
+.tape-gallery__item{
+    width: 8rem;
+    height: 6rem;
+    background-color: rgb(169, 169, 163);
+    margin-right:1rem;
+
+    flex-shrink: 0; /* Запрещаем уменьшение элементов */
+    min-width: 4rem; /* Фиксируем минимальную ширину */
+
+    border-radius: 5px;
+    
 }
 
  .speed{
      opacity: 0.5;
      width: 2rem;
      height: 2rem;
-     margin-right: 2rem;
+     margin-right: 1.5rem;
  }
 
  
  .icon-lenght{
     opacity: 0.5;
-    width: 2rem;
-    height: 2rem;
-    
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 1.5rem;
  }
 
  .left-flang{
@@ -221,10 +327,75 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
  }
  .right-flang{
     gap: 0.5rem;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
+ }
+
+ footer{
+    position: absolute;
+    width: 100%;
+    left: 0px;
+    background-color: #4C5861;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+ }
+
+ .requisites-and-link-container{
+    display: flex;
+    flex-direction: row;
+    padding: var(--standart-padding);
+    gap: 16px;
+
+    .requisites{
+        display: flex;
+        flex-direction: column ;
+        gap: 8px;
+        width: 65%;
+    .req-name{
+        font-size: 16px;
+        font-weight: bold;
+        color: white;
+    }
+    .req-text{
+        font-size: 12px;
+        color: white;
+        opacity: 0.4;
+    }
+    .req-button{
+        
+    }
+}
+}
+
+ .links-list{
+    width: 40%;
+    .link-name{
+        font-size: 14px;
+        font-weight: bold;
+        color: white;
+    }
+    .links{
+        padding-top: var(--little-padding);
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        gap: 15px;
+
+        .link{
+            width: 2rem;
+            height: 2rem;
+            
+            img{
+                width: 100%;
+                height: 100%;
+            }
+            
+        }
+    }
  }

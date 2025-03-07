@@ -196,6 +196,116 @@
 
       </div>
 
+      <div class="video-container">
+        <div class="name-track-parametrs">
+          <span>Видео круга</span>
+        </div>
+
+        <div class="video">
+          <img src="/assets/images/gopro-moto.webp" alt="" class="track-gopro">
+        </div>
+      </div>
+
+      <div *ngIf="track.desc" class="description">
+        <span class="name-track-parametrs">Описание трека</span> 
+        <div [innerHTML]="clearDescription()" class="description__text">{{track.desc}}</div>
+      </div>
+
+      <!-- <div class="sponsors-container">
+        <div class="name-track-parametrs">
+          <span>Спонсоры</span>
+        </div>
+
+        <div class="tape-sponsors">
+          <div class="tape-sponsors__item">
+
+          </div>
+          <div class="tape-sponsors__item">
+
+          </div>
+          <div class="tape-sponsors__item">
+
+          </div>
+          <div class="tape-sponsors__item">
+
+          </div>
+          <div class="tape-sponsors__item">
+
+          </div>
+        </div>
+      </div> -->
+
+      <!-- <div class="gallery-container">
+        <div class="name-track-parametrs">
+          <span>Фото архив</span>
+        </div>
+        <div class="tape-gallery">
+          <div class="tape-gallery__item"></div>
+          <div class="tape-gallery__item"></div>
+          <div class="tape-gallery__item"></div>
+          <div class="tape-gallery__item"></div>
+          <div class="tape-gallery__item"></div>
+          <div class="tape-gallery__item"></div>
+          <div class="tape-gallery__item"></div>
+        </div>
+      </div> -->
+
+      <footer>
+        
+        <div class="map">
+          
+         <div class="map__container">
+           <ya-map
+           [center]="[track.latitude,track.longitude,]"
+           [zoom]="12"   
+           [state]="{controls: []}"
+           [options]="{
+             yandexMapDisablePoiInteractivity: true,
+             suppressMapOpenBlock: true,
+             suppressObsoleteBrowserNotifier: true,
+             autoFitToViewport: 'always',
+           }">
+           <ya-placemark [geometry]="[track.latitude,track.longitude,]"></ya-placemark>
+           </ya-map>
+         </div>
+         <!-- <div class="map__address">
+           {{track.address}}
+         </div> -->
+         
+       </div>
+
+       <div class="requisites-and-link-container">
+        <div class="requisites">
+          <span class="req-name">Реквизиты</span>
+          <p class="req-text">Обучение мотокроссу детей и начинающих. Трассы с трамплинами и гонки по бездорожью для профессионалов</p>
+          <div class="req-button">
+          <app-standart-button [buttonText]="'Доступ к треку'" [theme]="'orange'">
+          </app-standart-button>
+        </div>
+        </div>
+        <div class="links-list">
+          <span class="link-name">
+            Ссылки на медиа
+          </span>
+          <div class="links">
+            <div class="link">
+              <img src="/assets/icons/VK2.svg" alt="">
+            </div>
+            <div class="link">
+              <img src="/assets/icons/telegram.svg" alt="">
+            </div>
+            <div class="link">
+              <img src="/assets/icons/watsapp.svg" alt="">
+            </div>
+            <div class="link">
+              <img src="/assets/icons/sait.svg" alt="">
+            </div>
+          </div>
+        </div>
+       </div>
+
+      </footer>
+
     </div>
 
   </ng-container>
