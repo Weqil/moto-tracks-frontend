@@ -10,9 +10,29 @@
             <app-step-container-item [maxStepsCount]="maxStepsCount" [stepCurrency]="stepCurrency" stepNum="1">
                 <form [formGroup]="createTrackForm" action="">
                     <app-standart-input label="Название" [control]="createTrackForm.get('name')" placeholder="Введите название вашего трека"></app-standart-input>
-                    <div class="decription">
-                        <app-standart-rich-input [control]="createTrackForm.get('desc')" label="Описание" placeholder="Введите описание вашего трека"></app-standart-rich-input>
-                    </div>
+                    <div style="padding-top: var(--standart-padding); padding-bottom: var(--standart-padding);">
+                        <span class="label">Логотип трека</span>
+                        <div class="logo-track">
+                      
+                            <button (click)="logoFile.click()" class="upload-logo">
+                                <img src="/assets/icons/addPhoto.svg" alt="">
+                            </button>
+                            <div class="logo-track__text">
+                                <ng-container *ngIf="!logoUrl">
+                               
+                                    <span class="logo-track__file-name">Фото не загружено</span>
+                                </ng-container>
+                                <ng-container *ngIf="logoUrl">
+                                    <img [src]="logoUrl" alt="" class="logo-track__logo">
+                                    <div class="delete-button-wrapper">
+                                     <app-circle-button (click)="clearLogo()" icon="/assets/icons/trash.svg"></app-circle-button>
+                                    </div>
+                                </ng-container>
+                               
+                                <input (change)="setLogo($event,logoFile)" #logoFile style="display: none;" accept="image/png, image/jpeg" type="file" type="file">
+                            </div>
+                        </div>
+                       </div>
                     <!-- <div class="specifications">
                         @for (param of newParams; track param.temp_id) {
                             <div>
@@ -38,103 +58,14 @@
                         <ng-template>
                           <ion-content>
                             <div class="region-modal-container">
-                              <app-standart-input-search label="Область/край" [searchCurrentItems]="searchRegionItems" [searchItems]="searchRegionItems" (changeSearchValue)="setRegion($event)"></app-standart-input-search>
+                              <app-standart-input-search style="width: 100%;" label="Область/край" [searchCurrentItems]="searchRegionItems" [searchItems]="searchRegionItems" (changeSearchValue)="setRegion($event)"></app-standart-input-search>
                             </div>
                           </ion-content>
                         </ng-template>  
                     </ion-modal>   
                     <app-address-input (addressEditEmit)="changeAddress($event)"></app-address-input>
-                    <div class="photo-slider">
-                        <app-edit-slider (filesEmit)="getImages($event)" type="create"></app-edit-slider>
-                    </div>
 
-                   <div>
-                    <span class="label">Логотип трека</span>
-                    <div class="logo-track">
-                  
-                        <button (click)="logoFile.click()" class="upload-logo">
-                            <img src="/assets/icons/addPhoto.svg" alt="">
-                        </button>
-                        <div class="logo-track__text">
-                            <ng-container *ngIf="!logoUrl">
-                           
-                                <span class="logo-track__file-name">Фото не загружено</span>
-                            </ng-container>
-                            <ng-container *ngIf="logoUrl">
-                                <img [src]="logoUrl" alt="" class="logo-track__logo">
-                                <div class="delete-button-wrapper">
-                                 <app-circle-button (click)="clearLogo()" icon="/assets/icons/trash.svg"></app-circle-button>
-                                </div>
-                            </ng-container>
-                           
-                            <input (change)="setLogo($event,logoFile)" #logoFile style="display: none;" accept="image/png, image/jpeg" type="file" type="file">
-                        </div>
-                    </div>
-                   </div>
-
-                    <div class="track-settings">
-                        <ion-toggle formControlName="light" (ionChange)="changeLight($event)" name="light" id="light" mode="ios" class="custom-toggle">Освещение</ion-toggle>
-                        <ion-toggle formControlName="allSeazonal" name="light" id="light" mode="ios" class="custom-toggle">Всесезонность</ion-toggle>
-                        <ion-toggle formControlName="parking" name="light" id="light" mode="ios" class="custom-toggle">Парковка</ion-toggle>
-                        <ion-toggle formControlName="opened" name="light" id="light" mode="ios" class="custom-toggle">Открытый</ion-toggle>
-                    </div>
-                    <form [formGroup]="specForm" class="track-settings__spec">
-                        <div class="track-settings__spec__item">
-                            <img style="opacity: 60%;" src="/assets/icons/length.png" alt="" class="track-settings__spec__item__icon">
-                            <div class="track-settings__spec__item__label__wrapper">
-                                <label class="track-settings__spec__item__label" for="length">Протяжённость круга</label>
-                            </div>
-                            
-                            <input formControlName="lengthTrack" class="track-settings__spec__item__input" id="length" type="number">
-                            м
-                            <div class="info">
-                                <app-info-popover text="Замерьте полную длину летнего круга трассы. Можете воспользоваться линейкой яндекс карт."></app-info-popover>
-                            </div>
-                        </div>
-
-
-                        <div class="track-settings__spec__item">
-                            <img src="/assets/icons/coverage.svg" alt="" class="track-settings__spec__item__icon">
-                            <app-standart-input-select (onChange)="setCoverage($event)" selectedName="groupSelect" [items]="coverageItems"  label="Покрытие трека"></app-standart-input-select>
-                            <div class="info">
-                                <app-info-popover text="какое покрытие большую часть времени, летом, имеет трасса"></app-info-popover>
-                            </div>
-                        </div>
-
-                        <div class="track-settings__spec__item">
-                            <img src="/assets/icons/heigth.svg" alt="" class="track-settings__spec__item__icon">
-                            <label class="track-settings__spec__item__label" for="heigth">Перепад высот</label>
-                            <input formControlName="heightDifference" class="track-settings__spec__item__input" id="heigth" type="number">
-                            <div class="info">
-                                <app-info-popover text="от самой низкой точки до самой высокой точке на трассе"></app-info-popover>
-                            </div>
-                        </div>
-
-                        <div class="track-settings__spec__item">
-                            <img src="/assets/icons/left-arr.svg" alt="" class="track-settings__spec__item__icon">
-                            <label class="track-settings__spec__item__label" for="left-arr">Левых поворотов</label>
-                            <input formControlName="leftTurns" class="track-settings__spec__item__input" id="left-arr" type="number">
-                        </div>
-
-                        <div class="track-settings__spec__item">
-                            <img src="/assets/icons/right-arr.svg" alt="" class="track-settings__spec__item__icon">
-                            <label class="track-settings__spec__item__label" for="right-arr">Правых поворотов</label>
-                            <input formControlName="rightTurns" class="track-settings__spec__item__input" id="right-arr" type="number">
-                        </div>
-
-                        <div class="track-settings__spec__item">
-                            <img src="/assets/icons/elements-list.svg" alt="" class="track-settings__spec__item__icon">
-                            <label class="track-settings__spec__item__label" for="elements-list">Количество элементов</label>
-                            <input formControlName="elementsCount" class="track-settings__spec__item__input" id="elements-list" type="number">
-                        </div>
-
-                        <div class="track-settings__spec__item">
-                            <img style="opacity: 60%;" src="/assets/icons/speed.svg" alt="" class="track-settings__spec__item__icon">
-                            <label class="track-settings__spec__item__label" for="speed">Длина самого скоростного участка</label>
-                            <input formControlName="highSpeedSection" class="track-settings__spec__item__input" id="speed" type="number">
-                        </div>
-                    </form>
-                    <span class="label">Cхема трека</span>
+                    <span style="padding-top: var(--standart-padding);" class="label">Cхема трека</span>
                     <div class="logo-track">
                         <button (click)="schemeFile.click()" class="upload-logo">
                             <img src="/assets/icons/addPhoto.svg" alt="">
@@ -149,13 +80,146 @@
                             </ng-container>
                             
                         </div>
+                        <app-info-popover style="position: absolute; right: 0;" text="Скриншот области трассы со спутника"></app-info-popover>
                     </div>
+
+                    <!-- <div class="photo-slider">
+                        <app-edit-slider (filesEmit)="getImages($event)" type="create"></app-edit-slider>
+                    </div> -->
+                 
+
+                    <div class="track-settings">
+                        <ion-toggle formControlName="light" (ionChange)="changeLight($event)" name="light" id="light" mode="ios" class="custom-toggle">Освещение</ion-toggle>
+                        <ion-toggle formControlName="allSeazonal" name="light" id="light" mode="ios" class="custom-toggle">Всесезонность</ion-toggle>
+                    </div>
+
+                    <form [formGroup]="specForm" class="track-settings__spec">
+                        <div class="track-settings__spec__item">
+                            <div class="track-settings__spec__item__text">
+                                <img style="opacity: 60%;" src="/assets/icons/length.png" alt="" class="track-settings__spec__item__icon">
+                                <div class="track-settings__spec__item__label__wrapper">
+                                    <label class="track-settings__spec__item__label" for="length">Протяжённость круга</label>
+                                </div>
+                               
+                            </div>
+
+                            <div class="input-wrapper">
+                                <input formControlName="lengthTrack" class="track-settings__spec__item__input" id="length" type="number">
+                                м
+
+                                <app-info-popover style="position: absolute; right: 0;" text="Замерьте полную длину летнего круга трассы. Можете воспользоваться линейкой яндекс карт."></app-info-popover>
+                            </div>
+ 
+                        </div>
+
+                        <div class="track-settings__spec__item">
+                            <div class="track-settings__spec__item__text">
+                                <img style="opacity: 60%;" src="/assets/icons/coverage.svg" alt="" class="track-settings__spec__item__icon">
+                                <div class="track-settings__spec__item__label__wrapper">
+                                    <label class="track-settings__spec__item__label" for="length">Покрытие трека</label>
+                                </div>
+                               
+                            </div>
+
+                            <div class="input-wrapper">
+                                <app-standart-input-select [selectedItem]="coverageSelectedItem" (onChange)="setCoverage($event)" selectedName="groupSelect" [items]="coverageItems" style="width: 6rem;" label=""></app-standart-input-select>
+                                <app-info-popover style="position: absolute; right: 0;" text="Какое покрытие большую часть времени, летом, имеет трасса"></app-info-popover>
+                            </div>
+ 
+                        </div>
+
+                        <div class="track-settings__spec__item">
+                            <div class="track-settings__spec__item__text">
+                                <img style="opacity: 60%;" src="/assets/icons/heigth.svg" alt="" class="track-settings__spec__item__icon">
+                                <div class="track-settings__spec__item__label__wrapper">
+                                    <label class="track-settings__spec__item__label" for="length">Перепад высот</label>
+                                </div> 
+                            </div>
+
+                            <div class="input-wrapper">
+                                <input formControlName="heightDifference" class="track-settings__spec__item__input" id="length" type="number">
+                                <app-info-popover style="position: absolute; right: 0;" text="от самой низкой точки до самой высокой точке на трассе"></app-info-popover>
+                            </div>
+                        </div>
+
+                        <div class="track-settings__spec__item">
+                            <div class="track-settings__spec__item__text">
+                                <img style="opacity: 60%;" src="/assets/icons/left-arr.svg" alt="" class="track-settings__spec__item__icon">
+                                <div class="track-settings__spec__item__label__wrapper">
+                                    <label class="track-settings__spec__item__label" for="length">Левых поворотов</label>
+                                </div> 
+                            </div>
+                            
+                            <div class="input-wrapper">
+                                <input formControlName="leftTurns" class="track-settings__spec__item__input" id="length" type="number">
+                            </div>
+                        </div>
+
+                        <div class="track-settings__spec__item">
+                            <div class="track-settings__spec__item__text">
+                                <img style="opacity: 60%;" src="/assets/icons/right-arr.svg" alt="" class="track-settings__spec__item__icon">
+                                <div class="track-settings__spec__item__label__wrapper">
+                                    <label class="track-settings__spec__item__label" for="length">Правых поворотов</label>
+                                </div> 
+                            </div>
+
+                            <div class="input-wrapper">
+                                <input formControlName="rightTurns" class="track-settings__spec__item__input" id="length" type="number">
+                            </div>
+                        </div>
+
+                        <div class="track-settings__spec__item">
+                            <div class="track-settings__spec__item__text">
+                                <img style="opacity: 60%;" src="/assets/icons/elements-list.svg" alt="" class="track-settings__spec__item__icon">
+                                <div class="track-settings__spec__item__label__wrapper">
+                                    <label class="track-settings__spec__item__label" for="length">Количество элементов</label>
+                                </div> 
+                            </div>
+
+                            <div class="input-wrapper">
+                                <input formControlName="elementsCount" class="track-settings__spec__item__input" id="length" type="number">
+                            </div>
+                        </div>
+
+                        <div class="track-settings__spec__item">
+                            <div class="track-settings__spec__item__text">
+                                <img style="opacity: 60%;" src="/assets/icons/speed.svg" alt="" class="track-settings__spec__item__icon">
+                                <div class="track-settings__spec__item__label__wrapper">
+                                    <label class="track-settings__spec__item__label" for="length">Длина самого скоростного участка</label>
+                                </div> 
+                            </div>
+
+                            <div class="input-wrapper">
+                                <input formControlName="highSpeedSection" class="track-settings__spec__item__input" id="length" type="number">
+                            </div>
+                        </div>
+
+                    </form>
+                  
+                    <div class="payment-track">
+                        <ion-checkbox  class="label" formControlName="apayment">Трек платный</ion-checkbox>
+                        <ng-container *ngIf="createTrackForm.value.apayment">
+                            <span class="apayment-text">Для того что бы подключить платные услуги к своему треку напишите нам на почту admin&#64;vokrug.city</span>
+                            <div class="apayment-buttons">
+                                    <app-standart-button (click)="penMail()" buttonText="Почта"></app-standart-button>
+                            </div>
+                           
+                        </ng-container>
+                        
+                    </div>
+
+                    <div class="decription">
+                        <app-standart-rich-input [control]="createTrackForm.get('desc')" label="Описание" placeholder="Введите описание вашего трека"></app-standart-rich-input>
+                    </div>
+                  
                     
                 </form>
 
                 <div class="contacts-form">
                     <app-standart-input label="Сайт" [control]="contactsForm.get('site')" placeholder="Введите ссылку на сайт вашего трека"></app-standart-input>
-                    <app-standart-input label="Видео трека" [control]="contactsForm.get('trackVideo')" placeholder="Введите ссылку на видео вашего трека"></app-standart-input>
+                    <div style="position: relative;">
+                        <app-standart-input label="Видео трека" [control]="contactsForm.get('trackVideo')" placeholder="Введите ссылку на видео вашего трека"></app-standart-input> <app-info-popover style="position: absolute; right: 0.5rem; top: 1.6rem;" text="Видео с экшн камеры быстрого гонщика"></app-info-popover>
+                    </div>
                     <app-standart-input label="ВК" [control]="contactsForm.get('vk')" placeholder="Введите ссылку на группу вашего трека"></app-standart-input>
                     <app-standart-input label="Telegram" [control]="contactsForm.get('tg')" placeholder="Введите ссылку на канал вашего трека"></app-standart-input>
                     <app-standart-input label="WhatsApp" [control]="contactsForm.get('whatsApp')" placeholder="Введите ссылку на группу вашего трека"></app-standart-input>
