@@ -24,7 +24,7 @@
     padding-bottom: var(--standart-padding);
 }
 .decription{
-    padding-bottom: var(--standart-padding);
+
 }
 ion-modal{
   --max-height:50%;
@@ -44,10 +44,27 @@ ion-modal{
 }
 .logo-track{
   padding-top: var(--standart-padding);
-  display: inline-flex;
+  display: flex;
   align-items: center;
   position: relative;
   gap: 1rem;
+}
+.payment-track{
+  padding-top: var(--standart-padding);
+  font-family: var(--font-regular);
+  font-size: 14px;
+}
+.apayment-buttons{
+  display: flex;
+  gap: var(--little-padding);
+  padding-top: var(--standart-padding);
+  flex-direction: column;
+}
+.apayment-text{
+  font-family: var(--font-regular);
+  font-size: 12px;
+  padding-top: var(--standart-padding);
+  display: flex;
 }
 .logo-track__logo{
   height: 6rem;
@@ -114,10 +131,25 @@ ion-modal{
 .track-settings__spec__item{
   display: flex;
   align-items: center;
+  justify-content: space-between;
   position: relative;
   gap: 1rem;
+  padding-bottom: var(--standart-padding);
   font-family: var(--font-regular);
   font-size: 14px;
+  border-bottom: 1px solid rgb(80, 80, 80);
+}
+.track-settings__spec__item__text{
+  display: flex;
+  width: 16rem;
+  align-items: center;
+  gap: var(--standart-padding);
+}
+.input-wrapper{
+  display: flex;
+  width: 9rem;
+  gap: var(--standart-padding);
+  align-items: center;
 }
 .logo-track__header{
   font-family: var(--font-bold);
