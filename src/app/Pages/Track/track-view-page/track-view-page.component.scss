@@ -20,6 +20,29 @@
     }
 }
 
+
+.track__header__params{
+    display: flex;
+    flex-direction: column  ;
+    gap: 0.5rem;
+    position: absolute;
+    right: 1rem;
+    top: 2rem;
+}
+
+.track__header{
+    padding-top: var(--standart-padding);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+
+}
+
+.map__address{
+    color:var(--white-color);
+    padding: var(--standart-padding);
+}
 .track-gopro{
     display: flex;
     min-width: 20rem;
@@ -39,13 +62,7 @@
     }
 }
 
-.track__header{
-    display: flex;
-    justify-content: center;
-    
-    gap: 10px;
 
-}
 
 .track__status__circle{
     width: 20px;
@@ -78,9 +95,7 @@
 .track__info{
     
 }
-.track__header{
-    padding-top: var(--standart-padding);
-}
+
 
 .video{
     padding-top: var(--standart-padding);

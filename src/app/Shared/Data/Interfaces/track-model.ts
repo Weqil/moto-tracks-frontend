@@ -22,5 +22,9 @@ export interface Track {
     images?:any;
     additionalServices?:any;
     date_start?:string;
+    schema_img?:string;
+    light?:boolean;
+    seasons?:boolean;
+    
 
 }

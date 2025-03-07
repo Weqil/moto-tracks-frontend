@@ -95,7 +95,11 @@
 
     <div class="main-container--with-header">
       <div class="track__header">
-        <img src="{{track.images ? (track.images[0] | checkImgUrl) : '' | checkImgUrl}}" alt="" class="track-header__avatar">
+        <img src="{{track.schema_img| checkImgUrl}}" alt="" class="track-header__avatar">
+        <div class="track__header__params">
+          <app-circle-button *ngIf="this.track.light" icon='/assets/icons/lamp.svg'></app-circle-button>
+          <app-circle-button *ngIf="this.track.seasons" icon='/assets/icons/snow.svg'></app-circle-button>
+        </div>
       </div>
 
       <div class="list-track-parametrs">
@@ -114,7 +118,7 @@
             <div class="name"><span>Длина трассы</span></div>
           </div>
           <div class="right-flang">
-            <div class="result">1800</div>
+            <div class="result">{{getSpecValue("lengthTrack")}}</div>
             <div class="information"><img src="/assets/icons/question.svg" alt="" class=""></div>
           </div>
           </div>
@@ -126,7 +130,7 @@
             <div class="name"><span>Тип покрытия</span></div>
           </div>
           <div class="right-flang">
-            <div class="result">hard</div>
+            <div class="result">{{getSpecValue("coverage")}}</div>
             <div class="information"><img src="/assets/icons/question.svg" alt="" class=""></div>
           </div>
           </div>
@@ -138,7 +142,7 @@
             <div class="name"><span>Перепад высот</span></div>
           </div>
           <div class="right-flang">
-            <div class="result">32 m</div>
+            <div class="result">{{getSpecValue("heightDifference")}}</div>
             <div class="information"><img src="/assets/icons/question.svg" alt="" class=""></div>
           </div>
           </div>
@@ -150,7 +154,7 @@
             <div class="name"><span>Левых поворотов</span></div>
           </div>
           <div class="right-flang">
-            <div class="result">5</div>
+            <div class="result">{{getSpecValue("leftTurns")}}</div>
             <div class="information"><img src="/assets/icons/question.svg" alt="" class=""></div>
           </div>
           </div>
@@ -162,7 +166,7 @@
             <div class="name"><span>Правых поворотов</span></div>
           </div>
           <div class="right-flang">
-            <div class="result">6</div>
+            <div class="result">{{getSpecValue("rightTurns")}}</div>
             <div class="information"><img src="/assets/icons/question.svg" alt="" class=""></div>
           </div>
           </div>
@@ -174,7 +178,7 @@
             <div class="name"><span>Количество элементов</span></div>
           </div>
           <div class="right-flang">
-            <div class="result">12</div>
+            <div class="result">{{getSpecValue("heightDifference")}}</div>
             <div class="information"><img src="/assets/icons/question.svg" alt="" class=""></div>
           </div>
           </div>
@@ -186,7 +190,7 @@
             <div class="name"><span>Длина самого <br> скоростного участка</span></div>
           </div>
           <div class="right-flang">
-            <div class="result">180</div>
+            <div class="result">{{getSpecValue("highSpeedSection")}}</div>
             <div class="information"><img src="/assets/icons/question.svg" alt="" class=""></div>
           </div>
           </div>
@@ -196,7 +200,7 @@
 
       </div>
 
-      <div class="video-container">
+      <!-- <div class="video-container">
         <div class="name-track-parametrs">
           <span>Видео круга</span>
         </div>
@@ -204,7 +208,7 @@
         <div class="video">
           <img src="/assets/images/gopro-moto.webp" alt="" class="track-gopro">
         </div>
-      </div>
+      </div> -->
 
       <div *ngIf="track.desc" class="description">
         <span class="name-track-parametrs">Описание трека</span> 
@@ -253,7 +257,9 @@
       <footer>
         
         <div class="map">
-          
+          <div class="map__address">
+           {{track.address}}
+         </div>
          <div class="map__container">
            <ya-map
            [center]="[track.latitude,track.longitude,]"
@@ -268,9 +274,7 @@
            <ya-placemark [geometry]="[track.latitude,track.longitude,]"></ya-placemark>
            </ya-map>
          </div>
-         <!-- <div class="map__address">
-           {{track.address}}
-         </div> -->
+         
          
        </div>
 

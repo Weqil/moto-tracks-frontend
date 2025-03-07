@@ -53,6 +53,10 @@ export class TrackViewPageComponent  implements OnInit {
    
   }
 
+  getSpecValue(key: string){
+    return this.track.spec?.find(spec => spec.title == key)?.value
+  }
+
    getTrack(){
     this.loadingService.showLoading()
     this.trackService.getTrackById(this.trackId).pipe(
@@ -61,6 +65,7 @@ export class TrackViewPageComponent  implements OnInit {
       })
     ).subscribe((res:any) => {
       this.track = res.track
+      console.log(this.track)
     })
    }
    goToPoint(){
@@ -74,6 +79,7 @@ export class TrackViewPageComponent  implements OnInit {
     this.route.params.pipe(takeUntil(this.destroy$)).subscribe((params) => {
       this.trackId = params['id']
       this.getTrack()
+      
 
     })
   }
