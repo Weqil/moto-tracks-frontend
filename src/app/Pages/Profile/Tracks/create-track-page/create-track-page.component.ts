@@ -33,6 +33,9 @@ export class CreateTrackPageComponent  implements OnInit {
 
   maxStepsCount: number = 1
   stepCurrency: number = 1
+  logoUrl: string = ''
+  schemeUrl: string = ''
+  
 
 coverageItems:any[] = [
   {name:'soft', value:'soft'},
@@ -57,7 +60,20 @@ coverageItems:any[] = [
   contactsForm: FormGroup = new FormGroup({
     site: new FormControl('', [Validators.required, Validators.minLength(3)]),
     vk: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    trackVideo: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    tg: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    whatsApp: new FormControl('', [Validators.required, Validators.minLength(3)]),
     phone: new FormControl('', [Validators.required, Validators.minLength(3)]),
+  })
+
+  specForm: FormGroup = new FormGroup({
+    lengthTrack: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    heightDifference: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    coverage: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    leftTurns: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    rightTurns: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    elementsCount: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    highSpeedSection: new FormControl('', [Validators.required, Validators.minLength(3)]),
   })
 
   createTrackForm: FormGroup = new FormGroup({
@@ -66,6 +82,12 @@ coverageItems:any[] = [
     latitude: new FormControl('', [Validators.required, Validators.minLength(3)]),
     longitude: new FormControl('', [Validators.required, Validators.minLength(3)]),
     free: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    logo: new FormControl('', [Validators.required,]),
+    light: new FormControl(false, [Validators.required,]),
+    allSeazonal: new FormControl(false, [Validators.required,]),
+    parking: new FormControl(false, [Validators.required,]),
+    opened: new FormControl(false, [Validators.required,]),
+    scheme: new FormControl('', [Validators.required,]),
     turns: new FormControl('', [Validators.required, Validators.minLength(3)]),
     region: new FormControl('', [Validators.required, Validators.minLength(3)]),
     locationId: new FormControl('', [Validators.required, Validators.minLength(1)]),
@@ -122,6 +144,11 @@ coverageItems:any[] = [
     }
   }
 
+  clearLogo(){
+    this.logoUrl = ''
+    this.createTrackForm.patchValue({logo: ''})
+  }
+
   getRegions(){
     this.mapService.getAllRegions().pipe().subscribe((res:any)=>{
       res.data.forEach((region:any) => {
@@ -155,11 +182,37 @@ coverageItems:any[] = [
    
   }
   stepPrevious() {
-   
     if (this.stepCurrency > 1) {
       this.stepCurrency--
     }else{
       this.navController.back()
+    }
+  }
+  setLogo(event:any, input:HTMLInputElement){
+    const file = event.target.files[0]
+    if(file){
+      this.createTrackForm.patchValue({ logo: file })
+      const reader: FileReader = new FileReader()
+      reader.onload = (e: any) => {
+        this.logoUrl = e.target.result
+      }
+      reader.readAsDataURL(file)
+      input.value =''
+    }
+  }
+  changeLight(event:any){
+    console.log(this.createTrackForm.value)
+  }
+  setScheme(event:any,input:HTMLInputElement){
+    const file = event.target.files[0]
+    if(file){
+      this.createTrackForm.patchValue({ scheme: file })
+      const reader: FileReader = new FileReader()
+      reader.onload = (e: any) => {
+        this.schemeUrl = e.target.result
+      }
+      reader.readAsDataURL(file)
+      input.value =''
     }
   }
   stepNext() {
@@ -168,7 +221,11 @@ coverageItems:any[] = [
     }
   }
   submitForm(){
-    if(!this.stepInvalidate()){
+    console.log(this.createTrackForm.value)
+    console.log(this.specForm.value)
+    console.log(this.contactsForm.value)
+    
+    if(false){
       this.loadingService.showLoading()
       let createTrackFormData: FormData = new FormData()
      
@@ -188,9 +245,7 @@ coverageItems:any[] = [
         this.toastService.showToast('Трек успешно создан','success')
         this.navController.back()
       })
-    
     } 
-   
   }
 
   closeRegionModal(){
@@ -203,14 +258,16 @@ coverageItems:any[] = [
   cancelCreate(){
     this.navController.back()
   }
-
+  setCoverage(event:any){
+    this.specForm.patchValue({coverage: event.value})
+  }
   ionViewDidLeave() {
     this.stepCurrency = 1
     this.createTrackForm.reset()
   }
+
   ngOnInit() {
     this.getRegions()
-
     window.addEventListener('popstate', (event) => {
       this.closeRegionModal()
   })

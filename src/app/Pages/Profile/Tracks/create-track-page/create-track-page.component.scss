@@ -11,11 +11,17 @@
     font-size: .75rem;
     font-family: var(--font-regular);
 }
+.delete-button-wrapper{
+  position: absolute;
+  right: 0;
+  padding-top: 0.2rem;
+}
 .step-description{
     padding-bottom: var(--standart-padding);
 }
 .photo-slider{
     padding-top: var(--standart-padding);
+    padding-bottom: var(--standart-padding);
 }
 .decription{
     padding-bottom: var(--standart-padding);
@@ -38,10 +44,14 @@ ion-modal{
 }
 .logo-track{
   padding-top: var(--standart-padding);
-  display: flex;
+  display: inline-flex;
   align-items: center;
   position: relative;
   gap: 1rem;
+}
+.logo-track__logo{
+  height: 6rem;
+  object-fit: contain;
 }
 .track-settings{
   padding-top: var(--standart-padding);
@@ -55,6 +65,12 @@ ion-modal{
 }
 .track-settings__spec{
   padding-top: var(--standart-padding);
+  padding-bottom: var(--standart-padding);
+}
+.logo-track__scheme{
+  width: 14rem;
+  height: 14rem;
+  object-fit: contain;
 }
 .track-settings__spec__item__label{
   font-family: var(--font-regular);
