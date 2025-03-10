@@ -71,7 +71,7 @@ export class TrackViewPageComponent  implements OnInit {
       })
     ).subscribe((res:any) => {
       this.track = res.track
-      console.log(this.track)
+    
     })
    }
    goToPoint(){

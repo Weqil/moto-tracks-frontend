@@ -273,7 +273,7 @@ coverageItems:any[] = [
   }
 
   ionViewWillEnter(){
-    console.log('родилось создание')
+    
   }
 
   ionViewDidLeave() {
