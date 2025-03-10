@@ -230,10 +230,11 @@ coverageItems:any[] = [
           createTrackFormData.append(`spec[${i}][value]`, this.specForm.value[key]);
           i++
         }
+
         let j = 0
         for(let key in this.contactsForm.value){
-          createTrackFormData.append(`contacts[${i}][title]`, key);
-          createTrackFormData.append(`contacts[${i}][value]`, this.contactsForm.value[key]);
+          createTrackFormData.append(`contacts[${j}][title]`, key);
+          createTrackFormData.append(`contacts[${j}][value]`, this.contactsForm.value[key]);
           j++
         }
   
