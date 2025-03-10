@@ -199,7 +199,8 @@ ya-map{
 }
 
 .result{
-    margin-right: 1rem;
+    margin-right: 2rem;
+    
 }
 
 .name{
@@ -208,8 +209,8 @@ ya-map{
 }
 
 .information{
+    position: absolute;
     right: 0rem;
-    
     width: 1.3rem;
     height: 1.3rem;
     img{
@@ -345,11 +346,13 @@ ya-map{
     align-items: center;
  }
  .right-flang{
-    gap: 0.5rem;
+    width: 30%;
     display: flex;
+    position: relative;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    
  }
 
  footer{

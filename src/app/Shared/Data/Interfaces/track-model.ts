@@ -19,6 +19,7 @@ export interface Track {
     desc?: string,
     level: {name:string, color:string}
     spec?:[{title:string, value:string}],
+    
     images?:any;
     additionalServices?:any;
     date_start?:string;

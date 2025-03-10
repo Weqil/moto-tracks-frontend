@@ -7,16 +7,14 @@
 
     <app-circle-button *ngIf="customBack" (click)="backButtonClick()" icon="/assets/icons/arrow.svg"></app-circle-button>
     <div class="header-title">{{headerTitle}}</div>
+    <img *ngIf="icon" src="{{icon}}" alt="" class="icon-title">
     <ng-container *ngIf="customButton">
       <ng-content>
-
       </ng-content>
     </ng-container>
     
     <ng-content *ngIf="!hiddenBackButton">
     <app-circle-button (click)="secondButtonClickFunction()" *ngIf="!customButton" [ngClass]="{'invisible': !secondButtonIcon}"  [icon]="secondButtonIcon"></app-circle-button>
-
     </ng-content>
   </div>
- 
 </div>
