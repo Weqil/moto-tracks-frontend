@@ -288,18 +288,22 @@
           <span class="link-name">
             Ссылки на медиа
           </span>
-          <div class="links">
+          <div class="links" > 
             <div class="link">
-              <img src="/assets/icons/VK2.svg" alt="">
+              <a [attr.href]='getContactValue("vk")'><img src="/assets/icons/VK2.svg" alt=""></a>
+              
+            </div>
+            <div class="link" >
+              <a [attr.href]='getContactValue("tg")'> <img src="/assets/icons/telegram.svg" alt=""></a>
+             
+            </div>
+            <div class="link" >
+              <a [attr.href]="getContactValue('whatsApp')"> <img src="/assets/icons/watsapp.svg" alt=""></a>
+             
             </div>
             <div class="link">
-              <img src="/assets/icons/telegram.svg" alt="">
-            </div>
-            <div class="link">
-              <img src="/assets/icons/watsapp.svg" alt="">
-            </div>
-            <div class="link">
-              <img src="/assets/icons/sait.svg" alt="">
+              <a [attr.href]="getContactValue('site')"><img src="/assets/icons/sait.svg" alt=""></a>
+              
             </div>
           </div>
         </div>

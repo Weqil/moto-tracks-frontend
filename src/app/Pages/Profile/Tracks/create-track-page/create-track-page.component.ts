@@ -172,11 +172,14 @@ coverageItems:any[] = [
   }
   
   stepPrevious() {
-    if (this.stepCurrency > 1) {
-      this.stepCurrency--
-    }else{
-      this.navController.back()
-    }
+
+    this.navController.navigateRoot('/create-track')
+
+    // if (this.stepCurrency > 1) {
+    //   this.stepCurrency--
+    // }else{
+    //   this.navController.back()
+    // }
   }
   setLogo(event:any, input:HTMLInputElement){
     const file = event.target.files[0]
@@ -249,7 +252,7 @@ coverageItems:any[] = [
           finalize(()=> this.loadingService.hideLoading())
         ).subscribe((res:any)=>{
           this.toastService.showToast('Трек успешно создан','success')
-          this.navController.back()
+          this.navController.navigateForward('/my-tracks')
         }) 
     }
    
@@ -269,11 +272,16 @@ coverageItems:any[] = [
     this.coverageSelectedItem = event
   }
 
+  ionViewWillEnter(){
+    console.log('родилось создание')
+  }
+
   ionViewDidLeave() {
     this.stepCurrency = 1
     this.createTrackForm.reset()
   }
 
+  
   ngOnInit() {
     this.getRegions()
     window.addEventListener('popstate', (event) => {
