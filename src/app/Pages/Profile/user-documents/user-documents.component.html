@@ -21,6 +21,7 @@
             </ion-content>
           </ng-template>  
         </ion-modal>
+        
         <div class="start-number-container">
           <app-standart-input [control]="personalUserForm.get('inn')" placeholder="ИНН" label="ИНН"></app-standart-input>
           <app-standart-input [control]="personalUserForm.get('snils')" placeholder="СНИЛС" label="СНИЛС"></app-standart-input>
@@ -36,14 +37,12 @@
         <app-standart-input-select selectedName="motoStampSelect" [items]="motoStampItems" (onChange)="setMotoStamp($event)" [selectedItem]="{name:personalUserForm.value.motoStamp, value:personalUserForm.value.motoStamp}" label="Марка мотоцикла"></app-standart-input-select>
         <app-standart-input-select selectedName="rankSelect" [items]="sportRankItems" (onChange)="setRank($event)" [selectedItem]="{name:personalUserForm.value.rank, value:personalUserForm.value.rank}" label="Спортивное звание, разряд"></app-standart-input-select>
 
-        
-
-        <app-standart-input [control]="personalUserForm.get('community')" placeholder="Команда" label="Навзание команды"></app-standart-input>
+        <app-standart-input  [control]="personalUserForm.get('community')" style="cursor: pointer;" (click)="openComandSelectModalStateValue()" [readonly]="true" placeholder="Команда" label="Навзание команды"></app-standart-input>
         <app-standart-input [control]="personalUserForm.get('coach')" placeholder="Тренер" label="ФИО тренера"></app-standart-input>
         <div class="user-document-container">
           <div class="document-header">Лицензии</div>
           <div class="licenses document-container">
-            <app-standart-input [control]="licensesForm.get('licensesNumber')" placeholder="Лицензия МФР" label="Лицензия МФР (тип, №):"></app-standart-input>
+            <app-standart-input [control]="licensesForm.get('number')" placeholder="Лицензия МФР" label="Лицензия МФР (тип, №):"></app-standart-input>
             <span class="scan-header">Скан или фотография Лицензии</span>
             <app-file-input (click)="licensesFileInput.click()" [fileName]="licensesFile.name"></app-file-input>
             <input (change)="setLicensesFile($event)" #licensesFileInput style="display: none;"  type="file">
@@ -54,7 +53,7 @@
         <div class="user-document-container">
           <div class="document-header">Страховой полис</div>
           <div class="polis document-container">
-            <app-standart-input [control]="polisForm.get('polisNumber')" placeholder="Серия, номер" label="Серия и номер"></app-standart-input>
+            <app-standart-input [control]="polisForm.get('number')" placeholder="Серия, номер" label="Серия и номер"></app-standart-input>
             <app-standart-input [control]="polisForm.get('issuedWhom')" placeholder="Кем выдан" label="Кем выдан"></app-standart-input>
             <app-standart-input [control]="polisForm.get('itWorksDate')" placeholder="Срок действия" type="date" label="Срок действия"></app-standart-input>
             <span class="scan-header">Скан или фотография Страхового полиса</span>
@@ -71,12 +70,11 @@
             <app-file-input [fileName]="notariusFile.name" (click)="notariusFileInput.click()"></app-file-input>
             <input (change)="setNotariusFile($event)" #notariusFileInput style="display: none;"  type="file">
           </div>
-
           <app-standart-button (click)="submitForm()" buttonText="Сохранить"></app-standart-button>
         </div>
         
       </div>     
-
   </main>
 </ion-content>
 
+<app-select-comands (openComandSelectModal)="openComandSelectModalStateValue()" (closeComandSelectModal)="closeComandSelectModalStateValue()" [comandSelectModalStateValue]="comandSelectModalStateValue" (selectComand)="setComand($event)"  [commands]="allComands"></app-select-comands>

@@ -37,6 +37,7 @@
 
 }
 
+
 .cabinet__delete_account{
     padding-top: var(--little-padding);
 }
@@ -88,22 +89,7 @@
     padding-bottom: var(--standart-padding);
     font-family: var(--font-regular);
 }
-.agreed-modal{
-    --max-height:26vh;
-    --width:90vw;
-    --border-radius: 12px;
-    
-    --overflow-y: hidden;
-}
-@media(min-width: 960px){
-    .agreed-modal{
-        --max-height:20vh;
-        --width:40vw;
-        --border-radius: 12px;
-        
-        --overflow-y: hidden;
-    }
-}
+
 .agreed-select-status-checkbox{
     --size: 18px;
     --border-radius: 0; 
@@ -112,22 +98,63 @@
     --border-width: 1px;
     --border-color: #3880ff; 
     --checkmark-color: #ffffff; 
-   
     --checkbox-background: white;
     margin-right: 10px; 
 }
+
+
+
+
+.agreed-modal{
+    --max-height:26vh;
+    --width:90vw;
+    --border-radius: 12px;
+    --overflow-y: hidden;
+    
+
+}
+
 .agreed-select__main{
-    padding: var(--standart-padding);
+    
+    padding-right: var(--standart-padding);
+    padding-left: var(--standart-padding);
+    padding-top: 0px;
+    padding-bottom: 0px;
     display: flex;
     height: 100%;
-    margin: auto;
     gap: 2vh;
     font-size: 0.95rem;
     font-family: var(--font-light);
-    justify-content: center;
     flex-direction: column;
+    justify-content: center;
+    
+   
 }
-.user-agreed{
+
+@media(min-width: 960px){
+    .agreed-modal{
+        --max-height:20vh;
+        --width:40vw;
+        --border-radius: 12px;
+        --overflow-y: hidden;
+    }
+}
+
+ion-modal {
+    --ion-safe-area-top: 0;
+    --ion-safe-area-bottom: 0;
+    --ion-safe-area-right: 0;
+    --ion-safe-area-left: 0;
+  }
+
+  .agreed{
+    margin: 0px;
+    padding: 0px;
+  }
+  
+  .user-agreed{
+    margin: 0px;
+    padding: 0px;
     display: flex;
     gap: 10px;
     span{
@@ -135,4 +162,7 @@
     }
 }
 
-
+.button-container{
+    margin: 0px;
+    padding: 0px;
+}

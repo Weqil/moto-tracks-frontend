@@ -9,9 +9,13 @@ import { LoadingService } from 'src/app/Shared/Services/loading.service';
   selector: 'app-view-document',
   templateUrl: './view-document.component.html',
   styleUrls: ['./view-document.component.scss'],
-  imports: [SharedModule,PdfViewerModule]
+  imports: [SharedModule,PdfViewerModule,]
 })
 export class ViewDocumentComponent  implements OnInit {
+
+  zoomLevel = 1.0; // Начальный уровень масштабирования
+
+  
 
   constructor() { }
   route: ActivatedRoute = inject(ActivatedRoute)
@@ -27,11 +31,22 @@ export class ViewDocumentComponent  implements OnInit {
     this.loadingService.showLoading()
     this.route.params.pipe(takeUntil(this.destroy$)).pipe( finalize(()=>{})).subscribe((params) => {
       this.documentUrl = params['url'] 
-      console.log(this.documentUrl)})
+    })
   }
   ionViewDidEnter() {
     this.loadingService.hideLoading()
   }
+  
+  zoomIn() {
+    this.zoomLevel += 0.1; // Увеличиваем масштаб на 10%
+  }
+
+  zoomOut() {
+    this.zoomLevel -= 0.1; // Уменьшаем масштаб на 10%
+  }
+
+  resetZoom() {
+    this.zoomLevel = 1.0; }
   ngOnInit() {}
 
 }

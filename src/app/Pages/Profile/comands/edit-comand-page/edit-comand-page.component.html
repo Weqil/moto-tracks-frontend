@@ -1,0 +1,31 @@
+<ion-content>
+  <header>
+    <app-header headerTitle="Редактирование команды"></app-header>
+  </header> 
+  <main class="main-container--with-header">
+    <div class="create-command-main">
+      <app-standart-input [errorMessage]="formErrors.name.errorMessage" [invalid]="formErrors.name.errorMessage.length !== 0" label="Название" [control]="createCommandForm.get('name')" placeholder="Введите название вашей команды"></app-standart-input>
+      <app-standart-input (click)="openRegionModal()" [errorMessage]="formErrors.city.errorMessage" [invalid]="formErrors.city.errorMessage.length !== 0" [readonly]="true" label="Область/край" [control]="createCommandForm.get('region')" placeholder="Выберите область вашей команды"></app-standart-input>
+      <app-standart-input label="Город" [errorMessage]="formErrors.city.errorMessage" [invalid]="formErrors.city.errorMessage.length !== 0" label="Название" [control]="createCommandForm.get('city')" placeholder="Введите город вашей команды"></app-standart-input>
+      <section class="create-command-main__upload-avatar">
+        <span class="label">Аватар</span>
+        <div class="upload-container">
+          <img class="avatar" [src]="avatarUrl" alt="Аватар" *ngIf="avatarUrl">
+          <input (change)="setAvatarFile($event)" #fileInput style="display: none;"  type="file">
+          <app-file-input (click)="fileInput.click()"></app-file-input>
+        </div>
+      </section>
+      <app-standart-button (click)="onSubmit()" buttonText="Сохранить"></app-standart-button>
+    </div>
+  </main>
+</ion-content>
+
+<ion-modal (didDismiss)="closeRegionModal()"  [isOpen]="regionModalState">
+  <ng-template>
+    <ion-content>
+      <div class="region-modal-container">
+        <app-standart-input-search label="Область/край" [searchCurrentItems]="searchRegionItems" [searchItems]="searchRegionItems" (changeSearchValue)="setRegion($event)"></app-standart-input-search>
+      </div>
+    </ion-content>
+  </ng-template>  
+</ion-modal>  

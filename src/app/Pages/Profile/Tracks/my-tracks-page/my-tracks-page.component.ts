@@ -16,7 +16,7 @@ import { finalize } from 'rxjs';
   selector: 'app-my-tracks-page',
   templateUrl: './my-tracks-page.component.html',
   styleUrls: ['./my-tracks-page.component.scss'],
-  imports: [SharedModule, HeaderModule, ButtonsModule, RoundedButtonComponent,TrackModule,RouterLink,] 
+  imports: [SharedModule, HeaderModule, RoundedButtonComponent,TrackModule,RouterLink,] 
 })
 export class MyTracksPageComponent  implements OnInit {
 
@@ -42,9 +42,18 @@ export class MyTracksPageComponent  implements OnInit {
     this.navController.navigateForward(`/track/edit/${eventId}`)
   }
 
+  ionViewDidLeave(){
+    console.log('умир')
+  }
+
   ionViewWillEnter(){
+    console.log('родився')
     this.getMyTracks()
   }
   ngOnInit() {}
+  
+  ngOnDestroy() {
+    console.log('Компонент уничтожен');
+  }
 
 }

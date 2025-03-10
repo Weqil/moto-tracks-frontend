@@ -26,7 +26,21 @@ export const privateRoutes: Routes = [
                 canActivate:[canActivateAuth,canActivateEmailConfirm],
                 loadComponent: () => import('../Pages/Profile/Tracks/my-tracks-page/my-tracks-page.component').then((m) => m.MyTracksPageComponent)
             },
-            
+            {
+                path:'my-comands',
+                canActivate:[canActivateAuth,canActivateEmailConfirm],
+                loadComponent: () => import('../Pages/Profile/comands/comands.component').then((m) => m.ComandsComponent)
+            },      
+            {
+                path:'create-comands',
+                canActivate:[canActivateAuth,canActivateEmailConfirm],
+                loadComponent: () => import('../Pages/Profile/comands/create-comand-page/create-comand-page.component').then((m) => m.CreateComandPageComponent)
+            },      
+            {
+                path:'edit-comands',
+                canActivate:[canActivateAuth,canActivateEmailConfirm],
+                loadComponent: () => import('../Pages/Profile/comands/edit-comand-page/edit-comand-page.component').then((m) => m.EditComandPageComponent)
+            },      
             
             {
                 path:'my-events',
@@ -63,6 +77,11 @@ export const privateRoutes: Routes = [
                 canActivate:[canActivateAuth,canActivateEmailConfirm],
                 loadComponent: () => import('../Pages/Profile/Tracks/edit-track-page/edit-track-page.component').then((m) => m.EditTrackPageComponent)
             },
+            {
+                path:'command/edit/:id',
+                canActivate:[canActivateAuth,canActivateEmailConfirm],
+                loadComponent: () => import('../Pages/Profile/comands/edit-comand-page/edit-comand-page.component').then((m) => m.EditComandPageComponent)
+            }
         ]
     },
 

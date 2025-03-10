@@ -1,10 +1,11 @@
 import { Component, inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { finalize } from 'rxjs';
-import { userRoles } from 'src/app/Shared/Data/Enums/roles';
 import { User } from 'src/app/Shared/Data/Interfaces/user-model';
+
 import { AuthService } from 'src/app/Shared/Data/Services/Auth/auth.service';
 import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
+import { UserStatuses } from 'src/app/Shared/Enums/user-status';
 import { ButtonsModule } from 'src/app/Shared/Modules/buttons/buttons.module';
 import { HeaderModule } from 'src/app/Shared/Modules/header/header.module';
 import { selectedModule } from 'src/app/Shared/Modules/selected/selected.module';
@@ -23,7 +24,6 @@ import { LoadingService } from 'src/app/Shared/Services/loading.service';
     HeaderModule,
     UserModule,
     ProfileModule,
-    ButtonsModule,
     selectedModule
   ]
 })
@@ -38,6 +38,110 @@ export class CabinetComponent  implements OnInit {
 
   statusesSelect:boolean = false
   selectedStatusItem!:any 
+  
+ 
+
+  usersMenuItem:any = {
+    [UserStatuses.rider]:[
+      {
+        routing:'documents',
+        iconColor:'#0000',
+        icon:'/assets/icons/documents.svg',
+        iconFilter:'',
+        name:'Анкета участника'
+      },
+    ],
+    [UserStatuses.organizer]:[
+      {
+        routing:'documents',
+        iconColor:'#0000',
+        icon:'/assets/icons/documents.svg',
+        iconFilter:'',
+        name:'Анкета участника'
+      },
+      {
+        routing:'my-events',
+        iconColor:'#0000',
+        icon:'/assets/icons/FlagStrong.svg',
+        iconFilter:'',
+        name:'Мои гонки'
+      },
+      {
+        routing:'my-tracks',
+        iconColor:'#0000',
+        icon:'/assets/icons/Repeat.svg',
+        iconFilter:'',
+        name:'Мои трассы'
+      },
+      {
+        routing:'my-comands',
+        iconColor:'#0000',
+        icon:'/assets/icons/team.svg',
+        iconFilter:'',
+        name:'Мои команды'
+      }
+    ],
+    [UserStatuses.administrator]:[
+      {
+        routing:'documents',
+        iconColor:'#0000',
+        icon:'/assets/icons/documents.svg',
+        iconFilter:'',
+        name:'Анкета участника'
+      },
+      {
+        routing:'my-events',
+        iconColor:'#0000',
+        icon:'/assets/icons/FlagStrong.svg',
+        iconFilter:'',
+        name:'Мои гонки'
+      },
+      {
+        routing:'my-tracks',
+        iconColor:'#0000',
+        icon:'/assets/icons/Repeat.svg',
+        iconFilter:'',
+        name:'Мои трассы'
+      },
+      {
+        routing:'my-comands',
+        iconColor:'#0000',
+        icon:'/assets/icons/team.svg',
+        iconFilter:'',
+        name:'Мои команды'
+      }
+    ],
+    [UserStatuses.root]:[
+      {
+        routing:'documents',
+        iconColor:'#0000',
+        icon:'/assets/icons/documents.svg',
+        iconFilter:'',
+        name:'Анкета участника'
+      },
+      {
+        routing:'my-events',
+        iconColor:'#0000',
+        icon:'/assets/icons/FlagStrong.svg',
+        iconFilter:'',
+        name:'Мои гонки'
+      },
+      {
+        routing:'my-tracks',
+        iconColor:'#0000',
+        icon:'/assets/icons/Repeat.svg',
+        iconFilter:'',
+        name:'Мои трассы'
+      },
+      {
+        routing:'my-comands',
+        iconColor:'#0000',
+        icon:'/assets/icons/team.svg',
+        iconFilter:'',
+        name:'Мои команды'
+      }
+    ],
+  }
   statuses:any[] = [
     { id: 1, name: 'Гонщик', value: 'Гонщик' },
     { id: 2, name: 'Организатор', value: 'Организатор' },
@@ -63,12 +167,14 @@ export class CabinetComponent  implements OnInit {
   redirectInEditPersonalInfo(){
     this.navControler.navigateForward('/personal-info')
   }
+
   ionViewWillEnter(){
     this.selectedStatusItem = this.user?.roles[0];
+  
   }
   ngOnInit() {
-    this.userService.user.pipe().subscribe(()=>{
-      this.user = this.userService.user.value 
+    this.userService.user.pipe().subscribe((res)=>{
+      this.user = res
     })
   }
 

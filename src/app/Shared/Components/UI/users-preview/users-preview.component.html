@@ -19,14 +19,13 @@
                     <!-- <div class="close-wrapper">
                         <img (click)="closeModal()" class="user-modal-header_close-image" src="assets/icons/close.svg" alt="">
                     </div> -->
-                   
                 </div>
             </ion-toolbar>
           </ion-header>
          
       <ion-content class="">
-        <div class="card-grid">
-            <ng-container *ngIf="users.length" >
+        <div class="users-content">
+            <ng-container *ngIf="users && !formattedUsers" >
                 <div *ngFor="let user of users" (click)="openUser(user)" class="card-grid__item">
                     <app-user-section  [hideEmail]= "true"  [user]="user"></app-user-section>
                     <div *ngIf="user?.personal?.start_number" class="user-info__class">
@@ -35,11 +34,41 @@
                 </div>
   
             </ng-container> 
-            <div class="close-container">
-                <app-standart-button (click)="closeModal()" [disabled]="true" buttonText="Вернуться"></app-standart-button>
-            </div>   
-            
+            <ng-container *ngIf="users && formattedUsers" >
+                <div class="group-grid">
+                    <button (click)="scrollToItem(group.group)" *ngFor="let group of formattedUsers" class="group-grid__item">
+                        {{group.group}}
+                    </button>
+                </div>
+                <div *ngFor="let group of formattedUsers">
+                    <h2 id="{{group.group}}">{{group.group}}:</h2>
+                    <div class="card-grid">
+                        <ng-container *ngFor="let user of group.users; let i = index">
+                            <div>
+                                <div (click)="openUser(user)" class="card-grid__item">
+                                    <app-user-section [showRank]="true"  [hideEmail]= "true"  [user]="user"></app-user-section>
+                                    <div *ngIf="user?.start_number" class="user-info__class">
+                                        {{user?.start_number}}
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            
+                        </ng-container>
+                        
+                     
+                    </div>
+                   
+                </div>
+               
+  
+            </ng-container> 
         </div>
+
+        <div class="close-container">
+            <app-standart-button (click)="closeModal()" [disabled]="true" buttonText="Вернуться"></app-standart-button>
+        </div> 
+        
       </ion-content>
     </ng-template>
 </ion-modal>

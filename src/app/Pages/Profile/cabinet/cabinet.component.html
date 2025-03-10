@@ -1,5 +1,5 @@
 <ion-content>
-  <app-header headerTitle="Профиль участника" (secondButtonClick)="redirectInEditPersonalInfo()"></app-header>
+  <app-header headerTitle="Профиль участника" [hiddenBackButton]="true" (secondButtonClick)="redirectInEditPersonalInfo()"></app-header>
   <div class="main-container--with-header">
     <div class="cabinet">
       <div class="cabinet__user-info">
@@ -8,10 +8,12 @@
             {{user?.personal?.start_number}}
         </div>
       </div>
-      
-      <app-profile-menu-item *ngIf="selectedStatusItem?.id == 3 || selectedStatusItem?.id == 4 || selectedStatusItem?.id == 2 || selectedStatusItem?.id == 1"[routing]="'documents'" [iconColor]="'#0000'" [icon]="'/assets/icons/documents.svg'"  [iconFilter]="''" [name]="'Анкета участника'"></app-profile-menu-item>
-      <app-profile-menu-item *ngIf="selectedStatusItem?.id == 4 || selectedStatusItem?.id == 2 || selectedStatusItem?.id == 1 " [routing]="'my-events'" [iconColor]="'#0000'" [icon]="'/assets/icons/FlagStrong.svg'" [name]="'Мои гонки'"></app-profile-menu-item>
-      <app-profile-menu-item *ngIf="selectedStatusItem?.id == 4 || selectedStatusItem?.id == 2 || selectedStatusItem?.id == 1" [routing]="'my-tracks'" [iconColor]="'#0000'" [icon]="'/assets/icons/Repeat.svg'" [name]="'Мои трассы'"></app-profile-menu-item>
+      <ng-container *ngIf="usersMenuItem[this.selectedStatusItem?.name]">
+          <ng-container *ngFor="let menuItem of usersMenuItem[this.selectedStatusItem.name]">
+            <app-profile-menu-item  [routing]="menuItem.routing" [iconColor]="menuItem.iconColor" [icon]="menuItem.icon" [name]="menuItem.name"></app-profile-menu-item>
+          </ng-container>
+          
+      </ng-container>
       <app-profile-menu-item  [routing]="'settings'" [iconColor]="'#0000'" [icon]="'/assets/icons/settings.svg'" [name]="'Настройки'"></app-profile-menu-item>
       
       <div class="cabinet__logout">

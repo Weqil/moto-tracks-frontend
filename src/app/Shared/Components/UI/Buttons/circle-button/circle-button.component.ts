@@ -8,7 +8,7 @@ import { Icon } from 'ionicons/dist/types/components/icon/icon';
 })
 export class CircleButtonComponent  implements OnInit {
 
-  @Input() icon!:string
+  @Input() icon?:string
   @Input() disabled!:boolean
   constructor() { }
 

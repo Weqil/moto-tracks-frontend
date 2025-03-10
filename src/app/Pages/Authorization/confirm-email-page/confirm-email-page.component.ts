@@ -12,6 +12,9 @@ import { ToastService } from 'src/app/Shared/Services/toast.service';
 import { NavController } from '@ionic/angular';
 import { LoadingService } from 'src/app/Shared/Services/loading.service';
 import { catchError, EMPTY, finalize, Subject, takeUntil } from 'rxjs';
+import { interval } from 'rxjs';
+import { map, take } from 'rxjs/operators';
+
 @Component({
   selector: 'app-confirm-email-page',
   templateUrl: './confirm-email-page.component.html',
@@ -32,12 +35,21 @@ export class ConfirmEmailPageComponent  implements OnInit {
     otpLength:4,
   }
   timerActive: boolean = false
+
+  totalTime: number = 60; 
+  timeLeft: number = this.totalTime;
+  displayTime: string = '01:00';
+
   user!: User
   private readonly destroy$ = new Subject<void>()
 
 
   changeCode(code:any){
     this.codeValue = code.join('')
+  }
+
+  showMessage(){
+    this.toastService.showToast('Повторный код отправлен на почту','success')
   }
 
   getCodeInEmail(){
@@ -49,6 +61,7 @@ export class ConfirmEmailPageComponent  implements OnInit {
       ).subscribe((res:any)=>{
       
       })
+      
     }else if(this.user.email_verified_at && this.authService.isAuthenticated()){
       this.toastService.showToast('Почта уже подтверждена','warning')
       this.navController.navigateForward('/cabinet')
@@ -93,6 +106,34 @@ export class ConfirmEmailPageComponent  implements OnInit {
   ionViewDidEnter() {
     this.destroy$.next()
     this.destroy$.complete()
+  }
+
+  changeClassSpan(){
+    this.timerActive = true
+
+    setTimeout(()=>{
+      this.timerActive = false;
+    }, 1 * 60 * 1000)
+  }
+
+  startTimer(){
+    interval(1000).pipe(take(this.totalTime), map(()=>{
+      this.timeLeft--;
+        const minutes = Math.floor(this.timeLeft / 60);
+        const seconds = this.timeLeft % 60;
+        return { minutes, seconds };
+    })
+  ).subscribe(({ minutes, seconds })=>{
+      this.displayTime = `${this.addLeadingZero(minutes)}:${this.addLeadingZero(seconds)}`;
+      
+    })
+
+    this.displayTime = '01:00';
+    this.timeLeft = this.totalTime;
+  }
+
+  addLeadingZero(value: number): string {
+    return value < 10 ? `0${value}` : `${value}`;
   }
 
   ngOnInit() {

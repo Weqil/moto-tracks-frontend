@@ -3,13 +3,31 @@
 	"appName": "Мотокросс",
 	"webDir": "www/browser",
 	"bundledWebRuntime": false,
-	"server": {
-		"url": "https://dev-moto.vokrug.city"
+	"plugins": {
+		"SplashScreen": {
+			"launchShowDuration": 1000,
+			"backgroundColor": "#ADD8E6",
+			"showSpinner": false,
+			"iosScaleType": "FIT_XY",
+			"androidScaleType": "FIT_XY",
+			"androidSpinnerStyle": "large",
+			"iosSpinnerStyle": "large",
+			"splashFullScreen": false,
+			"splashImmersive": true
+		},
+		"Browser": {
+			"clearSessionCache": true,
+			"clearCache": true
+		}
 	},
 	"packageClassList": [
 		"AppPlugin",
 		"HapticsPlugin",
 		"KeyboardPlugin",
+		"SplashScreenPlugin",
 		"StatusBarPlugin"
-	]
+	],
+	"server": {
+		"url": "http://192.168.88.26:8100"
+	}
 }

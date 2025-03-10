@@ -1,0 +1,35 @@
+<ion-modal [isOpen]="openModal" [isClose]="!openModal">
+  <ng-template>
+    <ion-content>
+        <div class="main-content">
+          <div class="close-button-wrapper">
+            <app-circle-button [icon]="'assets/icons/arrow.svg'" (click)="closeModal()">
+              
+            </app-circle-button>
+          </div>
+          <div class="conteiner-slider">
+              <swiper-container
+              class="swiper-container"
+              [zoom]="true"
+              [pagination]="false"
+              [grabCursor]="true"
+              [slidesPerView]="1"
+              [centeredSlides]="true"
+              [followFinger]="false"
+              [initialSlide]="0"
+              (swiperslidechange)="slideChange($event)">
+
+              <ng-container *ngFor = "let file of imagesPathArray">
+                <swiper-slide>
+                    <div class="swiper-zoom-container">
+                      <img [src]="checkUrl(file)"/>
+                    </div>
+                </swiper-slide>
+              </ng-container>
+            </swiper-container>
+          <div class="swiper-index">{{swiperIndex}}/{{imagesPathArray.length}}</div>
+        </div>
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>

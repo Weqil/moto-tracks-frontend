@@ -21,13 +21,14 @@ import { MapService } from 'src/app/Shared/Data/Services/Map/map.service';
 import { GroupService } from 'src/app/Shared/Data/Services/Race/group.service';
 import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
 import moment from 'moment-timezone';
+import { IonToggle } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-create-events-page',
   templateUrl: './create-events-page.component.html',
   styleUrls: ['./create-events-page.component.scss'],
-  imports: [SharedModule, HeaderModule, StepsModule, ButtonsModule, FormsModule, EditSliderComponent, TrackModule,
-     selectedModule, StandartInputSelectComponent, IonModal, IonCheckbox, IonLabel]
+  imports: [SharedModule, HeaderModule, StepsModule, FormsModule, EditSliderComponent, TrackModule,
+     selectedModule, StandartInputSelectComponent, IonModal, IonCheckbox, IonLabel, IonToggle]
 })
 export class CreateEventsPageComponent  implements OnInit {
 
@@ -68,27 +69,17 @@ export class CreateEventsPageComponent  implements OnInit {
 
   regionModalState:boolean = false
 
-  tracks!: Track[] 
-
+  tracks!: Track[]
+  allTracks!: Track[]
+ 
   createEventForm: FormGroup = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    desc: new FormControl(`📕С собой иметь паспорт или свидетельство о рождении для спортсменов младше 18 лет.
-
-📄Лицензия
-
-👨‍👩‍👦 Для несовершеннолетних спортсменов требуется нотариально заверенное согласие от обоих родителей с указанием вида спорта "мотоспорт-мотокросс"
-
-📚 Зачётная книжка:
-
-🩺 Мед. справка от спортивного врача или физ.диспансера:
-
-📃 Страховка на сумму не менее 100 т.р. с указанием вида спорта "Мотокросс"
-`, [Validators.required, Validators.minLength(3)]),
+    desc: new FormControl('', [Validators.required, Validators.minLength(3)]),
     images: new FormControl('', [Validators.required, Validators.minLength(1)]),
     region:new FormControl('', [Validators.required, Validators.minLength(1)]),
     locationId: new FormControl('', [Validators.required, Validators.minLength(1)]),
-    dateStart: new FormControl( this.getDefaultDateTime(),  [Validators.required, Validators.minLength(1)]),
-    recordEnd: new FormControl( this.getDefaultDateTime(),  [Validators.required, Validators.minLength(1)]),
+    dateStart: new FormControl( '',  [Validators.required, Validators.minLength(1)]),
+    recordEnd: new FormControl( '',  [Validators.required, Validators.minLength(1)]),
   })
   navController: NavController = inject(NavController)
 
@@ -160,6 +151,7 @@ export class CreateEventsPageComponent  implements OnInit {
   setRegion(region:any){
     this.closeRegionModal()
     this.locationId = region.value
+    this.trackSelected = undefined
     this.createEventForm.patchValue({region:region.name})
     this.createEventForm.patchValue({locationId:region.value})
   }
@@ -180,11 +172,15 @@ export class CreateEventsPageComponent  implements OnInit {
       })
     ).subscribe((res:any)=>{
       this.tracks = res.tracks
+      this.allTracks = res.tracks
     })
   }
 
   selectTrack(track:Track){
     this.trackSelected = track
+    let region = this.searchRegionItems.find((item)=>item.value == this.trackSelected!.location.id)
+    this.createEventForm.patchValue({region:region.name})
+    this.createEventForm.patchValue({locationId:region.value})
     this.closeTrackSelectModalFunction()
   }
 
@@ -216,7 +212,8 @@ export class CreateEventsPageComponent  implements OnInit {
     }
   }
   cancelCreate(){
-    this.navController.back()
+    this.navController.navigateForward('/my-events')
+    
   }
   getImages(event:any){
     this.createEventForm.patchValue({
@@ -224,7 +221,10 @@ export class CreateEventsPageComponent  implements OnInit {
     })
   }
    openTrackSelectModalFunction(){
-    this.trackSelectedModalState = true;
+      if(this.createEventForm.value.locationId){
+        this.tracks = this.allTracks.filter((track) => Number(track.location?.id) == Number(this.createEventForm.value.locationId))
+      }
+      this.trackSelectedModalState = true;
     }
 
    closeTrackSelectModalFunction(){
@@ -297,7 +297,7 @@ export class CreateEventsPageComponent  implements OnInit {
     })
   ).subscribe((res)=>{
       this.toastService.showToast('Событие успешно создано', 'primary')
-      this.navController.back()
+      this.navController.navigateForward('/my-events')
     })
    }
   }
@@ -305,11 +305,25 @@ export class CreateEventsPageComponent  implements OnInit {
   ngOnInit() {
     window.addEventListener('popstate', (event) => {
         this.closeGroupModal()
+        this.closeRegionModal()
     })
   }
 
 
 
 }
+
+// `📕С собой иметь паспорт или свидетельство о рождении для спортсменов младше 18 лет.
+
+// 📄Лицензия
+
+// 👨‍👩‍👦 Для несовершеннолетних спортсменов требуется нотариально заверенное согласие от обоих родителей с указанием вида спорта "мотоспорт-мотокросс"
+
+// 📚 Зачётная книжка:
+
+// 🩺 Мед. справка от спортивного врача или физ.диспансера:
+
+// 📃 Страховка на сумму не менее 100 т.р. с указанием вида спорта "Мотокросс"
+// `
 
 

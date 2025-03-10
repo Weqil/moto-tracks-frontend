@@ -8,6 +8,11 @@
     box-shadow: 0px 4px 8px 0px rgba(34, 60, 80, 0.2);
     margin-right: 0.5rem;
 }
+h2{
+    padding-left: var(--standart-padding);
+    font-family: var(--font-bold);
+
+}
 .user-no-photo{
     width: 2rem;
     height: 2rem;
@@ -26,14 +31,39 @@
     height: 2rem;
 }
 .card-grid{
+    padding: var(--standart-padding);
     display: flex;
-    gap: 1rem;
+    gap: 2rem;
     flex-direction: column;
     height: 100%;
+}
+.users-content{
+    padding-bottom: 4rem;
+}
+.user-number{
+    font-size: 1rem;
+    font-family: var(--font-regular);
+    padding-left: 1.4rem;
+    display: flex;
 }
 .users_avatars{
     display: flex;
     padding-top: 0.5rem;
+}
+.racer-number{
+    position: absolute;
+    width: 1.5rem;
+    height: 1.5rem;
+    text-align: center;
+    display: flex;
+    right: 0;
+    bottom: 0;
+    font-family: var(--font-regular);
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    border-radius: 50%;
+    background-color: var(--blue-primary-color);
 }
 
 .close-container{
@@ -42,6 +72,7 @@
     bottom:0rem;
     right: 0;
     padding: var(--standart-padding);
+    padding-top: var(--little-padding);
     background: var(--page-background)
 }
 .users_avatars-user-more{
@@ -104,10 +135,37 @@ ion-toolbar{
 .card-grid__item{
     display: flex;
     gap: 8px;
+    height: 4rem;
+    position: relative;
     justify-content: space-between;
     align-items: center;
 }
-
+.group-grid{
+    padding: var(--standart-padding);
+    display: flex;
+    gap: 1rem;
+}
+.group-grid__item{
+    font-family: var(--font-bold);
+    background-color: #fff;
+    display: inline-flex;
+    padding: 0.6rem;
+    border-radius: 8px;
+    transition: 0.15s;
+    align-items: center;
+    justify-content: center;
+}
+.group-grid__item:active{
+    font-family: var(--font-bold);
+    background-color: #1b1b1b;
+    display: inline-flex;
+    padding: 0.6rem;
+    transition: 0.15s;
+    color: #fff;
+    border-radius: 8px;
+    align-items: center;
+    justify-content: center;
+}
 .user-info__class{
     background-color: var(--dark-grey-color);
     color: var(--white-color);

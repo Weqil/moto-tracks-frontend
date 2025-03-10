@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { IonContent,IonSkeletonText, } from '@ionic/angular/standalone';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ButtonsModule } from '../buttons/buttons.module';
 
 
 @NgModule({
@@ -13,7 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     IonContent,
     FormsModule,
     ReactiveFormsModule,
-    IonSkeletonText
+    IonSkeletonText  
   ],
   exports: [
     IonContent,
@@ -21,6 +22,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule,
     IonSkeletonText,
+    ButtonsModule
   ],
 
 })

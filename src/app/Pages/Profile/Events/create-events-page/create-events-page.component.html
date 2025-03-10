@@ -1,7 +1,6 @@
 <ion-content>
   <app-header (customBackClick)="stepPrevious()" 
-  [hiddenBackButton]="true"
-  [customBack]="false"
+  
   headerTitle="Создание гонки"></app-header>
   <main class="main-container--with-header">
     <app-step-container [maxStepsCount]="maxStepsCount" [stepCurrency]="stepCurrency">
@@ -31,9 +30,14 @@
                   <div class="group-modal-container">
                     <div class="group-modal-header">
                       <div class="group-modal-header__select">
+                        <div class="header-text">
                         <h2>Классы гонки</h2>
-                        <div (click)="changeAllClassesState()" [ngClass]="{'rounded-classes__active':allClassesState, 'rounded-classes':!allClassesState}">
-                          Все классы
+                        </div>
+                        <div class="toggle-container">
+                          <ion-label >Все</ion-label>
+                          <ion-toggle mode="ios" class="custom-toggle" (ionChange)="changeAllClassesState()" [ngClass]="{'rounded-classes__active':allClassesState, 'rounded-classes':!allClassesState}">
+                          </ion-toggle>
+                          <ion-label >Мои</ion-label>
                         </div>
                       </div>
                       <span class="label">Создайте свои или выберите из существующих</span>
@@ -78,7 +82,7 @@
         </div>
 
         <div class="description">
-          <app-standart-rich-input [control]="createEventForm.get('desc')" label="Описание" placeholder="Введите описание вашего трека"></app-standart-rich-input>
+          <app-standart-rich-input [inputStatus]="false" [control]="createEventForm.get('desc')" label="Описание" placeholder="Введите описание вашего трека"></app-standart-rich-input>
         </div>
 
         <ion-modal (didDismiss)="closeRegionModal()"  [isOpen]="regionModalState">

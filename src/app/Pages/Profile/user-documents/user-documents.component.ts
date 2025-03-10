@@ -17,12 +17,18 @@ import { StandartInputSelectComponent } from 'src/app/Shared/Components/UI/Selec
 import cloneDeep from 'lodash/cloneDeep';
 import _ from 'lodash';
 import { MapService } from 'src/app/Shared/Data/Services/Map/map.service';
+import { formdataService } from 'src/app/Shared/Helpers/formdata.service';
+import moment from 'moment';
+import { SelectComandsComponent } from 'src/app/Shared/Components/Commands/select-comands/select-comands.component';
+import { ComandsService } from 'src/app/Shared/Data/Services/Comands/comands.service';
+import { ICommand } from 'src/app/Shared/Data/Interfaces/command';
+
 
 @Component({
   selector: 'app-user-documents',
   templateUrl: './user-documents.component.html',
   styleUrls: ['./user-documents.component.scss'],
-  imports: [SharedModule,HeaderModule,FormsModule,ButtonsModule,StandartInputSelectComponent,IonModal]
+  imports: [SharedModule,HeaderModule,FormsModule,StandartInputSelectComponent,IonModal,SelectComandsComponent]
 })
 export class UserDocumentsComponent  implements OnInit {
   navController:NavController = inject(NavController)
@@ -34,13 +40,19 @@ export class UserDocumentsComponent  implements OnInit {
   oldPasportValue?:{id:number,data:{numberAndSeria:string, fileLink:string}} 
   httpClient:HttpClient = inject(HttpClient)
   userService:UserService = inject(UserService)
+  comandSelectModalStateValue:boolean = false
   toastService:ToastService = inject(ToastService)
+  formdataService:formdataService = inject(formdataService)
 
   regionModalState:boolean = false
 
   licensesFile:any =''
   polisFile:any = ''
   notariusFile:any = ''
+
+  allComands:any[] = []
+
+  commandService:ComandsService = inject(ComandsService)
 
   mapService:MapService = inject(MapService)
 
@@ -52,13 +64,13 @@ export class UserDocumentsComponent  implements OnInit {
   
   licensesForm: FormGroup = new FormGroup(
     {
-      licensesNumber: new FormControl('',[Validators.required, Validators.minLength(1), ]), //номер лицензии
+      number: new FormControl('',[Validators.required, Validators.minLength(1), ]), //номер лицензии
     }
   )
 
   polisForm: FormGroup = new FormGroup(
     {
-      polisNumber: new FormControl('',[Validators.required]), //Серия и номер полиса
+      number: new FormControl('',[Validators.required]), //Серия и номер полиса
       issuedWhom: new FormControl('',[Validators.required]), //Кем выдан
       itWorksDate: new FormControl('',[Validators.required]), //Срок действия
     }
@@ -77,7 +89,15 @@ export class UserDocumentsComponent  implements OnInit {
     }
   )
 
-  formErrors:any = {
+  closeComandSelectModalStateValue(){
+    this.comandSelectModalStateValue = false
+  }
+  openComandSelectModalStateValue(){
+    this.comandSelectModalStateValue = true
+  }
+  
+
+ formErrors:any = {
     name: {
       errorMessage:''
 
@@ -146,11 +166,12 @@ export class UserDocumentsComponent  implements OnInit {
     group:new FormControl('', [Validators.required]),
     rank:new FormControl('', [Validators.required]),
     rankNumber:new FormControl('', [Validators.required]),
-    community:new FormControl('', [Validators.required]),
+    community:new FormControl('Лично', [Validators.required]),
     coach:new FormControl('', [Validators.required]),
     motoStamp:new FormControl('', [Validators.required]),
     engine:new FormControl('', [Validators.required]),
     numberAndSeria:new FormControl('', [Validators.required]),
+    commandId:new FormControl('', [Validators.required]),
   })
 
 submitValidate(){
@@ -197,7 +218,6 @@ setMotoStamp(event:any){
 submitForm(){
 
   if(this.submitValidate()){
-    console.log(this.personalUserForm.value)
     if(!this.oldLicensesValue && this.validateLicenses()){
       this.createLicenses()
     }
@@ -212,7 +232,7 @@ submitForm(){
   
     if(this.oldLicensesValue && this.validateLicenses()){
   
-      let oldLicensesValue:any = JSON.parse(this.oldLicensesValue.data)
+      let oldLicensesValue:any = this.oldLicensesValue
       if(!_.isEqual(oldLicensesValue,this.licensesForm.value) || !this.licensesFile.dontFile){
      
         this.updateLicenses()
@@ -220,7 +240,7 @@ submitForm(){
     }
   
     if(this.oldPolisValue && this.validatePolis()){
-      let oldPolisValue:any = JSON.parse(this.oldPolisValue.data)
+      let oldPolisValue:any = this.oldPolisValue
       if(!_.isEqual(oldPolisValue,this.polisForm.value) || !this.polisFile.dontFile ){
         this.updatePolis()
       }
@@ -307,9 +327,10 @@ submitForm(){
       loader = res
     })
     let fd:FormData = new FormData()
+    fd = this.formdataService.formdataAppendJson(fd,this.licensesForm.value)
     fd.append('type','licenses')
-    fd.append('data',JSON.stringify(this.licensesForm.value))
     fd.append('file',this.licensesFile)
+
     this.userService.createUserDocument(fd).pipe(
     finalize(()=>{
       this.loaderService.hideLoading(loader)
@@ -327,7 +348,6 @@ submitForm(){
   setPolisFile(event:any){
     let file = event.target.files[0]
     this.polisFile = file
-    console.log(this.polisFile)
   }
 
   setLicensesFile(event:any){
@@ -369,7 +389,7 @@ submitForm(){
      })
      let fd: FormData = new FormData()
      fd.append('type','polis')
-     fd.append('data',JSON.stringify(this.polisForm.value))
+     fd = this.formdataService.formdataAppendJson(fd,this.polisForm.value)
      fd.append('file',this.polisFile)
       this.userService.createUserDocument(fd).pipe(
       finalize(()=>{
@@ -387,7 +407,8 @@ submitForm(){
       loader = res
      })
     let fd:FormData = new FormData()
-    fd.append('data',JSON.stringify(this.licensesForm.value))
+    fd = this.formdataService.formdataAppendJson(fd,this.licensesForm.value)
+  
     if(!this.licensesFile.dontFile){
       fd.append('file',this.licensesFile)
     }
@@ -407,7 +428,7 @@ submitForm(){
       loader = res
     })
     let fd:FormData = new FormData()
-    fd.append('data',JSON.stringify(this.polisForm.value))
+    fd = this.formdataService.formdataAppendJson(fd,this.polisForm.value)
     if(!this.polisFile.dontFile){
       fd.append('file',this.polisFile)
     }
@@ -427,7 +448,6 @@ submitForm(){
         loader = res
       })
       let fd: FormData = new FormData()
-      fd.append('data',JSON.stringify({}))
       if(!this.notariusFile.dontFile){
         fd.append('file',this.notariusFile)
         this.userService.updateDocument(Number(this.oldNotariusValue?.id),fd).pipe(
@@ -451,6 +471,22 @@ submitForm(){
     }
   }
 
+  getAllComands(){
+    this.commandService.getComands().pipe().subscribe((res:any)=>{
+      this.allComands = []
+      this.allComands.push(
+          {id: '', name: 'Лично',}
+      )
+      this.allComands.push(...res.commands) 
+     
+    })
+  }
+
+  setComand(event:any){
+    this.personalUserForm.patchValue({community:event.name})
+    this.personalUserForm.patchValue({commandId:event.id})
+    this.closeComandSelectModalStateValue()
+  }
   createNotarius(){
     if(this.validateNotarius()){
         let loader:HTMLIonLoadingElement
@@ -460,7 +496,6 @@ submitForm(){
 
       let fd: FormData = new FormData()
       fd.append('type','notarius')
-      fd.append('data',JSON.stringify({}))
       fd.append('file',this.notariusFile)
        this.userService.createUserDocument(fd).pipe(
        finalize(()=>{
@@ -485,20 +520,24 @@ submitForm(){
       })
     ).subscribe((res:any)=>{
       if(res.documents){
-        if(res.documents.find((doc:any)=> doc.type === 'licenses')?.data){
+        if(res.documents.find((doc:any)=> doc.type === 'licenses')){
           let licensesDocument = res.documents.find((doc:any)=> doc.type === 'licenses')
-          this.licensesForm.patchValue(JSON.parse((res.documents.find((doc:any)=> doc.type === 'licenses')?.data)))
-         
+          this.licensesForm.patchValue((res.documents.find((doc:any)=> doc.type === 'licenses')))
           this.licensesFile = {name:'Лицензия загружена', dontFile:true} 
         }
-        if((res.documents.find((doc:any)=> doc.type === 'polis')?.data)){
-          this.polisForm.patchValue(JSON.parse((res.documents.find((doc:any)=> doc.type === 'polis')?.data)))
+        if((res.documents.find((doc:any)=> doc.type === 'polis'))){
+          let polis = (res.documents.find((doc:any)=> doc.type === 'polis'))
+          this.polisForm.patchValue({
+            number: polis.number,
+            issuedWhom: polis.issued_whom,
+            itWorksDate: moment(polis.it_works_date).format('YYYY-MM-DD')
+          })
           this.polisFile = {name:'Полис загружен', dontFile:true}
         }
-        if(res.documents.find((doc:any)=> doc.type === 'pasport')?.data){
-          this.pasportForm.patchValue(JSON.parse(res.documents.find((doc:any)=> doc.type === 'pasport')?.data))
+        if(res.documents.find((doc:any)=> doc.type === 'pasport')){
+          this.pasportForm.patchValue((res.documents.find((doc:any)=> doc.type === 'pasport')))
         } 
-        if(res.documents.find((doc:any)=> doc.type === 'notarius')?.path){
+        if(res.documents.find((doc:any)=> doc.type === 'notarius')){
           this.notariusFile = {name:'Согласие загружено', dontFile:true}
           this.oldNotariusFile = {name:'Согласие загружено', dontFile:true}
         } 
@@ -521,22 +560,38 @@ submitForm(){
   ionViewWillEnter(){
     this.setFormValue()
     this.getRegions()
+    this.getAllComands()
     this.userService.refreshUser()
     if(this.userService.user.value?.personal){
       this.personalUserForm.patchValue(this.userService.user.value?.personal)
+    
       this.personalUserForm.patchValue({
         dateOfBirth: this.userService.user.value?.personal.date_of_birth,
         phoneNumber: this.userService.user.value?.personal.phone_number,
         startNumber: this.userService.user.value?.personal.start_number,
         rankNumber: this.userService.user.value?.personal.rank_number,
+        commandId: this.userService.user.value?.personal.command?.id,
+        locationId: this.userService.user.value?.personal.location?.id,
         motoStamp:  this.userService.user.value?.personal.moto_stamp,
         numberAndSeria: this.userService.user.value?.personal.number_and_seria
       })
+      if(!this.userService.user.value?.personal.location?.id){
+        this.personalUserForm.patchValue({
+          region:'',
+        })
+      }
+
     }else{
       this.personalUserForm.reset()
     }
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    window.addEventListener('popstate', (event) => {
+      this.closeRegionModal()
+      this.closeComandSelectModalStateValue()
+      
+  })
+  }
 
 }

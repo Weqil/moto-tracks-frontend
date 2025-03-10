@@ -75,3 +75,33 @@ ion-modal{
     }
     }
 }
+ .tabs-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    padding-top: var(--standart-header-padding);
+    padding-bottom: 1rem;
+    width: 100%;
+    height: 2rem;
+ }
+
+ app-tabs{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+ }
+ .region-modal{
+    ion-content{
+     --background: rgb(255, 255, 255);
+    }
+    --max-height:50%;
+    --width:90%;
+    --border-radius: 12px;
+    --overflow-y: hidden;
+}
+
+.region-modal-container{
+    background: rgb(255, 255, 255);
+    padding: var(--standart-padding);
+}

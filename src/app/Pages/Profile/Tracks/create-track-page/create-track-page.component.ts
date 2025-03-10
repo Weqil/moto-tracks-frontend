@@ -3,7 +3,7 @@ import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
 import { HeaderComponent } from 'src/app/Shared/Components/UI/header/header.component';
 import { ButtonsModule } from 'src/app/Shared/Modules/buttons/buttons.module';
 import { StepsModule } from 'src/app/Shared/Modules/steps/steps.module';
-import { IonModal, NavController, Platform } from '@ionic/angular/standalone';
+import { IonCheckbox, IonLabel, IonModal, IonToggle, NavController, Platform } from '@ionic/angular/standalone';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FormsModule } from 'src/app/Shared/Modules/forms/forms.module';
 import { EditSliderComponent } from 'src/app/Shared/Components/UI/edit-slider/edit-slider.component';
@@ -16,20 +16,35 @@ import { catchError, EMPTY, finalize } from 'rxjs';
 import { ToastService } from 'src/app/Shared/Services/toast.service';
 import { serverError } from 'src/app/Shared/Data/Interfaces/errors';
 import { MapService } from 'src/app/Shared/Data/Services/Map/map.service';
+import { StandartInputSelectComponent } from 'src/app/Shared/Components/UI/Selecteds/standart-input-select/standart-input-select.component';
+import { InfoPopoverComponent } from 'src/app/Shared/Components/UI/info-popover/info-popover.component';
+import { formdataService } from 'src/app/Shared/Helpers/formdata.service';
 
 @Component({
   selector: 'app-create-track-page',
   templateUrl: './create-track-page.component.html',
   styleUrls: ['./create-track-page.component.scss'],
-  imports: [SharedModule, HeaderComponent, ButtonsModule, StepsModule, FormsModule, EditSliderComponent, StandartRichInputComponent, AddressInputComponent,IonModal]
+  imports: [SharedModule, HeaderComponent, StepsModule, FormsModule, EditSliderComponent, StandartRichInputComponent, 
+    AddressInputComponent,IonModal,IonToggle,IonLabel,StandartInputSelectComponent,
+    InfoPopoverComponent,IonRadioGroup,IonRadio,IonCheckbox]
 })
 export class CreateTrackPageComponent  implements OnInit {
 
   constructor() { }
   navController: NavController = inject(NavController)
-
+  formdataService: formdataService = inject(formdataService)
   maxStepsCount: number = 1
   stepCurrency: number = 1
+  logoUrl: string = ''
+  schemeUrl: string = ''
+  
+  coverageSelectedItem:any =  {name:'hard', value:'hard'}
+
+coverageItems:any[] = [
+  {name:'mid-hard', value:'mid-hard'},
+  {name:'hard', value:'hard'},
+  {name:'mid-soft', value:'mid-soft'},
+]
 
   regionModalState:boolean = false
   mapService:MapService = inject(MapService)
@@ -48,7 +63,20 @@ export class CreateTrackPageComponent  implements OnInit {
   contactsForm: FormGroup = new FormGroup({
     site: new FormControl('', [Validators.required, Validators.minLength(3)]),
     vk: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    trackVideo: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    tg: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    whatsApp: new FormControl('', [Validators.required, Validators.minLength(3)]),
     phone: new FormControl('', [Validators.required, Validators.minLength(3)]),
+  })
+
+  specForm: FormGroup = new FormGroup({
+    lengthTrack: new FormControl('', [Validators.required, Validators.minLength(1)]),
+    heightDifference: new FormControl('', [Validators.required, Validators.minLength(1)]),
+    coverage: new FormControl( this.coverageSelectedItem.value, [Validators.required, Validators.minLength(1)]),
+    leftTurns: new FormControl('', [Validators.required, Validators.minLength(1)]),
+    rightTurns: new FormControl('', [Validators.required, Validators.minLength(1)]),
+    elementsCount: new FormControl('', [Validators.required, Validators.minLength(1)]),
+    highSpeedSection: new FormControl('', [Validators.required, Validators.minLength(1)]),
   })
 
   createTrackForm: FormGroup = new FormGroup({
@@ -56,28 +84,18 @@ export class CreateTrackPageComponent  implements OnInit {
     address: new FormControl('', [Validators.required, Validators.minLength(3)]),
     latitude: new FormControl('', [Validators.required, Validators.minLength(3)]),
     longitude: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    free: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    apayment: new FormControl(false, [Validators.required, Validators.minLength(3)]),
+    logo: new FormControl('', [Validators.required,]),
+    light: new FormControl(false, [Validators.required,]),
+    allSeazonal: new FormControl(false, [Validators.required,]),
+    parking: new FormControl(false, [Validators.required,]),
+    opened: new FormControl(false, [Validators.required,]),
+    schemaImg: new FormControl('', [Validators.required,]),
     turns: new FormControl('', [Validators.required, Validators.minLength(3)]),
     region: new FormControl('', [Validators.required, Validators.minLength(3)]),
     locationId: new FormControl('', [Validators.required, Validators.minLength(1)]),
     length: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    desc: new FormControl(`Длина: - 
-Ширина: -
-Покрытие: -
-Направление: -
-Левых поворотов: -
-Правых поворотов: -
-
-Расписание и время работы:
-ПН:
-ВТ:
-СР:
-ЧТ:
-ПТ:
-СБ:
-ВС:
-                            `
-, [Validators.required, Validators.minLength(3)]),
+    desc: new FormControl(``, [Validators.required, Validators.minLength(3)]),
     level: new FormControl('', [Validators.required, Validators.minLength(3)]),
     images: new FormControl('', [Validators.required, Validators.minLength(3)]),
     is_work: new FormControl(1)
@@ -90,27 +108,33 @@ export class CreateTrackPageComponent  implements OnInit {
   deleteNewParameter(temp_id: any){
     this.newParams = this.newParams.filter((param:any)=> param.temp_id !== temp_id);
   }
+  penMail() {
+    window.location.href = "mailto:admin@vokrug.city";
+  }
 
   stepInvalidate() {
     if (this.createTrackForm.value) {
-      switch (this.stepCurrency) {
-        case 1:
           if (
             this.createTrackForm.value.name.length <= 3 ||
             this.createTrackForm.value.desc.length <= 3 
-           || !this.createTrackForm.value.address.length ||  !this.createTrackForm.value.latitude || !this.createTrackForm.value.longitude || !this.locationId
+           || !this.createTrackForm.value.address.length ||
+             !this.createTrackForm.value.latitude 
+             || !this.createTrackForm.value.longitude || 
+             !this.locationId || !this.logoUrl || !this.specForm.valid
           ) {
             return true
           } else {
             return false
+            
           }
-          
-        default:
-          return false
-      }
     } else {
       return true
     }
+  }
+
+  clearLogo(){
+    this.logoUrl = ''
+    this.createTrackForm.patchValue({logo: ''})
   }
 
   getRegions(){
@@ -135,6 +159,7 @@ export class CreateTrackPageComponent  implements OnInit {
       images: event
     })
   }
+
   changeAddress(event:any){
     if(event.latitude && event.longitude){
       this.createTrackForm.patchValue({
@@ -145,12 +170,42 @@ export class CreateTrackPageComponent  implements OnInit {
     }
    
   }
+  
   stepPrevious() {
+
+    this.navController.navigateRoot('/create-track')
+
+    // if (this.stepCurrency > 1) {
+    //   this.stepCurrency--
+    // }else{
+    //   this.navController.back()
+    // }
+  }
+  setLogo(event:any, input:HTMLInputElement){
+    const file = event.target.files[0]
+    if(file){
+      this.createTrackForm.patchValue({ logo: file })
+      const reader: FileReader = new FileReader()
+      reader.onload = (e: any) => {
+        this.logoUrl = e.target.result
+      }
+      reader.readAsDataURL(file)
+      input.value =''
+    }
+  }
+  changeLight(event:any){
    
-    if (this.stepCurrency > 1) {
-      this.stepCurrency--
-    }else{
-      this.navController.back()
+  }
+  setScheme(event:any,input:HTMLInputElement){
+    const file = event.target.files[0]
+    if(file){
+      this.createTrackForm.patchValue({ schemaImg: file })
+      const reader: FileReader = new FileReader()
+      reader.onload = (e: any) => {
+        this.schemeUrl = e.target.result
+      }
+      reader.readAsDataURL(file)
+      input.value =''
     }
   }
   stepNext() {
@@ -160,27 +215,46 @@ export class CreateTrackPageComponent  implements OnInit {
   }
   submitForm(){
     if(!this.stepInvalidate()){
-      this.loadingService.showLoading()
-      let createTrackFormData: FormData = new FormData()
-     
-      for(let key in this.createTrackForm.value){
-        createTrackFormData.append(key, this.createTrackForm.value[key])
-      }
-      for (var i = 0; i < this.createTrackForm.value.images.length; i++) {
-        createTrackFormData.append('images[]', this.createTrackForm.value.images[i])
-      }
-      this.trackService.createTrack(createTrackFormData).pipe(
-        catchError((err:serverError)=>{
-          this.toastService.showToast('Возникла ошибка','danger')
-          return EMPTY
-        }),
-        finalize(()=> this.loadingService.hideLoading())
-      ).subscribe((res:any)=>{
-        this.toastService.showToast('Трек успешно создан','success')
-        this.navController.back()
-      })
-    
-    } 
+
+      this.specForm.patchValue({coverage: this.coverageSelectedItem.value})
+      this.createTrackForm.patchValue({light: Number(this.createTrackForm.value.light), allSeazonal:Number(this.createTrackForm.value.allSeazonal)})
+  
+        let currentForm = {
+          ...this.createTrackForm.value,
+          spec:[],
+          contacts:[],
+        }
+        this.loadingService.showLoading()
+        let createTrackFormData: FormData = new FormData()
+        
+        let i = 0
+        for(let key in this.specForm.value){
+          createTrackFormData.append(`spec[${i}][title]`, key);
+          createTrackFormData.append(`spec[${i}][value]`, this.specForm.value[key]);
+          i++
+        }
+
+        let j = 0
+        for(let key in this.contactsForm.value){
+          createTrackFormData.append(`contacts[${j}][title]`, key);
+          createTrackFormData.append(`contacts[${j}][value]`, this.contactsForm.value[key]);
+          j++
+        }
+  
+        this.formdataService.formdataAppendJson(createTrackFormData,currentForm)
+        
+  
+        this.trackService.createTrack(createTrackFormData).pipe(
+          catchError((err:serverError)=>{
+            this.toastService.showToast('Возникла ошибка','danger')
+            return EMPTY
+          }),
+          finalize(()=> this.loadingService.hideLoading())
+        ).subscribe((res:any)=>{
+          this.toastService.showToast('Трек успешно создан','success')
+          this.navController.navigateForward('/my-tracks')
+        }) 
+    }
    
   }
 
@@ -194,13 +268,25 @@ export class CreateTrackPageComponent  implements OnInit {
   cancelCreate(){
     this.navController.back()
   }
+  setCoverage(event:any){
+    this.coverageSelectedItem = event
+  }
+
+  ionViewWillEnter(){
+    console.log('родилось создание')
+  }
 
   ionViewDidLeave() {
     this.stepCurrency = 1
     this.createTrackForm.reset()
   }
+
+  
   ngOnInit() {
     this.getRegions()
+    window.addEventListener('popstate', (event) => {
+      this.closeRegionModal()
+  })
   }
 
 }

@@ -11,6 +11,9 @@ import { TrackService } from 'src/app/Shared/Data/Services/Track/track.service';
 import { ButtonsModule } from 'src/app/Shared/Modules/buttons/buttons.module';
 import { LoadingService } from 'src/app/Shared/Services/loading.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ImagesModalComponent } from "../../../Shared/Components/UI/images-modal/images-modal.component";
+import { AddressInputComponent } from "../../../Shared/Components/Forms/address-input/address-input.component";
+import { InfoPopoverComponent } from "../../../Shared/Components/UI/info-popover/info-popover.component";
 @Component({
   selector: 'app-track-view-page',
   templateUrl: './track-view-page.component.html',
@@ -21,7 +24,9 @@ import { DomSanitizer } from '@angular/platform-browser';
     CheckImgUrlPipe,
     SlidersModule,
     AngularYandexMapsModule,
-    ButtonsModule,
+    ImagesModalComponent,
+    AddressInputComponent,
+    InfoPopoverComponent
 ]
 })
 
@@ -34,6 +39,29 @@ export class TrackViewPageComponent  implements OnInit {
   constructor() { }
   route: ActivatedRoute = inject(ActivatedRoute)
   loadingService: LoadingService = inject(LoadingService)
+  statusImagesModal: boolean = false
+
+  openImagesModalFunction(){
+    this.statusImagesModal = true
+  }
+  closeImagesModal(){
+    this.statusImagesModal = false
+  }
+
+  changeAddress(event:any){
+    if(event.latitude && event.longitude){
+      
+    }
+   
+  }
+
+  getSpecValue(key: string){
+    return this.track.spec?.find(spec => spec.title == key)?.value
+  }
+
+  getContactValue(key: string){
+    return this.track.contacts?.find(spec => spec.title == key)?.value
+  }
 
    getTrack(){
     this.loadingService.showLoading()
@@ -43,6 +71,7 @@ export class TrackViewPageComponent  implements OnInit {
       })
     ).subscribe((res:any) => {
       this.track = res.track
+      console.log(this.track)
     })
    }
    goToPoint(){
@@ -56,6 +85,7 @@ export class TrackViewPageComponent  implements OnInit {
     this.route.params.pipe(takeUntil(this.destroy$)).subscribe((params) => {
       this.trackId = params['id']
       this.getTrack()
+      
 
     })
   }

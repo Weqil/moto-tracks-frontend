@@ -14,7 +14,7 @@ import { userRoles } from 'src/app/Shared/Data/Enums/roles';
   selector: 'app-my-events-page',
   templateUrl: './my-events-page.component.html',
   styleUrls: ['./my-events-page.component.scss'],
-  imports: [SharedModule,ButtonsModule,HeaderModule,EventModule,IonModal]
+  imports: [SharedModule,HeaderModule,EventModule,IonModal]
 })
 export class MyEventsPageComponent  implements OnInit {
 
@@ -26,9 +26,11 @@ export class MyEventsPageComponent  implements OnInit {
   googleTabsLink:string = ''
   userService: UserService = inject(UserService)
   loadingService:LoadingService = inject(LoadingService)
+
   redirectInCreate(){
-    this.navController.navigateForward('/create-event')
+    this.navController.navigateRoot('/create-event')
   }
+  
   generateGoogleLink(eventId:any){
     this.loadingService.showLoading()
     this.eventService.generateGoogleLink(eventId).pipe(
@@ -40,18 +42,19 @@ export class MyEventsPageComponent  implements OnInit {
   }
 
   redirectInEditPage(eventId:any){
-    this.navController.navigateForward(`/race/edit/${eventId}`)
+    this.navController.navigateForward(`/race/edit/${eventId}`,{ animationDirection: 'forward' })
   }
 
-
+closetTableModal(){
+  this.tableModalValue = false
+}
   userHaveRoot(){
-    console.log()
     return this.userService.user.value?.roles.find((role:any)=>role.name == userRoles.admin || role.name == userRoles.root) !== undefined
   }
 
   ionViewWillEnter(){
+    
     this.loadingService.showLoading()
-
     this.eventService.getEventByUserId(String(this.userService.user.value?.id)).pipe(
       finalize(()=>{
         this.loadingService.hideLoading()
@@ -60,6 +63,16 @@ export class MyEventsPageComponent  implements OnInit {
       this.events = res.races
     })
   }
-  ngOnInit() {}
+
+  ionViewDidLeave(){
+    
+  }
+
+  ngOnInit() {
+    window.addEventListener('popstate', (event) => {
+      this.closetTableModal()
+      
+  })
+  }
 
 }

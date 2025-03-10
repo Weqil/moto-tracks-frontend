@@ -31,13 +31,18 @@ import { environment } from 'src/environments/environment';
 import { group } from '@angular/animations';
 import { MapService } from 'src/app/Shared/Data/Services/Map/map.service';
 import moment from 'moment';
+import { ImagesModalComponent } from "../../../Shared/Components/UI/images-modal/images-modal.component";
+import { formdataService } from 'src/app/Shared/Helpers/formdata.service';
+import { SelectComandsComponent } from 'src/app/Shared/Components/Commands/select-comands/select-comands.component';
+import { ICommand } from 'src/app/Shared/Data/Interfaces/command';
+import { ComandsService } from 'src/app/Shared/Data/Services/Comands/comands.service';
 
 @Component({
   selector: 'app-events-view-page',
   templateUrl: './events-view-page.component.html',
   styleUrls: ['./events-view-page.component.scss'],
-  imports: [SharedModule, SlidersModule, ButtonsModule, TrackSectionComponent, IonModal, HeaderModule, StandartInputComponent, UsersPreviewComponent, 
-    ConfirmModalComponent, CheckImgUrlPipe,FormsModule, StandartInputSelectComponent,RouterLink]
+  imports: [SharedModule, SlidersModule, ButtonsModule, TrackSectionComponent, IonModal, HeaderModule, StandartInputComponent, UsersPreviewComponent,
+    ConfirmModalComponent, CheckImgUrlPipe, FormsModule, StandartInputSelectComponent, RouterLink, ImagesModalComponent,SelectComandsComponent]
 })
 export class EventsViewPageComponent  implements OnInit {
 
@@ -52,6 +57,9 @@ export class EventsViewPageComponent  implements OnInit {
   loadingService: LoadingService = inject(LoadingService)
   switchTypeService:SwitchTypeService = inject(SwitchTypeService)
   mapService:MapService = inject(MapService)
+
+  comandSelectModalStateValue:boolean = false
+
   changePersonalDateModalValue:boolean = false
   usersInRace:User[] = []
   event!:IEvent
@@ -61,6 +69,11 @@ export class EventsViewPageComponent  implements OnInit {
   licensesFile:any =''
   polisFile:any = ''
   notariusFile:any = ''
+  
+
+  licensesId:string = ''
+  polisId:string = ''
+  notariusId:string = ''
 
   oldNotariusFile:any
 
@@ -70,10 +83,21 @@ export class EventsViewPageComponent  implements OnInit {
 
   ngZone: NgZone = inject(NgZone)
   documents:any = []
+
+  usersPreviewConfig:{usersCount:number}={
+    usersCount:0
+  }
   
+  formdataService:formdataService = inject(formdataService)
+  commandService:ComandsService = inject(ComandsService)
+
   applicationFormValueState:boolean = false
+
+  statusImagesModal?:boolean = false;
+
   userService:UserService = inject(UserService)
   eventId: string = ''
+  allComands:any[] = []
   personalUserForm: FormGroup = new FormGroup({
     name: new FormControl('', [Validators.required]),
     surname: new FormControl('', [Validators.required]),
@@ -83,17 +107,21 @@ export class EventsViewPageComponent  implements OnInit {
     city: new FormControl('', [Validators.required]),
     inn: new FormControl('', [Validators.required]),
     snils: new FormControl('', [Validators.required]),
+    commandId:new FormControl('', [Validators.required]),
     phoneNumber: new FormControl('', [Validators.required]),
     startNumber: new FormControl('', [Validators.required]),
     group:new FormControl('', [Validators.required]),
     rank:new FormControl('', [Validators.required]),
+    gradeId:new FormControl('', [Validators.required]),
     rankNumber:new FormControl('', [Validators.required]),
-    community:new FormControl('', [Validators.required]),
+    
+    community:new FormControl('Лично', [Validators.required]),
     locationId: new FormControl('', [Validators.required]),
     coach:new FormControl('', [Validators.required]),
     motoStamp:new FormControl('', [Validators.required]),
     engine:new FormControl('', [Validators.required]),
     numberAndSeria:new FormControl('', [Validators.required]),
+    comment:new FormControl('', [Validators.required])
   })
 
   engineItems:{name:string, value:string}[] = [
@@ -143,20 +171,21 @@ export class EventsViewPageComponent  implements OnInit {
 
     licensesForm: FormGroup = new FormGroup(
       {
-        licensesNumber: new FormControl('',[Validators.required, ]), //номер лицензии
+        number: new FormControl('',[Validators.required, ]), //номер лицензии
         licensesFileLink: new FormControl('',[Validators.required, ]), // путь до файла
       }
     )
   
     polisForm: FormGroup = new FormGroup(
       {
-        polisNumber: new FormControl('',[Validators.required, ]), //Серия и номер полиса
+        number: new FormControl('',[Validators.required, ]), //Серия и номер полиса
         issuedWhom: new FormControl('',[Validators.required, ]), //Кем выдан
         itWorksDate: new FormControl('',[Validators.required, ]), //Срок действия
         polisFileLink: new FormControl('',[Validators.required, ]), // путь до файла
       }
     )
    
+    
 
 
     formErrors:any = {
@@ -262,6 +291,16 @@ export class EventsViewPageComponent  implements OnInit {
       });
     })
   }
+  getAllComands(){
+    this.commandService.getComands().pipe().subscribe((res:any)=>{
+      this.allComands = []
+      this.allComands.push(
+          {id: '', name: 'Лично',}
+      )
+      this.allComands.push(...res.commands) 
+     
+    })
+  }
 
     formatingText(text:string): string{
         return text.replace(/\n/g, '<br>').replace(/  /g, '&nbsp;&nbsp;');;
@@ -276,7 +315,7 @@ export class EventsViewPageComponent  implements OnInit {
       this.personalUserForm.patchValue({engine: event.name})
     }
     setGroup(event:any){
-      this.personalUserForm.patchValue({group: event.name})
+      this.personalUserForm.patchValue({group: event.name, gradeId:event.id})
     }
     
     setRank(event:any){
@@ -287,31 +326,31 @@ export class EventsViewPageComponent  implements OnInit {
       this.personalUserForm.patchValue({motoStamp: event.name})
     }
 
-    cancelApplicationForm(){
-      let currentForm = {
-        ...this.personalUserForm.value,
-        ...this.polisForm.value,
-        ...this.licensesForm.value,
-        licensesFileLink:``,
-        polisFileLink:``,
-        notariuFileLink:``,   
-      }
-      const fd: FormData = new FormData();
-      fd.append('data',  JSON.stringify(currentForm))
-      let loader:HTMLIonLoadingElement
-      this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
-        loader = res
-      })
-      this.eventService.toggleAplicationInRace(this.eventId, fd).pipe(
-        finalize(()=>{
-          this.loadingService.hideLoading(loader)
-        })
-      ).subscribe((res:any)=>{
-          this.toastService.showToast('Заявка успешно отменена','success')
-          this.getUsersInRace()
-          this.getEvent()
-      })
-    }
+    // cancelApplicationForm(){
+ 
+    //   let currentForm = {
+    //     ...this.personalUserForm.value, 
+    //     licensesFileLink:``,
+    //     polisFileLink:``,
+    //     notariuFileLink:``,   
+    //     documentIds:[this.polisId,this.licensesId,this.notariusId]   
+    //   }
+    //   const fd: FormData = new FormData();
+    //   this.formdataService.formdataAppendJson(fd, currentForm)
+    //   let loader:HTMLIonLoadingElement
+    //   this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+    //     loader = res
+    //   })
+    //   this.eventService.toggleAplicationInRace(this.eventId, fd).pipe(
+    //     finalize(()=>{
+    //       this.loadingService.hideLoading(loader)
+    //     })
+    //   ).subscribe((res:any)=>{
+    //       this.toastService.showToast('Заявка успешно отменена','success')
+    //       this.getUsersInRace()
+    //       this.getEvent()
+    //   })
+    // }
 
    redirectInRace(){
      this.navController.navigateForward(`/track/${this.event.track.id}`)
@@ -352,7 +391,8 @@ export class EventsViewPageComponent  implements OnInit {
     })
       let fd: FormData = new FormData();
       fd.append('type', 'licenses');
-      fd.append('data', JSON.stringify(this.licensesForm.value));
+      fd = this.formdataService.formdataAppendJson(fd,this.licensesForm.value)
+
       fd.append('file', this.licensesFile);
       
       return this.userService.createUserDocument(fd).pipe(
@@ -375,7 +415,7 @@ export class EventsViewPageComponent  implements OnInit {
     })
       let fd: FormData = new FormData();
       fd.append('type', 'polis');
-      fd.append('data', JSON.stringify(this.polisForm.value));
+      fd = this.formdataService.formdataAppendJson(fd, this.polisForm.value);
       fd.append('file', this.polisFile);
       
       return this.userService.createUserDocument(fd).pipe(
@@ -394,7 +434,6 @@ export class EventsViewPageComponent  implements OnInit {
  createNotarius(): Observable<any>{
   let fd: FormData = new FormData()
    fd.append('type','notarius')
-   fd.append('data',JSON.stringify({}))
    fd.append('file',this.notariusFile)
     this.userService.createUserDocument(fd).pipe(
     finalize(()=>{
@@ -479,6 +518,12 @@ export class EventsViewPageComponent  implements OnInit {
     this.changePersonalDateModalValue = false
   }
 
+  setComand(event:any){
+    this.personalUserForm.patchValue({community:event.name})
+    this.personalUserForm.patchValue({commandId:event.id})
+    this.closeComandSelectModalStateValue()
+  }
+
   openRacer(user:User){
     this.closeStateUsersModal()
     setTimeout(()=>{
@@ -490,8 +535,11 @@ export class EventsViewPageComponent  implements OnInit {
     },0)
  
   }
-  checkChangeDocumentsForm(){
-
+  closeComandSelectModalStateValue(){
+    this.comandSelectModalStateValue = false
+  }
+  openComandSelectModalStateValue(){
+    this.comandSelectModalStateValue = true
   }
 
   setFirstDocuments(): Observable<void> {
@@ -572,21 +620,16 @@ export class EventsViewPageComponent  implements OnInit {
 
 
   async toggleAplicationInRace(){
- 
     if(this.submitValidate()){
-   
       await this.setFirstDocuments().pipe().subscribe(()=>{
         this.setDocuments().pipe().subscribe(()=>{
+      
          let currentForm = {
            ...this.personalUserForm.value,
-           ...this.polisForm.value,
-           ...this.licensesForm.value,
-           licensesFileLink: this.licensesFile.path,
-           polisFileLink: this.polisFile.path,
-           notariusFileLink: this.notariusFile.path,
+           documentIds:[this.polisId, this.licensesId,this.notariusId]   
          }
-         const fd: FormData = new FormData();
-         fd.append('data',  JSON.stringify(currentForm))
+         let fd: FormData = new FormData();
+         fd = this.formdataService.formdataAppendJson(fd, currentForm)
      
          let loader:HTMLIonLoadingElement
          this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
@@ -602,7 +645,6 @@ export class EventsViewPageComponent  implements OnInit {
              this.getEvent()
              //Если пользователь не имел персональных данных
              this.setFirstUserPersonal()
-         
              this.checkChangeInPersonalform()
              this.toastService.showToast('Заявка успешно отправленна','success')
          })
@@ -613,8 +655,6 @@ export class EventsViewPageComponent  implements OnInit {
     }
   }
 
-  
-
   setUserInForm(){
     this.userService.refreshUser()
     if(this.userService.user.value?.personal){
@@ -623,6 +663,10 @@ export class EventsViewPageComponent  implements OnInit {
         dateOfBirth: this.userService.user.value?.personal.date_of_birth,
         phoneNumber: this.userService.user.value?.personal.phone_number,
         startNumber: this.userService.user.value?.personal.start_number,
+        locationId: this.userService.user.value?.personal.location?.id,
+        commandId: this.userService.user.value?.personal.command?.id,
+        region: this.userService.user.value?.personal.location ? this.userService.user.value?.personal.region : '',
+        community: this.userService.user.value?.personal.command?.id ? this.userService.user.value?.personal.command?.name : '',
         rankNumber: this.userService.user.value?.personal.rank_number,
         motoStamp:  this.userService.user.value?.personal.moto_stamp,
         numberAndSeria: this.userService.user.value?.personal.number_and_seria,
@@ -640,20 +684,27 @@ export class EventsViewPageComponent  implements OnInit {
      })
      ).subscribe((res:any)=>{
      if(res.documents){
-       if(res.documents.find((doc:any)=> doc.type === 'licenses')?.data){
+       if(res.documents.find((doc:any)=> doc.type === 'licenses')){
          let licensesDocument = res.documents.find((doc:any)=> doc.type === 'licenses')
-         this.licensesForm.patchValue(JSON.parse((res.documents.find((doc:any)=> doc.type === 'licenses')?.data)))
+         this.licensesId = licensesDocument.id
+         this.licensesForm.patchValue(((res.documents.find((doc:any)=> doc.type === 'licenses'))))
          this.licensesFile = {name:'Лицензия загружена', path:  `${environment.BASE_URL}/document/${licensesDocument.id } ` }
        
        }
-       if((res.documents.find((doc:any)=> doc.type === 'polis')?.data)){
+       if((res.documents.find((doc:any)=> doc.type === 'polis'))){
          let polisDocument = res.documents.find((doc:any)=> doc.type === 'polis')
-         this.polisForm.patchValue(JSON.parse((res.documents.find((doc:any)=> doc.type === 'polis')?.data)))
+         this.polisId = polisDocument.id
+         this.polisForm.patchValue({
+          number: polisDocument.number,
+          issuedWhom: polisDocument.issued_whom,
+          itWorksDate: moment(polisDocument.it_works_date).format('YYYY-MM-DD')
+         })
          this.polisFile = {name:'Полис загружен', path:  `${environment.BASE_URL}/document/${polisDocument.id}`}
        }
        
-       if(res.documents.find((doc:any)=> doc.type === 'notarius')?.path.length){
+       if(res.documents.find((doc:any)=> doc.type === 'notarius')){
          let notariusDocument = res.documents.find((doc:any)=> doc.type === 'notarius')
+         this.notariusId = notariusDocument.id
          this.notariusFile = {name:'Согласие загружено', path: `${environment.BASE_URL}/document/${notariusDocument.id}`}
          this.oldNotariusFile = {name:'Согласие загружено',  path:  `${environment.BASE_URL}/document/${notariusDocument.id}`}
        } 
@@ -679,7 +730,15 @@ export class EventsViewPageComponent  implements OnInit {
 
   getUsersInRace(){
     this.eventService.getUsersInRace(this.eventId).pipe().subscribe((res:any)=>{
+      
       this.usersInRace = res.users
+      if(this.usersInRace){
+        Object.keys(this.usersInRace).forEach((res:any)=>{
+        let tempArray:any = Array(this.usersInRace[res])[0]
+         this.usersPreviewConfig.usersCount += tempArray.length
+        })
+      }
+      
     })
   }
 
@@ -725,8 +784,17 @@ export class EventsViewPageComponent  implements OnInit {
     return valid
   }
 
+  closeImagesModal() {
+    this.statusImagesModal = false
+  }
+
+  openImagesModalFunction() {
+    this.statusImagesModal = true
+  }
+
   ionViewWillEnter(){
     this.getRegions()
+    
     this.route.params.pipe(takeUntil(this.destroy$)).pipe(
       finalize(()=>{
       })
@@ -737,6 +805,7 @@ export class EventsViewPageComponent  implements OnInit {
         if(this.authService.isAuthenticated()){
           this.setFormValue()
           this.setUserInForm()
+          this.getAllComands()
         }
       })
     }
@@ -747,6 +816,9 @@ export class EventsViewPageComponent  implements OnInit {
     window.addEventListener('popstate', (event) => {
       this.closeStateUsersModal()
       this.closeApplicationForm()
+      this.closeImagesModal()
+      this.closeRegionModal()
+      this.closeComandSelectModalStateValue()
     });
   }
 }

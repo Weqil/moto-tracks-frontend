@@ -51,7 +51,6 @@ export class PrivateFilesComponent  implements OnInit {
         // a.href = url;
         let ras;
         this.fileType = 'img'
-        console.log(response.type)
         switch(response.type) {
           case 'image/jpeg':
             ras = '.jpg'
@@ -79,7 +78,7 @@ export class PrivateFilesComponent  implements OnInit {
         this.fileUrl = url;
         if(this.fileType === 'img'){
           this.images.push(this.fileUrl)
-          console.log(this.images)
+
         }
 
       }
