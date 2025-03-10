@@ -95,23 +95,7 @@ coverageItems:any[] = [
     region: new FormControl('', [Validators.required, Validators.minLength(3)]),
     locationId: new FormControl('', [Validators.required, Validators.minLength(1)]),
     length: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    desc: new FormControl(`Длина: - 
-Ширина: -
-Покрытие: -
-Направление: -
-Левых поворотов: -
-Правых поворотов: -
-
-Расписание и время работы:
-ПН:
-ВТ:
-СР:
-ЧТ:
-ПТ:
-СБ:
-ВС:
-                            `
-, [Validators.required, Validators.minLength(3)]),
+    desc: new FormControl(``, [Validators.required, Validators.minLength(3)]),
     level: new FormControl('', [Validators.required, Validators.minLength(3)]),
     images: new FormControl('', [Validators.required, Validators.minLength(3)]),
     is_work: new FormControl(1)
@@ -136,11 +120,12 @@ coverageItems:any[] = [
            || !this.createTrackForm.value.address.length ||
              !this.createTrackForm.value.latitude 
              || !this.createTrackForm.value.longitude || 
-             !this.locationId || !this.logoUrl || !this.specForm.valid || !this.createTrackForm.value.light || !this.createTrackForm.value.allSeazonal
+             !this.locationId || !this.logoUrl || !this.specForm.valid 
           ) {
             return true
           } else {
             return false
+            
           }
     } else {
       return true

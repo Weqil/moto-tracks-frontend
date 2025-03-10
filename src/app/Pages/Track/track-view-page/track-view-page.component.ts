@@ -13,6 +13,7 @@ import { LoadingService } from 'src/app/Shared/Services/loading.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ImagesModalComponent } from "../../../Shared/Components/UI/images-modal/images-modal.component";
 import { AddressInputComponent } from "../../../Shared/Components/Forms/address-input/address-input.component";
+import { InfoPopoverComponent } from "../../../Shared/Components/UI/info-popover/info-popover.component";
 @Component({
   selector: 'app-track-view-page',
   templateUrl: './track-view-page.component.html',
@@ -24,7 +25,8 @@ import { AddressInputComponent } from "../../../Shared/Components/Forms/address-
     SlidersModule,
     AngularYandexMapsModule,
     ImagesModalComponent,
-    AddressInputComponent
+    AddressInputComponent,
+    InfoPopoverComponent
 ]
 })
 
