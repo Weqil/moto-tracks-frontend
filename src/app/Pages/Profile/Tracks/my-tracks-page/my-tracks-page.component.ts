@@ -42,9 +42,18 @@ export class MyTracksPageComponent  implements OnInit {
     this.navController.navigateForward(`/track/edit/${eventId}`)
   }
 
+  ionViewDidLeave(){
+    console.log('умир')
+  }
+
   ionViewWillEnter(){
+    console.log('родився')
     this.getMyTracks()
   }
   ngOnInit() {}
+  
+  ngOnDestroy() {
+    console.log('Компонент уничтожен');
+  }
 
 }
