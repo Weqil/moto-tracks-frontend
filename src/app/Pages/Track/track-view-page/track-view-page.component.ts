@@ -59,6 +59,10 @@ export class TrackViewPageComponent  implements OnInit {
     return this.track.spec?.find(spec => spec.title == key)?.value
   }
 
+  getContactValue(key: string){
+    return this.track.contacts?.find(spec => spec.title == key)?.value
+  }
+
    getTrack(){
     this.loadingService.showLoading()
     this.trackService.getTrackById(this.trackId).pipe(
