@@ -41,9 +41,9 @@ export class CreateTrackPageComponent  implements OnInit {
   coverageSelectedItem:any =  {name:'hard', value:'hard'}
 
 coverageItems:any[] = [
-  {name:'soft', value:'soft'},
+  {name:'mid-hard', value:'mid-hard'},
   {name:'hard', value:'hard'},
-  {name:'medium', value:'medium'},
+  {name:'mid-soft', value:'mid-soft'},
 ]
 
   regionModalState:boolean = false
@@ -136,7 +136,7 @@ coverageItems:any[] = [
            || !this.createTrackForm.value.address.length ||
              !this.createTrackForm.value.latitude 
              || !this.createTrackForm.value.longitude || 
-             !this.locationId || !this.logoUrl || !this.specForm.valid || !this.createTrackForm.value.light || !this.createTrackForm.value.allSeazonal
+             !this.locationId || !this.logoUrl || !this.specForm.valid
           ) {
             return true
           } else {
@@ -174,6 +174,7 @@ coverageItems:any[] = [
       images: event
     })
   }
+
   changeAddress(event:any){
     if(event.latitude && event.longitude){
       this.createTrackForm.patchValue({
@@ -184,6 +185,7 @@ coverageItems:any[] = [
     }
    
   }
+  
   stepPrevious() {
     if (this.stepCurrency > 1) {
       this.stepCurrency--
@@ -224,44 +226,47 @@ coverageItems:any[] = [
     }
   }
   submitForm(){
-    this.specForm.patchValue({coverage: this.coverageSelectedItem.value})
-    this.createTrackForm.patchValue({light: Number(this.createTrackForm.value.light), allSeazonal:Number(this.createTrackForm.value.allSeazonal)})
-    if(this.stepInvalidate()){   
-      let currentForm = {
-        ...this.createTrackForm.value,
-        spec:[],
-        contacts:[],
-      }
-      this.loadingService.showLoading()
-      let createTrackFormData: FormData = new FormData()
-      
-      let i = 0
-      for(let key in this.specForm.value){
-        createTrackFormData.append(`spec[${i}][title]`, key);
-        createTrackFormData.append(`spec[${i}][value]`, this.specForm.value[key]);
-        i++
-      }
-      let j = 0
-      for(let key in this.contactsForm.value){
-        createTrackFormData.append(`contacts[${i}][title]`, key);
-        createTrackFormData.append(`contacts[${i}][value]`, this.contactsForm.value[key]);
-        j++
-      }
+    if(!this.stepInvalidate()){
 
-      this.formdataService.formdataAppendJson(createTrackFormData,currentForm)
-      
-
-      this.trackService.createTrack(createTrackFormData).pipe(
-        catchError((err:serverError)=>{
-          this.toastService.showToast('Возникла ошибка','danger')
-          return EMPTY
-        }),
-        finalize(()=> this.loadingService.hideLoading())
-      ).subscribe((res:any)=>{
-        this.toastService.showToast('Трек успешно создан','success')
-        this.navController.back()
-      })
-    } 
+      this.specForm.patchValue({coverage: this.coverageSelectedItem.value})
+      this.createTrackForm.patchValue({light: Number(this.createTrackForm.value.light), allSeazonal:Number(this.createTrackForm.value.allSeazonal)})
+  
+        let currentForm = {
+          ...this.createTrackForm.value,
+          spec:[],
+          contacts:[],
+        }
+        this.loadingService.showLoading()
+        let createTrackFormData: FormData = new FormData()
+        
+        let i = 0
+        for(let key in this.specForm.value){
+          createTrackFormData.append(`spec[${i}][title]`, key);
+          createTrackFormData.append(`spec[${i}][value]`, this.specForm.value[key]);
+          i++
+        }
+        let j = 0
+        for(let key in this.contactsForm.value){
+          createTrackFormData.append(`contacts[${i}][title]`, key);
+          createTrackFormData.append(`contacts[${i}][value]`, this.contactsForm.value[key]);
+          j++
+        }
+  
+        this.formdataService.formdataAppendJson(createTrackFormData,currentForm)
+        
+  
+        this.trackService.createTrack(createTrackFormData).pipe(
+          catchError((err:serverError)=>{
+            this.toastService.showToast('Возникла ошибка','danger')
+            return EMPTY
+          }),
+          finalize(()=> this.loadingService.hideLoading())
+        ).subscribe((res:any)=>{
+          this.toastService.showToast('Трек успешно создан','success')
+          this.navController.back()
+        }) 
+    }
+   
   }
 
   closeRegionModal(){

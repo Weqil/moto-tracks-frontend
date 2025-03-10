@@ -9,6 +9,7 @@ export interface User{
     surname?:string,
     city?:string,
     rank?:string,
+   
     start_number?:number|null,
     personal?:{
         name: string,
@@ -18,6 +19,7 @@ export interface User{
         city:string,
         inn:string,
         command_id:string,
+        region?:string,
         snils:number,
         phone_number:string,
         start_number:string,
