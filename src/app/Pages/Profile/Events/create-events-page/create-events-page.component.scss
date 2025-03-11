@@ -124,15 +124,17 @@ ion-modal{
 
 ion-toggle {
     --background: #ffffff; /* фон, когда выключен */
-    --handle-background: #ffffff; /* цвет ползунка */
+    --handle-background: #3880FF; /* цвет ползунка */
     --handle-border-radius: 50%;
-    --track-border-width: 2px;
+    --track-border-width: 0px;
     --track-border-color: #3880FF;
   }
   
   ion-toggle::part(track) {
     background-color: var(--background);
     height: 2rem;
+    border-color: var(--track-border-color);
+    border-style: solid;
   }
   
   ion-toggle::part(handle) {
