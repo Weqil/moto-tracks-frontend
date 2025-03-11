@@ -141,7 +141,7 @@ setCoverage(event:any){
             [contactItem.title]: contactItem.value
           })
         })
-        console.log( this.editTrackForm.value)
+        
         this.editTrackForm.patchValue({
           desc: this.track.desc ? this.track.desc!.replace(/  /g, '&nbsp;&nbsp;') : ''
         });
