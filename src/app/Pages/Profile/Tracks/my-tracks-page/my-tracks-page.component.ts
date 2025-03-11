@@ -28,7 +28,7 @@ export class MyTracksPageComponent  implements OnInit {
 
   tracks!:Track[]
   redirectInCreate(){
-    this.navController.navigateForward('/create-track')
+    this.navController.navigateRoot('/create-track')
   }
   getMyTracks(){
     this.loaderService.showLoading()

@@ -35,6 +35,9 @@
 
 }
 .card__footer{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
     position: relative;
     padding-left: var(--little-padding);
     padding-top: var(--little-padding);
@@ -81,7 +84,7 @@
 .users-in-event{
     position: absolute;
     right: var(--standart-padding);
-    top: 0.5rem;
+    bottom: 0.5rem;
     display: flex;
     flex-direction: row;
     align-items: center;
