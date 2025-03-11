@@ -21,6 +21,11 @@ export class UserSectionComponent  implements OnInit {
   onClickStatus(){
     this.changeStatus.emit()
   }
+
+  ngOnChanges(){
+   
+  }
+
   ngOnInit() {}
 
 }

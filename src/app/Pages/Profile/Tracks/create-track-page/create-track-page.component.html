@@ -1,10 +1,5 @@
 <ion-content>
-    <app-header (customBackClick)="stepPrevious()" 
-
-    [hiddenBackButton]="true"
-    [customBack]="false" 
-
-    headerTitle="Создание трека"></app-header>
+    <app-header (customBackClick)="stepPrevious()" [hiddenBackButton]="true" [customBack]="false" headerTitle="Создание трека"></app-header>
     <main class="main-container--with-header">
         <app-step-container [maxStepsCount]="maxStepsCount" [stepCurrency]="stepCurrency">
             <app-step-container-item [maxStepsCount]="maxStepsCount" [stepCurrency]="stepCurrency" stepNum="1">
@@ -32,7 +27,7 @@
                                 <input (change)="setLogo($event,logoFile)" #logoFile style="display: none;" accept="image/png, image/jpeg" type="file" type="file">
                             </div>
                         </div>
-                       </div>
+                    </div>
                     <!-- <div class="specifications">
                         @for (param of newParams; track param.temp_id) {
                             <div>

@@ -9,7 +9,7 @@ export interface User{
     surname?:string,
     city?:string,
     rank?:string,
-   
+    user?:any
     start_number?:number|null,
     personal?:{
         name: string,

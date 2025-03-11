@@ -6,7 +6,7 @@ export interface Track {
     address: string;
     latitude: number;
     longitude: number;
-    avatar?: string|null;
+    logo?: string|null;
     is_work?:boolean;
     location:{
         id:number,

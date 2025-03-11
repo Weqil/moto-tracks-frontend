@@ -252,7 +252,7 @@ coverageItems:any[] = [
           finalize(()=> this.loadingService.hideLoading())
         ).subscribe((res:any)=>{
           this.toastService.showToast('Трек успешно создан','success')
-          this.navController.navigateForward('/my-tracks')
+          this.navController.navigateRoot('/my-tracks')
         }) 
     }
    
