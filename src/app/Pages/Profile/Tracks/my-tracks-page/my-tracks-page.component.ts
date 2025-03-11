@@ -43,17 +43,14 @@ export class MyTracksPageComponent  implements OnInit {
   }
 
   ionViewDidLeave(){
-    console.log('умир')
   }
 
   ionViewWillEnter(){
-    console.log('родився')
     this.getMyTracks()
   }
   ngOnInit() {}
   
   ngOnDestroy() {
-    console.log('Компонент уничтожен');
   }
 
 }
