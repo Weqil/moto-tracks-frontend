@@ -27,7 +27,7 @@
         <div class="users-content">
             <ng-container *ngIf="users && !formattedUsers" >
                 <div *ngFor="let user of users" (click)="openUser(user)" class="card-grid__item">
-                    <app-user-section  [hideEmail]= "true"  [user]="user.user"></app-user-section>
+                    <app-user-section  [hideEmail]= "true"  [user]="createUserInAplication(user)"></app-user-section>
                     <div *ngIf="user?.personal?.start_number" class="user-info__class">
                         {{user?.personal?.start_number}}
                     </div>
@@ -46,7 +46,7 @@
                         <ng-container *ngFor="let user of group.users; let i = index">
                             <div>
                                 <div (click)="openUser(user)" class="card-grid__item">
-                                    <app-user-section [showRank]="true"  [hideEmail]= "true"  [user]="user.user"></app-user-section>
+                                    <app-user-section [showRank]="true"  [hideEmail]= "true"  [user]="createUserInAplication(user)"></app-user-section>
                                     <div *ngIf="user?.start_number" class="user-info__class">
                                         {{user?.start_number}}
                                     </div>

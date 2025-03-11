@@ -50,6 +50,17 @@ export class UsersPreviewComponent implements OnInit {
   closeModal() {
     this.closeModalEmit.emit()
   }
+
+  createUserInAplication(aplication:any){
+    let userInAplication:any = {
+      name:aplication.name,
+      rank:aplication.rank,
+      surname:aplication.surname,
+      city:aplication.city,
+      avatar:aplication.user.avatar
+    }
+    return userInAplication
+  }
   
   openUser(user: User) {
     this.userSelected.emit(user)
