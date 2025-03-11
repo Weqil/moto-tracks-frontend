@@ -20,6 +20,10 @@ export class TrackSectionComponent  implements OnInit {
     
   }
 
+  ionViewWillEnter(){
+    
+  }
+
   ngOnInit() {}
 
 }

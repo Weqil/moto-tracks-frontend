@@ -1,7 +1,7 @@
 <div *ngIf="track" class="track-section">
   <div class="track-section__info-group">
     <div class="track-section__avatar"> 
-      <img class="track-section__avatar__img" src="{{ track.images?.[0] | checkImgUrl:'/assets/icons/track-standart.png'}}" alt="">
+      <img class="track-section__avatar__img" src="{{ track.logo | checkImgUrl:'/assets/icons/track-standart.png'}}" alt="">
     </div>
     <div class="track-section__info">
       <h2 class="track-section__name">{{track.name}}</h2>

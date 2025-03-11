@@ -1,4 +1,4 @@
-//Прод  сервер
+// Прод  сервер
 // export const environment = {
 //   production: true,
 //   apiKeyYandex: '9a1df530-ff4c-4c63-b19c-ede18479110d',
@@ -18,7 +18,7 @@
 //   vkontakteServiceKey: '7c6d50047c6d50047c6d5004647f7f17fc77c6d7c6d50041fa47869a3cc84a7c0bed429',
 // }
 
-//Тестовый  сервер
+// Тестовый  сервер
 // export const environment = {
 //   production: true,
 //   apiKeyYandex: '9a1df530-ff4c-4c63-b19c-ede18479110d',
@@ -37,24 +37,6 @@
 //   yandexAuthUrl: 'https://api-dev.vokrug.city/api/social-auth/yandex/',
 //   vkontakteServiceKey: '7c6d50047c6d50047c6d5004647f7f17fc77c6d7c6d50041fa47869a3cc84a7c0bed429',
 // }
-// export const environment = {
-//   production: true,
-//   apiKeyYandex: '9a1df530-ff4c-4c63-b19c-ede18479110d',
-//   apiKeyYandexSubject: '326052a4-78c1-44b0-8971-2f18fbde7cf9',
-//   YANDEX_METRICA_KEY: 96112606,
-//   YANDEX_METRICA_ON: true,
-//   APP_NAME: 'VOKRUG',
-//   BASE_URL: 'https://moto.vokrug.city',
-//   PORT: '8100',
-//   BACKEND_URL: 'https://api-moto.vokrug.city',
-//   BACKEND_PORT: '443',
-//   DOMAIN: 'mlcity.ru',
-//   appleClientId: 'mlcity.ru',
-//   appleAuthUrl: 'https://api.dev-moto.vokrug.city/api/social-auth/apple',
-//   vkontakteAuthUrl: `https://api.dev-moto.vokrug.city.city/api/social-auth/vkontakte`,
-//   yandexAuthUrl: 'https://api-dev.vokrug.city/api/social-auth/yandex/',
-//   vkontakteServiceKey: '7c6d50047c6d50047c6d5004647f7f17fc77c6d7c6d50041fa47869a3cc84a7c0bed429',
-// }
 export const environment = {
   production: true,
   apiKeyYandex: '9a1df530-ff4c-4c63-b19c-ede18479110d',
@@ -62,9 +44,9 @@ export const environment = {
   YANDEX_METRICA_KEY: 96112606,
   YANDEX_METRICA_ON: true,
   APP_NAME: 'VOKRUG',
-  BASE_URL: 'http://localhost:8100',
+  BASE_URL: 'https://moto.vokrug.city',
   PORT: '8100',
-  BACKEND_URL: 'https://api.dev-moto.vokrug.city',
+  BACKEND_URL: 'https://api-moto.vokrug.city',
   BACKEND_PORT: '443',
   DOMAIN: 'mlcity.ru',
   appleClientId: 'mlcity.ru',
@@ -73,6 +55,24 @@ export const environment = {
   yandexAuthUrl: 'https://api-dev.vokrug.city/api/social-auth/yandex/',
   vkontakteServiceKey: '7c6d50047c6d50047c6d5004647f7f17fc77c6d7c6d50041fa47869a3cc84a7c0bed429',
 }
+// export const environment = {
+//   production: true,
+//   apiKeyYandex: '9a1df530-ff4c-4c63-b19c-ede18479110d',
+//   apiKeyYandexSubject: '326052a4-78c1-44b0-8971-2f18fbde7cf9',
+//   YANDEX_METRICA_KEY: 96112606,
+//   YANDEX_METRICA_ON: true,
+//   APP_NAME: 'VOKRUG',
+//   BASE_URL: 'http://localhost:8100',
+//   PORT: '8100',
+//   BACKEND_URL: 'https://api.dev-moto.vokrug.city',
+//   BACKEND_PORT: '443',
+//   DOMAIN: 'mlcity.ru',
+//   appleClientId: 'mlcity.ru',
+//   appleAuthUrl: 'https://api.dev-moto.vokrug.city/api/social-auth/apple',
+//   vkontakteAuthUrl: `https://api.dev-moto.vokrug.city.city/api/social-auth/vkontakte`,
+//   yandexAuthUrl: 'https://api-dev.vokrug.city/api/social-auth/yandex/',
+//   vkontakteServiceKey: '7c6d50047c6d50047c6d5004647f7f17fc77c6d7c6d50041fa47869a3cc84a7c0bed429',
+// }
 //Локальный  сервер
 // export const environment = {
 //   production: true,
