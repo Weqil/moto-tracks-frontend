@@ -14,14 +14,15 @@ export class AppComponent {
   private lastBackgroundTime: MomentInput  = moment()
   constructor() {
     
-    App.addListener('appStateChange', (state) => { //отслеживается состояние приложения в фоне оно или нет, если в фоне мы записываем этот 
+    App.addListener('appStateChange', (state) => { 
+      //отслеживается состояние приложения в фоне оно или нет, если в фоне мы записываем этот 
       //момент в переменную и при выходе из фона мы из текущего момента вычитаем переменную и если разница, нахождение в фоне 
       //было более 2 минут то мы перезагружаем приложение
       if (state.isActive) {
         
         let diff = moment().diff(moment(this.lastBackgroundTime), 'minutes');
         // console.log(`Active - diff ${diff}`);
-        if(diff>=20){
+        if(diff>=5){
           // console.log(diff)
           window.location.reload()
           // console.log('Приложение обновилось спустя')
