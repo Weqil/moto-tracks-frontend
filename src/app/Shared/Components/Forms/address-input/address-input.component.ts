@@ -30,7 +30,13 @@ export class AddressInputComponent implements OnInit {
   private readonly destroy$ = new Subject<void>()
   map: any
   address: any
-  addressForm!: FormGroup
+  addressForm: FormGroup =  new FormGroup({
+    placeId: new FormControl(this.placeId, [Validators.required]),
+    address: new FormControl('', [Validators.required]),
+    longitude: new FormControl('', [Validators.required]),
+    latitude: new FormControl('', [Validators.required]),
+    location_id: new FormControl('', [Validators.required]),
+  })
   public addressChange: BehaviorSubject<boolean> = new BehaviorSubject(true)
   setFirstCoords() {
   
@@ -127,12 +133,6 @@ export class AddressInputComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.addressForm = new FormGroup({
-      placeId: new FormControl(this.placeId, [Validators.required]),
-      address: new FormControl('', [Validators.required]),
-      longitude: new FormControl('', [Validators.required]),
-      latitude: new FormControl('', [Validators.required]),
-      location_id: new FormControl('', [Validators.required]),
-    })
+   
   }
 }

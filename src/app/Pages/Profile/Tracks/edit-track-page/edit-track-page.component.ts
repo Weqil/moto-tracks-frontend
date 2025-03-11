@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { IonModal, NavController } from '@ionic/angular/standalone';
+import { IonModal, IonToggle, NavController } from '@ionic/angular/standalone';
 import { EMPTY, Subject } from 'rxjs';
 import { catchError, finalize, takeUntil } from 'rxjs/operators';
 import { AddressInputComponent } from 'src/app/Shared/Components/Forms/address-input/address-input.component';
@@ -20,6 +20,8 @@ import * as _ from 'lodash';
 import { LoadingService } from 'src/app/Shared/Services/loading.service';
 import { environment } from 'src/environments/environment';
 import { ToastService } from 'src/app/Shared/Services/toast.service';
+import { InfoPopoverComponent } from 'src/app/Shared/Components/UI/info-popover/info-popover.component';
+import { StandartInputSelectComponent } from 'src/app/Shared/Components/UI/Selecteds/standart-input-select/standart-input-select.component';
 
 @Component({
   selector: 'app-edit-track-page',
@@ -27,7 +29,7 @@ import { ToastService } from 'src/app/Shared/Services/toast.service';
   styleUrls: ['./edit-track-page.component.scss'],
   imports:[SharedModule,StandartInputComponent,
      HeaderComponent, StandartRichInputComponent,IonModal,StandartInputSearchComponent,AddressInputComponent,EditSliderComponent,
-    StandartButtonComponent]
+    StandartButtonComponent,InfoPopoverComponent,IonToggle,StandartInputSelectComponent]
 })
 export class EditTrackPageComponent  implements OnInit {
 
@@ -54,6 +56,11 @@ export class EditTrackPageComponent  implements OnInit {
   track!:Track
   trackId!: string 
 
+  coverageSelectedItem:any =  {name:'hard', value:'hard'}
+
+  logoUrl:string = ''
+  schemeUrl:string = ''
+
   editTrackForm: FormGroup = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(3)]),
     address: new FormControl('', [Validators.required, Validators.minLength(3)]),
@@ -61,14 +68,48 @@ export class EditTrackPageComponent  implements OnInit {
     longitude: new FormControl('', [Validators.required, Validators.minLength(3)]),
     free: new FormControl(1, [Validators.required, Validators.minLength(3)]),
     turns: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    light: new FormControl(false, [Validators.required,]),
+    allSeazonal: new FormControl(false, [Validators.required,]),
     desc: new FormControl('', [Validators.required, Validators.minLength(3)]),
     region: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    logo: new FormControl('', [Validators.required,]),
+    schemaImg: new FormControl('', [Validators.required,]),
     locationId: new FormControl('', [Validators.required, Validators.minLength(1)]),
     length: new FormControl('', [Validators.required, Validators.minLength(3)]),
     level: new FormControl('', [Validators.required, Validators.minLength(3)]),
     images: new FormControl('', [Validators.required, Validators.minLength(3)]),
     is_work: new FormControl(1),
  })
+
+ contactsForm: FormGroup = new FormGroup({
+  site: new FormControl('', [Validators.required, Validators.minLength(3)]),
+  vk: new FormControl('', [Validators.required, Validators.minLength(3)]),
+  trackVideo: new FormControl('', [Validators.required, Validators.minLength(3)]),
+  tg: new FormControl('', [Validators.required, Validators.minLength(3)]),
+  whatsApp: new FormControl('', [Validators.required, Validators.minLength(3)]),
+  phone: new FormControl('', [Validators.required, Validators.minLength(3)]),
+})
+
+specForm: FormGroup = new FormGroup({
+  lengthTrack: new FormControl('', [Validators.required, Validators.minLength(1)]),
+  heightDifference: new FormControl('', [Validators.required, Validators.minLength(1)]),
+  coverage: new FormControl( this.coverageSelectedItem.value, [Validators.required, Validators.minLength(1)]),
+  leftTurns: new FormControl('', [Validators.required, Validators.minLength(1)]),
+  rightTurns: new FormControl('', [Validators.required, Validators.minLength(1)]),
+  elementsCount: new FormControl('', [Validators.required, Validators.minLength(1)]),
+  highSpeedSection: new FormControl('', [Validators.required, Validators.minLength(1)]),
+})
+
+coverageItems:any[] = [
+  {name:'mid-hard', value:'mid-hard'},
+  {name:'hard', value:'hard'},
+  {name:'mid-soft', value:'mid-soft'},
+]
+
+setCoverage(event:any){
+  this.coverageSelectedItem = event
+}
+
 
   getTrack(){
     this.loadingService.showLoading()
@@ -79,6 +120,8 @@ export class EditTrackPageComponent  implements OnInit {
     ).subscribe((res:any)=>{
         this.track = res.track
         this.locationId = res.track?.location?.id
+        this.logoUrl = this.checkImgUrlPipe.checkUrlDontType(res.track?.logo)
+        this.schemeUrl = this.checkImgUrlPipe.checkUrlDontType(res.track?.schema_img)
         this.editTrackForm.patchValue({
           ...this.track,
             locationId: res.track?.location?.id,
@@ -88,12 +131,51 @@ export class EditTrackPageComponent  implements OnInit {
            }}):[],
            region: `${ this.track?.location?.name} ${this.track?.location?.type}`,
         })
-        
+        this.track.spec?.forEach((specItem:any)=>{
+          this.specForm.patchValue({
+            [specItem.title]: specItem.value
+          })
+        })
+        this.track.contacts?.forEach((contactItem:any)=>{
+          this.contactsForm.patchValue({
+            [contactItem.title]: contactItem.value
+          })
+        })
+        console.log( this.editTrackForm.value)
         this.editTrackForm.patchValue({
           desc: this.track.desc ? this.track.desc!.replace(/  /g, '&nbsp;&nbsp;') : ''
         });
         this.sliderImages = this.editTrackForm.value.images
     })
+  }
+
+  setLogo(event:any, input:HTMLInputElement){
+    const file = event.target.files[0]
+    if(file){
+      this.editTrackForm.patchValue({ logo: file })
+      const reader: FileReader = new FileReader()
+      reader.onload = (e: any) => {
+        this.logoUrl = e.target.result
+      }
+      reader.readAsDataURL(file)
+      input.value =''
+    }
+  }
+  setScheme(event:any,input:HTMLInputElement){
+    const file = event.target.files[0]
+    if(file){
+      this.editTrackForm.patchValue({ schemaImg: file })
+      const reader: FileReader = new FileReader()
+      reader.onload = (e: any) => {
+        this.schemeUrl = e.target.result
+      }
+      reader.readAsDataURL(file)
+      input.value =''
+    }
+  }
+  clearLogo(){
+    this.logoUrl = ''
+    this.editTrackForm.patchValue({logo: ''})
   }
 
   setRegion(region:any){
@@ -146,6 +228,8 @@ export class EditTrackPageComponent  implements OnInit {
   submitForm(){
     if(!this.stepInvalidate()){
       this.loadingService.showLoading()
+      this.specForm.patchValue({coverage: this.coverageSelectedItem.value})
+      this.editTrackForm.patchValue({light: Number(this.editTrackForm.value.light), allSeazonal:Number(this.editTrackForm.value.allSeazonal)})
       this.editTrackForm.value.images = this.editTrackForm.value.images.filter((image:any)=>!image.link)
       let editForm = {
           ...this.editTrackForm.value,
@@ -166,6 +250,27 @@ export class EditTrackPageComponent  implements OnInit {
             editEventFormData.append(key, editForm[key] !== null ? editForm[key] : '')
         }
       }
+      if(typeof this.editTrackForm.value.logo == 'string'){
+        editEventFormData.delete('logo');
+      }
+      if(typeof this.editTrackForm.value.schemaImg =='string'){
+        editEventFormData.delete('schemaImg');
+      }
+
+      let i = 0
+      for(let key in this.specForm.value){
+        editEventFormData.append(`spec[${i}][title]`, key);
+        editEventFormData.append(`spec[${i}][value]`, this.specForm.value[key]);
+        i++
+      }
+
+      let j = 0
+      for(let key in this.contactsForm.value){
+        editEventFormData.append(`contacts[${j}][title]`, key);
+        editEventFormData.append(`contacts[${j}][value]`, this.contactsForm.value[key]);
+        j++
+      
+    }
       
       this.trackService.updateTrack(editEventFormData, this.trackId).pipe(
         finalize(()=>{
@@ -192,7 +297,7 @@ export class EditTrackPageComponent  implements OnInit {
       !this.editTrackForm.value.address.length ||
       !this.editTrackForm.value.latitude || 
       !this.editTrackForm.value.longitude || 
-      !this.locationId
+      !this.locationId || !this.logoUrl || !this.specForm.valid
     ) {
       return true
     } 
