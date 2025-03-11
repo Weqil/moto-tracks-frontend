@@ -141,9 +141,13 @@ ion-toolbar{
     align-items: center;
 }
 .group-grid{
+    overflow-x: auto;
+    white-space: nowrap;
+    overflow-y: hidden;
     padding: var(--standart-padding);
     display: flex;
     gap: 1rem;
+    width: 100%;
 }
 .group-grid__item{
     font-family: var(--font-bold);
