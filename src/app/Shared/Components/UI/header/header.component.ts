@@ -27,6 +27,15 @@ export class HeaderComponent  implements OnInit {
     this.secondButtonClick.emit()
   }
 
+  limitHeaderTitle(maxLength: number){
+    let str = this.headerTitle
+    if (str.length > maxLength) {
+      return str.slice(0, maxLength - 3) + '...';
+    } else {
+      return str;
+    }    
+  }
+
   
   ngOnInit() {}
 

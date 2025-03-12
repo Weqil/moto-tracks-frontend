@@ -104,6 +104,7 @@ coverageItems:any[] = [
   {name:'mid-hard', value:'mid-hard'},
   {name:'hard', value:'hard'},
   {name:'mid-soft', value:'mid-soft'},
+  {name:'soft', value:'soft'},
 ]
 
 setCoverage(event:any){

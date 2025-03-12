@@ -6,7 +6,7 @@
       </ng-content>
 
     <app-circle-button *ngIf="customBack" (click)="backButtonClick()" icon="/assets/icons/arrow.svg"></app-circle-button>
-    <div class="header-title">{{headerTitle}}</div>
+    <div class="header-title">{{limitHeaderTitle(27)}}</div>
     <img *ngIf="icon" src="{{icon}}" alt="" class="icon-title">
     <ng-container *ngIf="customButton">
       <ng-content>
