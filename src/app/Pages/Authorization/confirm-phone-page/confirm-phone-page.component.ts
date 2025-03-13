@@ -149,6 +149,7 @@ sendCode(){
         })
       ).subscribe((res:any)=>{
         this.toastService.showToast('Телефон успешно подтверждён', 'success')
+        this.userService.refreshUser()
         this.navController.navigateRoot('/cabinet')
       })
   }else{
