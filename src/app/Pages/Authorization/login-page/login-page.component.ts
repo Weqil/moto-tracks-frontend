@@ -54,6 +54,7 @@ export class LoginPageComponent  implements OnInit {
       message: '',
     },
   }
+  
   timer: any
   timerReady: boolean = true
   seconds: number = 60
@@ -91,6 +92,8 @@ export class LoginPageComponent  implements OnInit {
     if( !this.recoveryForm.invalid || this.timerReady){
       this.sendTokenInEmail()
     }
+
+    this.toastService.showToast('Ссылка на востановление пароля отправлена вам на почту',"success")
   }
 
   validateForm() {

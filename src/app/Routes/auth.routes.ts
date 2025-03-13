@@ -18,7 +18,7 @@ export const authRoutes: Routes = [
           loadComponent: () => import('../Pages/Authorization/registration-page/registration-page.component').then((m) => m.RegistrationPageComponent),
         },
         {
-          path:'recovery-password/:id',
+          path:'recovery-password/:token',
           canActivate:[canDontLoginRegistration],
           loadComponent: () => import('../Pages/Authorization/recovery-password-page/recovery-password-page.component').then((m) => m.RecoveryPasswordPageComponent),
         }

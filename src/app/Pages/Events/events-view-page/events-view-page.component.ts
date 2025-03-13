@@ -800,7 +800,7 @@ export class EventsViewPageComponent  implements OnInit {
     
     this.route.params.pipe(takeUntil(this.destroy$)).pipe(
       finalize(()=>{
-      })
+})
     ).subscribe((params) => {
         this.eventId = params['id']
         this.getEvent()
