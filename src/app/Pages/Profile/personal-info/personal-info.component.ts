@@ -65,7 +65,7 @@ export class PersonalInfoComponent  implements OnInit {
 
   submitValidate(){
     let valid = true
-    Object.keys(this.personalUserForm.controls).forEach((key) => {
+     Object.keys(this.personalUserForm.controls).forEach((key) => {
       const control = this.personalUserForm.get(key); // Доступ к контролу
       if (!control!.valid) {
         if(this.formErrors[key]){

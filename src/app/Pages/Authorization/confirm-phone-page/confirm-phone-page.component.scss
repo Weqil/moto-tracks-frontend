@@ -1,0 +1,53 @@
+.user-personal{
+    padding-top: var(--standart-padding);
+    display: flex;
+    width: 100%;
+    gap: var(--standart-padding);
+    flex-direction: column;
+}
+.step-title{
+    color: #4B4B4B;
+    font-family: var(--font-semi-bold);
+    font-size: 24px;
+}
+.phone-number__submit{
+    background-color: var(--light-blue-color);
+    padding:  0.5rem;
+    color: var(--blue-primary-color);
+    font-family: var(--font-regular);
+    transition: 0.3s;
+    position: absolute;
+    right: 1%;
+    top: 42%;
+    border-radius: 8px;
+}
+.verification__title{
+    margin-top: 1rem;
+    font-family: var(--font-regular);
+    display: flex;
+    text-align: start;
+    font-size: 0.95rem;
+}
+.phone-number__submit:active{
+    background-color: var(--blue-primary-color);
+    padding:  0.5rem;
+    transition: 0.3s;
+    color: var(--white-color);
+    font-family: var(--font-regular);
+    position: absolute;
+    right: 1%;
+    top: 42%;
+    border-radius: 8px;
+}
+.phone-number-container{
+    position: relative;
+}
+ion-modal{
+    --max-height:50%;
+    --width:90%;
+    --border-radius: 12px;
+    --overflow-y: hidden;
+}
+.region-modal-container{
+    padding: var(--standart-padding);
+}
