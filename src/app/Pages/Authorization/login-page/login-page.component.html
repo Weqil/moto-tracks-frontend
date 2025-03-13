@@ -1,5 +1,5 @@
 <ion-content>
-  <app-header headerTitle="Вход" ></app-header>
+  <app-header headerTitle="Вход" [hiddenBackButton]="true"></app-header>
   <div class="main-container--with-header">
     <div class="login">
         <!-- <div class="login__logo">
@@ -20,7 +20,6 @@
       <span (click)="redirectInRegistration()" class="dont-have-account__registration-link">Нет аккаунта? 
       <span class="dont-have-account__registration-link__route">Создать аккаунт</span></span>
     </div>
-    
   </div>
 
 
@@ -39,7 +38,7 @@
         </form>
       </div>
       <div class="recovery-password-buttons">
-        <app-standart-button [disabled]="recoveryForm.invalid || !timerReady" buttonText="Восстановить пароль" theme="standart" (click)="submitRecovery()"></app-standart-button>
+        <app-standart-button [disabled]="recoveryForm.invalid || !timerReady" buttonText="Восстановить пароль" theme="standart" (click)="submitRecovery();"></app-standart-button>
       </div>
      
       <div id="recoveryLink" *ngIf="!timerReady" class="password-recovery">доступно через {{seconds * 1000 | date: 'mm:ss' }} </div>
