@@ -232,7 +232,7 @@ export class EditEventComponent  implements OnInit {
             case 1:
               if (
                 this.createEventForm.value.name.length <= 3 ||
-                this.createEventForm.value.desc.length <= 3 
+                !this.createEventForm.value.desc || this.createEventForm.value.desc.length <= 3 
                || 
                !this.createEventForm.value.dateStart 
                ||  !this.trackSelected || !this.createEventForm.value.locationId
@@ -326,9 +326,11 @@ export class EditEventComponent  implements OnInit {
               }
             }):[]
           })
-          this.createEventForm.patchValue({
-            desc:this.event.desc!.replace(/  /g, '&nbsp;&nbsp;')
-          })
+          if(this.event.desc){
+            this.createEventForm.patchValue({
+              desc:this.event.desc!.replace(/  /g, '&nbsp;&nbsp;')
+            })
+          }
           this.sliderImages = this.createEventForm.value.images
           this.selectedGroup = this.event.grades
         })

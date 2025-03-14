@@ -37,7 +37,6 @@ export class CreateTrackPageComponent  implements OnInit {
   stepCurrency: number = 1
   logoUrl: string = ''
   schemeUrl: string = ''
-  
   coverageSelectedItem:any =  {name:'hard', value:'hard'}
 
 coverageItems:any[] = [
@@ -88,7 +87,7 @@ coverageItems:any[] = [
     apayment: new FormControl(false, [Validators.required, Validators.minLength(3)]),
     logo: new FormControl('', [Validators.required,]),
     light: new FormControl(false, [Validators.required,]),
-    allSeazonal: new FormControl(false, [Validators.required,]),
+    season: new FormControl(false, [Validators.required,]),
     parking: new FormControl(false, [Validators.required,]),
     opened: new FormControl(false, [Validators.required,]),
     schemaImg: new FormControl('', [Validators.required,]),
@@ -219,7 +218,7 @@ coverageItems:any[] = [
     if(!this.stepInvalidate()){
 
       this.specForm.patchValue({coverage: this.coverageSelectedItem.value})
-      this.createTrackForm.patchValue({light: Number(this.createTrackForm.value.light), allSeazonal:Number(this.createTrackForm.value.allSeazonal)})
+      this.createTrackForm.patchValue({light: Number(this.createTrackForm.value.light), season:Number(this.createTrackForm.value.season)})
   
         let currentForm = {
           ...this.createTrackForm.value,

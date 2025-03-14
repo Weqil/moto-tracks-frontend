@@ -7,7 +7,7 @@
 
     <app-circle-button *ngIf="customBack" (click)="backButtonClick()" icon="/assets/icons/arrow.svg"></app-circle-button>
     <div class="header-title-container">
-      <div class="header-title">{{limitHeaderTitle(27)}}</div>
+      <div class="header-title">{{headerTitle}}</div>
       <img *ngIf="icon" src="{{icon}}" alt="" class="icon-title">
     </div>
     
