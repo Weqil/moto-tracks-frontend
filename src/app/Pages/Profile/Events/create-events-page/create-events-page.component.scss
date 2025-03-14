@@ -16,7 +16,7 @@
 }
 
 .description{
-    padding-bottom: var(--standart-padding);
+    
 }
 .records-end{
     padding-top: var(--standart-padding);
@@ -35,6 +35,11 @@
 }
 .step-description{
     padding-bottom: var(--standart-padding);
+}
+.date-start{
+    width: 100%;
+    display: flex;
+    margin-top: var(--little-padding);
 }
 
 ion-modal{
