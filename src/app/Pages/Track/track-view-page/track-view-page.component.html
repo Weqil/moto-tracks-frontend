@@ -251,72 +251,72 @@
         </div>
       </div> -->
 
-      <footer>
-        
-        <div class="map">
-          <div class="map__address">
-           {{track.address}}
-         </div>
-         <div class="map__container">
-           <ya-map
-           [center]="[track.latitude,track.longitude,]"
-           [zoom]="12"   
-           [state]="{controls: []}"
-           [options]="{
-             yandexMapDisablePoiInteractivity: true,
-             suppressMapOpenBlock: true,
-             suppressObsoleteBrowserNotifier: true,
-             autoFitToViewport: 'always',
-           }">
-           <ya-placemark [geometry]="[track.latitude,track.longitude,]"></ya-placemark>
-           </ya-map>
-          </div>
-          <div class="map__open-button">
-          <app-standart-button buttonText="Проложить маршрут" (onClick) = "goToPoint()"></app-standart-button>
-          </div>
-         
-       </div>
-
-       
-
-       <div class="requisites-and-link-container">
-        <div class="requisites">
-          <!-- <span class="req-name">Реквизиты</span>
-          <p class="req-text">Обучение мотокроссу детей и начинающих. Трассы с трамплинами и гонки по бездорожью для профессионалов</p> -->
-          <!-- <div class="req-button">
-          <app-standart-button [buttonText]="'Доступ к треку'" [theme]="'orange'">
-          </app-standart-button> -->
-        <!-- </div> -->
-        </div>
-        <div class="links-list" *ngIf="track.contacts && track.contacts.length">
-          <span class="link-name">
-            Ссылки на медиа
-          </span>
-          <div class="links" *ngIf="track.contacts"> 
-            <div class="link" *ngIf="getContactValue('vk')">
-              <a [attr.href]='getContactValue("vk")'><img src="/assets/icons/VK2.svg" alt=""></a>
-              
-            </div>
-            <div class="link" *ngIf="getContactValue('tg')">
-              <a [attr.href]='getContactValue("tg")'> <img src="/assets/icons/telegram.svg" alt=""></a>
-             
-            </div>
-            <div class="link" *ngIf="getContactValue('whatsApp')">
-              <a [attr.href]="getContactValue('whatsApp')"> <img src="/assets/icons/watsapp.svg" alt=""></a>
-             
-            </div>
-            <div class="link" *ngIf="getContactValue('site')">
-              <a [attr.href]="getContactValue('site')"><img src="/assets/icons/sait.svg" alt=""></a>
-              
-            </div>
-          </div>
-        </div>
-       </div>
-
-      </footer>
+      
 
     </div>
+      <footer>
+          
+          <div class="map">
+            <div class="map__address">
+            {{track.address}}
+          </div>
+          <div class="map__container">
+            <ya-map
+            [center]="[track.latitude,track.longitude,]"
+            [zoom]="12"   
+            [state]="{controls: []}"
+            [options]="{
+              yandexMapDisablePoiInteractivity: true,
+              suppressMapOpenBlock: true,
+              suppressObsoleteBrowserNotifier: true,
+              autoFitToViewport: 'always',
+            }">
+            <ya-placemark [geometry]="[track.latitude,track.longitude,]"></ya-placemark>
+            </ya-map>
+            </div>
+            <div class="map__open-button">
+            <app-standart-button buttonText="Проложить маршрут" (onClick) = "goToPoint()"></app-standart-button>
+            </div>
+          
+        </div>
 
+        
+
+        <div class="requisites-and-link-container">
+          <div class="requisites">
+            <!-- <span class="req-name">Реквизиты</span>
+            <p class="req-text">Обучение мотокроссу детей и начинающих. Трассы с трамплинами и гонки по бездорожью для профессионалов</p> -->
+            <!-- <div class="req-button">
+            <app-standart-button [buttonText]="'Доступ к треку'" [theme]="'orange'">
+            </app-standart-button> -->
+          <!-- </div> -->
+          </div>
+          <div class="links-list" *ngIf="track.contacts && track.contacts.length">
+            <span class="link-name">
+              Ссылки на медиа
+            </span>
+            <div class="links" *ngIf="track.contacts"> 
+              <div class="link" *ngIf="getContactValue('vk')">
+                <a [attr.href]='getContactValue("vk")'><img src="/assets/icons/VK2.svg" alt=""></a>
+                
+              </div>
+              <div class="link" *ngIf="getContactValue('tg')">
+                <a [attr.href]='getContactValue("tg")'> <img src="/assets/icons/telegram.svg" alt=""></a>
+              
+              </div>
+              <div class="link" *ngIf="getContactValue('whatsApp')">
+                <a [attr.href]="getContactValue('whatsApp')"> <img src="/assets/icons/watsapp.svg" alt=""></a>
+              
+              </div>
+              <div class="link" *ngIf="getContactValue('site')">
+                <a [attr.href]="getContactValue('site')"><img src="/assets/icons/sait.svg" alt=""></a>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </footer>
   </ng-container>
 </ion-content>
 
