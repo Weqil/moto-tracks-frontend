@@ -122,7 +122,7 @@ ion-modal{
     color: #363d42;
     font-family: var(--font-regular);
     background: none;
-  max-width: 3rem;
+  max-width: 6rem;
 }
 .custom-toggle{
   font-family: var(--font-regular);
@@ -147,7 +147,7 @@ ion-modal{
 }
 .input-wrapper{
   display: flex;
-  width: 9rem;
+  width: 13rem;
   gap: var(--standart-padding);
   align-items: center;
 }
@@ -287,3 +287,20 @@ form{
 .select-level__label{
   padding-top: var(--standart-padding);
 }
+
+ion-checkbox {
+  --background: #f0f0f0; /* Фон, когда чекбокс не выбран */
+  --border-color: rgb(180, 180, 180); /* Цвет границы */
+  --checkmark-color: white; /* Цвет галочки */
+  --size: 1.5rem; /* Размер чекбокса */
+  --border-radius: 15%; /* Скругление углов */
+}
+
+ion-checkbox::part(container) {
+  background: rgb(131, 131, 131); /* Фон в выключенном состоянии */
+}
+
+ion-checkbox[aria-checked="true"]::part(container) {
+  background: #3498db; /* Фон при включенном состоянии */
+}
+
