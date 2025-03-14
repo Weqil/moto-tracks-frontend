@@ -29,5 +29,12 @@ export class LoginService {
   submitCodeInEmail(code:string){
     return this.http.post(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/verification-email/verify`,{code:Number(code)})
   }
+
+  getPhoneCodeInAuthUser(form:any){
+    return this.http.post(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/phone/login`,form)
+  }
+  submitPhoneCodeInAuthUser(codeForm:any){
+    return this.http.post(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/phone/verify`,codeForm)
+  }
  
 }

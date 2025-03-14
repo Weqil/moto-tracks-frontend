@@ -176,6 +176,7 @@ export class CabinetComponent  implements OnInit {
     this.userService.user.pipe().subscribe((res)=>{
       this.user = res
     })
+
   }
 
 }

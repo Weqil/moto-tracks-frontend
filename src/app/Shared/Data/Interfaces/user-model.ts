@@ -41,7 +41,11 @@ export interface User{
     roles:{
         id:number,
         name:string
-    }[]
+    }[],
+    phone?:{
+        number:string,
+        number_verified_at:string,
+    }
 }
 export interface Racer{
     id: number,
