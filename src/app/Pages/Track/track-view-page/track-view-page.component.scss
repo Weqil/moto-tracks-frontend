@@ -362,7 +362,7 @@ ya-map{
 
  footer{
     margin-top:var(--standart-padding);
-    position: absolute;
+    position: relative;
     width: 100%;
     left: 0px;
     background-color: #4C5861;
@@ -423,4 +423,12 @@ ya-map{
             
         }
     }
+ }
+
+ .main-container-with-footer{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between  ;
+    min-height: 100%;
+    width: 100%;
  }
