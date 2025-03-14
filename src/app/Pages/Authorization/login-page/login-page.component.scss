@@ -30,7 +30,8 @@
     opacity: 55%;
 }
 .submit-button{
-    padding-top: var(--standart-padding);
+    margin-top: var(--standart-padding);
+    background-color: var(--gray-color);
 }
 .dont-have-account{
     padding-top: 2rem;
@@ -53,9 +54,10 @@
   }
 
   .recovery-modal{
-    --height:22rem;
+    --height: auto;
     --max-width: 386px;
     --border-radius: 17px;
+    
   }
   .recovery-icon{
     margin-left: 1rem;
@@ -68,6 +70,7 @@
     padding-top: 0.5rem;
     color: var(--blue-color);
     justify-content: center;
+    
   }
   .recovery-password-buttons{
     padding-top: 1rem;
@@ -87,4 +90,5 @@
     gap: var(--standart-padding);
     padding:var(--standart-padding);
     flex-direction: column;
+    background-color: var(--white-color);
   }

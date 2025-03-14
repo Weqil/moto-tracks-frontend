@@ -18,6 +18,7 @@ import { Router } from '@angular/router';
 import { ToastService } from 'src/app/Shared/Services/toast.service';
 import { AuthErrosMessages } from 'src/app/Shared/Data/Enums/erros';
 import { RecoveryPasswordService } from 'src/app/Shared/Data/Services/Auth/recovery-password.service';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
@@ -53,12 +54,14 @@ export class LoginPageComponent  implements OnInit {
       message: '',
     },
   }
+  
   timer: any
   timerReady: boolean = true
   seconds: number = 60
 
   recoveryForm: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]),
+    url: new FormControl(`${environment.BASE_URL}/recovery-password`,)
   })
 
 
@@ -74,10 +77,25 @@ export class LoginPageComponent  implements OnInit {
       }
     }, 1000)
   }
+
+  sendTokenInEmail(){
+    console.log(this.recoveryForm.value)
+    this.recoveryPasswordService.sendRecoveryLink(this.recoveryForm.value).pipe().subscribe((res:any)=>{
+      console.log(res)
+    })
+    
+  }
+
   submitRecovery() {
     this.validateRecovery()
+   
+    if( !this.recoveryForm.invalid || this.timerReady){
+      this.sendTokenInEmail()
+    }
 
+    this.toastService.showToast('Ссылка на востановление пароля отправлена вам на почту',"success")
   }
+
   validateForm() {
     this.loginInvalid.localError = false
     if (this.loginForm.get('name')?.errors) {
@@ -157,10 +175,8 @@ export class LoginPageComponent  implements OnInit {
           this.loading.hideLoading()
         })
       ).subscribe((res:Login)=>{
-
         this.userService.setUserInLocalStorage(res.user)
         this.authService.setAuthToken(String(res.access_token))
-       
         setTimeout(()=>{
           this.navController.navigateForward(['/cabinet'])
         },150)

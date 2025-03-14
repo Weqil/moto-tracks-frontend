@@ -44,6 +44,7 @@ coverageItems:any[] = [
   {name:'mid-hard', value:'mid-hard'},
   {name:'hard', value:'hard'},
   {name:'mid-soft', value:'mid-soft'},
+  {name:'soft', value:'soft'},
 ]
 
   regionModalState:boolean = false
@@ -115,12 +116,13 @@ coverageItems:any[] = [
   stepInvalidate() {
     if (this.createTrackForm.value) {
           if (
-            this.createTrackForm.value.name.length <= 3 ||
-            this.createTrackForm.value.desc.length <= 3 
+            this.createTrackForm.value.name.length <= 3 
            || !this.createTrackForm.value.address.length ||
              !this.createTrackForm.value.latitude 
              || !this.createTrackForm.value.longitude || 
-             !this.locationId || !this.logoUrl || !this.specForm.valid
+             !this.locationId 
+            //  || !this.logoUrl || !this.specForm.valid ||
+            // this.createTrackForm.value.desc.length <= 3 
           ) {
             return true
           } else {
@@ -273,7 +275,6 @@ coverageItems:any[] = [
   }
 
   ionViewWillEnter(){
-    console.log('родилось создание')
   }
 
   ionViewDidLeave() {

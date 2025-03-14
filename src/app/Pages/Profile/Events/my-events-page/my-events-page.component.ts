@@ -65,7 +65,6 @@ closetTableModal(){
   }
 
   ionViewDidLeave(){
-    console.log('умир')
   }
 
   ngOnInit() {

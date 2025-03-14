@@ -4,7 +4,7 @@
 .track-header__avatar{
     display: flex;
     min-width: 20rem;
-    min-height: 20rem;
+    min-height: auto;
     max-width: 95%;
     
     border:1px solid rgb(150, 54, 54);
@@ -166,6 +166,10 @@ ya-map{
     // border-radius: 5px;
 }
 .map{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
     .map__container{
        
@@ -173,10 +177,11 @@ ya-map{
         height: 12rem;
         margin: var(--standart-padding);
         border-radius: 0.5rem;
+        width: 90%;
        
     }
     .map__open-button{
-       
+       width: 90%;
     }
 
 }
@@ -363,6 +368,7 @@ ya-map{
     background-color: #4C5861;
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
+    bottom: -1px;
  }
 
  .requisites-and-link-container{

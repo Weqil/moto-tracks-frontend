@@ -15,22 +15,27 @@
     padding-left: var(--standart-padding);
     padding-right: var(--standart-padding);
     .header-wrapper{
+        display: flex;
         padding-top: var(--standart-padding);
         width: 100%;
         text-align: center;
         justify-content: space-between;
-        display: flex;
+        flex-direction: row;
         align-items: center;
-        .header-title{
+        .header-title-container{
             margin: auto;
-            font-size: var( --font-headers-size-little);
-            font-family: var(--font-bold);
-            color: var(--font-standart-white-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+                .header-title{
+                    font-size: var( --font-headers-size-little);
+                    font-family: var(--font-bold);
+                    color: var(--font-standart-white-color);
+                }
+            }  
         }
-
     }
- 
-}
 
 .icon-title{
     border-radius: 50%;
@@ -38,3 +43,5 @@
     width: 1rem;
     height: 1rem;
 }
+
+

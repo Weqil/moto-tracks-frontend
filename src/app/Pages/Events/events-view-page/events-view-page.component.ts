@@ -542,10 +542,11 @@ export class EventsViewPageComponent  implements OnInit {
     this.comandSelectModalStateValue = true
   }
 
+  //здесь лоадер???
   setFirstDocuments(): Observable<void> {
     return this.userService.getUserDocuments().pipe(
       finalize(() => {
-        this.loaderService.hideLoading();
+
       }),
       switchMap((res: any) => {
         
@@ -590,15 +591,18 @@ export class EventsViewPageComponent  implements OnInit {
       this.regionModalState = true
     }
   
-
+    //здесь лоадер
   getEvent(){
-    this.loadingService.showLoading()
+    let loader:HTMLIonLoadingElement
+         this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+               loader = res
+         })
     this.eventService.getEventById(this.eventId,{
       userId:String(this.userService.user.value?.id ? this.userService.user.value?.id : '' ),
       appointmentUser:1,
     }).pipe(
       finalize(()=>{
-        this.loadingService.hideLoading()
+        this.loadingService.hideLoading(loader)
       })
     ).subscribe((res:any)=>{
       this.raceUser = res.race.user
@@ -675,11 +679,11 @@ export class EventsViewPageComponent  implements OnInit {
     }
   }
 
-
+//здесь лоадер
   setDocuments(): Observable<any>{
     this.userService.getUserDocuments().pipe(
      finalize(()=>{
-       this.loaderService.hideLoading()
+       
      })
      ).subscribe((res:any)=>{
      if(res.documents){
@@ -796,7 +800,7 @@ export class EventsViewPageComponent  implements OnInit {
     
     this.route.params.pipe(takeUntil(this.destroy$)).pipe(
       finalize(()=>{
-      })
+})
     ).subscribe((params) => {
         this.eventId = params['id']
         this.getEvent()

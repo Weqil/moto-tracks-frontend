@@ -9,7 +9,8 @@ export class RecoveryPasswordService {
 
   constructor() { }
   http:HttpClient = inject(HttpClient)
-  sendRecoveryLink(form:any){
+
+    sendRecoveryLink(form:any){
       return this.http.post(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/recovery-password/send`, form)
   }
   recoveryPassword(form:any){
