@@ -92,10 +92,10 @@
             <!-- <app-images-modal odal *ngIf="track.images" [openModal]="statusImagesModal" (closeModalEmit)="closeImagesModal()" [imagesPathArray]="track.images"></app-images-modal> -->
 
     <!-- <img src="{{track.images ? (track.images[0] | checkImgUrl) : '' | checkImgUrl}}" alt="" class="track-header__avatar"> -->
-
+<div class="main-container-with-footer">
     <div class="main-container--with-header">
       <div class="track__header">
-        <img src="{{track.schema_img| checkImgUrl:'/assets/images/standart-image-track.jpeg'}}" alt="" class=" ">
+        <img src="{{track.schema_img| checkImgUrl:'/assets/icons/track-standart.png'}}" alt="" class=" ">
         <div class="track__header__params">
           <app-circle-button *ngIf="this.track.light" icon='/assets/icons/lamp.svg'></app-circle-button>
           <app-circle-button *ngIf="this.track.seasons" icon='/assets/icons/snow.svg'></app-circle-button>
@@ -254,7 +254,7 @@
       
 
     </div>
-      <footer>
+    <footer>
           
           <div class="map">
             <div class="map__address">
@@ -291,11 +291,12 @@
             </app-standart-button> -->
           <!-- </div> -->
           </div>
-          <div class="links-list" *ngIf="track.contacts && track.contacts.length">
+          <div class="links-list" >
+            <!-- *ngIf="track.contacts && track.contacts?.length" -->
             <span class="link-name">
               Ссылки на медиа
             </span>
-            <div class="links" *ngIf="track.contacts"> 
+            <div class="links"> 
               <div class="link" *ngIf="getContactValue('vk')">
                 <a [attr.href]='getContactValue("vk")'><img src="/assets/icons/VK2.svg" alt=""></a>
                 
@@ -316,7 +317,8 @@
           </div>
         </div>
 
-      </footer>
+    </footer>
+  </div>
   </ng-container>
 </ion-content>
 
