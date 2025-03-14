@@ -121,7 +121,7 @@ coverageItems:any[] = [
            || !this.createTrackForm.value.address.length ||
              !this.createTrackForm.value.latitude 
              || !this.createTrackForm.value.longitude || 
-             !this.locationId || !this.logoUrl || !this.specForm.valid
+             !this.locationId || !this.logoUrl 
           ) {
             return true
           } else {

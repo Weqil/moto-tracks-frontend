@@ -104,15 +104,15 @@
 
       <div class="list-track-parametrs">
 
-        <div class="name-track-parametrs">
-          <span>Параметры трека</span>
-        </div>
-        <div class="parametrs">
+        
+        <div class="parametrs" *ngIf="track.spec && track.spec?.length">
+          <div class="name-track-parametrs">
+            <span>Параметры трека</span>
+          </div>
 
 
 
-
-          <div class="parametr">
+          <div class="parametr"  *ngIf="getSpecValue('lengthTrack')">
             <div class="left-flang">
               <div class="icon-lenght"><img src="/assets/icons/length.png" alt="" class="arrow-icon"></div>
               <div class="name"><span>Длина трассы</span></div>
@@ -124,7 +124,7 @@
           </div>
           
           
-          <div class="parametr">
+          <div class="parametr" *ngIf="getSpecValue('coverage')">
             <div class="left-flang">
             <div class="icon"><img src="/assets/icons/coverage.svg" alt="" class="arrow-icon"></div>
             <div class="name"><span>Тип покрытия</span></div>
@@ -136,7 +136,7 @@
           </div>
 
 
-          <div class="parametr">
+          <div class="parametr" *ngIf="getSpecValue('heightDifference')">
             <div class="left-flang">
             <div class="icon"><img src="/assets/icons/heigth.svg" alt="" class="arrow-icon"></div>
             <div class="name"><span>Перепад высот</span></div>
@@ -148,7 +148,7 @@
           </div>
 
 
-          <div class="parametr">
+          <div class="parametr" *ngIf="getSpecValue('leftTurns')">
             <div class="left-flang">
             <div class="icon"><img src="/assets/icons/left-arr.svg" alt="" class="arrow-icon"></div>
             <div class="name"><span>Левых поворотов</span></div>
@@ -159,7 +159,7 @@
           </div>
 
 
-          <div class="parametr">
+          <div class="parametr" *ngIf="getSpecValue('rightTurns')">
             <div class="left-flang">
             <div class="icon"><img src="/assets/icons/right-arr.svg" alt="" class="arrow-icon"></div>
             <div class="name"><span>Правых поворотов</span></div>
@@ -170,7 +170,7 @@
           </div>
 
 
-          <div class="parametr">
+          <div class="parametr" *ngIf="getSpecValue('heightDifference')">
             <div class="left-flang">
             <div class="icon"><img src="/assets/icons/elements-list.svg" alt="" class="arrow-icon"></div>
             <div class="name"><span>Количество элементов</span></div>
@@ -181,7 +181,7 @@
           </div>
 
 
-          <div class="parametr">
+          <div class="parametr" *ngIf="getSpecValue('highSpeedSection')">
             <div class="left-flang">
             <div class="icon-lenght"><img src="/assets/icons/speed.svg" alt="" class="arrow-icon"></div>
             <div class="name"><span>Длина самого <br> скоростного участка</span></div>
@@ -288,7 +288,7 @@
           </app-standart-button> -->
         <!-- </div> -->
         </div>
-        <div class="links-list">
+        <div class="links-list" *ngIf="track.contacts && track.contacts.length">
           <span class="link-name">
             Ссылки на медиа
           </span>
