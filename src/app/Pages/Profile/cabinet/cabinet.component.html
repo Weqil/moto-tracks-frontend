@@ -14,12 +14,14 @@
           </ng-container>
           
       </ng-container>
-      <app-profile-menu-item  [routing]="'settings'" [iconColor]="'#0000'" [icon]="'/assets/icons/settings.svg'" [name]="'Настройки'"></app-profile-menu-item>
-      
+      <app-profile-menu-item  [routing]="'settings'" [iconColor]="'#0000'" [icon]="'/assets/icons/settings.svg'" [name]="'Настройки'"></app-profile-menu-item> 
       <div class="cabinet__logout">
         <app-standart-button (click)="logoutInAccount()" theme="red" buttonText="Выход"></app-standart-button>
       </div>
     </div>
+      <div class="link-on-support">
+        <a  href="https://t.me/mototrackapp">Вопросы и техподдержка: telegram</a>
+      </div>
   </div>
  
 </ion-content>
