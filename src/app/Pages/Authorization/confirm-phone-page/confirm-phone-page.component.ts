@@ -9,6 +9,7 @@ import { StandartInputSearchComponent } from 'src/app/Shared/Components/Forms/st
 import { StandartInputComponent } from 'src/app/Shared/Components/Forms/standart-input/standart-input.component';
 import { StandartButtonComponent } from 'src/app/Shared/Components/UI/Buttons/standart-button/standart-button.component';
 import { HeaderComponent } from 'src/app/Shared/Components/UI/header/header.component';
+import { serverError } from 'src/app/Shared/Data/Interfaces/errors';
 import { User } from 'src/app/Shared/Data/Interfaces/user-model';
 import { LoginService } from 'src/app/Shared/Data/Services/Auth/login.service';
 
@@ -109,9 +110,20 @@ async getCode(){
         tap((loader: HTMLIonLoadingElement) => {}),
         concatMap((loader) => 
           this.updateUserPhone().pipe(
+            catchError((err:serverError)=>{
+              console.log(err.error.message)
+              if(err.error.message == 'Такое значение поля номер уже существует.'){
+                this.toastService.showToast('Такой телефон уже привязан','danger')
+              }
+              return EMPTY
+            }),
             concatMap(() => this.phoneSubmit().pipe(
               tap(()=>{
                 this.toastService.showToast('Код был отправлен', 'success')
+              }),
+              catchError((err:serverError)=>{
+                
+                return EMPTY
               })
             )),
             finalize(() => {
@@ -152,9 +164,9 @@ sendCode(){
         this.userService.refreshUser()
         this.navController.navigateRoot('/cabinet')
       })
-  }else{
-    this.toastService.showToast('Укажите телефон и введите код', 'danger')
-    
+  } 
+  else{
+     this.toastService.showToast('Укажите телефон и введите код', 'danger')
   }
 }
 
