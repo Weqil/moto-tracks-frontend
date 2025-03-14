@@ -104,7 +104,6 @@ validatePersonal(){
 
 async getCode(){
     this.phoneForm.patchValue({number:this.phoneForm.value.number.replace(/\D/g, "")})
-    console.log(this.user)
     if(this.user?.phone?.number !== this.phoneForm.value.number){
       from(this.loaderService.showLoading()).pipe(
         tap((loader: HTMLIonLoadingElement) => {}),
