@@ -6,7 +6,7 @@
                 <form [formGroup]="createTrackForm" action="">
                     <app-standart-input label="Название*" [control]="createTrackForm.get('name')" placeholder="Введите название вашего трека"></app-standart-input>
                     <div style="padding-top: var(--standart-padding); padding-bottom: var(--standart-padding);">
-                        <span class="label">Логотип трека*</span>
+                        <span class="label">Логотип трека</span>
                         <div class="logo-track">
                       
                             <button (click)="logoFile.click()" class="upload-logo">
@@ -204,7 +204,7 @@
                     </div>
 
                     <div class="decription">
-                        <app-standart-rich-input [control]="createTrackForm.get('desc')" label="Описание*" placeholder="Введите описание вашего трека"></app-standart-rich-input>
+                        <app-standart-rich-input [control]="createTrackForm.get('desc')" label="Описание" placeholder="Введите описание вашего трека"></app-standart-rich-input>
                     </div>
                   
                     

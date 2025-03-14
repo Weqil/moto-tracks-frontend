@@ -116,12 +116,13 @@ coverageItems:any[] = [
   stepInvalidate() {
     if (this.createTrackForm.value) {
           if (
-            this.createTrackForm.value.name.length <= 3 ||
-            this.createTrackForm.value.desc.length <= 3 
+            this.createTrackForm.value.name.length <= 3 
            || !this.createTrackForm.value.address.length ||
              !this.createTrackForm.value.latitude 
              || !this.createTrackForm.value.longitude || 
-             !this.locationId || !this.logoUrl 
+             !this.locationId 
+            //  || !this.logoUrl || !this.specForm.valid ||
+            // this.createTrackForm.value.desc.length <= 3 
           ) {
             return true
           } else {
