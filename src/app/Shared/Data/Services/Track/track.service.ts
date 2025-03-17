@@ -15,8 +15,8 @@ export class TrackService {
   http:HttpClient = inject(HttpClient)
   
 
-  getTracks(){
-    return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/tracks`)
+  getTracks(params?:{locationId?:string[]}){
+    return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/tracks`, {params:{...params}})
   }
 
   getTrackById(id:string){

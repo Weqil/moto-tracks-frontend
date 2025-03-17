@@ -48,6 +48,12 @@ export class CreateEventsPageComponent  implements OnInit {
   loadingService: LoadingService = inject(LoadingService)
   toastService: ToastService = inject(ToastService)
   
+  raceTypeSelectedItem: any = {name:'', value:''}
+  raceTypes:any[] = [
+    {name:'Предварительная', value:2},
+    {name:'Согласована (обычная)', value:3},
+  ]
+
   maxStepsCount: number = 1
   stepCurrency: number = 1
 
@@ -80,6 +86,7 @@ export class CreateEventsPageComponent  implements OnInit {
     locationId: new FormControl('', [Validators.required, Validators.minLength(1)]),
     dateStart: new FormControl( '',  [Validators.required, Validators.minLength(1)]),
     recordEnd: new FormControl( '',  [Validators.required, Validators.minLength(1)]),
+    statusId: new FormControl( '',  [Validators.required, Validators.minLength(1)]),
   })
   navController: NavController = inject(NavController)
 
@@ -120,6 +127,12 @@ export class CreateEventsPageComponent  implements OnInit {
   }
   closeGroupModal(){
     this.groupModal = false
+  }
+  setRaceType(event:any){
+    this.raceTypeSelectedItem = event
+    this.createEventForm.patchValue({
+      statusId:event.value
+    })
   }
   closeRegionModal(){
     this.regionModalState = false
@@ -185,10 +198,10 @@ export class CreateEventsPageComponent  implements OnInit {
   }
 
   stepInvalidate() {
-    if (this.createEventForm.value) {
-      switch (this.stepCurrency) {
-        case 1:
-          if (
+    if(this.raceTypeSelectedItem.name == 'Согласована (обычная)'){
+      if (this.createEventForm.value) {
+        
+        if (
             this.createEventForm.value.name.length <= 3 ||
             this.createEventForm.value.desc.length <= 3 
            || !this.createEventForm.value.images.length ||   
@@ -199,12 +212,17 @@ export class CreateEventsPageComponent  implements OnInit {
             return false
           }
           
-        default:
-          return false
+      } else {
+        return true
       }
-    } else {
-      return true
+    }else{
+      if(this.createEventForm.value.name.length <= 3 || this.createEventForm.value.region.length <= 3 || this.createEventForm.value.dateStart.length <= 3  ) {
+        return true
+      }else{
+        return false
+      }
     }
+   
   }
   stepNext() {
     if (this.stepCurrency <= this.maxStepsCount && !this.stepInvalidate() ) {
@@ -286,8 +304,9 @@ export class CreateEventsPageComponent  implements OnInit {
     for (var i = 0; i < this.selectedGroup.length; i++) {
       createEventFormData.append('gradeIds[]', this.selectedGroup[i].id)
     }
-
-    createEventFormData.append('trackId', String(this.trackSelected?.id))
+    if(this.trackSelected?.id){
+      createEventFormData.append('trackId', String(this.trackSelected?.id))
+    }
     this.eventService.createEvent(createEventFormData).pipe(finalize(()=>{
       this.loadingService.hideLoading()
     }),
@@ -313,17 +332,6 @@ export class CreateEventsPageComponent  implements OnInit {
 
 }
 
-// `📕С собой иметь паспорт или свидетельство о рождении для спортсменов младше 18 лет.
 
-// 📄Лицензия
-
-// 👨‍👩‍👦 Для несовершеннолетних спортсменов требуется нотариально заверенное согласие от обоих родителей с указанием вида спорта "мотоспорт-мотокросс"
-
-// 📚 Зачётная книжка:
-
-// 🩺 Мед. справка от спортивного врача или физ.диспансера:
-
-// 📃 Страховка на сумму не менее 100 т.р. с указанием вида спорта "Мотокросс"
-// `
 
 

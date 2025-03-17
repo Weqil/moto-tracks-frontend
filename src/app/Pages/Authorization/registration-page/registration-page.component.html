@@ -1,44 +1,90 @@
 <ion-content>
-  <app-header headerTitle="Регистрация" secondButtonIcon="/assets/icons/menu-pen.svg"></app-header>
+  <app-header headerTitle="Регистрация"></app-header>
   <div class="main-container--with-header">
     <div class="login">
-        <!-- <div class="login__logo">
-          <img class="login__logo__img" src="/assets/icons/favicon.png" alt="">
-        </div> -->
-        <form action="" class="login__form">
-          <app-standart-input [invalid]="registerInvalid.email.status" [errorMessage]="registerInvalid.email.message" [label]="'E-mail'" [control] = "registerForm.get('email')" name="email"></app-standart-input>
-          <app-standart-input [invalid]="registerInvalid.password.status" [errorMessage]="registerInvalid.password.message" [openPassword]="true" type="password"  [label]="'Пароль'" [control] = "registerForm.get('password')" password="password"></app-standart-input>
-          <app-standart-input [invalid]="registerInvalid.password_confirmation.status" [errorMessage]="registerInvalid.password_confirmation.message" [openPassword]="true" type="password"  [label]="'Повторите пароль'" [control] = "registerForm.get('password_confirmation')" password="password"></app-standart-input>
-          <div class="recovery-password-wrapper">
-          </div>
-        </form>
+      <div class="select-auth-type">
+        <nz-segmented [nzOptions]="loginTypeOptions" [(ngModel)]="selectedLoginTypeValue" (ngModelChange)="changeLoginType($event)"  nzSize="large" />
+      </div>
+        <ng-container *ngIf="selectedLoginTypeValue === 'Почта'">
+          <form action="" class="login__form">
+            <app-standart-input [invalid]="registerInvalid.email.status" [errorMessage]="registerInvalid.email.message" [label]="'E-mail'" [control] = "registerForm.get('email')" name="email"></app-standart-input>
+            <app-standart-input [invalid]="registerInvalid.password.status" [errorMessage]="registerInvalid.password.message" [openPassword]="true" type="password"  [label]="'Пароль'" [control] = "registerForm.get('password')" password="password"></app-standart-input>
+            <app-standart-input [invalid]="registerInvalid.password_confirmation.status" [errorMessage]="registerInvalid.password_confirmation.message" [openPassword]="true" type="password"  [label]="'Повторите пароль'" [control] = "registerForm.get('password_confirmation')" password="password"></app-standart-input>
+            <div class="recovery-password-wrapper">
+            </div>
+            <div class="ion-checkbox-container">
+              <ion-checkbox 
+              [checked]="isCheckedFirst" 
+              (ionChange)="onCheckboxChange($event)" 
+              class="custom-checkbox">
+            </ion-checkbox>
+              <span (click)="redirectInUserAgreement()">Согласен(-а) с </span>
+              <span class="fake-link" (click)="redirectInUserAgreement()"> пользовательским соглашением</span>
+            </div>
+        
+            <div class="ion-checkbox-container">
+              <ion-checkbox 
+              [checked]="isCheckedSecond"
+              (ionChange)="onCheckboxChange2($event)" 
+              class="custom-checkbox">
+            </ion-checkbox>
+              <span (click)="redirectInUserAgreement()">Согласен(-а) с </span>
+              <span class="fake-link" (click)="redirectInUserPolitic()"> политикой </span>
+            </div>
+            <app-standart-button [disabled]="!isCheckedFirst || !isCheckedSecond" (onClick)="submitLoginForm()" buttonText="Регистрация" type="submit"></app-standart-button>
+          </form>
+        </ng-container>
+        <ng-container *ngIf="selectedLoginTypeValue === 'Телефон'">
+          <form action="" class="login__form">
+            <app-standart-input type="tel" label="Телефон" placeholder="Введите номер телефона" [control]="phoneForm.get('number')" maskType="phone"></app-standart-input>
+            <div>
+              <div class="ion-checkbox-container">
+                <ion-checkbox 
+                  [checked]="isCheckedFirst" 
+                  (ionChange)="onCheckboxChange($event)" 
+                  class="custom-checkbox">
+                </ion-checkbox>
+                <span (click)="redirectInUserAgreement()">Согласен(-а) с </span>
+                <span class="fake-link" (click)="redirectInUserAgreement()"> пользовательским соглашением</span>
+              </div>
+          
+              <div class="ion-checkbox-container">
+                <ion-checkbox 
+                [checked]="isCheckedSecond"
+                (ionChange)="onCheckboxChange2($event)" 
+                class="custom-checkbox">
+              </ion-checkbox>
+                <span (click)="redirectInUserAgreement()">Согласен(-а) с </span>
+                <span class="fake-link" (click)="redirectInUserPolitic()"> политикой </span>
+              </div>
+            </div>
+            
+            <app-standart-button (onClick)="submitPhoneForm()" [disabled]="!isCheckedFirst || !isCheckedSecond" buttonText="Регистрация" type="submit"></app-standart-button>  
+          </form>
+          <ion-modal [isOpen]="phoneLoginModalValue">
+            <ng-template>
+              <ion-content>
+                  <div class="verificate-phone-header">
+                    <app-circle-button (click)="closePhoneLoginModal()" [icon]="'/assets/icons/arrow.svg'"></app-circle-button>
+                  </div>
+                  <div class="verificate-phone-container">
+                    <img class="phone-images" src="/assets/icons/phone-images.svg">
+                    <span class="verificate-phone-title">Вам поступит звонок-сброс для подтверждения</span>
+                    <p class="verificate-phone-description">Введите последние 4 цифры номера с которого поступит звонок</p>
+                    <ngx-otp-input (otpChange)="changeCode($event)" [options]="otpOptions"></ngx-otp-input> 
+                  </div>
+                 
+              </ion-content>
+            </ng-template>
+            
+          </ion-modal>
+        </ng-container>
     </div>
 
-    <div class="ion-checkbox-container">
-      <ion-checkbox 
-      [checked]="isCheckedFirst" 
-      (ionChange)="onCheckboxChange($event)" 
-      class="custom-checkbox">
-    </ion-checkbox>
-      <span (click)="redirectInUserAgreement()">Согласен(-а) с </span>
-      <span class="fake-link" (click)="redirectInUserAgreement()"> пользовательским соглашением</span>
-    </div>
 
-    <div class="ion-checkbox-container">
-      <ion-checkbox 
-      [checked]="isCheckedSecond"
-      (ionChange)="onCheckboxChange2($event)" 
-      class="custom-checkbox">
-    </ion-checkbox>
-      <span (click)="redirectInUserAgreement()">Согласен(-а) с </span>
-      <span class="fake-link" (click)="redirectInUserPolitic()"> политикой </span>
-    </div>
 
     
 
-    <div class="submit-button">
-      <app-standart-button [disabled]="!isCheckedFirst || !isCheckedSecond" (onClick)="submitLoginForm()" buttonText="Регистрация" type="submit"></app-standart-button>
-    </div>
     <div class="dont-have-account">
       <span (click)="redirectInLogin()" class="dont-have-account__registration-link">Уже есть аккаунта? <span class="dont-have-account__registration-link__route">Войти в аккаунт</span></span>
     </div>

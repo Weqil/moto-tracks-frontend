@@ -1,89 +1,95 @@
 <ion-content>
-  <app-header (customBackClick)="stepPrevious()" 
-  
-  headerTitle="Создание гонки"></app-header>
+  <app-header (customBackClick)="stepPrevious()" headerTitle="Создание гонки"></app-header>
   <main class="main-container--with-header">
     <app-step-container [maxStepsCount]="maxStepsCount" [stepCurrency]="stepCurrency">
       <app-step-container-item [maxStepsCount]="maxStepsCount" [stepCurrency]="stepCurrency" stepNum="1">
         <div class="name-wrapper">
-          <app-standart-input label="Название" [control]="createEventForm.get('name')" placeholder="Введите название вашего соревнования"></app-standart-input>
-          <app-standart-input (click)="openRegionModal()" [readonly]="true" label="Область/край" [control]="createEventForm.get('region')" placeholder="Выберите область вашего соревнования"></app-standart-input>   
-          <div class="select-track-wrapper">
-            <div class="label">Трасса гонки</div>
-            <app-track-select-modal [selectedTrack]="trackSelected" (selectTrack)="selectTrack($event)" [trackSelectModalStateValue]="trackSelectedModalState" [tracks]="tracks" (closeTrackSelectModal)="closeTrackSelectModalFunction()" (openTrackSelectModal)="openTrackSelectModalFunction()"></app-track-select-modal>
-          </div>       
-        </div>
-        <div class="race-groups">
-          <span class="label">Классы гонки</span>
-          <div class="race-groups__selected">
-                <ng-container>
-                  <ul class="race-groups__selected">
-                    <li class="race-groups__selected__item" *ngIf="!selectedGroup.length">Классы не добавлены</li>
-                      <li class="race-groups__selected__item" *ngFor="let group of selectedGroup">{{ group.name }}</li>
-                  </ul>
-                  <app-standart-button (click)="openModalGroupModal()" [buttonText]="selectedGroup.length ? 'Выбрать':'Выбрать'"></app-standart-button>
-                </ng-container>
+          <div>
+            <span class="label">Тип гонки</span>
+            <app-standart-input-select [selectedItem]="raceTypeSelectedItem" (onChange)="setRaceType($event)" selectedName="groupSelect" [items]="raceTypes" label=""></app-standart-input-select>
           </div>
-            <ion-modal class="group-modal" [isOpen]="groupModal" (didDismiss)="closeGroupModal()">
-              <ng-template>
-                <ion-content>
-                  <div class="group-modal-container">
-                    <div class="group-modal-header">
-                      <div class="group-modal-header__select">
-                        <div class="header-text">
-                        <h2>Классы гонки</h2>
-                        </div>
-                        <div class="toggle-container">
-                          <ion-label >Все</ion-label>
-                          <ion-toggle mode="ios" class="custom-toggle" (ionChange)="changeAllClassesState()" [ngClass]="{'rounded-classes__active':allClassesState, 'rounded-classes':!allClassesState}">
-                          </ion-toggle>
-                          <ion-label >Мои</ion-label>
-                        </div>
-                      </div>
-                      <span class="label">Создайте свои или выберите из существующих</span>
-                    </div>
-                    <div class="group-container">
-                      <ng-container *ngIf="!allClassesState">
-                        <ng-container *ngFor="let group of userGroups">
-                          <div class="group-item">
-                            <ion-checkbox (ionChange)="changeGroup($event,group)" [checked]="trackHaveInUserSelected(group)" [value]="group.id"></ion-checkbox>
-                            <label class="label">{{ group.name }}</label>
+      
+            <app-standart-input label="Название" [control]="createEventForm.get('name')" placeholder="Введите название вашего соревнования"></app-standart-input>
+            <app-standart-input (click)="openRegionModal()" [readonly]="true" label="Область/край" [control]="createEventForm.get('region')" placeholder="Выберите область вашего соревнования"></app-standart-input>  
+       
+          
+          <ng-container *ngIf="raceTypeSelectedItem.name == 'Согласована (обычная)'">
+            <div class="select-track-wrapper">
+              <div class="label">Трасса гонки</div>
+              <app-track-select-modal [selectedTrack]="trackSelected" (selectTrack)="selectTrack($event)" [trackSelectModalStateValue]="trackSelectedModalState" [tracks]="tracks" (closeTrackSelectModal)="closeTrackSelectModalFunction()" (openTrackSelectModal)="openTrackSelectModalFunction()"></app-track-select-modal>
+            </div>
+            <div class="race-groups">
+              <span class="label">Классы гонки</span>
+              <div class="race-groups__selected">
+                    <ng-container>
+                      <ul class="race-groups__selected">
+                        <li class="race-groups__selected__item" *ngIf="!selectedGroup.length">Классы не добавлены</li>
+                          <li class="race-groups__selected__item" *ngFor="let group of selectedGroup">{{ group.name }}</li>
+                      </ul>
+                      <app-standart-button (click)="openModalGroupModal()" [buttonText]="selectedGroup.length ? 'Выбрать':'Выбрать'"></app-standart-button>
+                    </ng-container>
+              </div>
+                <ion-modal class="group-modal" [isOpen]="groupModal" (didDismiss)="closeGroupModal()">
+                  <ng-template>
+                    <ion-content>
+                      <div class="group-modal-container">
+                        <div class="group-modal-header">
+                          <div class="group-modal-header__select">
+                            <div class="header-text">
+                            <h2>Классы гонки</h2>
+                            </div>
+                            <div class="toggle-container">
+                              <ion-label >Все</ion-label>
+                              <ion-toggle mode="ios" class="custom-toggle" (ionChange)="changeAllClassesState()" [ngClass]="{'rounded-classes__active':allClassesState, 'rounded-classes':!allClassesState}">
+                              </ion-toggle>
+                              <ion-label >Мои</ion-label>
+                            </div>
                           </div>
-                        </ng-container>
-                      </ng-container>
-                      <ng-container *ngIf="allClassesState">
-                        <ng-container *ngFor="let group of allUsersGroups">
-                          <div class="group-item">
-                            <ion-checkbox (ionChange)="changeGroup($event,group)" [checked]="trackHaveInUserSelected(group)" [value]="group.id"></ion-checkbox>
-                            <label class="label">{{ group.name }}</label>
+                          <span class="label">Создайте свои или выберите из существующих</span>
+                        </div>
+                        <div class="group-container">
+                          <ng-container *ngIf="!allClassesState">
+                            <ng-container *ngFor="let group of userGroups">
+                              <div class="group-item">
+                                <ion-checkbox (ionChange)="changeGroup($event,group)" [checked]="trackHaveInUserSelected(group)" [value]="group.id"></ion-checkbox>
+                                <label class="label">{{ group.name }}</label>
+                              </div>
+                            </ng-container>
+                          </ng-container>
+                          <ng-container *ngIf="allClassesState">
+                            <ng-container *ngFor="let group of allUsersGroups">
+                              <div class="group-item">
+                                <ion-checkbox (ionChange)="changeGroup($event,group)" [checked]="trackHaveInUserSelected(group)" [value]="group.id"></ion-checkbox>
+                                <label class="label">{{ group.name }}</label>
+                              </div>
+                            </ng-container>
+                          </ng-container>
+                          
+                        </div>
+                        <div class="race-groups__add-container__wrapper">
+                          <div class="race-groups__add-container">
+                            <input (input)="setNewGroupInputValue($event)" placeholder = "Название класса" class="standart-input" type="text">
                           </div>
-                        </ng-container>
-                      </ng-container>
-                      
-                    </div>
-                    <div class="race-groups__add-container__wrapper">
-                      <div class="race-groups__add-container">
-                        <input (input)="setNewGroupInputValue($event)" placeholder = "Название класса" class="standart-input" type="text">
+    
+                          <div class="race-groups__buttons">
+                            <app-standart-button theme="light" (click)="createNewGroup()" style="width: 100%;" buttonText="Добавить класс"></app-standart-button>
+                            <app-standart-button (click)="closeGroupModal()" buttonText="Выбрать" theme="standart"></app-standart-button>
+                          </div>
+                        </div>
                       </div>
-
-                      <div class="race-groups__buttons">
-                        <app-standart-button theme="light" (click)="createNewGroup()" style="width: 100%;" buttonText="Добавить класс"></app-standart-button>
-                        <app-standart-button (click)="closeGroupModal()" buttonText="Выбрать" theme="standart"></app-standart-button>
-                      </div>
-                    </div>
-                  </div>
-                </ion-content>
-              </ng-template>
-            </ion-modal>   
+                    </ion-content>
+                  </ng-template>
+                </ion-modal>   
+            </div>
+            <div class="photo-slider">
+              <app-edit-slider (filesEmit)="getImages($event)" type="create"></app-edit-slider>
+            </div>
+            <div class="description">
+              <app-standart-rich-input [inputStatus]="false" [control]="createEventForm.get('desc')" label="Описание" placeholder="Введите описание вашего трека"></app-standart-rich-input>
+            </div>       
+          </ng-container> 
         </div>
-  
-        <div class="photo-slider">
-            <app-edit-slider (filesEmit)="getImages($event)" type="create"></app-edit-slider>
-        </div>
-
-        <div class="description">
-          <app-standart-rich-input [inputStatus]="false" [control]="createEventForm.get('desc')" label="Описание" placeholder="Введите описание вашего трека"></app-standart-rich-input>
-        </div>
+    
 
         <ion-modal (didDismiss)="closeRegionModal()"  [isOpen]="regionModalState">
           <ng-template>
@@ -94,29 +100,31 @@
             </ion-content>
           </ng-template>  
         </ion-modal>
-        <app-standart-input type="datetime-local" label="Дата начала" [control]="createEventForm.get('dateStart')"></app-standart-input>
-        <div class="records-end">
-          <app-standart-input type="datetime-local" label="Дата закрытия регистрации" [control]="createEventForm.get('recordEnd')"></app-standart-input>
-        </div>
-      
+          <app-standart-input class="date-start" type="datetime-local" label="Дата начала" [control]="createEventForm.get('dateStart')"></app-standart-input>
+        <ng-container *ngIf="raceTypeSelectedItem.name == 'Согласована (обычная)'">
+          <div class="records-end">
+            <app-standart-input type="datetime-local" label="Дата закрытия регистрации" [control]="createEventForm.get('recordEnd')"></app-standart-input>
+          </div>
+    
+          <div (click)="fileResults.click()" class="document-container">
+              <span>Регламент</span>
+              <img class="document-icon" src="/assets/icons/documents.svg" alt="">
+              <input (change)="setReglamentFile($event)" #fileResults type="file" class="hidden-input" accept=".pdf">
+              <span>{{reglamentFile ? reglamentFile.name : '- файл не выбран'}}</span>
+          </div>
+          <div (click)="filePosition.click()" class="document-container">
+              <span>Положение</span>
+              <img class="document-icon" src="/assets/icons/documents.svg" alt="">
+              <input (change)="setPositionFile($event)" #filePosition type="file" class="hidden-input" accept=".pdf">
+              <span>{{positionFile ? positionFile.name : '- файл не выбран'}}</span>
+          </div>
+        </ng-container>
         
-        <div (click)="fileResults.click()" class="document-container">
-            <span>Регламент</span>
-            <img class="document-icon" src="/assets/icons/documents.svg" alt="">
-            <input (change)="setReglamentFile($event)" #fileResults type="file" class="hidden-input" accept=".pdf">
-            <span>{{reglamentFile ? reglamentFile.name : '- файл не выбран'}}</span>
-        </div>
-        <div (click)="filePosition.click()" class="document-container">
-            <span>Положение</span>
-            <img class="document-icon" src="/assets/icons/documents.svg" alt="">
-            <input (change)="setPositionFile($event)" #filePosition type="file" class="hidden-input" accept=".pdf">
-            <span>{{positionFile ? positionFile.name : '- файл не выбран'}}</span>
-        </div>
       </app-step-container-item>
     </app-step-container>
     <div class="navigate-buttons-container">
       <app-standart-button [disabled]="stepInvalidate()"  *ngIf="stepCurrency !== maxStepsCount" (click)="stepNext()" buttonText="Далее" theme="standart"></app-standart-button>
-      <app-standart-button [disabled]="stepInvalidate()"  *ngIf="stepCurrency === maxStepsCount" (click)="submitForm()"  buttonText="Создать и открыть" theme="standart"></app-standart-button>
+      <app-standart-button [disabled]="stepInvalidate()"  *ngIf="stepCurrency === maxStepsCount" (click)="submitForm()"  buttonText="Создать" theme="standart"></app-standart-button>
       <div>
         <app-standart-button [disabled]="true" (click)="cancelCreate()"  buttonText="Отмена" theme="light"></app-standart-button>
       </div>

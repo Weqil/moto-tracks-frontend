@@ -88,7 +88,12 @@ export class ConfirmEmailPageComponent  implements OnInit {
        ).subscribe((res:any)=>{
         this.toastService.showToast('Почта подтверждена','success')
         this.userService.refreshUser()
-        this.navController.navigateForward('/cabinet')
+
+        if(!this.userService.isPhoneVerified()){
+          this.navController.navigateForward('/confirm-phone')
+        }else{
+          this.navController.navigateForward('/cabinet')
+        }
        })
     } else {
       this.toastService.showToast('код должен состоять из 4 символов','danger')

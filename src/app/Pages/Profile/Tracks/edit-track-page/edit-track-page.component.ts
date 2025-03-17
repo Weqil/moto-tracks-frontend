@@ -69,7 +69,7 @@ export class EditTrackPageComponent  implements OnInit {
     free: new FormControl(1, [Validators.required, Validators.minLength(3)]),
     turns: new FormControl('', [Validators.required, Validators.minLength(3)]),
     light: new FormControl(false, [Validators.required,]),
-    allSeazonal: new FormControl(false, [Validators.required,]),
+    season: new FormControl(false, [Validators.required,]),
     desc: new FormControl('', [Validators.required, Validators.minLength(3)]),
     region: new FormControl('', [Validators.required, Validators.minLength(3)]),
     logo: new FormControl('', [Validators.required,]),
@@ -104,6 +104,7 @@ coverageItems:any[] = [
   {name:'mid-hard', value:'mid-hard'},
   {name:'hard', value:'hard'},
   {name:'mid-soft', value:'mid-soft'},
+  {name:'soft', value:'soft'},
 ]
 
 setCoverage(event:any){
@@ -229,7 +230,7 @@ setCoverage(event:any){
     if(!this.stepInvalidate()){
       this.loadingService.showLoading()
       this.specForm.patchValue({coverage: this.coverageSelectedItem.value})
-      this.editTrackForm.patchValue({light: Number(this.editTrackForm.value.light), allSeazonal:Number(this.editTrackForm.value.allSeazonal)})
+      this.editTrackForm.patchValue({light: Number(this.editTrackForm.value.light), season:Number(this.editTrackForm.value.season)})
       this.editTrackForm.value.images = this.editTrackForm.value.images.filter((image:any)=>!image.link)
       let editForm = {
           ...this.editTrackForm.value,

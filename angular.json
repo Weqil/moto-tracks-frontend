@@ -42,6 +42,7 @@
               "src/app/CommonUI/StyleVariables/fonts.scss",
               "src/app/CommonUI/StyleVariables/margin.scss",
               "src/app/CommonUI/StyleVariables/padding.scss",
+              "node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
               "src/app/CommonUI/StyleVariables/backgrounds.scss",
               "src/app/CommonUI/StylesModules/containers.scss"
             ],

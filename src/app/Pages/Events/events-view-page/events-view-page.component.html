@@ -23,7 +23,7 @@
       <div class="main-container">
         <div class="event-name">{{event.name}}</div>
         
-        <div [innerHTML]="clearDescription()" class="event-description">{{event.desc}}</div>
+        <div [innerHTML]="clearDescription()" *ngIf="event.desc" class="event-description">{{event.desc}}</div>
 
         <div *ngIf="event.grades && event.grades.length" class="groups">
           <span class="groups-header">Классы соревнования:</span>

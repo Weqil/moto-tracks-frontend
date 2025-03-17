@@ -19,7 +19,10 @@ export class ProfileMenuItemComponent  implements OnInit {
 
   navController: NavController = inject(NavController)
   redirectInPage(){
-    this.navController.navigateForward([this.routing])
+    if(this.routing == 'link')
+      {}
+    else
+      this.navController.navigateForward([this.routing])
   }
   ngOnInit() {}
 

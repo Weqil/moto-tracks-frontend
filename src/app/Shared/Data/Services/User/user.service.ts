@@ -82,7 +82,7 @@ export class UserService {
   getUserFromLocalStorage():User {
     return JSON.parse(String(localStorage.getItem('user')));
   }
-  editUser(editForm:FormData){
+  editUser(editForm:any){
     return this.http.post(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/users/update`, editForm)
   }
   getChangeRoles(){
@@ -97,4 +97,11 @@ export class UserService {
   isEmailVerified(): boolean {
     return this.user.value?.email_verified_at!== null;
   }
+  isPhoneVerified(): boolean {
+    if(!this.user.value?.phone){
+      return false
+    }
+    return this.user.value?.phone?.number_verified_at !== null;
+  }
+  
 }

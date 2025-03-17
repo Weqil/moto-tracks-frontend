@@ -174,7 +174,11 @@ export class SettingsComponent  implements OnInit {
       res.role.forEach((roleItem:any) => {
         this.statuses.push({
           id:roleItem.id,
-          name: roleItem.name == userRoles.organization ? 'Организатор': 'Гонщик',
+          name: roleItem.name === userRoles.organization ? 'Организатор'
+          : roleItem.name === userRoles.couch ? 'Тренер' 
+          : roleItem.name === userRoles.admin ? 'Администратор' 
+          : roleItem.name === userRoles.root ? 'Root' 
+          : 'Гонщик',
           value: roleItem.name,
         })
       });

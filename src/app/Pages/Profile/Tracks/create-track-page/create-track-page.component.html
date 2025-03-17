@@ -4,7 +4,7 @@
         <app-step-container [maxStepsCount]="maxStepsCount" [stepCurrency]="stepCurrency">
             <app-step-container-item [maxStepsCount]="maxStepsCount" [stepCurrency]="stepCurrency" stepNum="1">
                 <form [formGroup]="createTrackForm" action="">
-                    <app-standart-input label="Название" [control]="createTrackForm.get('name')" placeholder="Введите название вашего трека"></app-standart-input>
+                    <app-standart-input label="Название*" [control]="createTrackForm.get('name')" placeholder="Введите название вашего трека"></app-standart-input>
                     <div style="padding-top: var(--standart-padding); padding-bottom: var(--standart-padding);">
                         <span class="label">Логотип трека</span>
                         <div class="logo-track">
@@ -46,7 +46,7 @@
                    
                         <app-standart-button (click)="addNewParameter()" buttonText="Добавить параметр"></app-standart-button>
                     </div> -->
-                    <app-standart-input (click)="openRegionModal()" [readonly]="true" label="Область/край" [control]="createTrackForm.get('region')" placeholder="Выберите область вашего соревнования"></app-standart-input>
+                    <app-standart-input (click)="openRegionModal()" [readonly]="true" label="Область/край*" [control]="createTrackForm.get('region')" placeholder="Выберите область вашего соревнования"></app-standart-input>
                     <div class="select-level__label">Адрес трека</div>
                     
                     <ion-modal (didDismiss)="closeRegionModal()"  [isOpen]="regionModalState">
@@ -60,7 +60,7 @@
                     </ion-modal>   
                     <app-address-input (addressEditEmit)="changeAddress($event)"></app-address-input>
 
-                    <span style="padding-top: var(--standart-padding);" class="label">Cхема трека</span>
+                    <span style="padding-top: var(--standart-padding);" class="label">Cхема трека*</span>
                     <div class="logo-track">
                         <button (click)="schemeFile.click()" class="upload-logo">
                             <img src="/assets/icons/addPhoto.svg" alt="">
@@ -85,7 +85,7 @@
 
                     <div class="track-settings">
                         <ion-toggle formControlName="light" (ionChange)="changeLight($event)" name="light" id="light" mode="ios" class="custom-toggle">Освещение</ion-toggle>
-                        <ion-toggle formControlName="allSeazonal" name="light" id="light" mode="ios" class="custom-toggle">Всесезонность</ion-toggle>
+                        <ion-toggle formControlName="season" name="light" id="light" mode="ios" class="custom-toggle">Всесезонность</ion-toggle>
                     </div>
 
                     <form [formGroup]="specForm" class="track-settings__spec">
@@ -100,7 +100,6 @@
 
                             <div class="input-wrapper">
                                 <input formControlName="lengthTrack" class="track-settings__spec__item__input" id="length" type="number">
-                                м
 
                                 <app-info-popover style="position: absolute; right: 0;" text="Замерьте полную длину летнего круга трассы. Можете воспользоваться линейкой яндекс карт."></app-info-popover>
                             </div>
@@ -192,13 +191,12 @@
                     </form>
                   
                     <div class="payment-track">
-                        <ion-checkbox  class="label" formControlName="apayment">Трек платный</ion-checkbox>
+                        <ion-checkbox class="label_checkbox" formControlName="apayment">Трек платный</ion-checkbox>
                         <ng-container *ngIf="createTrackForm.value.apayment">
                             <span class="apayment-text">Для того что бы подключить платные услуги к своему треку напишите нам на почту admin&#64;vokrug.city</span>
                             <div class="apayment-buttons">
                                     <app-standart-button (click)="penMail()" buttonText="Почта"></app-standart-button>
                             </div>
-                           
                         </ng-container>
                         
                     </div>
@@ -226,7 +224,7 @@
 
         <div class="navigate-buttons-container">
             <app-standart-button [disabled]="stepInvalidate()"  *ngIf="stepCurrency !== maxStepsCount" (click)="stepNext()" buttonText="Далее" theme="standart"></app-standart-button>
-            <app-standart-button [disabled]="stepInvalidate()"   *ngIf="stepCurrency === maxStepsCount" (click)="submitForm()"  buttonText="Создать и открыть" theme="standart"></app-standart-button>
+            <app-standart-button [disabled]="stepInvalidate()"   *ngIf="stepCurrency === maxStepsCount" (click)="submitForm()" buttonText="Создать и открыть" theme="standart"></app-standart-button>
             <div>
               <app-standart-button (click)="cancelCreate()"  buttonText="Отмена" theme="light"></app-standart-button>
             </div>

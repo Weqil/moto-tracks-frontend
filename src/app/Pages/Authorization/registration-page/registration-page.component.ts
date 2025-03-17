@@ -4,23 +4,27 @@ import { ButtonsModule } from 'src/app/Shared/Modules/buttons/buttons.module';
 import { FormsModule } from 'src/app/Shared/Modules/forms/forms.module';
 import { HeaderModule } from 'src/app/Shared/Modules/header/header.module';
 import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
-import { NavController } from '@ionic/angular/standalone';
+import { IonModal, NavController } from '@ionic/angular/standalone';
 import { LoadingService } from 'src/app/Shared/Services/loading.service';
 import { RegisterService } from 'src/app/Shared/Data/Services/Auth/register.service';
-import { catchError, EMPTY, finalize } from 'rxjs';
+import { catchError, EMPTY, finalize, throwError } from 'rxjs';
 import { serverError } from 'src/app/Shared/Data/Interfaces/errors';
 import { Login } from 'src/app/Shared/Data/Interfaces/login-model';
 import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
 import { AuthService } from 'src/app/Shared/Data/Services/Auth/auth.service';
 import { Router } from '@angular/router';
 import { IonCheckbox } from '@ionic/angular/standalone';
+import { NzSegmentedModule } from 'ng-zorro-antd/segmented';
+import { NgxOtpInputComponent, NgxOtpInputComponentOptions } from 'ngx-otp-input';
+import moment from 'moment';
+import { ToastService } from 'src/app/Shared/Services/toast.service';
 
 
 @Component({
   selector: 'app-registration-page',
   templateUrl: './registration-page.component.html',
   styleUrls: ['./registration-page.component.scss'],
-  imports: [SharedModule, HeaderModule, FormsModule,IonCheckbox]
+  imports: [SharedModule, HeaderModule, FormsModule,IonCheckbox,NzSegmentedModule,IonModal,NgxOtpInputComponent]
 })
 export class RegistrationPageComponent  implements OnInit {
 
@@ -32,20 +36,27 @@ export class RegistrationPageComponent  implements OnInit {
   private router:Router = inject(Router)
   isCheckedFirst: boolean = false;
   isCheckedSecond: boolean = false;
+  loginTypeOptions = ['Телефон', 'Почта'];
+  phoneLoginModalValue: boolean = false; 
+  selectedLoginTypeValue = 'Телефон';
+  toastService:ToastService = inject(ToastService)
+  formmatedPhone:string = ''
+  codeValue:string = ''
+  phoneForm: FormGroup = new FormGroup({
+    number: new FormControl('', [Validators.required,Validators.minLength(11)])
+  })
+  otpOptions: NgxOtpInputComponentOptions = {
+      otpLength:4,
+  }
   
-  
-
   constructor() { }
 
   onCheckboxChange(event:any){
     this.isCheckedFirst=event.detail.checked;
-   
-    
   }
+
   onCheckboxChange2(event:any){
-    
     this.isCheckedSecond=event.detail.checked;
-    
   }
 
     registerForm: FormGroup = new FormGroup({
@@ -136,6 +147,18 @@ export class RegistrationPageComponent  implements OnInit {
     fd.append('password_confirmation', this.registerForm.get('password_confirmation')?.value)
     return fd
   }
+  changeLoginType(value: string): void {
+    this.selectedLoginTypeValue = value;
+  }
+  closePhoneLoginModal(){
+    this.phoneLoginModalValue = false;
+  }
+  changeCode(code:any){
+    this.codeValue = code.join('')
+    if(this.codeValue.length === 4){
+   
+    }
+  }
   errorResponseAfterReg(err:any){
     let message:any[] = err.error.errors
     Object.keys(message).forEach((err:any)=>{
@@ -164,7 +187,7 @@ export class RegistrationPageComponent  implements OnInit {
     })
   }
 
-    submitLoginForm() {
+  submitLoginForm() {
       this.registerForm.patchValue({
         name: this.registerForm.value.email
       })
@@ -174,8 +197,6 @@ export class RegistrationPageComponent  implements OnInit {
         const fd:FormData = this.createFormData()
         this.register(fd)
       }
-
-  
     }
 
     redirectInLogin() {
@@ -189,7 +210,40 @@ export class RegistrationPageComponent  implements OnInit {
     redirectInUserPolitic() {
       this.navController.navigateForward('/user-politic', {animationDirection: 'forward'})
     }
+
+    getRegisterCode(){
+      let loader:HTMLIonLoadingElement
+      this.loading.showLoading().then((res)=>loader = res)
+      this.registerService.registerUserInPhone(this.phoneForm.value).pipe(
+        finalize(()=>this.loading.hideLoading(loader)),
+        catchError((err)=>{
+          if(err.status == 422){
+            this.toastService.showToast('Такой телефон уже зарегестрирован','danger')
+          }
+          return throwError(err)
+        })
+      ).subscribe((res)=>{
+        this.phoneLoginModalValue = true
+        console.log(res)
+      })
+    }
     
+    submitPhoneForm(){
+        this.formmatedPhone = this.phoneForm.value.number
+          this.phoneForm.patchValue({number:this.phoneForm.value.number.replace(/\D/g, "")})
+          if(this.phoneForm.valid){
+             let now = moment()
+              if(now.diff(moment(localStorage.getItem('sendPhoneVerificateRegCodeTime')),'seconds') > 60 ||  !localStorage.getItem('sendPhoneVerificateRegCodeTime')){
+                localStorage.setItem('sendPhoneVerificateCodeTime',now.toISOString())
+                this.getRegisterCode()
+              }
+              else{
+                this.toastService.showToast(`Попробуйте через ${120 - now.diff(moment(localStorage.getItem('sendPhoneVerificateRegCodeTime')),'seconds')}`,'success')
+              }
+          } else{
+            this.toastService.showToast('Номер телефона введен некорректно', 'warning')
+          }
+    }
 
   ngOnInit() {
   

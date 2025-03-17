@@ -36,3 +36,18 @@
     padding-top: var(--little-padding);
     padding-bottom: var(--little-padding);
 }
+
+.region-modal{
+    ion-content{
+     --background: rgb(255, 255, 255);
+    }
+    --max-height:50%;
+    --width:90%;
+    --border-radius: 12px;
+    --overflow-y: hidden;
+}
+
+.region-modal-container{
+    background: rgb(255, 255, 255);
+    padding: var(--standart-padding);
+}

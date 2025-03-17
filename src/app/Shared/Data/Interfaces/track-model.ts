@@ -25,7 +25,7 @@ export interface Track {
     date_start?:string;
     schema_img?:string;
     light?:boolean;
-    seasons?:boolean;
+    season?:boolean;
     
 
 }

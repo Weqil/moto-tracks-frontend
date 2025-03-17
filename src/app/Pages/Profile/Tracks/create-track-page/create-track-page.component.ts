@@ -37,13 +37,13 @@ export class CreateTrackPageComponent  implements OnInit {
   stepCurrency: number = 1
   logoUrl: string = ''
   schemeUrl: string = ''
-  
   coverageSelectedItem:any =  {name:'hard', value:'hard'}
 
 coverageItems:any[] = [
   {name:'mid-hard', value:'mid-hard'},
   {name:'hard', value:'hard'},
   {name:'mid-soft', value:'mid-soft'},
+  {name:'soft', value:'soft'},
 ]
 
   regionModalState:boolean = false
@@ -87,7 +87,7 @@ coverageItems:any[] = [
     apayment: new FormControl(false, [Validators.required, Validators.minLength(3)]),
     logo: new FormControl('', [Validators.required,]),
     light: new FormControl(false, [Validators.required,]),
-    allSeazonal: new FormControl(false, [Validators.required,]),
+    season: new FormControl(false, [Validators.required,]),
     parking: new FormControl(false, [Validators.required,]),
     opened: new FormControl(false, [Validators.required,]),
     schemaImg: new FormControl('', [Validators.required,]),
@@ -115,12 +115,13 @@ coverageItems:any[] = [
   stepInvalidate() {
     if (this.createTrackForm.value) {
           if (
-            this.createTrackForm.value.name.length <= 3 ||
-            this.createTrackForm.value.desc.length <= 3 
+            this.createTrackForm.value.name.length <= 3 
            || !this.createTrackForm.value.address.length ||
              !this.createTrackForm.value.latitude 
              || !this.createTrackForm.value.longitude || 
-             !this.locationId || !this.logoUrl || !this.specForm.valid
+             !this.locationId 
+            //  || !this.logoUrl || !this.specForm.valid ||
+            // this.createTrackForm.value.desc.length <= 3 
           ) {
             return true
           } else {
@@ -217,7 +218,7 @@ coverageItems:any[] = [
     if(!this.stepInvalidate()){
 
       this.specForm.patchValue({coverage: this.coverageSelectedItem.value})
-      this.createTrackForm.patchValue({light: Number(this.createTrackForm.value.light), allSeazonal:Number(this.createTrackForm.value.allSeazonal)})
+      this.createTrackForm.patchValue({light: Number(this.createTrackForm.value.light), season:Number(this.createTrackForm.value.season)})
   
         let currentForm = {
           ...this.createTrackForm.value,

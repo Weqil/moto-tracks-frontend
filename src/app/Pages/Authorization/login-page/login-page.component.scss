@@ -30,8 +30,30 @@
     opacity: 55%;
 }
 .submit-button{
-    padding-top: var(--standart-padding);
+    margin-top: var(--standart-padding);
+    background-color: var(--gray-color);
+    width: 100%;
+    display: flex;
 }
+
+::ng-deep .ant-segmented-item-label {
+  padding-left: 50px !important;
+  padding-right: 50px !important;
+
+}
+.ant-segmented-item-label{
+
+}
+.select-auth-type{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.phone-images{
+  width: 8rem;
+  margin: auto;
+}
+
 .dont-have-account{
     padding-top: 2rem;
     display: flex;
@@ -53,9 +75,10 @@
   }
 
   .recovery-modal{
-    --height:22rem;
+    --height: auto;
     --max-width: 386px;
     --border-radius: 17px;
+    
   }
   .recovery-icon{
     margin-left: 1rem;
@@ -68,6 +91,7 @@
     padding-top: 0.5rem;
     color: var(--blue-color);
     justify-content: center;
+    
   }
   .recovery-password-buttons{
     padding-top: 1rem;
@@ -86,5 +110,41 @@
     justify-content: center;
     gap: var(--standart-padding);
     padding:var(--standart-padding);
+    flex-direction: column;
+    background-color: var(--white-color);
+  }
+  .ant-segmented {
+        margin-bottom: var(--standart-padding);
+        font-family: var(--font-regular);
+  }
+  .verificate-phone-header{
+    font-family: var(--font-bold);
+    margin: auto;
+    display: flex;
+    align-items: center;
+    padding-left: var(--standart-padding);
+    padding-top: var(--standart-padding);
+    text-align: center;
+    font-size: 1.2rem;
+  }
+  .verificate-phone-title{
+    display: flex;
+    text-align: center;
+    align-items: center;
+    padding-top: var(--standart-padding);
+    justify-content: center;
+    font-size: 0.95rem;
+    gap: 1rem;
+    font-family: var(--font-bold);
+  }
+  .verificate-phone-description{
+    padding-top: var(--little-padding);
+    text-align: center;
+    font-size: 12px;
+  }
+  .verificate-phone-container{
+    padding: var(--standart-padding);
+    font-family: var(--font-regular);
+    display: flex;
     flex-direction: column;
   }
