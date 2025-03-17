@@ -11,10 +11,19 @@
           <img (click)="file.click()" class="user-section__avatar__img" [src]="settingsAvatar" alt="" alt="">
           <input (change)="setAvatar($event)" #file style="display: none;" accept="image/png, image/jpeg"   type="file">
         </div>
+       
+      </div>
+
+      <div class="status-container">
         <div class="cabinet__select-status">
           <app-custom-selected [items]="statuses" [modalValue]="statusesSelect" [selectedValue]="selectedStatusItem" (openModal)="openSelectedStatus()" (closeModal)="closeSelectedStatus()" (selectItem)="selectStatus($event)"></app-custom-selected>
         </div>
       </div>
+
+      <div class="email-container">
+
+      </div>
+
       <ion-modal class="agreed-modal" [isOpen]="userAgreedModalState" (didDismiss)="closeModalAgreedNotVerificated()">
           <ng-template>
               <ion-content>
