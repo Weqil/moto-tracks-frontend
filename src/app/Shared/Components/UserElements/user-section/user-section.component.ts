@@ -16,16 +16,38 @@ export class UserSectionComponent  implements OnInit {
   @Input() showRank:boolean = true;
   @Input() showAddress:boolean = true;
   @Input() hideEmail:boolean = false;
-  @Input() status ?:string
+  @Input()  status ?:string
+
+  translitRole:string = ''
+
+  changeRoleName(){
+    if (this.user?.roles?.length) {
+      switch (this.user.roles[0].name) {
+        case 'Organization':
+          this.translitRole = 'Организатор';
+          break;
+        case 'Rider':
+          this.translitRole = 'Гонщик';
+          break;
+        case 'Couch':
+          this.translitRole = 'Тренер';
+          break;
+        default:
+          this.translitRole = 'Болельщик';
+      }
+    }
+  }
 
   onClickStatus(){
     this.changeStatus.emit()
   }
 
   ngOnChanges(){
-   
+    this.changeRoleName()
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    
+  }
 
 }

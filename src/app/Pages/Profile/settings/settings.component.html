@@ -15,6 +15,7 @@
           <app-custom-selected [items]="statuses" [modalValue]="statusesSelect" [selectedValue]="selectedStatusItem" (openModal)="openSelectedStatus()" (closeModal)="closeSelectedStatus()" (selectItem)="selectStatus($event)"></app-custom-selected>
         </div>
       </div>
+      
       <ion-modal class="agreed-modal" [isOpen]="userAgreedModalState" (didDismiss)="closeModalAgreedNotVerificated()">
           <ng-template>
               <ion-content>
