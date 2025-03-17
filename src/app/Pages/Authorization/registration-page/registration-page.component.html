@@ -59,7 +59,7 @@
               </div>
             </div>
             
-            <app-standart-button (onClick)="submitPhoneForm()" buttonText="Регистрация" type="submit"></app-standart-button>  
+            <app-standart-button (onClick)="submitPhoneForm()" [disabled]="!isCheckedFirst || !isCheckedSecond" buttonText="Регистрация" type="submit"></app-standart-button>  
           </form>
           <ion-modal [isOpen]="phoneLoginModalValue">
             <ng-template>
@@ -68,8 +68,9 @@
                     <app-circle-button (click)="closePhoneLoginModal()" [icon]="'/assets/icons/arrow.svg'"></app-circle-button>
                   </div>
                   <div class="verificate-phone-container">
-                    <span class="verificate-phone-title">Введите код из SMS</span>
-                    <p class="verificate-phone-description">На ваш номер {{formmatedPhone}} поступит SMS-сообщение с кодом или звонок-сброс</p>
+                    <img class="phone-images" src="/assets/icons/phone-images.svg">
+                    <span class="verificate-phone-title">Вам поступит звонок-сброс для подтверждения</span>
+                    <p class="verificate-phone-description">Введите последние 4 цифры номера с которого поступит звонок</p>
                     <ngx-otp-input (otpChange)="changeCode($event)" [options]="otpOptions"></ngx-otp-input> 
                   </div>
                  

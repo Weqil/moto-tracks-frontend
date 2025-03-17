@@ -15,4 +15,7 @@ export class RegisterService {
   registerUser( registerForm:FormData){
       return this.http.post<Login>(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/register`, registerForm)
   }
+  registerUserInPhone(form:any){
+    return this.http.post(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/phone/register`, form)
+  }
 }

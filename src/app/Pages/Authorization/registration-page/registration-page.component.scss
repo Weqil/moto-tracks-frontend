@@ -52,15 +52,17 @@
   }
 
   .ion-checkbox-container{
-    width: 90%;
     display: flex;
     font-size: var(--font-little-size);
     padding-bottom: 1rem;
     justify-content:flex-start;
     align-items: center;
     margin-left: 1rem;
-
   }
+  .phone-images{
+    width: 8rem;
+    margin: auto;
+  }  
 
   /* Кастомизация чекбокса */
 
