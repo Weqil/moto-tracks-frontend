@@ -8,7 +8,6 @@ import { NavController } from '@ionic/angular/standalone';
 })
 export class BackButtonComponent  implements OnInit {
   navController:NavController = inject(NavController)
-  
 
   constructor() { }
 

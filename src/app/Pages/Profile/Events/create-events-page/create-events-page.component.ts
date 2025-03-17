@@ -48,10 +48,10 @@ export class CreateEventsPageComponent  implements OnInit {
   loadingService: LoadingService = inject(LoadingService)
   toastService: ToastService = inject(ToastService)
   
-  raceTypeSelectedItem: any = {name:'Предварительная', value:'Предварительная'}
+  raceTypeSelectedItem: any = {name:'', value:''}
   raceTypes:any[] = [
-    {name:'Предварительная', value:'Предварительная'},
-    {name:'Согласована (обычная)', value:'Согласована (обычная)'},
+    {name:'Предварительная', value:2},
+    {name:'Согласована (обычная)', value:3},
   ]
 
   maxStepsCount: number = 1
@@ -86,6 +86,7 @@ export class CreateEventsPageComponent  implements OnInit {
     locationId: new FormControl('', [Validators.required, Validators.minLength(1)]),
     dateStart: new FormControl( '',  [Validators.required, Validators.minLength(1)]),
     recordEnd: new FormControl( '',  [Validators.required, Validators.minLength(1)]),
+    statusId: new FormControl( '',  [Validators.required, Validators.minLength(1)]),
   })
   navController: NavController = inject(NavController)
 
@@ -129,6 +130,9 @@ export class CreateEventsPageComponent  implements OnInit {
   }
   setRaceType(event:any){
     this.raceTypeSelectedItem = event
+    this.createEventForm.patchValue({
+      statusId:event.value
+    })
   }
   closeRegionModal(){
     this.regionModalState = false
@@ -300,8 +304,9 @@ export class CreateEventsPageComponent  implements OnInit {
     for (var i = 0; i < this.selectedGroup.length; i++) {
       createEventFormData.append('gradeIds[]', this.selectedGroup[i].id)
     }
-
-    createEventFormData.append('trackId', String(this.trackSelected?.id))
+    if(this.trackSelected?.id){
+      createEventFormData.append('trackId', String(this.trackSelected?.id))
+    }
     this.eventService.createEvent(createEventFormData).pipe(finalize(()=>{
       this.loadingService.hideLoading()
     }),
