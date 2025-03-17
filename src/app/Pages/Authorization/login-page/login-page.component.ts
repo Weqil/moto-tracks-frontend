@@ -137,7 +137,9 @@ export class LoginPageComponent  implements OnInit {
       this.userService.setUserInLocalStorage(res.user)
       this.authService.setAuthToken(String(res.access_token))
       this.closePhoneLoginModal()
-      this.router.navigate(['/cabinet'])
+      setTimeout(()=>{
+        this.router.navigate(['/cabinet'])
+      },0)
     })
   }
 
