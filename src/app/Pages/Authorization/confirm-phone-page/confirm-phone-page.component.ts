@@ -182,7 +182,7 @@ phoneSubmit(){
     return this.loginService.getPhoneCodeInAuthUser(this.phoneForm.value).pipe(
     )
   }else{
-    this.toastService.showToast(`Попробуйте через ${120 - now.diff(moment(localStorage.getItem('sendPhoneVerificateCodeTime')),'seconds')}`,'success')
+    this.toastService.showToast(`Попробуйте через ${120 - now.diff(moment(localStorage.getItem('sendPhoneVerificateCodeTime')),'seconds')} секунд`,'success')
     return EMPTY;
   }
 
