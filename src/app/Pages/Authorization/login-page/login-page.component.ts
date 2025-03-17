@@ -6,28 +6,31 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoadingService } from 'src/app/Shared/Services/loading.service';
 import { LoginService } from 'src/app/Shared/Data/Services/Auth/login.service';
 import { Login } from 'src/app/Shared/Data/Interfaces/login-model';
-import { catchError, EMPTY, empty, finalize } from 'rxjs';
+import { catchError, EMPTY, empty, finalize, throwError } from 'rxjs';
 import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
 import { AuthService } from 'src/app/Shared/Data/Services/Auth/auth.service';
 import { ButtonsModule } from 'src/app/Shared/Modules/buttons/buttons.module';
 import { IonModal, NavController } from '@ionic/angular/standalone';
 import { MessagesErrors } from 'src/app/Shared/Enums/messages-errors';
-
+import { NzSegmentedModule } from 'ng-zorro-antd/segmented';
 import { serverError } from 'src/app/Shared/Data/Interfaces/errors';
 import { Router } from '@angular/router';
 import { ToastService } from 'src/app/Shared/Services/toast.service';
 import { AuthErrosMessages } from 'src/app/Shared/Data/Enums/erros';
+import moment from 'moment';
 import { RecoveryPasswordService } from 'src/app/Shared/Data/Services/Auth/recovery-password.service';
 import { environment } from 'src/environments/environment';
+import { NgxOtpInputComponent, NgxOtpInputComponentOptions } from 'ngx-otp-input';
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.scss'],
-  imports: [SharedModule, HeaderModule, StandartInputComponent,IonModal],
+  imports: [SharedModule, HeaderModule, StandartInputComponent,IonModal,NzSegmentedModule,NgxOtpInputComponent],
 })
 export class LoginPageComponent  implements OnInit {
 
   constructor() { }
+
   loading:LoadingService = inject(LoadingService)
   loginService: LoginService = inject(LoginService)
 
@@ -36,10 +39,13 @@ export class LoginPageComponent  implements OnInit {
 
   router:Router = inject(Router)
   navController: NavController = inject(NavController)
-
+  phoneLoginModalValue: boolean = false; 
   authService: AuthService = inject(AuthService)
   recoveryPasswordService: RecoveryPasswordService = inject(RecoveryPasswordService)
-
+  loginTypeOptions = ['Телефон', 'Почта'];
+  selectedLoginTypeValue = 'Телефон';
+  formmatedPhone:string = ''
+  codeValue:string = ''
   loginForm!: FormGroup
   errorText:any
   loginInvalid = {
@@ -58,10 +64,16 @@ export class LoginPageComponent  implements OnInit {
   timer: any
   timerReady: boolean = true
   seconds: number = 60
-
+  otpOptions: NgxOtpInputComponentOptions = {
+    otpLength:4,
+  }
   recoveryForm: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]),
     url: new FormControl(`${environment.BASE_URL}/recovery-password`,)
+  })
+
+  phoneForm: FormGroup = new FormGroup({
+    number: new FormControl('', [Validators.required,Validators.minLength(11)])
   })
 
 
@@ -86,6 +98,10 @@ export class LoginPageComponent  implements OnInit {
     
   }
 
+  changeLoginType(value: string): void {
+    this.selectedLoginTypeValue = value;
+  }
+
   submitRecovery() {
     this.validateRecovery()
    
@@ -94,6 +110,35 @@ export class LoginPageComponent  implements OnInit {
     }
 
     this.toastService.showToast('Ссылка на востановление пароля отправлена вам на почту',"success")
+  }
+
+  changeCode(code:any){
+    this.codeValue = code.join('')
+    if(this.codeValue.length === 4){
+      this.sendLoginCode()
+    }
+  }
+
+  sendLoginCode(){
+    console.log(this.phoneForm.value)
+    let loader:HTMLIonLoadingElement
+    this.loading.showLoading().then((res)=>loader = res)
+    this.loginService.submitPhoneCodeInAuthUser({
+      pin: this.codeValue,
+      number: this.phoneForm.value.number
+    }).pipe(
+      finalize(()=>this.loading.hideLoading(loader)),
+      catchError((error: serverError) => {
+        this.toastService.showToast('Код не верный', 'danger')
+        return throwError(error);
+      })
+    ).subscribe((res:any)=>{
+      console.log(res)
+      this.userService.setUserInLocalStorage(res.user)
+      this.authService.setAuthToken(String(res.access_token))
+      this.closePhoneLoginModal()
+      this.router.navigate(['/cabinet'])
+    })
   }
 
   validateForm() {
@@ -183,7 +228,47 @@ export class LoginPageComponent  implements OnInit {
 
       })
     }
-   
+  }
+  closePhoneLoginModal(){
+    this.phoneLoginModalValue = false
+  }
+  openPhoneLoginModal(){
+    this.phoneLoginModalValue = true
+  }
+  getCode(){
+    let loader:HTMLIonLoadingElement
+      this.loading.showLoading().then((response:HTMLIonLoadingElement)=>{
+        loader = response
+      })
+      this.loginService.getPhoneCodeInAuthUser(this.phoneForm.value).pipe(
+        finalize(()=>this.loading.hideLoading(loader)),
+        catchError((err: serverError) => {
+          this.errorResponseAfterLogin(err)
+          if(err.status == 422){
+            this.toastService.showToast('Такой номер телефона не зарегестрирован', 'warning')
+            localStorage.setItem('sendPhoneVerificateCodeTime','')
+          }
+          return throwError(err)
+        })
+      ).subscribe(()=>{
+        this.openPhoneLoginModal()
+      })
+  }
+  submitPhoneForm(){
+    this.formmatedPhone = this.phoneForm.value.number
+    this.phoneForm.patchValue({number:this.phoneForm.value.number.replace(/\D/g, "")})
+    if(this.phoneForm.valid){
+       let now = moment()
+        if(now.diff(moment(localStorage.getItem('sendPhoneVerificateCodeTime')),'seconds') > 60 ||  !localStorage.getItem('sendPhoneVerificateCodeTime')){
+          localStorage.setItem('sendPhoneVerificateCodeTime',now.toISOString())
+          this.getCode()
+        }
+        else{
+          this.toastService.showToast(`Попробуйте через ${120 - now.diff(moment(localStorage.getItem('sendPhoneVerificateCodeTime')),'seconds')}`,'success')
+        }
+    } else{
+      this.toastService.showToast('Номер телефона введен некорректно', 'warning')
+    }
    
   }
 

@@ -2,20 +2,48 @@
   <app-header headerTitle="Вход" [hiddenBackButton]="true"></app-header>
   <div class="main-container--with-header">
     <div class="login">
-        <!-- <div class="login__logo">
-          <img class="login__logo__img" src="/assets/icons/favicon.png" alt="">
-        </div> -->
+      <div class="select-auth-type">
+        <nz-segmented [nzOptions]="loginTypeOptions" [(ngModel)]="selectedLoginTypeValue" (ngModelChange)="changeLoginType($event)"  nzSize="large" />
+      </div>
+      <ng-container *ngIf="selectedLoginTypeValue === 'Почта' ">
         <form action="" class="login__form">
           <app-standart-input (changeInput)="clearErrors()" [invalid]="loginInvalid.name.status" [errorMessage]="loginInvalid.name.message" [label]="'E-mail'" [control] = "loginForm.get('name')" name="email"></app-standart-input>
           <app-standart-input (changeInput)="clearErrors()" [invalid]="loginInvalid.password.status" [errorMessage]="loginInvalid.password.message" [openPassword]="true" type="password"  [label]="'Пароль'" [control] = "loginForm.get('password')" password="email"></app-standart-input>
           <div class="recovery-password-wrapper">
             <span class="recovery-password" id="recoveryLink">Забыл(а) пароль</span>
-          </div>
+          </div>   
+          <app-standart-button (onClick)="submitLoginForm()" buttonText="Войти" type="submit"></app-standart-button>
         </form>
+      </ng-container>
+      <ng-container *ngIf="selectedLoginTypeValue === 'Телефон'" >
+        <form action="" class="login__form">
+          <app-standart-input type="tel" label="Телефон" placeholder="Введите номер телефона" [control]="phoneForm.get('number')" maskType="phone"></app-standart-input>
+          <app-standart-button (onClick)="submitPhoneForm()" buttonText="Войти" type="submit"></app-standart-button>  
+        </form>
+        <ion-modal [isOpen]="phoneLoginModalValue">
+          <ng-template>
+            <ion-content>
+                <div class="verificate-phone-header">
+                  <app-circle-button (click)="closePhoneLoginModal()" [icon]="'/assets/icons/arrow.svg'"></app-circle-button>
+                </div>
+                <div class="verificate-phone-container">
+                  <span class="verificate-phone-title">Введите код из SMS</span>
+                  <p class="verificate-phone-description">На ваш номер {{formmatedPhone}} поступит SMS-сообщение с кодом или звонок-сброс</p>
+                  <ngx-otp-input (otpChange)="changeCode($event)" [options]="otpOptions"></ngx-otp-input> 
+                </div>
+               
+            </ion-content>
+          </ng-template>
+          
+        </ion-modal>
+      </ng-container>
+      
+        <!-- <div class="login__logo">
+          <img class="login__logo__img" src="/assets/icons/favicon.png" alt="">
+        </div> -->
+       
     </div>
-    <div class="submit-button">
-      <app-standart-button (onClick)="submitLoginForm()" buttonText="Войти" type="submit"></app-standart-button>
-    </div>
+    
     <div class="dont-have-account">
       <span (click)="redirectInRegistration()" class="dont-have-account__registration-link">Нет аккаунта? 
       <span class="dont-have-account__registration-link__route">Создать аккаунт</span></span>
