@@ -2,7 +2,7 @@ import { Component, inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { finalize } from 'rxjs';
 import { User } from 'src/app/Shared/Data/Interfaces/user-model';
-
+import { environment } from 'src/environments/environment';
 import { AuthService } from 'src/app/Shared/Data/Services/Auth/auth.service';
 import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
 import { UserStatuses } from 'src/app/Shared/Enums/user-status';
@@ -33,13 +33,14 @@ export class CabinetComponent  implements OnInit {
   userService: UserService = inject(UserService)
   authService:AuthService = inject(AuthService)
   navControler:NavController = inject(NavController)
-
+  
   private readonly loading:LoadingService = inject(LoadingService)
 
   statusesSelect:boolean = false
   selectedStatusItem!:any 
+  version:string = environment.version
   
- 
+
 
   usersMenuItem:any = {
     [UserStatuses.rider]:[

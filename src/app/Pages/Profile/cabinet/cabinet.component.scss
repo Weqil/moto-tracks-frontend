@@ -30,16 +30,24 @@
     position: fixed;
     display: flex;
     justify-content: center;
+    align-items: center;
     padding-top: var(--standart-padding);
-    
+    flex-direction: column;
+    gap: 8px;
     font-size: small;
     opacity: 0.7;
     width: 100%;
     a{
-        color: rgb(56, 123, 210);
+        opacity: 0.6;
+        color: rgb(0, 0, 0);
     }
     bottom: 10px;
     right: 0px;
+
+    .version{
+        color: rgb(0, 0, 0);
+        opacity: 0.6;
+    }
     
 }
 

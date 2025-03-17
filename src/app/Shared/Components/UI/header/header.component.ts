@@ -27,6 +27,8 @@ export class HeaderComponent  implements OnInit {
     this.secondButtonClick.emit()
   }
 
+ 
+
   
   ngOnInit() {}
 

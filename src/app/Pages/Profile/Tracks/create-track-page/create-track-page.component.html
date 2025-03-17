@@ -100,7 +100,6 @@
 
                             <div class="input-wrapper">
                                 <input formControlName="lengthTrack" class="track-settings__spec__item__input" id="length" type="number">
-                                м
 
                                 <app-info-popover style="position: absolute; right: 0;" text="Замерьте полную длину летнего круга трассы. Можете воспользоваться линейкой яндекс карт."></app-info-popover>
                             </div>
@@ -192,7 +191,7 @@
                     </form>
                   
                     <div class="payment-track">
-                        <ion-checkbox  class="label" formControlName="apayment">Трек платный</ion-checkbox>
+                        <ion-checkbox class="label_checkbox" formControlName="apayment">Трек платный</ion-checkbox>
                         <ng-container *ngIf="createTrackForm.value.apayment">
                             <span class="apayment-text">Для того что бы подключить платные услуги к своему треку напишите нам на почту admin&#64;vokrug.city</span>
                             <div class="apayment-buttons">
