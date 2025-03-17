@@ -51,6 +51,7 @@ export class CabinetComponent  implements OnInit {
         iconFilter:'',
         name:'Анкета участника'
       },
+      
     ],
     [UserStatuses.organizer]:[
       {
