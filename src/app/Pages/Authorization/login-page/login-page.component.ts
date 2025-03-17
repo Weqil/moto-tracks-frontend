@@ -283,6 +283,9 @@ export class LoginPageComponent  implements OnInit {
       name: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(50), Validators.email]),
       password: new FormControl('', [Validators.required, Validators.minLength(8)]),
     })
+    window.addEventListener('popstate', (event) => {
+      this.closePhoneLoginModal()
+    })
   }
 
 } 
