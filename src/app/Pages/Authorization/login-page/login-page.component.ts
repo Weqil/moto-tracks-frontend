@@ -36,7 +36,7 @@ export class LoginPageComponent  implements OnInit {
 
   userService: UserService = inject(UserService)
   toastService:ToastService = inject(ToastService)
-
+  emailLoginModalValue: boolean = false;
   router:Router = inject(Router)
   navController: NavController = inject(NavController)
   phoneLoginModalValue: boolean = false; 
@@ -75,6 +75,14 @@ export class LoginPageComponent  implements OnInit {
   phoneForm: FormGroup = new FormGroup({
     number: new FormControl('', [Validators.required,Validators.minLength(11)])
   })
+
+  openEmailModal(){
+    this.emailLoginModalValue = true;
+  }
+
+  closeEmailModal(){
+    this.emailLoginModalValue = false;
+  }
 
 
   validateRecovery() {
