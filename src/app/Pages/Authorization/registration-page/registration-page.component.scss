@@ -68,6 +68,51 @@
         color: var(--blue-primary-color);
         padding-left: 2px;
     }
+    .ant-segmented {
+        margin-bottom: var(--standart-padding);
+        font-family: var(--font-regular);
+  }
+  .verificate-phone-header{
+    font-family: var(--font-bold);
+    margin: auto;
+    display: flex;
+    align-items: center;
+    padding-left: var(--standart-padding);
+    padding-top: var(--standart-padding);
+    text-align: center;
+    font-size: 1.2rem;
+  }
+  .verificate-phone-title{
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    gap: 1rem;
+    font-family: var(--font-bold);
+  }
+  .verificate-phone-description{
+    padding-top: var(--little-padding);
+  }
+  .verificate-phone-container{
+    padding: var(--standart-padding);
+    font-family: var(--font-regular);
+    display: flex;
+    flex-direction: column;
+  }
+  ::ng-deep .ant-segmented-item-label {
+    padding-left: 50px !important;
+    padding-right: 50px !important;
+  
+  }
+  .ant-segmented-item-label{
+  
+  }
+  .select-auth-type{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
     .custom-checkbox {
         --size: 18px; /* Устанавливаем размер чекбокса */

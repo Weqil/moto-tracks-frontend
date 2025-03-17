@@ -4,7 +4,7 @@ import { ButtonsModule } from 'src/app/Shared/Modules/buttons/buttons.module';
 import { FormsModule } from 'src/app/Shared/Modules/forms/forms.module';
 import { HeaderModule } from 'src/app/Shared/Modules/header/header.module';
 import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
-import { NavController } from '@ionic/angular/standalone';
+import { IonModal, NavController } from '@ionic/angular/standalone';
 import { LoadingService } from 'src/app/Shared/Services/loading.service';
 import { RegisterService } from 'src/app/Shared/Data/Services/Auth/register.service';
 import { catchError, EMPTY, finalize } from 'rxjs';
@@ -14,13 +14,15 @@ import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
 import { AuthService } from 'src/app/Shared/Data/Services/Auth/auth.service';
 import { Router } from '@angular/router';
 import { IonCheckbox } from '@ionic/angular/standalone';
+import { NzSegmentedModule } from 'ng-zorro-antd/segmented';
+import { NgxOtpInputComponent, NgxOtpInputComponentOptions } from 'ngx-otp-input';
 
 
 @Component({
   selector: 'app-registration-page',
   templateUrl: './registration-page.component.html',
   styleUrls: ['./registration-page.component.scss'],
-  imports: [SharedModule, HeaderModule, FormsModule,IonCheckbox]
+  imports: [SharedModule, HeaderModule, FormsModule,IonCheckbox,NzSegmentedModule,IonModal,NgxOtpInputComponent]
 })
 export class RegistrationPageComponent  implements OnInit {
 
@@ -32,16 +34,24 @@ export class RegistrationPageComponent  implements OnInit {
   private router:Router = inject(Router)
   isCheckedFirst: boolean = false;
   isCheckedSecond: boolean = false;
+  loginTypeOptions = ['Телефон', 'Почта'];
+  phoneLoginModalValue: boolean = false; 
+  selectedLoginTypeValue = 'Телефон';
+  formmatedPhone:string = ''
+  codeValue:string = ''
+  phoneForm: FormGroup = new FormGroup({
+    number: new FormControl('', [Validators.required,Validators.minLength(11)])
+  })
+  otpOptions: NgxOtpInputComponentOptions = {
+      otpLength:4,
+  }
   
-  
-
   constructor() { }
 
   onCheckboxChange(event:any){
     this.isCheckedFirst=event.detail.checked;
-   
-    
   }
+
   onCheckboxChange2(event:any){
     
     this.isCheckedSecond=event.detail.checked;
@@ -136,6 +146,18 @@ export class RegistrationPageComponent  implements OnInit {
     fd.append('password_confirmation', this.registerForm.get('password_confirmation')?.value)
     return fd
   }
+  changeLoginType(value: string): void {
+    this.selectedLoginTypeValue = value;
+  }
+  closePhoneLoginModal(){
+    this.phoneLoginModalValue = false;
+  }
+  changeCode(code:any){
+    this.codeValue = code.join('')
+    if(this.codeValue.length === 4){
+   
+    }
+  }
   errorResponseAfterReg(err:any){
     let message:any[] = err.error.errors
     Object.keys(message).forEach((err:any)=>{
@@ -190,6 +212,7 @@ export class RegistrationPageComponent  implements OnInit {
       this.navController.navigateForward('/user-politic', {animationDirection: 'forward'})
     }
     
+    submitPhoneForm(){}
 
   ngOnInit() {
   
