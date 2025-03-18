@@ -18,6 +18,7 @@ import { NzSegmentedModule } from 'ng-zorro-antd/segmented';
 import { NgxOtpInputComponent, NgxOtpInputComponentOptions } from 'ngx-otp-input';
 import moment from 'moment';
 import { ToastService } from 'src/app/Shared/Services/toast.service';
+import { LoginService } from 'src/app/Shared/Data/Services/Auth/login.service';
 
 
 @Component({
@@ -35,6 +36,7 @@ export class RegistrationPageComponent  implements OnInit {
   private authService: AuthService = inject(AuthService)
   private router:Router = inject(Router)
   isCheckedFirst: boolean = false;
+  loginService: LoginService = inject(LoginService)
   isCheckedSecond: boolean = false;
   loginTypeOptions = ['Телефон', 'Почта'];
   phoneLoginModalValue: boolean = false; 
@@ -156,7 +158,7 @@ export class RegistrationPageComponent  implements OnInit {
   changeCode(code:any){
     this.codeValue = code.join('')
     if(this.codeValue.length === 4){
-   
+      this.sendLoginCode()
     }
   }
   errorResponseAfterReg(err:any){
@@ -225,6 +227,30 @@ export class RegistrationPageComponent  implements OnInit {
       ).subscribe((res)=>{
         this.phoneLoginModalValue = true
         console.log(res)
+      })
+    }
+
+    sendLoginCode(){
+      console.log(this.phoneForm.value)
+      let loader:HTMLIonLoadingElement
+      this.loading.showLoading().then((res)=>loader = res)
+      this.loginService.submitPhoneCodeInAuthUser({
+        pin: this.codeValue,
+        number: this.phoneForm.value.number
+      }).pipe(
+        finalize(()=>this.loading.hideLoading(loader)),
+        catchError((error: serverError) => {
+          this.toastService.showToast('Код не верный', 'danger')
+          return throwError(error);
+        })
+      ).subscribe((res:any)=>{
+        console.log(res)
+        this.userService.setUserInLocalStorage(res.user)
+        this.authService.setAuthToken(String(res.access_token))
+        this.closePhoneLoginModal()
+        setTimeout(()=>{
+          this.router.navigate(['/cabinet'])
+        },0)
       })
     }
     
