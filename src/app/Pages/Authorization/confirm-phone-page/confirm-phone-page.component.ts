@@ -111,7 +111,6 @@ async getCode(){
         concatMap((loader) => 
           this.updateUserPhone().pipe(
             catchError((err:serverError)=>{
-              console.log(err.error.message)
               if(err.error.message == 'Такое значение поля номер уже существует.'){
                 this.toastService.showToast('Такой телефон уже привязан','danger')
               }
@@ -135,7 +134,6 @@ async getCode(){
       ).subscribe();
     } else{
       this.phoneSubmit().pipe().subscribe((res:any)=>{
-        console.log(res)
         this.toastService.showToast('Код был отправлен', 'success')
       })
     }

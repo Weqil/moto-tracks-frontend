@@ -99,9 +99,7 @@ export class LoginPageComponent  implements OnInit {
   }
 
   sendTokenInEmail(){
-    console.log(this.recoveryForm.value)
     this.recoveryPasswordService.sendRecoveryLink(this.recoveryForm.value).pipe().subscribe((res:any)=>{
-      console.log(res)
     })
     
   }
@@ -128,7 +126,7 @@ export class LoginPageComponent  implements OnInit {
   }
 
   sendLoginCode(){
-    console.log(this.phoneForm.value)
+
     let loader:HTMLIonLoadingElement
     this.loading.showLoading().then((res)=>loader = res)
     this.loginService.submitPhoneCodeInAuthUser({
@@ -141,7 +139,7 @@ export class LoginPageComponent  implements OnInit {
         return throwError(error);
       })
     ).subscribe((res:any)=>{
-      console.log(res)
+
       this.userService.setUserInLocalStorage(res.user)
       this.authService.setAuthToken(String(res.access_token))
       this.closePhoneLoginModal()

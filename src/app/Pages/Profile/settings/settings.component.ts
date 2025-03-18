@@ -101,7 +101,6 @@ editEmail(){
       return EMPTY;
     })
   ).subscribe((res:any)=>{
-    console.log(res);
     this.userService.refreshUser()
   }
 )
@@ -147,7 +146,7 @@ editEmail(){
         this.navControler.navigateForward('/confirm-phone')
       }
     }
-    console.log(this.userService.userHaveCurrentPersonal())
+
     if(event.value == userRoles.couch){
       if((this.userService.isPhoneVerified() || this.userService.isEmailVerified() )&& this.userService.userHaveCurrentPersonal()){
         this.loaderService.showLoading()
