@@ -10,19 +10,26 @@
         <div class="user-section__avatar">
           <img (click)="file.click()" class="user-section__avatar__img" [src]="settingsAvatar" alt="" alt="">
           <input (change)="setAvatar($event)" #file style="display: none;" accept="image/png, image/jpeg"   type="file">
+          <span class="user_id">UID {{user?.id}}</span>   
         </div>
-       <div class="cabinet__select-status">
-          <app-custom-selected [items]="statuses" [modalValue]="statusesSelect" [selectedValue]="selectedStatusItem" (openModal)="openSelectedStatus()" (closeModal)="closeSelectedStatus()" (selectItem)="selectStatus($event)"></app-custom-selected>
+
+        <div class="user-name-container">
+          <div class="user_name">{{user?.personal?.name}} {{user?.personal?.surname}}</div>
         </div>
+        
+       
       </div>
 
       <div class="email-container">
         <app-standart-input [control]="personalSettingsForm.get('email')" [errorMessage]="formErrors.email.errorMessage" placeholder="Введите адрес электронной почты" label="Email"></app-standart-input>
-        <app-standart-button [buttonText]="'Изменить'" (click)="editEmail()"></app-standart-button>
+        <!-- <app-standart-button [buttonText]="'Изменить'" (click)="editEmail()"></app-standart-button> -->
       </div>
 
-      <div class="email-container">
-
+      <div class="status-container">
+        <span class="span-text">Смена роли:</span>
+        <div class="cabinet__select-status">
+          <app-custom-selected [items]="statuses" [modalValue]="statusesSelect" [selectedValue]="selectedStatusItem" (openModal)="openSelectedStatus()" (closeModal)="closeSelectedStatus()" (selectItem)="selectStatus($event)"></app-custom-selected>
+        </div>
       </div>
 
       <ion-modal class="agreed-modal" [isOpen]="userAgreedModalState" (didDismiss)="closeModalAgreedNotVerificated()">
@@ -47,8 +54,8 @@
       </div> -->
     </div>   
     <div class="buttons-wrapper">
-      <span class="user_id">UID {{user?.id}}</span>   
-      <app-standart-button (click)="submitEditForm()" buttonText="Сохранить"></app-standart-button>
+
+      <app-standart-button (click)="editEmail();submitEditForm();" buttonText="Сохранить"></app-standart-button>
       <div class="cabinet__delete_account">
         <app-standart-button  theme="red" buttonText="Удалить учетную запись"></app-standart-button>
       </div>
