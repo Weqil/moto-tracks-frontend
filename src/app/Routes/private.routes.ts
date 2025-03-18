@@ -34,23 +34,23 @@ export const privateRoutes: Routes = [
             },
             {
                 path:'my-comands',
-                canActivate:[canActivateAuth,],
+                canActivate:[canActivateAuth,canActivateUserHaveRole(userRoles.couch,'тренера')],
                 loadComponent: () => import('../Pages/Profile/comands/comands.component').then((m) => m.ComandsComponent)
             },      
             {
                 path:'create-comands',
-                canActivate:[canActivateAuth,],
+                canActivate:[canActivateAuth,canActivateUserHaveRole(userRoles.couch,'тренера')],
                 loadComponent: () => import('../Pages/Profile/comands/create-comand-page/create-comand-page.component').then((m) => m.CreateComandPageComponent)
             },      
             {
                 path:'edit-comands',
-                canActivate:[canActivateAuth,],
+                canActivate:[canActivateAuth,canActivateUserHaveRole(userRoles.couch,'тренера')],
                 loadComponent: () => import('../Pages/Profile/comands/edit-comand-page/edit-comand-page.component').then((m) => m.EditComandPageComponent)
             },      
             
             {
                 path:'my-events',
-                canActivate:[canActivateAuth,],
+                canActivate:[canActivateAuth,canActivateUserHaveRole(userRoles.organization,'организатора')],
                 loadComponent: () => import('../Pages/Profile/Events/my-events-page/my-events-page.component').then((m) => m.MyEventsPageComponent)
             },
             {
@@ -80,17 +80,17 @@ export const privateRoutes: Routes = [
             },
             {
                 path:'race/edit/:id',
-                canActivate:[canActivateAuth,],
+                canActivate:[canActivateAuth,canActivateUserHaveRole(userRoles.organization,'организатора')],
                 loadComponent: () => import('../Pages/Profile/Events/edit-event/edit-event.component').then((m) => m.EditEventComponent)
             },
             {
                 path:'track/edit/:id',
-                canActivate:[canActivateAuth,],
+                canActivate:[canActivateAuth,canActivateUserHaveRole(userRoles.organization,'организатора')],
                 loadComponent: () => import('../Pages/Profile/Tracks/edit-track-page/edit-track-page.component').then((m) => m.EditTrackPageComponent)
             },
             {
                 path:'command/edit/:id',
-                canActivate:[canActivateAuth,],
+                canActivate:[canActivateAuth,canActivateUserHaveRole(userRoles.couch,'тренера')],
                 loadComponent: () => import('../Pages/Profile/comands/edit-comand-page/edit-comand-page.component').then((m) => m.EditComandPageComponent)
             }
         ]
@@ -98,13 +98,13 @@ export const privateRoutes: Routes = [
 
     {
         path: 'create-event',
-        canActivate:[canActivateAuth,],
+        canActivate:[canActivateAuth,canActivateUserHaveRole(userRoles.organization,'организатора')],
         loadComponent: () => import('../Pages/Profile/Events/create-events-page/create-events-page.component').then((m) => m.CreateEventsPageComponent)
     },
     
     {
         path:'create-track',
-        canActivate:[canActivateAuth,],
+        canActivate:[canActivateAuth,canActivateUserHaveRole(userRoles.organization,'организатора')],
         loadComponent: () => import('../Pages/Profile/Tracks/create-track-page/create-track-page.component').then((m) => m.CreateTrackPageComponent)
     },
  
