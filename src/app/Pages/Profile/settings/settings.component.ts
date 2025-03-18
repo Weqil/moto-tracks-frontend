@@ -89,15 +89,25 @@ export class SettingsComponent  implements OnInit {
    
 }
 
-editEmail(){
+editEmail(){  
   this.validateForm();
-  this.userService.editUser(this.personalSettingsForm.value).pipe().subscribe((res:any)=>{
+  let loader:HTMLIonLoadingElement
+    this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+      loader = res
+    })
+  this.userService.editUser(this.personalSettingsForm.value).pipe(
+    finalize(() => {
+      this.loaderService.hideLoading(loader);
+    }),
+    catchError((err: serverError) => {
+      this.toastService.showToast(err.error.message, 'danger');
+      return EMPTY;
+    })
+  ).subscribe((res:any)=>{
     console.log(res);
     this.userService.refreshUser()
-    this.toastService.showToast('Изменения успешно сохранены','success')
-    
-  })
- 
+  }
+)
 }
 
   avatarUrl:string = ''
@@ -216,6 +226,7 @@ editEmail(){
     this.loaderService.showLoading()
     let fd : FormData = new FormData()
     fd.append('avatar', this.userSettingsForm.value.avatar)
+    
     this.userService.editUser(fd).pipe(finalize(()=>{
       this.loaderService.hideLoading()
     }),

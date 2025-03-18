@@ -29,7 +29,7 @@
     }
 }
 .cabinet__select-status{
-    width: 80%;
+    width: 70%;
     padding-bottom: var(--standart-padding);
     position: relative;
     margin-top: var(--little-margin);
@@ -45,6 +45,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     // margin-left: var(--little-margin);
     .user-section__avatar__img{
         min-width: 4rem;
@@ -86,7 +87,7 @@
 .user_id{
     font-size: 0.7rem;
     display: flex;
-    padding-bottom: var(--standart-padding);
+    
     font-family: var(--font-regular);
 }
 
@@ -171,4 +172,33 @@ ion-modal {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+}
+
+.user-name-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user_name{
+    width: 80%;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--font-bold);
+    font-size: var(--font-headers-size-little);
+    border-bottom: 2px solid black;
+}
+
+.status-container{
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.span-text{
+    text-wrap: nowrap;
 }
