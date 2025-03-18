@@ -34,17 +34,17 @@ export const privateRoutes: Routes = [
             },
             {
                 path:'my-comands',
-                canActivate:[canActivateAuth,canActivateUserHaveRole(userRoles.couch,'тренера')],
+                canActivate:[canActivateAuth,canActivateUserHaveRole([userRoles.couch,userRoles.organization],'тренера')],
                 loadComponent: () => import('../Pages/Profile/comands/comands.component').then((m) => m.ComandsComponent)
             },      
             {
                 path:'create-comands',
-                canActivate:[canActivateAuth,canActivateUserHaveRole(userRoles.couch,'тренера')],
+                canActivate:[canActivateAuth,canActivateUserHaveRole([userRoles.couch,userRoles.organization],'тренера')],
                 loadComponent: () => import('../Pages/Profile/comands/create-comand-page/create-comand-page.component').then((m) => m.CreateComandPageComponent)
             },      
             {
                 path:'edit-comands',
-                canActivate:[canActivateAuth,canActivateUserHaveRole(userRoles.couch,'тренера')],
+                canActivate:[canActivateAuth,canActivateUserHaveRole([userRoles.couch,userRoles.organization],'тренера')],
                 loadComponent: () => import('../Pages/Profile/comands/edit-comand-page/edit-comand-page.component').then((m) => m.EditComandPageComponent)
             },      
             
@@ -90,7 +90,7 @@ export const privateRoutes: Routes = [
             },
             {
                 path:'command/edit/:id',
-                canActivate:[canActivateAuth,canActivateUserHaveRole(userRoles.couch,'тренера')],
+                canActivate:[canActivateAuth,canActivateUserHaveRole([userRoles.couch,userRoles.organization],'тренера')],
                 loadComponent: () => import('../Pages/Profile/comands/edit-comand-page/edit-comand-page.component').then((m) => m.EditComandPageComponent)
             }
         ]
