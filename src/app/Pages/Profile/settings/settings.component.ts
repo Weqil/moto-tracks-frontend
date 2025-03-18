@@ -28,20 +28,48 @@ import { RouterLink } from '@angular/router';
   styleUrls: ['./settings.component.scss'],
   encapsulation: ViewEncapsulation.None,
   imports: [SharedModule, CommonModule, HeaderModule, FormsModule, UserModule,
-    ProfileModule, selectedModule, IonModal,IonCheckbox,RouterLink]
+    ProfileModule, selectedModule, IonModal, IonCheckbox, RouterLink, StandartInputComponent]
 })
 export class SettingsComponent  implements OnInit {
   authService: any;
   navControler: NavController = inject(NavController);
   checkImgUrlPipe:CheckImgUrlPipe = inject(CheckImgUrlPipe)
   private readonly loading:LoadingService = inject(LoadingService)
-
+  userService:UserService = inject(UserService)
+  toastService:ToastService = inject(ToastService)
+  loaderService:LoadingService = inject(LoadingService)
   userAgreedStatus:any = localStorage.getItem('userAgreedStatus')
   userAgreedModalState:boolean = false
   statusesSelect:boolean = false
   selectedStatusItem:any  = {}
   disabledAgreedButton:boolean = true
   statuses:any[] = [];
+
+  personalSettingsForm: FormGroup = new FormGroup({
+    email: new FormControl('', [Validators.required]),
+  })
+
+  loginInvalid = {
+    localError: false,
+    serverError: false,
+    name: {
+      status: false,
+      message: '',
+    },
+    password: {
+      status: false,
+      message: '',
+    },
+  }
+
+  validateForm() {
+    this.loginInvalid.localError = false
+     if(this.personalSettingsForm.get('name')?.hasError('minLength')){
+        this.loginInvalid.name.message = 'E-mail должен быть не менее 3 символов'
+      } else{
+        this.loginInvalid.name.message = 'E-mail некоректный'
+      }
+    }
 
   constructor() { }
 
@@ -61,11 +89,20 @@ export class SettingsComponent  implements OnInit {
    
 }
 
+editEmail(){
+  this.validateForm();
+  this.userService.editUser(this.personalSettingsForm.value).pipe().subscribe((res:any)=>{
+    console.log(res);
+    this.userService.refreshUser()
+    this.toastService.showToast('Изменения успешно сохранены','success')
+    
+  })
+ 
+}
+
   avatarUrl:string = ''
 
-  userService:UserService = inject(UserService)
-  toastService:ToastService = inject(ToastService)
-  loaderService:LoadingService = inject(LoadingService)
+ 
   settingsAvatar:string = ''
   userSettingsForm: FormGroup = new FormGroup({
     avatar: new FormControl('', [Validators.required])
@@ -213,6 +250,9 @@ export class SettingsComponent  implements OnInit {
       this.user = this.userService.user.value
       this.settingsAvatar = this.checkImgUrlPipe.checkUrlDontType(this.user?.avatar) 
     })
+
+
+    
   }
 
   closeModalAgreedNotVerificated(){
@@ -224,8 +264,12 @@ export class SettingsComponent  implements OnInit {
     this.userAgreedModalState = false
   }
 
+  
+
   ngOnInit() { this.userService.user.pipe().subscribe(()=>{
     this.user = this.userService.user.value 
-  })}
+  })
+  this.personalSettingsForm.patchValue({email: this.user?.email})
+}
 
 }
