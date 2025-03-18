@@ -257,6 +257,10 @@ submitPersonalInfo(){
   changeCode(code:any){
     this.codeValue = code.join('')
   }
+  ionViewDidLeave(){
+    this.destroy$.next()
+    this.destroy$.complete()
+  }
 
   ngOnInit() {
     this.getRegions()
