@@ -12,13 +12,14 @@
 }
 .phone-number__submit{
     background-color: var(--light-blue-color);
-    padding:  0.5rem;
+    padding:  0.3rem;
     color: var(--blue-primary-color);
     font-family: var(--font-regular);
     transition: 0.3s;
     position: absolute;
     right: 1%;
-    top: 42%;
+    transform: translateY(-50%);
+    top: 70%;
     border-radius: 8px;
 }
 .verification__title{
@@ -51,3 +52,42 @@ ion-modal{
 .region-modal-container{
     padding: var(--standart-padding);
 }
+.verificate-phone-header{
+    font-family: var(--font-bold);
+    margin: auto;
+    display: flex;
+    align-items: center;
+    padding-left: var(--standart-padding);
+    padding-top: var(--standart-padding);
+    text-align: center;
+    font-size: 1.2rem;
+  }
+  .verificate-phone-title{
+    display: flex;
+    text-align: center;
+    align-items: center;
+    padding-top: var(--standart-padding);
+    justify-content: center;
+    font-size: 0.95rem;
+    gap: 1rem;
+    font-family: var(--font-bold);
+  }
+  .verificate-phone-description{
+    padding-top: var(--little-padding);
+    text-align: center;
+    font-size: 12px;
+  }
+  .verificate-phone-container{
+    padding: var(--standart-padding);
+    font-family: var(--font-regular);
+    display: flex;
+    flex-direction: column;
+  }
+  .phone-images{
+    width: 8rem;
+    margin: auto;
+  }
+  
+  .input-wrapper{
+    position: relative;
+  }

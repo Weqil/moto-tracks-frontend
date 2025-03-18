@@ -103,6 +103,7 @@ validatePersonal(){
 }
 
 async getCode(){
+  if(this.phoneForm.valid){
     this.phoneForm.patchValue({number:this.phoneForm.value.number.replace(/\D/g, "")})
     if(this.user?.phone?.number !== this.phoneForm.value.number){
       from(this.loaderService.showLoading()).pipe(
@@ -138,6 +139,10 @@ async getCode(){
         this.toastService.showToast('Код был отправлен', 'success')
       })
     }
+  }else{
+    this.toastService.showToast('Поле телефон обязательно', 'danger')
+  }
+    
 }
 
 sendCode(){

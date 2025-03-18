@@ -27,16 +27,17 @@
 
     <ng-container *ngIf="stepCurrent == 2">
       <form class="user-personal">
-        <span class="step-title">
-          Введите номер телефона
-        </span>
-        <span class="label">
-          На указанный номер телефона будет отправлено сообщение с кодом или поступит звонок. Код — это последние четыре цифры. Не нужно отвечать на звонок или сообщение. 
-        </span>
-
+        <div class="verificate-phone-container">
+          <img class="phone-images" src="/assets/icons/phone-images.svg">
+          <span class="verificate-phone-title">Вам поступит звонок-сброс для подтверждения</span>
+          <p class="verificate-phone-description">Введите последние 4 цифры номера с которого поступит звонок</p>
+        </div>
         <div class="phone-number-container">
-          <app-standart-input label="Телефон" placeholder="Введите номер телефона" [control]="phoneForm.get('number')" maskType="phone"></app-standart-input>
-          <button *ngIf="verificationType == 'code'" (click)="getCode()" type="button" class="phone-number__submit">Отправить код</button>
+          <div class="input-wrapper">
+            <app-standart-input label="Телефон" placeholder="Введите номер телефона" [control]="phoneForm.get('number')" maskType="phone"></app-standart-input>
+            <button *ngIf="verificationType == 'code'" (click)="getCode()" type="button" class="phone-number__submit">Отправить код</button>
+          </div>
+
         </div>
         <ng-container *ngIf="verificationType == 'code'">
           <p class="verification__title">Введите код</p>
