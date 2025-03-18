@@ -151,8 +151,9 @@ editEmail(){
         this.navControler.navigateForward('/confirm-phone')
       }
     }
+    console.log(this.userService.userHaveCurrentPersonal())
     if(event.value == userRoles.couch){
-      if(this.userService.isPhoneVerified() || this.userService.isEmailVerified() && this.userService.userHaveCurrentPersonal()){
+      if((this.userService.isPhoneVerified() || this.userService.isEmailVerified() )&& this.userService.userHaveCurrentPersonal()){
         this.loaderService.showLoading()
         this.userService.changeRoleForDefaultUser(event.id).pipe(finalize(()=>{
                 this.loaderService.hideLoading()
