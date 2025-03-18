@@ -14,7 +14,7 @@ export class UserService {
   public user: BehaviorSubject<User|null> = new BehaviorSubject<User|null>(this.getUserFromLocalStorage())
 
   http:HttpClient = inject(HttpClient)
-
+  allRoles:[{id:number,name:string}]|null = null
   constructor() { }
 
   //Занёс данные о пользователе
