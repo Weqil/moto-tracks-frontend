@@ -35,7 +35,7 @@ export class UserService {
     
   }
   userHaveRoot(){
-    return this.user.value?.roles.find((role:any)=> role.name == userRoles.admin || role.name == userRoles.root) !== undefined
+    return this.user.value?.roles.find((role:any)=> role.name == userRoles.admin || role.name == userRoles.root || role.name == userRoles.commission) !== undefined
   }
   createUserDocument(document:any){
     document.append('url', `${environment.BASE_URL}/document/`)

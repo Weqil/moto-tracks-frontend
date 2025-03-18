@@ -255,12 +255,14 @@ editEmail(){
           name: roleItem.name === userRoles.organization ? 'Организатор'
           : roleItem.name === userRoles.couch ? 'Тренер' 
           : roleItem.name === userRoles.admin ? 'Администратор' 
+          : roleItem.name === userRoles.commission ? 'Комиссия' 
           : roleItem.name === userRoles.root ? 'Root' 
           : 'Гонщик',
           value: roleItem.name,
         })
       });
       if(this.user?.roles.length && !this.userService.userHaveRoot()){
+        console.log('Ответ сервера:', res.role);
         const matchingStatus = this.statuses.find((statusItem: any) => 
           this.user?.roles.some((role: any) => role.id === statusItem.id)
         );
@@ -272,7 +274,7 @@ editEmail(){
       } 
       else if(this.userService.userHaveRoot()){
         this.selectedStatusItem = {
-          id: 4,
+          id: 5,
           name: 'Комиссия',
           value: 'Комиссия',
         }
@@ -290,10 +292,8 @@ editEmail(){
     this.userService.user.pipe().subscribe(()=>{
       this.user = this.userService.user.value
       this.settingsAvatar = this.checkImgUrlPipe.checkUrlDontType(this.user?.avatar) 
+      // this.selectedStatusItem = this.user?.roles[0].name
     })
-
-
-    
   }
 
   closeModalAgreedNotVerificated(){
