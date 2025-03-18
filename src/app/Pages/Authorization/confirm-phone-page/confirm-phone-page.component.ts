@@ -161,7 +161,6 @@ sendCode(){
       ).subscribe((res:any)=>{
         this.toastService.showToast('Телефон успешно подтверждён', 'success')
         this.userService.refreshUser()
-        this.navController.navigateRoot('/cabinet')
       })
   } 
   else{
@@ -198,7 +197,8 @@ submitPersonalInfo(){
       this.userService.createPersonalInfo(this.personalUserForm.value).pipe(
         finalize(()=>{
           this.loaderService.hideLoading(loader)
-        })
+        }),
+      
       ).subscribe((res:any)=>{
         this.userService.refreshUser()
       })
@@ -211,7 +211,7 @@ submitPersonalInfo(){
       this.userService.updatePersonalInfo(this.personalUserForm.value).pipe(
         finalize(()=>{
           this.loaderService.hideLoading(loader)
-        })
+        }),
       ).subscribe((res:any)=>{
         this.userService.refreshUser()
       })
@@ -241,6 +241,11 @@ submitPersonalInfo(){
           ...this.user?.personal,
           dateOfBirth: this.user?.personal?.date_of_birth
         })
+        if(this.userService.userHaveCurrentPersonal() && this.userService.isPhoneVerified()){
+          this.toastService.showToast('Информация успешно сохранена','success')
+          this.navController.navigateRoot('/settings')
+        }
+      
         this.personalUserForm.invalid ? this.stepCurrent = 1 : this.stepCurrent = 2
       })
   }

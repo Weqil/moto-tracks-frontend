@@ -29,7 +29,7 @@ export const privateRoutes: Routes = [
             },
             {
                 path:'my-tracks',
-                canActivate:[canActivateAuth,canActivateUserHaveRole(userRoles.organization,'Организатора')],
+                canActivate:[canActivateAuth,canActivateUserHaveRole(userRoles.organization,'организатора')],
                 loadComponent: () => import('../Pages/Profile/Tracks/my-tracks-page/my-tracks-page.component').then((m) => m.MyTracksPageComponent)
             },
             {

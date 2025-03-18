@@ -5,6 +5,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { userRoles } from '../../Enums/roles';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +44,22 @@ export class UserService {
 
   updateDocument(id:number,document:any){
     return this.http.post<any>(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/users/cabinet/documents/${id}/update`, document)
+  }
+
+  userHaveCurrentPersonal(){
+    let userPersonalForm = new FormGroup({
+      name: new FormControl('', [Validators.required]),
+      surname: new FormControl('', [Validators.required]),
+      patronymic: new FormControl('', [Validators.required]),
+      dateOfBirth: new FormControl('', [Validators.required]),
+      city: new FormControl('', [Validators.required]),
+      region: new FormControl('', [Validators.required]),
+    })
+    userPersonalForm.patchValue({
+        ...this.user.value?.personal,
+        dateOfBirth: this.user.value?.personal?.date_of_birth
+    })
+    return userPersonalForm.valid
   }
 
   getUserDocuments(){

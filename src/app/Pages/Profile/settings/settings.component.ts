@@ -71,11 +71,13 @@ export class SettingsComponent  implements OnInit {
     avatar: new FormControl('', [Validators.required])
   })
 
+
   user!:User|null
 
   selectStatus(event:any){
+
     if(event.value == userRoles.organization){
-      if(this.userService.isPhoneVerified()){
+      if(this.userService.isPhoneVerified() && this.userService.userHaveCurrentPersonal()){
         this.loaderService.showLoading()
         this.userService.changeRoleForDefaultUser(event.id).pipe(finalize(()=>{
         this.loaderService.hideLoading()
@@ -88,8 +90,8 @@ export class SettingsComponent  implements OnInit {
         this.navControler.navigateForward('/confirm-phone')
       }
     }
-    if(event.value == userRoles.rider){
-      if(this.userService.isEmailVerified() || this.userService.isEmailVerified()){
+    if(event.value == userRoles.rider ){
+      if(this.userService.isPhoneVerified() || this.userService.isEmailVerified()){
         this.loaderService.showLoading()
         this.userService.changeRoleForDefaultUser(event.id).pipe(finalize(()=>{
                 this.loaderService.hideLoading()
@@ -99,11 +101,11 @@ export class SettingsComponent  implements OnInit {
          this.userService.refreshUser()})
       }
       else{
-        this.navControler.navigateForward('/verification')
+        this.navControler.navigateForward('/confirm-phone')
       }
     }
     if(event.value == userRoles.couch){
-      if(this.userService.isEmailVerified()){
+      if(this.userService.isPhoneVerified() || this.userService.isEmailVerified() && this.userService.userHaveCurrentPersonal()){
         this.loaderService.showLoading()
         this.userService.changeRoleForDefaultUser(event.id).pipe(finalize(()=>{
                 this.loaderService.hideLoading()
@@ -113,7 +115,7 @@ export class SettingsComponent  implements OnInit {
          this.userService.refreshUser()})
       }
       else{
-        this.navControler.navigateForward('/verification')
+        this.navControler.navigateForward('/confirm-phone')
       }
     }
     
@@ -127,6 +129,7 @@ export class SettingsComponent  implements OnInit {
       this.statusesSelect = true;
     }
   }
+
   closeSelectedStatus(){
     this.statusesSelect = false;
   }
