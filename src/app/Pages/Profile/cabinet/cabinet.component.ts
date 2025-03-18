@@ -53,6 +53,23 @@ export class CabinetComponent  implements OnInit {
       },
       
     ],
+    [UserStatuses.couch]:[
+      {
+        routing:'documents',
+        iconColor:'#0000',
+        icon:'/assets/icons/documents.svg',
+        iconFilter:'',
+        name:'Анкета участника'
+      },
+      {
+        routing:'my-comands',
+        iconColor:'#0000',
+        icon:'/assets/icons/team.svg',
+        iconFilter:'',
+        name:'Мои команды'
+      }
+      
+    ],
     [UserStatuses.organizer]:[
       {
         routing:'documents',
@@ -148,6 +165,7 @@ export class CabinetComponent  implements OnInit {
     { id: 1, name: 'Гонщик', value: 'Гонщик' },
     { id: 2, name: 'Организатор', value: 'Организатор' },
     { id: 3, name: 'Болельщик', value: 'Болельщик' },
+    {id:4, name:'Тренер'}
   ];
 
   setNewStatusModalOpen(){
