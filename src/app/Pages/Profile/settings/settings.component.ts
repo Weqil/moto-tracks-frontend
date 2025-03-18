@@ -74,22 +74,49 @@ export class SettingsComponent  implements OnInit {
   user!:User|null
 
   selectStatus(event:any){
-    if(event.id !== 0){
+    if(event.value == userRoles.organization){
+      if(this.userService.isPhoneVerified()){
+        this.loaderService.showLoading()
+        this.userService.changeRoleForDefaultUser(event.id).pipe(finalize(()=>{
+        this.loaderService.hideLoading()
+       })).subscribe((res:any)=>{
+         this.selectedStatusItem = event;
+         this.toastService.showToast('Статус успешно изменен','success')
+         this.userService.refreshUser()})
+      }
+      else{
+        this.navControler.navigateForward('/confirm-phone')
+      }
+    }
+    if(event.value == userRoles.rider){
+      if(this.userService.isEmailVerified() || this.userService.isEmailVerified()){
+        this.loaderService.showLoading()
+        this.userService.changeRoleForDefaultUser(event.id).pipe(finalize(()=>{
+                this.loaderService.hideLoading()
+       })).subscribe((res:any)=>{
+         this.selectedStatusItem = event;
+         this.toastService.showToast('Статус успешно изменен','success')
+         this.userService.refreshUser()})
+      }
+      else{
+        this.navControler.navigateForward('/verification')
+      }
+    }
+    if(event.value == userRoles.couch){
       if(this.userService.isEmailVerified()){
         this.loaderService.showLoading()
         this.userService.changeRoleForDefaultUser(event.id).pipe(finalize(()=>{
-          this.loaderService.hideLoading()
-        })).subscribe((res:any)=>{
-          this.toastService.showToast('Статус успешно изменен','success')
-          this.userService.refreshUser()
-        })
-      }else{
-        this.toastService.showToast('Для смены статуса подтвердите вашу почту','warning')
+                this.loaderService.hideLoading()
+       })).subscribe((res:any)=>{
+         this.selectedStatusItem = event;
+         this.toastService.showToast('Статус успешно изменен','success')
+         this.userService.refreshUser()})
+      }
+      else{
         this.navControler.navigateForward('/verification')
       }
-    
     }
-    this.selectedStatusItem = event;
+    
   }
   changeAgreedState(event:any){
     this.disabledAgreedButton = !event.target.checked

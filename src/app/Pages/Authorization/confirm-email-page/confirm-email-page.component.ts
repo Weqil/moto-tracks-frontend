@@ -39,6 +39,7 @@ export class ConfirmEmailPageComponent  implements OnInit {
   totalTime: number = 60; 
   timeLeft: number = this.totalTime;
   displayTime: string = '01:00';
+  
 
   user!: User
   private readonly destroy$ = new Subject<void>()
