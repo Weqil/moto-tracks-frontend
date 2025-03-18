@@ -73,10 +73,7 @@ export class SettingsComponent  implements OnInit {
 
   constructor() { }
 
-  backNavigate() {
-    this.navControler.back();
-  }
-  
+
 
   formErrors:any = {
     name: {
@@ -122,7 +119,6 @@ editEmail(){
   user!:User|null
 
   selectStatus(event:any){
-
     if(event.value == userRoles.organization){
       if(this.userService.isPhoneVerified() && this.userService.userHaveCurrentPersonal()){
         this.loaderService.showLoading()
