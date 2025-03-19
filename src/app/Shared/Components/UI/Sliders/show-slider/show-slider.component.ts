@@ -21,6 +21,7 @@ export class ShowSliderComponent implements OnInit {
   constructor() {}
 
   @Input() files?: any[]
+  @Input() standartImagesPath: any = null
   @Input() categoryType: any
   swiperModules = [IonicSlides]
   sanitizer: DomSanitizer = inject(DomSanitizer)

@@ -9,6 +9,10 @@ export interface IEvent {
     results_file?: string,
     date_start?: string,
     record_end?:string,
+    location:{
+        name:string,
+        type:string
+    }
     track:Track,
     grades: any[],
     status?:{id:number,name:string,}

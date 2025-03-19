@@ -18,6 +18,13 @@
     color: var(--gray);
     line-height: 1.5;
 }
+.event-location-name__text{
+    padding-top: var(--litle-padding);
+    font-size: 1rem;
+    font-family: var(--font-bold);
+    color: var(--gray);
+    line-height: 1.5;
+}
 .event-track__title{
     padding-top: var(--standart-padding);
     padding-bottom: var(--standart-padding);
