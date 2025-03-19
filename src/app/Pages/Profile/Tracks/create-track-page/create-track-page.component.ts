@@ -119,7 +119,8 @@ coverageItems:any[] = [
            || !this.createTrackForm.value.address.length ||
              !this.createTrackForm.value.latitude 
              || !this.createTrackForm.value.longitude || 
-             !this.locationId 
+             !this.locationId || !this.createTrackForm.value.schemaImg
+
             //  || !this.logoUrl || !this.specForm.valid ||
             // this.createTrackForm.value.desc.length <= 3 
           ) {

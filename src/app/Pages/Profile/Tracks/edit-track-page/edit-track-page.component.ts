@@ -291,19 +291,25 @@ setCoverage(event:any){
     
   }
 
-  stepInvalidate(){
-    if (
-      this.editTrackForm.value.name.length <= 3 ||
-      !this.editTrackForm.value.locationId || 
-      !this.editTrackForm.value.address.length ||
-      !this.editTrackForm.value.latitude || 
-      !this.editTrackForm.value.longitude || 
-      !this.locationId || !this.logoUrl || !this.specForm.valid
-    ) {
+  
+  stepInvalidate() {
+    if (this.editTrackForm.value) {
+          if (
+            this.editTrackForm.value.name.length <= 3 
+           || !this.editTrackForm.value.address.length ||
+             !this.editTrackForm.value.latitude 
+             || !this.editTrackForm.value.longitude || 
+             !this.locationId || !this.editTrackForm.value.schemaImg
+            //  || !this.logoUrl || !this.specForm.valid ||
+            // this.createTrackForm.value.desc.length <= 3 
+          ) {
+            return true
+          } else {
+            return false
+            
+          }
+    } else {
       return true
-    } 
-    else {
-      return false
     }
   }
 
