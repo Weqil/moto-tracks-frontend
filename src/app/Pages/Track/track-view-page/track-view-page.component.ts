@@ -57,7 +57,12 @@ export class TrackViewPageComponent  implements OnInit {
   }
 
   getSpecValue(key: string){
-    return this.track.spec?.find(spec => spec.title == key)?.value
+    if(this.track.spec?.find(spec => spec.title == key)?.value !== "null")
+      {
+        return this.track.spec?.find(spec => spec.title == key)?.value
+      }
+      else return false
+    
   }
 
   
