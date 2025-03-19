@@ -100,7 +100,6 @@ export class RecoveryPasswordPageComponent  implements OnInit {
       this.loaderService.hideLoading(loader);
     })
     ).subscribe((res:any)=>{
-      console.log(res)
       this.toastService.showToast('Пароль успешно изменен', "success");
       this.navController.navigateForward(['/cabinet'])
     })
@@ -116,7 +115,6 @@ export class RecoveryPasswordPageComponent  implements OnInit {
       takeUntil(this.destroy$)
     ).subscribe(params => {
       this.token = params['token'];
-      console.log(this.token);  // Выводим для проверки
       this.recoveryForm.patchValue({ token: this.token });
     });
   }

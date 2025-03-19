@@ -3,6 +3,6 @@ export enum userRoles {
     organization = 'Organization',
     couch = 'Couch',
     admin = 'Admin',
-    commission = 'Commission',
-    root = 'Root'
+    root = 'Root',
+    commission = 'Commission'
 }

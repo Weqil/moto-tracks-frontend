@@ -16,7 +16,7 @@ export class UserSectionComponent  implements OnInit {
   @Input() showRank:boolean = true;
   @Input() showAddress:boolean = true;
   @Input() hideEmail:boolean = false;
-  @Input()  status ?:string
+  @Input() status ?:string
 
   translitRole:string = ''
 
@@ -31,6 +31,9 @@ export class UserSectionComponent  implements OnInit {
           break;
         case 'Couch':
           this.translitRole = 'Тренер';
+          break;
+        case 'Commission':
+          this.translitRole = 'Комиссия';
           break;
         default:
           this.translitRole = 'Болельщик';

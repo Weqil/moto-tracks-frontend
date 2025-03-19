@@ -59,9 +59,19 @@ export class TrackViewPageComponent  implements OnInit {
     return this.track.spec?.find(spec => spec.title == key)?.value
   }
 
-  getContactValue(key: string){
-    return this.track.contacts?.find(spec => spec.title == key)?.value
+  
+  getContactValue(key: string): string | null {
+    if (Array.isArray(this.track.contacts)) {
+      const contact = this.track.contacts.find(contact => contact.title === key);
+      return contact ? contact.value : null;
+    }
+    return null; // если contacts не массив
   }
+
+  get isContactsArray(): boolean {
+    return Array.isArray(this.track.contacts) && this.track.contacts.length > 0;
+  }
+  
 
    getTrack(){
     this.loadingService.showLoading()

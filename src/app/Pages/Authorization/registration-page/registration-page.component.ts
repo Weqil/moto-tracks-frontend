@@ -226,12 +226,10 @@ export class RegistrationPageComponent  implements OnInit {
         })
       ).subscribe((res)=>{
         this.phoneLoginModalValue = true
-        console.log(res)
       })
     }
 
     sendLoginCode(){
-      console.log(this.phoneForm.value)
       let loader:HTMLIonLoadingElement
       this.loading.showLoading().then((res)=>loader = res)
       this.loginService.submitPhoneCodeInAuthUser({
@@ -244,7 +242,6 @@ export class RegistrationPageComponent  implements OnInit {
           return throwError(error);
         })
       ).subscribe((res:any)=>{
-        console.log(res)
         this.userService.setUserInLocalStorage(res.user)
         this.authService.setAuthToken(String(res.access_token))
         this.closePhoneLoginModal()

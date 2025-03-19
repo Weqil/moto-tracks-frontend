@@ -19,7 +19,6 @@ export function canActivateUserHaveRole(roleName:string|undefined|null|string[],
             }
         }
         if (roleName && isArray(roleName)) {
-            console.log(roleName)
             let userHaveRole:boolean = false
             roleName.forEach((roleInArray)=>{
                 let roleId = inject(UserService).allRoles?.find((role:any)=>role.name === roleInArray)?.id
