@@ -80,13 +80,13 @@ ion-modal{
   }
   .track-settings__spec__item__text{
     display: flex;
-    width: 16rem;
+    width: 14rem;
     align-items: center;
     gap: var(--standart-padding);
   }
   .track-settings__spec__item__icon{
-    width: 1rem;
-    height: 1rem;
+    width: 1.5rem;
+    height: 1.5rem;
   }
   .track-settings__spec {
     display: flex;
@@ -105,8 +105,18 @@ ion-modal{
     color: #363d42;
     font-family: var(--font-regular);
     background: none;
-    max-width: 5rem;
+    width: 5rem;
+    
   }
+  .metering{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 2rem;
+      p{margin-bottom: 0px;}
+    
+  }
+
   .contacts-form{
     padding-top: var(--standart-padding);
     display: flex;
@@ -116,7 +126,7 @@ ion-modal{
   .input-wrapper{
     display: flex;
     width: 9rem;
-    gap: var(--standart-padding);
+    gap: 0.5rem;
     align-items: center;
   }
   .upload-logo{

@@ -100,8 +100,8 @@ ion-modal{
   gap: var(--standart-padding);
 }
 .track-settings__spec__item__icon{
-  width: 1rem;
-  height: 1rem;
+  width: 1.5rem;
+  height: 1.5rem;
 }
 .track-settings__spec__item__label__wrapper{
   display: flex;
@@ -302,5 +302,14 @@ ion-checkbox::part(container) {
 
 ion-checkbox[aria-checked="true"]::part(container) {
   background: #3498db; /* Фон при включенном состоянии */
+}
+
+.metering{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 2rem;
+    p{margin-bottom: 0px;}
+  
 }
 
