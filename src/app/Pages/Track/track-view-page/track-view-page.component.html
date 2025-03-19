@@ -293,16 +293,16 @@
           </div>
           <div class="links-list" >
             <!-- *ngIf="track.contacts && track.contacts?.length" -->
-            <span class="link-name">
+            <span class="link-name" *ngIf="isContactsArray">
               Ссылки на медиа
             </span>
             <div class="links"> 
               <div class="link" *ngIf="getContactValue('vk')">
-                <a [attr.href]='getContactValue("vk")'><img src="/assets/icons/VK2.svg" alt=""></a>
+                <a [attr.href]="getContactValue('vk')"><img src="/assets/icons/VK2.svg" alt=""></a>
                 
               </div>
               <div class="link" *ngIf="getContactValue('tg')">
-                <a [attr.href]='getContactValue("tg")'> <img src="/assets/icons/telegram.svg" alt=""></a>
+                <a [attr.href]="getContactValue('tg')"> <img src="/assets/icons/telegram.svg" alt=""></a>
               
               </div>
               <div class="link" *ngIf="getContactValue('whatsApp')">
