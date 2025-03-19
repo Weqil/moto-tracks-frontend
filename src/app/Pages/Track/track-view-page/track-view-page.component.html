@@ -293,23 +293,23 @@
           </div>
           <div class="links-list" >
             <!-- *ngIf="track.contacts && track.contacts?.length" -->
-            <span class="link-name" *ngIf="isContactsArray">
+            <span class="link-name" *ngIf="allContactsIncorrect">
               Ссылки на медиа
             </span>
-            <div class="links"> 
-              <div class="link" *ngIf="getContactValue('vk')">
+            <div class="links" *ngIf="allContactsIncorrect"> 
+              <div class="link" *ngIf="getContactValue('vk') == null">
                 <a [attr.href]="getContactValue('vk')"><img src="/assets/icons/VK2.svg" alt=""></a>
                 
               </div>
-              <div class="link" *ngIf="getContactValue('tg')">
+              <div class="link" *ngIf="getContactValue('tg') == null">
                 <a [attr.href]="getContactValue('tg')"> <img src="/assets/icons/telegram.svg" alt=""></a>
               
               </div>
-              <div class="link" *ngIf="getContactValue('whatsApp')">
+              <div class="link" *ngIf="getContactValue('whatsApp') == null">
                 <a [attr.href]="getContactValue('whatsApp')"> <img src="/assets/icons/watsapp.svg" alt=""></a>
               
               </div>
-              <div class="link" *ngIf="getContactValue('site')">
+              <div class="link" *ngIf="getContactValue('site') == null">
                 <a [attr.href]="getContactValue('site')"><img src="/assets/icons/sait.svg" alt=""></a>
                 
               </div>

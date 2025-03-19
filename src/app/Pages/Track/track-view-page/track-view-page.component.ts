@@ -40,6 +40,7 @@ export class TrackViewPageComponent  implements OnInit {
   route: ActivatedRoute = inject(ActivatedRoute)
   loadingService: LoadingService = inject(LoadingService)
   statusImagesModal: boolean = false
+  allContactsIncorrect: boolean = false
 
   openImagesModalFunction(){
     this.statusImagesModal = true
@@ -68,10 +69,16 @@ export class TrackViewPageComponent  implements OnInit {
     return null; // если contacts не массив
   }
 
-  get isContactsArray(): boolean {
-    return Array.isArray(this.track.contacts) && this.track.contacts.length > 0;
+  validateAllContacts(){
+    if (this.track.contacts && Array(this.track.contacts).length){
+      this.track.contacts.map((contact:{title: string, value: string}
+      )=>this.allContactsIncorrect = this.validateContact(contact))
+    }
   }
   
+  validateContact(contact: {title: string, value: string}):boolean {
+    return !!contact.title && !!contact.value && contact.value != "null"
+  }
 
    getTrack(){
     this.loadingService.showLoading()
@@ -81,6 +88,7 @@ export class TrackViewPageComponent  implements OnInit {
       })
     ).subscribe((res:any) => {
       this.track = res.track
+      this.validateAllContacts()
     
     })
    }
@@ -95,8 +103,6 @@ export class TrackViewPageComponent  implements OnInit {
     this.route.params.pipe(takeUntil(this.destroy$)).subscribe((params) => {
       this.trackId = params['id']
       this.getTrack()
-      
-
     })
   }
   
