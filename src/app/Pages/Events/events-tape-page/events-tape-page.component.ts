@@ -106,7 +106,7 @@ export class EventsTapePageComponent  implements OnInit {
         loader = res
     })
 
-    this.eventService.getAllEvents({dateEnd:moment().subtract(7, 'days'). format('YYYY-MM-DD'), locationId:[this.regionFilterId]} //.subtract(7,'days')
+    this.eventService.getAllEvents({dateEnd:moment().subtract(7, 'days'). format('YYYY-MM-DD'), locationId:[this.regionFilterId], sortField:'date_start', sort:'desc'} //.subtract(7,'days')
   ).pipe(
       finalize(()=>{
         this.loadingService.hideLoading(loader)
@@ -123,7 +123,7 @@ export class EventsTapePageComponent  implements OnInit {
         loader = res
     })
 
-    this.eventService.getAllEvents({dateStart:moment().subtract(7,'days').format('YYYY-MM-DD'),locationId:[this.regionFilterId]}).pipe(
+    this.eventService.getAllEvents({dateStart:moment().subtract(7,'days').format('YYYY-MM-DD'),locationId:[this.regionFilterId], sortField:'date_start', sort:'asc'}).pipe(
       finalize(()=>{ 
         this.loadingService.hideLoading(loader)
       })).subscribe((res:any)=>{
