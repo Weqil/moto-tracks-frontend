@@ -11,6 +11,7 @@ export interface IEvent {
     record_end?:string,
     track:Track,
     grades: any[],
+    status?:{id:number,name:string,}
     images?: string[],
     appointments_exists?:boolean
     appointment_count?:{count:number}

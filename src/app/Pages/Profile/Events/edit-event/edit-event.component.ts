@@ -23,13 +23,14 @@ import { environment } from 'src/environments/environment';
 import { IonCheckbox, IonModal, NavController } from '@ionic/angular/standalone';
 import { MapService } from 'src/app/Shared/Data/Services/Map/map.service';
 import { GroupService } from 'src/app/Shared/Data/Services/Race/group.service';
+import { StandartInputSelectComponent } from 'src/app/Shared/Components/UI/Selecteds/standart-input-select/standart-input-select.component';
 
 
 @Component({
   selector: 'app-edit-event',
   templateUrl: './edit-event.component.html',
   styleUrls: ['./edit-event.component.scss'],
-  imports: [SharedModule,HeaderModule,StepsModule,FormsModule,EditSliderComponent,TrackModule,IonModal,IonCheckbox]
+  imports: [SharedModule,HeaderModule,StepsModule,FormsModule,EditSliderComponent,TrackModule,IonModal,IonCheckbox,StandartInputSelectComponent]
 })
 export class EditEventComponent  implements OnInit {
 
@@ -41,7 +42,11 @@ export class EditEventComponent  implements OnInit {
     trackSelected: Track | undefined
 
     eventId: string = ''
-    
+    raceTypeSelectedItem: any = {name:'', value:''}
+    raceTypes:any[] = [
+      {name:'Предварительная', value:2},
+      {name:'Согласована (обычная)', value:3},
+    ]
     groupModal:boolean = false
 
     checkImgUrlPipe:CheckImgUrlPipe = inject(CheckImgUrlPipe)
@@ -99,6 +104,7 @@ export class EditEventComponent  implements OnInit {
         locationId: new FormControl('', [Validators.required, Validators.minLength(1)]),
         dateStart: new FormControl('', [Validators.required, Validators.minLength(1)]),
         recordEnd:new FormControl('', [Validators.required, Validators.minLength(1)]),
+        statusId: new FormControl( '',  [Validators.required, Validators.minLength(1)]),
     })
    
     
@@ -313,7 +319,7 @@ export class EditEventComponent  implements OnInit {
               path: String(this.event.position_file)
             }
           }
-
+          this.selectEditType()
           this.createEventForm.patchValue({
             ...res.race,
             locationId: res.race?.location?.id,
@@ -359,6 +365,7 @@ export class EditEventComponent  implements OnInit {
       editEventFormData.append('dateStart',editForm.dateStart)
       editEventFormData.append('recordEnd',editForm.recordEnd)
       editEventFormData.append('trackId',String(editForm.trackId))
+      editEventFormData.append('statusId',String(editForm.statusId))
 
       for (var i = 0; i < this.selectedGroup.length; i++) {
         editEventFormData.append('gradeIds[]', this.selectedGroup[i].id)
@@ -389,7 +396,30 @@ export class EditEventComponent  implements OnInit {
         this.navController.back()
       })
     }
-    }  
+    } 
+    setRaceType(event:any){
+      this.raceTypeSelectedItem = event
+      this.createEventForm.patchValue({
+        statusId:event.value
+      })
+    }
+    selectEditType(){
+      if(this.event.status){
+        this.raceTypeSelectedItem = {
+          name: this.event.status?.id == 2 ? 'Предварительная':'Согласована (обычная)' ,
+          value:this.event.status?.id
+        }
+      }else{
+        this.raceTypeSelectedItem = {
+          name: 'Предварительная',
+          value: 2
+        }
+        this.createEventForm.patchValue({
+          statusId: 2
+        })
+      }
+    
+    } 
 
     ionViewWillEnter(){
          this.getRegions()

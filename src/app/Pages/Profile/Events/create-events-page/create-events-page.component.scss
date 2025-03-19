@@ -41,6 +41,9 @@
     display: flex;
     margin-top: var(--little-padding);
 }
+.select-type-create{
+    padding-top: var(--standart-padding);
+}
 
 ion-modal{
     --max-height:50%;
