@@ -52,7 +52,7 @@
                <form [formGroup]="specForm" class="track-settings__spec">
                  <div class="track-settings__spec__item">
                     <div class="track-settings__spec__item__text">
-                        <img style="opacity: 60%;" src="/assets/icons/length.png" alt="" class="track-settings__spec__item__icon">
+                        <img style="opacity: 0.4;" src="/assets/icons/length.png" alt="" class="track-settings__spec__item__icon">
                         <div class="track-settings__spec__item__label__wrapper">
                             <label class="track-settings__spec__item__label" for="length">Протяжённость круга</label>
                         </div>    
@@ -60,7 +60,9 @@
 
                     <div class="input-wrapper">
                         <input formControlName="lengthTrack" class="track-settings__spec__item__input" id="length" type="number">
-                        м
+                        <div class="metering">
+                            <p>м</p>
+                        </div>
                         <app-info-popover style="position: absolute; right: 0;" text="Замерьте полную длину летнего круга трассы. Можете воспользоваться линейкой яндекс карт."></app-info-popover>
                     </div>
 
@@ -68,14 +70,14 @@
 
                 <div class="track-settings__spec__item">
                     <div class="track-settings__spec__item__text">
-                        <img style="opacity: 60%;" src="/assets/icons/coverage.svg" alt="" class="track-settings__spec__item__icon">
+                        <img style="opacity: 0.7;" src="/assets/icons/coverage.svg" alt="" class="track-settings__spec__item__icon">
                         <div class="track-settings__spec__item__label__wrapper">
                             <label class="track-settings__spec__item__label" for="length">Покрытие трека</label>
                         </div>
                     </div>
 
                     <div class="input-wrapper">
-                        <app-standart-input-select [selectedItem]="coverageSelectedItem" (onChange)="setCoverage($event)" selectedName="groupSelect" [items]="coverageItems" style="width: 6rem;" label=""></app-standart-input-select>
+                        <app-standart-input-select [selectedItem]="coverageSelectedItem" (onChange)="setCoverage($event)" selectedName="groupSelect" [items]="coverageItems" style="width: 5rem;" label=""></app-standart-input-select>
                         <app-info-popover style="position: absolute; right: 0;" text="Какое покрытие большую часть времени, летом, имеет трасса"></app-info-popover>
                     </div>
 
@@ -83,7 +85,7 @@
 
                 <div class="track-settings__spec__item">
                     <div class="track-settings__spec__item__text">
-                        <img style="opacity: 60%;" src="/assets/icons/heigth.svg" alt="" class="track-settings__spec__item__icon">
+                        <img style="opacity: 0.7;" src="/assets/icons/heigth.svg" alt="" class="track-settings__spec__item__icon">
                         <div class="track-settings__spec__item__label__wrapper">
                             <label class="track-settings__spec__item__label" for="length">Перепад высот</label>
                         </div> 
@@ -91,13 +93,16 @@
 
                     <div class="input-wrapper">
                         <input formControlName="heightDifference" class="track-settings__spec__item__input" id="length" type="number">
+                        <div class="metering">
+                            <p>м</p>
+                        </div>
                         <app-info-popover style="position: absolute; right: 0;" text="от самой низкой точки до самой высокой точке на трассе"></app-info-popover>
                     </div>
                 </div>
 
                 <div class="track-settings__spec__item">
                     <div class="track-settings__spec__item__text">
-                        <img style="opacity: 60%;" src="/assets/icons/left-arr.svg" alt="" class="track-settings__spec__item__icon">
+                        <img style="opacity: 0.7;" src="/assets/icons/left-arr.svg" alt="" class="track-settings__spec__item__icon">
                         <div class="track-settings__spec__item__label__wrapper">
                             <label class="track-settings__spec__item__label" for="length">Левых поворотов</label>
                         </div> 
@@ -110,7 +115,7 @@
 
                 <div class="track-settings__spec__item">
                     <div class="track-settings__spec__item__text">
-                        <img style="opacity: 60%;" src="/assets/icons/right-arr.svg" alt="" class="track-settings__spec__item__icon">
+                        <img style="opacity: 0.7;" src="/assets/icons/right-arr.svg" alt="" class="track-settings__spec__item__icon">
                         <div class="track-settings__spec__item__label__wrapper">
                             <label class="track-settings__spec__item__label" for="length">Правых поворотов</label>
                         </div> 
@@ -123,7 +128,7 @@
 
                 <div class="track-settings__spec__item">
                     <div class="track-settings__spec__item__text">
-                        <img style="opacity: 60%;" src="/assets/icons/elements-list.svg" alt="" class="track-settings__spec__item__icon">
+                        <img style="opacity: 0.7;" src="/assets/icons/elements-list.svg" alt="" class="track-settings__spec__item__icon">
                         <div class="track-settings__spec__item__label__wrapper">
                             <label class="track-settings__spec__item__label" for="length">Количество элементов</label>
                         </div> 
@@ -136,7 +141,7 @@
 
                 <div class="track-settings__spec__item">
                     <div class="track-settings__spec__item__text">
-                        <img style="opacity: 60%;" src="/assets/icons/speed.svg" alt="" class="track-settings__spec__item__icon">
+                        <img style="opacity: 0.4;" src="/assets/icons/speed.svg" alt="" class="track-settings__spec__item__icon">
                         <div class="track-settings__spec__item__label__wrapper">
                             <label class="track-settings__spec__item__label" for="length">Длина самого скоростного участка</label>
                         </div> 
@@ -144,6 +149,10 @@
 
                     <div class="input-wrapper">
                         <input formControlName="highSpeedSection" class="track-settings__spec__item__input" id="length" type="number">
+                        <div class="metering">
+                            <p>м</p>
+                        </div>
+                        <app-info-popover style="position: absolute; right: 0;" text="длина прямого участка, где не требуется сброс скорости. Например от конца приемника до начала поворота. Или от конца поворота до начала любого элемента"></app-info-popover>
                     </div>
                 </div>
             </form>
