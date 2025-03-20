@@ -51,7 +51,6 @@ export class UserService {
       }else{
         usersArray = []
       }
-      console.log(token)
       if(!usersArray.find((userInArray:any)=> userInArray.id == user.id)){
         if(token){
           user.access_token = token

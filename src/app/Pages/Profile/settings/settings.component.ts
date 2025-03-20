@@ -254,7 +254,6 @@ editEmail(){
         })
       });
       if(this.user?.roles.length && !this.userService.userHaveRoot()){
-        console.log('Ответ сервера:', res.role);
         const matchingStatus = this.statuses.find((statusItem: any) => 
           this.user?.roles.some((role: any) => role.id === statusItem.id)
         );
