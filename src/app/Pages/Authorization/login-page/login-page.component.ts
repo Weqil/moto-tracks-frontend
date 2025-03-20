@@ -139,8 +139,7 @@ export class LoginPageComponent  implements OnInit {
         return throwError(error);
       })
     ).subscribe((res:any)=>{
-
-      this.userService.setUserInLocalStorage(res.user)
+      this.userService.setUserInLocalStorage(res.user,res.access_token)
       this.authService.setAuthToken(String(res.access_token))
       this.closePhoneLoginModal()
       setTimeout(()=>{
@@ -228,7 +227,7 @@ export class LoginPageComponent  implements OnInit {
           this.loading.hideLoading()
         })
       ).subscribe((res:Login)=>{
-        this.userService.setUserInLocalStorage(res.user)
+        this.userService.setUserInLocalStorage(res.user, res.access_token || null)
         this.authService.setAuthToken(String(res.access_token))
         setTimeout(()=>{
           this.navController.navigateForward(['/cabinet'])

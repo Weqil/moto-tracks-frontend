@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { userRoles } from '../../Enums/roles';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../Auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,9 +19,47 @@ export class UserService {
   allRoles:[{id:number,name:string}]|null = null
   constructor() { }
 
+
+  getAllUsersInLocalStorage(){
+    let usersArray:any = localStorage.getItem('allUsers')
+    if(usersArray){
+      usersArray = JSON.parse(usersArray)
+    }else{
+      usersArray = []
+    }
+    return usersArray
+  }
+
+  deleteUserInUsersArrayInLocalStorage(user:User){
+    let usersArray:any = localStorage.getItem('allUsers')
+    if(usersArray){
+      usersArray = JSON.parse(usersArray)
+    }else{
+      usersArray = []
+    }
+    usersArray = usersArray.filter((userInArray:any)=> userInArray.id!= user.id)
+    localStorage.setItem('allUsers', JSON.stringify(usersArray))
+    this.user.next(this.user.value)
+  }
+
   //Занёс данные о пользователе
-  setUserInLocalStorage(user:User){
+  setUserInLocalStorage(user:User,token?:string|null) {
     if(user){
+      let usersArray:any = localStorage.getItem('allUsers')
+      if(usersArray){
+        usersArray = JSON.parse(usersArray)
+      }else{
+        usersArray = []
+      }
+      console.log(token)
+      if(!usersArray.find((userInArray:any)=> userInArray.id == user.id)){
+        if(token){
+          user.access_token = token
+        }
+        usersArray.push(user)
+      }
+      localStorage.setItem('allUsers', JSON.stringify(usersArray))
+    
       this.user.next(user);
       localStorage.setItem('user', JSON.stringify(user));
 
@@ -76,7 +115,6 @@ export class UserService {
   }
   refreshUser(){
     this.getUserFromServerWithToken().pipe().subscribe((res:any)=>{
-
       this.setUserInLocalStorage(res.user);
       this.user.next(res.user);
     })

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, inject, OnInit, signal, ViewEncapsulation, WritableSignal } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { finalize } from 'rxjs';
 import { User } from 'src/app/Shared/Data/Interfaces/user-model';
@@ -13,6 +13,7 @@ import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
 import { ProfileModule } from 'src/app/Shared/Modules/user/profile.module';
 import { UserModule } from 'src/app/Shared/Modules/user/user.module';
 import { LoadingService } from 'src/app/Shared/Services/loading.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-cabinet',
@@ -24,7 +25,8 @@ import { LoadingService } from 'src/app/Shared/Services/loading.service';
     HeaderModule,
     UserModule,
     ProfileModule,
-    selectedModule
+    selectedModule,
+    CommonModule
   ]
 })
 export class CabinetComponent  implements OnInit {
@@ -38,6 +40,8 @@ export class CabinetComponent  implements OnInit {
 
   statusesSelect:boolean = false
   selectedStatusItem!:any 
+  allUsers!:Array<User>
+  selectAccountValue: WritableSignal<boolean> = signal(false)
   version:string = environment.version
   
 
@@ -190,13 +194,40 @@ export class CabinetComponent  implements OnInit {
     this.navControler.navigateForward('/personal-info')
   }
 
+  selectUserAndRefreshAllData(user:User){
+    if(user.access_token){
+      this.authService.setAuthToken(user.access_token)
+    }
+    this.selectAccountValue.set(false)
+  }
+
+  deleteUserInLocalStorage(user:User){
+    this.userService.deleteUserInUsersArrayInLocalStorage(user)
+  }
+
   ionViewWillEnter(){
-    this.selectedStatusItem = this.user?.roles[0];
-  
+    this.allUsers = this.userService.getAllUsersInLocalStorage()
+    if(this.allUsers.length){
+      let currentUserIndex = this.allUsers.findIndex((user:User)=> user.id === this.userService.user.value?.id)
+      let currentUser = this.allUsers[currentUserIndex]
+      this.allUsers.splice(currentUserIndex,1)
+      this.allUsers.unshift(currentUser)
+    }
+  }
+  navigateInLogin(){
+    this.navControler.navigateForward('/login',{  animated: false })
   }
   ngOnInit() {
     this.userService.user.pipe().subscribe((res)=>{
       this.user = res
+      this.selectedStatusItem = this.user?.roles[0];
+      if(this.allUsers && this.allUsers.length){
+        let currentUserIndex = this.allUsers.findIndex((user:User)=> user.id === this.userService.user.value?.id)
+        let currentUser = this.allUsers[currentUserIndex]
+        this.allUsers.splice(currentUserIndex,1)
+        this.allUsers.unshift(currentUser)
+      }
+      this.allUsers = this.userService.getAllUsersInLocalStorage()
     })
 
   }

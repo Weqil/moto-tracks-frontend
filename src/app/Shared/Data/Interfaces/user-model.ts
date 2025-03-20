@@ -9,6 +9,7 @@ export interface User{
     surname?:string,
     city?:string,
     rank?:string,
+    access_token?:string,
     user?:any
     start_number?:number|null,
     personal?:{

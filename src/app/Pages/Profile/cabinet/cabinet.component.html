@@ -7,12 +7,34 @@
         <div *ngIf="user?.personal?.start_number" class="user-info__class">
             {{user?.personal?.start_number}}
         </div>
+        <div (click)="selectAccountValue.set(!selectAccountValue())" [class.active]="selectAccountValue()" class="select-account-open">
+          <img src="assets/icons/arrow.svg" alt="">
+        </div>
+      </div>
+      <div [class.active]="selectAccountValue()" class="accounts-container">
+        <div (click)="navigateInLogin()" class="accounts-container__add-account">
+          <img src="/assets/icons/plus.svg" alt="">
+          <span>Добавить аккаунт</span>
+        </div>
+        <ng-container *ngFor="let user of allUsers">
+          <div  class="accounts-container__item">
+            <app-user-section (click)="selectUserAndRefreshAllData(user)" [user]="user"></app-user-section>
+            <div *ngIf="user.id == userService.user.value?.id" class="current-account">
+                <img src="/assets/icons/accept.svg" alt="">
+            </div>
+            <div *ngIf="user.id !== userService.user.value?.id" class="trash-button">
+              <app-circle-button (click)="deleteUserInLocalStorage(user)" icon="/assets/icons/trash.svg"></app-circle-button>
+            </div>
+          </div>
+        </ng-container>
+        
       </div>
       <ng-container *ngIf="usersMenuItem[this.selectedStatusItem?.name]">
           <ng-container *ngFor="let menuItem of usersMenuItem[this.selectedStatusItem.name]">
             <app-profile-menu-item  [routing]="menuItem.routing" [iconColor]="menuItem.iconColor" [icon]="menuItem.icon" [name]="menuItem.name"></app-profile-menu-item>
           </ng-container>
       </ng-container>
+     
       <app-profile-menu-item  [routing]="'settings'" [iconColor]="'#0000'" [icon]="'/assets/icons/settings.svg'" [name]="'Настройки'"></app-profile-menu-item> 
       <a  href="https://t.me/mototrackapp">
         <app-profile-menu-item  [routing]="'link'" [iconColor]="'#0000'" [icon]="'/assets/icons/support-icon.svg'" [name]="'Обратная связь'"></app-profile-menu-item>
