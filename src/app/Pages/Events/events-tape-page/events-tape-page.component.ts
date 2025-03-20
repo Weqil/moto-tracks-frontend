@@ -16,8 +16,11 @@ import { TabsComponent } from "../../../Shared/Components/UI/tabs/tabs.component
 import { TabsItemComponent } from "../../../Shared/Components/UI/tabs-item/tabs-item.component";
 
 import moment from 'moment';
+import 'moment/locale/ru';
+import { cloneDeep, find, extend } from 'lodash';
 import { StandartInputSearchComponent } from 'src/app/Shared/Components/Forms/standart-input-search/standart-input-search.component';
 import { MapService } from 'src/app/Shared/Data/Services/Map/map.service';
+import _ from 'lodash';
 
 
 @Component({
@@ -28,7 +31,14 @@ import { MapService } from 'src/app/Shared/Data/Services/Map/map.service';
 })
 export class EventsTapePageComponent  implements OnInit {
 
-  constructor() { }
+  formatedEvents: { groupMonth: string, events: IEvent[] }[] = [];
+  formatedExpiredEvents: { groupMonth: string, events: IEvent[] }[] = [];
+  constructor() {
+   
+   }
+
+   
+
   navController: NavController = inject(NavController)
   eventService: EventService = inject(EventService)
   loadingService:LoadingService = inject(LoadingService)
@@ -38,13 +48,14 @@ export class EventsTapePageComponent  implements OnInit {
   userService: UserService = inject(UserService)
   tableModalValue:boolean = false
   googleTabsLink:string = ''
-
   searchRegionItems:any[] = []
-
   regionFilterName:string = 'Россия'
   regionFilterId:string = ''
   expiredEvents:IEvent[]=[]
   mapService:MapService = inject(MapService)
+  startEvents: IEvent[]=[]
+
+
  
   redirectInTracks(){
     this.navController.navigateForward('/tracks')
@@ -106,13 +117,19 @@ export class EventsTapePageComponent  implements OnInit {
         loader = res
     })
 
-    this.eventService.getAllEvents({dateEnd:moment().subtract(7, 'days'). format('YYYY-MM-DD'), locationId:[this.regionFilterId], sortField:'date_start', sort:'desc'} //.subtract(7,'days')
+    this.eventService.getAllEvents({dateEnd:moment().subtract(7, 'days').locale('ru'). format('YYYY-MM-DD'), locationId:[this.regionFilterId], sortField:'date_start', sort:'desc'} //.subtract(7,'days')
   ).pipe(
       finalize(()=>{
         this.loadingService.hideLoading(loader)
       })
     ).subscribe((res:any)=>{
       this.expiredEvents = res.races
+
+      this.formatedExpiredEvents = Object.keys(_.groupBy(this.expiredEvents, event => moment(event.date_start).locale('ru').format('MMMM YYYY')))
+      .map(groupMonth => ({
+      groupMonth: groupMonth.charAt(0).toUpperCase() + groupMonth.slice(1),
+      events: _.groupBy(this.expiredEvents, event => moment(event.date_start).locale('ru').format('MMMM YYYY'))[groupMonth]
+      }));
     })
 
   }
@@ -127,7 +144,15 @@ export class EventsTapePageComponent  implements OnInit {
       finalize(()=>{ 
         this.loadingService.hideLoading(loader)
       })).subscribe((res:any)=>{
-        this.eventTapeService.events = res.races
+        this.startEvents = res.races
+
+
+
+        this.formatedEvents = Object.keys(_.groupBy(this.startEvents, event => moment(event.date_start).locale('ru').format('MMMM YYYY')))
+      .map(groupMonth => ({
+      groupMonth: groupMonth.charAt(0).toUpperCase() + groupMonth.slice(1),
+      events: _.groupBy(this.startEvents, event => moment(event.date_start).locale('ru').format('MMMM YYYY'))[groupMonth]
+      }));
     })
 
   }
@@ -142,6 +167,10 @@ export class EventsTapePageComponent  implements OnInit {
     // ).subscribe((res:any) => {
     //     this.eventTapeService.events = res.races
     // })
+    
+    
+
+  
   }
  
   ngOnInit() {
@@ -153,3 +182,4 @@ export class EventsTapePageComponent  implements OnInit {
   }
 
 }
+

@@ -169,7 +169,7 @@ export class CabinetComponent  implements OnInit {
     { id: 1, name: 'Гонщик', value: 'Гонщик' },
     { id: 2, name: 'Организатор', value: 'Организатор' },
     { id: 3, name: 'Болельщик', value: 'Болельщик' },
-    {id:4, name:'Тренер'},
+    {id:4, name:'Тренер', value: 'Тренер'},
     {id:5, name:'Комиссия', value: 'Комиссия'}
 
   ];

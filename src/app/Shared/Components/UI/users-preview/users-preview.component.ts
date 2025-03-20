@@ -33,6 +33,8 @@ export class UsersPreviewComponent implements OnInit {
   @Output() closeModalEmit: EventEmitter<any> = new EventEmitter()
   @Output() generateLinkButtonClick: EventEmitter<any> = new EventEmitter()
 
+  
+
   formattedUsers: {group:string,users:User[]}[] = []
 
   generateLinkButtonClickFunction(){
@@ -107,4 +109,6 @@ export class UsersPreviewComponent implements OnInit {
   })
 
   }
+  
 }
+

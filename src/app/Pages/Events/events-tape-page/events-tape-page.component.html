@@ -5,29 +5,31 @@
   <div class="tabs-container">
     <app-tabs>
       <app-tabs-item name="Текущие">
-
-      <div class="events-grid"> 
-        @for (event of this.eventTapeService.events; track $index) {
-          <app-event-card [event]="event">
-            <div *ngIf="userService.userHaveRoot()" class="button-container">
-              <app-standart-button style="width: 100%;" (click)="generateGoogleLink(event.id)" buttonText="Выгрузить список"></app-standart-button>
-            </div>
-          </app-event-card>}
-      </div>
-
-      </app-tabs-item>      
-      
-      <app-tabs-item name="Прошедшие">
-        <div class="events-grid"> 
-          @for (event of this.expiredEvents; track $index) {
+        <div *ngFor="let group of formatedEvents" class="events-grid">
+          <span class="month">{{group.groupMonth}}</span>
+          <div  *ngFor="let event of group.events; let i = index">
             <app-event-card [event]="event">
               <div *ngIf="userService.userHaveRoot()" class="button-container">
                 <app-standart-button style="width: 100%;" (click)="generateGoogleLink(event.id)" buttonText="Выгрузить список"></app-standart-button>
               </div>
-            </app-event-card>}
+            </app-event-card>
+          </div>
         </div>
-      </app-tabs-item>
-    </app-tabs>
+      </app-tabs-item>      
+      
+      <app-tabs-item name="Прошедшие">
+        <div *ngFor="let group of formatedExpiredEvents" class="events-grid">
+          <span class="month">{{group.groupMonth}}</span>
+            <div  *ngFor="let event of group.events; let i = index">
+              <app-event-card [event]="event">
+                <div *ngIf="userService.userHaveRoot()" class="button-container">
+                  <app-standart-button style="width: 100%;" (click)="generateGoogleLink(event.id)" buttonText="Выгрузить список"></app-standart-button>
+                </div>
+              </app-event-card>
+            </div>
+          </div>
+        </app-tabs-item>
+      </app-tabs>
   </div>
     
  
