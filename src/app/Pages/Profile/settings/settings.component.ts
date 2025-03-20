@@ -95,10 +95,6 @@ editEmail(){
   this.userService.editUser(this.personalSettingsForm.value).pipe(
     finalize(() => {
       this.loaderService.hideLoading(loader);
-    }),
-    catchError((err: serverError) => {
-      this.toastService.showToast(err.error.message, 'danger');
-      return EMPTY;
     })
   ).subscribe((res:any)=>{
     this.userService.refreshUser()

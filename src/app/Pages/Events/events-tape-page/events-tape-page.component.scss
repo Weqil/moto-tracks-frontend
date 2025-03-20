@@ -41,12 +41,23 @@
 }
 .events-grid{
     padding-top: var(--standart-padding);
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: var(--standart-padding);
     flex-direction: column;
     padding-bottom: 2rem;
+    .month{
+        width: 100%;
+        display: flex;
+        justify-content: start;
+        padding-left: 1rem;
+        font-family: var(--font-bold);
+        font-size: var(--font-headers-size-little);
+        font-style: italic;
+        border-left:5px solid red;
+    }
 }
 
 ion-modal{

@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { User } from 'src/app/Shared/Data/Interfaces/user-model';
 import { CheckImgUrlPipe } from 'src/app/Shared/Helpers/check-img-url.pipe';
 import { CommonModule } from '@angular/common';
+import { userRoles } from 'src/app/Shared/Data/Enums/roles';
 @Component({
   selector: 'app-user-section',
   templateUrl: './user-section.component.html',
@@ -23,16 +24,22 @@ export class UserSectionComponent  implements OnInit {
   changeRoleName(){
     if (this.user?.roles?.length) {
       switch (this.user.roles[0].name) {
-        case 'Organization':
+        case (userRoles.organization):
           this.translitRole = 'Организатор';
           break;
-        case 'Rider':
+        case (userRoles.rider):
           this.translitRole = 'Гонщик';
           break;
-        case 'Couch':
+        case (userRoles.couch):
           this.translitRole = 'Тренер';
           break;
-        case 'Commission':
+        case (userRoles.commission):
+          this.translitRole = 'Комиссия';
+          break;
+        case (userRoles.root):
+          this.translitRole = 'Комиссия';
+          break;
+        case (userRoles.admin):
           this.translitRole = 'Комиссия';
           break;
         default:

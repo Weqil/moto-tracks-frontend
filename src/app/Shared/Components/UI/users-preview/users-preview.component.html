@@ -25,6 +25,7 @@
          
       <ion-content class="">
         <div class="users-content">
+            
             <ng-container *ngIf="users && !formattedUsers" >
                 <div *ngFor="let user of users" (click)="openUser(user)" class="card-grid__item">
                     <app-user-section  [hideEmail]= "true"  [user]="createUserInAplication(user)"></app-user-section>
@@ -32,8 +33,8 @@
                         {{user?.personal?.start_number}}
                     </div>
                 </div>
-  
             </ng-container> 
+
             <ng-container *ngIf="users && formattedUsers" >
                 <div class="group-grid">
                     <button (click)="scrollToItem(group.group)" *ngFor="let group of formattedUsers" class="group-grid__item">
