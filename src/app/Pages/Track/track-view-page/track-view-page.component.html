@@ -118,7 +118,7 @@
               <div class="name"><span>Длина трассы</span></div>
             </div>
             <div class="right-flang">
-              <div class="result">{{getSpecValue("lengthTrack")}}</div>
+              <div class="result">{{getSpecValue("lengthTrack")}} м </div>
               <div class="information"> <app-info-popover  text="полная длина круга трассы"></app-info-popover></div>
             </div>
           </div>
@@ -142,7 +142,7 @@
             <div class="name"><span>Перепад высот</span></div>
           </div>
           <div class="right-flang">
-            <div class="result">{{getSpecValue("heightDifference")}}</div>
+            <div class="result">{{getSpecValue("heightDifference")}} м</div>
             <div class="information"><app-info-popover  text="расстояние в метрах от самой низкой точки до самой высокой точке на трассе"></app-info-popover></div>
           </div>
           </div>
@@ -187,7 +187,7 @@
             <div class="name"><span>Длина самого <br> скоростного участка</span></div>
           </div>
           <div class="right-flang">
-            <div class="result">{{getSpecValue("highSpeedSection")}}</div>
+            <div class="result">{{getSpecValue("highSpeedSection")}} м</div>
             <div class="information"><app-info-popover  text="длина в метрах прямого участка трассы, на котором можно использовать максимальную скорость"></app-info-popover></div>
           </div>
           </div>
@@ -293,23 +293,23 @@
           </div>
           <div class="links-list" >
             <!-- *ngIf="track.contacts && track.contacts?.length" -->
-            <span class="link-name" *ngIf="isContactsArray">
+            <span class="link-name" *ngIf="allContactsIncorrect">
               Ссылки на медиа
             </span>
-            <div class="links"> 
-              <div class="link" *ngIf="getContactValue('vk')">
+            <div class="links" *ngIf="allContactsIncorrect"> 
+              <div class="link" *ngIf="getContactValue('vk') != null">
                 <a [attr.href]="getContactValue('vk')"><img src="/assets/icons/VK2.svg" alt=""></a>
                 
               </div>
-              <div class="link" *ngIf="getContactValue('tg')">
+              <div class="link" *ngIf="getContactValue('tg') != null">
                 <a [attr.href]="getContactValue('tg')"> <img src="/assets/icons/telegram.svg" alt=""></a>
               
               </div>
-              <div class="link" *ngIf="getContactValue('whatsApp')">
+              <div class="link" *ngIf="getContactValue('whatsApp') != null">
                 <a [attr.href]="getContactValue('whatsApp')"> <img src="/assets/icons/watsapp.svg" alt=""></a>
               
               </div>
-              <div class="link" *ngIf="getContactValue('site')">
+              <div class="link" *ngIf="getContactValue('site') != null">
                 <a [attr.href]="getContactValue('site')"><img src="/assets/icons/sait.svg" alt=""></a>
                 
               </div>

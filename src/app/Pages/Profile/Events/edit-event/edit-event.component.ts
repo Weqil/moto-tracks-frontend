@@ -233,28 +233,31 @@ export class EditEventComponent  implements OnInit {
       }
 
       stepInvalidate() {
-        if (this.createEventForm.value) {
-          switch (this.stepCurrency) {
-            case 1:
-              if (
+        if(this.raceTypeSelectedItem.name == 'Согласована (обычная)'){
+          if (this.createEventForm.value) {
+            
+            if (
                 this.createEventForm.value.name.length <= 3 ||
-                !this.createEventForm.value.desc || this.createEventForm.value.desc.length <= 3 
-               || 
-               !this.createEventForm.value.dateStart 
-               ||  !this.trackSelected || !this.createEventForm.value.locationId
+                this.createEventForm.value.desc.length <= 3 
+               || !this.createEventForm.value.images.length ||   
+               !this.createEventForm.value.dateStart ||  !this.trackSelected || !this.locationId || !this.selectedGroup.length
               ) {
                 return true
-              } 
-              else {
+              } else {
                 return false
               }
               
-            default:
-              return false
+          } else {
+            return true
           }
-        } else {
-          return true
+        }else{
+          if(this.createEventForm.value.name.length <= 3 || this.createEventForm.value.region.length <= 3 || this.createEventForm.value.dateStart.length <= 3  ) {
+            return true
+          }else{
+            return false
+          }
         }
+       
       }
 
       stepNext() {
