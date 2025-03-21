@@ -15,6 +15,7 @@ import { StandartInputSearchComponent } from '../../Components/Forms/standart-in
     AddressInputComponent,
     FileInputComponent,
     StandartInputSearchComponent
+    
   ],
   exports: [
     StandartInputComponent,

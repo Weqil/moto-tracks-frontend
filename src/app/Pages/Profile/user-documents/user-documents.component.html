@@ -16,7 +16,12 @@
           <ng-template>
             <ion-content>
               <div class="region-modal-container">
-                <app-standart-input-search label="Область/край" [searchCurrentItems]="searchRegionItems" [searchItems]="searchRegionItems" (changeSearchValue)="setRegion($event)"></app-standart-input-search>
+                <app-standart-input-search 
+                label="Область/край" 
+                [searchCurrentItems]="searchRegionItems" 
+                [searchItems]="searchRegionItems" 
+                (changeSearchValue)="setRegion($event)">
+              </app-standart-input-search>
               </div>
             </ion-content>
           </ng-template>  
@@ -37,7 +42,7 @@
         <app-standart-input-select selectedName="motoStampSelect" [items]="motoStampItems" (onChange)="setMotoStamp($event)" [selectedItem]="{name:personalUserForm.value.motoStamp, value:personalUserForm.value.motoStamp}" label="Марка мотоцикла"></app-standart-input-select>
         <app-standart-input-select selectedName="rankSelect" [items]="sportRankItems" (onChange)="setRank($event)" [selectedItem]="{name:personalUserForm.value.rank, value:personalUserForm.value.rank}" label="Спортивное звание, разряд"></app-standart-input-select>
 
-        <app-standart-input  [control]="personalUserForm.get('community')" style="cursor: pointer;" (click)="openComandSelectModalStateValue()" [readonly]="true" placeholder="Команда" label="Навзание команды"></app-standart-input>
+        <app-standart-input  [control]="personalUserForm.get('community')" style="cursor: pointer;" (click)="openComandSelectModalStateValue()" [readonly]="true" placeholder="Команда" label="НАЗВАНИЕ КОМАНДЫЫ"></app-standart-input>
         <app-standart-input [control]="personalUserForm.get('coach')" placeholder="Тренер" label="ФИО тренера"></app-standart-input>
         <div class="user-document-container">
           <div class="document-header">Лицензии</div>
@@ -77,4 +82,17 @@
   </main>
 </ion-content>
 
-<app-select-comands (openComandSelectModal)="openComandSelectModalStateValue()" (closeComandSelectModal)="closeComandSelectModalStateValue()" [comandSelectModalStateValue]="comandSelectModalStateValue" (selectComand)="setComand($event)"  [commands]="allComands"></app-select-comands>
+<app-select-comands 
+(createNewComand)="createNewComand($event)" 
+(openComandSelectModal)="openComandSelectModalStateValue()" 
+(closeComandSelectModal)="closeComandSelectModalStateValue()" 
+[comandSelectModalStateValue]="comandSelectModalStateValue" 
+(selectComand)="setComand($event)"  
+[selectedRegion]="selectRegionInCommandModal"
+(setSelectedRegion)="selectRegionInCommandModalFunction($event)"
+[commands]="allComands"
+[regions]="searchRegionItems"
+(clearFilterRegion)="clearRegionInComandFilter()"
+>
+
+</app-select-comands>

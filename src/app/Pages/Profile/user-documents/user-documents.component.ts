@@ -21,7 +21,8 @@ import { formdataService } from 'src/app/Shared/Helpers/formdata.service';
 import moment from 'moment';
 import { SelectComandsComponent } from 'src/app/Shared/Components/Commands/select-comands/select-comands.component';
 import { ComandsService } from 'src/app/Shared/Data/Services/Comands/comands.service';
-import { ICommand } from 'src/app/Shared/Data/Interfaces/command';
+import { ICommand, ICommandCreate } from 'src/app/Shared/Data/Interfaces/command';
+import { User } from 'src/app/Shared/Data/Interfaces/user-model';
 
 
 @Component({
@@ -40,6 +41,8 @@ export class UserDocumentsComponent  implements OnInit {
   oldPasportValue?:{id:number,data:{numberAndSeria:string, fileLink:string}} 
   httpClient:HttpClient = inject(HttpClient)
   userService:UserService = inject(UserService)
+  selectRegionInCommandModal:any = {}
+  regionsInSelectComands:any[] = []
   comandSelectModalStateValue:boolean = false
   toastService:ToastService = inject(ToastService)
   formdataService:formdataService = inject(formdataService)
@@ -57,7 +60,7 @@ export class UserDocumentsComponent  implements OnInit {
   mapService:MapService = inject(MapService)
 
   searchRegionItems:any[] = []
-
+  createCommandTemp!: ICommand
   oldNotariusFile:any
   oldNotariusValue:any
   oldPolisFile:any
@@ -363,6 +366,9 @@ submitForm(){
   closeRegionModal(){
     this.regionModalState = false
   }
+  clearRegionInComandFilter(){
+    this.selectRegionInCommandModal = {}
+  }
   openRegionModal(){
     this.regionModalState = true
   }
@@ -472,14 +478,37 @@ submitForm(){
   }
 
   getAllComands(){
-    this.commandService.getComands().pipe().subscribe((res:any)=>{
+    let loader:HTMLIonLoadingElement
+    this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+      loader = res
+     })
+    this.commandService.getComands().pipe(
+      finalize(()=>{
+        this.loaderService.hideLoading(loader)
+      })
+    ).subscribe((res:any)=>{
       this.allComands = []
       this.allComands.push(
           {id: '', name: 'Лично',}
       )
-      this.allComands.push(...res.commands) 
+    
+      if(this.createCommandTemp){
+        console.log('sort by current create')
+        this.allComands.push({id: this.createCommandTemp.id, name: this.createCommandTemp.name,})
+        this.allComands.push(...res.commands.filter((command:ICommand)=> command.id !== this.createCommandTemp.id))
+
+      }else{
+
+        this.allComands.push(...res.commands) 
+      }
+      
+    
      
     })
+  }
+
+  selectRegionInCommandModalFunction(event:any){
+    this.selectRegionInCommandModal = event
   }
 
   setComand(event:any){
@@ -583,6 +612,52 @@ submitForm(){
 
     }else{
       this.personalUserForm.reset()
+    }
+  }
+
+  createNewComand(commandName: string){
+    let loader:HTMLIonLoadingElement
+    this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+     loader = res
+    })
+    let user: User|null = this.userService.user.value
+    let commandValidateState: boolean = false
+    let command: ICommandCreate = {
+      name: commandName,
+      locationId: 0,
+      city: ''
+    }
+    if(user){
+      if(user.personal && user.personal.city && user.personal.location){
+        command.locationId = Number(user.personal.location.id)
+        command.city = user.personal.city
+      }
+      else if(this.personalUserForm.value.city && this.personalUserForm.value.locationId){
+        command.locationId = Number( this.personalUserForm.value.locationId)
+        command.city = this.personalUserForm.value.city
+      }
+      else{
+        this.closeComandSelectModalStateValue()
+        this.toastService.showToast('Перед тем как создать команду обязательно заполните область и город','warning')
+      }
+      
+      Object.keys(command).forEach((key:any)=>{
+        commandValidateState =  !!command[key as keyof typeof command]
+      })
+      if(commandValidateState){
+        let fd:FormData = new FormData()
+        fd = this.formdataService.formdataAppendJson(fd, command)
+        this.commandService.createComand(fd).pipe(
+          finalize(()=>{
+            this.loaderService.hideLoading(loader)
+          })
+        ).subscribe((res: any)=>{
+  
+          this.createCommandTemp = res.command
+          this.getAllComands()
+        })
+      }
+      
     }
   }
 

@@ -11,3 +11,14 @@ export interface ICommand {
     
     
 }
+
+export interface ICommandCreate {
+    
+    name: string,
+    fullName?: string,
+    locationId:number,
+    avatar?:string,
+    city:string,
+    coach?:string
+    
+}

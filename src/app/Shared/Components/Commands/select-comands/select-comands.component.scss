@@ -14,13 +14,10 @@
     font-family: var(--font-regular);
     background: none;
 }
-ion-modal{
-    --max-height:50%;
-    --width:90%;
-    --border-radius: 12px;
-    --overflow-y: hidden;
-}
+
 .commands-grid{
+    max-height: 30rem;
+    overflow-y: auto;
     padding-top: var(--standart-padding);
     padding-left: var(--standart-padding);
     display: flex;
@@ -28,9 +25,190 @@ ion-modal{
     gap: var(--standart-padding);
     padding-right: var(--standart-padding);
     background-color: white;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
 }
 .commands-grid__item{
     border-bottom: 1px solid rgba(76, 88, 97, .1568627451);
     padding-top: var(--little-padding);
     padding-bottom: var(--little-padding);
 }
+
+
+
+.group-container{
+    display: flex;
+    flex-direction: column;
+    padding-bottom:15rem;
+}
+
+.race-groups__add-container__wrapper{
+    width: 100%;
+    right: 0;
+    z-index: 100;
+    background: var(--page-background);
+    padding: var(--standart-padding);
+    bottom: 0rem;
+}
+.race-groups__buttons{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.toggle-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+}
+
+.rounded-classes{
+    
+    display: inline;
+    font-family: var(--font-semi-bold);
+    border-radius: 8px;
+    transition: 0.3s all;
+    height: 2rem;
+    padding: 0.3rem;
+    background: var(--white-color);
+}
+
+.rounded-classes__active{
+    background: var(--white-color);
+    display: inline;
+    transition: 0.3s all;
+    color: var(--white-color);
+    font-family: var(--font-semi-bold);
+    border-radius: 8px;
+    height: 2rem;
+    padding: 0.3rem;
+}
+
+ion-toggle {
+    --background: #ffffff; /* фон, когда выключен */
+    --handle-background: #3880FF; /* цвет ползунка */
+    --handle-border-radius: 50%;
+    --track-border-width: 0px;
+    --track-border-color: #3880FF;
+  }
+  
+  ion-toggle::part(track) {
+    background-color: var(--background);
+    height: 2rem;
+    border-color: var(--track-border-color);
+    border-style: solid;
+  }
+  
+  ion-toggle::part(handle) {
+    background-color: var(--handle-background);
+    border-width: var(--track-border-width);
+    border-style: solid;
+    border-color: var(--track-border-color);
+    box-sizing: border-box;
+    
+  }
+
+  .header-text{
+    display: flex;
+    flex-direction: column;
+    
+    align-items: center;
+    height: 100%;
+    h2{
+        margin-bottom: 18px;
+    }
+
+  }
+
+
+
+.group-modal-header__select{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+.group-modal-container{
+    padding: var(--standart-padding);
+}
+.group-item{
+    display: inline-flex;
+    gap: 10px;
+}
+.group-item{
+    padding-top: 10px;
+}
+
+.standart-input{
+    border: 1px solid rgba(76, 88, 97, 0.2549019608);
+    border-radius: 5px;
+    width: 100%;
+    min-height: 2.25rem;
+    font-size: 12px;
+    padding-left: 0.8rem;
+    transition: 0.1s;
+    margin-top: 3px;
+    color: #363d42;
+    font-family: var(--font-regular);
+    background: none;
+}
+
+
+.hidden-input{
+    display: none;
+}
+
+.standart-input{
+    border: 1px solid #4c586141;
+    border-radius: 5px;
+    width: 100%;
+    min-height: 2.25rem;
+    font-size: 12px;
+    padding-left: 0.8rem;
+    padding-right: 3rem;
+    transition: 0.1s;
+    color: #363d42;
+    font-family: var(--font-regular);
+    background: none;
+}
+.standart-input:focus{
+    transition: 0.2s;
+    outline: 1px solid #52b1fab0;
+    border-radius: 5px;
+    width: 100%;
+    background: none;
+    padding-right: 3rem;
+    min-height: 2.25rem;
+    font-size: 12px;
+    padding-left: 0.8rem;
+    color: #363d42;
+}
+
+.race-groups__add-container{
+    padding-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    
+}
+
+
+.region-modal{
+    --max-height:50%;
+    --width:90%;
+    --border-radius: 12px;
+    --overflow-y: hidden;
+    ion-content{
+        --background: rgb(251 251 251);
+    }
+    .region-modal-container{
+        padding: var(--standart-padding);
+       
+    }
+}
+
+
+
+

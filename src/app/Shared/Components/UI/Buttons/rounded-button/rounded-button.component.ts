@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common'
 })
 export class RoundedButtonComponent implements OnInit {
   constructor() {}
-  @Input() buttonText: String = ''
+  @Input() buttonText: string = ''
   @Input() icon: String = ''
   @Input() type: String = ''
   @Input() outline!: boolean
