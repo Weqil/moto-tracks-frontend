@@ -1,8 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { User } from 'src/app/Shared/Data/Interfaces/user-model';
 import { CheckImgUrlPipe } from 'src/app/Shared/Helpers/check-img-url.pipe';
 import { CommonModule } from '@angular/common';
 import { userRoles } from 'src/app/Shared/Data/Enums/roles';
+import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
 @Component({
   selector: 'app-user-section',
   templateUrl: './user-section.component.html',
@@ -10,6 +11,7 @@ import { userRoles } from 'src/app/Shared/Data/Enums/roles';
   imports: [CheckImgUrlPipe,CommonModule],
 })
 export class UserSectionComponent  implements OnInit {
+  userService:UserService = inject(UserService)
 
   constructor() { }
   @Output() changeStatus = new EventEmitter();
@@ -22,7 +24,13 @@ export class UserSectionComponent  implements OnInit {
   translitRole:string = ''
 
   changeRoleName(){
-    if (this.user?.roles?.length) {
+    if (this.user?.roles?.length && this.userService.userHaveRoot()){
+      this.translitRole = 'Комиссия';
+    }
+    else if (!this.user?.roles?.length && !this.userService.userHaveRoot()){
+      this.translitRole = 'Болельщик';
+    }
+    else if (this.user?.roles?.length && !this.userService.userHaveRoot()) {
       switch (this.user.roles[0].name) {
         case (userRoles.organization):
           this.translitRole = 'Организатор';
@@ -33,15 +41,16 @@ export class UserSectionComponent  implements OnInit {
         case (userRoles.couch):
           this.translitRole = 'Тренер';
           break;
-        case (userRoles.commission):
-          this.translitRole = 'Комиссия';
-          break;
-        case (userRoles.root):
-          this.translitRole = 'Комиссия';
-          break;
-        case (userRoles.admin):
-          this.translitRole = 'Комиссия';
-          break;
+        // case (userRoles.commission):
+        //   this.translitRole = 'Комиссия';
+        //   break;
+        // case (userRoles.root):
+        //   this.translitRole = 'Комиссия';
+        //   break;
+        // case (userRoles.admin):
+        //   this.translitRole = 'Комиссия';
+        //   break;
+      
         default:
           this.translitRole = 'Болельщик';
       }
