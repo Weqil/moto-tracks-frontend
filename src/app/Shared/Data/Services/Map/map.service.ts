@@ -11,7 +11,14 @@ export class MapService {
   constructor() { }
   http:HttpClient = inject(HttpClient)
  
-  getAllRegions(){
-    return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/locations`,)
+  getAllRegions(existsRace?: boolean, existsTrack?: boolean){
+    console.log(existsRace)
+    console.log(existsTrack)
+
+    const query = {
+      raceCountExists: existsRace ? '1' : '0',
+      trackCountExists: existsTrack ? '1' : '0'
+    };
+    return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/locations`, {params: query})
   }
 }
