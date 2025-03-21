@@ -1,9 +1,9 @@
 
-@supports (-webkit-touch-callout: none) {
+
         .bottom-nav-container {
             padding-bottom: calc(env(safe-area-inset-bottom) - 1rem);
         }
-      }
+    
 
 
 @media screen and (max-width: 768px) {
