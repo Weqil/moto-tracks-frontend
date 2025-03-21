@@ -16,6 +16,7 @@ export class UserService {
   public user: BehaviorSubject<User|null> = new BehaviorSubject<User|null>(this.getUserFromLocalStorage())
 
   http:HttpClient = inject(HttpClient)
+ 
   allRoles:[{id:number,name:string}]|null = null
   constructor() { }
 
@@ -51,7 +52,6 @@ export class UserService {
       }else{
         usersArray = []
       }
-      console.log(token)
       if(!usersArray.find((userInArray:any)=> userInArray.id == user.id)){
         if(token){
           user.access_token = token
@@ -113,9 +113,17 @@ export class UserService {
   getUserFromServerWithToken(){
        return this.http.get<User>(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/users`)
   }
+  getAuthToken(){
+    if(localStorage.getItem('authToken')){
+      return String(localStorage.getItem('authToken'))
+    }else{
+      return null
+    }
+   
+  }
   refreshUser(){
     this.getUserFromServerWithToken().pipe().subscribe((res:any)=>{
-      this.setUserInLocalStorage(res.user);
+      this.setUserInLocalStorage(res.user, this.getAuthToken());
       this.user.next(res.user);
     })
   }

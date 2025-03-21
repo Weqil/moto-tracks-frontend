@@ -222,7 +222,7 @@ export class CabinetComponent  implements OnInit {
       this.user = res
       this.selectedStatusItem = this.user?.roles[0];
       if(this.allUsers && this.allUsers.length){
-        let currentUserIndex = this.allUsers.findIndex((user:User)=> user.id === this.userService.user.value?.id)
+        let currentUserIndex = this.allUsers.findIndex((user:User)=> user?.id === this.userService.user.value?.id)
         let currentUser = this.allUsers[currentUserIndex]
         this.allUsers.splice(currentUserIndex,1)
         this.allUsers.unshift(currentUser)

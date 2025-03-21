@@ -7,13 +7,16 @@ import { CapacitorCookies } from '@capacitor/core';
   providedIn: 'root'
 })
 export class AuthService {
-  userService:UserService = inject(UserService)
+ 
   cookieService:CookieService = inject(CookieService)
   public token: BehaviorSubject<string|null> = new BehaviorSubject<string|null>(this.getAuthToken())
   
   public authenticationState: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
 
-  constructor() { }
+  constructor(
+    private userService: UserService,
+
+  ) { }
 
   isAuthenticated(): boolean {
     if (!this.token.value) {
