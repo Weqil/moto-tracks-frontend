@@ -34,7 +34,7 @@ import moment from 'moment';
 import { ImagesModalComponent } from "../../../Shared/Components/UI/images-modal/images-modal.component";
 import { formdataService } from 'src/app/Shared/Helpers/formdata.service';
 import { SelectComandsComponent } from 'src/app/Shared/Components/Commands/select-comands/select-comands.component';
-import { ICommand } from 'src/app/Shared/Data/Interfaces/command';
+import { ICommand, ICommandCreate } from 'src/app/Shared/Data/Interfaces/command';
 import { ComandsService } from 'src/app/Shared/Data/Services/Comands/comands.service';
 
 @Component({
@@ -66,6 +66,7 @@ export class EventsViewPageComponent  implements OnInit {
   openUserModalValue:boolean = false
   raceUser!:User
   searchRegionItems:any[] = []
+  createCommandTemp!: ICommand
   licensesFile:any =''
   polisFile:any = ''
   notariusFile:any = ''
@@ -76,8 +77,11 @@ export class EventsViewPageComponent  implements OnInit {
   notariusId:string = ''
 
   oldNotariusFile:any
-
+  selectRegionInCommandModal:any = {}
   oldPolisFile:any
+  selectRegionInCommandModalFunction(event:any){
+    this.selectRegionInCommandModal = event
+  }
 
   regionModalState:boolean = false
 
@@ -321,7 +325,9 @@ export class EventsViewPageComponent  implements OnInit {
     setRank(event:any){
       this.personalUserForm.patchValue({rank: event.name})
     }
-
+    clearRegionInComandFilter(){
+      this.selectRegionInCommandModal = {}
+    }
     setMotoStamp(event:any){
       this.personalUserForm.patchValue({motoStamp: event.name})
     }
@@ -591,6 +597,52 @@ export class EventsViewPageComponent  implements OnInit {
       this.regionModalState = true
     }
   
+    createNewComand(commandName: string){
+      let loader:HTMLIonLoadingElement
+      this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+       loader = res
+      })
+      let user: User|null = this.userService.user.value
+      let commandValidateState: boolean = false
+      let command: ICommandCreate = {
+        name: commandName,
+        locationId: 0,
+        city: ''
+      }
+      if(user){
+        if(user.personal && user.personal.city && user.personal.location){
+          command.locationId = Number(user.personal.location.id)
+          command.city = user.personal.city
+        }
+        else if(this.personalUserForm.value.city && this.personalUserForm.value.locationId){
+          command.locationId = Number( this.personalUserForm.value.locationId)
+          command.city = this.personalUserForm.value.city
+        }
+        else{
+          this.closeComandSelectModalStateValue()
+          this.toastService.showToast('Перед тем как создать команду обязательно заполните область и город','warning')
+        }
+        
+        Object.keys(command).forEach((key:any)=>{
+          commandValidateState =  !!command[key as keyof typeof command]
+        })
+        if(commandValidateState){
+          let fd:FormData = new FormData()
+          fd = this.formdataService.formdataAppendJson(fd, command)
+          this.commandService.createComand(fd).pipe(
+            finalize(()=>{
+              this.loaderService.hideLoading(loader)
+            })
+          ).subscribe((res: any)=>{
+    
+            this.createCommandTemp = res.command
+            this.getAllComands()
+          })
+        }
+        
+      }
+    }
+
     //здесь лоадер
   getEvent(){
     let loader:HTMLIonLoadingElement
