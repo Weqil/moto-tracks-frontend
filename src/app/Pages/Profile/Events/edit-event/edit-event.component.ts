@@ -354,8 +354,9 @@ export class EditEventComponent  implements OnInit {
       this.createEventForm.value.images = this.createEventForm.value.images.filter((image:any)=>!image.link)
       let editForm = {
         ...this.createEventForm.value,
-        trackId: this.trackSelected!.id,
+        trackId: this.trackSelected?.id,
         imagesAdd: _.cloneDeep(this.createEventForm.value.images),
+        statusId:this.raceTypeSelectedItem.value,
         resultsFile: this.positionFile instanceof File? this.positionFile : null,
         positionFile: this.reglamentFile instanceof File? this.reglamentFile : null,
         imagesDel: this.deletesImages.map((image:string)=>image.split(`${this.backendUrl}/storage/`)[1])
@@ -366,8 +367,11 @@ export class EditEventComponent  implements OnInit {
       editEventFormData.append('desc', editForm.desc)
       editEventFormData.append('locationId',String(editForm.locationId))
       editEventFormData.append('dateStart',editForm.dateStart)
-      editEventFormData.append('recordEnd',editForm.recordEnd)
-      editEventFormData.append('trackId',String(editForm.trackId))
+      if(this.raceTypeSelectedItem.value !== 2){
+        editEventFormData.append('recordEnd',editForm.recordEnd)
+        editEventFormData.append('trackId',String(editForm.trackId))
+      }
+   
       editEventFormData.append('statusId',String(editForm.statusId))
 
       for (var i = 0; i < this.selectedGroup.length; i++) {
