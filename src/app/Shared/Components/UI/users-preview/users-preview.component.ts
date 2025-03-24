@@ -25,6 +25,7 @@ export class UsersPreviewComponent implements OnInit {
   navController: NavController = inject(NavController)
   sortUsers: any = {}
   @Input() users: any
+  @Input() sortByGrade: boolean = true
   usersPreview: any[] = []
   @Input() spiner: boolean = false
   @Output() openModalEmit: EventEmitter<any> = new EventEmitter()
@@ -76,7 +77,7 @@ export class UsersPreviewComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['users']) {
+    if (changes['users'] && this.sortByGrade) {
       if (typeof this.users !== 'object') {
         this.usersPreview = this.users.slice(0, 8);
         if (this.groups && this.groups.length) {

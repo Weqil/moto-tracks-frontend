@@ -18,3 +18,27 @@ ion-card {
         margin-left: 1rem;
     }
   }
+.card-grid__item{
+    display: flex;
+    padding-top: 5rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    gap: 8px;
+    height: 4rem;
+    position: relative;
+    justify-content: space-between;
+    align-items: center;
+}
+.user-info__class{
+    background-color: var(--dark-grey-color);
+    color: var(--white-color);
+    min-width: 3rem;
+    font-size: 20px;
+    text-align: center;
+    display: flex;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    height: 3rem;
+    font-family: var(--font-bold);
+}

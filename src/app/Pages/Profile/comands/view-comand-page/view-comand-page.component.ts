@@ -17,12 +17,16 @@ import { IonContent,
   IonItem,
   IonLabel,
   IonList,
-  IonThumbnail,
-} from '@ionic/angular/standalone';
+  IonThumbnail, IonModal } from '@ionic/angular/standalone';
 import { environment } from 'src/environments/environment';
 import { StandartInputComponent } from 'src/app/Shared/Components/Forms/standart-input/standart-input.component';
 import { StandartButtonComponent } from 'src/app/Shared/Components/UI/Buttons/standart-button/standart-button.component';
 import { CommonModule } from '@angular/common';
+import { ImagesModalComponent } from 'src/app/Shared/Components/UI/images-modal/images-modal.component';
+import { User } from 'src/app/Shared/Data/Interfaces/user-model';
+import { UsersPreviewComponent } from 'src/app/Shared/Components/UI/users-preview/users-preview.component';
+import { UserSectionComponent } from 'src/app/Shared/Components/UserElements/user-section/user-section.component';
+import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
 
 
 @Component({
@@ -38,7 +42,11 @@ import { CommonModule } from '@angular/common';
     IonCard, 
     IonCardContent,
     StandartButtonComponent,
-    CommonModule
+    CommonModule,
+    IonModal,
+    UsersPreviewComponent,
+    UserSectionComponent,
+    SharedModule
   ]
 })
 export class ViewComandPageComponent  implements OnInit {
@@ -47,33 +55,63 @@ export class ViewComandPageComponent  implements OnInit {
   constructor() { }
 
   route: ActivatedRoute = inject(ActivatedRoute)
-
   toastService: ToastService = inject(ToastService)
-
   loaderService:LoadingService = inject(LoadingService)
-
   comandService:ComandsService = inject(ComandsService)
-
   mapService:MapService = inject(MapService)
-
   checkImgUrlPipe:CheckImgUrlPipe = inject(CheckImgUrlPipe)
-  
-  
-
 
   commandId:string = ''
-
   command!:ICommand
 
   avatarUrl:string = '/assets/icons/team-bg.png';
-
   searchRegionItems:any[] = []
 
-  
+  membersModalState:boolean = false
+  coachesModalState:boolean = false
+
+  membersCountModalState:boolean = false
+
+
+  membersForUser: User[] = []
+
+
+  openMembersCountModal() {
+    this.membersCountModalState = true
+  }
+  closeMembersCountModal() {
+    this.membersCountModalState = false
+  }
+  closeMembersModal() {
+    this.membersModalState = false
+  }
+
+  closeCoachesModal() {
+    this.coachesModalState = false
+  }
+
+
+  openCoaches() {
+      this.coachesModalState = true
+  }
+
+  async openMembers() {
+    this.getMembers()
+    this.membersModalState = true
+  }
+
+  getMembers() {
+    this.comandService.getMembersForUsers(Number(this.commandId)).pipe().subscribe((res:any)=>{
+      this.membersForUser = res.members
+      res.members.forEach((item: any) => {
+        this.membersForUser.push(item)
+      })
+      console.log(this.membersForUser)
+    })
+  }
 
   getCommand(){
     this.comandService.getCommandById(Number(this.commandId)).pipe().subscribe((res:any)=>{
-      console.log()
       this.command = res.command
       this.avatarUrl = res.command.avatar ? this.checkImgUrlPipe.checkUrlDontType((res.command.avatar)) : '/assets/icons/team-bg.png'
     })
@@ -94,15 +132,14 @@ export class ViewComandPageComponent  implements OnInit {
     return `${environment.BACKEND_URL}:${environment.BACKEND_PORT}/storage/${this.command?.avatar}`;
   }
 
-  openCoaches() {}
-
-  openMembers() {}
-
   ionViewWillEnter(){
     this.route.params.pipe(takeUntil(this.destroy$)).subscribe((params) => {
+          this.loaderService.showLoading()
           this.commandId = params['id']
           this.getCommand()
-          this.getRegions()
+          this.getMembers()
+          this.loaderService.hideLoading()
+          // this.getRegions()
       })
   }
   ngOnInit() {}
