@@ -8,7 +8,10 @@
       <div class="commands-grid__item">
         <app-command-section [command]="command"></app-command-section>
         <div class="edit-button-container">
-          <app-standart-button theme="orange" style="width: 100%;" (click)="redirectInEditPage(command.id)" buttonText="Редактировать"></app-standart-button>
+          <div style="display: flex;">
+            <app-standart-button theme="orange" style="width: 100%; margin: 4px;" (click)="redirectInEditPage(command.id)" buttonText="Редактировать"></app-standart-button>
+            <app-standart-button theme="standart" style="width: 100%; margin: 4px;" (click)="redirectInViewPage(command.id)" buttonText="Просмотр"></app-standart-button>
+          </div>
         </div>
       </div>
    

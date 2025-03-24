@@ -1,0 +1,21 @@
+<ion-content>
+  <header>
+    <app-header headerTitle="Просмотр команды"></app-header>
+  </header> 
+  <main class="main-container--with-header" *ngIf="command">
+      <ion-card style="margin: 8px">
+        <img :alt="{{command?.avatar}}" :src="{{getImgUrl()}}" />
+        <ion-card-header>
+          <ion-card-title style="margin-left: 1rem; margin-top: 8px">{{command?.name ?? 'Not Title'}}</ion-card-title>
+          <ion-card-subtitle style="margin-left: 1rem; margin-top: 8px">{{command?.full_name ?? 'Not full name'}}</ion-card-subtitle>
+          <ion-card-subtitle style="margin-left: 1rem; margin-top: 8px">{{command?.location?.name ?? 'Not Region'}}</ion-card-subtitle>
+
+        </ion-card-header>
+      
+        <ion-card-content>
+          <app-standart-button style="margin: 1rem" (click)="openCoaches()" buttonText="Список тренеров"></app-standart-button>
+          <app-standart-button style="margin: 1rem" (click)="openMembers()" buttonText="Список участников"></app-standart-button>
+        </ion-card-content>
+      </ion-card>
+  </main>
+</ion-content>

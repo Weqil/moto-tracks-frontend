@@ -1,0 +1,20 @@
+ion-card {
+    --background: #ffffff;
+    --color: #9efff0;
+  }
+  
+  ion-card-title {
+    --color: #52ffe4;
+  }
+  
+  ion-card-subtitle {
+    --color: #d1fff8;
+  }
+
+  ion-item {
+    --padding-start: 0;
+    --background: #ffffff;
+    ion-label {
+        margin-left: 1rem;
+    }
+  }
