@@ -197,6 +197,7 @@ submitValidate(){
 
 getRegions(){
   this.mapService.getAllRegions().pipe().subscribe((res:any)=>{
+    this.searchRegionItems.push({name:`Россия`,value:''})
     res.data.forEach((region:any) => {
       this.searchRegionItems.push({
         name:`${region.name} ${region.type}`,

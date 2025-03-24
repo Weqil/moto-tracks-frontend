@@ -10,39 +10,45 @@
 
 <ion-modal [isOpen]="comandSelectModalStateValue" (didDismiss)="closeModal()">
   <ng-template>
-    <ion-content>
-      <div class="group-modal-container">
+    <ion-content>   
+      <div class="modal-container-search-region">
         <div class="group-modal-header">
-          <div class="group-modal-header__select">
-            <div class="header-text">
-            <h2>Команды</h2>
+            <div class="group-modal-header__select">
+              <div class="header-text">
+              <h2>Команды</h2>
+              </div>
+              <app-rounded-button *ngIf="regions" (click)="openRegionModal()" [buttonText]="selectedRegion && selectedRegion.name ? selectedRegion.name : 'Россия'"></app-rounded-button>
+              <!-- <div class="toggle-container">
+                <ion-label >Все</ion-label>
+                <ion-toggle mode="ios" class="custom-toggle" >
+                </ion-toggle>
+                <ion-label >Мои</ion-label>
+              </div> -->
             </div>
-            <app-rounded-button *ngIf="regions" (click)="openRegionModal()" [buttonText]="selectedRegion && selectedRegion.name ? selectedRegion.name : 'Россия'"></app-rounded-button>
-            <!-- <div class="toggle-container">
-              <ion-label >Все</ion-label>
-              <ion-toggle mode="ios" class="custom-toggle" >
-              </ion-toggle>
-              <ion-label >Мои</ion-label>
-            </div> -->
-          </div>
-          <span class="label">Создайте свою или выберите из существующих</span>
-        </div>
-        
-        <div class="race-groups__add-container__wrapper">
-          
-          
-          <div *ngIf="commands" class="commands-grid">
-            <app-standart-input-search [searchCommands]="true" label="Название команды" [searchCurrentItems]="sortComands.length ? sortComands:commands" [searchItems]="sortComands.length ? sortComands:commands" (changeSearchValue)="setComands($event)"></app-standart-input-search>
-          </div>
-          <div class="race-groups__add-container">
-            <input placeholder = "Название команды" class="standart-input" type="text" [(ngModel)]="createComandName">
-            <app-standart-button theme="light" style="width: 100%;" buttonText="Добавить команду" (click)="createComandFunction()"></app-standart-button>
+            <span class="label">Создайте свою или выберите из существующих</span>
           </div>
 
-          <!-- <div class="race-groups__buttons">
-            
-            <app-standart-button  buttonText="Выбрать" theme="standart"></app-standart-button>
-          </div> -->
+        <div class="group-modal-container">
+          <div class="race-groups__add-container__wrapper">
+            <div *ngIf="commands" class="commands-grid">
+              
+              <app-standart-input-search 
+                [searchCommands]="true" 
+                label="Название команды" 
+                [searchCurrentItems]="sortComands.length ? sortComands:commands" 
+                [searchItems]="sortComands.length ? sortComands:commands" 
+                (changeSearchValue)="setComands($event)">
+              </app-standart-input-search>
+
+            </div>
+            <div class="race-groups__add-container">
+              <input placeholder = "Название команды" class="standart-input" type="text" [(ngModel)]="createComandName">
+              <app-standart-button theme="light" style="width: 100%;" buttonText="Добавить команду" (click)="createComandFunction()"></app-standart-button>
+            </div>
+            <!-- <div class="race-groups__buttons">
+              <app-standart-button  buttonText="Выбрать" theme="standart"></app-standart-button>
+            </div> -->
+          </div>
         </div>
       </div>
     </ion-content>
@@ -53,7 +59,12 @@
   <ng-template>
     <ion-content>
       <div class="region-modal-container">
-        <app-standart-input-search label="Область/край" [searchCurrentItems]="regions" [searchItems]="regions" (changeSearchValue)="setRegion($event)"></app-standart-input-search>
+        <app-standart-input-search 
+        label="Область/край" 
+        [searchCurrentItems]="regions" 
+        [searchItems]="regions" 
+        (changeSearchValue)="setRegion($event)">
+        </app-standart-input-search>
       </div>
     </ion-content>
   </ng-template>  
