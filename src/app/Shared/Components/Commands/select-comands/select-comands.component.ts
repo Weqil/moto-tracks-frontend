@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { IonContent, IonModal, IonLabel, IonCheckbox, IonToggle } from '@ionic/angular/standalone';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import { IonContent, IonModal, IonLabel, IonCheckbox, IonToggle, NavController } from '@ionic/angular/standalone';
 import { ICommand } from 'src/app/Shared/Data/Interfaces/command';
 import { Track } from 'src/app/Shared/Data/Interfaces/track-model';
 import { CommandSectionComponent } from '../command-section/command-section.component';
@@ -8,12 +8,13 @@ import { FormsModule } from '@angular/forms';
 import { StandartButtonComponent } from "../../UI/Buttons/standart-button/standart-button.component";
 import { StandartInputSearchComponent } from "../../Forms/standart-input-search/standart-input-search.component";
 import { RoundedButtonComponent } from "../../UI/Buttons/rounded-button/rounded-button.component";
+import { StandartInputComponent } from "../../Forms/standart-input/standart-input.component";
 
 @Component({
   selector: 'app-select-comands',
   templateUrl: './select-comands.component.html',
   styleUrls: ['./select-comands.component.scss'],
-  imports: [IonToggle, IonCheckbox, IonLabel, IonModal, IonContent, CommonModule, CommandSectionComponent, FormsModule, StandartButtonComponent, StandartInputSearchComponent, RoundedButtonComponent]
+  imports: [IonToggle, IonCheckbox, IonLabel, IonModal, IonContent, CommonModule, CommandSectionComponent, FormsModule, StandartButtonComponent, StandartInputSearchComponent, RoundedButtonComponent, StandartInputComponent]
 })
 export class SelectComandsComponent  implements OnInit {
 
@@ -32,6 +33,16 @@ export class SelectComandsComponent  implements OnInit {
   createComandName: string = ''
   regionModalState:boolean = false
   sortComands:any = []
+  createComandsModalState: boolean = false
+  navControler:NavController = inject(NavController)
+
+ 
+  openCreateComandsModalState(){
+    this.createComandsModalState = true
+  }
+  closeCreateComandsModalState(){
+    this.createComandsModalState = false
+  }
  
   ngOnChanges(){
       if(this.commands && this.selectedRegion?.value){
@@ -43,6 +54,7 @@ export class SelectComandsComponent  implements OnInit {
         this.sortComands = []
       }
   }
+
   setRegion(region:any){
     this.closeRegionModal()
     this.setSelectedRegion.emit(region)

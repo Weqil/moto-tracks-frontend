@@ -34,12 +34,12 @@ export const privateRoutes: Routes = [
             },
             {
                 path:'my-comands',
-                canActivate:[canActivateAuth,canActivateUserHaveRole([userRoles.couch,userRoles.organization],'тренера')],
+                canActivate:[canActivateAuth],
                 loadComponent: () => import('../Pages/Profile/comands/comands.component').then((m) => m.ComandsComponent)
             },      
             {
                 path:'create-comands',
-                canActivate:[canActivateAuth,canActivateUserHaveRole([userRoles.couch,userRoles.organization],'тренера')],
+                canActivate:[canActivateAuth,canActivateUserHaveRole([userRoles.couch,userRoles.organization, userRoles.rider],'тренера')],
                 loadComponent: () => import('../Pages/Profile/comands/create-comand-page/create-comand-page.component').then((m) => m.CreateComandPageComponent)
             },      
             {

@@ -8,14 +8,15 @@
   </ng-template>
 </ion-modal> -->
 
-<ion-modal [isOpen]="comandSelectModalStateValue" (didDismiss)="closeModal()">
+<ion-modal [isOpen]="true" (didDismiss)="closeModal()">
+  <!-- comandSelectModalStateValue -->
   <ng-template>
     <ion-content>   
       <div class="modal-container-search-region">
         <div class="group-modal-header">
             <div class="group-modal-header__select">
               <div class="header-text">
-              <h2>Команды</h2>
+                <h2>Команды</h2>
               </div>
               <app-rounded-button *ngIf="regions" (click)="openRegionModal()" [buttonText]="selectedRegion && selectedRegion.name ? selectedRegion.name : 'Россия'"></app-rounded-button>
               <!-- <div class="toggle-container">
@@ -26,7 +27,7 @@
               </div> -->
             </div>
             <span class="label">Создайте свою или выберите из существующих</span>
-          </div>
+        </div>
 
         <div class="group-modal-container">
           <div class="race-groups__add-container__wrapper">
@@ -34,7 +35,7 @@
               
               <app-standart-input-search 
                 [searchCommands]="true" 
-                label="Название команды" 
+                label="Поиск по названию команд" 
                 [searchCurrentItems]="sortComands.length ? sortComands:commands" 
                 [searchItems]="sortComands.length ? sortComands:commands" 
                 (changeSearchValue)="setComands($event)">
@@ -69,3 +70,11 @@
     </ion-content>
   </ng-template>  
 </ion-modal>
+
+<!-- <ion-modal [isOpen]="createComandsModalState" (didDismiss)="closeCreateComandsModalState()" class="create-comand-modal">
+  <ng-template>
+    <ion-content>
+      <input placeholder = "Название команды" class="standart-input" type="text" [(ngModel)]="createComandName">
+    </ion-content>
+  </ng-template>
+</ion-modal> -->

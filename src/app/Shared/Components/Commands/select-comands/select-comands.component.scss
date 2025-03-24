@@ -28,6 +28,10 @@
     background-color: white;
     border-radius: 0.5rem;
     margin-bottom: 1rem;
+    app-standart-input-search {
+        --padding-top: 1rem;
+        --page-bg: rgb(255, 255, 255);
+      }
 }
 .commands-grid__item{
     border-bottom: 1px solid rgba(76, 88, 97, .1568627451);
@@ -128,6 +132,7 @@
 }
 
 .group-modal-header__select{
+    
     display: flex;
     justify-content: space-between;
 }
@@ -212,16 +217,33 @@
     
     ion-content{
     --background: rgb(251 251 251);
-    }
-    .region-modal-container{
-        padding: var(--standart-padding);
-        
+    
+        .region-modal-container{
+            padding: var(--standart-padding);
+            padding-top: 0px;
+            
+            app-standart-input-search {
+                --padding-top: 0rem;
+                --page-bg: rgb(251, 251, 251);
+            }
+        }
     }
 }
-app-standart-input-search {
-    padding-top: 1rem;
-    --page-bg: rgb(255, 255, 255);
-  }
+
+.create-comand-modal{
+    --max-height:50%;
+    --width:90%;
+    --border-radius: 12px;
+    --overflow-y: hidden;
+    padding: var(--standart-padding)
+
+    ion-content{
+      
+    }
+    .create-comand-modal-container{
+        padding: 1rem;
+    }
+}
 
 
 

@@ -20,22 +20,22 @@ export class AppComponent {
     
     App.addListener('resume', () => { 
       this.finishTimeInBackground = moment()
-        console.log(`Приложение снова активно`);
-        console.log(this.finishTimeInBackground.format('HH:mm:ss'))
+        // console.log(`Приложение снова активно`);
+        // console.log(this.finishTimeInBackground.format('HH:mm:ss'))
         if (this.startTimeInBackground) {
           const diffInSeconds = this.finishTimeInBackground.diff(this.startTimeInBackground, 'seconds');
-          console.log(`Приложение было в фоновом режиме ${diffInSeconds} секунд`);
+          // console.log(`Приложение было в фоновом режиме ${diffInSeconds} секунд`);
           if(diffInSeconds>20){
             this.navCtrl.navigateRoot(this.router.url);
-            console.log(`Отправили на ту же страницу`);
+            // console.log(`Отправили на ту же страницу`);
           }
         }
     });
 
     App.addListener('pause', () => { 
       this.startTimeInBackground = moment()
-      console.log(`Приложение ушло в фон`);
-      console.log(this.startTimeInBackground.format('HH:mm:ss'))
+      // console.log(`Приложение ушло в фон`);
+      // console.log(this.startTimeInBackground.format('HH:mm:ss'))
   });
   }
   
