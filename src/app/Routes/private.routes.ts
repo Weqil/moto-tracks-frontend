@@ -101,8 +101,12 @@ export const privateRoutes: Routes = [
 
             {
                 path: 'command/view/:id',
-                canActivate:[canActivateAuth,canActivateUserHaveRole([userRoles.couch],'тренера')],
+                canActivate:[canActivateAuth],
                 loadComponent: () => import('../Pages/Profile/comands/view-comand-page/view-comand-page.component').then((m) => m.ViewComandPageComponent)
+            },
+            {
+                path: 'teams',
+                loadComponent: () => import('../Pages/Events/teams-list-page/teams-list-page.component').then(m => m.TeamsListPageComponent)
             }
         ]
     },

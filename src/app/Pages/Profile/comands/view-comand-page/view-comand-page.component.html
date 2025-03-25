@@ -1,43 +1,55 @@
 <ion-content>
-  <header>
-    <app-header headerTitle="Просмотр команды"></app-header>
-  </header> 
+  <app-header headerTitle="Просмотр команды"></app-header>
+  
   <main class="main-container--with-header" *ngIf="command">
-    <div style="display: flex;">
-      <ion-card style="margin: 8px; max-width: 40rem; position: relative; margin-left: auto; margin-right: auto;">
-        
-        <img *ngIf="command?.avatar" :alt="{{command?.avatar}}" :src="{{getImgUrl()}}" />
-        <img *ngIf="!command?.avatar" :alt="no_photo" src="/assets/icons/team-bg.png" />
+    <div class="command-container">
+      <div class="command-header">
+        <div class="command-avatar">
+          <img *ngIf="command?.avatar" [alt]="command?.name" [src]="getImgUrl()" />
+          <img *ngIf="!command?.avatar" alt="no_photo" src="/assets/icons/team-bg.png" />
+        </div>
+        <div class="command-info">
+          <h1 class="command-name">{{command?.name}}</h1>
+          <p class="command-full-name" *ngIf="command?.full_name">{{command?.full_name}}</p>
+          <p class="command-location" *ngIf="command?.location">
+            <ion-icon name="location-outline"></ion-icon>
+            {{command?.location?.name}} {{command?.location?.type}}
+          </p>
+        </div>
+      </div>
 
-        <ion-card-header>
-          <ion-card-title style="margin-left: 1rem; margin-top: 8px">{{command?.name}}</ion-card-title>
-          <ion-card-subtitle style="margin-left: 1rem; margin-top: 8px">{{command?.full_name ?? ''}}</ion-card-subtitle>
-          <ion-card-subtitle style="margin-left: 1rem; margin-top: 8px" *ngIf="command?.location">{{command?.location?.name}} {{command?.location?.type}}</ion-card-subtitle>
-
-        </ion-card-header>
-      
-        <ion-card-content>
-          <!-- <app-standart-button style="margin: 1rem" (click)="openCoaches()" buttonText="Список тренеров"></app-standart-button> -->
-          <app-standart-button style="margin: 1rem" (click)="openMembers()" buttonText="Список участников"></app-standart-button>
-        </ion-card-content>
-      </ion-card>
+      <div class="command-actions">
+        <app-standart-button
+          [buttonText]="isMember ? 'Покинуть команду' : 'Вступить в команду'"
+          [theme]="isMember ? 'red' : 'standart'"
+          (click)="toggleMembership()"
+          [disabled]="false"
+        ></app-standart-button>
+        <app-standart-button
+          buttonText="Участники"
+          (click)="openMembers()"
+          [disabled]="false"
+        ></app-standart-button>
+      </div>
     </div>
   </main>
 </ion-content>
 
-<ion-modal [isOpen]="membersModalState" (didDismiss)="closeMembersModal()" >
+<ion-modal [isOpen]="membersModalState" (didDismiss)="closeMembersModal()">
   <ng-template>
-    <ion-content >
+    <ion-content>
       <app-header (customBackClick)="closeMembersModal()" [customBack]="true" headerTitle="Участники команды: {{membersForUser.length}}"></app-header>
-      <div *ngIf="membersForUser.length" style="margin-top:5rem;"> 
-        <div *ngFor="let user of membersForUser" class="card-grid__item">
-          <app-user-section  [hideEmail]= "true"  [user]="user"></app-user-section>
-          <div *ngIf="user?.personal?.start_number" class="user-info__class">
-              {{user?.personal?.start_number}}
+      <div class="members-list" *ngIf="membersForUser.length">
+        <div *ngFor="let user of membersForUser" class="member-item">
+          <app-user-section [hideEmail]="true" [user]="user"></app-user-section>
+          <div *ngIf="user?.personal?.start_number" class="member-number">
+            {{user?.personal?.start_number}}
           </div>
         </div>
       </div>
-      <h1 style="margin-top:10rem; background-color: rgba(0, 0, 0, 0)" *ngIf="!membersForUser.length">Список учасников пуст</h1>
+      <div class="no-members" *ngIf="!membersForUser.length">
+        <h2>Список участников пуст</h2>
+      </div>
     </ion-content>
   </ng-template>
 </ion-modal>
