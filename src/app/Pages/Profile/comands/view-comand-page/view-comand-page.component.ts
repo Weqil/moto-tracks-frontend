@@ -75,6 +75,7 @@ export class ViewComandPageComponent  implements OnInit {
 
   commandId:string = ''
   command!:ICommand
+  isMember: boolean = false
 
   avatarUrl:string = '/assets/icons/team-bg.png';
   searchRegionItems:any[] = []
@@ -114,19 +115,25 @@ export class ViewComandPageComponent  implements OnInit {
 
   getMembers() {
     this.comandService.getMembersForUsers(Number(this.commandId)).pipe().subscribe((res:any)=>{
-      this.membersForUser = res.members
-      res.members.forEach((item: any) => {
-        this.membersForUser.push(item)
-      })
-      console.log(this.membersForUser)
+      this.membersForUser = res.members;
     })
   }
 
-  getCommand(){
-    this.comandService.getCommandById(Number(this.commandId)).pipe().subscribe((res:any)=>{
-      this.command = res.command
-      this.avatarUrl = res.command.avatar ? this.checkImgUrlPipe.checkUrlDontType((res.command.avatar)) : '/assets/icons/team-bg.png'
-    })
+  getCommand() {
+    this.comandService.getCommandById(Number(this.commandId))
+      .pipe(
+        finalize(() => this.loaderService.hideLoading())
+      )
+      .subscribe({
+        next: (res: any) => {
+          this.command = res.command;
+          this.avatarUrl = res.command.avatar ? this.checkImgUrlPipe.checkUrlDontType((res.command.avatar)) : '/assets/icons/team-bg.png';
+          this.isMember = res.command.is_member || false;
+        },
+        error: (error) => {
+          this.toastService.showToast(error.error.message || 'Произошла ошибка', 'error');
+        }
+      });
   }
 
   getRegions(){
@@ -154,6 +161,25 @@ export class ViewComandPageComponent  implements OnInit {
           // this.getRegions()
       })
   }
+
+  toggleMembership() {
+    this.loaderService.showLoading();
+    this.comandService.toggleMember(Number(this.commandId))
+      .pipe(
+        finalize(() => this.loaderService.hideLoading())
+      )
+      .subscribe({
+        next: (response) => {
+          this.isMember = !this.isMember;
+          this.toastService.showToast(response.message, 'success');
+          this.getMembers();
+        },
+        error: (error) => {
+          this.toastService.showToast(error.error.message || 'Произошла ошибка', 'error');
+        }
+      });
+  }
+
   ngOnInit() {}
 
 }

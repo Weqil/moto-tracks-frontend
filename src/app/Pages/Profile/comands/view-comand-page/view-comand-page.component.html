@@ -19,7 +19,17 @@
       </div>
 
       <div class="command-actions">
-        <app-standart-button (click)="openMembers()" buttonText="Список участников"></app-standart-button>
+        <app-standart-button
+          [buttonText]="isMember ? 'Покинуть команду' : 'Вступить в команду'"
+          [theme]="isMember ? 'red' : 'standart'"
+          (click)="toggleMembership()"
+          [disabled]="false"
+        ></app-standart-button>
+        <app-standart-button
+          buttonText="Участники"
+          (click)="openMembers()"
+          [disabled]="false"
+        ></app-standart-button>
       </div>
     </div>
   </main>

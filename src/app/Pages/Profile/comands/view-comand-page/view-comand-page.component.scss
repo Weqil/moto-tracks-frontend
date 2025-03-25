@@ -110,13 +110,12 @@ ion-card {
 
 .command-actions {
   display: flex;
-  justify-content: center;
   gap: 1rem;
-  padding: 1rem 0;
+  justify-content: center;
+  margin-top: 1rem;
 
   app-standart-button {
     min-width: 200px;
-    padding: 0.8rem 1.5rem;
   }
 }
 
