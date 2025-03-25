@@ -17,7 +17,9 @@ import { IonContent,
   IonItem,
   IonLabel,
   IonList,
-  IonThumbnail, IonModal } from '@ionic/angular/standalone';
+  IonThumbnail, 
+  IonModal,
+  IonIcon } from '@ionic/angular/standalone';
 import { environment } from 'src/environments/environment';
 import { StandartInputComponent } from 'src/app/Shared/Components/Forms/standart-input/standart-input.component';
 import { StandartButtonComponent } from 'src/app/Shared/Components/UI/Buttons/standart-button/standart-button.component';
@@ -27,27 +29,37 @@ import { User } from 'src/app/Shared/Data/Interfaces/user-model';
 import { UsersPreviewComponent } from 'src/app/Shared/Components/UI/users-preview/users-preview.component';
 import { UserSectionComponent } from 'src/app/Shared/Components/UserElements/user-section/user-section.component';
 import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
-
+import { FormsModule } from '@angular/forms';
+import { NavController } from '@ionic/angular';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-view-comand-page',
   templateUrl: './view-comand-page.component.html',
   styleUrls: ['./view-comand-page.component.scss'],
-  imports:[
-    IonContent, 
-    HeaderComponent, 
-    IonCardHeader, 
-    IonCardSubtitle, 
-    IonCardTitle, 
-    IonCard, 
-    IonCardContent,
-    StandartButtonComponent,
+  imports: [
     CommonModule,
-    IonModal,
+    SharedModule,
+    HeaderComponent,
+    StandartButtonComponent,
+    StandartInputComponent,
     UsersPreviewComponent,
     UserSectionComponent,
-    SharedModule
-  ]
+    FormsModule,
+    IonContent,
+    IonCard,
+    IonCardHeader,
+    IonCardSubtitle,
+    IonCardTitle,
+    IonCardContent,
+    IonItem,
+    IonLabel,
+    IonList,
+    IonThumbnail,
+    IonModal,
+    IonIcon
+  ],
+  standalone: true
 })
 export class ViewComandPageComponent  implements OnInit {
   private readonly destroy$ = new Subject<void>()
