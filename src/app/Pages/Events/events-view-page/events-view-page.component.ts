@@ -32,10 +32,13 @@ import { group } from '@angular/animations';
 import { MapService } from 'src/app/Shared/Data/Services/Map/map.service';
 import moment from 'moment';
 import { ImagesModalComponent } from "../../../Shared/Components/UI/images-modal/images-modal.component";
+
 import { formdataService } from 'src/app/Shared/Helpers/formdata.service';
 import { SelectComandsComponent } from 'src/app/Shared/Components/Commands/select-comands/select-comands.component';
 import { ICommand, ICommandCreate } from 'src/app/Shared/Data/Interfaces/command';
 import { ComandsService } from 'src/app/Shared/Data/Services/Comands/comands.service';
+import { CheckUserRoleService } from 'src/app/Shared/Data/Services/check-user-role.service';
+import { userRoles } from 'src/app/Shared/Data/Enums/roles';
 
 @Component({
   selector: 'app-events-view-page',
@@ -65,12 +68,13 @@ export class EventsViewPageComponent  implements OnInit {
   event!:IEvent
   openUserModalValue:boolean = false
   raceUser!:User
+  checkUserRoleService:CheckUserRoleService = inject(CheckUserRoleService)
   searchRegionItems:any[] = []
   createCommandTemp!: ICommand
   licensesFile:any =''
   polisFile:any = ''
   notariusFile:any = ''
-  
+  confirmUsersRolesInGroupAplication:string[] = [userRoles.admin,userRoles.couch,userRoles.organization,userRoles.commission]
 
   licensesId:string = ''
   polisId:string = ''
