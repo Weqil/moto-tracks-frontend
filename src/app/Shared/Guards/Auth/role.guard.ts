@@ -6,33 +6,64 @@ import { UserService } from "../../Data/Services/User/user.service"
 import { ToastService } from "../../Services/toast.service"
 import { ActivatedRouteSnapshot, CanActivateFn, RouterStateSnapshot } from "@angular/router"
 import { isArray } from "lodash"
+import { firstValueFrom } from "rxjs"
+
 export function canActivateUserHaveRole(roleName:string|undefined|null|string[],roleNameInMessage:string,): CanActivateFn {
-    return (ars: ActivatedRouteSnapshot, rss: RouterStateSnapshot) => {
-        const navController:NavController = inject(NavController)
-        if(inject(UserService).userHaveRoot()){
+    return async (ars: ActivatedRouteSnapshot, rss: RouterStateSnapshot) => {
+        // Получаем все необходимые сервисы в синхронном контексте
+        const navController = inject(NavController)
+        const userService = inject(UserService)
+        const toastService = inject(ToastService)
+        
+        // Проверяем, есть ли данные о пользователе
+        if (!userService.user.value) {
+            try {
+                const userData = await firstValueFrom(userService.getUserFromServerWithToken())
+                userService.setUserInLocalStorage(userData.user, userService.getAuthToken())
+            } catch (error) {
+                return navController.navigateForward('/cabinet')
+            }
+        }
+        
+        // Проверяем, загружены ли роли
+        if (!userService.allRoles) {
+            try {
+                const rolesData = await firstValueFrom(userService.getChangeRoles())
+                if (!Array.isArray(rolesData)) {
+                    throw new Error('Некорректный формат данных ролей')
+                }
+                userService.allRoles = rolesData as Array<{id:number,name:string}>
+            } catch (error) {
+                return navController.navigateForward('/cabinet')
+            }
+        }
+
+        if(userService.userHaveRoot()){
             return true
         }
+
         if (roleName && !isArray(roleName)) {
-            let roleId = inject(UserService).allRoles?.find((role)=>role.name === roleName)?.id
-            if(roleId && inject(UserService).user.value?.roles.find((role)=> role.id==roleId) || inject(UserService).userHaveRoot()){
+            const roleId = userService.allRoles?.find((role)=>role.name === roleName)?.id
+            if(roleId && userService.user.value?.roles.find((role)=> role.id==roleId) || userService.userHaveRoot()){
                 return true
             }
         }
+
         if (roleName && isArray(roleName)) {
             let userHaveRole:boolean = false
-            roleName.forEach((roleInArray)=>{
-                let roleId = inject(UserService).allRoles?.find((role:any)=>role.name === roleInArray)?.id
-                if(roleId && inject(UserService).user.value?.roles.find((role)=> role.id==roleId)){
+            for (const roleInArray of roleName) {
+                const roleId = userService.allRoles?.find((role)=>role.name === roleInArray)?.id
+                if(roleId && userService.user.value?.roles.find((role)=> role.id==roleId)){
                     userHaveRole = true
+                    break
                 }
-            })
+            }
             
             if(userHaveRole){
                 return true
             }
         }
       
-        inject(ToastService).showToast(`Для того что бы сделать это вам нужно получить статус ${roleNameInMessage}`,'warning')
-        return navController.navigateForward('/settings')
+        return navController.navigateForward('/cabinet')
     }
-  }
+}

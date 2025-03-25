@@ -10,13 +10,26 @@ import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@a
 export class StandartInputSelectComponent  implements OnInit {
 
   constructor() { }
-@HostListener('document:click', ['$event'])
- onClick(event: MouseEvent): void {
-let target = event.target as HTMLElement
-  if (target.getAttribute('name') !== this.selectedName) {
-        this.stateValue = false
+
+  @HostListener('document:click', ['$event'])
+  onClick(event: MouseEvent): void {
+    let target = event.target as HTMLElement;
+    let currentElement: HTMLElement | null = target;
+    
+    // Проверяем, является ли кликнутый элемент или его родители частью нашего селекта
+    while (currentElement) {
+      if (currentElement.getAttribute('name') === this.selectedName || 
+          currentElement.classList.contains('standart-input') ||
+          currentElement.classList.contains('dropdown-content--active')) {
+        return;
+      }
+      currentElement = currentElement.parentElement;
     }
- }
+    
+    // Если клик был вне селекта, закрываем его
+    this.stateValue = false;
+  }
+
   @Input() selectedItem: {name: string; value: string} = {name: '', value: ''};
   @Output() onChange:EventEmitter<any> = new EventEmitter()
   @Input() items: {name: string; value: string}[] = [
@@ -31,7 +44,7 @@ let target = event.target as HTMLElement
   @Input() stateValue: boolean = false;
 
   changeState(){
-    this.stateValue =!this.stateValue;
+    this.stateValue = !this.stateValue;
   }
   
   changeSelectedItem(item: {name: string; value: string}){
@@ -40,5 +53,4 @@ let target = event.target as HTMLElement
     this.changeState();
   }
   ngOnInit() {}
-
 }

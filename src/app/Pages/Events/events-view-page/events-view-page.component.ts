@@ -505,6 +505,10 @@ export class EventsViewPageComponent  implements OnInit {
     
   }
 
+  redirectTrenerInEditAplication(){
+    this.navController.navigateForward(`/aplication/${this.event.id}`)
+  }
+
   saveNewPersonal(){
     let loader:HTMLIonLoadingElement
     this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
