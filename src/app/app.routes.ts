@@ -6,4 +6,8 @@ export const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full',
   },
+  {
+    path: 'teams',
+    loadComponent: () => import('./Pages/Events/teams-list-page/teams-list-page.component').then(m => m.TeamsListPageComponent)
+  }
 ];

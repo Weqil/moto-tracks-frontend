@@ -1,4 +1,3 @@
-
 import { Routes } from '@angular/router';
 
 
@@ -19,6 +18,10 @@ export const publicRoutes: Routes = [
       {
         path:'tracks',
         loadComponent: () => import('../Pages/Track/track-tape-page/track-tape-page.component').then((m) => m.TrackTapePageComponent),
+      },
+      {
+        path:'teams',
+        loadComponent: () => import('../Pages/Events/teams-list-page/teams-list-page.component').then((m) => m.TeamsListPageComponent),
       },
       {
         path:'favorites',

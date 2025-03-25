@@ -1,0 +1,23 @@
+<ion-content>
+  <app-header headerTitle="Команды"></app-header>
+  <main class="main-container--with-header">
+    <div class="search-container">
+      <app-standart-input-search
+        (input)="onSearchInput($event)"
+        placeholder="Поиск по названию команды"
+      ></app-standart-input-search>
+    </div>
+
+    <article class="commands-grid">
+      <ng-container *ngFor="let team of filteredTeams">
+        <div class="commands-grid__item" (click)="viewTeam(team.id)">
+          <app-command-section [command]="team"></app-command-section>
+        </div>
+      </ng-container>
+    </article>
+
+    <div class="no-results" *ngIf="filteredTeams.length === 0">
+      <h2>Команды не найдены</h2>
+    </div>
+  </main>
+</ion-content> 
