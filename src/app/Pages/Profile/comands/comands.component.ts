@@ -33,6 +33,9 @@ export class ComandsComponent  implements OnInit {
   redirectInEditPage(eventId:any){
     this.navController.navigateForward(`/command/edit/${eventId}`)
   }
+  redirectInViewPage(eventId:any){
+    this.navController.navigateForward(`/command/view/${eventId}`)
+  }
   getMyComands(){
     let loader:HTMLIonLoadingElement
     this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{

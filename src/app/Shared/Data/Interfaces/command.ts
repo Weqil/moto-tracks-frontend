@@ -1,6 +1,7 @@
 export interface ICommand {
     id: number,
     name: string,
+    full_name?: string
     location:{
         id:number,
         name:string,

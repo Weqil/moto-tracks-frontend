@@ -25,4 +25,9 @@ export class ComandsService {
   getCommandById(id:number){
     return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/commands/${id}`)
   }
+  getMembersForUsers(id: number) {
+    return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/commands/${id}/members`)
+  }
+
+  getCoachesForUsers() {}
 }
