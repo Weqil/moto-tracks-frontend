@@ -59,6 +59,7 @@ export class UserDocumentsComponent  implements OnInit {
 
   mapService:MapService = inject(MapService)
 
+  createRegionItems:any[] = []
   searchRegionItems:any[] = []
   createCommandTemp!: ICommand
   oldNotariusFile:any
@@ -206,6 +207,20 @@ getRegions(){
     });
   })
 }
+
+getCreateRegions(){
+  this.mapService.getAllRegions().pipe().subscribe((res:any)=>{
+    
+    res.data.forEach((region:any) => {
+      this.createRegionItems.push({
+        name:`${region.name} ${region.type}`,
+        value:region.id
+      })
+    });
+  })
+}
+
+
 
 setEngine(event:any){
   this.personalUserForm.patchValue({engine: event.name})
@@ -488,16 +503,16 @@ submitForm(){
         this.loaderService.hideLoading(loader)
       })
     ).subscribe((res:any)=>{
+      console.log(res);
+
       this.allComands = []
       this.allComands.push(
-          {id: '', name: 'Лично',}
+          {id: '', name: 'Лично', region: 'papilapup'}
       )
     
       if(this.createCommandTemp){
-        console.log('sort by current create')
-        this.allComands.push({id: this.createCommandTemp.id, name: this.createCommandTemp.name,})
+        this.allComands.push(...res.commands.filter((command:ICommand)=> command.id == this.createCommandTemp.id))
         this.allComands.push(...res.commands.filter((command:ICommand)=> command.id !== this.createCommandTemp.id))
-
       }else{
 
         this.allComands.push(...res.commands) 
@@ -590,6 +605,7 @@ submitForm(){
   ionViewWillEnter(){
     this.setFormValue()
     this.getRegions()
+    this.getCreateRegions()
     this.getAllComands()
     this.userService.refreshUser()
     if(this.userService.user.value?.personal){
@@ -616,32 +632,36 @@ submitForm(){
     }
   }
 
-  createNewComand(commandName: string){
+  createNewComand(formData: { id:number; name: string; city: string; locationId: number; region: string}){
+    const id = formData.id;
+    const region = formData.region;
+    const name = formData.name;
+    const locationId = formData.locationId;
+    const city = formData.city;
+
+    if (!name || !city || !locationId) {
+      this.toastService.showToast('Заполните все поля перед созданием команды', 'warning');
+      return;
+    }
+
     let loader:HTMLIonLoadingElement
     this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
      loader = res
     })
+
+
+
     let user: User|null = this.userService.user.value
     let commandValidateState: boolean = false
     let command: ICommandCreate = {
-      name: commandName,
-      locationId: 0,
-      city: ''
+      id: id,
+      name: name,
+      locationId: locationId,
+      city: city,
+      region: region
     }
     if(user){
-      if(user.personal && user.personal.city && user.personal.location){
-        command.locationId = Number(user.personal.location.id)
-        command.city = user.personal.city
-      }
-      else if(this.personalUserForm.value.city && this.personalUserForm.value.locationId){
-        command.locationId = Number( this.personalUserForm.value.locationId)
-        command.city = this.personalUserForm.value.city
-      }
-      else{
-        this.closeComandSelectModalStateValue()
-        this.toastService.showToast('Перед тем как создать команду обязательно заполните область и город','warning')
-      }
-      
+  
       Object.keys(command).forEach((key:any)=>{
         commandValidateState =  !!command[key as keyof typeof command]
       })
@@ -654,7 +674,7 @@ submitForm(){
           })
         ).subscribe((res: any)=>{
   
-          this.createCommandTemp = res.command
+          this.createCommandTemp = res.command // эта хрень становится icommand я в шоке 
           this.getAllComands()
         })
       }

@@ -26,7 +26,7 @@
                 <ion-label >Мои</ion-label>
               </div> -->
             </div>
-            <span class="label">Создайте свою или выберите из существующих</span>
+            <!-- <span class="label">Создайте свою или выберите из существующих</span> -->
         </div>
 
         <div class="group-modal-container">
@@ -35,7 +35,7 @@
               
               <app-standart-input-search 
                 [searchCommands]="true" 
-                label="Поиск по названию команд" 
+                label="Поиск команд по названию" 
                 [searchCurrentItems]="sortComands.length ? sortComands:commands" 
                 [searchItems]="sortComands.length ? sortComands:commands" 
                 (changeSearchValue)="setComands($event)">
@@ -43,7 +43,12 @@
 
             </div>
             <div class="race-groups__add-container">
-              <input placeholder = "Название команды" class="standart-input" type="text" [(ngModel)]="createComandName">
+              <app-standart-input label="Название" [control]="createComandForm.get('name')" placeholder="Введите название вашей команды"></app-standart-input>
+              <!-- <app-standart-input label="Регион" [control]="createComandForm.get('region')" placeholder="Введите регион вашей команды "></app-standart-input> -->
+              <app-standart-input (click)="openCreateRegionModal()" [readonly]="true" label="Область/край" [control]="createComandForm.get('region')" placeholder="Выберите область вашу область"></app-standart-input>          
+              <app-standart-input label="Город" [control]="createComandForm.get('city')" placeholder="Введите город вашей команды"></app-standart-input>
+
+              <!-- <input placeholder = "Название команды" class="standart-input" type="text" [(ngModel)]="createComandName"> -->
               <app-standart-button theme="light" style="width: 100%;" buttonText="Добавить команду" (click)="createComandFunction()"></app-standart-button>
             </div>
             <!-- <div class="race-groups__buttons">
@@ -66,6 +71,21 @@
         [searchItems]="regions" 
         (changeSearchValue)="setRegion($event)">
         </app-standart-input-search>
+      </div>
+    </ion-content>
+  </ng-template>  
+</ion-modal>
+
+<ion-modal class="create-comand-region-modal" (didDismiss)="closeCreateRegionModal()"  [isOpen]="createRegionModalState">
+  <ng-template>
+    <ion-content>
+      <div class="region-modal-container">
+        <app-standart-input-search 
+        label="Область/край" 
+        [searchCurrentItems]="createRegions"  
+        [searchItems]="createRegions" 
+        (changeSearchValue)="setCreateRegion($event)">
+      </app-standart-input-search>
       </div>
     </ion-content>
   </ng-template>  

@@ -61,6 +61,7 @@ export class EventsViewPageComponent  implements OnInit {
   comandSelectModalStateValue:boolean = false
 
   changePersonalDateModalValue:boolean = false
+  createRegionItems:any[] = []
   usersInRace:User[] = []
   event!:IEvent
   openUserModalValue:boolean = false
@@ -287,6 +288,7 @@ export class EventsViewPageComponent  implements OnInit {
 
    getRegions(){
     this.mapService.getAllRegions().pipe().subscribe((res:any)=>{
+      this.searchRegionItems.push({name:`Россия`,value:''})
       res.data.forEach((region:any) => {
         this.searchRegionItems.push({
           name:`${region.name} ${region.type}`,
@@ -296,12 +298,31 @@ export class EventsViewPageComponent  implements OnInit {
     })
   }
   getAllComands(){
-    this.commandService.getComands().pipe().subscribe((res:any)=>{
+    let loader:HTMLIonLoadingElement
+    this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+      loader = res
+     })
+    this.commandService.getComands().pipe(
+      finalize(()=>{
+        this.loaderService.hideLoading(loader)
+      })
+    ).subscribe((res:any)=>{
+      console.log(res);
+
       this.allComands = []
       this.allComands.push(
-          {id: '', name: 'Лично',}
+          {id: '', name: 'Лично', region: 'papilapup'}
       )
-      this.allComands.push(...res.commands) 
+    
+      if(this.createCommandTemp){
+        this.allComands.push(...res.commands.filter((command:ICommand)=> command.id == this.createCommandTemp.id))
+        this.allComands.push(...res.commands.filter((command:ICommand)=> command.id !== this.createCommandTemp.id))
+      }else{
+
+        this.allComands.push(...res.commands) 
+      }
+      
+    
      
     })
   }
@@ -597,31 +618,47 @@ export class EventsViewPageComponent  implements OnInit {
       this.regionModalState = true
     }
   
-    createNewComand(commandName: string){
+    createNewComand(formData: { id:number; name: string; city: string; locationId: number; region: string}){
+      
+      const id = formData.id;
+      const region = formData.region;
+      const name = formData.name;
+      const locationId = formData.locationId;
+      const city = formData.city;
+
+      if (!name || !city || !locationId) {
+        this.toastService.showToast('Заполните все поля перед созданием команды', 'warning');
+        return;
+      }
+  
       let loader:HTMLIonLoadingElement
       this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
        loader = res
       })
+
+
       let user: User|null = this.userService.user.value
       let commandValidateState: boolean = false
       let command: ICommandCreate = {
-        name: commandName,
-        locationId: 0,
-        city: ''
+        id: id,
+        name: name,
+        locationId: locationId,
+        city: city,
+        region: region
       }
       if(user){
-        if(user.personal && user.personal.city && user.personal.location){
-          command.locationId = Number(user.personal.location.id)
-          command.city = user.personal.city
-        }
-        else if(this.personalUserForm.value.city && this.personalUserForm.value.locationId){
-          command.locationId = Number( this.personalUserForm.value.locationId)
-          command.city = this.personalUserForm.value.city
-        }
-        else{
-          this.closeComandSelectModalStateValue()
-          this.toastService.showToast('Перед тем как создать команду обязательно заполните область и город','warning')
-        }
+        // if(user.personal && user.personal.city && user.personal.location){
+        //   command.locationId = Number(user.personal.location.id)
+        //   command.city = user.personal.city
+        // }
+        // else if(this.personalUserForm.value.city && this.personalUserForm.value.locationId){
+        //   command.locationId = Number( this.personalUserForm.value.locationId)
+        //   command.city = this.personalUserForm.value.city
+        // }
+        // else{
+        //   this.closeComandSelectModalStateValue()
+        //   this.toastService.showToast('Перед тем как создать команду обязательно заполните область и город','warning')
+        // }
         
         Object.keys(command).forEach((key:any)=>{
           commandValidateState =  !!command[key as keyof typeof command]
@@ -847,9 +884,21 @@ export class EventsViewPageComponent  implements OnInit {
     this.statusImagesModal = true
   }
 
+  getCreateRegions(){
+    this.mapService.getAllRegions().pipe().subscribe((res:any)=>{
+    
+      res.data.forEach((region:any) => {
+        this.createRegionItems.push({
+          name:`${region.name} ${region.type}`,
+          value:region.id
+        })
+      });
+    })
+  }
+
   ionViewWillEnter(){
     this.getRegions()
-    
+    this.getCreateRegions()
     this.route.params.pipe(takeUntil(this.destroy$)).pipe(
       finalize(()=>{
 })

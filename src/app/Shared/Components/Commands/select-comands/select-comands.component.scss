@@ -17,7 +17,7 @@
 
 .commands-grid{
     position: relative;
-    max-height: 30rem;
+    max-height: 25rem;
     overflow-y: auto;
     
     padding-left: var(--standart-padding);
@@ -242,6 +242,27 @@
     }
     .create-comand-modal-container{
         padding: 1rem;
+    }
+}
+
+.create-comand-region-modal{
+    --max-height:50%;
+    --width:90%;
+    --border-radius: 12px;
+    --overflow-y: hidden;
+    
+    ion-content{
+    --background: rgb(251 251 251);
+    
+        .region-modal-container{
+            padding: var(--standart-padding);
+            padding-top: 0px;
+            
+            app-standart-input-search {
+                --padding-top: 0rem;
+                --page-bg: rgb(251, 251, 251);
+            }
+        }
     }
 }
 
