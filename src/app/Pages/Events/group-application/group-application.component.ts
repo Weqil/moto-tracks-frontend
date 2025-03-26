@@ -266,7 +266,7 @@ export class GroupApplicationComponent implements OnInit {
     engine: new FormControl('', [Validators.required]),
     numberAndSeria: new FormControl('', [Validators.required]),
     comment: new FormControl(''),
-    gradeId: new FormControl('', [Validators.required]),
+    gradeId: new FormControl(''),
     locationId: new FormControl('', [Validators.required])
   });
 
@@ -379,6 +379,7 @@ export class GroupApplicationComponent implements OnInit {
       user.personal.moto_stamp,
       user.personal.engine,
       user.personal.number_and_seria,
+      user.personal.location?.id,
       user.personal.race_class
     ];
 
@@ -426,6 +427,13 @@ export class GroupApplicationComponent implements OnInit {
 
   openUserModal(user: User, event: Event) {
     event.stopPropagation();
+    
+    // Проверяем наличие класса
+    if (!user.personal?.race_class) {
+      this.toastService.showToast('Сначала необходимо выбрать класс для пользователя', 'danger');
+      return;
+    }
+    
     this.currentUser = user;
     this.isUserModalOpen = true;
     this.fillFormWithUserData(user);
@@ -501,7 +509,11 @@ export class GroupApplicationComponent implements OnInit {
             moto_stamp: this.personalUserForm.get('motoStamp')?.value || '',
             engine: this.personalUserForm.get('engine')?.value || '',
             number_and_seria: this.personalUserForm.get('numberAndSeria')?.value || '',
-            ranks: this.currentUser.personal.ranks || '',
+            command_id: this.selectedTeam?.id.toString() || '',
+            location: {
+              id: this.personalUserForm.get('locationId')?.value || '',
+              name: this.personalUserForm.get('region')?.value || ''
+            },
             race_class: this.personalUserForm.get('gradeId')?.value || ''
           }
         };
@@ -521,8 +533,6 @@ export class GroupApplicationComponent implements OnInit {
         this.toastService.showToast('Данные успешно сохранены', 'success');
       }
     } else {
-      console.log(this.currentUser)
-      console.log(this.currentUser?.personal)
       this.toastService.showToast('Пожалуйста, заполните все обязательные поля', 'danger');
     }
   }
@@ -572,13 +582,12 @@ export class GroupApplicationComponent implements OnInit {
         ).join(', ');
         
         this.toastService.showToast(
-          `Следующие пользователи не выбрали класс: ${userNames}`,
+          `Для отправки заявки необходимо выбрать класс для следующих пользователей: ${userNames}`,
           'danger'
         );
         return;
       }
 
-      console.log('Отправка заявки с пользователями:', this.selectedUsers);
       this.isPreviewModalOpen = true;
     }
   }
