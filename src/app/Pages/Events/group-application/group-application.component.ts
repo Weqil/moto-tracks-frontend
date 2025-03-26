@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { IonContent, IonCheckbox, IonButton, IonList, IonItem, IonLabel, IonIcon, IonModal } from "@ionic/angular/standalone";
 import { HeaderModule } from 'src/app/Shared/Modules/header/header.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -10,22 +10,24 @@ import { closeCircle, warning, pencil } from 'ionicons/icons';
 import { ButtonsModule } from 'src/app/Shared/Modules/buttons/buttons.module';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { StandartInputComponent } from 'src/app/Shared/Components/Forms/standart-input/standart-input.component';
-import { StandartInputSelectComponent } from 'src/app/Shared/Components/UI/Selecteds/standart-input-select/standart-input-select.component';
 import { LoadingService } from 'src/app/Shared/Services/loading.service';
 import { ToastService } from 'src/app/Shared/Services/toast.service';
 import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
 import { finalize } from 'rxjs';
 import { ICommand } from 'src/app/Shared/Data/Interfaces/command';
+import { userRoles } from 'src/app/Shared/Data/Enums/roles';
+import { StandartRichInputComponent } from 'src/app/Shared/Components/Forms/standart-rich-input/standart-rich-input.component';
+import { IonicModule } from '@ionic/angular';
+import { StandartInputSelectComponent } from 'src/app/Shared/Components/UI/Selecteds/standart-input-select/standart-input-select.component';
 
 @Component({
   selector: 'app-group-application',
   templateUrl: './group-application.component.html',
   styleUrls: ['./group-application.component.scss'],
+  standalone: true,
   imports: [
-    IonContent,
     CommonModule,
     HeaderModule,
-    IonCheckbox,
     FormsModule,
     UserSectionComponent,
     IonButton,
@@ -36,9 +38,11 @@ import { ICommand } from 'src/app/Shared/Data/Interfaces/command';
     ButtonsModule,
     ReactiveFormsModule,
     StandartInputComponent,
-    StandartInputSelectComponent,
-    IonModal
-  ]
+    IonModal,
+    StandartRichInputComponent,
+    StandartInputSelectComponent
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class GroupApplicationComponent implements OnInit {
   // Добавляем список классов
@@ -209,8 +213,47 @@ export class GroupApplicationComponent implements OnInit {
 
   selectedUsers: User[] = [];
   isUserModalOpen = false;
-  selectedUser: User | null = null;
   isPreviewModalOpen = false;
+  selectedUser: User | null = null;
+  currentUser: User | null = null;
+  comandSelectModalStateValue = false;
+  allComands: any[] = [];
+  searchRegionItems: any[] = [];
+  selectRegionInCommandModal: any = {};
+
+  sportRankItems: {name: string, value: string}[] = [
+    {name: 'МСМК', value: 'МСМК'},
+    {name: 'МС', value: 'МС'},
+    {name: 'КМС', value: 'КМС'},
+    {name: 'I', value: 'I'},
+    {name: 'II', value: 'II'},
+    {name: 'III', value: 'III'},
+    {name: 'Iю', value: 'Iю'},
+    {name: 'IIю', value: 'IIю'},
+    {name: 'IIIю', value: 'IIIю'},
+    {name: 'б/р', value: 'б/р'},
+  ];
+
+  motoStampItems: {name: string, value: string}[] = [
+    {name: 'Kaw', value: 'Kaw'},
+    {name: 'KTM', value: 'KTM'},
+    {name: 'Yam', value: 'Yam'},
+    {name: 'Gas-Gas', value: 'Gas-Gas'},
+    {name: 'Hon', value: 'Hon'},
+    {name: 'BSE', value: 'BSE'},
+    {name: 'Husq', value: 'Husq'},
+    {name: 'Kayo', value: 'Kayo'},
+    {name: 'Fantic', value: 'Fantic'},
+    {name: 'Урал', value: 'Урал'},
+    {name: 'Zabel', value: 'Zabel'},
+    {name: 'MTX', value: 'MTX'},
+    {name: 'TRIUMPH', value: 'TRIUMPH'},
+  ];
+
+  engineItems: {name: string, value: string}[] = [
+    {name: '2Т', value: '2Т'},
+    {name: '4Т', value: '4Т'},
+  ];
 
   formErrors: any = {
     name: { errorMessage: '' },
@@ -227,7 +270,14 @@ export class GroupApplicationComponent implements OnInit {
     rankNumber: { errorMessage: '' },
     motoStamp: { errorMessage: '' },
     engine: { errorMessage: '' },
-    numberAndSeria: { errorMessage: '' }
+    numberAndSeria: { errorMessage: '' },
+    commandId: { errorMessage: '' },
+    group: { errorMessage: '' },
+    gradeId: { errorMessage: '' },
+    community: { errorMessage: '' },
+    locationId: { errorMessage: '' },
+    coach: { errorMessage: '' },
+    comment: { errorMessage: '' }
   };
 
   personalUserForm: FormGroup = new FormGroup({
@@ -235,17 +285,24 @@ export class GroupApplicationComponent implements OnInit {
     surname: new FormControl('', [Validators.required]),
     patronymic: new FormControl('', [Validators.required]),
     dateOfBirth: new FormControl('', [Validators.required]),
-    city: new FormControl('', [Validators.required]),
     region: new FormControl('', [Validators.required]),
+    city: new FormControl('', [Validators.required]),
     inn: new FormControl('', [Validators.required]),
     snils: new FormControl('', [Validators.required]),
+    commandId: new FormControl('', [Validators.required]),
     phoneNumber: new FormControl('', [Validators.required]),
     startNumber: new FormControl('', [Validators.required]),
+    group: new FormControl('', [Validators.required]),
     rank: new FormControl('', [Validators.required]),
+    gradeId: new FormControl('', [Validators.required]),
     rankNumber: new FormControl('', [Validators.required]),
+    community: new FormControl('Лично', [Validators.required]),
+    locationId: new FormControl('', [Validators.required]),
+    coach: new FormControl('', [Validators.required]),
     motoStamp: new FormControl('', [Validators.required]),
     engine: new FormControl('', [Validators.required]),
-    numberAndSeria: new FormControl('', [Validators.required])
+    numberAndSeria: new FormControl('', [Validators.required]),
+    comment: new FormControl('', [Validators.required])
   });
 
   constructor(
@@ -325,15 +382,15 @@ export class GroupApplicationComponent implements OnInit {
 
   openUserModal(user: User, event: Event) {
     event.stopPropagation();
-    this.selectedUser = user;
+    this.currentUser = user;
     this.isUserModalOpen = true;
-    this.setFormValue(user);
+    this.fillFormWithUserData(user);
   }
 
   closeUserModal() {
     this.isUserModalOpen = false;
-    this.selectedUser = null;
-    this.personalUserForm.reset();
+    this.currentUser = null;
+    this.resetForms();
   }
 
   setFormValue(user: User) {
@@ -378,11 +435,11 @@ export class GroupApplicationComponent implements OnInit {
 
   saveUserData() {
     if (this.submitValidate()) {
-      if (this.selectedUser && this.selectedUser.personal) {
+      if (this.currentUser && this.currentUser.personal) {
         const updatedUser: User = {
-          ...this.selectedUser,
+          ...this.currentUser,
           personal: {
-            ...this.selectedUser.personal,
+            ...this.currentUser.personal,
             name: this.personalUserForm.get('name')?.value || '',
             surname: this.personalUserForm.get('surname')?.value || '',
             patronymic: this.personalUserForm.get('patronymic')?.value || '',
@@ -398,22 +455,22 @@ export class GroupApplicationComponent implements OnInit {
             moto_stamp: this.personalUserForm.get('motoStamp')?.value || '',
             engines: this.personalUserForm.get('engine')?.value || '',
             number_and_seria: this.personalUserForm.get('numberAndSeria')?.value || '',
-            command_id: this.selectedUser.personal.command_id,
-            ranks: this.selectedUser.personal.ranks || ''
+            command_id: this.currentUser.personal.command_id,
+            ranks: this.currentUser.personal.ranks || ''
           }
         };
 
         // Обновляем пользователя в локальном массиве
         this.users = this.users.map(user => 
-          user.id === this.selectedUser?.id ? updatedUser : user
+          user.id === this.currentUser?.id ? updatedUser : user
         );
 
         // Обновляем выбранного пользователя в массиве selectedUsers
         this.selectedUsers = this.selectedUsers.map(user => 
-          user.id === this.selectedUser?.id ? updatedUser : user
+          user.id === this.currentUser?.id ? updatedUser : user
         );
 
-        this.selectedUser = updatedUser;
+        this.currentUser = updatedUser;
         this.closeUserModal();
         this.toastService.showToast('Данные успешно сохранены', 'success');
       }
@@ -444,6 +501,7 @@ export class GroupApplicationComponent implements OnInit {
   // Обновляем метод submitApplication
   submitApplication() {
     if (this.validateAllUsers()) {
+      // Проверяем, что у всех выбранных пользователей указан класс
       const usersWithoutClass = this.selectedUsers.filter(user => !user.personal?.race_class);
       
       if (usersWithoutClass.length > 0) {
@@ -458,18 +516,9 @@ export class GroupApplicationComponent implements OnInit {
         return;
       }
 
+      console.log('Отправка заявки с пользователями:', this.selectedUsers);
       this.isPreviewModalOpen = true;
     }
-  }
-
-  closePreviewModal() {
-    this.isPreviewModalOpen = false;
-  }
-
-  confirmApplication() {
-    console.log('Отправка заявки с пользователями:', this.selectedUsers);
-    this.closePreviewModal();
-    // Здесь будет логика отправки заявки
   }
 
   // Обновляем метод для получения текущего класса пользователя
@@ -517,5 +566,89 @@ export class GroupApplicationComponent implements OnInit {
       name: team.name,
       value: team.id.toString()
     }));
+  }
+
+  fillFormWithUserData(user: User) {
+    if (user.personal) {
+      this.personalUserForm.patchValue({
+        name: user.personal.name,
+        surname: user.personal.surname,
+        patronymic: user.personal.patronymic,
+        dateOfBirth: user.personal.date_of_birth,
+        city: user.personal.city,
+        region: user.personal.location?.name || '',
+        inn: user.personal.inn,
+        snils: user.personal.snils,
+        phoneNumber: user.personal.phone_number,
+        startNumber: user.personal.start_number,
+        rank: user.personal.rank,
+        rankNumber: user.personal.rank_number,
+        motoStamp: user.personal.moto_stamp,
+        engine: user.personal.engines,
+        numberAndSeria: user.personal.number_and_seria
+      });
+    }
+  }
+
+  resetForms() {
+    this.personalUserForm.reset();
+  }
+
+  setRank(event: any) {
+    this.personalUserForm.patchValue({
+      rank: event.value
+    });
+  }
+
+  setMotoStamp(event: any) {
+    this.personalUserForm.patchValue({
+      motoStamp: event.value
+    });
+  }
+
+  setEngine(event: any) {
+    this.personalUserForm.patchValue({
+      engine: event.value
+    });
+  }
+
+  openComandSelectModalStateValue() {
+    this.comandSelectModalStateValue = true;
+  }
+
+  closeComandSelectModalStateValue() {
+    this.comandSelectModalStateValue = false;
+  }
+
+  setComand(event: any) {
+    this.personalUserForm.patchValue({
+      community: event.name
+    });
+    this.closeComandSelectModalStateValue();
+  }
+
+  createNewComand(event: any) {
+    // Логика создания новой команды
+  }
+
+  selectRegionInCommandModalFunction(event: any) {
+    this.selectRegionInCommandModal = event;
+  }
+
+  clearRegionInComandFilter() {
+    this.selectRegionInCommandModal = {};
+  }
+
+  showToastInfoFileUpload() {
+    // Показать уведомление о загрузке файла
+  }
+
+  closePreviewModal() {
+    this.isPreviewModalOpen = false;
+  }
+
+  confirmApplication() {
+    // Логика подтверждения заявки
+    this.closePreviewModal();
   }
 }
