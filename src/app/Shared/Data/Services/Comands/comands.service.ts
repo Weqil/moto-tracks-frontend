@@ -24,10 +24,14 @@ export class ComandsService {
   }
 
   getComands(params?: { userId?: number, checkMember?: boolean }) {
-    const queryParams = {
-      ...params,
-      checkMember: params?.userId ? 1 : 0
-    };
+    const queryParams: { [key: string]: number } = {};
+    const userId = this.userService.user.value?.id;
+    
+    if (userId) {
+      queryParams['userIdExists'] = userId;
+      queryParams['checkMember'] = 1;
+    }
+    
     return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/commands`, { params: queryParams });
   }
 
