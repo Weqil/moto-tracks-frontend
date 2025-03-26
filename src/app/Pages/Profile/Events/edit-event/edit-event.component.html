@@ -36,8 +36,11 @@
                       <div class="group-modal-header">
                         <div class="group-modal-header__select">
                           <h2>Классы гонки</h2>
-                          <div (click)="changeAllClassesState()" [ngClass]="{'rounded-classes__active':allClassesState, 'rounded-classes':!allClassesState}">
-                            Все классы
+                          <div class="toggle-container">
+                            <ion-label >Все</ion-label>
+                            <ion-toggle mode="ios" class="custom-toggle" (ionChange)="changeAllClassesState()" [ngClass]="{'rounded-classes__active':allClassesState, 'rounded-classes':!allClassesState}">
+                            </ion-toggle>
+                            <ion-label >Мои</ion-label>
                           </div>
                         </div>
                         <span class="label">Создайте свои или выберите из существующих</span>
@@ -77,6 +80,9 @@
               </ion-modal>   
           </div>
     
+          <div class="photo-slider">
+            <app-edit-slider (filesEmit)="getImages($event)" type="create"></app-edit-slider>
+          </div>
   
           <div class="description">
             <app-standart-rich-input [control]="createEventForm.get('desc')" label="Описание" placeholder="Введите описание вашего трека"></app-standart-rich-input>

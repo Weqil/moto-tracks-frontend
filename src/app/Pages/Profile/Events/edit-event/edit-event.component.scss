@@ -86,13 +86,48 @@ ion-modal{
     z-index: 100;
     background: var(--page-background);
     padding: var(--standart-padding);
-    bottom: 1rem;
+    bottom: 0rem;
 }
 .race-groups__buttons{
     display: flex;
     flex-direction: column;
     gap: 30px;
 }
+.toggle-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    .custom-toggle{
+        border-radius: 1rem;
+        padding: 0px;
+    }
+}
+
+ion-toggle {
+    --background: #ffffff; /* фон, когда выключен */
+    --handle-background: #3880FF; /* цвет ползунка */
+    --handle-border-radius: 50%;
+    --track-border-width: 0px;
+    --track-border-color: #3880FF;
+  }
+  
+  ion-toggle::part(track) {
+    background-color: var(--background);
+    height: 2rem;
+    border-color: var(--track-border-color);
+    border-style: solid;
+  }
+  
+  ion-toggle::part(handle) {
+    background-color: var(--handle-background);
+    border-width: var(--track-border-width);
+    border-style: solid;
+    border-color: var(--track-border-color);
+    box-sizing: border-box;
+    
+  }
+  
 .rounded-classes{
     background: var(--white-color);
     display: inline;
