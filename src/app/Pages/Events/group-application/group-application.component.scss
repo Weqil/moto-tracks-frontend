@@ -267,6 +267,7 @@
 .modal-buttons {
   display: flex;
   justify-content: center;
+  flex-direction: column;
   gap: var(--standart-padding);
   margin-top: var(--standart-padding);
   app-standart-button {

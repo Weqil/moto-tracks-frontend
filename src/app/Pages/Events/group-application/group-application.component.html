@@ -59,7 +59,7 @@
               [items]="raceClassesForSelect"
               [selectedItem]="{ name: getUserClass(user), value: getUserClass(user) }"
               [selectedName]="'class-select-' + user.id"
-              (onChange)="onClassSelect(user, $event.name)"
+              (onChange)="onClassSelect(user, $event.value)"
             ></app-standart-input-select>
           </div>
         </div>
@@ -119,7 +119,7 @@
           <app-standart-rich-input [inputStatus]="true" [control]="personalUserForm.get('comment')" label="Комментарий" placeholder="Оставьте комментарий"></app-standart-rich-input>
 
           <div class="modal-buttons">
-            <app-standart-button (click)="closeUserModal()" buttonText="Отмена" buttonStyle="secondary"></app-standart-button>
+            <app-standart-button (click)="closeUserModal()" buttonText="Отмена" theme="light" buttonStyle="secondary"></app-standart-button>
             <app-standart-button (click)="saveUserData()" buttonText="Сохранить"></app-standart-button>
           </div>
         </form>

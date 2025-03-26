@@ -377,8 +377,9 @@ export class GroupApplicationComponent implements OnInit {
       user.personal.start_number,
       user.personal.rank,
       user.personal.moto_stamp,
-      user.personal.engines,
-      user.personal.number_and_seria
+      user.personal.engine,
+      user.personal.number_and_seria,
+      user.personal.race_class
     ];
 
     return requiredFields.some(field => !field || field === '');
@@ -437,17 +438,14 @@ export class GroupApplicationComponent implements OnInit {
   }
 
   fillFormWithUserData(user: UserWithTeam) {
-    console.log('Filling form with user data:', user);
     if (user.personal) {
-      console.log('User personal data:', user.personal);
-      console.log('Engine value:', user.personal.engine);
       this.personalUserForm.patchValue({
         name: user.personal.name,
         surname: user.personal.surname,
         patronymic: user.personal.patronymic,
         dateOfBirth: user.personal.date_of_birth,
         city: user.personal.city,
-        region: user.personal.location?.name || '',
+        region: user.personal.region || '',
         inn: user.personal.inn,
         snils: user.personal.snils,
         phoneNumber: user.personal.phone_number,
@@ -460,7 +458,6 @@ export class GroupApplicationComponent implements OnInit {
         gradeId: user.personal.race_class || '',
         locationId: user.personal.location?.id || ''
       });
-      console.log('Form values after patch:', this.personalUserForm.value);
     }
   }
 
@@ -502,10 +499,10 @@ export class GroupApplicationComponent implements OnInit {
             rank: this.personalUserForm.get('rank')?.value || '',
             rank_number: this.personalUserForm.get('rankNumber')?.value || '',
             moto_stamp: this.personalUserForm.get('motoStamp')?.value || '',
-            engines: this.personalUserForm.get('engine')?.value || '',
+            engine: this.personalUserForm.get('engine')?.value || '',
             number_and_seria: this.personalUserForm.get('numberAndSeria')?.value || '',
-            command_id: this.currentUser.personal.command_id,
-            ranks: this.currentUser.personal.ranks || ''
+            ranks: this.currentUser.personal.ranks || '',
+            race_class: this.personalUserForm.get('gradeId')?.value || ''
           }
         };
 
@@ -524,6 +521,8 @@ export class GroupApplicationComponent implements OnInit {
         this.toastService.showToast('Данные успешно сохранены', 'success');
       }
     } else {
+      console.log(this.currentUser)
+      console.log(this.currentUser?.personal)
       this.toastService.showToast('Пожалуйста, заполните все обязательные поля', 'danger');
     }
   }
@@ -586,18 +585,20 @@ export class GroupApplicationComponent implements OnInit {
 
   // Обновляем метод для получения текущего класса пользователя
   getUserClass(user: User): string {
-    if (!user.personal?.race_class) return '';
-    return user.personal.race_class;
+    return user.personal?.race_class || '';
   }
 
   // Обновляем метод для обработки выбора класса
   onClassSelect(user: User, gradeId: string) {
     if (user.personal) {
+      console.log(gradeId)
       const selectedGrade = this.eventGrades.find(grade => grade.id.toString() === gradeId);
+      console.log(selectedGrade)
       if (selectedGrade) {
         // Обновляем пользователя в массиве users
         this.users = this.users.map(u => {
           if (u.id === user.id && u.personal) {
+            console.log(selectedGrade)
             return {
               ...u,
               personal: {
