@@ -55,14 +55,13 @@
         </div>
         <div class="class-selector-wrapper" (click)="$event.stopPropagation()">
           <div class="class-selector">
-            <!-- <app-standart-input-select
+            <app-standart-input-select
               [label]="'Класс'"
-              [items]="raceClasses"
-              [selectedItem]="user.raceClass"
-              (onSelect)="setRaceClass(user, $event)"
-              [selectedName]="'classSelect_' + user.id"
-              [placeholder]="'Выберите класс'"
-            ></app-standart-input-select> -->
+              [items]="raceClassesForSelect"
+              [selectedItem]="{ name: getUserClass(user), value: getUserClass(user) }"
+              [selectedName]="'class-' + user.id"
+              (onChange)="onClassSelect(user, $event.name)"
+            ></app-standart-input-select>
           </div>
         </div>
       </div>

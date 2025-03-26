@@ -79,11 +79,29 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-
+  
   @media (min-width: 768px) {
     flex-direction: row;
     align-items: center;
   }
+}
+
+.user-name {
+  font-weight: 500;
+  color: var(--dark-grey-color);
+}
+
+.user-details {
+  display: flex;
+  gap: 12px;
+  color: var(--gray);
+  font-size: 0.9rem;
+}
+
+.user-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--standart-padding);
 }
 
 .class-selector-wrapper {
@@ -131,12 +149,6 @@
       color: var(--gray);
     }
   }
-}
-
-.user-actions {
-  display: flex;
-  align-items: center;
-  gap: var(--standart-padding);
 }
 
 .edit-icon {
