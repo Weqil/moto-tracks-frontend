@@ -59,7 +59,7 @@
               [label]="'Класс'"
               [items]="raceClassesForSelect"
               [selectedItem]="{ name: getUserClass(user), value: getUserClass(user) }"
-              [selectedName]="'class-' + user.id"
+              [selectedName]="'class-select-' + user.id"
               (onChange)="onClassSelect(user, $event.name)"
             ></app-standart-input-select>
           </div>
