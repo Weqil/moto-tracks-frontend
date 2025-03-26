@@ -7,11 +7,19 @@
       <div class="track-section__info">
         <h2 class="track-section__name">{{command.name}}</h2>
         <div class="track-section__address">
-          {{command.location?.name}} {{command.location?.type}}
+          {{command.location?.name}} {{command.location?.type}} {{command.members_exists}}
         </div>
       </div>
     </div>
     
+    <ion-button 
+      *ngIf="currentUserId"
+      [color]="command.members_exists ? 'danger' : 'primary'"
+      (click)="onToggleMembership($event)"
+      class="track-section__button"
+    >
+      {{ command.members_exists ? 'Покинуть команду' : 'Вступить в команду' }}
+    </ion-button>
   </article>
 </ng-container>
 
