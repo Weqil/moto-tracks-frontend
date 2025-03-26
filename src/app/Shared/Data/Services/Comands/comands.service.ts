@@ -51,8 +51,12 @@ export class ComandsService {
     return this.http.get<{ command: ICommand }>(`${this.apiUrl}/commands/${id}`, { params: queryParams });
   }
 
-  getMembersForUsers(commandId: number): Observable<{ members: User[] }> {
-    return this.http.get<{ members: User[] }>(`${this.apiUrl}/commands/${commandId}/members`);
+  getMembersForUsers(commandId: number) {
+    return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/commands/${commandId}/members`);
+  }
+
+  getMembersForCoach(commandId: number) {
+    return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/commands/${commandId}/members-for-coach`);
   }
 
   getCoachesForUsers() {}

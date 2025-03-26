@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA, inject } from '@angular/core';
 import { IonContent, IonCheckbox, IonButton, IonList, IonItem, IonLabel, IonIcon, IonModal } from "@ionic/angular/standalone";
 import { HeaderModule } from 'src/app/Shared/Modules/header/header.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -16,9 +16,19 @@ import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
 import { finalize } from 'rxjs';
 import { ICommand } from 'src/app/Shared/Data/Interfaces/command';
 import { userRoles } from 'src/app/Shared/Data/Enums/roles';
+import { MapService } from 'src/app/Shared/Data/Services/Map/map.service';
 import { StandartRichInputComponent } from 'src/app/Shared/Components/Forms/standart-rich-input/standart-rich-input.component';
 import { IonicModule } from '@ionic/angular';
 import { StandartInputSelectComponent } from 'src/app/Shared/Components/UI/Selecteds/standart-input-select/standart-input-select.component';
+import { ComandsService } from 'src/app/Shared/Data/Services/Comands/comands.service';
+import { EventService } from 'src/app/Shared/Data/Services/Event/event.service';
+import { ActivatedRoute } from '@angular/router';
+import { StandartInputSearchComponent } from 'src/app/Shared/Components/Forms/standart-input-search/standart-input-search.component';
+
+// Добавляем интерфейс для хранения информации о пользователе и его команде
+interface UserWithTeam extends User {
+  teamId?: number;
+}
 
 @Component({
   selector: 'app-group-application',
@@ -40,187 +50,25 @@ import { StandartInputSelectComponent } from 'src/app/Shared/Components/UI/Selec
     StandartInputComponent,
     IonModal,
     StandartRichInputComponent,
-    StandartInputSelectComponent
+    StandartInputSelectComponent,
+    StandartInputSearchComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class GroupApplicationComponent implements OnInit {
-  // Добавляем список классов
-  raceClasses = [
-    { id: 1, name: 'Класс 1 - Мотоциклы до 250 куб.см' },
-    { id: 2, name: 'Класс 2 - Мотоциклы до 450 куб.см' },
-    { id: 3, name: 'Класс 3 - Мотоциклы до 650 куб.см' },
-    { id: 4, name: 'Класс 4 - Мотоциклы свыше 650 куб.см' },
-    { id: 5, name: 'Класс 5 - Эндуро' },
-    { id: 6, name: 'Класс 6 - Квадроциклы' }
-  ];
-
-  // Добавляем список команд
-  teams: ICommand[] = [
-    {
-      id: 1,
-      name: 'МотоСпорт',
-      full_name: 'МотоСпорт Клуб',
-      location: {
-        id: 1,
-        name: 'Москва',
-        type: 'город'
-      },
-      avatar: '/assets/icons/team-bg.png',
-      city: 'Москва'
-    },
-    {
-      id: 2,
-      name: 'Скорость',
-      full_name: 'МотоКлуб Скорость',
-      location: {
-        id: 2,
-        name: 'Санкт-Петербург',
-        type: 'город'
-      },
-      avatar: '/assets/icons/team-bg.png',
-      city: 'Санкт-Петербург'
-    },
-    {
-      id: 3,
-      name: 'Адреналин',
-      full_name: 'МотоКлуб Адреналин',
-      location: {
-        id: 3,
-        name: 'Казань',
-        type: 'город'
-      },
-      avatar: '/assets/icons/team-bg.png',
-      city: 'Казань'
-    }
-  ];
-
-  selectedTeam: ICommand | null = null;
-
-  users: User[] = [
-    {
-      id: 1,
-      name: 'Иван',
-      surname: 'Петров',
-      email: 'ivan@example.com',
-      email_verified_at: null,
-      avatar: null,
-      city: 'Москва',
-      rank: 'КМС',
-      roles: [{ id: 1, name: 'rider' }],
-      personal: {
-        name: 'Иван',
-        surname: 'Петров',
-        patronymic: 'Иванович',
-        date_of_birth: '1990-01-01',
-        city: 'Москва',
-        inn: '1234567890',
-        command_id: '1',
-        snils: 12345678901,
-        phone_number: '+79001234567',
-        start_number: '123',
-        group: 'A',
-        ranks: 'КМС',
-        command: this.teams[0],
-        rank: 'КМС',
-        rank_number: '123',
-        community: 'МотоСпорт',
-        location: {
-          id: '1',
-          name: 'Москва'
-        },
-        coach: 'Тренер 1',
-        moto_stamp: 'Honda',
-        engines: '250cc',
-        number_and_seria: '123456'
-      }
-    },
-    {
-      id: 2,
-      name: 'Анна',
-      surname: 'Сидорова',
-      email: 'anna@example.com',
-      email_verified_at: null,
-      avatar: null,
-      city: 'Санкт-Петербург',
-      rank: 'МС',
-      roles: [{ id: 1, name: 'rider' }],
-      personal: {
-        name: 'Анна',
-        surname: 'Сидорова',
-        patronymic: 'Андреевна',
-        date_of_birth: '1992-05-15',
-        city: 'Санкт-Петербург',
-        inn: '0987654321',
-        command_id: '2',
-        snils: 98765432109,
-        phone_number: '+79009876543',
-        start_number: '456',
-        group: 'B',
-        ranks: 'МС',
-        command: this.teams[1],
-        rank: 'МС',
-        rank_number: '456',
-        community: 'Скорость',
-        location: {
-          id: '2',
-          name: 'Санкт-Петербург'
-        },
-        coach: 'Тренер 2',
-        moto_stamp: 'Yamaha',
-        engines: '450cc',
-        number_and_seria: '654321'
-      }
-    },
-    {
-      id: 3,
-      name: 'Дмитрий',
-      surname: 'Козлов',
-      email: 'dmitry@example.com',
-      email_verified_at: null,
-      avatar: null,
-      city: 'Казань',
-      rank: 'КМС',
-      roles: [{ id: 1, name: 'rider' }],
-      personal: {
-        name: 'Дмитрий',
-        surname: 'Козлов',
-        patronymic: 'Сергеевич',
-        date_of_birth: '1988-08-20',
-        city: 'Казань',
-        inn: '1122334455',
-        command_id: '3',
-        snils: 11223344556,
-        phone_number: '+79001122334',
-        start_number: '789',
-        group: 'A',
-        ranks: 'КМС',
-        command: this.teams[2],
-        rank: 'КМС',
-        rank_number: '789',
-        community: 'Адреналин',
-        location: {
-          id: '3',
-          name: 'Казань'
-        },
-        coach: 'Тренер 3',
-        moto_stamp: 'KTM',
-        engines: '350cc',
-        number_and_seria: '789012'
-      }
-    }
-  ];
-
+  // Обновляем тип массива пользователей
+  users: UserWithTeam[] = [];
   selectedUsers: User[] = [];
+  teams: ICommand[] = [];
+  
   isUserModalOpen = false;
   isPreviewModalOpen = false;
+  mapService:MapService = inject(MapService)
   selectedUser: User | null = null;
   currentUser: User | null = null;
-  comandSelectModalStateValue = false;
-  allComands: any[] = [];
+  regionModalState = false;
   searchRegionItems: any[] = [];
-  selectRegionInCommandModal: any = {};
-
+  
   sportRankItems: {name: string, value: string}[] = [
     {name: 'МСМК', value: 'МСМК'},
     {name: 'МС', value: 'МС'},
@@ -251,9 +99,128 @@ export class GroupApplicationComponent implements OnInit {
   ];
 
   engineItems: {name: string, value: string}[] = [
-    {name: '2Т', value: '2Т'},
     {name: '4Т', value: '4Т'},
+    {name: '2Т', value: '2Т'}
   ];
+
+  // Добавляем регионы
+  regions = [
+    { id: 1, name: 'Адыгея республика', type: 'республика' },
+    { id: 2, name: 'Алтай республика', type: 'республика' },
+    { id: 3, name: 'Башкортостан республика', type: 'республика' },
+    { id: 4, name: 'Бурятия республика', type: 'республика' },
+    { id: 5, name: 'Дагестан республика', type: 'республика' },
+    { id: 6, name: 'Ингушетия республика', type: 'республика' },
+    { id: 7, name: 'Кабардино-Балкарская республика', type: 'республика' },
+    { id: 8, name: 'Калмыкия республика', type: 'республика' },
+    { id: 9, name: 'Карачаево-Черкесская республика', type: 'республика' },
+    { id: 10, name: 'Карелия республика', type: 'республика' },
+    { id: 11, name: 'Коми республика', type: 'республика' },
+    { id: 12, name: 'Марий Эл республика', type: 'республика' },
+    { id: 13, name: 'Мордовия республика', type: 'республика' },
+    { id: 14, name: 'Саха (Якутия) республика', type: 'республика' },
+    { id: 15, name: 'Северная Осетия - Алания республика', type: 'республика' },
+    { id: 16, name: 'Татарстан республика', type: 'республика' },
+    { id: 17, name: 'Тыва республика', type: 'республика' },
+    { id: 18, name: 'Удмуртская республика', type: 'республика' },
+    { id: 19, name: 'Хакасия республика', type: 'республика' },
+    { id: 20, name: 'Чеченская республика', type: 'республика' },
+    { id: 21, name: 'Чувашская республика', type: 'республика' },
+    { id: 22, name: 'Алтайский край', type: 'край' },
+    { id: 23, name: 'Забайкальский край', type: 'край' },
+    { id: 24, name: 'Камчатский край', type: 'край' },
+    { id: 25, name: 'Краснодарский край', type: 'край' },
+    { id: 26, name: 'Красноярский край', type: 'край' },
+    { id: 27, name: 'Пермский край', type: 'край' },
+    { id: 28, name: 'Приморский край', type: 'край' },
+    { id: 29, name: 'Ставропольский край', type: 'край' },
+    { id: 30, name: 'Хабаровский край', type: 'край' },
+    { id: 31, name: 'Амурская область', type: 'область' },
+    { id: 32, name: 'Архангельская область', type: 'область' },
+    { id: 33, name: 'Астраханская область', type: 'область' },
+    { id: 34, name: 'Белгородская область', type: 'область' },
+    { id: 35, name: 'Брянская область', type: 'область' },
+    { id: 36, name: 'Владимирская область', type: 'область' },
+    { id: 37, name: 'Волгоградская область', type: 'область' },
+    { id: 38, name: 'Вологодская область', type: 'область' },
+    { id: 39, name: 'Воронежская область', type: 'область' },
+    { id: 40, name: 'Ивановская область', type: 'область' },
+    { id: 41, name: 'Иркутская область', type: 'область' },
+    { id: 42, name: 'Калининградская область', type: 'область' },
+    { id: 43, name: 'Калужская область', type: 'область' },
+    { id: 44, name: 'Кемеровская область', type: 'область' },
+    { id: 45, name: 'Кировская область', type: 'область' },
+    { id: 46, name: 'Костромская область', type: 'область' },
+    { id: 47, name: 'Курганская область', type: 'область' },
+    { id: 48, name: 'Курская область', type: 'область' },
+    { id: 49, name: 'Ленинградская область', type: 'область' },
+    { id: 50, name: 'Липецкая область', type: 'область' },
+    { id: 51, name: 'Магаданская область', type: 'область' },
+    { id: 52, name: 'Московская область', type: 'область' },
+    { id: 53, name: 'Мурманская область', type: 'область' },
+    { id: 54, name: 'Нижегородская область', type: 'область' },
+    { id: 55, name: 'Новгородская область', type: 'область' },
+    { id: 56, name: 'Новосибирская область', type: 'область' },
+    { id: 57, name: 'Омская область', type: 'область' },
+    { id: 58, name: 'Оренбургская область', type: 'область' },
+    { id: 59, name: 'Орловская область', type: 'область' },
+    { id: 60, name: 'Пензенская область', type: 'область' },
+    { id: 61, name: 'Псковская область', type: 'область' },
+    { id: 62, name: 'Ростовская область', type: 'область' },
+    { id: 63, name: 'Рязанская область', type: 'область' },
+    { id: 64, name: 'Самарская область', type: 'область' },
+    { id: 65, name: 'Саратовская область', type: 'область' },
+    { id: 66, name: 'Сахалинская область', type: 'область' },
+    { id: 67, name: 'Свердловская область', type: 'область' },
+    { id: 68, name: 'Смоленская область', type: 'область' },
+    { id: 69, name: 'Тамбовская область', type: 'область' },
+    { id: 70, name: 'Тверская область', type: 'область' },
+    { id: 71, name: 'Томская область', type: 'область' },
+    { id: 72, name: 'Тульская область', type: 'область' },
+    { id: 73, name: 'Тюменская область', type: 'область' },
+    { id: 74, name: 'Ульяновская область', type: 'область' },
+    { id: 75, name: 'Челябинская область', type: 'область' },
+    { id: 76, name: 'Ярославская область', type: 'область' },
+    { id: 77, name: 'Москва', type: 'город' },
+    { id: 78, name: 'Санкт-Петербург', type: 'город' },
+    { id: 79, name: 'Севастополь', type: 'город' },
+    { id: 80, name: 'Еврейская автономная область', type: 'автономная область' },
+    { id: 81, name: 'Ненецкий автономный округ', type: 'автономный округ' },
+    { id: 82, name: 'Ханты-Мансийский автономный округ - Югра', type: 'автономный округ' },
+    { id: 83, name: 'Чукотский автономный округ', type: 'автономный округ' },
+    { id: 84, name: 'Ямало-Ненецкий автономный округ', type: 'автономный округ' }
+  ];
+
+  // Добавляем переменные для модального окна региона
+  selectedRegion: any = null;
+  searchRegion = '';
+
+  // Добавляем геттер для отфильтрованных регионов
+  get filteredRegions() {
+    if (!this.searchRegion) return this.regions;
+    return this.regions.filter(region => 
+      region.name.toLowerCase().includes(this.searchRegion.toLowerCase())
+    );
+  }
+
+  // Добавляем методы для работы с модальным окном региона
+  openRegionModal() {
+    console.log('Opening region modal');
+    this.regionModalState = true;
+  }
+
+  closeRegionModal() {
+    console.log('Closing region modal');
+    this.regionModalState = false;
+  }
+
+  setRegion(region: any) {
+    this.personalUserForm.patchValue({
+      region: region.name,
+      locationId: region.value
+    });
+    this.closeRegionModal();
+  }
 
   formErrors: any = {
     name: { errorMessage: '' },
@@ -271,14 +238,16 @@ export class GroupApplicationComponent implements OnInit {
     motoStamp: { errorMessage: '' },
     engine: { errorMessage: '' },
     numberAndSeria: { errorMessage: '' },
-    commandId: { errorMessage: '' },
-    group: { errorMessage: '' },
     gradeId: { errorMessage: '' },
-    community: { errorMessage: '' },
-    locationId: { errorMessage: '' },
-    coach: { errorMessage: '' },
     comment: { errorMessage: '' }
   };
+
+  eventService: EventService = inject(EventService);
+  currentEvent: any = null;
+  eventGrades: any[] = [];
+
+  // Добавляем свойство для выбранной команды
+  selectedTeam: ICommand | null = null;
 
   personalUserForm: FormGroup = new FormGroup({
     name: new FormControl('', [Validators.required]),
@@ -289,37 +258,111 @@ export class GroupApplicationComponent implements OnInit {
     city: new FormControl('', [Validators.required]),
     inn: new FormControl('', [Validators.required]),
     snils: new FormControl('', [Validators.required]),
-    commandId: new FormControl('', [Validators.required]),
     phoneNumber: new FormControl('', [Validators.required]),
     startNumber: new FormControl('', [Validators.required]),
-    group: new FormControl('', [Validators.required]),
     rank: new FormControl('', [Validators.required]),
-    gradeId: new FormControl('', [Validators.required]),
-    rankNumber: new FormControl('', [Validators.required]),
-    community: new FormControl('Лично', [Validators.required]),
-    locationId: new FormControl('', [Validators.required]),
-    coach: new FormControl('', [Validators.required]),
+    rankNumber: new FormControl(''),
     motoStamp: new FormControl('', [Validators.required]),
     engine: new FormControl('', [Validators.required]),
     numberAndSeria: new FormControl('', [Validators.required]),
-    comment: new FormControl('', [Validators.required])
+    comment: new FormControl(''),
+    gradeId: new FormControl('', [Validators.required]),
+    locationId: new FormControl('', [Validators.required])
   });
+
+  commandService: ComandsService = inject(ComandsService);
 
   constructor(
     private userService: UserService,
     private loadingService: LoadingService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private route: ActivatedRoute
   ) {
     addIcons({ closeCircle, warning, pencil });
   }
 
-  ngOnInit() {}
+  ionViewWillEnter() {
+    // Получаем ID гонки из параметров маршрута
+    const eventId = this.route.snapshot.params['id'];
+    if (eventId) {
+      this.loadingService.showLoading().then(loader => {
+        this.eventService.getEventById(eventId).pipe(
+          finalize(() => this.loadingService.hideLoading(loader))
+        ).subscribe({
+          next: (response: any) => {
+            this.currentEvent = response.race;
+            this.eventGrades = response.race.grades || [];
+            // Получаем команды пользователя
+            this.getUserTeams();
+          },
+          error: (error) => {
+            console.error('Ошибка при получении гонки:', error);
+            this.toastService.showToast('Ошибка при получении данных гонки', 'danger');
+          }
+        });
+      });
+    }
+  }
 
+  private getUserTeams() {
+    const currentUser = this.userService.user.value;
+    if (currentUser?.id) {
+      this.loadingService.showLoading().then(loader => {
+        this.commandService.getComands({ownerId:currentUser?.id}).pipe(
+          finalize(() => this.loadingService.hideLoading(loader))
+        ).subscribe({
+          next: (response: any) => {
+            this.teams = response.commands;
+            // Получаем пользователей для каждой команды
+            this.teams.forEach(team => {
+              this.loadingService.showLoading().then(usersLoader => {
+                this.commandService.getMembersForCoach(team.id).pipe(
+                  finalize(() => this.loadingService.hideLoading(usersLoader))
+                ).subscribe({
+                  next: (usersResponse: any) => {
+                    // Добавляем пользователей в общий массив с информацией о команде
+                    const usersWithTeam = usersResponse.members.map((user: User) => ({
+                      ...user,
+                      teamId: team.id
+                    }));
+                    this.users = [...this.users, ...usersWithTeam];
+                  },
+                  error: (error) => {
+                    console.error(`Ошибка при получении пользователей для команды ${team.id}:`, error);
+                    this.toastService.showToast('Ошибка при получении пользователей команды', 'danger');
+                  }
+                });
+              });
+            });
+          },
+          error: (error) => {
+            console.error('Ошибка при получении команд пользователя:', error);
+            this.toastService.showToast('Ошибка при получении команд', 'danger');
+          }
+        });
+      });
+    }
+  }
+
+  ngOnInit() {
+    this.getRegions()
+  }
+
+  // Обновляем метод для фильтрации пользователей по команде
+  getFilteredUsers(): UserWithTeam[] {
+    if (!this.selectedTeam) {
+      return this.users;
+    }
+    return this.users.filter(user => user.teamId === this.selectedTeam?.id);
+  }
+
+  // Обновляем метод для проверки выбранных пользователей
   hasSelectedUsers(): boolean {
     return this.selectedUsers.length > 0;
   }
 
-  hasIncompleteData(user: User): boolean {
+  // Обновляем метод для проверки неполных данных
+  hasIncompleteData(user: UserWithTeam): boolean {
     if (!user.personal) return true;
     
     const requiredFields = [
@@ -333,11 +376,9 @@ export class GroupApplicationComponent implements OnInit {
       user.personal.phone_number,
       user.personal.start_number,
       user.personal.rank,
-      user.personal.rank_number,
       user.personal.moto_stamp,
       user.personal.engines,
-      user.personal.number_and_seria,
-      user.personal.race_class
+      user.personal.number_and_seria
     ];
 
     return requiredFields.some(field => !field || field === '');
@@ -347,24 +388,26 @@ export class GroupApplicationComponent implements OnInit {
     if (!user.personal) return ['Все поля'];
     
     const fields = [
-      { name: 'Имя', value: user.personal.name },
-      { name: 'Фамилия', value: user.personal.surname },
-      { name: 'Отчество', value: user.personal.patronymic },
-      { name: 'Дата рождения', value: user.personal.date_of_birth },
-      { name: 'Город', value: user.personal.city },
-      { name: 'ИНН', value: user.personal.inn },
-      { name: 'СНИЛС', value: user.personal.snils },
-      { name: 'Телефон', value: user.personal.phone_number },
-      { name: 'Стартовый номер', value: user.personal.start_number },
-      { name: 'Разряд', value: user.personal.rank },
-      { name: 'Номер удостоверения', value: user.personal.rank_number },
-      { name: 'Марка мотоцикла', value: user.personal.moto_stamp },
-      { name: 'Двигатель', value: user.personal.engines },
-      { name: 'Паспорт', value: user.personal.number_and_seria },
-      { name: 'Класс', value: user.personal.race_class }
+      { name: 'Имя', value: user.personal.name, required: true },
+      { name: 'Фамилия', value: user.personal.surname, required: true },
+      { name: 'Отчество', value: user.personal.patronymic, required: true },
+      { name: 'Дата рождения', value: user.personal.date_of_birth, required: true },
+      { name: 'Город', value: user.personal.city, required: true },
+      { name: 'ИНН', value: user.personal.inn, required: true },
+      { name: 'СНИЛС', value: user.personal.snils, required: true },
+      { name: 'Телефон', value: user.personal.phone_number, required: true },
+      { name: 'Стартовый номер', value: user.personal.start_number, required: true },
+      { name: 'Разряд', value: user.personal.rank, required: true },
+      { name: 'Номер удостоверения', value: user.personal.rank_number, required: false },
+      { name: 'Марка мотоцикла', value: user.personal.moto_stamp, required: true },
+      { name: 'Двигатель', value: user.personal.engine, required: true },
+      { name: 'Паспорт', value: user.personal.number_and_seria, required: true },
+      { name: 'Класс', value: user.personal.race_class, required: true }
     ];
 
-    return fields.filter(field => !field.value || field.value === '').map(field => field.name);
+    return fields
+      .filter(field => field.required && (!field.value || field.value === ''))
+      .map(field => field.name);
   }
 
   onUserSelect(user: User, isSelected: boolean, event: Event) {
@@ -393,8 +436,11 @@ export class GroupApplicationComponent implements OnInit {
     this.resetForms();
   }
 
-  setFormValue(user: User) {
+  fillFormWithUserData(user: UserWithTeam) {
+    console.log('Filling form with user data:', user);
     if (user.personal) {
+      console.log('User personal data:', user.personal);
+      console.log('Engine value:', user.personal.engine);
       this.personalUserForm.patchValue({
         name: user.personal.name,
         surname: user.personal.surname,
@@ -409,9 +455,12 @@ export class GroupApplicationComponent implements OnInit {
         rank: user.personal.rank,
         rankNumber: user.personal.rank_number,
         motoStamp: user.personal.moto_stamp,
-        engine: user.personal.engines,
-        numberAndSeria: user.personal.number_and_seria
+        engine: user.personal.engine,
+        numberAndSeria: user.personal.number_and_seria,
+        gradeId: user.personal.race_class || '',
+        locationId: user.personal.location?.id || ''
       });
+      console.log('Form values after patch:', this.personalUserForm.value);
     }
   }
 
@@ -498,6 +547,20 @@ export class GroupApplicationComponent implements OnInit {
     return true;
   }
 
+  getRegions() {
+    this.mapService.getAllRegions().subscribe({
+      next: (response: any) => {
+        this.searchRegionItems = response.data.map((region: any) => ({
+          name: `${region.name} ${region.type}`,
+          value: region.id
+        }));
+      },
+      error: (error: any) => {
+        console.error('Error fetching regions:', error);
+      }
+    });
+  }
+
   // Обновляем метод submitApplication
   submitApplication() {
     if (this.validateAllUsers()) {
@@ -528,37 +591,47 @@ export class GroupApplicationComponent implements OnInit {
   }
 
   // Обновляем метод для обработки выбора класса
-  onClassSelect(user: User, className: string) {
+  onClassSelect(user: User, gradeId: string) {
     if (user.personal) {
-      user.personal.race_class = className;
-      // Обновляем пользователя в массиве selectedUsers, если он там есть
-      if (this.isUserSelected(user)) {
-        this.selectedUsers = this.selectedUsers.map(u => 
-          u.id === user.id ? user : u
-        );
+      const selectedGrade = this.eventGrades.find(grade => grade.id.toString() === gradeId);
+      if (selectedGrade) {
+        // Обновляем пользователя в массиве users
+        this.users = this.users.map(u => {
+          if (u.id === user.id && u.personal) {
+            return {
+              ...u,
+              personal: {
+                ...u.personal,
+                race_class: selectedGrade.name
+              }
+            };
+          }
+          return u;
+        });
+
+        // Также обновляем в selectedUsers если пользователь там есть
+        this.selectedUsers = this.selectedUsers.map(u => {
+          if (u.id === user.id && u.personal) {
+            return {
+              ...u,
+              personal: {
+                ...u.personal,
+                race_class: selectedGrade.name
+              }
+            };
+          }
+          return u;
+        });
       }
     }
   }
 
   // Обновляем массив классов для селекта
   get raceClassesForSelect() {
-    return this.raceClasses.map(c => ({
-      name: c.name,
-      value: c.name
+    return this.eventGrades.map(grade => ({
+      name: grade.name,
+      value: grade.id.toString()
     }));
-  }
-
-  // Добавляем метод для фильтрации пользователей по команде
-  getFilteredUsers(): User[] {
-    if (!this.selectedTeam) {
-      return this.users;
-    }
-    return this.users.filter(user => user.personal?.command_id === this.selectedTeam?.id?.toString());
-  }
-
-  // Добавляем метод для выбора команды
-  onTeamSelect(teamId: string) {
-    this.selectedTeam = this.teams.find(team => team.id.toString() === teamId) || null;
   }
 
   get teamsForSelect() {
@@ -566,28 +639,6 @@ export class GroupApplicationComponent implements OnInit {
       name: team.name,
       value: team.id.toString()
     }));
-  }
-
-  fillFormWithUserData(user: User) {
-    if (user.personal) {
-      this.personalUserForm.patchValue({
-        name: user.personal.name,
-        surname: user.personal.surname,
-        patronymic: user.personal.patronymic,
-        dateOfBirth: user.personal.date_of_birth,
-        city: user.personal.city,
-        region: user.personal.location?.name || '',
-        inn: user.personal.inn,
-        snils: user.personal.snils,
-        phoneNumber: user.personal.phone_number,
-        startNumber: user.personal.start_number,
-        rank: user.personal.rank,
-        rankNumber: user.personal.rank_number,
-        motoStamp: user.personal.moto_stamp,
-        engine: user.personal.engines,
-        numberAndSeria: user.personal.number_and_seria
-      });
-    }
   }
 
   resetForms() {
@@ -607,36 +658,10 @@ export class GroupApplicationComponent implements OnInit {
   }
 
   setEngine(event: any) {
+    console.log('Setting engine:', event);
     this.personalUserForm.patchValue({
       engine: event.value
     });
-  }
-
-  openComandSelectModalStateValue() {
-    this.comandSelectModalStateValue = true;
-  }
-
-  closeComandSelectModalStateValue() {
-    this.comandSelectModalStateValue = false;
-  }
-
-  setComand(event: any) {
-    this.personalUserForm.patchValue({
-      community: event.name
-    });
-    this.closeComandSelectModalStateValue();
-  }
-
-  createNewComand(event: any) {
-    // Логика создания новой команды
-  }
-
-  selectRegionInCommandModalFunction(event: any) {
-    this.selectRegionInCommandModal = event;
-  }
-
-  clearRegionInComandFilter() {
-    this.selectRegionInCommandModal = {};
   }
 
   showToastInfoFileUpload() {
@@ -650,5 +675,10 @@ export class GroupApplicationComponent implements OnInit {
   confirmApplication() {
     // Логика подтверждения заявки
     this.closePreviewModal();
+  }
+
+  // Добавляем метод для выбора команды
+  onTeamSelect(teamId: string) {
+    this.selectedTeam = this.teams.find(team => team.id.toString() === teamId) || null;
   }
 }

@@ -86,7 +86,16 @@
           <app-standart-input [control]="personalUserForm.get('name')" [errorMessage]="formErrors.name.errorMessage" [invalid]="formErrors.name.errorMessage.length !== 0" placeholder="Введите имя" label="Имя*"></app-standart-input>
           <app-standart-input [control]="personalUserForm.get('patronymic')" [errorMessage]="formErrors.patronymic.errorMessage" [invalid]="formErrors.patronymic.errorMessage.length !== 0" placeholder="Введите отчество" label="Отчество*"></app-standart-input>
           <app-standart-input [control]="personalUserForm.get('dateOfBirth')" [errorMessage]="formErrors.dateOfBirth.errorMessage" [invalid]="formErrors.dateOfBirth.errorMessage.length !== 0" placeholder="Выберите дату" label="Дата рождения*" type="date"></app-standart-input>
-          <app-standart-input [control]="personalUserForm.get('region')" [errorMessage]="formErrors.region.errorMessage" [invalid]="formErrors.region.errorMessage.length !== 0" placeholder="Выберите область" label="Область/край*"></app-standart-input>
+          <app-standart-input
+            [control]="personalUserForm.get('region')"
+            [placeholder]="'Регион'"
+            [type]="'text'"
+            [readonly]="true"
+            (click)="openRegionModal()"
+            [errorMessage]="formErrors.region.errorMessage"
+            [invalid]="formErrors.region.errorMessage.length !== 0"
+            label="Область/край*"
+          ></app-standart-input>
           <app-standart-input [control]="personalUserForm.get('city')" [errorMessage]="formErrors.city.errorMessage" [invalid]="formErrors.city.errorMessage.length !== 0" placeholder="Введите город" label="Город*"></app-standart-input>
           <div class="start-number-container">
             <app-standart-input [control]="personalUserForm.get('inn')" [errorMessage]="formErrors.inn.errorMessage" [invalid]="formErrors.inn.errorMessage.length !== 0" placeholder="ИНН" label="ИНН*"></app-standart-input>
@@ -96,21 +105,16 @@
           <app-standart-input [control]="personalUserForm.get('startNumber')" [errorMessage]="formErrors.startNumber.errorMessage" [invalid]="formErrors.startNumber.errorMessage.length !== 0" placeholder="Стартовый номер" label="Стартовый номер*"></app-standart-input>
           <app-standart-input-select [errorMessage]="formErrors.rank.errorMessage" [invalid]="formErrors.rank.errorMessage.length !== 0" selectedName="rankSelect" [items]="sportRankItems" (onChange)="setRank($event)" [selectedItem]="{name:personalUserForm.value.rank, value:personalUserForm.value.rank}" label="Спортивное звание, разряд*"></app-standart-input-select>
           <app-standart-input [control]="personalUserForm.get('rankNumber')" placeholder="№ удостоверения (МСМК, МС, КМС)" label="№ удостоверения"></app-standart-input>
-          <app-standart-input [errorMessage]="formErrors.community.errorMessage" [invalid]="formErrors.community.errorMessage.length !== 0" (click)="openComandSelectModalStateValue()" [readonly]="true" [control]="personalUserForm.get('community')" placeholder="Команда" label="Название команды*"></app-standart-input>
-          <div class="command-selector-wrapper" (click)="$event.stopPropagation()">
-            <div class="command-selector">
-              <app-standart-input-select
-                [label]="'Команда'"
-                [items]="teamsForSelect"
-                [selectedItem]="{ name: selectedTeam?.name || '', value: selectedTeam?.id?.toString() || '' }"
-                [selectedName]="'team-select'"
-                (onChange)="onTeamSelect($event.value)"
-              ></app-standart-input-select>
-            </div>
-          </div>
-          <app-standart-input [control]="personalUserForm.get('coach')" placeholder="Тренер" label="ФИО тренера"></app-standart-input>
           <app-standart-input-select [errorMessage]="formErrors.motoStamp.errorMessage" [invalid]="formErrors.motoStamp.errorMessage.length !== 0" selectedName="motoStampSelect" [items]="motoStampItems" (onChange)="setMotoStamp($event)" [selectedItem]="{name:personalUserForm.value.motoStamp, value:personalUserForm.value.motoStamp}" label="Марка мотоцикла*"></app-standart-input-select>
-          <app-standart-input-select [errorMessage]="formErrors.engine.errorMessage" [invalid]="formErrors.engine.errorMessage.length !== 0" selectedName="engineSelect" [items]="engineItems" (onChange)="setEngine($event)" [selectedItem]="{name:personalUserForm.value.engine, value:personalUserForm.value.engine}" label="Тип двигателя*"></app-standart-input-select>
+          <app-standart-input-select 
+            [errorMessage]="formErrors.engine.errorMessage" 
+            [invalid]="formErrors.engine.errorMessage.length !== 0" 
+            selectedName="engineSelect" 
+            [items]="engineItems" 
+            (onChange)="setEngine($event)" 
+            [selectedItem]="{ name: personalUserForm.value.engine, value: personalUserForm.value.engine }" 
+            label="Тип двигателя*">
+          </app-standart-input-select>
           <app-standart-input [errorMessage]="formErrors.numberAndSeria.errorMessage" [invalid]="formErrors.numberAndSeria.errorMessage.length !== 0" [control]="personalUserForm.get('numberAndSeria')" placeholder="Серия, номер" label="Паспорт/Свидетельство о рождении*"></app-standart-input>
           <app-standart-rich-input [inputStatus]="true" [control]="personalUserForm.get('comment')" label="Комментарий" placeholder="Оставьте комментарий"></app-standart-rich-input>
 
@@ -154,4 +158,31 @@
     </ion-content>
   </ng-template>
 </ion-modal>
+
+<ion-modal class="region-modal" (didDismiss)="closeRegionModal()" [isOpen]="regionModalState">
+  <ng-template>
+    <ion-content>
+      <div class="region-modal-container">
+        <div class="region-modal-header">
+          <h3>Выберите регион</h3>
+          <ion-icon name="close-circle" (click)="closeRegionModal()"></ion-icon>
+        </div>
+        <div class="region-modal-search">
+          <app-standart-input-search 
+            [searchCurrentItems]="searchRegionItems" 
+            [searchItems]="searchRegionItems" 
+            (changeSearchValue)="setRegion($event)">
+          </app-standart-input-search>
+        </div>
+        <div class="region-modal-list">
+          <div class="region-modal-item" *ngFor="let item of searchRegionItems" (click)="setRegion(item)">
+            {{ item.name }}
+          </div>
+        </div>
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+
 
