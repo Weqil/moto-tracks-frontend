@@ -4,7 +4,7 @@
       {{ event.date_start | date: 'dd.MM.YYYY ' : 'UTC' }}
     </div> 
   </app-header>
-  <main>
+  <main >
   @if (this.event) {
       <div class="slider-container">
         <app-show-slider standartImagesPath='assets/images/moto-background.png' [files]="event.images" (click)="openImagesModalFunction()"></app-show-slider>

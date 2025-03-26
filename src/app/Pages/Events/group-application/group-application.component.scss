@@ -1,24 +1,16 @@
-.main-container--with-header {
-  padding: var(--standart-padding);
-  padding-bottom: 4rem;
-  max-width: 1200px;
-  margin: 0 auto;
-}
 
 .team-selector {
   margin-bottom: var(--standart-padding);
-  max-width: 400px;
+  max-width: 1000px;
   margin-left: auto;
+  
+  margin-top: var(--standart-padding);
   margin-right: auto;
   background: white;
   padding: var(--standart-padding);
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 
-  @media (min-width: 768px) {
-    margin-left: 0;
-    margin-right: 0;
-  }
 }
 
 .users-list {
@@ -334,4 +326,19 @@ ion-modal {
     max-width: 800px;
     margin: 0 auto;
   }
+}
+
+.command-selector {
+  margin-top: 0;
+  width: 100%;
+  max-width: 100%;
+  padding: 0 var(--standart-padding);
+}
+
+.command-selector-wrapper {
+  width: 100%;
+  max-width: 100%;
+  padding: 0 var(--standart-padding);
+  margin-top: 0;
+  pointer-events: auto;
 }
