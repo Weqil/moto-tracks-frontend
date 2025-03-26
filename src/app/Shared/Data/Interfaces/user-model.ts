@@ -36,8 +36,9 @@ export interface User{
         }
         coach:string,
         moto_stamp:string,
-        engines:string
-        number_and_seria :string             
+        engines:string,
+        number_and_seria:string,
+        race_class?:string
     },
     roles:{
         id:number,

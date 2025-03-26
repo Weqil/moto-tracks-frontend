@@ -17,8 +17,9 @@ export class UserService {
 
   http:HttpClient = inject(HttpClient)
  
-  allRoles:[{id:number,name:string}]|null = null
-  constructor() { }
+  allRoles:Array<{id:number,name:string}>|null = null
+  constructor(
+  ) { }
 
 
   getAllUsersInLocalStorage(){
