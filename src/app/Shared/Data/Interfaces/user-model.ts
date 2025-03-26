@@ -37,6 +37,7 @@ export interface User{
         coach:string,
         moto_stamp:string,
         engines:string,
+        engine:string,
         number_and_seria:string,
         race_class?:string
     },
