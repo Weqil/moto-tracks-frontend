@@ -23,13 +23,17 @@ export class ComandsService {
     return this.http.post(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/commands/${eventId}`, formdata)
   }
 
-  getComands(params?: { userId?: number, checkMember?: boolean }) {
+  getComands(params?: { userId?: number, checkMember?: boolean, ownerId?: number }) {
     const queryParams: { [key: string]: number } = {};
     const userId = this.userService.user.value?.id;
     
     if (userId) {
       queryParams['userIdExists'] = userId;
       queryParams['checkMember'] = 1;
+    }
+
+    if (params?.ownerId) {
+      queryParams['userId'] = params.ownerId;
     }
     
     return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/commands`, { params: queryParams });
