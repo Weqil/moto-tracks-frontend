@@ -11,28 +11,28 @@
 <ion-modal [isOpen]="comandSelectModalStateValue" (didDismiss)="closeModal()">
   <!-- comandSelectModalStateValue -->
   <ng-template>
-    <ion-content>   
-      <div class="modal-container-search-region">
-        <div class="group-modal-header">
-            <div class="group-modal-header__select">
-              <div class="header-text">
-                <h2>Команды</h2>
-              </div>
-              <app-rounded-button *ngIf="regions" (click)="openRegionModal()" [buttonText]="selectedRegion && selectedRegion.name ? selectedRegion.name : 'Россия'"></app-rounded-button>
-              <!-- <div class="toggle-container">
-                <ion-label >Все</ion-label>
-                <ion-toggle mode="ios" class="custom-toggle" >
-                </ion-toggle>
-                <ion-label >Мои</ion-label>
-              </div> -->
-            </div>
-            <!-- <span class="label">Создайте свою или выберите из существующих</span> -->
-        </div>
+    <ion-content> 
+      <div class="header">
+        <app-header  headerTitle="Выбор команды" [hiddenBackButton]="true"></app-header>
+      <div class="back-button-container">
+        <app-circle-button icon="/assets/icons/arrow.svg" (click)="close()"></app-circle-button>
+      </div>
+      </div>
+      
 
-        <div class="group-modal-container">
-          <div class="race-groups__add-container__wrapper">
-            <div *ngIf="commands" class="commands-grid">
-              
+        <div class="group-modal-header">
+         <div class="filter">
+            <span class="label">Фильтр по областям:</span>
+            <div class="filter-line-container">
+              <app-rounded-button [theme]="'line'" class="filter-line" *ngIf="regions" (click)="openRegionModal()" [buttonText]="selectedRegion && selectedRegion.name ? selectedRegion.name : 'Россия'"></app-rounded-button>
+            </div>
+          </div> 
+        </div>
+        
+      <div class="group-modal-container">
+        <div class="race-groups__add-container__wrapper">
+          <div *ngIf="commands" class="commands-grid">
+            <div class="modal-container-search-region">
               <app-standart-input-search 
                 [searchCommands]="true" 
                 label="Поиск команд по названию" 
@@ -40,23 +40,37 @@
                 [searchItems]="sortComands.length ? sortComands:commands" 
                 (changeSearchValue)="setComands($event)">
               </app-standart-input-search>
-
             </div>
-            <div class="race-groups__add-container">
-              <app-standart-input label="Название" [control]="createComandForm.get('name')" placeholder="Введите название вашей команды"></app-standart-input>
-              <!-- <app-standart-input label="Регион" [control]="createComandForm.get('region')" placeholder="Введите регион вашей команды "></app-standart-input> -->
-              <app-standart-input (click)="openCreateRegionModal()" [readonly]="true" label="Область/край" [control]="createComandForm.get('region')" placeholder="Выберите область вашу область"></app-standart-input>          
-              <app-standart-input label="Город" [control]="createComandForm.get('city')" placeholder="Введите город вашей команды"></app-standart-input>
+          </div>
 
-              <!-- <input placeholder = "Название команды" class="standart-input" type="text" [(ngModel)]="createComandName"> -->
-              <app-standart-button theme="light" style="width: 100%;" buttonText="Добавить команду" (click)="createComandFunction()"></app-standart-button>
-            </div>
-            <!-- <div class="race-groups__buttons">
-              <app-standart-button  buttonText="Выбрать" theme="standart"></app-standart-button>
-            </div> -->
+          
+
           </div>
         </div>
-      </div>
+      
+        <div class="add-comand-button" *ngIf="!visibleCreateCommandContainerValue" (click)="visible()">
+          <span class="label">Добавить команду:</span>
+          <div class="filter-line-container">
+            <app-circle-button icon="/assets/icons/plus.svg" ></app-circle-button>
+          </div>
+        </div> 
+
+        <div class="race-groups__add-container"  *ngIf="visibleCreateCommandContainerValue">
+          <div class="header-text">
+            <h2>Создание команды</h2>
+            <div class="close-button">
+              <app-circle-button icon="/assets/icons/close.svg" (click)="nonVisible()"></app-circle-button>
+            </div>
+          </div>
+          <app-standart-input label="Название" [control]="createComandForm.get('name')" placeholder="Введите название вашей команды"></app-standart-input>
+          <!-- <app-standart-input label="Регион" [control]="createComandForm.get('region')" placeholder="Введите регион вашей команды "></app-standart-input> -->
+          <app-standart-input (click)="openCreateRegionModal()" [readonly]="true" label="Область/край" [control]="createComandForm.get('region')" placeholder="Выберите область вашу область"></app-standart-input>          
+          <app-standart-input label="Город" [control]="createComandForm.get('city')" placeholder="Введите город вашей команды"></app-standart-input>
+
+          <!-- <input placeholder = "Название команды" class="standart-input" type="text" [(ngModel)]="createComandName"> -->
+          <app-standart-button theme="light" style="width: 100%;" buttonText="Добавить команду" (click)="createComandFunction()"></app-standart-button>
+        </div>
+
     </ion-content>
   </ng-template>
 </ion-modal>   

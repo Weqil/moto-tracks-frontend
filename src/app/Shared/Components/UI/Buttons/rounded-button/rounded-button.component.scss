@@ -42,6 +42,28 @@
     border-radius: 100px;
 }
 
+.rounded-button__line{
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    font-size: 0.75rem;
+    color: white;
+    min-width: 2rem;
+    gap: 3px;
+    padding: 0.3rem;
+    text-align: center;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.2s;
+    min-height: 1rem;
+    border: 1px solid var(--font-gray-color);
+    border-radius: 10px;
+    .span-text{
+        color: #000000;
+        
+    }
+}
+
 .rounded-button__second{
     background-color: #368be0;
     font-size: 1rem;

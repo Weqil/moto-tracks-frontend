@@ -9,12 +9,14 @@ import { StandartButtonComponent } from "../../UI/Buttons/standart-button/standa
 import { StandartInputSearchComponent } from "../../Forms/standart-input-search/standart-input-search.component";
 import { RoundedButtonComponent } from "../../UI/Buttons/rounded-button/rounded-button.component";
 import { StandartInputComponent } from "../../Forms/standart-input/standart-input.component";
+import { CircleButtonComponent } from "../../UI/Buttons/circle-button/circle-button.component";
+import { HeaderComponent } from "../../UI/header/header.component";
 
 @Component({
   selector: 'app-select-comands',
   templateUrl: './select-comands.component.html',
   styleUrls: ['./select-comands.component.scss'],
-  imports: [IonToggle, IonCheckbox, IonLabel, IonModal, IonContent, CommonModule, CommandSectionComponent, FormsModule, StandartButtonComponent, StandartInputSearchComponent, RoundedButtonComponent, StandartInputComponent]
+  imports: [IonToggle, IonCheckbox, IonLabel, IonModal, IonContent, CommonModule, CommandSectionComponent, FormsModule, StandartButtonComponent, StandartInputSearchComponent, RoundedButtonComponent, StandartInputComponent, CircleButtonComponent, HeaderComponent]
 })
 export class SelectComandsComponent  implements OnInit {
 
@@ -40,8 +42,13 @@ export class SelectComandsComponent  implements OnInit {
         locationId: new FormControl('',[Validators.required]),
       }
     )
-  
 
+    close(){
+      this.comandSelectModalStateValue = false
+    }
+    
+
+  visibleCreateCommandContainerValue: boolean = false
   locationId: string = ''
   regionModalState:boolean = false
   sortComands:any = []
@@ -49,6 +56,12 @@ export class SelectComandsComponent  implements OnInit {
   navControler:NavController = inject(NavController)
   createRegionModalState: boolean = false
 
+  visible(){
+    this.visibleCreateCommandContainerValue = true
+  }
+  nonVisible(){
+      this.visibleCreateCommandContainerValue = false
+  }
  
   openCreateComandsModalState(){
     this.createComandsModalState = true
@@ -111,6 +124,8 @@ export class SelectComandsComponent  implements OnInit {
     console.log(this.createComandForm.value)
 
     this.createComandForm.reset();
+
+    
   }
 
   closeCreateRegionModal(){
