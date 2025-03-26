@@ -11,7 +11,10 @@
     <article class="commands-grid">
       <ng-container *ngFor="let team of filteredTeams">
         <div class="commands-grid__item" (click)="viewTeam(team.id)">
-          <app-command-section [command]="team"></app-command-section>
+          <app-command-section 
+            [command]="team"
+            (toggleMembership)="toggleTeamMembership($event)"
+          ></app-command-section>
         </div>
       </ng-container>
     </article>

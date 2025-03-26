@@ -128,7 +128,7 @@ export class ViewComandPageComponent  implements OnInit {
         next: (res: any) => {
           this.command = res.command;
           this.avatarUrl = res.command.avatar ? this.checkImgUrlPipe.checkUrlDontType((res.command.avatar)) : '/assets/icons/team-bg.png';
-          this.isMember = res.command.is_member || false;
+          this.isMember = res.command.members_exists || false;
         },
         error: (error) => {
           this.toastService.showToast(error.error.message || 'Произошла ошибка', 'error');

@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { HeaderComponent } from 'src/app/Shared/Components/UI/header/header.component';
 import { LoadingService } from 'src/app/Shared/Services/loading.service';
+import { AuthService } from '../../../Shared/Services/auth.service';
 
 @Component({
   selector: 'app-teams-list-page',
@@ -32,18 +33,24 @@ export class TeamsListPageComponent implements OnInit {
   navController: NavController = inject(NavController);
   comandService: ComandsService = inject(ComandsService);
   loaderService: LoadingService = inject(LoadingService);
+  authService: AuthService = inject(AuthService);
 
   teams: ICommand[] = [];
   filteredTeams: ICommand[] = [];
   searchQuery: string = '';
+  currentUserId: number | null = null;
 
   ngOnInit() {
+    this.currentUserId = this.authService.getCurrentUserId();
     this.getTeams();
   }
 
   getTeams() {
     this.loaderService.showLoading();
-    this.comandService.getComands().pipe(
+    this.comandService.getComands({
+      userId: this.currentUserId || undefined,
+      checkMember: true
+    }).pipe(
       finalize(() => this.loaderService.hideLoading())
     ).subscribe((res: any) => {
       this.teams = res.commands;
@@ -70,5 +77,14 @@ export class TeamsListPageComponent implements OnInit {
 
   viewTeam(teamId: number) {
     this.navController.navigateForward(`/command/view/${teamId}`);
+  }
+
+  toggleTeamMembership(teamId: number) {
+    this.loaderService.showLoading();
+    this.comandService.toggleMember(teamId).pipe(
+      finalize(() => this.loaderService.hideLoading())
+    ).subscribe(() => {
+      this.getTeams(); // Обновляем список команд после изменения
+    });
   }
 } 
