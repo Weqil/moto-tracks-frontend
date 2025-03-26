@@ -1,42 +1,54 @@
-.track-section{
-    display: inline-flex;
+.track-section {
+    display: flex;
     justify-content: space-between;
-    width: 100%;
-    gap: 10px;
-    .track-section__avatar{
+    align-items: center;
+    padding: 16px;
+    background-color: white;
+    border-radius: 8px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: white;
+    }
+
+    &__info-group {
         display: flex;
-        justify-content: center;
         align-items: center;
-        .track-section__avatar__img{
-            min-width: 3.75rem;
-            min-height: 3.75rem;
-            max-width: 3.75rem;
-            max-height: 3.75rem;
+        flex: 1;
+    }
+
+    &__avatar {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin-right: 16px;
+
+        &__img {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
-            overflow: hidden;
-            background-color: rgb(255 255 255);
-            border-radius: 50%;
         }
     }
-    .track-section__info{
-        display: flex;
-     
-        justify-content: center;
-        flex-direction: column;
-        .track-section__name{
+
+    &__info {
+        h2 {
             margin: 0;
-            color: var(--font-standart-color);
-            font-family: var(--font-bold);
-            font-size: var( --font-headers-size) ;
+            font-size: 18px;
+            font-weight: 600;
         }
-        .track-section__email{
-            font-family: var(--font-bold);
-            font-size: var(  --font-little-size);
-            color: var(--font-standart-color);
-            opacity: 50%;
-        }
+    }
+
+    &__address {
+        color: var(--ion-color-medium);
+        margin-top: 4px;
+    }
+
+    &__button {
+        margin-left: 16px;
     }
 }
+
 .track__status{
     display: flex;
     align-items: center;

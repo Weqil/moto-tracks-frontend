@@ -17,7 +17,9 @@ import { IonContent,
   IonItem,
   IonLabel,
   IonList,
-  IonThumbnail, IonModal } from '@ionic/angular/standalone';
+  IonThumbnail, 
+  IonModal,
+  IonIcon } from '@ionic/angular/standalone';
 import { environment } from 'src/environments/environment';
 import { StandartInputComponent } from 'src/app/Shared/Components/Forms/standart-input/standart-input.component';
 import { StandartButtonComponent } from 'src/app/Shared/Components/UI/Buttons/standart-button/standart-button.component';
@@ -27,27 +29,37 @@ import { User } from 'src/app/Shared/Data/Interfaces/user-model';
 import { UsersPreviewComponent } from 'src/app/Shared/Components/UI/users-preview/users-preview.component';
 import { UserSectionComponent } from 'src/app/Shared/Components/UserElements/user-section/user-section.component';
 import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
-
+import { FormsModule } from '@angular/forms';
+import { NavController } from '@ionic/angular';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-view-comand-page',
   templateUrl: './view-comand-page.component.html',
   styleUrls: ['./view-comand-page.component.scss'],
-  imports:[
-    IonContent, 
-    HeaderComponent, 
-    IonCardHeader, 
-    IonCardSubtitle, 
-    IonCardTitle, 
-    IonCard, 
-    IonCardContent,
-    StandartButtonComponent,
+  imports: [
     CommonModule,
-    IonModal,
+    SharedModule,
+    HeaderComponent,
+    StandartButtonComponent,
+    StandartInputComponent,
     UsersPreviewComponent,
     UserSectionComponent,
-    SharedModule
-  ]
+    FormsModule,
+    IonContent,
+    IonCard,
+    IonCardHeader,
+    IonCardSubtitle,
+    IonCardTitle,
+    IonCardContent,
+    IonItem,
+    IonLabel,
+    IonList,
+    IonThumbnail,
+    IonModal,
+    IonIcon
+  ],
+  standalone: true
 })
 export class ViewComandPageComponent  implements OnInit {
   private readonly destroy$ = new Subject<void>()
@@ -63,6 +75,7 @@ export class ViewComandPageComponent  implements OnInit {
 
   commandId:string = ''
   command!:ICommand
+  isMember: boolean = false
 
   avatarUrl:string = '/assets/icons/team-bg.png';
   searchRegionItems:any[] = []
@@ -102,19 +115,25 @@ export class ViewComandPageComponent  implements OnInit {
 
   getMembers() {
     this.comandService.getMembersForUsers(Number(this.commandId)).pipe().subscribe((res:any)=>{
-      this.membersForUser = res.members
-      res.members.forEach((item: any) => {
-        this.membersForUser.push(item)
-      })
-      console.log(this.membersForUser)
+      this.membersForUser = res.members;
     })
   }
 
-  getCommand(){
-    this.comandService.getCommandById(Number(this.commandId)).pipe().subscribe((res:any)=>{
-      this.command = res.command
-      this.avatarUrl = res.command.avatar ? this.checkImgUrlPipe.checkUrlDontType((res.command.avatar)) : '/assets/icons/team-bg.png'
-    })
+  getCommand() {
+    this.comandService.getCommandById(Number(this.commandId))
+      .pipe(
+        finalize(() => this.loaderService.hideLoading())
+      )
+      .subscribe({
+        next: (res: any) => {
+          this.command = res.command;
+          this.avatarUrl = res.command.avatar ? this.checkImgUrlPipe.checkUrlDontType((res.command.avatar)) : '/assets/icons/team-bg.png';
+          this.isMember = res.command.members_exists || false;
+        },
+        error: (error) => {
+          this.toastService.showToast(error.error.message || 'Произошла ошибка', 'error');
+        }
+      });
   }
 
   getRegions(){
@@ -142,6 +161,25 @@ export class ViewComandPageComponent  implements OnInit {
           // this.getRegions()
       })
   }
+
+  toggleMembership() {
+    this.loaderService.showLoading();
+    this.comandService.toggleMember(Number(this.commandId))
+      .pipe(
+        finalize(() => this.loaderService.hideLoading())
+      )
+      .subscribe({
+        next: (response) => {
+          this.isMember = !this.isMember;
+          this.toastService.showToast(response.message, 'success');
+          this.getMembers();
+        },
+        error: (error) => {
+          this.toastService.showToast(error.error.message || 'Произошла ошибка', 'error');
+        }
+      });
+  }
+
   ngOnInit() {}
 
 }

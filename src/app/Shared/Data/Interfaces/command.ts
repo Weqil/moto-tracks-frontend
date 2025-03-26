@@ -7,10 +7,9 @@ export interface ICommand {
         name:string,
         type:string
     }
-    avatar?:string,
-    city:string
-    
-    
+    avatar:string,
+    city:string,
+    members_exists?: boolean
 }
 
 export interface ICommandCreate {

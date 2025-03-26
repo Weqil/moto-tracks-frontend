@@ -94,9 +94,19 @@ export const privateRoutes: Routes = [
                 loadComponent: () => import('../Pages/Profile/comands/edit-comand-page/edit-comand-page.component').then((m) => m.EditComandPageComponent)
             },
             {
+                path:'aplication/:id',
+                canActivate:[canActivateAuth,canActivateUserHaveRole([userRoles.couch,userRoles.organization],'тренера')],
+                loadComponent: () => import('../Pages/Events/group-application/group-application.component').then((m) => m.GroupApplicationComponent)
+            },
+
+            {
                 path: 'command/view/:id',
-                canActivate:[canActivateAuth,canActivateUserHaveRole([userRoles.couch],'тренера')],
+                canActivate:[canActivateAuth],
                 loadComponent: () => import('../Pages/Profile/comands/view-comand-page/view-comand-page.component').then((m) => m.ViewComandPageComponent)
+            },
+            {
+                path: 'teams',
+                loadComponent: () => import('../Pages/Events/teams-list-page/teams-list-page.component').then(m => m.TeamsListPageComponent)
             }
         ]
     },

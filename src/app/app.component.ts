@@ -41,8 +41,11 @@ export class AppComponent {
   
   userService:UserService = inject(UserService)
   ngOnInit() {
+    console.log('запускаю сайт')
     this.userService.getChangeRoles().pipe().subscribe((res:any)=>{
+      console.log(res)
       this.userService.allRoles = res.role
+      console.log( this.userService.allRoles)
     })
     this.userService.refreshUser();
     

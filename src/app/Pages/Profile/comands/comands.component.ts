@@ -41,7 +41,10 @@ export class ComandsComponent  implements OnInit {
     this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
       loader = res
     })
-    this.comandService.getComands({userId:this.userService.user.value?.id}).pipe(
+    this.comandService.getComands({
+      userId: this.userService.user.value?.id,
+      ownerId: this.userService.user.value?.id
+    }).pipe(
       finalize(
         ()=>{
           this.loaderService.hideLoading(loader)
@@ -50,7 +53,6 @@ export class ComandsComponent  implements OnInit {
     ).subscribe((res:any)=>{
       this.comands = res.commands
     })
-      
   }
   ionViewWillEnter(){
     this.getMyComands()

@@ -1,0 +1,157 @@
+<ion-content>
+  <app-header headerTitle="Групповая заявка">
+  </app-header>
+  <div class="main-container--with-header">
+    <div class="team-selector">
+      <app-standart-input-select
+        [selectedItem]="{name: selectedTeam?.name || 'Все команды', value: selectedTeam?.id?.toString() || ''}"
+        [items]="teamsForSelect"
+        (onChange)="onTeamSelect($event.value)"
+        label="Выберите команду"
+        selectedName="teamSelect"
+      ></app-standart-input-select>
+    </div>
+
+    <div class="users-list">
+      <div *ngFor="let user of getFilteredUsers()" 
+           class="user-section"
+           [class.disabled]="hasIncompleteData(user)">
+        <div class="user-item"
+             (click)="!hasIncompleteData(user) && onUserSelect(user, !isUserSelected(user), $event)">
+          <ion-checkbox 
+            [checked]="isUserSelected(user)"
+            [disabled]="hasIncompleteData(user)"
+            (ionChange)="onUserSelect(user, $event.detail.checked, $event)"
+            (click)="$event.stopPropagation()">
+          </ion-checkbox>
+          <div class="user-info">
+            <app-user-section 
+              [user]="user"
+              [showRank]="true"
+              [showAddress]="true"
+              [hideEmail]="true">
+            </app-user-section>
+          </div>
+          <div class="user-actions" (click)="$event.stopPropagation()">
+            <div *ngIf="hasIncompleteData(user)" class="incomplete-data-indicator">
+              <ion-icon name="warning" color="danger"></ion-icon>
+              <div class="incomplete-data-tooltip">
+                <div class="tooltip-content">
+                  <div class="tooltip-header">Незаполненные поля:</div>
+                  <ul class="tooltip-list">
+                    <li *ngFor="let field of getIncompleteFields(user)">{{field}}</li>
+                  </ul>
+                </div>
+                <div class="tooltip-arrow"></div>
+              </div>
+            </div>
+            <ion-icon 
+              name="pencil" 
+              class="edit-icon" 
+              (click)="openUserModal(user, $event)">
+            </ion-icon>
+          </div>
+        </div>
+        <div class="class-selector-wrapper" (click)="$event.stopPropagation()">
+          <div class="class-selector">
+            <app-standart-input-select
+              [label]="'Класс'"
+              [items]="raceClassesForSelect"
+              [selectedItem]="{ name: getUserClass(user), value: getUserClass(user) }"
+              [selectedName]="'class-select-' + user.id"
+              (onChange)="onClassSelect(user, $event.name)"
+            ></app-standart-input-select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="submit-button">
+      <app-standart-button 
+        (click)="submitApplication()" 
+        buttonText="Отправить заявку"
+        [disabled]="!hasSelectedUsers()">
+      </app-standart-button>
+    </div>
+  </div>
+</ion-content>
+
+<ion-modal [isOpen]="isUserModalOpen" (didDismiss)="closeUserModal()">
+  <ng-template>
+    <ion-content>
+      <app-header (customBackClick)="closeUserModal()" [customBack]="true" headerTitle="Анкета участника"></app-header>
+      <div class="main-container--with-header">
+        <form class="personal-form">
+          <app-standart-input [control]="personalUserForm.get('surname')" [errorMessage]="formErrors.surname.errorMessage" [invalid]="formErrors.surname.errorMessage.length !== 0" placeholder="Введите фамилию" label="Фамилия*"></app-standart-input>
+          <app-standart-input [control]="personalUserForm.get('name')" [errorMessage]="formErrors.name.errorMessage" [invalid]="formErrors.name.errorMessage.length !== 0" placeholder="Введите имя" label="Имя*"></app-standart-input>
+          <app-standart-input [control]="personalUserForm.get('patronymic')" [errorMessage]="formErrors.patronymic.errorMessage" [invalid]="formErrors.patronymic.errorMessage.length !== 0" placeholder="Введите отчество" label="Отчество*"></app-standart-input>
+          <app-standart-input [control]="personalUserForm.get('dateOfBirth')" [errorMessage]="formErrors.dateOfBirth.errorMessage" [invalid]="formErrors.dateOfBirth.errorMessage.length !== 0" placeholder="Выберите дату" label="Дата рождения*" type="date"></app-standart-input>
+          <app-standart-input [control]="personalUserForm.get('region')" [errorMessage]="formErrors.region.errorMessage" [invalid]="formErrors.region.errorMessage.length !== 0" placeholder="Выберите область" label="Область/край*"></app-standart-input>
+          <app-standart-input [control]="personalUserForm.get('city')" [errorMessage]="formErrors.city.errorMessage" [invalid]="formErrors.city.errorMessage.length !== 0" placeholder="Введите город" label="Город*"></app-standart-input>
+          <div class="start-number-container">
+            <app-standart-input [control]="personalUserForm.get('inn')" [errorMessage]="formErrors.inn.errorMessage" [invalid]="formErrors.inn.errorMessage.length !== 0" placeholder="ИНН" label="ИНН*"></app-standart-input>
+            <app-standart-input [control]="personalUserForm.get('snils')" [errorMessage]="formErrors.snils.errorMessage" [invalid]="formErrors.snils.errorMessage.length !== 0" placeholder="СНИЛС" label="СНИЛС*"></app-standart-input>
+          </div>
+          <app-standart-input [control]="personalUserForm.get('phoneNumber')" [errorMessage]="formErrors.phoneNumber.errorMessage" [invalid]="formErrors.phoneNumber.errorMessage.length !== 0" placeholder="Номер телефона" label="Телефон*"></app-standart-input>
+          <app-standart-input [control]="personalUserForm.get('startNumber')" [errorMessage]="formErrors.startNumber.errorMessage" [invalid]="formErrors.startNumber.errorMessage.length !== 0" placeholder="Стартовый номер" label="Стартовый номер*"></app-standart-input>
+          <app-standart-input-select [errorMessage]="formErrors.rank.errorMessage" [invalid]="formErrors.rank.errorMessage.length !== 0" selectedName="rankSelect" [items]="sportRankItems" (onChange)="setRank($event)" [selectedItem]="{name:personalUserForm.value.rank, value:personalUserForm.value.rank}" label="Спортивное звание, разряд*"></app-standart-input-select>
+          <app-standart-input [control]="personalUserForm.get('rankNumber')" placeholder="№ удостоверения (МСМК, МС, КМС)" label="№ удостоверения"></app-standart-input>
+          <app-standart-input [errorMessage]="formErrors.community.errorMessage" [invalid]="formErrors.community.errorMessage.length !== 0" (click)="openComandSelectModalStateValue()" [readonly]="true" [control]="personalUserForm.get('community')" placeholder="Команда" label="Название команды*"></app-standart-input>
+          <div class="command-selector-wrapper" (click)="$event.stopPropagation()">
+            <div class="command-selector">
+              <app-standart-input-select
+                [label]="'Команда'"
+                [items]="teamsForSelect"
+                [selectedItem]="{ name: selectedTeam?.name || '', value: selectedTeam?.id?.toString() || '' }"
+                [selectedName]="'team-select'"
+                (onChange)="onTeamSelect($event.value)"
+              ></app-standart-input-select>
+            </div>
+          </div>
+          <app-standart-input [control]="personalUserForm.get('coach')" placeholder="Тренер" label="ФИО тренера"></app-standart-input>
+          <app-standart-input-select [errorMessage]="formErrors.motoStamp.errorMessage" [invalid]="formErrors.motoStamp.errorMessage.length !== 0" selectedName="motoStampSelect" [items]="motoStampItems" (onChange)="setMotoStamp($event)" [selectedItem]="{name:personalUserForm.value.motoStamp, value:personalUserForm.value.motoStamp}" label="Марка мотоцикла*"></app-standart-input-select>
+          <app-standart-input-select [errorMessage]="formErrors.engine.errorMessage" [invalid]="formErrors.engine.errorMessage.length !== 0" selectedName="engineSelect" [items]="engineItems" (onChange)="setEngine($event)" [selectedItem]="{name:personalUserForm.value.engine, value:personalUserForm.value.engine}" label="Тип двигателя*"></app-standart-input-select>
+          <app-standart-input [errorMessage]="formErrors.numberAndSeria.errorMessage" [invalid]="formErrors.numberAndSeria.errorMessage.length !== 0" [control]="personalUserForm.get('numberAndSeria')" placeholder="Серия, номер" label="Паспорт/Свидетельство о рождении*"></app-standart-input>
+          <app-standart-rich-input [inputStatus]="true" [control]="personalUserForm.get('comment')" label="Комментарий" placeholder="Оставьте комментарий"></app-standart-rich-input>
+
+          <div class="modal-buttons">
+            <app-standart-button (click)="closeUserModal()" buttonText="Отмена" buttonStyle="secondary"></app-standart-button>
+            <app-standart-button (click)="saveUserData()" buttonText="Сохранить"></app-standart-button>
+          </div>
+        </form>
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+<ion-modal [isOpen]="isPreviewModalOpen" (didDismiss)="closePreviewModal()">
+  <ng-template>
+    <ion-content>
+      <app-header (customBackClick)="closePreviewModal()" [customBack]="true" headerTitle="Предпросмотр заявки"></app-header>
+      <div class="main-container--with-header">
+        <div class="preview-content">
+          <h2>Выбранные участники:</h2>
+          <div class="preview-users-list">
+            <div *ngFor="let user of selectedUsers" class="preview-user-item">
+              <app-user-section 
+                [user]="user"
+                [showRank]="true"
+                [showAddress]="true"
+                [hideEmail]="true">
+              </app-user-section>
+              <div class="user-class">
+                <span class="class-label">Класс:</span>
+                <span class="class-value">{{user.personal?.race_class || 'Не выбран'}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="preview-actions">
+            <app-standart-button (click)="closePreviewModal()" buttonText="Отмена" buttonStyle="secondary"></app-standart-button>
+            <app-standart-button (click)="confirmApplication()" buttonText="Подтвердить"></app-standart-button>
+          </div>
+        </div>
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+

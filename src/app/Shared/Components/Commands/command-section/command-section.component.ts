@@ -1,19 +1,32 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { ICommand } from 'src/app/Shared/Data/Interfaces/command';
 import { CheckImgUrlPipe } from "../../../Helpers/check-img-url.pipe";
+import { IonicModule } from '@ionic/angular';
+import { AuthService } from '../../../Services/auth.service';
 
 @Component({
   selector: 'app-command-section',
   templateUrl: './command-section.component.html',
-  imports:[CommonModule,CheckImgUrlPipe],
+  imports: [CommonModule, CheckImgUrlPipe, IonicModule],
   styleUrls: ['./command-section.component.scss'],
+  standalone: true
 })
-export class CommandSectionComponent  implements OnInit {
+export class CommandSectionComponent implements OnInit {
+  @Input() command!: ICommand;
+  @Output() toggleMembership = new EventEmitter<number>();
+  
+  currentUserId: number | null = null;
 
-  constructor() { }
-  @Input() command!:ICommand
+  constructor(private authService: AuthService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.currentUserId = this.authService.getCurrentUserId();
+  }
 
+  onToggleMembership(event: Event) {
+    console.log(this.command);
+    event.stopPropagation();
+    this.toggleMembership.emit(this.command.id);
+  }
 }

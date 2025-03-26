@@ -1,22 +1,48 @@
 import { CommonModule, NgClass } from '@angular/common';
-import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output, OnDestroy, Inject } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { SelectStateService } from '../../../../../Services/select-state.service';
 
 @Component({
   selector: 'app-standart-input-select',
   templateUrl: './standart-input-select.component.html',
   styleUrls: ['./standart-input-select.component.scss'],
-  imports: [CommonModule,NgClass]
+  imports: [CommonModule,NgClass],
+  providers: [SelectStateService]
 })
-export class StandartInputSelectComponent  implements OnInit {
+export class StandartInputSelectComponent implements OnInit, OnDestroy {
+  private subscription: Subscription = new Subscription();
 
-  constructor() { }
-@HostListener('document:click', ['$event'])
- onClick(event: MouseEvent): void {
-let target = event.target as HTMLElement
-  if (target.getAttribute('name') !== this.selectedName) {
-        this.stateValue = false
+  constructor(@Inject(SelectStateService) private selectStateService: SelectStateService) {
+    this.subscription = this.selectStateService.activeSelectName$.subscribe((activeName: string | null) => {
+      const previousActive = this.selectStateService.getPreviousActiveSelect();
+      console.log(previousActive)
+      if (activeName && activeName !== this.selectedName && previousActive === this.selectedName) {
+        this.stateValue = false;
+      }
+      this.stateValue = activeName === this.selectedName;
+    });
+  }
+
+  @HostListener('document:click', ['$event'])
+  onClick(event: MouseEvent): void {
+    let target = event.target as HTMLElement;
+    let currentElement: HTMLElement | null = target;
+    
+    // Проверяем, является ли кликнутый элемент или его родители частью нашего селекта
+    while (currentElement) {
+      if (currentElement.getAttribute('name') === this.selectedName || 
+          currentElement.classList.contains('standart-input') ||
+          currentElement.classList.contains('dropdown-content--active')) {
+        return;
+      }
+      currentElement = currentElement.parentElement;
     }
- }
+    
+    // Если клик был вне селекта, закрываем его
+    this.stateValue = false;
+  }
+
   @Input() selectedItem: {name: string; value: string} = {name: '', value: ''};
   @Output() onChange:EventEmitter<any> = new EventEmitter()
   @Input() items: {name: string; value: string}[] = [
@@ -31,7 +57,14 @@ let target = event.target as HTMLElement
   @Input() stateValue: boolean = false;
 
   changeState(){
-    this.stateValue =!this.stateValue;
+    if (!this.stateValue) {
+      this.selectStateService.setActiveSelect(this.selectedName);
+      console.log(this.selectedName)
+      this.stateValue = true;
+    } else {
+      this.selectStateService.closeAllSelects();
+      this.stateValue = false;
+    }
   }
   
   changeSelectedItem(item: {name: string; value: string}){
@@ -39,6 +72,10 @@ let target = event.target as HTMLElement
     this.selectedItem = item;
     this.changeState();
   }
+
   ngOnInit() {}
 
+  ngOnDestroy() {
+  
+  }
 }
