@@ -506,7 +506,7 @@ export class EventsViewPageComponent  implements OnInit {
   }
 
   redirectTrenerInEditAplication(){
-    this.navController.navigateForward(`/aplication/${this.event.id}`)
+    window.location.assign(`/aplication/${this.event.id}`);
   }
 
   saveNewPersonal(){

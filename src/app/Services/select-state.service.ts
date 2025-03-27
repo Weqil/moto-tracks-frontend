@@ -27,4 +27,9 @@ export class SelectStateService {
   getPreviousActiveSelect(): string | null {
     return this.previousActiveSelect;
   }
+
+  clearState() {
+    this.activeSelectName.next(null);
+    this.previousActiveSelect = null;
+  }
 }

@@ -777,6 +777,7 @@ export class GroupApplicationComponent implements OnInit {
 
   // Обновляем метод для обработки выбора класса
   onClassSelect(user: User, gradeId: string) {
+    console.log('Я получил класс')
     if (user.personal) {
       const selectedGrade = this.eventGrades.find(grade => grade.id.toString() === gradeId);
       if (selectedGrade) {
@@ -809,6 +810,13 @@ export class GroupApplicationComponent implements OnInit {
           }
           return u;
         });
+
+        // Если это текущий пользователь в модальном окне, обновляем форму
+        if (this.currentUser && this.currentUser.id === user.id) {
+          this.personalUserForm.patchValue({
+            gradeId: selectedGrade.name
+          });
+        }
       }
     }
   }
@@ -962,5 +970,63 @@ export class GroupApplicationComponent implements OnInit {
   // Добавляем метод для выбора команды
   onTeamSelect(teamId: string) {
     this.selectedTeam = this.teams.find(team => team.id.toString() === teamId) || null;
+  }
+
+  ionViewDidLeave() {
+    // Очищаем массивы
+    this.users = [];
+    this.selectedUsers = [];
+    this.teams = [];
+    this.eventGrades = [];
+    this.searchRegionItems = [];
+    
+    // Сбрасываем выбранные значения
+    this.selectedTeam = null;
+    this.selectedRegion = null;
+    this.searchRegion = '';
+    this.currentUser = null;
+    this.selectedUser = null;
+    
+    // Сбрасываем состояние модальных окон
+    this.isUserModalOpen = false;
+    this.isPreviewModalOpen = false;
+    this.regionModalState = false;
+    
+    // Сбрасываем все формы
+    this.resetForms();
+    
+    // Сбрасываем ошибки
+    this.formErrors = {
+      name: { errorMessage: '' },
+      surname: { errorMessage: '' },
+      patronymic: { errorMessage: '' },
+      dateOfBirth: { errorMessage: '' },
+      city: { errorMessage: '' },
+      region: { errorMessage: '' },
+      inn: { errorMessage: '' },
+      snils: { errorMessage: '' },
+      phoneNumber: { errorMessage: '' },
+      startNumber: { errorMessage: '' },
+      rank: { errorMessage: '' },
+      rankNumber: { errorMessage: '' },
+      motoStamp: { errorMessage: '' },
+      engine: { errorMessage: '' },
+      numberAndSeria: { errorMessage: '' },
+      gradeId: { errorMessage: '' },
+      comment: { errorMessage: '' }
+    };
+
+    this.documentsError = {
+      polisNumber: { errorMessage: '' },
+      issuedWhom: { errorMessage: '' },
+      licenseNumber: { errorMessage: '' },
+      itWorksDate: { errorMessage: '' },
+      polisFile: { errorMessage: '' }
+    };
+
+    // Сбрасываем файлы
+    this.licenseFile = { name: '' };
+    this.polisFile = { name: '' };
+    this.notariusFile = { name: '' };
   }
 }

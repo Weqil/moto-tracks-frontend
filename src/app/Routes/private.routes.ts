@@ -95,7 +95,7 @@ export const privateRoutes: Routes = [
             },
             {
                 path:'aplication/:id',
-                canActivate:[canActivateAuth,canActivateUserHaveRole([userRoles.couch,userRoles.organization],'тренера')],
+                canActivate:[canActivateAuth],
                 loadComponent: () => import('../Pages/Events/group-application/group-application.component').then((m) => m.GroupApplicationComponent)
             },
 
