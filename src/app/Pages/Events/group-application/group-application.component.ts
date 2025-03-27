@@ -611,7 +611,7 @@ export class GroupApplicationComponent implements OnInit {
             region: this.personalUserForm.get('region')?.value || '',
             city: this.personalUserForm.get('city')?.value || '',
             inn: this.personalUserForm.get('inn')?.value || '',
-            snils: Number(this.personalUserForm.get('snils')?.value) || 0,
+            snils: this.personalUserForm.get('snils')?.value || '',
             phone_number: this.personalUserForm.get('phoneNumber')?.value || '',
             start_number: this.personalUserForm.get('startNumber')?.value || '',
             rank: this.personalUserForm.get('rank')?.value || '',
@@ -624,7 +624,8 @@ export class GroupApplicationComponent implements OnInit {
               id: this.personalUserForm.get('locationId')?.value || '',
               name: this.personalUserForm.get('region')?.value || ''
             },
-            race_class: this.personalUserForm.get('gradeId')?.value || ''
+            race_class: this.personalUserForm.get('gradeId')?.value || '',
+            group: this.personalUserForm.get('gradeId')?.value || ''
           }
         };
 
@@ -755,19 +756,17 @@ export class GroupApplicationComponent implements OnInit {
   // Обновляем метод для обработки выбора класса
   onClassSelect(user: User, gradeId: string) {
     if (user.personal) {
-      console.log(gradeId)
       const selectedGrade = this.eventGrades.find(grade => grade.id.toString() === gradeId);
-      console.log(selectedGrade)
       if (selectedGrade) {
         // Обновляем пользователя в массиве users
         this.users = this.users.map(u => {
           if (u.id === user.id && u.personal) {
-            console.log(selectedGrade)
             return {
               ...u,
               personal: {
                 ...u.personal,
-                race_class: selectedGrade.name
+                race_class: selectedGrade.name,
+                group: selectedGrade.name
               }
             };
           }
@@ -781,7 +780,8 @@ export class GroupApplicationComponent implements OnInit {
               ...u,
               personal: {
                 ...u.personal,
-                race_class: selectedGrade.name
+                race_class: selectedGrade.name,
+                group: selectedGrade.name
               }
             };
           }
