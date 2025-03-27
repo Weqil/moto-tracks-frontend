@@ -30,6 +30,21 @@ interface UserWithTeam extends User {
   teamId?: number;
 }
 
+// Добавляем интерфейс для хранения данных о документах
+interface UserDocuments {
+  license_number?: string;
+  license_file_link?: string;
+  polis_number?: string;
+  polis_issued_whom?: string;
+  polis_it_works_date?: string;
+  polis_file_link?: string;
+}
+
+// Расширяем интерфейс UserWithTeam для включения данных о документах
+interface UserWithDocuments extends UserWithTeam {
+  documents?: UserDocuments;
+}
+
 @Component({
   selector: 'app-group-application',
   templateUrl: './group-application.component.html',
@@ -57,15 +72,15 @@ interface UserWithTeam extends User {
 })
 export class GroupApplicationComponent implements OnInit {
   // Обновляем тип массива пользователей
-  users: UserWithTeam[] = [];
-  selectedUsers: User[] = [];
+  users: UserWithDocuments[] = [];
+  selectedUsers: UserWithDocuments[] = [];
   teams: ICommand[] = [];
   
   isUserModalOpen = false;
   isPreviewModalOpen = false;
   mapService:MapService = inject(MapService)
-  selectedUser: User | null = null;
-  currentUser: User | null = null;
+  selectedUser: UserWithDocuments | null = null;
+  currentUser: UserWithDocuments | null = null;
   regionModalState = false;
   searchRegionItems: any[] = [];
   
@@ -381,7 +396,7 @@ export class GroupApplicationComponent implements OnInit {
   }
 
   // Обновляем метод для фильтрации пользователей по команде
-  getFilteredUsers(): UserWithTeam[] {
+  getFilteredUsers(): UserWithDocuments[] {
     if (!this.selectedTeam) {
       return this.users;
     }
@@ -394,7 +409,7 @@ export class GroupApplicationComponent implements OnInit {
   }
 
   // Обновляем метод для проверки неполных данных
-  hasIncompleteData(user: UserWithTeam): boolean {
+  hasIncompleteData(user: UserWithDocuments): boolean {
     if (!user.personal) return true;
     
     const requiredFields = [
@@ -444,7 +459,7 @@ export class GroupApplicationComponent implements OnInit {
       .map(field => field.name);
   }
 
-  onUserSelect(user: User, isSelected: boolean, event: Event) {
+  onUserSelect(user: UserWithDocuments, isSelected: boolean, event: Event) {
     event.stopPropagation();
     if (isSelected) {
       this.selectedUsers.push(user);
@@ -453,11 +468,11 @@ export class GroupApplicationComponent implements OnInit {
     }
   }
 
-  isUserSelected(user: User): boolean {
+  isUserSelected(user: UserWithDocuments): boolean {
     return this.selectedUsers.some(u => u.id === user.id);
   }
 
-  openUserModal(user: User, event: Event) {
+  openUserModal(user: UserWithDocuments, event: Event) {
     event.stopPropagation();
     
     // Проверяем наличие класса
@@ -477,7 +492,7 @@ export class GroupApplicationComponent implements OnInit {
     this.resetForms();
   }
 
-  fillFormWithUserData(user: UserWithTeam) {
+  fillFormWithUserData(user: UserWithDocuments) {
     if (user.personal) {
       this.personalUserForm.patchValue({
         name: user.personal.name,
@@ -498,6 +513,21 @@ export class GroupApplicationComponent implements OnInit {
         gradeId: user.personal.race_class || '',
         locationId: user.personal.location?.id || ''
       });
+
+      // Заполняем формы документов
+      if (user.documents) {
+        this.licensesForm.patchValue({
+          number: user.documents.license_number || '',
+          licensesFileLink: user.documents.license_file_link || ''
+        });
+
+        this.polisForm.patchValue({
+          number: user.documents.polis_number || '',
+          issuedWhom: user.documents.polis_issued_whom || '',
+          itWorksDate: user.documents.polis_it_works_date || '',
+          polisFileLink: user.documents.polis_file_link || ''
+        });
+      }
     }
   }
 
@@ -520,9 +550,9 @@ export class GroupApplicationComponent implements OnInit {
   }
 
   saveUserData() {
-    if (this.submitValidate()) {
+    if (this.submitValidate() && this.validateDocuments()) {
       if (this.currentUser && this.currentUser.personal) {
-        const updatedUser: User = {
+        const updatedUser: UserWithDocuments = {
           ...this.currentUser,
           personal: {
             ...this.currentUser.personal,
@@ -547,6 +577,14 @@ export class GroupApplicationComponent implements OnInit {
               name: this.personalUserForm.get('region')?.value || ''
             },
             race_class: this.personalUserForm.get('gradeId')?.value || ''
+          },
+          documents: {
+            license_number: this.licensesForm.get('number')?.value || '',
+            license_file_link: this.licensesForm.get('licensesFileLink')?.value || '',
+            polis_number: this.polisForm.get('number')?.value || '',
+            polis_issued_whom: this.polisForm.get('issuedWhom')?.value || '',
+            polis_it_works_date: this.polisForm.get('itWorksDate')?.value || '',
+            polis_file_link: this.polisForm.get('polisFileLink')?.value || ''
           }
         };
 
@@ -567,6 +605,43 @@ export class GroupApplicationComponent implements OnInit {
     } else {
       this.toastService.showToast('Пожалуйста, заполните все обязательные поля', 'danger');
     }
+  }
+
+  // Добавляем метод для валидации документов
+  validateDocuments(): boolean {
+    let isValid = true;
+
+    // Валидация формы лицензии
+    if (!this.licensesForm.get('number')?.value) {
+      this.documentsError.licenseNumber = { errorMessage: 'Номер лицензии обязателен' };
+      isValid = false;
+    } else {
+      this.documentsError.licenseNumber = { errorMessage: '' };
+    }
+
+    // Валидация формы страхового полиса
+    if (!this.polisForm.get('number')?.value) {
+      this.documentsError.polisNumber = { errorMessage: 'Номер полиса обязателен' };
+      isValid = false;
+    } else {
+      this.documentsError.polisNumber = { errorMessage: '' };
+    }
+
+    if (!this.polisForm.get('issuedWhom')?.value) {
+      this.documentsError.issuedWhom = { errorMessage: 'Укажите кем выдан полис' };
+      isValid = false;
+    } else {
+      this.documentsError.issuedWhom = { errorMessage: '' };
+    }
+
+    if (!this.polisForm.get('itWorksDate')?.value) {
+      this.documentsError.itWorksDate = { errorMessage: 'Укажите срок действия полиса' };
+      isValid = false;
+    } else {
+      this.documentsError.itWorksDate = { errorMessage: '' };
+    }
+
+    return isValid;
   }
 
   // Добавляем метод для валидации всех пользователей
@@ -685,6 +760,15 @@ export class GroupApplicationComponent implements OnInit {
 
   resetForms() {
     this.personalUserForm.reset();
+    this.licensesForm.reset();
+    this.polisForm.reset();
+    // Сбрасываем ошибки документов
+    this.documentsError = {
+      polisNumber: { errorMessage: '' },
+      issuedWhom: { errorMessage: '' },
+      itWorksDate: { errorMessage: '' },
+      polisFile: { errorMessage: '' }
+    };
   }
 
   setRank(event: any) {
