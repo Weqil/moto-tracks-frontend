@@ -2,7 +2,7 @@ export interface ICommand {
     id: number,
     name: string,
     full_name?: string
-    location:{
+    location?:{
         id:number,
         name:string,
         type:string
@@ -13,12 +13,12 @@ export interface ICommand {
 }
 
 export interface ICommandCreate {
-    
+    id:number,
     name: string,
     fullName?: string,
     locationId:number,
     avatar?:string,
     city:string,
     coach?:string
-    
+    region:string
 }

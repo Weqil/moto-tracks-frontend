@@ -1,16 +1,17 @@
 <button
   type = {{type}}
-  [ngClass]="{'rounded-button': !outline, 'rounded-button_outline': outline}">
+  [ngClass]="checkTypeButton()"
+  >
   <img *ngIf="close" class="close_image" src="/assets/icons/close.svg" alt="">
   <div class="rounded-button__container">
     <img src="{{icon}}" alt="" class="rounded-button-img">
-    <span style="margin-left: 3px;">
+    <span class="span-text" style="margin-left: 3px;">
       {{buttonText}}
     </span>
 
     <ng-content>
-      
     </ng-content>
   </div>
 
 </button>
+<!-- [ngClass]="{'rounded-button': !outline, 'rounded-button_outline': outline}" [ngClass]="checkTypeButton()"-->

@@ -110,7 +110,13 @@
             <app-standart-input [errorMessage]="formErrors.inn.errorMessage" [invalid]="formErrors.inn.errorMessage.length !== 0" [control]="personalUserForm.get('inn')" placeholder="ИНН" label="ИНН*"></app-standart-input>
             <app-standart-input [errorMessage]="formErrors.snils.errorMessage" [invalid]="formErrors.snils.errorMessage.length !== 0" [control]="personalUserForm.get('snils')" placeholder="СНИЛС" label="СНИЛС*"></app-standart-input>
           </div>
+          
+          
+          
           <app-standart-input [errorMessage]="formErrors.phoneNumber.errorMessage" [invalid]="formErrors.phoneNumber.errorMessage.length !== 0" [control]="personalUserForm.get('phoneNumber')" placeholder="Номер телефона" label="Телефон*"></app-standart-input>
+          
+          
+          
           <div class="start-number-container">
             <app-standart-input [errorMessage]="formErrors.startNumber.errorMessage" [invalid]="formErrors.startNumber.errorMessage.length !== 0" [control]="personalUserForm.get('startNumber')" [maxLength]="3" type="number" [invalid]="formErrors.startNumber.errorMessage.length !== 0" [errorMessage]="formErrors.startNumber.errorMessage" placeholder="Стартовый номер" label="Стартовый номер*"></app-standart-input>
           </div>
@@ -172,5 +178,6 @@
 (setSelectedRegion)="selectRegionInCommandModalFunction($event)"
 [commands]="allComands"
 [regions]="searchRegionItems"
+[createRegions]="createRegionItems"
 (clearFilterRegion)="clearRegionInComandFilter()"
 ></app-select-comands>}

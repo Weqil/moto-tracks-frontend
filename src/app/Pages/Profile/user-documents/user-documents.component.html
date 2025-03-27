@@ -83,16 +83,15 @@
 </ion-content>
 
 <app-select-comands 
-(createNewComand)="createNewComand($event)" 
-(openComandSelectModal)="openComandSelectModalStateValue()" 
-(closeComandSelectModal)="closeComandSelectModalStateValue()" 
-[comandSelectModalStateValue]="comandSelectModalStateValue" 
-(selectComand)="setComand($event)"  
-[selectedRegion]="selectRegionInCommandModal"
-(setSelectedRegion)="selectRegionInCommandModalFunction($event)"
-[commands]="allComands"
-[regions]="searchRegionItems"
-(clearFilterRegion)="clearRegionInComandFilter()"
->
-
+  (createNewComand)="createNewComand($event)" 
+  (openComandSelectModal)="openComandSelectModalStateValue()" 
+  (closeComandSelectModal)="closeComandSelectModalStateValue()" 
+  [comandSelectModalStateValue]="comandSelectModalStateValue" 
+  (selectComand)="setComand($event)"  
+  [selectedRegion]="selectRegionInCommandModal"
+  (setSelectedRegion)="selectRegionInCommandModalFunction($event)"
+  [commands]="allComands"
+  [regions]="searchRegionItems"
+  [createRegions]="createRegionItems"
+  (clearFilterRegion)="clearRegionInComandFilter()">
 </app-select-comands>

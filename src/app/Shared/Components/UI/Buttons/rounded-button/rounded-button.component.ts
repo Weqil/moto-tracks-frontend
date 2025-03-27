@@ -21,5 +21,24 @@ export class RoundedButtonComponent implements OnInit {
     this.clicked.emit()
   }
 
+  checkTypeButton():string {
+    if(!this.disabled){
+      if(this.theme == '' || this.theme == 'standart'){
+        return 'rounded-button'
+      }
+      else if(this.theme == 'outline'){
+        return 'rounded-button_outline'
+      }
+      else if(this.theme == 'second'){
+        return 'rounded-button__second'
+      }
+      else if(this.theme == 'line'){
+         return 'rounded-button__line'
+      }
+     
+    }
+    return 'rounded-button'
+  }
+
   ngOnInit() {}
 }

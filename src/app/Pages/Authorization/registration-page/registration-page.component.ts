@@ -169,6 +169,7 @@ export class RegistrationPageComponent  implements OnInit {
     })
     this.registerInvalid.serverError = true
   }
+
   register(data: FormData): void {
     this.registerService.registerUser(data).pipe(
       catchError((err: serverError) => {
@@ -185,20 +186,24 @@ export class RegistrationPageComponent  implements OnInit {
       this.userService.setUserInLocalStorage(res.user, res.access_token || null)
       this.authService.setAuthToken(String(res.access_token))
       // this.navController.navigateForward('/cabinet', {  animated: false })
-      this.router.navigate(['/verification'])
+      // this.router.navigate(['/verification'])
+      this.navController.navigateRoot('/verification')
     })
   }
 
   submitLoginForm() {
-      this.registerForm.patchValue({
+    this.registerForm.patchValue({
         name: this.registerForm.value.email
       })
-      this.validateForm()
+    this.validateForm()
       if (!this.registerInvalid.localError) {
         this.loading.showLoading()
         const fd:FormData = this.createFormData()
         this.register(fd)
       }
+
+    
+      
     }
 
     redirectInLogin() {

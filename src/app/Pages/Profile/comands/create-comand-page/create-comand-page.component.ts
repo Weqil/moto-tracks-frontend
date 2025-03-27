@@ -97,7 +97,7 @@ getRegions(){
 }
 
 
- setRegion(region:any){
+setRegion(region:any){
     this.closeRegionModal()
     this.locationId = region.value
     this.createCommandForm.patchValue({region:region.name})

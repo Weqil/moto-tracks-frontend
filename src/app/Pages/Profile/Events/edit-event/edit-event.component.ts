@@ -20,7 +20,7 @@ import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
 import { IEvent } from 'src/app/Shared/Data/Interfaces/event';
 import { CheckImgUrlPipe } from 'src/app/Shared/Helpers/check-img-url.pipe';
 import { environment } from 'src/environments/environment';
-import { IonCheckbox, IonModal, NavController } from '@ionic/angular/standalone';
+import { IonCheckbox, IonModal, NavController, IonLabel } from '@ionic/angular/standalone';
 import { MapService } from 'src/app/Shared/Data/Services/Map/map.service';
 import { GroupService } from 'src/app/Shared/Data/Services/Race/group.service';
 import { StandartInputSelectComponent } from 'src/app/Shared/Components/UI/Selecteds/standart-input-select/standart-input-select.component';
@@ -30,7 +30,7 @@ import { StandartInputSelectComponent } from 'src/app/Shared/Components/UI/Selec
   selector: 'app-edit-event',
   templateUrl: './edit-event.component.html',
   styleUrls: ['./edit-event.component.scss'],
-  imports: [SharedModule,HeaderModule,StepsModule,FormsModule,EditSliderComponent,TrackModule,IonModal,IonCheckbox,StandartInputSelectComponent]
+  imports: [IonLabel, SharedModule,HeaderModule,StepsModule,FormsModule,EditSliderComponent,TrackModule,IonModal,IonCheckbox,StandartInputSelectComponent]
 })
 export class EditEventComponent  implements OnInit {
 

@@ -1,24 +1,29 @@
-<form [formGroup]="searchForm">
-  <label class="label" for="{{label}}">{{label}}</label>
-  <input (input)="searchInputChange($event)" formControlName="searchInput" class="standart-input"  type="text">
-</form>
 
-<div [attr.name]="selectedName" class="dropdown-wrapper">
-  <div сlass='dropdown-content--active'>
-    <ng-container *ngIf="!searchCommands">
-      <div (click)="setSearchItem(item)" *ngFor="let item of searchCurrentItems" class="dropdown-content__item standart-input">
-        {{item.name}}
-      </div>
-    </ng-container>
-
-    <ng-container *ngIf="searchCommands">
-      <div class="commands-grid">
-        <ng-container *ngFor="let item of searchCurrentItems">
-          <app-command-section (click)="setSearchItem(item)" [command]="item"></app-command-section>
-        </ng-container>
-      </div>
-   
-    </ng-container>
-    
+  <div class="search-container">
+    <form [formGroup]="searchForm" class="search-form">
+      <label class="label" for="{{label}}">{{label}}</label>
+      <input (input)="searchInputChange($event)" formControlName="searchInput" class="standart-input"  type="text">
+    </form>
   </div>
-</div>
+
+
+  <div [attr.name]="selectedName" class="dropdown-wrapper">
+    <div сlass='dropdown-content--active'>
+      <ng-container *ngIf="!searchCommands">
+        <div (click)="setSearchItem(item)" *ngFor="let item of searchCurrentItems" class="dropdown-content__item standart-input">
+          {{item.name}}
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="searchCommands">
+        <div class="commands-grid">
+          <ng-container *ngFor="let item of searchCurrentItems">
+            <app-command-section (click)="setSearchItem(item)" [command]="item"></app-command-section>
+          </ng-container>
+        </div>
+    
+      </ng-container>
+      
+    </div>
+  </div>
+

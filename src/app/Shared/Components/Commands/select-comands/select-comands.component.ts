@@ -1,19 +1,22 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { IonContent, IonModal, IonLabel, IonCheckbox, IonToggle } from '@ionic/angular/standalone';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import { IonContent, IonModal, IonLabel, IonCheckbox, IonToggle, NavController } from '@ionic/angular/standalone';
 import { ICommand } from 'src/app/Shared/Data/Interfaces/command';
 import { Track } from 'src/app/Shared/Data/Interfaces/track-model';
 import { CommandSectionComponent } from '../command-section/command-section.component';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { StandartButtonComponent } from "../../UI/Buttons/standart-button/standart-button.component";
 import { StandartInputSearchComponent } from "../../Forms/standart-input-search/standart-input-search.component";
 import { RoundedButtonComponent } from "../../UI/Buttons/rounded-button/rounded-button.component";
+import { StandartInputComponent } from "../../Forms/standart-input/standart-input.component";
+import { CircleButtonComponent } from "../../UI/Buttons/circle-button/circle-button.component";
+import { HeaderComponent } from "../../UI/header/header.component";
 
 @Component({
   selector: 'app-select-comands',
   templateUrl: './select-comands.component.html',
   styleUrls: ['./select-comands.component.scss'],
-  imports: [IonToggle, IonCheckbox, IonLabel, IonModal, IonContent, CommonModule, CommandSectionComponent, FormsModule, StandartButtonComponent, StandartInputSearchComponent, RoundedButtonComponent]
+  imports: [IonToggle, IonCheckbox, IonLabel, IonModal, IonContent, CommonModule, CommandSectionComponent, FormsModule, StandartButtonComponent, StandartInputSearchComponent, RoundedButtonComponent, StandartInputComponent, CircleButtonComponent, HeaderComponent]
 })
 export class SelectComandsComponent  implements OnInit {
 
@@ -21,17 +24,51 @@ export class SelectComandsComponent  implements OnInit {
   @Input() commands: ICommand[] = []  
   @Input() selectedRegion?: {name:string, value:string}
   @Input() regions?: [{name:string, value:string}]|any
+  @Input() createRegions?: [{name:string, value:string}]|any
   @Input() comandSelectModalStateValue: boolean = true
   @Output() openComandSelectModal: EventEmitter<any> = new EventEmitter();
   @Output() closeComandSelectModal: EventEmitter<any> = new EventEmitter();
   @Output() selectComand: EventEmitter<Track> = new EventEmitter();
-  @Output() createNewComand: EventEmitter<string> = new EventEmitter();
+  @Output() createNewComand: EventEmitter<any> = new EventEmitter();
   @Output() setSelectedRegion: EventEmitter<any> = new EventEmitter();
   @Output() clearFilterRegion: EventEmitter<any> = new EventEmitter();
 
-  createComandName: string = ''
+  createComandForm: FormGroup = new FormGroup(
+      {
+        id: new FormControl('',[Validators.required]),
+        name: new FormControl('',[Validators.required]), //сокращенное имя
+        region: new FormControl('',[Validators.required]), //регион
+        city: new FormControl('',[Validators.required]), //город
+        locationId: new FormControl('',[Validators.required]),
+      }
+    )
+
+    close(){
+      this.comandSelectModalStateValue = false
+    }
+    
+
+  visibleCreateCommandContainerValue: boolean = false
+  locationId: string = ''
   regionModalState:boolean = false
   sortComands:any = []
+  createComandsModalState: boolean = false
+  navControler:NavController = inject(NavController)
+  createRegionModalState: boolean = false
+
+  visible(){
+    this.visibleCreateCommandContainerValue = true
+  }
+  nonVisible(){
+      this.visibleCreateCommandContainerValue = false
+  }
+ 
+  openCreateComandsModalState(){
+    this.createComandsModalState = true
+  }
+  closeCreateComandsModalState(){
+    this.createComandsModalState = false
+  }
  
   ngOnChanges(){
       if(this.commands && this.selectedRegion?.value){
@@ -39,13 +76,22 @@ export class SelectComandsComponent  implements OnInit {
       }
       else
       {
-        
         this.sortComands = []
       }
   }
+
   setRegion(region:any){
     this.closeRegionModal()
     this.setSelectedRegion.emit(region)
+  }
+
+  setCreateRegion(region:any){
+    this.closeCreateRegionModal()
+    this.locationId = region.value
+    this.createComandForm.patchValue({region:region.name})
+    this.createComandForm.patchValue({locationId:region.value})
+    console.log(`получили регион: "${this.createComandForm.get('region')?.value}"`);
+    console.log(`id регион: "${this.createComandForm.get('locationId')?.value}"`);
   }
 
   openModal(){
@@ -71,10 +117,22 @@ export class SelectComandsComponent  implements OnInit {
   }
 
   createComandFunction(){
-    this.createNewComand.emit(this.createComandName)
+  
+    this.createNewComand.emit(this.createComandForm.value)
     this.sortComands = []
     this.clearSelectRegion()
-    console.log(this.createComandName)
+    console.log(this.createComandForm.value)
+
+    this.createComandForm.reset();
+
+    
+  }
+
+  closeCreateRegionModal(){
+    this.createRegionModalState = false
+  }
+  openCreateRegionModal(){
+    this.createRegionModalState = true
   }
  
  
