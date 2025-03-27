@@ -5,6 +5,7 @@
     padding: 16px;
     background-color: white;
     border-radius: 8px;
+    
     cursor: pointer;
 
     &:hover {
@@ -18,8 +19,8 @@
     }
 
     &__avatar {
-        width: 64px;
-        height: 64px;
+        max-width: 64px;
+        max-height: 64px;
         border-radius: 50%;
         overflow: hidden;
         margin-right: 16px;
