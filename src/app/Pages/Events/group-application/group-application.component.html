@@ -121,8 +121,10 @@
             <div class="document-header">Лицензия</div>
             <div class="licenses document-container">
               <div class="form-group">
-                <label>Лицензия МФР</label>
+              
                 <app-standart-input
+                  label="Лицензия МФР*"
+                  [errorMessage]="documentsError.licenseNumber.errorMessage" [invalid]="documentsError.licenseNumber.errorMessage.length !== 0"
                   [control]="licensesForm.get('number')"
                   placeholder="Введите номер лицензии"
                   [error]="documentsError.licenseNumber"

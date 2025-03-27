@@ -287,6 +287,9 @@ export class GroupApplicationComponent implements OnInit {
     issuedWhom:{
       errorMessage:''
     },
+    licenseNumber:{
+      errorMessage:''
+    },
     itWorksDate:{
       errorMessage:''
     },
