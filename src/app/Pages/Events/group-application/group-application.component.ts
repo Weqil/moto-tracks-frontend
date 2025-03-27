@@ -430,10 +430,17 @@ export class GroupApplicationComponent implements OnInit {
       user.personal.race_class
     ];
 
-    return requiredFields.some(field => !field || field === '');
+    // Проверяем наличие документов
+    const hasRequiredDocuments = user.documents && 
+      user.documents.license_number && 
+      user.documents.polis_number && 
+      user.documents.polis_issued_whom && 
+      user.documents.polis_it_works_date;
+
+    return requiredFields.some(field => !field || field === '') || !hasRequiredDocuments;
   }
 
-  getIncompleteFields(user: User): string[] {
+  getIncompleteFields(user: UserWithDocuments): string[] {
     if (!user.personal) return ['Все поля'];
     
     const fields = [
@@ -454,14 +461,43 @@ export class GroupApplicationComponent implements OnInit {
       { name: 'Класс', value: user.personal.race_class, required: true }
     ];
 
-    return fields
+    const incompleteFields = fields
       .filter(field => field.required && (!field.value || field.value === ''))
       .map(field => field.name);
+
+    // Добавляем проверку документов
+    if (user.documents) {
+      if (!user.documents.license_number) incompleteFields.push('Номер лицензии');
+      if (!user.documents.polis_number) incompleteFields.push('Номер полиса');
+      if (!user.documents.polis_issued_whom) incompleteFields.push('Кем выдан полис');
+      if (!user.documents.polis_it_works_date) incompleteFields.push('Срок действия полиса');
+    } else {
+      incompleteFields.push('Документы не заполнены');
+    }
+
+    return incompleteFields;
   }
 
   onUserSelect(user: UserWithDocuments, isSelected: boolean, event: Event) {
     event.stopPropagation();
+    
     if (isSelected) {
+      // Проверяем наличие документов
+      const hasRequiredDocuments = user.documents && 
+        user.documents.license_number && 
+        user.documents.polis_number && 
+        user.documents.polis_issued_whom && 
+        user.documents.polis_it_works_date;
+
+      if (!hasRequiredDocuments) {
+        const incompleteFields = this.getIncompleteFields(user);
+        this.toastService.showToast(
+          `Нельзя выбрать пользователя. Заполните следующие поля: ${incompleteFields.join(', ')}`,
+          'danger'
+        );
+        return;
+      }
+      
       this.selectedUsers.push(user);
     } else {
       this.selectedUsers = this.selectedUsers.filter(u => u.id !== user.id);
