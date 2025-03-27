@@ -709,7 +709,7 @@ export class GroupApplicationComponent implements OnInit {
           surname: user.personal?.surname || '',
           patronymic: user.personal?.patronymic || '',
           dateOfBirth: user.personal?.date_of_birth || '',
-          region: user.personal?.region || '',
+          region: user.personal?.location?.id ? user.personal.region : '',
           city: user.personal?.city || '',
           inn: user.personal?.inn || '',
           snils: user.personal?.snils || '',
