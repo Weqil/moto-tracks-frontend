@@ -463,13 +463,7 @@ export class GroupApplicationComponent implements OnInit {
       user.personal.race_class
     ];
 
-    // Проверяем наличие документов
-    const hasRequiredDocuments = user.documents && 
-      user.documents.find(doc => doc.type === 'licenses') && 
-      user.documents.find(doc => doc.type === 'polis') && 
-      user.documents.find(doc => doc.type === 'notarius');
-
-    return requiredFields.some(field => !field || field === '') || !hasRequiredDocuments;
+    return requiredFields.some(field => !field || field === '');
   }
 
   getIncompleteFields(user: UserWithTeam): string[] {
@@ -493,41 +487,15 @@ export class GroupApplicationComponent implements OnInit {
       { name: 'Класс', value: user.personal.race_class, required: true }
     ];
 
-    const incompleteFields = fields
+    return fields
       .filter(field => field.required && (!field.value || field.value === ''))
       .map(field => field.name);
-
-    // Добавляем проверку документов
-    if (user.documents) {
-      if (!user.documents.find(doc => doc.type === 'licenses')) incompleteFields.push('Номер лицензии');
-      if (!user.documents.find(doc => doc.type === 'polis')) incompleteFields.push('Номер полиса');
-      if (!user.documents.find(doc => doc.type === 'notarius')) incompleteFields.push('Кем выдан полис');
-    } else {
-      incompleteFields.push('Документы не заполнены');
-    }
-
-    return incompleteFields;
   }
 
   onUserSelect(user: UserWithTeam, isSelected: boolean, event: Event) {
     event.stopPropagation();
     
     if (isSelected) {
-      // Проверяем наличие документов
-      const hasRequiredDocuments = user.documents && 
-        user.documents.find(doc => doc.type === 'licenses') && 
-        user.documents.find(doc => doc.type === 'polis') && 
-        user.documents.find(doc => doc.type === 'notarius');
-
-      if (!hasRequiredDocuments) {
-        const incompleteFields = this.getIncompleteFields(user);
-        this.toastService.showToast(
-          `Нельзя выбрать пользователя. Заполните следующие поля: ${incompleteFields.join(', ')}`,
-          'danger'
-        );
-        return;
-      }
-      
       this.selectedUsers.push(user);
     } else {
       this.selectedUsers = this.selectedUsers.filter(u => u.id !== user.id);
@@ -624,7 +592,7 @@ export class GroupApplicationComponent implements OnInit {
   }
 
   saveUserData() {
-    if (this.submitValidate() && this.validateDocuments()) {
+    if (this.submitValidate()) {
       if (this.currentUser && this.currentUser.personal) {
         const updatedUser: UserWithTeam = {
           ...this.currentUser,
@@ -651,39 +619,7 @@ export class GroupApplicationComponent implements OnInit {
               name: this.personalUserForm.get('region')?.value || ''
             },
             race_class: this.personalUserForm.get('gradeId')?.value || ''
-          },
-          documents: [
-            {
-              id: this.currentUser.documents?.find(doc => doc.type === 'licenses')?.id || 0,
-              name: this.licensesForm.get('licensesFileLink')?.value || '',
-              type: 'licenses',
-              url_view: this.licensesForm.get('licensesFileLink')?.value || '',
-              number: this.licensesForm.get('number')?.value || '',
-              issued_whom: null,
-              it_works_date: null,
-              is_checked: null
-            },
-            {
-              id: this.currentUser.documents?.find(doc => doc.type === 'polis')?.id || 0,
-              name: this.polisForm.get('polisFileLink')?.value || '',
-              type: 'polis',
-              url_view: this.polisForm.get('polisFileLink')?.value || '',
-              number: this.polisForm.get('number')?.value || '',
-              issued_whom: this.polisForm.get('issuedWhom')?.value || '',
-              it_works_date: this.polisForm.get('itWorksDate')?.value || '',
-              is_checked: null
-            },
-            {
-              id: this.currentUser.documents?.find(doc => doc.type === 'notarius')?.id || 0,
-              name: '',
-              type: 'notarius',
-              url_view: '',
-              number: null,
-              issued_whom: null,
-              it_works_date: null,
-              is_checked: null
-            }
-          ]
+          }
         };
 
         // Обновляем пользователя в локальном массиве
@@ -703,43 +639,6 @@ export class GroupApplicationComponent implements OnInit {
     } else {
       this.toastService.showToast('Пожалуйста, заполните все обязательные поля', 'danger');
     }
-  }
-
-  // Добавляем метод для валидации документов
-  validateDocuments(): boolean {
-    let isValid = true;
-
-    // Валидация формы лицензии
-    if (!this.licensesForm.get('number')?.value) {
-      this.documentsError.licenseNumber = { errorMessage: 'Номер лицензии обязателен' };
-      isValid = false;
-    } else {
-      this.documentsError.licenseNumber = { errorMessage: '' };
-    }
-
-    // Валидация формы страхового полиса
-    if (!this.polisForm.get('number')?.value) {
-      this.documentsError.polisNumber = { errorMessage: 'Номер полиса обязателен' };
-      isValid = false;
-    } else {
-      this.documentsError.polisNumber = { errorMessage: '' };
-    }
-
-    if (!this.polisForm.get('issuedWhom')?.value) {
-      this.documentsError.issuedWhom = { errorMessage: 'Укажите кем выдан полис' };
-      isValid = false;
-    } else {
-      this.documentsError.issuedWhom = { errorMessage: '' };
-    }
-
-    if (!this.polisForm.get('itWorksDate')?.value) {
-      this.documentsError.itWorksDate = { errorMessage: 'Укажите срок действия полиса' };
-      isValid = false;
-    } else {
-      this.documentsError.itWorksDate = { errorMessage: '' };
-    }
-
-    return isValid;
   }
 
   // Добавляем метод для валидации всех пользователей
@@ -792,6 +691,51 @@ export class GroupApplicationComponent implements OnInit {
         );
         return;
       }
+
+      // Получаем текущего пользователя
+      const currentUser = this.userService.user.value;
+      const coachName = currentUser?.personal ? 
+        `${currentUser.personal.surname} ${currentUser.personal.name} ${currentUser.personal.patronymic}` : 
+        '';
+
+      // Формируем массив пользователей с отформатированной информацией
+      const formattedUsers = this.selectedUsers.map(user => {
+        const licenseDoc = user.documents?.find(doc => doc.type === 'licenses');
+        const polisDoc = user.documents?.find(doc => doc.type === 'polis');
+        const notariusDoc = user.documents?.find(doc => doc.type === 'notarius');
+
+        return {
+          name: user.personal?.name || '',
+          surname: user.personal?.surname || '',
+          patronymic: user.personal?.patronymic || '',
+          dateOfBirth: user.personal?.date_of_birth || '',
+          region: user.personal?.region || '',
+          city: user.personal?.city || '',
+          inn: user.personal?.inn || '',
+          snils: user.personal?.snils || '',
+          commandId: user.teamId || '',
+          phoneNumber: user.personal?.phone_number || '',
+          startNumber: user.personal?.start_number || '',
+          group: user.personal?.group || '',
+          rank: user.personal?.rank || '',
+          gradeId: user.personal?.race_class || '',
+          rankNumber: user.personal?.rank_number || '',
+          community: user.personal?.community || '',
+          locationId: user.personal?.location?.id || '',
+          coach: coachName,
+          motoStamp: user.personal?.moto_stamp || '',
+          engine: user.personal?.engine || '',
+          numberAndSeria: user.personal?.number_and_seria || '',
+          documentIds: [
+            licenseDoc?.id || '',
+            polisDoc?.id || '',
+            notariusDoc?.id || ''
+          ]
+        };
+      });
+
+      // Выводим в консоль отформатированную информацию о пользователях
+      console.log('Отправка заявки. Пользователи:', formattedUsers);
 
       this.isPreviewModalOpen = true;
     }

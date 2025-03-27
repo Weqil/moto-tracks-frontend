@@ -117,26 +117,6 @@
           </app-standart-input-select>
           <app-standart-input [errorMessage]="formErrors.numberAndSeria.errorMessage" [invalid]="formErrors.numberAndSeria.errorMessage.length !== 0" [control]="personalUserForm.get('numberAndSeria')" placeholder="Серия, номер" label="Паспорт/Свидетельство о рождении*"></app-standart-input>
           <app-standart-rich-input [inputStatus]="true" [control]="personalUserForm.get('comment')" label="Комментарий" placeholder="Оставьте комментарий"></app-standart-rich-input>
-          <div class="documents">
-            <div class="document-header">Лицензия</div>
-            <div class="licenses document-container">
-              <app-standart-input 
-                [control]="licensesForm.get('number')" 
-                placeholder="Лицензия МФР" 
-                label="Лицензия МФР (тип, №)*"
-                [error]="documentsError.licenseNumber"
-              ></app-standart-input>
-        
-            </div>
-
-            <div class="document-header">Страховой полис</div>
-            <div class="polis document-container">
-              <app-standart-input [errorMessage]="documentsError.polisNumber.errorMessage" [invalid]="documentsError.polisNumber.errorMessage.length !== 0"  [control]="polisForm.get('number')" placeholder="Серия, номер" label="Серия и номер*"></app-standart-input>
-              <app-standart-input [errorMessage]="documentsError.issuedWhom.errorMessage" [invalid]="documentsError.issuedWhom.errorMessage.length !== 0" [control]="polisForm.get('issuedWhom')" placeholder="Кем выдан" label="Кем выдан*"></app-standart-input>
-              <app-standart-input [errorMessage]="documentsError.itWorksDate.errorMessage" [invalid]="documentsError.itWorksDate.errorMessage.length !== 0" [control]="polisForm.get('itWorksDate')" placeholder="Срок действия" type="date" label="Срок действия*"></app-standart-input>
-            </div>
-
-          </div>
           <div class="modal-buttons">
             <app-standart-button (click)="closeUserModal()" buttonText="Отмена" theme="light" buttonStyle="secondary"></app-standart-button>
             <app-standart-button (click)="saveUserData()" buttonText="Сохранить"></app-standart-button>
