@@ -29,7 +29,7 @@ export const environment = {
   APP_NAME: 'VOKRUG',
   BASE_URL: 'http://localhost:8100',
   PORT: '8100',
-  BACKEND_URL: 'https://api-moto.vokrug.city',
+  BACKEND_URL: 'https://api.dev-moto.vokrug.city',
   metrikaId:0,
   BACKEND_PORT: '443',
   DOMAIN: 'mlcity.ru',
