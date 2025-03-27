@@ -54,21 +54,17 @@ ion-card {
 
 .command-header {
   display: flex;
-  
-  
-  height: auto;
-  flex-wrap: nowrap;
   gap: 2rem;
   margin-bottom: 2rem;
-  justify-content: center;
+  justify-content: start;
   align-items: center; /* Выровняет элементы по высоте */
 
 
   .command-avatar {
-    width: 150px;
-    height: 150px;
-    border-radius: 12px;
     display: flex;
+    width: 100px;
+    height: 100%;
+    border-radius: 12px;
     align-items: center; /* Центрирование изображения */
     justify-content: center;
 
@@ -85,9 +81,10 @@ ion-card {
     min-height: 150px;
     flex: 1;
     display: flex;
-    
+    flex-direction: column;
     gap: 0.5rem;
-    align-items: center;
+    align-items: start;
+    justify-content: center;
   }
   
 }
@@ -100,16 +97,18 @@ ion-card {
 
 
 .command-name {
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 600;
   color: #333333;
   margin: 0;
+  text-align: left;
 }
 
 .command-full-name {
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: #666666;
   margin: 0;
+  text-align: left;
 }
 
 .command-location {
@@ -120,10 +119,9 @@ ion-card {
   margin: 0;
   font-size: 1rem;
   justify-content: center;
+  text-align: left;
 
-  ion-icon {
-    font-size: 1.2rem;
-  }
+ 
 }
 
 .command-actions {
@@ -131,6 +129,7 @@ ion-card {
   gap: 1rem;
   justify-content: center;
   margin-top: 1rem;
+  text-align: left;
 
   app-standart-button {
     min-width: 200px;
@@ -179,27 +178,6 @@ ion-card {
   }
 }
 
-@media (max-width: 768px) {
-  .command-header {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 1rem;
-  }
-
-  .command-avatar {
-    width: 120px;
-    height: 120px;
-  }
-
-  .command-name {
-    font-size: 1.5rem;
-  }
-
-  .command-actions {
-    justify-content: center;
-  }
-}
 
 .users-in-comands-container{
   width: 100%;
@@ -207,7 +185,7 @@ ion-card {
   justify-content: center;
   margin-bottom: 0.5rem;
   background-color: white;
-  border-radius: 10px;
+  border-radius: 15px;
   .users-in-comands{
     font-family: var(--font-semi-bold);
     font-size: var(--font-headers-size-little);

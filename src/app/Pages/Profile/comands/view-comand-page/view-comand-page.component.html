@@ -5,18 +5,20 @@
     <div class="command-container">
       <div class="command-header">
         <div class="command-avatar">
-          <!-- <img *ngIf="command?.avatar" [alt]="command?.name" [src]="getImgUrl()" />
-          <img *ngIf="!command?.avatar" alt="no_photo" src="/assets/icons/team-bg.png" /> -->
+          <img *ngIf="command?.avatar" [alt]="command?.name" [src]="getImgUrl()" />
+          <img *ngIf="!command?.avatar" alt="no_photo" src="/assets/icons/team-bg.png" />
         </div>
         <div class="command-info">
-          <!-- <h1 class="command-name">{{command?.name}}</h1>
+          <h1 class="command-name">{{command?.name}}</h1>
           <p class="command-full-name" *ngIf="command?.full_name">{{command?.full_name}}</p>
           <p class="command-location" *ngIf="command?.location">
-            <ion-icon name="location-outline"></ion-icon>
             {{command?.location?.name}} {{command?.location?.type}}
-          </p> -->
+          </p>
+          <p class="command-full-name" *ngIf="command?.city">
+            {{command?.city}}
+          </p>
         </div>
-      </div>
+      </div> 
 
       <div class="command-actions">
         <app-standart-button
