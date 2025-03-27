@@ -54,32 +54,50 @@ ion-card {
 
 .command-header {
   display: flex;
+  
+  
+  height: auto;
+  flex-wrap: nowrap;
   gap: 2rem;
   margin-bottom: 2rem;
   justify-content: center;
-}
+  align-items: center; /* Выровняет элементы по высоте */
 
-.command-avatar {
-  width: 150px;
-  height: 150px;
-  border-radius: 12px;
-  overflow: hidden;
-  flex-shrink: 0;
 
-  img {
+  .command-avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center; /* Центрирование изображения */
+    justify-content: center;
+
+    img {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
+  }
+
+
+  .command-info{
+    width: 150px;
+    min-height: 150px;
+    flex: 1;
+    display: flex;
+    
+    gap: 0.5rem;
+    align-items: center;
+  }
+  
 }
 
-.command-info {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  align-items: center;
-}
+
+  
+
+  
+
+
 
 .command-name {
   font-size: 2rem;
@@ -123,7 +141,7 @@ ion-card {
   padding: 1rem;
   max-width: 800px;
   margin: 0 auto;
-  margin-top: 4rem;
+  margin-top: 1rem;
 }
 
 .member-item {
@@ -180,5 +198,18 @@ ion-card {
 
   .command-actions {
     justify-content: center;
+  }
+}
+
+.users-in-comands-container{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+  background-color: white;
+  border-radius: 10px;
+  .users-in-comands{
+    font-family: var(--font-semi-bold);
+    font-size: var(--font-headers-size-little);
   }
 }

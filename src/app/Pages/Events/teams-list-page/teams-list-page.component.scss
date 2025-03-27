@@ -9,6 +9,11 @@
   margin-bottom: 1rem;
 }
 
+app-standart-input-search {
+  
+  --page-bg: rgb(255, 255, 255);
+}
+
 .commands-grid {
   display: flex;
   flex-direction: column;
