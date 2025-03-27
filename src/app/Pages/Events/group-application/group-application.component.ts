@@ -24,6 +24,8 @@ import { ComandsService } from 'src/app/Shared/Data/Services/Comands/comands.ser
 import { EventService } from 'src/app/Shared/Data/Services/Event/event.service';
 import { ActivatedRoute } from '@angular/router';
 import { StandartInputSearchComponent } from 'src/app/Shared/Components/Forms/standart-input-search/standart-input-search.component';
+import { concat } from 'rxjs';
+import { map, catchError, of } from 'rxjs';
 
 // Добавляем интерфейс для документа
 interface Document {
@@ -393,6 +395,10 @@ export class GroupApplicationComponent implements OnInit {
         ).subscribe({
           next: (response: any) => {
             this.teams = response.commands;
+            // Выбираем первую команду по умолчанию
+            if (this.teams.length > 0) {
+              this.selectedTeam = this.teams[0];
+            }
             // Получаем пользователей для каждой команды
             this.teams.forEach(team => {
               this.loadingService.showLoading().then(usersLoader => {
@@ -841,8 +847,93 @@ export class GroupApplicationComponent implements OnInit {
   }
 
   confirmApplication() {
-    // Логика подтверждения заявки
-    this.closePreviewModal();
+    if (!this.currentEvent?.id) {
+      this.toastService.showToast('Ошибка: ID гонки не найден', 'danger');
+      return;
+    }
+
+    this.loadingService.showLoading().then(loader => {
+      // Создаем массив FormData для каждого пользователя
+      const formDataArray = this.selectedUsers.map(user => {
+        const fd = new FormData();
+        
+        // Добавляем все поля в FormData
+        fd.append('name', user.personal?.name ?? '');
+        fd.append('surname', user.personal?.surname ?? '');
+        fd.append('patronymic', user.personal?.patronymic ?? '');
+        fd.append('dateOfBirth', user.personal?.date_of_birth ?? '');
+        fd.append('region', String(user.personal?.region));
+        fd.append('city', user.personal?.city ?? '');
+        fd.append('inn', user.personal?.inn ?? '');
+        fd.append('snils', user.personal?.snils?.toString() ?? '');
+        fd.append('commandId', user.teamId?.toString() ?? '');
+        fd.append('phoneNumber', user.personal?.phone_number ?? '');
+        fd.append('startNumber', user.personal?.start_number ?? '');
+        fd.append('group', user.personal?.group ?? '');
+        fd.append('rank', user.personal?.rank ?? '');
+        
+        // Находим ID класса по его названию
+        const selectedGrade = this.eventGrades.find(grade => grade.name === user.personal?.race_class);
+        fd.append('gradeId', selectedGrade?.id?.toString() ?? '');
+        
+        fd.append('rankNumber', user.personal?.rank_number ?? '');
+        fd.append('community', user.personal?.community ?? '');
+        fd.append('locationId', user.personal?.location?.id?.toString() ?? '');
+        fd.append('coach', this.userService.user.value?.personal ? 
+          `${this.userService.user.value.personal.surname} ${this.userService.user.value.personal.name} ${this.userService.user.value.personal.patronymic}` : 
+          '');
+        fd.append('motoStamp', user.personal?.moto_stamp ?? '');
+        fd.append('engine', user.personal?.engine ?? '');
+        fd.append('numberAndSeria', user.personal?.number_and_seria ?? '');
+
+        // Добавляем ID документов
+        const licenseDoc = user.documents?.find(doc => doc.type === 'licenses');
+        const polisDoc = user.documents?.find(doc => doc.type === 'polis');
+        const notariusDoc = user.documents?.find(doc => doc.type === 'notarius');
+
+        fd.append('documentIds[0]', licenseDoc?.id?.toString() ?? '');
+        fd.append('documentIds[1]', polisDoc?.id?.toString() ?? '');
+        fd.append('documentIds[2]', notariusDoc?.id?.toString() ?? '');
+
+        return { fd, user };
+      });
+
+      // Создаем массив Observable для каждого запроса
+      const requests = formDataArray.map(({ fd, user }) => 
+        this.eventService.toggleAplicationInRace(this.currentEvent.id, fd).pipe(
+          map(response => ({ success: true, user })),
+          catchError(error => {
+            if (error.error?.message === 'messages.error.exists_appointment_race') {
+              this.toastService.showToast(
+                `Пользователь ${user.personal?.surname} ${user.personal?.name} уже заявился на гонку`,
+                'warning'
+              );
+            } else {
+              this.toastService.showToast(
+                `Ошибка при отправке заявки для пользователя ${user.personal?.surname} ${user.personal?.name}`,
+                'danger'
+              );
+            }
+            return of({ success: false, user });
+          })
+        )
+      );
+
+      // Используем concat для последовательного выполнения запросов
+      concat(...requests).pipe(
+        finalize(() => this.loadingService.hideLoading(loader))
+      ).subscribe({
+        next: (response) => {
+          if (response.success) {
+            console.log('Заявка успешно отправлена для пользователя:', response.user.personal?.name);
+          }
+        },
+        complete: () => {
+          this.toastService.showToast('Отправка заявок завершена', 'success');
+          this.closePreviewModal();
+        }
+      });
+    });
   }
 
   // Добавляем метод для выбора команды
