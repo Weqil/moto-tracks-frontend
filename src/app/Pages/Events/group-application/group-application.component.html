@@ -120,17 +120,13 @@
           <div class="documents">
             <div class="document-header">Лицензия</div>
             <div class="licenses document-container">
-              <div class="form-group">
-              
-                <app-standart-input
-                  label="Лицензия МФР*"
-                  [errorMessage]="documentsError.licenseNumber?.errorMessage" [invalid]="documentsError.licenseNumber.errorMessage.length !== 0"
-                  [control]="licensesForm.get('number')"
-                  placeholder="Введите номер лицензии"
-                  [error]="documentsError.licenseNumber"
-                ></app-standart-input>
-             
-              </div>
+              <app-standart-input 
+                [control]="licensesForm.get('number')" 
+                placeholder="Лицензия МФР" 
+                label="Лицензия МФР (тип, №)*"
+                [error]="documentsError.licenseNumber"
+              ></app-standart-input>
+        
             </div>
 
             <div class="document-header">Страховой полис</div>

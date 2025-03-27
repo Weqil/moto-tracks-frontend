@@ -293,8 +293,7 @@ export class GroupApplicationComponent implements OnInit {
     },
     polisFile:{
       errorMessage:''
-    },
-
+    }
   }
 
   personalUserForm: FormGroup = new FormGroup({
@@ -319,6 +318,39 @@ export class GroupApplicationComponent implements OnInit {
   });
 
   commandService: ComandsService = inject(ComandsService);
+
+  // Добавляем свойства для работы с файлами
+  licenseFile: any = { name: '' };
+  polisFile: any = { name: '' };
+  notariusFile: any = { name: '' };
+
+  // Добавляем методы для работы с файлами
+  setLicenseFile(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      this.licenseFile = file;
+      this.licensesForm.patchValue({
+        licensesFileLink: file.name
+      });
+    }
+  }
+
+  setPolisFile(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      this.polisFile = file;
+      this.polisForm.patchValue({
+        polisFileLink: file.name
+      });
+    }
+  }
+
+  setNotariusFile(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      this.notariusFile = file;
+    }
+  }
 
   constructor(
     private userService: UserService,
