@@ -275,6 +275,31 @@
   }
 }
 
+.documents{
+  display: flex;
+  flex-direction: column;
+}
+.document-name{
+  font-size: 1rem;
+  font-family: var(--font-bold);
+}
+.document-container{
+  border: 1px solid rgba(76, 88, 97, 0.2549019608);
+  padding: var(--little-padding);
+  margin-bottom: var(--little-padding);
+  display: flex;
+  border-radius: 5px;
+  gap: var(--little-padding);
+  flex-direction: column;
+}
+.document-header{
+  padding-top: 1rem;
+  font-family: var(--font-bold);
+  font-size: var(--font-regular-size);
+  padding-bottom: var(--little-padding);
+}
+
+
 .documents {
   display: flex;
   flex-direction: column;

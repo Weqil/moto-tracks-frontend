@@ -249,6 +249,38 @@ export class GroupApplicationComponent implements OnInit {
   // Добавляем свойство для выбранной команды
   selectedTeam: ICommand | null = null;
 
+  licensesForm: FormGroup = new FormGroup(
+    {
+      number: new FormControl('',[Validators.required, ]), //номер лицензии
+      licensesFileLink: new FormControl('',[Validators.required, ]), // путь до файла
+    }
+  )
+
+  polisForm: FormGroup = new FormGroup(
+    {
+      number: new FormControl('',[Validators.required, ]), //Серия и номер полиса
+      issuedWhom: new FormControl('',[Validators.required, ]), //Кем выдан
+      itWorksDate: new FormControl('',[Validators.required, ]), //Срок действия
+      polisFileLink: new FormControl('',[Validators.required, ]), // путь до файла
+    }
+  )
+
+  documentsError:any = {
+    polisNumber:{
+      errorMessage:''
+    },
+    issuedWhom:{
+      errorMessage:''
+    },
+    itWorksDate:{
+      errorMessage:''
+    },
+    polisFile:{
+      errorMessage:''
+    },
+
+  }
+
   personalUserForm: FormGroup = new FormGroup({
     name: new FormControl('', [Validators.required]),
     surname: new FormControl('', [Validators.required]),
