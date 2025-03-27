@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA, inject } from '@angular/core';
-import { IonContent, IonCheckbox, IonButton, IonList, IonItem, IonLabel, IonIcon, IonModal } from "@ionic/angular/standalone";
+import { IonContent, IonCheckbox, IonButton, IonList, IonItem, IonLabel, IonIcon, IonModal, NavController } from "@ionic/angular/standalone";
 import { HeaderModule } from 'src/app/Shared/Modules/header/header.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserSectionComponent } from 'src/app/Shared/Components/UserElements/user-section/user-section.component';
@@ -81,6 +81,7 @@ export class GroupApplicationComponent implements OnInit {
   mapService:MapService = inject(MapService)
   selectedUser: UserWithTeam | null = null;
   currentUser: UserWithTeam | null = null;
+  navController:NavController = inject(NavController)
   regionModalState = false;
   searchRegionItems: any[] = [];
   
@@ -961,6 +962,7 @@ export class GroupApplicationComponent implements OnInit {
         },
         complete: () => {
           this.toastService.showToast('Отправка заявок завершена', 'success');
+          this.navController.navigateForward(`/event/${this.currentEvent.id}`)
           this.closePreviewModal();
         }
       });
