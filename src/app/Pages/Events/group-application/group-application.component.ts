@@ -472,6 +472,11 @@ export class GroupApplicationComponent implements OnInit {
     return requiredFields.some(field => !field || field === '');
   }
 
+  // Добавляем метод для проверки наличия personal
+  hasPersonalData(user: UserWithTeam): boolean {
+    return !!user.personal;
+  }
+
   getIncompleteFields(user: UserWithTeam): string[] {
     if (!user.personal) return ['Все поля'];
     
@@ -501,6 +506,14 @@ export class GroupApplicationComponent implements OnInit {
   onUserSelect(user: UserWithTeam, isSelected: boolean, event: Event) {
     event.stopPropagation();
     
+    if (!user.personal) {
+      this.toastService.showToast(
+        'Пользователь должен сначала заполнить свою анкету самостоятельно',
+        'warning'
+      );
+      return;
+    }
+    
     if (isSelected) {
       this.selectedUsers.push(user);
     } else {
@@ -515,8 +528,16 @@ export class GroupApplicationComponent implements OnInit {
   openUserModal(user: UserWithTeam, event: Event) {
     event.stopPropagation();
     
+    if (!user.personal) {
+      this.toastService.showToast(
+        'Пользователь должен сначала заполнить свою анкету самостоятельно',
+        'warning'
+      );
+      return;
+    }
+
     // Проверяем наличие класса
-    if (!user.personal?.race_class) {
+    if (!user.personal.race_class) {
       this.toastService.showToast('Сначала необходимо выбрать класс для пользователя', 'danger');
       return;
     }
@@ -620,12 +641,12 @@ export class GroupApplicationComponent implements OnInit {
             engine: this.personalUserForm.get('engine')?.value || '',
             number_and_seria: this.personalUserForm.get('numberAndSeria')?.value || '',
             command_id: this.selectedTeam?.id.toString() || '',
+            community: this.selectedTeam?.name || '',
             location: {
               id: this.personalUserForm.get('locationId')?.value || '',
               name: this.personalUserForm.get('region')?.value || ''
             },
-            race_class: this.personalUserForm.get('gradeId')?.value || '',
-            group: this.personalUserForm.get('gradeId')?.value || ''
+            race_class: this.personalUserForm.get('gradeId')?.value || ''
           }
         };
 
@@ -726,6 +747,7 @@ export class GroupApplicationComponent implements OnInit {
           group: user.personal?.group || '',
           rank: user.personal?.rank || '',
           gradeId: user.personal?.race_class || '',
+          userId:user.id,
           rankNumber: user.personal?.rank_number || '',
           community: user.personal?.community || '',
           locationId: user.personal?.location?.id || '',
@@ -871,6 +893,7 @@ export class GroupApplicationComponent implements OnInit {
         fd.append('startNumber', user.personal?.start_number ?? '');
         fd.append('group', user.personal?.group ?? '');
         fd.append('rank', user.personal?.rank ?? '');
+        fd.append('userId', user.id?.toString() ?? '');
         
         // Находим ID класса по его названию
         const selectedGrade = this.eventGrades.find(grade => grade.name === user.personal?.race_class);

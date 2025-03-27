@@ -299,6 +299,63 @@
   padding-bottom: var(--little-padding);
 }
 
+.user-not-have-personal{
+  font-family: var(--font-regular);
+}
+
+.class-selector-wrapper__yelow{
+  background-color: #fcf15b;
+  padding: var(--standart-padding);
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  width: 100%;
+  pointer-events: auto;
+}
+.class-selector__yellow{
+  background-color: #fcf15b;
+  padding: 0.3rem;
+    width: 100%;
+    max-width: 100%;
+  
+    ::ng-deep {
+      .select-container {
+        background-color: #fcf15b;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 4px;
+        padding: 8px 12px;
+        transition: all 0.2s;
+  
+        &:hover {
+          border-color: var(--primary-color);
+        }
+  
+        &.focused {
+          border-color: var(--primary-color);
+          box-shadow: 0 0 0 2px rgba(var(--primary-color-rgb), 0.1);
+        }
+      }
+      span{
+
+        text-align: center;
+      }
+  
+      .select-label {
+        color: var(--gray);
+        font-size: 0.9rem;
+        margin-bottom: 4px;
+      }
+  
+      .select-value {
+        color: var(--dark-grey-color);
+        font-size: 1rem;
+      }
+  
+      .select-arrow {
+        color: var(--gray);
+      }
+    }
+  }
+
+
 
 .documents {
   display: flex;

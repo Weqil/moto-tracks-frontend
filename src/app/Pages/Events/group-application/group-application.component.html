@@ -19,6 +19,7 @@
         <div class="user-item"
              (click)="!hasIncompleteData(user) && onUserSelect(user, !isUserSelected(user), $event)">
           <ion-checkbox 
+          *ngIf="user.personal"
             [checked]="isUserSelected(user)"
             [disabled]="hasIncompleteData(user)"
             (ionChange)="onUserSelect(user, $event.detail.checked, $event)"
@@ -32,7 +33,7 @@
               [hideEmail]="true">
             </app-user-section>
           </div>
-          <div class="user-actions" (click)="$event.stopPropagation()">
+          <div *ngIf="user.personal" class="user-actions" (click)="$event.stopPropagation()">
             <div *ngIf="hasIncompleteData(user)" class="incomplete-data-indicator">
               <ion-icon name="warning" color="danger"></ion-icon>
               <div class="incomplete-data-tooltip">
@@ -52,8 +53,8 @@
             </ion-icon>
           </div>
         </div>
-        <div class="class-selector-wrapper" (click)="$event.stopPropagation()">
-          <div class="class-selector">
+        <div *ngIf="user.personal" class="class-selector-wrapper" (click)="$event.stopPropagation()">
+          <div  class="class-selector">
             <app-standart-input-select
               [label]="'Класс'"
               [items]="raceClassesForSelect"
@@ -61,6 +62,13 @@
               [selectedName]="'class-select-' + user.id"
               (onChange)="onClassSelect(user, $event.value)"
             ></app-standart-input-select>
+          </div>
+   
+        </div>
+        <div *ngIf="!user.personal" class="class-selector-wrapper__yellow" (click)="$event.stopPropagation()">
+
+          <div *ngIf="!user.personal" class="class-selector__yellow">
+            <span class="user-not-have-personal" *ngIf="!user.personal">Пользователь должен сам в первый раз сохранить свою анкету</span>
           </div>
         </div>
       </div>
