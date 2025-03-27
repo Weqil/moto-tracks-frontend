@@ -535,6 +535,12 @@ export class EventsViewPageComponent  implements OnInit {
     this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
           loader = res
     })
+
+        // Форматируем номер телефона перед отправкой
+        let rawPhone = this.personalUserForm.value.phoneNumber;
+        let cleanedPhone = rawPhone.toString();
+        this.personalUserForm.patchValue({ phoneNumber: cleanedPhone });
+
     this.userService.updatePersonalInfo(this.personalUserForm.value).pipe(
       finalize(
         ()=>{
@@ -722,7 +728,12 @@ export class EventsViewPageComponent  implements OnInit {
     if(this.submitValidate()){
       await this.setFirstDocuments().pipe().subscribe(()=>{
         this.setDocuments().pipe().subscribe(()=>{
-      
+        
+           // Форматируем номер телефона перед отправкой
+        let rawPhone = this.personalUserForm.value.phoneNumber || '';
+        let cleanedPhone = parseInt(rawPhone.replace(/\D/g, ''), 10) || 0;
+        this.personalUserForm.patchValue({ phoneNumber: cleanedPhone });
+
          let currentForm = {
            ...this.personalUserForm.value,
            documentIds:[this.polisId, this.licensesId,this.notariusId]   
@@ -758,9 +769,13 @@ export class EventsViewPageComponent  implements OnInit {
     this.userService.refreshUser()
     if(this.userService.user.value?.personal){
       this.personalUserForm.patchValue(this.userService.user.value?.personal)
+
+      const rawPhone = this.userService.user.value?.personal?.phone_number || '';
+      const cleanedPhone = parseInt(rawPhone.replace(/\D/g, ''), 10) || 0; // Удаляем все символы, кроме цифр
+
       this.personalUserForm.patchValue({
         dateOfBirth: this.userService.user.value?.personal.date_of_birth,
-        phoneNumber: this.userService.user.value?.personal.phone_number,
+        phoneNumber: cleanedPhone,
         startNumber: this.userService.user.value?.personal.start_number,
         locationId: this.userService.user.value?.personal.location?.id,
         commandId: this.userService.user.value?.personal.command?.id,

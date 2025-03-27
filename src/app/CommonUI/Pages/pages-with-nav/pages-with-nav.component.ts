@@ -40,7 +40,7 @@ export class PagesWithNavComponent  {
         path: ['/tracks'], 
       },
       {
-        icon: '/assets/icons/team-bg.png',
+        icon: '/assets/icons/team.svg',
         name:'Команды',
         active:false,
         path: ['/teams'], 

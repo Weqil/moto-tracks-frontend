@@ -1,5 +1,5 @@
 <ion-content>
-  <app-header headerTitle="Подтверждение почты" ></app-header>
+  <app-header headerTitle="Подтверждение почты" [hiddenBackButton]="true"></app-header>
   <div *ngIf="user" class="main-container--with-header">
     <p class="verification__title">Введите код отправленный на вашу электронную почту {{user.email}} </p>
     <ngx-otp-input  (otpChange)="changeCode($event)" [options]="otpOptions"></ngx-otp-input>
