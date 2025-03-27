@@ -124,7 +124,7 @@
               
                 <app-standart-input
                   label="Лицензия МФР*"
-                  [errorMessage]="documentsError.licenseNumber.errorMessage" [invalid]="documentsError.licenseNumber.errorMessage.length !== 0"
+                  [errorMessage]="documentsError.licenseNumber?.errorMessage" [invalid]="documentsError.licenseNumber.errorMessage.length !== 0"
                   [control]="licensesForm.get('number')"
                   placeholder="Введите номер лицензии"
                   [error]="documentsError.licenseNumber"

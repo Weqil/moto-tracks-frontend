@@ -25,24 +25,22 @@ import { EventService } from 'src/app/Shared/Data/Services/Event/event.service';
 import { ActivatedRoute } from '@angular/router';
 import { StandartInputSearchComponent } from 'src/app/Shared/Components/Forms/standart-input-search/standart-input-search.component';
 
+// Добавляем интерфейс для документа
+interface Document {
+  id: number;
+  name: string;
+  type: 'licenses' | 'polis' | 'notarius';
+  url_view: string;
+  number: string | null;
+  issued_whom: string | null;
+  it_works_date: string | null;
+  is_checked: boolean | null;
+}
+
 // Добавляем интерфейс для хранения информации о пользователе и его команде
 interface UserWithTeam extends User {
   teamId?: number;
-}
-
-// Добавляем интерфейс для хранения данных о документах
-interface UserDocuments {
-  license_number?: string;
-  license_file_link?: string;
-  polis_number?: string;
-  polis_issued_whom?: string;
-  polis_it_works_date?: string;
-  polis_file_link?: string;
-}
-
-// Расширяем интерфейс UserWithTeam для включения данных о документах
-interface UserWithDocuments extends UserWithTeam {
-  documents?: UserDocuments;
+  documents?: Document[];
 }
 
 @Component({
@@ -72,15 +70,15 @@ interface UserWithDocuments extends UserWithTeam {
 })
 export class GroupApplicationComponent implements OnInit {
   // Обновляем тип массива пользователей
-  users: UserWithDocuments[] = [];
-  selectedUsers: UserWithDocuments[] = [];
+  users: UserWithTeam[] = [];
+  selectedUsers: UserWithTeam[] = [];
   teams: ICommand[] = [];
   
   isUserModalOpen = false;
   isPreviewModalOpen = false;
   mapService:MapService = inject(MapService)
-  selectedUser: UserWithDocuments | null = null;
-  currentUser: UserWithDocuments | null = null;
+  selectedUser: UserWithTeam | null = null;
+  currentUser: UserWithTeam | null = null;
   regionModalState = false;
   searchRegionItems: any[] = [];
   
@@ -399,7 +397,7 @@ export class GroupApplicationComponent implements OnInit {
   }
 
   // Обновляем метод для фильтрации пользователей по команде
-  getFilteredUsers(): UserWithDocuments[] {
+  getFilteredUsers(): UserWithTeam[] {
     if (!this.selectedTeam) {
       return this.users;
     }
@@ -412,7 +410,7 @@ export class GroupApplicationComponent implements OnInit {
   }
 
   // Обновляем метод для проверки неполных данных
-  hasIncompleteData(user: UserWithDocuments): boolean {
+  hasIncompleteData(user: UserWithTeam): boolean {
     if (!user.personal) return true;
     
     const requiredFields = [
@@ -435,15 +433,14 @@ export class GroupApplicationComponent implements OnInit {
 
     // Проверяем наличие документов
     const hasRequiredDocuments = user.documents && 
-      user.documents.license_number && 
-      user.documents.polis_number && 
-      user.documents.polis_issued_whom && 
-      user.documents.polis_it_works_date;
+      user.documents.find(doc => doc.type === 'licenses') && 
+      user.documents.find(doc => doc.type === 'polis') && 
+      user.documents.find(doc => doc.type === 'notarius');
 
     return requiredFields.some(field => !field || field === '') || !hasRequiredDocuments;
   }
 
-  getIncompleteFields(user: UserWithDocuments): string[] {
+  getIncompleteFields(user: UserWithTeam): string[] {
     if (!user.personal) return ['Все поля'];
     
     const fields = [
@@ -470,10 +467,9 @@ export class GroupApplicationComponent implements OnInit {
 
     // Добавляем проверку документов
     if (user.documents) {
-      if (!user.documents.license_number) incompleteFields.push('Номер лицензии');
-      if (!user.documents.polis_number) incompleteFields.push('Номер полиса');
-      if (!user.documents.polis_issued_whom) incompleteFields.push('Кем выдан полис');
-      if (!user.documents.polis_it_works_date) incompleteFields.push('Срок действия полиса');
+      if (!user.documents.find(doc => doc.type === 'licenses')) incompleteFields.push('Номер лицензии');
+      if (!user.documents.find(doc => doc.type === 'polis')) incompleteFields.push('Номер полиса');
+      if (!user.documents.find(doc => doc.type === 'notarius')) incompleteFields.push('Кем выдан полис');
     } else {
       incompleteFields.push('Документы не заполнены');
     }
@@ -481,16 +477,15 @@ export class GroupApplicationComponent implements OnInit {
     return incompleteFields;
   }
 
-  onUserSelect(user: UserWithDocuments, isSelected: boolean, event: Event) {
+  onUserSelect(user: UserWithTeam, isSelected: boolean, event: Event) {
     event.stopPropagation();
     
     if (isSelected) {
       // Проверяем наличие документов
       const hasRequiredDocuments = user.documents && 
-        user.documents.license_number && 
-        user.documents.polis_number && 
-        user.documents.polis_issued_whom && 
-        user.documents.polis_it_works_date;
+        user.documents.find(doc => doc.type === 'licenses') && 
+        user.documents.find(doc => doc.type === 'polis') && 
+        user.documents.find(doc => doc.type === 'notarius');
 
       if (!hasRequiredDocuments) {
         const incompleteFields = this.getIncompleteFields(user);
@@ -507,11 +502,11 @@ export class GroupApplicationComponent implements OnInit {
     }
   }
 
-  isUserSelected(user: UserWithDocuments): boolean {
+  isUserSelected(user: UserWithTeam): boolean {
     return this.selectedUsers.some(u => u.id === user.id);
   }
 
-  openUserModal(user: UserWithDocuments, event: Event) {
+  openUserModal(user: UserWithTeam, event: Event) {
     event.stopPropagation();
     
     // Проверяем наличие класса
@@ -531,7 +526,7 @@ export class GroupApplicationComponent implements OnInit {
     this.resetForms();
   }
 
-  fillFormWithUserData(user: UserWithDocuments) {
+  fillFormWithUserData(user: UserWithTeam) {
     if (user.personal) {
       this.personalUserForm.patchValue({
         name: user.personal.name,
@@ -553,19 +548,27 @@ export class GroupApplicationComponent implements OnInit {
         locationId: user.personal.location?.id || ''
       });
 
-      // Заполняем формы документов
+      // Заполняем формы документов из массива documents
       if (user.documents) {
-        this.licensesForm.patchValue({
-          number: user.documents.license_number || '',
-          licensesFileLink: user.documents.license_file_link || ''
-        });
+        const licenseDoc = user.documents.find(doc => doc.type === 'licenses');
+        const polisDoc = user.documents.find(doc => doc.type === 'polis');
+        const notariusDoc = user.documents.find(doc => doc.type === 'notarius');
 
-        this.polisForm.patchValue({
-          number: user.documents.polis_number || '',
-          issuedWhom: user.documents.polis_issued_whom || '',
-          itWorksDate: user.documents.polis_it_works_date || '',
-          polisFileLink: user.documents.polis_file_link || ''
-        });
+        if (licenseDoc) {
+          this.licensesForm.patchValue({
+            number: licenseDoc.number || '',
+            licensesFileLink: licenseDoc.url_view || ''
+          });
+        }
+
+        if (polisDoc) {
+          this.polisForm.patchValue({
+            number: polisDoc.number || '',
+            issuedWhom: polisDoc.issued_whom || '',
+            itWorksDate: polisDoc.it_works_date ? polisDoc.it_works_date.split(' ')[0] : '',
+            polisFileLink: polisDoc.url_view || ''
+          });
+        }
       }
     }
   }
@@ -591,7 +594,7 @@ export class GroupApplicationComponent implements OnInit {
   saveUserData() {
     if (this.submitValidate() && this.validateDocuments()) {
       if (this.currentUser && this.currentUser.personal) {
-        const updatedUser: UserWithDocuments = {
+        const updatedUser: UserWithTeam = {
           ...this.currentUser,
           personal: {
             ...this.currentUser.personal,
@@ -617,14 +620,38 @@ export class GroupApplicationComponent implements OnInit {
             },
             race_class: this.personalUserForm.get('gradeId')?.value || ''
           },
-          documents: {
-            license_number: this.licensesForm.get('number')?.value || '',
-            license_file_link: this.licensesForm.get('licensesFileLink')?.value || '',
-            polis_number: this.polisForm.get('number')?.value || '',
-            polis_issued_whom: this.polisForm.get('issuedWhom')?.value || '',
-            polis_it_works_date: this.polisForm.get('itWorksDate')?.value || '',
-            polis_file_link: this.polisForm.get('polisFileLink')?.value || ''
-          }
+          documents: [
+            {
+              id: this.currentUser.documents?.find(doc => doc.type === 'licenses')?.id || 0,
+              name: this.licensesForm.get('licensesFileLink')?.value || '',
+              type: 'licenses',
+              url_view: this.licensesForm.get('licensesFileLink')?.value || '',
+              number: this.licensesForm.get('number')?.value || '',
+              issued_whom: null,
+              it_works_date: null,
+              is_checked: null
+            },
+            {
+              id: this.currentUser.documents?.find(doc => doc.type === 'polis')?.id || 0,
+              name: this.polisForm.get('polisFileLink')?.value || '',
+              type: 'polis',
+              url_view: this.polisForm.get('polisFileLink')?.value || '',
+              number: this.polisForm.get('number')?.value || '',
+              issued_whom: this.polisForm.get('issuedWhom')?.value || '',
+              it_works_date: this.polisForm.get('itWorksDate')?.value || '',
+              is_checked: null
+            },
+            {
+              id: this.currentUser.documents?.find(doc => doc.type === 'notarius')?.id || 0,
+              name: '',
+              type: 'notarius',
+              url_view: '',
+              number: null,
+              issued_whom: null,
+              it_works_date: null,
+              is_checked: null
+            }
+          ]
         };
 
         // Обновляем пользователя в локальном массиве
