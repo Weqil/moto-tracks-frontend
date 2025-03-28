@@ -42,7 +42,9 @@
                     </button>
                 </div>
                 <div *ngFor="let group of formattedUsers">
-                    <h2 id="{{group.group}}">{{group.group}}:</h2>
+                    <div class="group-text">
+                        <h2 id="{{group.group}}">{{group.group}}:</h2>
+                    </div>
                     <div class="card-grid">
                         <ng-container *ngFor="let user of group.users; let i = index">
                             <div>

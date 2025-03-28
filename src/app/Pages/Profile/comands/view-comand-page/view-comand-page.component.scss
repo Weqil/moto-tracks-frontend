@@ -62,17 +62,22 @@ ion-card {
 
   .command-avatar {
     display: flex;
+    max-width: 100px;
+    max-height: 100px;
+    min-width: 100px;
+    min-height: 100px;
+    height: 100px;
     width: 100px;
-    height: 100%;
     border-radius: 12px;
     align-items: center; /* Центрирование изображения */
     justify-content: center;
 
     img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
+      border-radius: 50%;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    } 
   }
 
 
