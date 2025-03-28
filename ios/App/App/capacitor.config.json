@@ -21,7 +21,7 @@
 		}
 	},
 	"server": {
-		"url": "http://192.168.88.19:8100"
+		"url": "https://moto.vokrug.city"
 	},
 	"packageClassList": [
 		"AppPlugin",

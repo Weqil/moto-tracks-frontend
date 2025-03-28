@@ -27,7 +27,7 @@ export const environment = {
   YANDEX_METRICA_KEY: 96112606,
   YANDEX_METRICA_ON: true,
   APP_NAME: 'VOKRUG',
-  BASE_URL: 'http://localhost:8100',
+  BASE_URL: 'https://moto.vokrug.city',
   PORT: '8100',
   BACKEND_URL: 'https://api-moto.vokrug.city',
   metrikaId:0,

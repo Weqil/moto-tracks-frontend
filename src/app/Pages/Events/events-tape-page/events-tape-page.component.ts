@@ -68,7 +68,7 @@ export class EventsTapePageComponent  implements OnInit {
  
 
   getRegions(){
-    this.mapService.getAllRegions(true, false).pipe().subscribe((res:any)=>{
+    this.mapService.getAllRegions(true, false, false).pipe().subscribe((res:any)=>{
       this.searchRegionItems.push({
         name:'Россия',
         value:''
