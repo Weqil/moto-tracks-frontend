@@ -531,6 +531,16 @@ submitForm(){
     this.personalUserForm.patchValue({community:event.name})
     this.personalUserForm.patchValue({commandId:event.id})
     this.closeComandSelectModalStateValue()
+    if(event.id != ''){
+      let loader:HTMLIonLoadingElement
+       this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+        loader = res
+       })
+      this.commandService.toggleMember(event.id).pipe(
+        finalize(()=>{this.loaderService.hideLoading(loader)})
+      ).subscribe((res:any)=>{this.toastService.showToast('Вы добавлены в команду','success')
+        this.setFormValue()})
+    }
   }
   createNotarius(){
     if(this.validateNotarius()){

@@ -1,12 +1,19 @@
 .search-container {
   padding: 1rem;
-  max-width: 600px;
-  margin: 0 auto;
+  max-width: 100%;
+  margin-top: 1rem;
+  
   background: #ffffff;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  position: sticky;  /* Закрепляем элемент */
+  top:4rem;  /* Отступ от верхней границы */
+  
+}
+
+app-standart-input-search {
+  
+  --page-bg: rgb(255, 255, 255);
 }
 
 .commands-grid {

@@ -12,34 +12,35 @@
           <h1 class="command-name">{{command?.name}}</h1>
           <p class="command-full-name" *ngIf="command?.full_name">{{command?.full_name}}</p>
           <p class="command-location" *ngIf="command?.location">
-            <ion-icon name="location-outline"></ion-icon>
             {{command?.location?.name}} {{command?.location?.type}}
           </p>
+          <p class="command-full-name" *ngIf="command?.city">
+            {{command?.city}}
+          </p>
         </div>
-      </div>
+      </div> 
 
       <div class="command-actions">
-        <app-standart-button
+        <!-- <app-standart-button
           [buttonText]="isMember ? 'Покинуть команду' : 'Вступить в команду'"
           [theme]="isMember ? 'red' : 'standart'"
           (click)="toggleMembership()"
-          [disabled]="false"
-        ></app-standart-button>
-        <app-standart-button
+          [disabled]="false"></app-standart-button> -->
+        <!-- <app-standart-button
           buttonText="Участники"
           (click)="openMembers()"
           [disabled]="false"
-        ></app-standart-button>
+        ></app-standart-button> -->
       </div>
     </div>
-  </main>
-</ion-content>
 
-<ion-modal [isOpen]="membersModalState" (didDismiss)="closeMembersModal()">
-  <ng-template>
-    <ion-content>
-      <app-header (customBackClick)="closeMembersModal()" [customBack]="true" headerTitle="Участники команды: {{membersForUser.length}}"></app-header>
+<div >
       <div class="members-list" *ngIf="membersForUser.length">
+        <div class="users-in-comands-container">
+          <div class="users-in-comands">
+            Участники команды: {{membersForUser.length}}
+          </div>
+        </div>
         <div *ngFor="let user of membersForUser" class="member-item">
           <app-user-section [hideEmail]="true" [user]="user"></app-user-section>
           <div *ngIf="user?.personal?.start_number" class="member-number">
@@ -50,9 +51,13 @@
       <div class="no-members" *ngIf="!membersForUser.length">
         <h2>Список участников пуст</h2>
       </div>
-    </ion-content>
-  </ng-template>
-</ion-modal>
+</div>
+
+
+  </main>
+</ion-content> 
+
+
 
 
 <!-- На бэке пока нет метода получения тренеров -->

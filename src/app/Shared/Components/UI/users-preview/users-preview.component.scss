@@ -36,8 +36,10 @@ h2{
     gap: 2rem;
     flex-direction: column;
     height: 100%;
+    padding-top: 1rem;
 }
 .users-content{
+    padding-top: 5rem;
     padding-bottom: 4rem;
 }
 .user-number{
@@ -139,6 +141,21 @@ ion-toolbar{
     position: relative;
     justify-content: space-between;
     align-items: center;
+    
+}
+
+.group{
+    padding-top: 5rem;
+}
+
+.group-text{
+    padding: 0.2rem;
+    margin: 1rem;
+    border-radius: 1rem;
+    background-color: #fff;
+    h2{
+        margin: 0px;
+    }
 }
 .group-grid{
     overflow-x: auto;
@@ -148,6 +165,11 @@ ion-toolbar{
     display: flex;
     gap: 1rem;
     width: 100%;
+    position: fixed;
+    top: 2.5rem;
+    background-color: var(--page-background);
+    z-index: 300;
+    
 }
 .group-grid__item{
     font-family: var(--font-bold);
