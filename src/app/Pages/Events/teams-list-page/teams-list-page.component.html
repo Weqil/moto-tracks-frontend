@@ -1,5 +1,5 @@
 <ion-content>
-  <app-header headerTitle="Команды"></app-header>
+  <app-header (click)="openRegionModal()" [hiddenBackButton]="true" [headerTitle]="regionFilterName" icon='/assets/icons/arrow-down.svg'></app-header>
   <main class="main-container--with-header">
     <div class="search-container">
       <app-standart-input-search
@@ -25,3 +25,19 @@
     </div>
   </main>
 </ion-content> 
+
+<ion-modal class="region-modal" (didDismiss)="closeRegionModal()"  [isOpen]="regionModalState">
+  <ng-template>
+    <ion-content>
+      <div class="region-modal-container">
+        <app-standart-input-search 
+        label="Область/край*" 
+        [searchCurrentItems]="searchRegionItems" 
+        [searchItems]="searchRegionItems" 
+        (changeSearchValue)="filterEventsInLocation($event)"
+        >
+      </app-standart-input-search>
+      </div>
+    </ion-content>
+  </ng-template>  
+</ion-modal>      
