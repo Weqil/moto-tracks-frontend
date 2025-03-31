@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { ICommand } from 'src/app/Shared/Data/Interfaces/command';
+import { ICommand, ICommandCreate } from 'src/app/Shared/Data/Interfaces/command';
 import { CheckImgUrlPipe } from "../../../Helpers/check-img-url.pipe";
 import { IonicModule } from '@ionic/angular';
 import { AuthService } from '../../../Services/auth.service';

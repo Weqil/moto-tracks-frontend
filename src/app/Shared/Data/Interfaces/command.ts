@@ -10,6 +10,7 @@ export interface ICommand {
     avatar:string,
     city:string,
     members_exists?: boolean
+    coach?: string
 }
 
 export interface ICommandCreate {
