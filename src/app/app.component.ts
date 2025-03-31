@@ -26,7 +26,7 @@ export class AppComponent {
           const diffInSeconds = this.finishTimeInBackground.diff(this.startTimeInBackground, 'seconds');
           // console.log(`Приложение было в фоновом режиме ${diffInSeconds} секунд`);
           if(diffInSeconds>20){
-            this.navCtrl.navigateRoot(this.router.url);
+            window.location.reload();
             // console.log(`Отправили на ту же страницу`);
           }
         }
