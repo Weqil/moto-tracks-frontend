@@ -18,7 +18,8 @@
       <ng-container *ngIf="searchCommands">
         <div class="commands-grid">
           <ng-container *ngFor="let item of searchCurrentItems">
-            <app-command-section (click)="setSearchItem(item)" [command]="item"></app-command-section>
+            <app-command-section (click)="setSearchItem(item)" 
+            [command]="item"></app-command-section>
           </ng-container>
         </div>
     

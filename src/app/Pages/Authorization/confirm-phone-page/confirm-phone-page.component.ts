@@ -47,6 +47,7 @@ export class ConfirmPhonePageComponent  implements OnInit {
       name: new FormControl('', [Validators.required]),
       surname: new FormControl('', [Validators.required]),
       patronymic: new FormControl('', [Validators.required]),
+      locationId: new FormControl('', [Validators.required]),
       dateOfBirth: new FormControl('', [Validators.required]),
       city: new FormControl('', [Validators.required]),
       region: new FormControl('', [Validators.required]),
@@ -191,35 +192,37 @@ phoneSubmit(){
 }
 
 submitPersonalInfo(){
-  if(this.validatePersonal()){
-    if(!this.user.personal){
-      let loader:HTMLIonLoadingElement
-      this.loaderService.showLoading().then((res:HTMLIonLoadingElement) => {
-        loader = res
-      })
-      this.userService.createPersonalInfo(this.personalUserForm.value).pipe(
-        finalize(()=>{
-          this.loaderService.hideLoading(loader)
-        }),
+  console.log(this.personalUserForm.value)
+  // if(this.validatePersonal()){
+  //   if(!this.user.personal){
+  //     console.log(this.personalUserForm.value)
+  //     let loader:HTMLIonLoadingElement
+  //     this.loaderService.showLoading().then((res:HTMLIonLoadingElement) => {
+  //       loader = res
+  //     })
+  //     this.userService.createPersonalInfo(this.personalUserForm.value).pipe(
+  //       finalize(()=>{
+  //         this.loaderService.hideLoading(loader)
+  //       }),
       
-      ).subscribe((res:any)=>{
-        this.userService.refreshUser()
-      })
-    }
-    else{
-      let loader:HTMLIonLoadingElement
-      this.loaderService.showLoading().then((res:HTMLIonLoadingElement) => {
-        loader = res
-      })
-      this.userService.updatePersonalInfo(this.personalUserForm.value).pipe(
-        finalize(()=>{
-          this.loaderService.hideLoading(loader)
-        }),
-      ).subscribe((res:any)=>{
-        this.userService.refreshUser()
-      })
-    }
-  }
+  //     ).subscribe((res:any)=>{
+  //       this.userService.refreshUser()
+  //     })
+  //   }
+  //   else{
+  //     let loader:HTMLIonLoadingElement
+  //     this.loaderService.showLoading().then((res:HTMLIonLoadingElement) => {
+  //       loader = res
+  //     })
+  //     this.userService.updatePersonalInfo(this.personalUserForm.value).pipe(
+  //       finalize(()=>{
+  //         this.loaderService.hideLoading(loader)
+  //       }),
+  //     ).subscribe((res:any)=>{
+  //       this.userService.refreshUser()
+  //     })
+  //   }
+  // }
 
 }
   setRegion(region:any){
