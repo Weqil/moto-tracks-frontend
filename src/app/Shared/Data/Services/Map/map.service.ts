@@ -18,7 +18,7 @@ export class MapService {
     const query = {
       raceCountExists: existsRace ? '1' : '0',
       trackCountExists: existsTrack ? '1' : '0',
-      commandCountExists: existsCommand ? '1' : '0'
+      commandCountExists: existComand ? '1' : '0'
     };
     return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/locations`, {params: query})
   }
