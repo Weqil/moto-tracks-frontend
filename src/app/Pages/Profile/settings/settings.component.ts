@@ -18,8 +18,9 @@ import { catchError, EMPTY, finalize } from 'rxjs';
 import { userRoles } from 'src/app/Shared/Data/Enums/roles';
 import { NavController } from '@ionic/angular';
 import { serverError } from 'src/app/Shared/Data/Interfaces/errors';
-import { IonCheckbox, IonModal } from '@ionic/angular/standalone';
+import { IonCheckbox, IonModal, IonButton } from '@ionic/angular/standalone';
 import { RouterLink } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
 
 @Component({
@@ -27,7 +28,7 @@ import { RouterLink } from '@angular/router';
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  imports: [SharedModule, CommonModule, HeaderModule, FormsModule, UserModule,
+  imports: [IonButton, SharedModule, CommonModule, HeaderModule, FormsModule, UserModule,
     ProfileModule, selectedModule, IonModal, IonCheckbox, RouterLink, StandartInputComponent]
 })
 export class SettingsComponent  implements OnInit {
@@ -35,9 +36,6 @@ export class SettingsComponent  implements OnInit {
   navControler: NavController = inject(NavController);
   checkImgUrlPipe:CheckImgUrlPipe = inject(CheckImgUrlPipe)
   private readonly loading:LoadingService = inject(LoadingService)
-  userService:UserService = inject(UserService)
-  toastService:ToastService = inject(ToastService)
-  loaderService:LoadingService = inject(LoadingService)
   userAgreedStatus:any = localStorage.getItem('userAgreedStatus')
   userAgreedModalState:boolean = false
   statusesSelect:boolean = false
@@ -71,7 +69,13 @@ export class SettingsComponent  implements OnInit {
       }
     }
 
-  constructor() { }
+  constructor(
+    private userService: UserService,
+    private loadingService: LoadingService,
+    private toastService: ToastService,
+    private navController: NavController,
+    private alertController: AlertController
+  ) {}
 
 
 
@@ -89,12 +93,12 @@ export class SettingsComponent  implements OnInit {
 editEmail(){  
   this.validateForm();
   let loader:HTMLIonLoadingElement
-    this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+    this.loadingService.showLoading().then((res:HTMLIonLoadingElement)=>{
       loader = res
     })
   this.userService.editUser(this.personalSettingsForm.value).pipe(
     finalize(() => {
-      this.loaderService.hideLoading(loader);
+      this.loadingService.hideLoading(loader);
     })
   ).subscribe((res:any)=>{
     this.userService.refreshUser()
@@ -116,9 +120,9 @@ editEmail(){
   selectStatus(event:any){
     if(event.value == userRoles.organization){
       if(this.userService.isPhoneVerified() && this.userService.userHaveCurrentPersonal()){
-        this.loaderService.showLoading()
+        this.loadingService.showLoading()
         this.userService.changeRoleForDefaultUser(event.id).pipe(finalize(()=>{
-        this.loaderService.hideLoading()
+        this.loadingService.hideLoading()
        })).subscribe((res:any)=>{
          this.selectedStatusItem = event;
          this.toastService.showToast('Статус успешно изменен','success')
@@ -130,9 +134,9 @@ editEmail(){
     }
     if(event.value == userRoles.rider ){
       if(this.userService.isPhoneVerified() || this.userService.isEmailVerified()){
-        this.loaderService.showLoading()
+        this.loadingService.showLoading()
         this.userService.changeRoleForDefaultUser(event.id).pipe(finalize(()=>{
-                this.loaderService.hideLoading()
+                this.loadingService.hideLoading()
        })).subscribe((res:any)=>{
          this.selectedStatusItem = event;
          this.toastService.showToast('Статус успешно изменен','success')
@@ -145,9 +149,9 @@ editEmail(){
 
     if(event.value == userRoles.couch){
       if((this.userService.isPhoneVerified() || this.userService.isEmailVerified() )&& this.userService.userHaveCurrentPersonal()){
-        this.loaderService.showLoading()
+        this.loadingService.showLoading()
         this.userService.changeRoleForDefaultUser(event.id).pipe(finalize(()=>{
-                this.loaderService.hideLoading()
+                this.loadingService.hideLoading()
        })).subscribe((res:any)=>{
          this.selectedStatusItem = event;
          this.toastService.showToast('Статус успешно изменен','success')
@@ -215,12 +219,12 @@ editEmail(){
   }
 
   submitEditForm(){
-    this.loaderService.showLoading()
+    this.loadingService.showLoading()
     let fd : FormData = new FormData()
     fd.append('avatar', this.userSettingsForm.value.avatar)
     
     this.userService.editUser(fd).pipe(finalize(()=>{
-      this.loaderService.hideLoading()
+      this.loadingService.hideLoading()
     }),
     catchError((err:serverError)=>{
       this.toastService.showToast(err.error.message,'danger')
@@ -302,6 +306,49 @@ editEmail(){
     this.user = this.userService.user.value 
   })
   this.personalSettingsForm.patchValue({email: this.user?.email})
+}
+
+async deleteAccount() {
+  // Показываем диалог подтверждения
+  const alert = await this.alertController.create({
+    header: 'Подтверждение',
+    message: 'Вы уверены, что хотите удалить свой аккаунт? Это действие нельзя отменить.',
+    buttons: [
+      {
+        text: 'Отмена',
+        role: 'cancel'
+      },
+      {
+        text: 'Удалить',
+        role: 'destructive',
+        handler: () => {
+          this.confirmDeleteAccount();
+        }
+      }
+    ]
+  });
+
+  await alert.present();
+}
+
+private confirmDeleteAccount() {
+  this.loading.showLoading().then(loader => {
+    this.userService.deleteUser().pipe(
+      finalize(() => this.loading.hideLoading(loader))
+    ).subscribe({
+      next: () => {
+        this.toastService.showToast('Аккаунт успешно удален', 'success');
+        // Выходим из аккаунта
+        this.authService.logout();
+        // Перенаправляем на страницу авторизации
+        this.navController.navigateRoot('/login');
+      },
+      error: (error) => {
+        console.error('Ошибка при удалении аккаунта:', error);
+        this.toastService.showToast('Ошибка при удалении аккаунта', 'danger');
+      }
+    });
+  });
 }
 
 }
