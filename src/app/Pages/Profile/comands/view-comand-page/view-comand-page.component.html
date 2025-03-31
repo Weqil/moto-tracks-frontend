@@ -35,6 +35,19 @@
     </div>
 
 <div >
+
+      <div class="members-list" >
+        <div class="users-in-comands-container">
+          <div class="users-in-comands">
+            Тренера команды: {{membersForCouch.length}}
+          </div>
+        </div>
+        <div *ngFor="let user of membersForCouch" class="member-item">
+          <app-user-section [hideEmail]="true" [user]="user"></app-user-section>
+          
+        </div>
+      </div>
+
       <div class="members-list" *ngIf="membersForUser.length">
         <div class="users-in-comands-container">
           <div class="users-in-comands">
@@ -48,6 +61,7 @@
           </div>
         </div>
       </div>
+
       <div class="no-members" *ngIf="!membersForUser.length">
         <h2>Список участников пуст</h2>
       </div>

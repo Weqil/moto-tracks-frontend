@@ -27,7 +27,11 @@ export class ComandsService {
   //   return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/commands`, {params:{...params}})
   // }
 
-  getComands(params?: { userId?: number, checkMember?: boolean, ownerId?: number, locationId?: number}) {
+  getComandLocationId(params?:{locationId?:number}){
+    return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/commands`, {params:{...params}})
+  }
+
+  getComands(params?: { userId?: number, checkMember?: boolean, ownerId?: number}) {
     const queryParams: { [key: string]: number } = {};
     const userId = this.userService.user.value?.id;
     
@@ -41,9 +45,7 @@ export class ComandsService {
       queryParams['userId'] = params.ownerId;
     }
     
-    if (params?.locationId) {
-      queryParams['locationId'] = params.locationId;
-    }
+    
     
     return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/commands`, { params: queryParams });
   }
