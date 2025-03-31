@@ -193,36 +193,36 @@ phoneSubmit(){
 
 submitPersonalInfo(){
   console.log(this.personalUserForm.value)
-  // if(this.validatePersonal()){
-  //   if(!this.user.personal){
-  //     console.log(this.personalUserForm.value)
-  //     let loader:HTMLIonLoadingElement
-  //     this.loaderService.showLoading().then((res:HTMLIonLoadingElement) => {
-  //       loader = res
-  //     })
-  //     this.userService.createPersonalInfo(this.personalUserForm.value).pipe(
-  //       finalize(()=>{
-  //         this.loaderService.hideLoading(loader)
-  //       }),
+  if(this.validatePersonal()){
+    if(!this.user.personal){
+      console.log(this.personalUserForm.value)
+      let loader:HTMLIonLoadingElement
+      this.loaderService.showLoading().then((res:HTMLIonLoadingElement) => {
+        loader = res
+      })
+      this.userService.createPersonalInfo(this.personalUserForm.value).pipe(
+        finalize(()=>{
+          this.loaderService.hideLoading(loader)
+        }),
       
-  //     ).subscribe((res:any)=>{
-  //       this.userService.refreshUser()
-  //     })
-  //   }
-  //   else{
-  //     let loader:HTMLIonLoadingElement
-  //     this.loaderService.showLoading().then((res:HTMLIonLoadingElement) => {
-  //       loader = res
-  //     })
-  //     this.userService.updatePersonalInfo(this.personalUserForm.value).pipe(
-  //       finalize(()=>{
-  //         this.loaderService.hideLoading(loader)
-  //       }),
-  //     ).subscribe((res:any)=>{
-  //       this.userService.refreshUser()
-  //     })
-  //   }
-  // }
+      ).subscribe((res:any)=>{
+        this.userService.refreshUser()
+      })
+    }
+    else{
+      let loader:HTMLIonLoadingElement
+      this.loaderService.showLoading().then((res:HTMLIonLoadingElement) => {
+        loader = res
+      })
+      this.userService.updatePersonalInfo(this.personalUserForm.value).pipe(
+        finalize(()=>{
+          this.loaderService.hideLoading(loader)
+        }),
+      ).subscribe((res:any)=>{
+        this.userService.refreshUser()
+      })
+    }
+  }
 
 }
   setRegion(region:any){
