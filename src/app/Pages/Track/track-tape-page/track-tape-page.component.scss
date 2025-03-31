@@ -50,4 +50,7 @@
 .region-modal-container{
     background: rgb(255, 255, 255);
     padding: var(--standart-padding);
+    app-standart-input-search{
+        --page-bg: #ffffff
+    }
 }
