@@ -95,6 +95,8 @@ export class UsersPreviewComponent implements OnInit {
           this.users[res].forEach((user: any) => {
             if (this.usersPreview.length < 8) {
               this.usersPreview.push(user);
+              console.log('emae:')
+              console.log(this.formattedUsers)
             }
           });
         });
@@ -104,12 +106,9 @@ export class UsersPreviewComponent implements OnInit {
     
   }
   ngOnInit() {
-
     window.addEventListener('popstate', (event) => {
-      this.closeModal()
-  })
-
+      this.closeModal()})
+      
   }
-  
 }
 

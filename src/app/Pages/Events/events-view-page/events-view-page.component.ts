@@ -731,7 +731,8 @@ export class EventsViewPageComponent  implements OnInit {
         
            // Форматируем номер телефона перед отправкой
         let rawPhone = this.personalUserForm.value.phoneNumber || '';
-        let cleanedPhone = parseInt(rawPhone.replace(/\D/g, ''), 10) || 0;
+        // let cleanedPhone = parseInt(rawPhone.replace(/\D/g, ''), 10) || '';
+        let cleanedPhone = rawPhone.replace(/\D/g, '') || '';
         this.personalUserForm.patchValue({ phoneNumber: cleanedPhone });
 
          let currentForm = {
@@ -761,7 +762,7 @@ export class EventsViewPageComponent  implements OnInit {
         })
      })
     }else{
-      this.toastService.showToast('Заполните обязательные поля - Фамилия, имя, область, класс, спортивное звание','danger')
+      this.toastService.showToast('Заполните обязательные поля - Фамилия, имя, область, класс, спортивное звание, телефон','danger')
     }
   }
 

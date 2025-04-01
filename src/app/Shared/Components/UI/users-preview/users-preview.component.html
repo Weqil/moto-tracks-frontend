@@ -26,14 +26,14 @@
       <ion-content class="">
         <div class="users-content">
             
-            <ng-container *ngIf="users && !formattedUsers" >
+            <!-- <ng-container *ngIf="users && !formattedUsers" >
                 <div *ngFor="let user of users" (click)="openUser(user)" class="card-grid__item">
                     <app-user-section  [hideEmail]= "true"  [user]="createUserInAplication(user)"></app-user-section>
                     <div *ngIf="user?.personal?.start_number" class="user-info__class">
                         {{user?.personal?.start_number}}
                     </div>
                 </div>
-            </ng-container> 
+            </ng-container>  -->
 
             <ng-container *ngIf="users && formattedUsers" >
                 <div class="group-grid">

@@ -163,6 +163,8 @@ export class EditEventComponent  implements OnInit {
       this.trackSelected = undefined
       this.createEventForm.patchValue({region:region.name})
       this.createEventForm.patchValue({locationId:region.value})
+      console.log('emae:')
+      console.log(this.locationId)
     }
 
     getRegions(){
@@ -229,6 +231,7 @@ export class EditEventComponent  implements OnInit {
         let region = this.searchRegionItems.find((item)=>item.value == this.trackSelected!.location.id)
         this.createEventForm.patchValue({region:region.name})
         this.createEventForm.patchValue({locationId:region.value})
+        
         this.closeTrackSelectModalFunction()
       }
 
@@ -238,9 +241,15 @@ export class EditEventComponent  implements OnInit {
             
             if (
                 this.createEventForm.value.name.length <= 3 ||
-                this.createEventForm.value.desc.length <= 3 
-               || !this.createEventForm.value.images.length ||   
-               !this.createEventForm.value.dateStart ||  !this.trackSelected || !this.locationId || !this.selectedGroup.length
+                this.createEventForm.value.desc.length <= 3 ||
+                !this.createEventForm.value.images.length ||   
+                !this.createEventForm.value.dateStart
+                ||  
+                !this.trackSelected 
+                || 
+                !this.createEventForm.value.locationId
+                || 
+                !this.selectedGroup.length
               ) {
                 return true
               } else {
@@ -430,6 +439,7 @@ export class EditEventComponent  implements OnInit {
 
     ionViewWillEnter(){
          this.getRegions()
+         
          this.getAllGroups()
          this.route.params.pipe(takeUntil(this.destroy$)).pipe(
                 finalize(()=>{
