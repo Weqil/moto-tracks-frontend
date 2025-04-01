@@ -51,7 +51,7 @@
           @if (usersPreviewConfig.usersCount) {
             <div class="user-modal-header">
               Участники гонки
-              {{usersInRace.length}}
+              {{usersPreviewConfig.usersCount}}
             </div>
           <app-users-preview [groups]="event.grades"  [fullValueUsers]="usersPreviewConfig.usersCount" [users]="usersInRace" [moreCount]="usersPreviewConfig.usersCount" [openUsersModal]="openUserModalValue" (closeModalEmit)="closeStateUsersModal()" (openModalEmit)="openStateUsersModal()"></app-users-preview>
         }
