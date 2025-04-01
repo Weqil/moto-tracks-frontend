@@ -70,7 +70,9 @@ export class ComandsService {
     return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/commands/${commandId}/members-for-coach`);
   }
 
-  getCoachesForUsers() {}
+  getCouchesForUsers(commandId: number) {
+    return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/commands/${commandId}/coaches`);
+  }
 
   toggleMember(commandId: number): Observable<{ status: string; message: string }> {
     return this.http.post<{ status: string; message: string }>(`${this.apiUrl}/commands/${commandId}/members`, {});
