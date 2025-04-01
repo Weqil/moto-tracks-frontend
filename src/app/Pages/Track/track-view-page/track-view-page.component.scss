@@ -260,7 +260,7 @@ ya-map{
     font-size: 1.3rem;
     padding: var(--little-padding);
     border-bottom: 1.5px solid rgba(0, 0, 0, 0.402);
-    margin-top:1rem;
+    margin-top:0rem;
     width: 100%;
 }
 
@@ -432,3 +432,12 @@ ya-map{
     min-height: 100%;
     width: 100%;
  }
+
+ .track-id{
+    display: flex;
+    justify-content: end;
+    padding-right: 1rem;
+    padding-top: 0.5rem;
+    opacity: 0.5;
+    font-size: smaller;
+}
