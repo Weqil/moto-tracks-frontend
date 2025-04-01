@@ -19,7 +19,7 @@
     <div class="main-container-parent">
 
       <app-images-modal  *ngIf="event.images && event.images.length " [openModal]="statusImagesModal" (closeModalEmit)="closeImagesModal()" [imagesPathArray]="event.images"></app-images-modal>
-
+      <div class="event-id">EID:{{event.id}}</div>
       <div class="main-container">
         <div class="event-name">{{event.name}}</div>
         <div class="event-location-name">
@@ -51,7 +51,7 @@
           @if (usersPreviewConfig.usersCount) {
             <div class="user-modal-header">
               Участники гонки
-              {{usersInRace.length}}
+              {{usersPreviewConfig.usersCount}}
             </div>
           <app-users-preview [groups]="event.grades"  [fullValueUsers]="usersPreviewConfig.usersCount" [users]="usersInRace" [moreCount]="usersPreviewConfig.usersCount" [openUsersModal]="openUserModalValue" (closeModalEmit)="closeStateUsersModal()" (openModalEmit)="openStateUsersModal()"></app-users-preview>
         }
@@ -113,7 +113,7 @@
           
           
           
-          <app-standart-input [errorMessage]="formErrors.phoneNumber.errorMessage" [invalid]="formErrors.phoneNumber.errorMessage.length !== 0" [control]="personalUserForm.get('phoneNumber')" placeholder="Номер телефона" label="Телефон*"></app-standart-input>
+          <app-standart-input [control]="personalUserForm.get('phoneNumber')" [errorMessage]="formErrors.phoneNumber.errorMessage" [invalid]="formErrors.phoneNumber.errorMessage.length !== 0" placeholder="Номер телефона" label="Телефон*"></app-standart-input>
           
           
           
@@ -122,7 +122,13 @@
           </div>
           <app-standart-input-select [errorMessage]="formErrors.group.errorMessage" [invalid]="formErrors.group.errorMessage.length !== 0"  selectedName="groupSelect" [items]="groupItems" (onChange)="setGroup($event)" [selectedItem]="{name:personalUserForm.value.group, value:personalUserForm.value.group}" label="Класс, группа*"></app-standart-input-select>
           <app-standart-input-select [errorMessage]="formErrors.rank.errorMessage" [invalid]="formErrors.rank.errorMessage.length !== 0" selectedName="rankSelect" [items]="sportRankItems" (onChange)="setRank($event)" [selectedItem]="{name:personalUserForm.value.rank, value:personalUserForm.value.rank}" label="Спортивное звание, разряд*"></app-standart-input-select>
+          
+          
+          
           <app-standart-input [control]="personalUserForm.get('rankNumber')" placeholder="№ удостоверения (МСМК, МС, КМС)" label="№ удостоверения"></app-standart-input>
+          
+          
+          
           <app-standart-input [errorMessage]="formErrors.community.errorMessage" [invalid]="formErrors.community.errorMessage.length !== 0" (click)="openComandSelectModalStateValue()" [readonly]="true" [control]="personalUserForm.get('community')" placeholder="Команда" label="Название команды*"></app-standart-input>
           <app-standart-input [control]="personalUserForm.get('coach')" placeholder="Тренер" label="ФИО тренера"></app-standart-input>
           <app-standart-input-select [errorMessage]="formErrors.motoStamp.errorMessage" [invalid]="formErrors.motoStamp.errorMessage.length !== 0" selectedName="motoStampSelect" [items]="motoStampItems" (onChange)="setMotoStamp($event)" [selectedItem]="{name:personalUserForm.value.motoStamp, value:personalUserForm.value.motoStamp}" label="Марка мотоцикла*"></app-standart-input-select>
@@ -155,7 +161,6 @@
               <app-file-input [fileName]="notariusFile.name" (click)="!notariusFile ? notariusFileInput.click(): showToastInfoFileUpload()"></app-file-input>
               <input (change)="setNotariusFile($event)" #notariusFileInput style="display: none;"  type="file">
             </div>
-
         </div>
       </div>
       <div class="footer">

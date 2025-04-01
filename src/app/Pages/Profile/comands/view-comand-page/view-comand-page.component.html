@@ -8,6 +8,7 @@
           <img *ngIf="command?.avatar" [alt]="command?.name" [src]="getImgUrl()" />
           <img *ngIf="!command?.avatar" alt="no_photo" src="/assets/icons/team-bg.png" />
         </div>
+        
         <div class="command-info">
           <h1 class="command-name">{{command?.name}}</h1>
           <p class="command-full-name" *ngIf="command?.full_name">{{command?.full_name}}</p>
@@ -33,10 +34,10 @@
         ></app-standart-button> -->
       </div>
     </div>
-
+    <div class="command-id">CID:{{command.id}}</div>
 <div >
 
-      <div class="members-list" >
+      <div class="members-list" *ngIf="membersForUser.length">
         <div class="users-in-comands-container">
           <div class="users-in-comands">
             Тренера команды: {{membersForCouch.length}}
