@@ -6,13 +6,15 @@
     gap: var(--standart-padding);
 }
 .commands-grid__item{
-    border-bottom: 1px solid rgba(76, 88, 97, .1568627451);
+    // border-bottom: 1px solid rgba(76, 88, 97, .1568627451);
     padding-top: var(--little-padding);
     padding-bottom: var(--little-padding);
+    background-color: white;
+    border-radius: 0.5rem;
 }
 .edit-button-container{
-    padding-left: 2rem;
-    padding-right: 2rem;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0rem;
 }

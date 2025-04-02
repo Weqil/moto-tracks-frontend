@@ -23,7 +23,7 @@
       <div class="main-container">
         <div class="event-name">{{event.name}}</div>
         <div class="event-location-name">
-          <div class="event-location-name__text">{{event.location?.name}}</div>
+          <div class="event-location-name__text">{{event.location?.name}} {{event.location?.type}}</div>
         </div>
         <div [innerHTML]="clearDescription()" *ngIf="event.desc" class="event-description">{{event.desc}}</div>
 
