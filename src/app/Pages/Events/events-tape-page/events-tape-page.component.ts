@@ -117,7 +117,8 @@ export class EventsTapePageComponent  implements OnInit {
         loader = res
     })
 
-    this.eventService.getAllEvents({dateEnd:moment().subtract(7, 'days').locale('ru'). format('YYYY-MM-DD'), locationId:[this.regionFilterId], sortField:'date_start', sort:'desc'} //.subtract(7,'days')
+    this.eventService.getAllEvents({dateEnd:moment().subtract(7, 'days').locale('ru'). format('YYYY-MM-DD'), locationId:[this.regionFilterId], sortField:'date_start', sort:'desc',commissionUser:1,
+      userIdExists: this.userService.user.value?.id ? this.userService.user.value?.id: ''} //.subtract(7,'days')
   ).pipe(
       finalize(()=>{
         this.loadingService.hideLoading(loader)
@@ -140,14 +141,12 @@ export class EventsTapePageComponent  implements OnInit {
         loader = res
     })
 
-    this.eventService.getAllEvents({dateStart:moment().subtract(7,'days').format('YYYY-MM-DD'),locationId:[this.regionFilterId], sortField:'date_start', sort:'asc'}).pipe(
+    this.eventService.getAllEvents({dateStart:moment().subtract(7,'days').format('YYYY-MM-DD'),locationId:[this.regionFilterId], sortField:'date_start', sort:'asc', commissionUser:1,
+       userIdExists: this.userService.user.value?.id ? this.userService.user.value?.id: '' }).pipe(
       finalize(()=>{ 
         this.loadingService.hideLoading(loader)
       })).subscribe((res:any)=>{
         this.startEvents = res.races
-
-
-
         this.formatedEvents = Object.keys(_.groupBy(this.startEvents, event => moment(event.date_start).locale('ru').format('MMMM YYYY')))
       .map(groupMonth => ({
       groupMonth: groupMonth.charAt(0).toUpperCase() + groupMonth.slice(1),
@@ -162,15 +161,7 @@ export class EventsTapePageComponent  implements OnInit {
     this.getStartEvents()
     this.getExpiredEvents()
     this.switchTypeService.setTypeInLocalSorage('events')
-    // this.eventService.getAllEvents({dateStart:moment().format('YYYY-MM-DD')}).pipe(
-    //   finalize(()=> this.loadingService.hideLoading())
-    // ).subscribe((res:any) => {
-    //     this.eventTapeService.events = res.races
-    // })
-    
-    
 
-  
   }
  
   ngOnInit() {

@@ -11,7 +11,7 @@ import { TrackModule } from 'src/app/Shared/Modules/track/track.module';
 import { TrackService } from 'src/app/Shared/Data/Services/Track/track.service';
 import { Track } from 'src/app/Shared/Data/Interfaces/track-model';
 import { LoadingService } from 'src/app/Shared/Services/loading.service';
-import { catchError, EMPTY, finalize } from 'rxjs';
+import { catchError, EMPTY, finalize, from, mergeMap } from 'rxjs';
 import { EventService } from 'src/app/Shared/Data/Services/Event/event.service';
 import { serverError } from 'src/app/Shared/Data/Interfaces/errors';
 import { ToastService } from 'src/app/Shared/Services/toast.service';
@@ -22,6 +22,7 @@ import { GroupService } from 'src/app/Shared/Data/Services/Race/group.service';
 import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
 import moment from 'moment-timezone';
 import { IonToggle } from '@ionic/angular/standalone';
+import { User } from '@app/Shared/Data/Interfaces/user-model';
 
 @Component({
   selector: 'app-create-events-page',
@@ -40,7 +41,7 @@ export class CreateEventsPageComponent  implements OnInit {
   groupService:GroupService = inject(GroupService)
 
   trackService:TrackService = inject(TrackService)
-
+  comissionModalState:boolean = false
   allClassesState:boolean = true
 
  userService:UserService = inject(UserService)
@@ -67,7 +68,7 @@ export class CreateEventsPageComponent  implements OnInit {
   positionFile!:File
 
   groupModal:boolean = false
-
+  currentComission:any[] = []
   newGroupInputValue:string = ''
   userGroups:any[] = []
   allUsersGroups:any[] = []
@@ -77,6 +78,8 @@ export class CreateEventsPageComponent  implements OnInit {
 
   tracks!: Track[]
   allTracks!: Track[]
+
+  usersInCommision:any[] = []
  
   createEventForm: FormGroup = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(3)]),
@@ -85,6 +88,8 @@ export class CreateEventsPageComponent  implements OnInit {
     region:new FormControl('', [Validators.required, Validators.minLength(1)]),
     locationId: new FormControl('', [Validators.required, Validators.minLength(1)]),
     dateStart: new FormControl( '',  [Validators.required, Validators.minLength(1)]),
+    userId:new FormControl( '',  [Validators.required, Validators.minLength(1)]),
+    comissionName:new FormControl( '',  [Validators.required, Validators.minLength(1)]),
     recordEnd: new FormControl( '',  [Validators.required, Validators.minLength(1)]),
     statusId: new FormControl( '',  [Validators.required, Validators.minLength(1)]),
   })
@@ -103,7 +108,12 @@ export class CreateEventsPageComponent  implements OnInit {
     return moment().tz(userTimezone).set({ hour: 9, minute: 0, second: 0 }).format('YYYY-MM-DDTHH:mm');
   }
 
- 
+  closeComissionModal(){
+    this.comissionModalState = false
+  }
+  openComissionModal(){
+    this.comissionModalState = true
+  }
 
  changeAllClassesState(){
    this.allClassesState =!this.allClassesState
@@ -204,8 +214,13 @@ export class CreateEventsPageComponent  implements OnInit {
         if (
             this.createEventForm.value.name.length <= 3 ||
             this.createEventForm.value.desc.length <= 3 
-           || !this.createEventForm.value.images.length ||   
-           !this.createEventForm.value.dateStart ||  !this.trackSelected || !this.locationId || !this.selectedGroup.length
+           ||
+           !this.createEventForm.value.images.length ||   
+           !this.currentComission.length ||
+           !this.createEventForm.value.dateStart ||
+           !this.trackSelected || 
+           !this.locationId || 
+           !this.selectedGroup.length
           ) {
             return true
           } else {
@@ -216,7 +231,7 @@ export class CreateEventsPageComponent  implements OnInit {
         return true
       }
     }else{
-      if(this.createEventForm.value.name.length <= 3 || this.createEventForm.value.region.length <= 3 || this.createEventForm.value.dateStart.length <= 3  ) {
+      if(this.createEventForm.value.name.length <= 3 || this.createEventForm.value.region.length <= 3 || this.createEventForm.value.dateStart.length <= 3 || !this.currentComission.length  ) {
         return true
       }else{
         return false
@@ -282,6 +297,7 @@ export class CreateEventsPageComponent  implements OnInit {
     this.getAllGroups()
     this.getRegions()
     this.getTracks()
+    this.getCommisionUsers()
   }
 
   submitForm(){
@@ -314,11 +330,49 @@ export class CreateEventsPageComponent  implements OnInit {
       this.toastService.showToast('Возникла ошибка', 'danger')
       return EMPTY
     })
-  ).subscribe((res)=>{
+  ).subscribe((res:any)=>{
       this.toastService.showToast('Событие успешно создано', 'primary')
-      this.navController.navigateForward('/my-events')
+      console.log(res)
+      let race:any = res.race
+      let loader:HTMLIonLoadingElement
+      this.loadingService.showLoading().then((res:HTMLIonLoadingElement)=>loader = res)
+       this.userService.addComission(race.id,this.currentComission.map(user => user.value)).pipe(
+        finalize(()=>this.loadingService.hideLoading(loader))
+       ).subscribe((res:any)=>{
+        this.navController.navigateForward('/my-events')
+      })
     })
    }
+  }
+
+
+ 
+
+  getCommisionUsers(){
+    this.userService.getComissionUsers().pipe().subscribe((res:any)=>{
+      res.users.forEach((user:any) => {
+        this.usersInCommision.push({
+          name:user.name,
+          value:user.id
+        })
+      });
+      console.log(this.usersInCommision)
+    })
+  }
+
+  setComission(event:any){
+    if(!this.currentComission.find((user:any)=>user.id == event.id)){
+      this.currentComission.push(event)
+      console.log(this.currentComission)
+    }else{
+      console.log('такой юзер уже есть')
+      console.log(this.currentComission)
+    }
+    this.closeComissionModal()
+  }
+
+  deleteComission(event:any){
+    this.currentComission = this.currentComission.filter((user:any)=>event.id !== user.id )
   }
 
   ngOnInit() {
