@@ -4,6 +4,6 @@ export enum UserStatuses {
     administrator = 'Admin',
     couch = 'Couch',
     root = 'Root',
-    commission = 'Comission'
+    commission = "Commission"
   }
   

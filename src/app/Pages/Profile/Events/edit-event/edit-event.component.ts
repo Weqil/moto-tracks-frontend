@@ -222,6 +222,7 @@ export class EditEventComponent  implements OnInit {
           })
         ).subscribe((res:any)=>{
           this.tracks = res.tracks
+          console.log(this.tracks)
           this.allTracks = res.tracks
         })
       }
@@ -251,6 +252,16 @@ export class EditEventComponent  implements OnInit {
                 || 
                 !this.selectedGroup.length
               ) {
+                console.log( this.createEventForm.value.name.length <= 3)
+                console.log(  !this.createEventForm.value.images.length)
+                console.log(     !this.createEventForm.value.dateStart )
+                console.log( !this.trackSelected)
+                console.log(
+                  this.locationId
+                )
+                console.log(
+                  !this.selectedGroup.length
+                )
                 return true
               } else {
                 return false
@@ -295,8 +306,11 @@ export class EditEventComponent  implements OnInit {
       }
 
       openTrackSelectModalFunction(){
+        console.log(this.createEventForm.value.locationId)
         if(this.createEventForm.value.locationId){
+         
           this.tracks = this.allTracks.filter((track) => Number(track.location?.id) == Number(this.createEventForm.value.locationId))
+      
         }
         this.trackSelectedModalState = true;
       }
@@ -332,6 +346,7 @@ export class EditEventComponent  implements OnInit {
             }
           }
           this.selectEditType()
+          this.locationId = res.race?.location?.id
           this.createEventForm.patchValue({
             ...res.race,
             locationId: res.race?.location?.id,

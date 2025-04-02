@@ -60,7 +60,7 @@ export class TrackTapePageComponent  implements OnInit {
   }
 
   getRegions(){
-    this.mapService.getAllRegions(false, true).pipe().subscribe((res:any)=>{
+    this.mapService.getAllRegions(false, true,false).pipe().subscribe((res:any)=>{
       this.searchRegionItems.push({
         name:'Россия',
         value:''

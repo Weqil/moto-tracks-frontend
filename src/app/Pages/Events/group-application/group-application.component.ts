@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA, inject } from '@angular/core';
-import { IonContent, IonCheckbox, IonButton, IonList, IonItem, IonLabel, IonIcon, IonModal, NavController } from "@ionic/angular/standalone";
+import { IonContent, IonCheckbox, IonButton, IonList, IonItem, IonLabel, IonIcon, IonModal, NavController,IonSelect, IonItemOption, IonSelectOption } from "@ionic/angular/standalone";
 import { HeaderModule } from 'src/app/Shared/Modules/header/header.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserSectionComponent } from 'src/app/Shared/Components/UserElements/user-section/user-section.component';
@@ -18,7 +18,7 @@ import { ICommand } from 'src/app/Shared/Data/Interfaces/command';
 import { userRoles } from 'src/app/Shared/Data/Enums/roles';
 import { MapService } from 'src/app/Shared/Data/Services/Map/map.service';
 import { StandartRichInputComponent } from 'src/app/Shared/Components/Forms/standart-rich-input/standart-rich-input.component';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, } from '@ionic/angular';
 import { StandartInputSelectComponent } from 'src/app/Shared/Components/UI/Selecteds/standart-input-select/standart-input-select.component';
 import { ComandsService } from 'src/app/Shared/Data/Services/Comands/comands.service';
 import { EventService } from 'src/app/Shared/Data/Services/Event/event.service';
@@ -66,7 +66,12 @@ interface UserWithTeam extends User {
     IonModal,
     StandartRichInputComponent,
     StandartInputSelectComponent,
-    StandartInputSearchComponent
+    StandartInputSearchComponent,
+    IonContent,
+    IonSelect,
+    IonCheckbox,
+    IonItemOption,
+    IonSelectOption
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
@@ -81,8 +86,10 @@ export class GroupApplicationComponent implements OnInit {
   mapService:MapService = inject(MapService)
   selectedUser: UserWithTeam | null = null;
   currentUser: UserWithTeam | null = null;
+  teamsForSelect:any = []
   navController:NavController = inject(NavController)
   regionModalState = false;
+  raceClassesForSelect:any = []
   searchRegionItems: any[] = [];
   
   sportRankItems: {name: string, value: string}[] = [
@@ -375,6 +382,7 @@ export class GroupApplicationComponent implements OnInit {
           next: (response: any) => {
             this.currentEvent = response.race;
             this.eventGrades = response.race.grades || [];
+            this.filteRraceClassesForSelect();
             // Получаем команды пользователя
             this.getUserTeams();
           },
@@ -394,12 +402,14 @@ export class GroupApplicationComponent implements OnInit {
         this.commandService.getComands({ownerId:currentUser?.id}).pipe(
           finalize(() => this.loadingService.hideLoading(loader))
         ).subscribe({
+          
           next: (response: any) => {
             this.teams = response.commands;
             // Выбираем первую команду по умолчанию
             if (this.teams.length > 0) {
               this.selectedTeam = this.teams[0];
             }
+            this.filterTeamsForSelect()
             // Получаем пользователей для каждой команды
             this.teams.forEach(team => {
               this.loadingService.showLoading().then(usersLoader => {
@@ -822,16 +832,17 @@ export class GroupApplicationComponent implements OnInit {
     }
   }
 
+
   // Обновляем массив классов для селекта
-  get raceClassesForSelect() {
-    return this.eventGrades.map(grade => ({
+   filteRraceClassesForSelect() {
+    this.raceClassesForSelect =  this.eventGrades.map(grade => ({
       name: grade.name,
       value: grade.id.toString()
     }));
   }
 
-  get teamsForSelect() {
-    return this.teams.map(team => ({
+   filterTeamsForSelect():any {
+    this.teamsForSelect = this.teams.map(team => ({
       name: team.name,
       value: team.id.toString()
     }));

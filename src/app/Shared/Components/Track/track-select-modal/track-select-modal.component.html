@@ -14,15 +14,20 @@
   <ng-template>
     <ion-content>
       <div class="tracks-grid">
-        <div class="redirect-create-track">
-          <app-rounded-button (click)="redirectInCreate()" icon="assets/icons/create.svg" buttonText="Создать"></app-rounded-button>
-        </div>
+    
+        
+        <ng-container *ngFor="let track of tracks">
 
-        @for (track of this.tracks; track $index) {
+          <div class="redirect-create-track">
+            <app-rounded-button (click)="redirectInCreate()" icon="assets/icons/create.svg" buttonText="Создать"></app-rounded-button>
+          </div>
+
           <div (click)="select(track)" class="tracks-grid__item">
             <app-track-section [hidhtStatus]="true" [track]="track"></app-track-section>
           </div>
-        } 
+        </ng-container>
+        
+        
       </div>
     </ion-content>
   </ng-template>

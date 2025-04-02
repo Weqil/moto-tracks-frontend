@@ -74,9 +74,10 @@ export class UserService {
     return this.user.value?.roles.find((role: any) => role.name === roleName) !== undefined;
   }
 
-  deleteUser(){
-    
+  deleteUser() {
+    return this.http.delete(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/users`);
   }
+
   userHaveRoot(){
     return this.user.value?.roles.find((role:any)=> role.name == userRoles.admin || role.name == userRoles.root || role.name == userRoles.commission) !== undefined
   }

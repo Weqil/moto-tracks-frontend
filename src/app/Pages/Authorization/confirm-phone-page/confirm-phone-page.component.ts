@@ -47,6 +47,7 @@ export class ConfirmPhonePageComponent  implements OnInit {
       name: new FormControl('', [Validators.required]),
       surname: new FormControl('', [Validators.required]),
       patronymic: new FormControl('', [Validators.required]),
+      locationId: new FormControl('', [Validators.required]),
       dateOfBirth: new FormControl('', [Validators.required]),
       city: new FormControl('', [Validators.required]),
       region: new FormControl('', [Validators.required]),
@@ -191,8 +192,10 @@ phoneSubmit(){
 }
 
 submitPersonalInfo(){
+  console.log(this.personalUserForm.value)
   if(this.validatePersonal()){
     if(!this.user.personal){
+      console.log(this.personalUserForm.value)
       let loader:HTMLIonLoadingElement
       this.loaderService.showLoading().then((res:HTMLIonLoadingElement) => {
         loader = res

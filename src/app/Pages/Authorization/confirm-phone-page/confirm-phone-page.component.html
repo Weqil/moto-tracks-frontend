@@ -4,7 +4,7 @@
     <ng-container *ngIf="stepCurrent == 1">
       <form class="user-personal">
         <span class="step-title">
-          Для того что бы продолжить заполните обязательные поля
+          Для того, чтобы продолжить, заполните обязательные поля
         </span>
         <app-standart-input [control]="personalUserForm.get('surname')" [errorMessage]="formErrors.surname.errorMessage" [invalid]="formErrors.surname.errorMessage.length !== 0" placeholder="Введите фамилию" label="Фамилия"></app-standart-input>
         <app-standart-input [control]="personalUserForm.get('name')" [errorMessage]="formErrors.name.errorMessage" [invalid]="formErrors.name.errorMessage.length !== 0" placeholder="Введите имя" label="Имя"></app-standart-input>
