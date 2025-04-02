@@ -10,11 +10,14 @@ import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
 import { finalize } from 'rxjs/operators';
 import { LoadingService } from 'src/app/Shared/Services/loading.service';
 import { userRoles } from 'src/app/Shared/Data/Enums/roles';
+import { TabsComponent } from "../../../../Shared/Components/UI/tabs/tabs.component";
+import { TabsItemComponent } from "../../../../Shared/Components/UI/tabs-item/tabs-item.component";
+import moment from 'moment';
 @Component({
   selector: 'app-my-events-page',
   templateUrl: './my-events-page.component.html',
   styleUrls: ['./my-events-page.component.scss'],
-  imports: [SharedModule,HeaderModule,EventModule,IonModal]
+  imports: [SharedModule, HeaderModule, EventModule, IonModal, TabsComponent, TabsItemComponent]
 })
 export class MyEventsPageComponent  implements OnInit {
 
@@ -22,6 +25,7 @@ export class MyEventsPageComponent  implements OnInit {
   navController: NavController = inject(NavController)
   eventService: EventService = inject(EventService)
   events!:any
+  finishedEvents!:any
   tableModalValue:boolean = false
   googleTabsLink:string = ''
   userService: UserService = inject(UserService)
@@ -52,16 +56,39 @@ closetTableModal(){
     return this.userService.user.value?.roles.find((role:any)=>role.name == userRoles.admin || role.name == userRoles.root) !== undefined
   }
 
-  ionViewWillEnter(){
-    
-    this.loadingService.showLoading()
-    this.eventService.getEventByUserId(String(this.userService.user.value?.id)).pipe(
+  startEvents(){
+    let loader:HTMLIonLoadingElement
+    this.loadingService.showLoading().then((res: HTMLIonLoadingElement)=>{
+        loader = res
+    })
+    this.eventService.getAllEvents({userId: String(this.userService.user.value?.id), dateStart:moment().subtract(7,'days').format('YYYY-MM-DD'), sortField:'date_start', sort:'asc'}).pipe(
       finalize(()=>{
-        this.loadingService.hideLoading()
+        this.loadingService.hideLoading(loader)
       })
     ).subscribe((res:any)=>{
       this.events = res.races
     })
+  }
+
+
+
+  finishEvents(){
+    let loader:HTMLIonLoadingElement
+    this.loadingService.showLoading().then((res: HTMLIonLoadingElement)=>{
+        loader = res
+    })
+    this.eventService.getAllEvents({userId: String(this.userService.user.value?.id),dateEnd:moment().subtract(7, 'days').locale('ru'). format('YYYY-MM-DD'), sortField:'date_start', sort:'asc'}).pipe(
+      finalize(()=>{
+        this.loadingService.hideLoading(loader)
+      })
+    ).subscribe((res:any)=>{
+      this.finishedEvents = res.races
+    })
+  }
+
+  ionViewWillEnter(){
+    this.startEvents()
+    this.finishEvents()
   }
 
   ionViewDidLeave(){

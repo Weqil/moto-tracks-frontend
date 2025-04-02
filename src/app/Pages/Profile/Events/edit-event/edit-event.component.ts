@@ -165,6 +165,8 @@ export class EditEventComponent  implements OnInit {
       this.trackSelected = undefined
       this.createEventForm.patchValue({region:region.name})
       this.createEventForm.patchValue({locationId:region.value})
+      console.log('emae:')
+      console.log(this.locationId)
     }
 
     getCommisionUsers(){
@@ -261,6 +263,7 @@ export class EditEventComponent  implements OnInit {
         let region = this.searchRegionItems.find((item)=>item.value == this.trackSelected!.location.id)
         this.createEventForm.patchValue({region:region.name})
         this.createEventForm.patchValue({locationId:region.value})
+        
         this.closeTrackSelectModalFunction()
       }
 
@@ -474,6 +477,7 @@ export class EditEventComponent  implements OnInit {
 
     ionViewWillEnter(){
          this.getRegions()
+         
          this.getAllGroups()
          this.route.params.pipe(takeUntil(this.destroy$)).pipe(
                 finalize(()=>{

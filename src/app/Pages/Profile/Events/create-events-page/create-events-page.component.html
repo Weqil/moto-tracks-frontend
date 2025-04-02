@@ -37,7 +37,14 @@
           <ng-container *ngIf="raceTypeSelectedItem.name == 'Согласована (обычная)'">
             <div class="select-track-wrapper">
               <div class="label">Трасса гонки</div>
-              <app-track-select-modal [selectedTrack]="trackSelected" (selectTrack)="selectTrack($event)" [trackSelectModalStateValue]="trackSelectedModalState" [tracks]="tracks" (closeTrackSelectModal)="closeTrackSelectModalFunction()" (openTrackSelectModal)="openTrackSelectModalFunction()"></app-track-select-modal>
+              <app-track-select-modal 
+                [selectedTrack]="trackSelected" 
+                (selectTrack)="selectTrack($event)" 
+                [trackSelectModalStateValue]="trackSelectedModalState" 
+                [tracks]="tracks" 
+                (closeTrackSelectModal)="closeTrackSelectModalFunction()" 
+                (openTrackSelectModal)="openTrackSelectModalFunction()">
+              </app-track-select-modal>
             </div>
             <div class="race-groups">
               <span class="label">Классы гонки</span>
@@ -116,7 +123,12 @@
           <ng-template>
             <ion-content>
               <div class="region-modal-container">
-                <app-standart-input-search label="Область/край" [searchCurrentItems]="searchRegionItems" [searchItems]="searchRegionItems" (changeSearchValue)="setRegion($event)"></app-standart-input-search>
+                <app-standart-input-search 
+                  label="Область/край" 
+                  [searchCurrentItems]="searchRegionItems" 
+                  [searchItems]="searchRegionItems" 
+                  (changeSearchValue)="setRegion($event)">
+                </app-standart-input-search>
               </div>
             </ion-content>
           </ng-template>  

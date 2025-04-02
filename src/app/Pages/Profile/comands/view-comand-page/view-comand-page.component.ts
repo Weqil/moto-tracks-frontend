@@ -87,6 +87,7 @@ export class ViewComandPageComponent  implements OnInit {
 
 
   membersForUser: User[] = []
+  membersForCouch: User[] = []
 
 
   openMembersCountModal() {
@@ -118,6 +119,13 @@ export class ViewComandPageComponent  implements OnInit {
       this.membersForUser = res.members;
     })
   }
+
+  getMembersCouch() {console.log('список тренеров1')
+    this.comandService.getCouchesForUsers(Number(this.commandId)).pipe(finalize(()=>{console.log('запрос прошел')})).subscribe((res:any)=>{
+      this.membersForCouch = res.coaches;
+    })
+  }
+
 
   getCommand() {
     this.comandService.getCommandById(Number(this.commandId))
@@ -157,6 +165,7 @@ export class ViewComandPageComponent  implements OnInit {
           this.commandId = params['id']
           this.getCommand()
           this.getMembers()
+          this.getMembersCouch()
           this.loaderService.hideLoading()
           // this.getRegions()
       })
