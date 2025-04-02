@@ -8,6 +8,7 @@ import { UserSectionComponent } from "../../UserElements/user-section/user-secti
 import { CheckImgUrlPipe } from "../../../Helpers/check-img-url.pipe";
 import { ButtonsModule } from 'src/app/Shared/Modules/buttons/buttons.module'
 import { RouterLink } from '@angular/router'
+import { IEvent } from 'yandex-maps'
 
 
 @Component({
@@ -36,7 +37,7 @@ export class UsersPreviewComponent implements OnInit {
 
   
 
-  formattedUsers: {group:string,users:User[]}[] = []
+  formattedUsers: {group:any,users:User[]}[] = []
 
   generateLinkButtonClickFunction(){
     this.generateLinkButtonClick.emit()
@@ -81,7 +82,7 @@ export class UsersPreviewComponent implements OnInit {
       if (typeof this.users !== 'object') {
         this.usersPreview = this.users.slice(0, 8);
         if (this.groups && this.groups.length) {
-          this.groups.forEach((group: any) => {
+          this.groups.forEach((group: { id: number; name: string }) => {
             this.sortUsers[group.name] = [];
           });
         }
@@ -91,7 +92,9 @@ export class UsersPreviewComponent implements OnInit {
         this.formattedUsers = []; 
   
         Object.keys(this.users).forEach((res: any) => {
-          this.formattedUsers.push({ group: res, users: this.users[res]});
+
+          this.formattedUsers.push({ group: this.groups[res], users: this.users[res]});
+
           this.users[res].forEach((user: any) => {
             if (this.usersPreview.length < 8) {
               this.usersPreview.push(user);
