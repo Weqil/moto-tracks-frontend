@@ -43,9 +43,8 @@
             Тренера команды: {{membersForCouch.length}}
           </div>
         </div>
-        <div *ngFor="let user of membersForCouch" class="member-item">
-          <app-user-section [hideEmail]="true" [user]="user"></app-user-section>
-          
+        <div *ngFor="let user of membersForCouch" class="member-item" [routerLink]="['/users/', user.id]">
+          <app-user-section  [hideEmail]="true" [user]="user"></app-user-section>
         </div>
       </div>
 
@@ -56,7 +55,7 @@
           </div>
         </div>
         <div *ngFor="let user of membersForUser" class="member-item">
-          <app-user-section [hideEmail]="true" [user]="user"></app-user-section>
+          <app-user-section [routerLink]="['/users/', user.id]" [hideEmail]="true" [user]="user"></app-user-section>
           <div *ngIf="user?.personal?.start_number" class="member-number">
             {{user?.personal?.start_number}}
           </div>

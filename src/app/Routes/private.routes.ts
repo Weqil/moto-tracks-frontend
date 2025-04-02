@@ -107,6 +107,12 @@ export const privateRoutes: Routes = [
             {
                 path: 'teams',
                 loadComponent: () => import('../Pages/Events/teams-list-page/teams-list-page.component').then(m => m.TeamsListPageComponent)
+            },
+
+            {
+                path: 'users/:id',
+                canActivate:[canActivateAuth],
+                loadComponent: () => import('../Pages/Users/user-view-page/user-view-page.component').then((m) => m.UserViewPageComponent)
             }
         ]
     },
