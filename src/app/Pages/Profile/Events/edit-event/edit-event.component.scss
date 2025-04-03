@@ -88,6 +88,24 @@ ion-modal{
     padding: var(--standart-padding);
     bottom: 0rem;
 }
+.comission-grid{
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+.comission-name{
+    display: flex;
+    gap: var(--standart-padding);
+    color: #4c5861;
+    align-items: center;
+    font-family: var(--font-regular);
+    font-size: 0.75rem;
+}
+.comission-not-found{
+    padding-top:var(--little-padding);
+    font-family: 0.75rem;
+    font-family: var(--font-regular);
+}
 .race-groups__buttons{
     display: flex;
     flex-direction: column;

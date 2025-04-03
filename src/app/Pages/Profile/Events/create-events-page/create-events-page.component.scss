@@ -8,8 +8,13 @@
 .step-description{
     text-align: center;
     color: #4c5861;
-    font-size: .75rem;
+    font-size: 0.75rem;
     font-family: var(--font-regular);
+}
+.comission-grid{
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
 }
 .step-description{
     padding-bottom: var(--standart-padding);
@@ -18,8 +23,21 @@
 .description{
     
 }
+.comission-name{
+    display: flex;
+    gap: var(--standart-padding);
+    color: #4c5861;
+    align-items: center;
+    font-family: var(--font-regular);
+    font-size: 0.75rem;
+}
 .records-end{
     padding-top: var(--standart-padding);
+}
+.comission-not-found{
+    padding-top:var(--little-padding);
+    font-family: 0.75rem;
+    font-family: var(--font-regular);
 }
 .name-wrapper{
     padding-top: var(--standart-padding);

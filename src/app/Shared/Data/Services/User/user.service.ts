@@ -161,10 +161,19 @@ export class UserService {
     return this.http.post<any>(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/roles-change`, { roleId: roleId })
   }
 
+  getComissionUsers(){
+    return this.http.get<any>(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/users-commissions`)
+  }
+
   //Проверка подтвержденной почты
   isEmailVerified(): boolean {
     return this.user.value?.email_verified_at!== null;
   }
+
+  addComission(id:number,usersId:number[]){
+    return this.http.post<any>(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races/${id}/commission/add`,{usersIds:usersId},)
+  }
+
   isPhoneVerified(): boolean {
     if(!this.user.value?.phone){
       return false

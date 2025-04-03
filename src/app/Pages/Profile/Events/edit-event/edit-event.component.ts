@@ -40,7 +40,7 @@ export class EditEventComponent  implements OnInit {
 
     trackSelectedModalState:boolean = false;
     trackSelected: Track | undefined
-
+    currentComission:any[] = []
     eventId: string = ''
     raceTypeSelectedItem: any = {name:'', value:''}
     raceTypes:any[] = [
@@ -63,6 +63,8 @@ export class EditEventComponent  implements OnInit {
 
     deletesImages:any[] = []
 
+    comissionModalState:boolean = false
+
     toastService: ToastService = inject(ToastService)
     navController: NavController = inject(NavController)
 
@@ -73,7 +75,7 @@ export class EditEventComponent  implements OnInit {
     allClassesState:boolean = true
 
     locationId:string = ''
-
+    usersInCommision:any[] = []
     sliderImages:any
 
     newGroupInputValue:string = ''
@@ -167,6 +169,19 @@ export class EditEventComponent  implements OnInit {
       console.log(this.locationId)
     }
 
+    getCommisionUsers(){
+      this.userService.getComissionUsers().pipe().subscribe((res:any)=>{
+        res.users.forEach((user:any) => {
+          this.usersInCommision.push({
+            name:user.name,
+            value:user.id
+          })
+        });
+        console.log(this.usersInCommision)
+      })
+    }
+  
+
     getRegions(){
         this.mapService.getAllRegions().pipe().subscribe((res:any)=>{
           res.data.forEach((region:any) => {
@@ -214,6 +229,22 @@ export class EditEventComponent  implements OnInit {
         this.regionModalState = true
       }
 
+      deleteComission(event:any){
+        this.currentComission = this.currentComission.filter((user:any)=>event.id !== user.id)
+      }
+      closeComissionModal(){
+        this.comissionModalState = false
+      }
+      openComissionModal(){
+        this.comissionModalState = true
+      }
+      setComission(event:any){
+        if(!this.currentComission.find((user:any)=>user.id == event.id || user.id == event.value)){
+          this.currentComission.push(event)
+        }
+        this.closeComissionModal()
+      }
+
      getTracks(){
         this.loadingService.showLoading()
         this.trackService.getTracks().pipe(
@@ -242,26 +273,11 @@ export class EditEventComponent  implements OnInit {
             
             if (
                 this.createEventForm.value.name.length <= 3 ||
-                this.createEventForm.value.desc.length <= 3 ||
-                !this.createEventForm.value.images.length ||   
-                !this.createEventForm.value.dateStart
-                ||  
-                !this.trackSelected 
-                || 
-                !this.createEventForm.value.locationId
-                || 
-                !this.selectedGroup.length
+               !this.createEventForm.value.images.length ||   
+               !this.createEventForm.value.dateStart ||  !this.trackSelected ||
+               !this.currentComission.length ||
+                !this.locationId || !this.selectedGroup.length
               ) {
-                console.log( this.createEventForm.value.name.length <= 3)
-                console.log(  !this.createEventForm.value.images.length)
-                console.log(     !this.createEventForm.value.dateStart )
-                console.log( !this.trackSelected)
-                console.log(
-                  this.locationId
-                )
-                console.log(
-                  !this.selectedGroup.length
-                )
                 return true
               } else {
                 return false
@@ -271,7 +287,7 @@ export class EditEventComponent  implements OnInit {
             return true
           }
         }else{
-          if(this.createEventForm.value.name.length <= 3 || this.createEventForm.value.region.length <= 3 || this.createEventForm.value.dateStart.length <= 3  ) {
+          if(this.createEventForm.value.name.length <= 3 || !this.currentComission.length || this.createEventForm.value.region.length <= 3 || this.createEventForm.value.dateStart.length <= 3  ) {
             return true
           }else{
             return false
@@ -347,6 +363,7 @@ export class EditEventComponent  implements OnInit {
           }
           this.selectEditType()
           this.locationId = res.race?.location?.id
+          this.currentComission = res.race.commissions
           this.createEventForm.patchValue({
             ...res.race,
             locationId: res.race?.location?.id,
@@ -423,8 +440,14 @@ export class EditEventComponent  implements OnInit {
           this.loadingService.hideLoading()
         })
       ).subscribe((res:any)=>{
-        this.toastService.showToast('Событие успешно изменено','success')
-        this.navController.back()
+        let loader:HTMLIonLoadingElement
+        let race:any = res.race
+        this.loadingService.showLoading().then((res:HTMLIonLoadingElement)=>loader = res)
+         this.userService.addComission(race.id,this.currentComission.map(user => user.value || user.id)).pipe(
+          finalize(()=>this.loadingService.hideLoading(loader))
+         ).subscribe((res:any)=>{
+          this.navController.navigateForward('/my-events')
+        })
       })
     }
     } 
@@ -462,6 +485,7 @@ export class EditEventComponent  implements OnInit {
             ).subscribe((params) => {
                 this.eventId = params['id']
                 this.getEvent()
+                this.getCommisionUsers()
               })
       }
 
