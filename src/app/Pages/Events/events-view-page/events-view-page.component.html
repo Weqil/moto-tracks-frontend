@@ -65,7 +65,7 @@
 
       </div>
       
-      <div *ngIf="checkRecordEnd() && this.event.status && this.event.status.id !== 2" class="footer">
+      <div *ngIf="!checkRecordEnd() && !checkDateStart()" class="footer">
           @if (!this.event.appointments_exists ) {
             <app-standart-button (click)="openApplicationForm()" buttonText="Заявиться" theme="big"></app-standart-button>
           }
