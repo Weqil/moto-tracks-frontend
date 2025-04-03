@@ -8,6 +8,7 @@ import { finalize, Subject, takeUntil } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { CheckImgUrlPipe } from "../../../Shared/Helpers/check-img-url.pipe";
 
+
 @Component({
   selector: 'app-user-view-page',
   templateUrl: './user-view-page.component.html',
@@ -43,9 +44,8 @@ export class UserViewPageComponent  implements OnInit {
       })
     ).subscribe((res:any) => {
       this.user = res.user
-      console.log('emae2:')
-      console.log(this.user)
-    
+      // console.log('emae2:')
+      // console.log(this.user)
     })
    }
 

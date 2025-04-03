@@ -24,13 +24,14 @@ import { IonCheckbox, IonModal, NavController, IonLabel } from '@ionic/angular/s
 import { MapService } from 'src/app/Shared/Data/Services/Map/map.service';
 import { GroupService } from 'src/app/Shared/Data/Services/Race/group.service';
 import { StandartInputSelectComponent } from 'src/app/Shared/Components/UI/Selecteds/standart-input-select/standart-input-select.component';
+import { InfoPopoverComponent } from "../../../../Shared/Components/UI/info-popover/info-popover.component";
 
 
 @Component({
   selector: 'app-edit-event',
   templateUrl: './edit-event.component.html',
   styleUrls: ['./edit-event.component.scss'],
-  imports: [IonLabel, SharedModule,HeaderModule,StepsModule,FormsModule,EditSliderComponent,TrackModule,IonModal,IonCheckbox,StandartInputSelectComponent]
+  imports: [IonLabel, SharedModule, HeaderModule, StepsModule, FormsModule, EditSliderComponent, TrackModule, IonModal, IonCheckbox, StandartInputSelectComponent, InfoPopoverComponent, CheckImgUrlPipe]
 })
 export class EditEventComponent  implements OnInit {
 
@@ -39,6 +40,7 @@ export class EditEventComponent  implements OnInit {
     private readonly destroy$ = new Subject<void>()
 
     trackSelectedModalState:boolean = false;
+    schemeUrl:string = ''
     trackSelected: Track | undefined
     currentComission:any[] = []
     eventId: string = ''
@@ -97,6 +99,7 @@ export class EditEventComponent  implements OnInit {
     tracks!: Track[] 
     allTracks!: Track[]
 
+    
 
     createEventForm: FormGroup = new FormGroup({
         name: new FormControl('', [Validators.required, Validators.minLength(3)]),
@@ -108,6 +111,19 @@ export class EditEventComponent  implements OnInit {
         recordEnd:new FormControl('', [Validators.required, Validators.minLength(1)]),
         statusId: new FormControl( '',  [Validators.required, Validators.minLength(1)]),
     })
+
+    setScheme(event:any,input:HTMLInputElement){
+      const file = event.target.files[0]
+      if(file){
+        this.createEventForm.patchValue({ schemaImg: file })
+        const reader: FileReader = new FileReader()
+        reader.onload = (e: any) => {
+          this.schemeUrl = e.target.result
+        }
+        reader.readAsDataURL(file)
+        input.value =''
+      }
+    }
    
     
     stepPrevious() {

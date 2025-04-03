@@ -113,6 +113,7 @@ export const privateRoutes: Routes = [
                 path: 'users/:id',
                 canActivate:[canActivateAuth],
                 loadComponent: () => import('../Pages/Users/user-view-page/user-view-page.component').then((m) => m.UserViewPageComponent)
+                
             }
         ]
     },

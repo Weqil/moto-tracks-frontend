@@ -249,3 +249,28 @@ ion-toggle {
 .select-track-wrapper{
     padding-top: var(--standart-padding);
 }
+
+.logo-track{
+    padding-top: var(--standart-padding);
+    display: flex;
+    align-items: center;
+    padding-bottom: var(--standart-padding);
+    position: relative;
+    gap: 1rem;
+  }
+
+  .upload-logo{
+    background-color: #DCE9FF;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 0.5rem;
+  }
+
+  .logo-track__text{
+    display: flex;
+    flex-direction: column;
+  }
+  .logo-track__scheme{
+    border-radius: 0.2rem;
+    max-height: 10rem;
+  }

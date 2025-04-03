@@ -7,8 +7,9 @@ import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module'
 import { UserSectionComponent } from "../../UserElements/user-section/user-section.component";
 import { CheckImgUrlPipe } from "../../../Helpers/check-img-url.pipe";
 import { ButtonsModule } from 'src/app/Shared/Modules/buttons/buttons.module'
-import { RouterLink } from '@angular/router'
+import { ActivatedRoute, RouterLink } from '@angular/router'
 import { IEvent } from 'yandex-maps'
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -35,7 +36,9 @@ export class UsersPreviewComponent implements OnInit {
   @Output() closeModalEmit: EventEmitter<any> = new EventEmitter()
   @Output() generateLinkButtonClick: EventEmitter<any> = new EventEmitter()
 
-  
+  route: ActivatedRoute = inject(ActivatedRoute)
+ 
+  constructor(private router: Router) {}
 
   formattedUsers: {group:any,users:User[]}[] = []
 
@@ -53,6 +56,14 @@ export class UsersPreviewComponent implements OnInit {
   }
   closeModal() {
     this.closeModalEmit.emit()
+    
+  }
+
+  navigateToUser(userId: number) {
+    
+    this.router.navigate(['/users', userId]).then(() => {
+      window.location.reload();
+    });
   }
 
   createUserInAplication(aplication:any){
@@ -98,8 +109,7 @@ export class UsersPreviewComponent implements OnInit {
           this.users[res].forEach((user: any) => {
             if (this.usersPreview.length < 8) {
               this.usersPreview.push(user);
-              console.log('emae:')
-              console.log(this.formattedUsers)
+              
             }
           });
         });
@@ -109,6 +119,8 @@ export class UsersPreviewComponent implements OnInit {
     
   }
   ngOnInit() {
+
+    
     window.addEventListener('popstate', (event) => {
       this.closeModal()})
       

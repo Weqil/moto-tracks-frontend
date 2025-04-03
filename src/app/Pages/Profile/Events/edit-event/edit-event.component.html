@@ -101,8 +101,25 @@
           </div>
     
           <div class="photo-slider">
-            <app-edit-slider (filesEmit)="getImages($event)" type="create"></app-edit-slider>
+            <app-edit-slider [files]="sliderImages" (filesEmit)="getImages($event)" type="create"></app-edit-slider>
           </div>
+
+
+          <!-- <div class="logo-track">
+            <button (click)="schemeFile.click()" class="upload-logo">
+              <img src="/assets/icons/addPhoto.svg" alt="">
+            </button>
+            <div class="logo-track__text">
+                <ng-container *ngIf="!event.images">
+                      <span class="logo-track__file-name">Фото не загружено</span>
+                </ng-container>
+                <input (change)="setScheme($event,schemeFile)" #schemeFile style="display: none;" accept="image/png, image/jpeg" type="file" type="file">
+                <ng-container *ngIf="event.images" >
+                          <img [src]="event.images[0] | checkImgUrl" alt="" class="logo-track__scheme">
+                </ng-container>
+                      
+            </div>
+          </div> -->
   
           <div class="description">
             <app-standart-rich-input [control]="createEventForm.get('desc')" label="Описание" placeholder="Введите описание вашего трека"></app-standart-rich-input>
