@@ -81,8 +81,8 @@ export class UsersPreviewComponent implements OnInit {
     if (changes['users'] && this.sortByGrade) {
       if (typeof this.users !== 'object') {
         this.usersPreview = this.users.slice(0, 8);
-        if (this.groups && this.groups.length) {
-          this.groups.forEach((group: { id: number; name: string }) => {
+        if (this.groups && this.groups.length){
+          this.groups.forEach((group: any) => {
             this.sortUsers[group.name] = [];
           });
         }
@@ -93,7 +93,7 @@ export class UsersPreviewComponent implements OnInit {
   
         Object.keys(this.users).forEach((res: any) => {
 
-          this.formattedUsers.push({ group: this.groups[res], users: this.users[res]});
+          this.formattedUsers.push({ group: res || res, users: this.users[res]});
 
           this.users[res].forEach((user: any) => {
             if (this.usersPreview.length < 8) {

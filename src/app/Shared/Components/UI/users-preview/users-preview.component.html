@@ -39,13 +39,13 @@
                 
                 <div class="group-grid">
                     <button (click)="scrollToItem(group.group)" *ngFor="let group of formattedUsers" class="group-grid__item">
-                        {{group.group.name}}
+                        {{group.group}}
                     </button>
                 </div>
 
                 <div *ngFor="let group of formattedUsers">
                     <div class="group-text">
-                        <h2 id="{{group.group}}">{{group.group.name}}:</h2>
+                        <h2 id="{{group.group}}">{{group.group}}:</h2>
                     </div>
                     <div class="card-grid">
                         <ng-container *ngFor="let user of group.users; let i = index"  >
