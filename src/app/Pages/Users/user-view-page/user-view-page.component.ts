@@ -23,7 +23,7 @@ export class UserViewPageComponent  implements OnInit {
   loadingService: LoadingService = inject(LoadingService)
   route: ActivatedRoute = inject(ActivatedRoute)
   private readonly destroy$ = new Subject<void>()
-
+  loaderService:LoadingService = inject(LoadingService)
 
 
   constructor() { }
@@ -37,10 +37,14 @@ export class UserViewPageComponent  implements OnInit {
   }
   
   getUser(){
-    this.loadingService.showLoading()
+    let loader:HTMLIonLoadingElement
+    this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+      loader = res
+     })
+    
     this.userService.getUserById(this.userId).pipe(
       finalize(()=>{
-        this.loadingService.hideLoading()  
+        this.loadingService.hideLoading(loader)  
       })
     ).subscribe((res:any) => {
       this.user = res.user

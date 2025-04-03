@@ -196,7 +196,7 @@ export class CabinetComponent  implements OnInit {
       {
         routing:'add-users-in-comissions',
         iconColor:'#0000',
-        icon:'/assets/icons/team.svg',
+        icon:'/assets/icons/star.svg',
         iconFilter:'',
         name:'Присвоение ролей'
       }
