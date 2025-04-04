@@ -8,7 +8,17 @@
     padding-top: var(--standart-padding);
 }
 .race-groups{
-    padding-top: var(--standart-padding);
+    padding: var(--standart-padding);
+    border: 1px #c5c5c5 solid;
+    border-radius: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin-top: 1rem;
+    
+}
+.group-container{
+    display: flex;
+    flex-direction: column;
+    padding-bottom:15rem;
 }
 .step-description{
     text-align: center;
@@ -78,6 +88,7 @@ ion-modal{
     border: 1px solid rgba(76, 88, 97, 0.2549019608);
     font-family: var(--font-regular);
     font-size: 0.75rem;
+    border-radius: 0.2rem;
 }
 .race-groups__add-container__wrapper{
     position: fixed;
@@ -88,24 +99,57 @@ ion-modal{
     padding: var(--standart-padding);
     bottom: 0rem;
 }
-.comission-grid{
+.comission-in-race{
+    padding: var(--standart-padding);
+    border: 1px #c5c5c5 solid;
+    border-radius: 0.5rem;   
+    margin-top: 1rem;
+    height: auto;
+    
+    .comission-grid{
+        display: flex;
+        flex-direction: row;
+        justify-content: start;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+        
+        border-radius: 0.5rem; 
+        padding: 5px;
+        margin-bottom: 1rem;
+        .comission-name{
+            display: flex;
+            gap: var(--standart-padding);
+            color: #4c5861;
+            align-items: center;
+            font-family: var(--font-regular);
+            font-size: 0.75rem;
+            margin: 0px;
+            border: 1px #c5c5c5 solid;
+            border-radius: 0.5rem; 
+            padding: 5px;
+            
+        }
+    }
+    .comission-not-found{
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        border: 1px #c5c5c5 solid;
+        border-radius: 0.2rem; 
+        padding: 5px;
+        font-size: 0.7rem;
+        font-family: var(--font-regular);
+    }
+}
+
+.commission-name-container{
     display: flex;
-    gap: 2rem;
+    flex-direction: row;
     flex-wrap: wrap;
 }
-.comission-name{
-    display: flex;
-    gap: var(--standart-padding);
-    color: #4c5861;
-    align-items: center;
-    font-family: var(--font-regular);
-    font-size: 0.75rem;
-}
-.comission-not-found{
-    padding-top:var(--little-padding);
-    font-family: 0.75rem;
-    font-family: var(--font-regular);
-}
+
+
 .race-groups__buttons{
     display: flex;
     flex-direction: column;
@@ -273,4 +317,13 @@ ion-toggle {
   .logo-track__scheme{
     border-radius: 0.2rem;
     max-height: 10rem;
+  }
+
+  .btn-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    .btn{
+        width: 100%;
+    }
   }

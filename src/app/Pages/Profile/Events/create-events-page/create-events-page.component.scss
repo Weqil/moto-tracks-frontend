@@ -11,11 +11,7 @@
     font-size: 0.75rem;
     font-family: var(--font-regular);
 }
-.comission-grid{
-    display: flex;
-    gap: 2rem;
-    flex-wrap: wrap;
-}
+
 .step-description{
     padding-bottom: var(--standart-padding);
 }
@@ -34,11 +30,7 @@
 .records-end{
     padding-top: var(--standart-padding);
 }
-.comission-not-found{
-    padding-top:var(--little-padding);
-    font-family: 0.75rem;
-    font-family: var(--font-regular);
-}
+
 .name-wrapper{
     padding-top: var(--standart-padding);
     display:flex;
@@ -90,7 +82,12 @@ ion-modal{
 }
 
 .race-groups{
-    padding-top: var(--standart-padding);
+    padding: var(--standart-padding);
+    border: 1px #c5c5c5 solid;
+    border-radius: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin-top: 1rem;
+    
 }
 .group-container{
     display: flex;
@@ -128,6 +125,58 @@ ion-modal{
         border-radius: 1rem;
     }
 }
+
+.comission-in-race{
+    padding: var(--standart-padding);
+    border: 1px #c5c5c5 solid;
+    border-radius: 0.5rem;   
+    margin-top: 1rem;
+    height: auto;
+    
+    .comission-grid{
+        display: flex;
+        flex-direction: row;
+        justify-content: start;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+        
+        border-radius: 0.5rem; 
+        padding: 5px;
+        margin-bottom: 1rem;
+        .comission-name{
+            margin: 0px;
+            border: 1px #c5c5c5 solid;
+            border-radius: 0.5rem; 
+            padding: 5px;
+            
+        }
+    }
+    .comission-not-found{
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        border: 1px #c5c5c5 solid;
+        border-radius: 0.2rem; 
+        padding: 5px;
+        font-size: 0.7rem;
+        font-family: var(--font-regular);
+    }
+}
+
+.commission-name-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.btn-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    .btn{
+        width: 100%;
+    }
+  }
 
 // .rounded-classes{
     
@@ -198,6 +247,7 @@ ion-toggle {
 }
 .race-groups__selected{
  
+    
   
 }
 .race-groups__selected__item{
@@ -208,6 +258,7 @@ ion-toggle {
     border: 1px solid rgba(76, 88, 97, 0.2549019608);
     font-family: var(--font-regular);
     font-size: 0.75rem;
+    border-radius: 0.2rem;
 }
 .race-groups__selected{
     padding-bottom: var(--little-padding);
