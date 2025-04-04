@@ -216,7 +216,7 @@ export class CreateEventsPageComponent  implements OnInit {
             this.createEventForm.value.desc.length <= 3 
            ||
            !this.createEventForm.value.images.length ||   
-           !this.currentComission.length ||
+          //  !this.currentComission.length ||
            !this.createEventForm.value.dateStart ||
            !this.trackSelected || 
            !this.locationId || 
@@ -231,7 +231,9 @@ export class CreateEventsPageComponent  implements OnInit {
         return true
       }
     }else{
-      if(this.createEventForm.value.name.length <= 3 || this.createEventForm.value.region.length <= 3 || this.createEventForm.value.dateStart.length <= 3 || !this.currentComission.length  ) {
+      if(this.createEventForm.value.name.length <= 3 || this.createEventForm.value.region.length <= 3 || this.createEventForm.value.dateStart.length <= 3 
+        // || !this.currentComission.length 
+       ) {
         return true
       }else{
         return false
@@ -352,7 +354,7 @@ export class CreateEventsPageComponent  implements OnInit {
     this.userService.getComissionUsers().pipe().subscribe((res:any)=>{
       res.users.forEach((user:any) => {
         this.usersInCommision.push({
-          name:user.name,
+          name:user.personal.name +" " + user.personal.surname + " "  + user.personal.patronymic,
           value:user.id
         })
       });
@@ -361,18 +363,26 @@ export class CreateEventsPageComponent  implements OnInit {
   }
 
   setComission(event:any){
-    if(!this.currentComission.find((user:any)=>user.id == event.id)){
-      this.currentComission.push(event)
-      console.log(this.currentComission)
-    }else{
+    if(this.currentComission.find((user:any)=>user == event)){
+
       console.log('такой юзер уже есть')
       console.log(this.currentComission)
+
+      
+    }else {
+      this.currentComission.push(event)
+      // console.log('В комиссию записали event')
+      // console.log('Выбранная комиссия')
+      // console.log(this.currentComission)
+      // console.log('Event это:')
+      // console.log(event)
+
     }
     this.closeComissionModal()
   }
 
   deleteComission(event:any){
-    this.currentComission = this.currentComission.filter((user:any)=>event.id !== user.id )
+    this.currentComission = this.currentComission.filter((user:any)=>event !== user )
   }
 
   ngOnInit() {

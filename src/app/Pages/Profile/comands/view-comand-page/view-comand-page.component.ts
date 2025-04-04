@@ -8,6 +8,7 @@ import { MapService } from 'src/app/Shared/Data/Services/Map/map.service';
 import { CheckImgUrlPipe } from 'src/app/Shared/Helpers/check-img-url.pipe';
 import { LoadingService } from 'src/app/Shared/Services/loading.service';
 import { ToastService } from 'src/app/Shared/Services/toast.service';
+import { RouterLink } from '@angular/router';
 import { IonContent, 
   IonCard, 
   IonCardHeader, 
@@ -57,7 +58,8 @@ import { finalize } from 'rxjs';
     IonList,
     IonThumbnail,
     IonModal,
-    IonIcon
+    IonIcon,
+    RouterLink
   ],
   standalone: true
 })
@@ -65,7 +67,7 @@ export class ViewComandPageComponent  implements OnInit {
   private readonly destroy$ = new Subject<void>()
 
   constructor() { }
-
+  navController: NavController = inject(NavController);
   route: ActivatedRoute = inject(ActivatedRoute)
   toastService: ToastService = inject(ToastService)
   loaderService:LoadingService = inject(LoadingService)
@@ -89,6 +91,9 @@ export class ViewComandPageComponent  implements OnInit {
   membersForUser: User[] = []
   membersForCouch: User[] = []
 
+  redirectUserCard(){
+    this.navController.navigateForward('users/view/:id')
+  }
 
   openMembersCountModal() {
     this.membersCountModalState = true

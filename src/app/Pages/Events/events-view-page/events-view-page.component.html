@@ -23,7 +23,7 @@
       <div class="main-container">
         <div class="event-name">{{event.name}}</div>
         <div class="event-location-name">
-          <div class="event-location-name__text">{{event.location?.name}}</div>
+          <div class="event-location-name__text">{{event.location?.name}} {{event.location?.type}}</div>
         </div>
         <div [innerHTML]="clearDescription()" *ngIf="event.desc" class="event-description">{{event.desc}}</div>
 
@@ -53,13 +53,19 @@
               Участники гонки
               {{usersPreviewConfig.usersCount}}
             </div>
-          <app-users-preview [groups]="event.grades"  [fullValueUsers]="usersPreviewConfig.usersCount" [users]="usersInRace" [moreCount]="usersPreviewConfig.usersCount" [openUsersModal]="openUserModalValue" (closeModalEmit)="closeStateUsersModal()" (openModalEmit)="openStateUsersModal()"></app-users-preview>
+          <app-users-preview 
+          [groups]="event.grades"  
+          [fullValueUsers]="usersPreviewConfig.usersCount" 
+          [users]="usersInRace" [moreCount]="usersPreviewConfig.usersCount" 
+          [openUsersModal]="openUserModalValue" 
+          (closeModalEmit)="closeStateUsersModal()" 
+          (openModalEmit)="openStateUsersModal()"></app-users-preview>
         }
         </div>
 
       </div>
       
-      <div *ngIf="!checkRecordEnd() && this.event.status && this.event.status.id !== 2" class="footer">
+      <div *ngIf="!checkRecordEnd() && !checkDateStart()" class="footer">
           @if (!this.event.appointments_exists ) {
             <app-standart-button (click)="openApplicationForm()" buttonText="Заявиться" theme="big"></app-standart-button>
           }
@@ -70,10 +76,25 @@
           @if(checkUserRoleService.userHaveRole(confirmUsersRolesInGroupAplication)){
             <app-standart-button (click)="redirectTrenerInEditAplication()" buttonText="Заявится группой" theme="big"></app-standart-button>
           }
+          @else {
+            <app-standart-button  buttonText="Заявится группой" [disabled]="true"></app-standart-button>
+          }
          
         </div>
-      </div>
-       
+
+
+        <!-- <div *ngIf="!checkRecordEnd() && this.event.status && this.event.status.id !== 2" class="footer-group">
+          
+
+          @if(checkUserRoleService.userHaveRole(confirmUsersRolesInGroupAplication)){
+            <app-standart-button (click)="redirectTrenerInEditAplication()" buttonText="Заявится группой" theme="big"></app-standart-button>
+          }
+          @else {
+
+          }
+         
+        </div> -->
+    </div>
     }
   </main>
 

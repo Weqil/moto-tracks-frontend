@@ -192,7 +192,15 @@ export class CabinetComponent  implements OnInit {
         icon:'/assets/icons/team.svg',
         iconFilter:'',
         name:'Мои команды'
+      }, 
+      {
+        routing:'add-users-in-comissions',
+        iconColor:'#0000',
+        icon:'/assets/icons/star.svg',
+        iconFilter:'',
+        name:'Присвоение ролей'
       }
+
     ],
   }
   statuses:any[] = [

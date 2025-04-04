@@ -336,8 +336,14 @@ export class EventsViewPageComponent  implements OnInit {
     }
 
     checkRecordEnd(){
-        let now = moment()
-        return moment(this.event?.record_end) < now
+      let now = moment().format('YYYY-MM-DD HH:mm')
+      // console.log(now > moment(this.event?.record_end) )
+      return now > moment(this.event?.record_end).format('YYYY-MM-DD HH:mm')
+    }
+
+    checkDateStart(){
+      let now = moment().format('YYYY-MM-DD HH:mm')
+      return now > moment(this.event?.date_start).format('YYYY-MM-DD HH:mm')
     }
 
     setEngine(event:any){
@@ -940,6 +946,8 @@ export class EventsViewPageComponent  implements OnInit {
 
     
   ngOnInit() {
+
+    
     //Необходимо что бы не ломалась модалка
     window.addEventListener('popstate', (event) => {
       this.closeStateUsersModal()

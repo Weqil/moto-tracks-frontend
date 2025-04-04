@@ -21,6 +21,9 @@ export class UserService {
   constructor(
   ) { }
 
+  getUserById(id:string){
+    return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/users/${id}`)
+  }
 
   getAllUsersInLocalStorage(){
     let usersArray:any = localStorage.getItem('allUsers')
@@ -176,6 +179,10 @@ export class UserService {
       return false
     }
     return this.user.value?.phone?.number_verified_at !== null;
+  }
+
+  addUserCommissionRole(userId: string){
+    return this.http.post(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/roles-change/${userId}/commission`, userId)
   }
   
 }

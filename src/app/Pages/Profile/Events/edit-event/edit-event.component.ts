@@ -24,13 +24,14 @@ import { IonCheckbox, IonModal, NavController, IonLabel } from '@ionic/angular/s
 import { MapService } from 'src/app/Shared/Data/Services/Map/map.service';
 import { GroupService } from 'src/app/Shared/Data/Services/Race/group.service';
 import { StandartInputSelectComponent } from 'src/app/Shared/Components/UI/Selecteds/standart-input-select/standart-input-select.component';
+import { InfoPopoverComponent } from "../../../../Shared/Components/UI/info-popover/info-popover.component";
 
 
 @Component({
   selector: 'app-edit-event',
   templateUrl: './edit-event.component.html',
   styleUrls: ['./edit-event.component.scss'],
-  imports: [IonLabel, SharedModule,HeaderModule,StepsModule,FormsModule,EditSliderComponent,TrackModule,IonModal,IonCheckbox,StandartInputSelectComponent]
+  imports: [IonLabel, SharedModule, HeaderModule, StepsModule, FormsModule, EditSliderComponent, TrackModule, IonModal, IonCheckbox, StandartInputSelectComponent, InfoPopoverComponent, CheckImgUrlPipe]
 })
 export class EditEventComponent  implements OnInit {
 
@@ -39,6 +40,7 @@ export class EditEventComponent  implements OnInit {
     private readonly destroy$ = new Subject<void>()
 
     trackSelectedModalState:boolean = false;
+    schemeUrl:string = ''
     trackSelected: Track | undefined
     currentComission:any[] = []
     eventId: string = ''
@@ -97,6 +99,7 @@ export class EditEventComponent  implements OnInit {
     tracks!: Track[] 
     allTracks!: Track[]
 
+    
 
     createEventForm: FormGroup = new FormGroup({
         name: new FormControl('', [Validators.required, Validators.minLength(3)]),
@@ -108,6 +111,19 @@ export class EditEventComponent  implements OnInit {
         recordEnd:new FormControl('', [Validators.required, Validators.minLength(1)]),
         statusId: new FormControl( '',  [Validators.required, Validators.minLength(1)]),
     })
+
+    setScheme(event:any,input:HTMLInputElement){
+      const file = event.target.files[0]
+      if(file){
+        this.createEventForm.patchValue({ schemaImg: file })
+        const reader: FileReader = new FileReader()
+        reader.onload = (e: any) => {
+          this.schemeUrl = e.target.result
+        }
+        reader.readAsDataURL(file)
+        input.value =''
+      }
+    }
    
     
     stepPrevious() {
@@ -173,7 +189,7 @@ export class EditEventComponent  implements OnInit {
       this.userService.getComissionUsers().pipe().subscribe((res:any)=>{
         res.users.forEach((user:any) => {
           this.usersInCommision.push({
-            name:user.name,
+            name:user.personal.name +" " + user.personal.surname + " "  + user.personal.patronymic,
             value:user.id
           })
         });
@@ -230,7 +246,7 @@ export class EditEventComponent  implements OnInit {
       }
 
       deleteComission(event:any){
-        this.currentComission = this.currentComission.filter((user:any)=>event.id !== user.id)
+        this.currentComission = this.currentComission.filter((user:any)=>event !== user)
       }
       closeComissionModal(){
         this.comissionModalState = false
@@ -239,8 +255,17 @@ export class EditEventComponent  implements OnInit {
         this.comissionModalState = true
       }
       setComission(event:any){
-        if(!this.currentComission.find((user:any)=>user.id == event.id || user.id == event.value)){
+        if(this.currentComission.find((user:any)=>user == event)){
+          console.log('такой юзер уже есть')
+          console.log(this.currentComission)
+        }else {
           this.currentComission.push(event)
+          // console.log('В комиссию записали event')
+          // console.log('Выбранная комиссия')
+          // console.log(this.currentComission)
+          // console.log('Event это:')
+          // console.log(event)
+    
         }
         this.closeComissionModal()
       }
@@ -275,7 +300,7 @@ export class EditEventComponent  implements OnInit {
                 this.createEventForm.value.name.length <= 3 ||
                !this.createEventForm.value.images.length ||   
                !this.createEventForm.value.dateStart ||  !this.trackSelected ||
-               !this.currentComission.length ||
+              //  !this.currentComission.length ||
                 !this.locationId || !this.selectedGroup.length
               ) {
                 return true
@@ -287,7 +312,9 @@ export class EditEventComponent  implements OnInit {
             return true
           }
         }else{
-          if(this.createEventForm.value.name.length <= 3 || !this.currentComission.length || this.createEventForm.value.region.length <= 3 || this.createEventForm.value.dateStart.length <= 3  ) {
+          if(this.createEventForm.value.name.length <= 3 || 
+            // !this.currentComission.length ||
+             this.createEventForm.value.region.length <= 3 || this.createEventForm.value.dateStart.length <= 3  ) {
             return true
           }else{
             return false
