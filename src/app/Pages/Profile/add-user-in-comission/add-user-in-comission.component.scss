@@ -37,6 +37,7 @@
     margin-top: 1rem;
     margin-right: 0rem;
     border-radius: 0.5rem;
+    margin-bottom: 4rem;
 }
 
 .user-section__avatar{
@@ -97,11 +98,17 @@
 }
 
 .user-parametr{
-    
+    display: flex;
     border-radius: 0.5rem;
     padding: 0.5rem;
     font-family: var(--font-bold);
     font-size: var();
     
+}
+
+.text-role{
+    .role{
+        padding-left: 0.5rem;
+    }
 }
 

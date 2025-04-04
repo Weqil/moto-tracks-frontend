@@ -20,15 +20,30 @@
         <div class="user_name">{{user?.personal?.surname}} {{user?.personal?.name}} {{user?.personal?.patronymic}} </div>
       </div>
 
+      <div class="user-name-container" *ngIf="!user?.personal?.surname && !user?.personal?.name && !user?.personal?.patronymic">
+        <div class="user_name">Никнейм:{{user?.name}} </div>
+      </div>
+
       <div class="info-container">
-        <div class="user-parametr">
+        <div class="user-parametr" *ngIf="user?.personal?.city">
           <span>{{user?.personal?.city}}</span>
         </div>
-        <div class="user-parametr">
+        <div class="user-parametr" *ngIf="user?.personal?.start_number">
           <span>Гоночный номер: {{user?.personal?.start_number}}</span>
         </div>
-        <div class="user-parametr">
+        <div class="user-parametr"  *ngIf="user?.personal?.rank">
           <span>Звание: {{user?.personal?.rank}}</span>
+        </div>
+        <div class="user-parametr"  *ngIf="user?.roles?.length">
+          <span>Роль: </span>
+          <div class="text-role" *ngFor="let item of user?.roles">
+
+            <div class="role">
+             {{translateRole(item.name)}}
+            </div>
+
+          </div>
+          
         </div>
         
         
