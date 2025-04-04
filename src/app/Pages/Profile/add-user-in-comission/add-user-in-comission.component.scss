@@ -103,12 +103,16 @@
     padding: 0.5rem;
     font-family: var(--font-bold);
     font-size: var();
+    flex-wrap: wrap;
     
+}
+.rol-text{
+    padding-right: 0.5rem;
 }
 
 .text-role{
     .role{
-        padding-left: 0.5rem;
+        padding-right: 0.5rem;
     }
 }
 
