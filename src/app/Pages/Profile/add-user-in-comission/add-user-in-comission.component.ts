@@ -54,7 +54,31 @@ export class AddUserInComissionComponent  implements OnInit {
   }
 
   awardRole(){
-    
+
+    let loader:HTMLIonLoadingElement
+    this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+      loader = res
+     })
+
+    this.userService.addUserCommissionRole(this.id).pipe(
+
+      catchError(error => {
+
+        this.toastService.showToast('Такого пользователя нет в системе', 'warning')
+        this.viewUserInfo = true
+        return throwError(()=> error)
+        
+      }),
+
+      finalize(()=>{
+        this.loadingService.hideLoading(loader)  
+      })
+
+    ).subscribe((res:any) => {
+        this.userService.refreshUser()
+        this.getUser()
+        
+    })
   }
 
   translateRole(roleName: string){

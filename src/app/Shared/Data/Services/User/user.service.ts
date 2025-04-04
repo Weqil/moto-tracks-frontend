@@ -180,5 +180,9 @@ export class UserService {
     }
     return this.user.value?.phone?.number_verified_at !== null;
   }
+
+  addUserCommissionRole(userId: string){
+    return this.http.post(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/roles-change/${userId}/commission`, userId)
+  }
   
 }
