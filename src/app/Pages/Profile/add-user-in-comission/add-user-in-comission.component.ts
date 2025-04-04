@@ -64,7 +64,7 @@ export class AddUserInComissionComponent  implements OnInit {
 
       catchError(error => {
 
-        this.toastService.showToast('Такого пользователя нет в системе', 'warning')
+        this.toastService.showToast('Ваш номер не подтвержден, подтвердите номер что бы назначать роли', 'warning')
         this.viewUserInfo = true
         return throwError(()=> error)
         
