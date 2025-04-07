@@ -39,7 +39,7 @@
                 {{event.location?.name}} {{event.location?.type}}
             </div>
 
-            <div *ngIf="event.track && event.date_start" class="event-address">
+            <div *ngIf="event.date_start" class="event-address">
                 <span>
                     Дата начала гонки: {{ formatDate(event.date_start) }}
                 </span>
