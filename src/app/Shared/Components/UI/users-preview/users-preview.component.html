@@ -50,7 +50,7 @@
                     <div class="card-grid">
                         <ng-container *ngFor="let user of group.users; let i = index"  >
                             <div  >
-                                <div class="card-grid__item" (click)=" navigateToUser(user.id);">
+                                <div class="card-grid__item" (click)=" navigateToUser(user.user_id);">
                                     <app-user-section   [showRank]="true"  [hideEmail]= "true"  [user]="createUserInAplication(user)"></app-user-section>
                                     <div *ngIf="user?.start_number" class="user-info__class">
                                         {{user?.start_number}}

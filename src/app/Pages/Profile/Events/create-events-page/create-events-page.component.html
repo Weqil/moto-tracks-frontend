@@ -64,6 +64,11 @@
         <app-standart-input class="date-start" type="datetime-local" label="Дата начала" [control]="createEventForm.get('dateStart')"></app-standart-input>
         
         <ng-container *ngIf="raceTypeSelectedItem.name == 'Согласована (обычная)'">
+          
+          <div class="records-end">
+            <app-standart-input type="datetime-local" label="Дата открытия регистрации" [control]="createEventForm.get('recordStart')"></app-standart-input>
+          </div>
+          
           <div class="records-end">
             <app-standart-input type="datetime-local" label="Дата закрытия регистрации" [control]="createEventForm.get('recordEnd')"></app-standart-input>
           </div>

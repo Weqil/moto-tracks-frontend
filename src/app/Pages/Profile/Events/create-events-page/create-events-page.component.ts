@@ -11,7 +11,7 @@ import { TrackModule } from 'src/app/Shared/Modules/track/track.module';
 import { TrackService } from 'src/app/Shared/Data/Services/Track/track.service';
 import { Track } from 'src/app/Shared/Data/Interfaces/track-model';
 import { LoadingService } from 'src/app/Shared/Services/loading.service';
-import { catchError, EMPTY, finalize, from, mergeMap } from 'rxjs';
+import { catchError, EMPTY, finalize, from, mergeMap, throwError } from 'rxjs';
 import { EventService } from 'src/app/Shared/Data/Services/Event/event.service';
 import { serverError } from 'src/app/Shared/Data/Interfaces/errors';
 import { ToastService } from 'src/app/Shared/Services/toast.service';
@@ -90,6 +90,7 @@ export class CreateEventsPageComponent  implements OnInit {
     dateStart: new FormControl( '',  [Validators.required, Validators.minLength(1)]),
     userId:new FormControl( '',  [Validators.required, Validators.minLength(1)]),
     comissionName:new FormControl( '',  [Validators.required, Validators.minLength(1)]),
+    recordStart: new FormControl( '',  [Validators.required, Validators.minLength(1)]),
     recordEnd: new FormControl( '',  [Validators.required, Validators.minLength(1)]),
     statusId: new FormControl( '',  [Validators.required, Validators.minLength(1)]),
   })
@@ -339,6 +340,15 @@ export class CreateEventsPageComponent  implements OnInit {
       let loader:HTMLIonLoadingElement
       this.loadingService.showLoading().then((res:HTMLIonLoadingElement)=>loader = res)
        this.userService.addComission(race.id,this.currentComission.map(user => user.value)).pipe(
+
+        catchError(error => {
+
+          this.navController.navigateForward('/my-events')
+          this.loadingService.hideLoading(loader)
+          return throwError(()=> error)
+          
+        }),
+
         finalize(()=>this.loadingService.hideLoading(loader))
        ).subscribe((res:any)=>{
         this.navController.navigateForward('/my-events')

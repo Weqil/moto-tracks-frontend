@@ -65,20 +65,29 @@
 
       </div>
       
-      <div *ngIf="!checkRecordEnd() && !checkDateStart()" class="footer">
-          @if (!this.event.appointments_exists ) {
+      <div *ngIf="!checkRecordEnd() && !checkDateStart() && event.status?.name !== 'Планируемая'"  class="footer">
+          @if (!this.event.appointments_exists && !checkRecordStart() && !checkRecordEnd()) {
             <app-standart-button (click)="openApplicationForm()" buttonText="Заявиться" theme="big"></app-standart-button>
+          }
+          @else if(checkRecordStart()){
+            <app-standart-button [disabled]="true"  buttonText="Дата начала регистрации: {{event.record_start}}"></app-standart-button>
           }
           @else {
             <app-standart-button [disabled]="true"  buttonText="Заявка отправлена"></app-standart-button>
           }
 
-          @if(checkUserRoleService.userHaveRole(confirmUsersRolesInGroupAplication)){
+          <div class="group-button" *ngIf="!checkRecordStart()">
+            @if(checkUserRoleService.userHaveRole(confirmUsersRolesInGroupAplication) && !checkRecordStart()){
             <app-standart-button (click)="redirectTrenerInEditAplication()" buttonText="Заявится группой" theme="big"></app-standart-button>
-          }
-          @else {
-            <app-standart-button  buttonText="Заявится группой" [disabled]="true"></app-standart-button>
-          }
+            }
+            @else if(checkRecordStart() && checkRecordEnd()){
+              <app-standart-button [disabled]="true"  buttonText="Дата начала регистрации: {{event.record_start}}"></app-standart-button>
+            }
+            @else {
+              
+            }
+          </div>
+          
          
         </div>
 
