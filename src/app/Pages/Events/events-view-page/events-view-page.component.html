@@ -65,7 +65,7 @@
 
       </div>
       
-      <div *ngIf="!checkRecordEnd() && !checkDateStart()" class="footer">
+      <div *ngIf="!checkRecordEnd() && !checkDateStart() && event.status?.name !== 'Планируемая'"  class="footer">
           @if (!this.event.appointments_exists ) {
             <app-standart-button (click)="openApplicationForm()" buttonText="Заявиться" theme="big"></app-standart-button>
           }
@@ -77,7 +77,7 @@
             <app-standart-button (click)="redirectTrenerInEditAplication()" buttonText="Заявится группой" theme="big"></app-standart-button>
           }
           @else {
-            <app-standart-button  buttonText="Заявится группой" [disabled]="true"></app-standart-button>
+            
           }
          
         </div>
