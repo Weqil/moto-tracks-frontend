@@ -54,10 +54,14 @@
             <app-standart-rich-input [control]="createEventForm.get('desc')" label="Описание" placeholder="Введите описание вашего трека"></app-standart-rich-input>
           </div>
         </ng-container>
+        
         <div class="date-start-wrapper">
           <app-standart-input type="datetime-local" label="Дата начала" [control]="createEventForm.get('dateStart')"></app-standart-input>
         </div>
         <ng-container *ngIf="raceTypeSelectedItem.name == 'Согласована (обычная)'">
+          <div class="records-end">
+            <app-standart-input type="datetime-local" label="Дата открытия регистрации" [control]="createEventForm.get('recordStart')"></app-standart-input>
+          </div>
           <div class="records-end">
             <app-standart-input type="datetime-local" label="Дата закрытия регистрации" [control]="createEventForm.get('recordEnd')"></app-standart-input>
           </div>

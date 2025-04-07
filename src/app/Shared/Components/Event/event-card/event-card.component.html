@@ -2,9 +2,16 @@
     
    
  <div class="card">
-     <div class="event-date">
-             {{ event.date_start | date: 'dd.MM.YYYY' }}
-            </div>
+    <!-- <div class="event-date">
+
+        @if(registrate()){
+            Регистрация
+        }
+            
+        
+        
+        {{ event.date_start | date: 'dd.MM.YYYY' }}
+    </div> -->
     <div (click)="redirectInEvent()" >
         <div class="card__content">
             <img src="{{event.images ? (event.images[0] | checkImgUrl : '/assets/images/moto-background.png') : '' | checkImgUrl : '/assets/images/moto-background.png'}}" alt="">
@@ -32,8 +39,47 @@
                 {{event.location?.name}} {{event.location?.type}}
             </div>
 
-        
+            <div *ngIf="event.track && event.date_start" class="event-address">
+                <span>
+                    Дата начала гонки: {{ formatDate(event.date_start) }}
+                </span>
+            </div>
+
+            <div *ngIf="event.record_start" class="event-address">
+                <span>
+                    Дата регистрации: 
+                </span>
+
+                <br>
+
+                <span>
+                    Начало: 
+                </span>
+
+                <span *ngIf="event.record_start">
+                    {{  formatDate(event.record_start)  }} 
+                </span>
+
+                <div *ngIf="event.record_end" class="">
+                <span>
+                    Конец: 
+                </span>
+
+                <span *ngIf="event.record_end">
+                    {{  formatDate(event.record_end)  }} 
+                </span>
+                
+            </div>
+
+            <div class="status-events">
+                <span *ngIf="registrationStatus; else registrationClosed">Регистрация открыта</span>
+                <ng-template #registrationClosed>
+                  <span>Регистрация закрыта</span>
+                </ng-template>
+            </div>
+        </div>
     </div>
+    
 </div>
 <ng-content>
 </ng-content>

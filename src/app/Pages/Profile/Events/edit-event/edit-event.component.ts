@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { finalize, Subject, takeUntil } from 'rxjs';
+import { catchError, finalize, Subject, takeUntil, throwError } from 'rxjs';
 import moment from 'moment';
 import { EditSliderComponent } from 'src/app/Shared/Components/UI/edit-slider/edit-slider.component';
 import { Track } from 'src/app/Shared/Data/Interfaces/track-model';
@@ -108,6 +108,7 @@ export class EditEventComponent  implements OnInit {
         region: new FormControl('', [Validators.required, Validators.minLength(1)]),
         locationId: new FormControl('', [Validators.required, Validators.minLength(1)]),
         dateStart: new FormControl('', [Validators.required, Validators.minLength(1)]),
+        recordStart:new FormControl('', [Validators.required, Validators.minLength(1)]),
         recordEnd:new FormControl('', [Validators.required, Validators.minLength(1)]),
         statusId: new FormControl( '',  [Validators.required, Validators.minLength(1)]),
     })
@@ -396,6 +397,7 @@ export class EditEventComponent  implements OnInit {
             locationId: res.race?.location?.id,
             region: `${res.race?.location?.type} ${ res.race?.location?.name}`,
             recordEnd: moment(res.race.record_end).format('YYYY-MM-DD HH:mm'),
+            recordStart: moment(res.race.record_start).format('YYYY-MM-DD HH:mm'),
             dateStart: moment(res.race.date_start).utc().format('YYYY-MM-DD HH:mm'),
             images:  this.event.images? this.event.images?.map((image:string)=>{ return {
                link:this.checkImgUrlPipe.checkUrlDontType(image),
@@ -436,6 +438,7 @@ export class EditEventComponent  implements OnInit {
       editEventFormData.append('locationId',String(editForm.locationId))
       editEventFormData.append('dateStart',editForm.dateStart)
       if(this.raceTypeSelectedItem.value !== 2){
+        editEventFormData.append('recordStart',editForm.recordStart)
         editEventFormData.append('recordEnd',editForm.recordEnd)
         editEventFormData.append('trackId',String(editForm.trackId))
       }
@@ -471,6 +474,13 @@ export class EditEventComponent  implements OnInit {
         let race:any = res.race
         this.loadingService.showLoading().then((res:HTMLIonLoadingElement)=>loader = res)
          this.userService.addComission(race.id,this.currentComission.map(user => user.value || user.id)).pipe(
+          catchError(error => {
+
+            this.navController.navigateForward('/my-events')
+            this.loadingService.hideLoading(loader)
+            return throwError(()=> error)
+            
+          }),
           finalize(()=>this.loadingService.hideLoading(loader))
          ).subscribe((res:any)=>{
           this.navController.navigateForward('/my-events')

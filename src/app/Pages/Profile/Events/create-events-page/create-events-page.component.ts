@@ -90,6 +90,7 @@ export class CreateEventsPageComponent  implements OnInit {
     dateStart: new FormControl( '',  [Validators.required, Validators.minLength(1)]),
     userId:new FormControl( '',  [Validators.required, Validators.minLength(1)]),
     comissionName:new FormControl( '',  [Validators.required, Validators.minLength(1)]),
+    recordStart: new FormControl( '',  [Validators.required, Validators.minLength(1)]),
     recordEnd: new FormControl( '',  [Validators.required, Validators.minLength(1)]),
     statusId: new FormControl( '',  [Validators.required, Validators.minLength(1)]),
   })
