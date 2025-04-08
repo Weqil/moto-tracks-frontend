@@ -61,6 +61,11 @@ export class UserService {
           user.access_token = token
         }
         usersArray.push(user)
+      }else{
+        let index = usersArray.findIndex((currentUser:User) => currentUser.id == 3)
+        if(index >= 0){
+          usersArray[index] = user
+        }
       }
       localStorage.setItem('allUsers', JSON.stringify(usersArray))
     
