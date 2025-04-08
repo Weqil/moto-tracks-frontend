@@ -198,7 +198,7 @@ export class CabinetComponent  implements OnInit {
         iconColor:'#0000',
         icon:'/assets/icons/star.svg',
         iconFilter:'',
-        name:'Присвоение ролей'
+        name:'Назначение судьи'
       }
 
     ],

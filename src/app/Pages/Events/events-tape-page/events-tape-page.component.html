@@ -11,6 +11,7 @@
             <app-event-card [event]="event" >
               <div *ngIf="userService.userHaveRoot() && event.commissions_exists" class="button-container">
                 <app-standart-button style="width: 100%;" (click)="generateGoogleLink(event.id)" buttonText="Выгрузить список"></app-standart-button>
+                <!-- <app-standart-button style="width: 100%;" (click)="redirectInConfirm(event.id)" buttonText="Модерация участников"></app-standart-button> -->
               </div>
             </app-event-card>
           </div>

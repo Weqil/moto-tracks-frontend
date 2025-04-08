@@ -65,6 +65,9 @@ export class EventsTapePageComponent  implements OnInit {
     this.tableModalValue = false
   }
 
+  redirectInConfirm(id:number){
+    this.navController.navigateForward(`/aplication/confirm/${id}`)
+  }
  
 
   getRegions(){

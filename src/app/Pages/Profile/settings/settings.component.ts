@@ -11,6 +11,7 @@ import { ButtonsModule } from "../../../Shared/Modules/buttons/buttons.module";
 import { User } from 'src/app/Shared/Data/Interfaces/user-model';
 import { CheckImgUrlPipe } from "../../../Shared/Helpers/check-img-url.pipe";
 import { ProfileModule } from 'src/app/Shared/Modules/user/profile.module';
+import { NoDataFoundComponent } from 'src/app/Shared/Components/UI/no-data-found/no-data-found.component';
 
 import { UserModule } from 'src/app/Shared/Modules/user/user.module';
 import { selectedModule } from "../../../Shared/Modules/selected/selected.module";
@@ -28,8 +29,21 @@ import { AlertController } from '@ionic/angular';
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  imports: [IonButton, SharedModule, CommonModule, HeaderModule, FormsModule, UserModule,
-    ProfileModule, selectedModule, IonModal, IonCheckbox, RouterLink, StandartInputComponent]
+  imports: [
+    SharedModule, 
+    CommonModule, 
+    HeaderModule, 
+    FormsModule, 
+    UserModule,
+    ProfileModule, 
+    selectedModule, 
+    IonModal, 
+    IonCheckbox, 
+    RouterLink, 
+    StandartInputComponent,
+    NoDataFoundComponent
+  ],
+  standalone: true
 })
 export class SettingsComponent  implements OnInit {
   authService: any;
@@ -339,9 +353,12 @@ private confirmDeleteAccount() {
       next: () => {
         this.toastService.showToast('Аккаунт успешно удален', 'success');
         // Выходим из аккаунта
+    
+        setTimeout(()=>{
+              // Перенаправляем на страницу авторизации
+          this.navController.navigateRoot('/login');
+        },0)
         this.authService.logout();
-        // Перенаправляем на страницу авторизации
-        this.navController.navigateRoot('/login');
       },
       error: (error) => {
         console.error('Ошибка при удалении аккаунта:', error);
