@@ -8,6 +8,7 @@ export interface IEvent {
     position_file?: string,
     results_file?: string,
     date_start?: string,
+    commissions_exists?:boolean,
     record_start?:string,
     record_end?:string,
     location:{

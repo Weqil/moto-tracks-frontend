@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit, SimpleChanges } from '@angular/core';
 import { IEvent } from 'src/app/Shared/Data/Interfaces/event';
 import { CheckImgUrlPipe } from "../../../Helpers/check-img-url.pipe";
 import { NavController } from '@ionic/angular';
@@ -18,6 +18,10 @@ export class EventCardComponent  implements OnInit {
 
   registrationStatus:boolean = false
 
+  ngOnChanges(changes: SimpleChanges): void {
+    this.registrate()
+    
+  }
   formatDate(dateString: string): string {
     return moment(dateString).format('DD.MM.YYYY');
   }
@@ -40,7 +44,7 @@ export class EventCardComponent  implements OnInit {
     this.navController.navigateForward(`/event/${this.event.id}`)
   }
   ngOnInit() {
-    this.registrate()
+    
   }
 
 }

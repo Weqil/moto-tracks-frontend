@@ -198,7 +198,7 @@ export class CabinetComponent  implements OnInit {
         iconColor:'#0000',
         icon:'/assets/icons/star.svg',
         iconFilter:'',
-        name:'Присвоение ролей'
+        name:'Назначение судьи'
       }
 
     ],
@@ -248,6 +248,11 @@ export class CabinetComponent  implements OnInit {
   }
   constructor() { }
   logoutInAccount() {
+    let user = this.userService.user.value
+    if(user){
+      this.userService.deleteUserInUsersArrayInLocalStorage(user)
+    }
+ 
     this.authService.logout()
     this.navControler.navigateForward('/login',{  animated: false })
   }

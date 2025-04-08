@@ -1,0 +1,24 @@
+<ion-content>
+  <app-header headerTitle="Подтверждение заявки" ></app-header>
+  <main class="main-container--with-header">
+    <div class="users">
+      <ng-container *ngFor="let group of formattedUsers">
+        <ng-container *ngFor="let user of group.users">
+          <div class="user-item">
+            <app-user-section [user]="createUserInAplication(user)"></app-user-section>
+            <span class="user-item__status">Данные подтверждены</span>
+          </div>
+        </ng-container>
+      </ng-container>
+
+      <ng-container>
+        <app-no-data-found 
+        [show]="!formattedUsers.length" 
+        message="Пользователей не найдено">
+      </app-no-data-found>
+      </ng-container>
+      
+     
+    </div>
+  </main>
+</ion-content>

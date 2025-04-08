@@ -98,7 +98,11 @@ export const privateRoutes: Routes = [
                 canActivate:[canActivateAuth],
                 loadComponent: () => import('../Pages/Events/group-application/group-application.component').then((m) => m.GroupApplicationComponent)
             },
-
+            {
+                path:'aplication/confirm/:id',
+                canActivate:[canActivateAuth],
+                loadComponent: () => import('../Pages/comission/confirm-aplication/confirm-aplication.component').then((m) => m.ConfirmAplicationComponent)
+            },
             {
                 path: 'command/view/:id',
                 canActivate:[canActivateAuth],

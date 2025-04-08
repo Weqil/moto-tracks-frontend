@@ -733,19 +733,19 @@ export class EventsViewPageComponent  implements OnInit {
       return false
     }
   }
+  
 
 
   async toggleAplicationInRace(){
     if(this.submitValidate()){
       await this.setFirstDocuments().pipe().subscribe(()=>{
         this.setDocuments().pipe().subscribe(()=>{
-        
            // Форматируем номер телефона перед отправкой
         let rawPhone = this.personalUserForm.value.phoneNumber || '';
-        // let cleanedPhone = parseInt(rawPhone.replace(/\D/g, ''), 10) || '';
-        let cleanedPhone = rawPhone.replace(/\D/g, '') || '';
+        let cleanedPhone = String(rawPhone).replace(/\D/g, '') || '';
+     
         this.personalUserForm.patchValue({ phoneNumber: cleanedPhone });
-
+        console.log('отправка заявки')
          let currentForm = {
            ...this.personalUserForm.value,
            documentIds:[this.polisId, this.licensesId,this.notariusId]   

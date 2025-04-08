@@ -9,7 +9,6 @@
       <div class="slider-container">
         <app-show-slider standartImagesPath='assets/images/moto-background.png' [files]="event.images" (click)="openImagesModalFunction()"></app-show-slider>
         <div class="slider-container__header">
-         
           <!-- <app-back-button ></app-back-button> -->
         </div> 
        
@@ -65,7 +64,7 @@
 
       </div>
       
-      <div *ngIf="!checkRecordEnd() && !checkDateStart() && event.status?.name !== 'Планируемая'"  class="footer">
+      <div *ngIf="event.status?.name !== 'Планируемая'"  class="footer">
           @if (!this.event.appointments_exists && !checkRecordStart() && !checkRecordEnd()) {
             <app-standart-button (click)="openApplicationForm()" buttonText="Заявиться" theme="big"></app-standart-button>
           }
