@@ -200,6 +200,8 @@ submitPersonalInfo(){
       this.loaderService.showLoading().then((res:HTMLIonLoadingElement) => {
         loader = res
       })
+      
+      
       this.userService.createPersonalInfo(this.personalUserForm.value).pipe(
         finalize(()=>{
           this.loaderService.hideLoading(loader)
@@ -240,12 +242,27 @@ submitPersonalInfo(){
     })
   }
 
+  // returnRegionForLocationId(location: any){
+  //   if(location){
+
+  //     let localId = this.personalUserForm.controls['locationId'].value
+  //     let foundRegion = this.searchRegionItems.find(region => region.id === localId)
+  //     return foundRegion
+  //   }
+    
+  // }
+
   ionViewWillEnter() {
     this.userService.user.pipe(takeUntil(this.destroy$)).subscribe((res:any)=>{
         this.user = res
+
+        
+        
         this.personalUserForm.patchValue({
           ...this.user?.personal,
-          dateOfBirth: this.user?.personal?.date_of_birth
+          dateOfBirth: this.user?.personal?.date_of_birth,
+          region: this.user.personal?.location ? this.user.personal.region : '',
+          locationId: this.user.personal?.location ? this.user.personal?.location.id:''
         })
         if(this.userService.userHaveCurrentPersonal() && this.userService.isPhoneVerified()){
           this.toastService.showToast('Информация успешно сохранена','success')
@@ -254,6 +271,8 @@ submitPersonalInfo(){
       
         this.personalUserForm.invalid ? this.stepCurrent = 1 : this.stepCurrent = 2
       })
+
+      
   }
   changeCode(code:any){
     this.codeValue = code.join('')
