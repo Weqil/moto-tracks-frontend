@@ -70,6 +70,10 @@ closetTableModal(){
     })
   }
 
+  closeModalAlert(){
+    this.tableModalValue = false
+    
+  }
 
 
   finishEvents(){
