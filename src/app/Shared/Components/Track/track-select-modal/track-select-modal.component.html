@@ -15,12 +15,12 @@
     <ion-content>
       <div class="tracks-grid">
     
-        
-        <ng-container *ngFor="let track of tracks">
-
-          <div class="redirect-create-track">
+        <div class="redirect-create-track">
             <app-rounded-button (click)="redirectInCreate()" icon="assets/icons/create.svg" buttonText="Создать"></app-rounded-button>
           </div>
+        <ng-container *ngFor="let track of tracks">
+
+          
 
           <div (click)="select(track)" class="tracks-grid__item">
             <app-track-section [hidhtStatus]="true" [track]="track"></app-track-section>
