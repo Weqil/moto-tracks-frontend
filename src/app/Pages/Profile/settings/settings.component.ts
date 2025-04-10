@@ -142,7 +142,6 @@ editEmail(){
     this.closeEmailModal();
     this.userService.refreshUser(() => {
       this.personalViewForm.patchValue({ emailView: this.personalSettingsForm.get('email')?.value });
-      
       this.navController.navigateRoot('/verification');
     });
     // this.personalViewForm.patchValue({emailView: this.personalSettingsForm.get('email')?.value})
@@ -151,9 +150,14 @@ editEmail(){
 
     
     // this.navController.navigateRoot('/verification')
-  }
-)
+    }
+  )
 
+}
+
+confirmEmail(){
+  this.closeEmailModal()
+  this.navController.navigateRoot('/verification');
 }
 
   avatarUrl:string = ''
@@ -352,7 +356,13 @@ editEmail(){
 
   
 
-  ngOnInit() { this.userService.user.pipe().subscribe(()=>{
+  ngOnInit() { 
+    
+    window.addEventListener('popstate', (event) => {
+      this.closeEmailModal()
+    });
+    
+    this.userService.user.pipe().subscribe(()=>{
     this.user = this.userService.user.value 
   })
   this.personalSettingsForm.patchValue({email: this.user?.email})

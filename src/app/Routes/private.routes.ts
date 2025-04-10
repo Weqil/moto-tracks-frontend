@@ -68,16 +68,8 @@ export const privateRoutes: Routes = [
                 canActivate:[canActivateAuth,],
                 loadComponent: () => import('../Pages/Profile/settings/settings.component').then((m) => m.SettingsComponent)
             },
-            {
-                path:'verification',
-                canActivate:[canActivateAuth],
-                loadComponent: () => import('../Pages/Authorization/confirm-email-page/confirm-email-page.component').then((m) => m.ConfirmEmailPageComponent)
-            },
-            {
-                path:'confirm-phone',
-                canActivate:[canActivateAuth],
-                loadComponent: () => import('../Pages/Authorization/confirm-phone-page/confirm-phone-page.component').then((m) => m.ConfirmPhonePageComponent)
-            },
+            
+            
             {
                 path:'race/edit/:id',
                 canActivate:[canActivateAuth,canActivateUserHaveRole(userRoles.organization,'организатора')],
@@ -137,6 +129,16 @@ export const privateRoutes: Routes = [
         path:'create-track',
         canActivate:[canActivateAuth,canActivateUserHaveRole(userRoles.organization,'организатора')],
         loadComponent: () => import('../Pages/Profile/Tracks/create-track-page/create-track-page.component').then((m) => m.CreateTrackPageComponent)
+    },
+    {
+        path:'confirm-phone',
+        canActivate:[canActivateAuth],
+        loadComponent: () => import('../Pages/Authorization/confirm-phone-page/confirm-phone-page.component').then((m) => m.ConfirmPhonePageComponent)
+    },
+    {
+        path:'verification',
+        canActivate:[canActivateAuth],
+        loadComponent: () => import('../Pages/Authorization/confirm-email-page/confirm-email-page.component').then((m) => m.ConfirmEmailPageComponent)
     },
  
 ];
