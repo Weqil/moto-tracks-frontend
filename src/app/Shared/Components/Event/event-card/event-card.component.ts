@@ -30,11 +30,6 @@ export class EventCardComponent  implements OnInit {
     const recordStart = moment(this.event.record_start);
     const recordEnd = moment(this.event.record_end);
     const now = moment();
-    console.log(this.event.name)
-    console.log(recordStart.format('YYYY DD MM '))
-    console.log(recordEnd.format('YYYY DD MM '))
-    console.log(now.format('YYYY DD MM '))
-    console.log(now < recordEnd && now >= recordStart)
     this.registrationStatus = now <= recordEnd && now >= recordStart
   }
 

@@ -254,8 +254,7 @@ export class EditEventComponent  implements OnInit {
       }
       setComission(event:any){
         if(this.currentComission.find((user:any)=>user == event)){
-          console.log('такой юзер уже есть')
-          console.log(this.currentComission)
+      
         }else {
           this.currentComission.push(event)
           // console.log('В комиссию записали event')

@@ -138,7 +138,7 @@ editEmail(){
       this.loadingService.hideLoading(loader);
     })
   ).subscribe((res:any)=>{
-    console.log('Почта изменена')
+   
 
     this.userService.refreshUser(() => {
       this.personalViewForm.patchValue({ emailView: this.personalSettingsForm.get('email')?.value });
