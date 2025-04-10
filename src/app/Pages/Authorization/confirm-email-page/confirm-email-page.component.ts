@@ -137,6 +137,10 @@ export class ConfirmEmailPageComponent  implements OnInit {
     return value < 10 ? `0${value}` : `${value}`;
   }
 
+  redirectCabinet(){
+    this.navController.navigateForward('/cabinet')
+  }
+
   ngOnInit() {
   
   }
