@@ -75,8 +75,11 @@ export class AddUserInComissionComponent  implements OnInit {
       })
 
     ).subscribe((res:any) => {
+
+        this.toastService.showToast('Судья успешно назначен', "success")
         this.userService.refreshUser()
-        this.getUser()
+        // this.getUser()
+        this.viewUserInfo = true
         
     })
   }

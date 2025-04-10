@@ -8,9 +8,12 @@
     <div class="document-container">
       <div class="up-container">
         <div class="user-section__avatar">
-          <img (click)="file.click()" class="user-section__avatar__img" [src]="settingsAvatar" alt="" alt="">
+          <img (click)="file.click()" class="user-section__avatar__img" [src]="settingsAvatar" alt="" >
           <input (change)="setAvatar($event)" #file style="display: none;" accept="image/png, image/jpeg"   type="file">
           <span class="user_id">UID {{user?.id}}</span>   
+          <div class="">
+            <img class="edit-btn" (click)="file.click()" [src]="'/assets/icons/edit-img.svg'" >
+          </div>
         </div>
 
         <div class="user-name-container">
