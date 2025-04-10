@@ -157,7 +157,9 @@ editEmail(){
 
 confirmEmail(){
   this.closeEmailModal()
-  this.navController.navigateRoot('/verification');
+  setTimeout(() => {
+    this.navController.navigateRoot('/verification'); // Переход после задержки
+  }, 300); // Задержка в 300 миллисекунд
 }
 
   avatarUrl:string = ''

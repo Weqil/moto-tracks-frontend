@@ -165,18 +165,10 @@ export class EventsViewPageComponent  implements OnInit {
     {name:'Zabel', value:'Zabel'},
     {name:'MTX', value:'MTX'},
     {name:'TRIUMPH', value:'TRIUMPH'},
+    {name:'Suzuki', value:'Suzuki'},
+    {name:'Другое', value:'Другое'}
    ]
-   groupItems: {name:string, value:string}[] = [
-    {name:'Тренер', value:'Тренер'},
-    {name:'Стажер', value:'Стажер'},
-    {name:'Контролер', value:'Контролер'},
-    {name:'Мастер', value:'Мастер'},
-    {name:'Менеджер', value:'Менеджер'},
-    {name:'Старший менеджер', value:'Старший менеджер'},
-    {name:'Специалист', value:'Специалист'},
-    {name:'Мастер-контролер', value:'Мастер-контролер'},
-    {name:'Менеджер-контролер', value:'Менеджер-контролер'},
-   ]
+   groupItems: {name:string, value:string}[] = []
 
     licensesForm: FormGroup = new FormGroup(
       {

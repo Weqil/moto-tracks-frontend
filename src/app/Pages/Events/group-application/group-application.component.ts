@@ -119,6 +119,8 @@ export class GroupApplicationComponent implements OnInit {
     {name: 'Zabel', value: 'Zabel'},
     {name: 'MTX', value: 'MTX'},
     {name: 'TRIUMPH', value: 'TRIUMPH'},
+    {name:'Suzuki', value:'Suzuki'},
+    {name:'Другое', value:'Другое'}
   ];
 
   engineItems: {name: string, value: string}[] = [

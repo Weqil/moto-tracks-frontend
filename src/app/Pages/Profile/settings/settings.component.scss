@@ -184,9 +184,18 @@ ion-modal {
         padding-bottom: 0.2rem;
     }
 }
+
+
+
 .button-edit-email{
-    padding: var(--standart-padding);
+    margin-top: 1rem;
 }
+
+.button-confirm-email{
+    height:3rem;
+    margin-top: 1rem;
+}
+
 .email-title-container{
     padding-bottom: 1rem;
 }
