@@ -288,7 +288,7 @@ submitForm(){
         this.userService.createPersonalInfo(this.personalUserForm.value).pipe(
           finalize(
             ()=>{
-              this.loaderService.hideLoading()
+              this.loaderService.hideLoading(loader)
             })
         ).subscribe((res:any)=>{
           this.toastService.showToast('Данные успешно добавлены', 'success')
@@ -563,13 +563,13 @@ submitForm(){
   }
 
   setFormValue(){
-    let loader:HTMLIonLoadingElement
-    this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
-      loader = res
-     })
+    // let loader:HTMLIonLoadingElement
+    // this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+    //   loader = res
+    //  })
     this.userService.getUserDocuments().pipe(
       finalize(()=>{
-        this.loaderService.hideLoading(loader)
+        // this.loaderService.hideLoading(loader)
       })
     ).subscribe((res:any)=>{
       if(res.documents){
