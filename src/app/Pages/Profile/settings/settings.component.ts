@@ -139,10 +139,10 @@ editEmail(){
     })
   ).subscribe((res:any)=>{
     console.log('Почта изменена')
-
+    this.closeEmailModal();
     this.userService.refreshUser(() => {
       this.personalViewForm.patchValue({ emailView: this.personalSettingsForm.get('email')?.value });
-      this.closeEmailModal();
+      
       this.navController.navigateRoot('/verification');
     });
     // this.personalViewForm.patchValue({emailView: this.personalSettingsForm.get('email')?.value})
