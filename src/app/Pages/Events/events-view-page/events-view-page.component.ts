@@ -348,7 +348,12 @@ export class EventsViewPageComponent  implements OnInit {
 
     checkRecordStart(){
       let now = moment().format('YYYY-MM-DD HH:mm')
-      return now < moment(this.event?.record_start).format('YYYY-MM-DD HH:mm')
+      if(this.event?.record_start){
+        return now < moment(this.event?.record_start).format('YYYY-MM-DD HH:mm')
+      }else{
+        return false
+      }
+     
     }
 
     setEngine(event:any){
