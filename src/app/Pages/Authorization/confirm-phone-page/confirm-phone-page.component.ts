@@ -228,6 +228,7 @@ submitPersonalInfo(){
   setRegion(region:any){
     this.closeRegionModal()
     this.personalUserForm.patchValue({locationId:region.value,region:region.name})
+    console.log(this.personalUserForm.value)
   }
   getRegions(){
     this.mapService.getAllRegions().pipe().subscribe((res:any)=>{
@@ -237,7 +238,9 @@ submitPersonalInfo(){
           value:region.id
         })
       });
+      console.log(this.searchRegionItems)
     })
+ 
   }
 
   // returnRegionForLocationId(location: any){
