@@ -30,11 +30,7 @@ export class EventCardComponent  implements OnInit {
     const recordStart = moment(this.event.record_start);
     const recordEnd = moment(this.event.record_end);
     const now = moment();
-  
-     if(now.isBetween(recordStart, recordEnd, undefined, '()')){
-      this.registrationStatus = true
-     };
-    
+    this.registrationStatus = now <= recordEnd && now >= recordStart
   }
 
   redirectInTrack(){

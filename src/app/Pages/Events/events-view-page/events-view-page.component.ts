@@ -165,18 +165,10 @@ export class EventsViewPageComponent  implements OnInit {
     {name:'Zabel', value:'Zabel'},
     {name:'MTX', value:'MTX'},
     {name:'TRIUMPH', value:'TRIUMPH'},
+    {name:'Suzuki', value:'Suzuki'},
+    {name:'Другое', value:'Другое'}
    ]
-   groupItems: {name:string, value:string}[] = [
-    {name:'Тренер', value:'Тренер'},
-    {name:'Стажер', value:'Стажер'},
-    {name:'Контролер', value:'Контролер'},
-    {name:'Мастер', value:'Мастер'},
-    {name:'Менеджер', value:'Менеджер'},
-    {name:'Старший менеджер', value:'Старший менеджер'},
-    {name:'Специалист', value:'Специалист'},
-    {name:'Мастер-контролер', value:'Мастер-контролер'},
-    {name:'Менеджер-контролер', value:'Менеджер-контролер'},
-   ]
+   groupItems: {name:string, value:string}[] = []
 
     licensesForm: FormGroup = new FormGroup(
       {
@@ -311,7 +303,7 @@ export class EventsViewPageComponent  implements OnInit {
         this.loaderService.hideLoading(loader)
       })
     ).subscribe((res:any)=>{
-      console.log(res);
+  
 
       this.allComands = []
       this.allComands.push(
@@ -348,7 +340,12 @@ export class EventsViewPageComponent  implements OnInit {
 
     checkRecordStart(){
       let now = moment().format('YYYY-MM-DD HH:mm')
-      return now < moment(this.event?.record_start).format('YYYY-MM-DD HH:mm')
+      if(this.event?.record_start){
+        return now < moment(this.event?.record_start).format('YYYY-MM-DD HH:mm')
+      }else{
+        return false
+      }
+     
     }
 
     setEngine(event:any){
@@ -745,7 +742,6 @@ export class EventsViewPageComponent  implements OnInit {
         let cleanedPhone = String(rawPhone).replace(/\D/g, '') || '';
      
         this.personalUserForm.patchValue({ phoneNumber: cleanedPhone });
-        console.log('отправка заявки')
          let currentForm = {
            ...this.personalUserForm.value,
            documentIds:[this.polisId, this.licensesId,this.notariusId]   

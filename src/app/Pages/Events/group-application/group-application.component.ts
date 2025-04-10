@@ -119,6 +119,8 @@ export class GroupApplicationComponent implements OnInit {
     {name: 'Zabel', value: 'Zabel'},
     {name: 'MTX', value: 'MTX'},
     {name: 'TRIUMPH', value: 'TRIUMPH'},
+    {name:'Suzuki', value:'Suzuki'},
+    {name:'Другое', value:'Другое'}
   ];
 
   engineItems: {name: string, value: string}[] = [
@@ -228,12 +230,10 @@ export class GroupApplicationComponent implements OnInit {
 
   // Добавляем методы для работы с модальным окном региона
   openRegionModal() {
-    console.log('Opening region modal');
     this.regionModalState = true;
   }
 
   closeRegionModal() {
-    console.log('Closing region modal');
     this.regionModalState = false;
   }
 
@@ -774,8 +774,6 @@ export class GroupApplicationComponent implements OnInit {
         };
       });
 
-      // Выводим в консоль отформатированную информацию о пользователях
-      console.log('Отправка заявки. Пользователи:', formattedUsers);
 
       this.isPreviewModalOpen = true;
     }
@@ -788,7 +786,6 @@ export class GroupApplicationComponent implements OnInit {
 
   // Обновляем метод для обработки выбора класса
   onClassSelect(user: User, gradeId: string) {
-    console.log('Я получил класс')
     if (user.personal) {
       const selectedGrade = this.eventGrades.find(grade => grade.id.toString() === gradeId);
       if (selectedGrade) {
@@ -874,7 +871,6 @@ export class GroupApplicationComponent implements OnInit {
   }
 
   setEngine(event: any) {
-    console.log('Setting engine:', event);
     this.personalUserForm.patchValue({
       engine: event.value
     });
@@ -968,7 +964,7 @@ export class GroupApplicationComponent implements OnInit {
       ).subscribe({
         next: (response) => {
           if (response.success) {
-            console.log('Заявка успешно отправлена для пользователя:', response.user.personal?.name);
+          
           }
         },
         complete: () => {

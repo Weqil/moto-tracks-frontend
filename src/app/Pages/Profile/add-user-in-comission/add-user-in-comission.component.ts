@@ -64,7 +64,7 @@ export class AddUserInComissionComponent  implements OnInit {
 
       catchError(error => {
 
-        this.toastService.showToast('Ваш номер не подтвержден, подтвердите номер что бы назначать роли', 'warning')
+        this.toastService.showToast('Ошибка в назначении судьи', 'warning')
         this.viewUserInfo = true
         return throwError(()=> error)
         

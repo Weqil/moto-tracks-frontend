@@ -18,5 +18,11 @@
 
     </div>
     <app-standart-button (click)="submitMessage()" [disabled]=" this.codeValue.length !== 4" buttonText="Отправить"></app-standart-button>
+    
+    <div class="back-button">
+      <app-standart-button theme="light" (click)="redirectCabinet()"  buttonText="Отмена"></app-standart-button>
+    </div>
+
+
   </div>
 </ion-content>  

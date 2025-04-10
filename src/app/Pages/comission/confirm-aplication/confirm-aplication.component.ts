@@ -67,7 +67,6 @@ export class ConfirmAplicationComponent  implements OnInit {
     this.eventService.getUsersInRace(String(this.eventId)).pipe(
       finalize(()=>this.loadingService.hideLoading(loader))
     ).subscribe((res:any)=>{
-      console.log(res)
       this.users = res.users
       Object.keys(this.users).forEach((res: any) => {
         this.formattedUsers.push({ group: res, users:[this.users[res]]});

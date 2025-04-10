@@ -152,6 +152,7 @@ export class UserDocumentsComponent  implements OnInit {
     {name:'Zabel', value:'Zabel'},
     {name:'MTX', value:'MTX'},
     {name:'TRIUMPH', value:'TRIUMPH'},
+    {name:'Suzuki', value:'Suzuki'},
     {name:'Другое', value:'Другое'}
   ]
 
@@ -197,7 +198,7 @@ submitValidate(){
 }
 
 getRegions(){
-  this.mapService.getAllRegions(false,false,true).pipe().subscribe((res:any)=>{
+  this.mapService.getAllRegions(false,false,false).pipe().subscribe((res:any)=>{
     this.searchRegionItems.push({name:`Россия`,value:''})
     res.data.forEach((region:any) => {
       this.searchRegionItems.push({
@@ -288,7 +289,7 @@ submitForm(){
         this.userService.createPersonalInfo(this.personalUserForm.value).pipe(
           finalize(
             ()=>{
-              this.loaderService.hideLoading()
+              this.loaderService.hideLoading(loader)
             })
         ).subscribe((res:any)=>{
           this.toastService.showToast('Данные успешно добавлены', 'success')
@@ -503,8 +504,6 @@ submitForm(){
         this.loaderService.hideLoading(loader)
       })
     ).subscribe((res:any)=>{
-      console.log(res);
-
       this.allComands = []
       this.allComands.push(
           {id: '', name: 'Лично', region: 'papilapup'}
@@ -565,13 +564,13 @@ submitForm(){
   }
 
   setFormValue(){
-    let loader:HTMLIonLoadingElement
-    this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
-      loader = res
-     })
+    // let loader:HTMLIonLoadingElement
+    // this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+    //   loader = res
+    //  })
     this.userService.getUserDocuments().pipe(
       finalize(()=>{
-        this.loaderService.hideLoading(loader)
+        // this.loaderService.hideLoading(loader)
       })
     ).subscribe((res:any)=>{
       if(res.documents){

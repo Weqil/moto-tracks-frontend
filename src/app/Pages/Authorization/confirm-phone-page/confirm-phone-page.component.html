@@ -1,5 +1,5 @@
 <ion-content>
-  <app-header headerTitle="Обязательные данные" ></app-header>
+  <app-header headerTitle="Обязательные данные" [hiddenBackButton]="true"></app-header>
   <div *ngIf="user" class="main-container--with-header">
     <ng-container *ngIf="stepCurrent == 1">
       <form class="user-personal">

@@ -50,6 +50,7 @@ export class UserService {
   //Занёс данные о пользователе
   setUserInLocalStorage(user:User,token?:string|null) {
     if(user){
+     
       let usersArray:any = localStorage.getItem('allUsers')
       if(usersArray){
         usersArray = JSON.parse(usersArray)
@@ -61,9 +62,12 @@ export class UserService {
           user.access_token = token
         }
         usersArray.push(user)
-      }else{
-        let index = usersArray.findIndex((currentUser:User) => currentUser.id == 3)
-        if(index >= 0){
+      }else if(usersArray.find((userInArray:any)=> userInArray.id == user.id)){
+        if(token){
+          user.access_token = token
+        }
+        let index = usersArray.findIndex((currentUser:User) => currentUser.id == user.id)
+        if(index >= 0 && usersArray[index]){
           usersArray[index] = user
         }
       }
@@ -131,10 +135,13 @@ export class UserService {
     }
    
   }
-  refreshUser(){
+  refreshUser(callback?: () => void){
     this.getUserFromServerWithToken().pipe().subscribe((res:any)=>{
       this.setUserInLocalStorage(res.user, this.getAuthToken());
       this.user.next(res.user);
+      if (callback) {
+        callback();
+      }
     })
   }
   

@@ -38,7 +38,7 @@ export class TrackSelectModalComponent  implements OnInit {
     this.closeTrackSelectModal.emit();
   }
   ngOnChanges(){
-    console.log(this.tracks)
+  
   }
  
   select(event:Track){

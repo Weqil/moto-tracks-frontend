@@ -18,10 +18,7 @@
         </div>
         <div class="card__footer"> 
             
-            <div *ngIf="event.appointment_count" class="users-in-event">
-                <img src="/assets/images/standartAvatar.jpg" alt="">
-                {{event.appointment_count?.count}} 
-            </div>
+            
 
             <div class="event-name">
                 {{event.name}}
@@ -39,10 +36,14 @@
                 {{event.location?.name}} {{event.location?.type}}
             </div>
 
-            <div *ngIf="event.date_start" class="event-address">
-                <span>
+            <div  class="event-address-with-users">
+                <span *ngIf="event.date_start">
                     Дата начала гонки: {{ formatDate(event.date_start) }}
                 </span>
+                <div *ngIf="event.appointment_count" class="users-in-event">
+                    <img src="/assets/images/standartAvatar.jpg" alt="">
+                    {{event.appointment_count?.count}} 
+                </div>
             </div>
 
             <div *ngIf="event.record_start" class="event-address">
