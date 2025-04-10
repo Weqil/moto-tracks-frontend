@@ -50,8 +50,7 @@ export class UserService {
   //Занёс данные о пользователе
   setUserInLocalStorage(user:User,token?:string|null) {
     if(user){
-      console.log('юзер есть: ')
-      console.log(user)
+     
       let usersArray:any = localStorage.getItem('allUsers')
       if(usersArray){
         usersArray = JSON.parse(usersArray)

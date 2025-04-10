@@ -25,7 +25,6 @@ export class CommandSectionComponent implements OnInit {
   }
 
   onToggleMembership(event: Event) {
-    console.log(this.command);
     event.stopPropagation();
     this.toggleMembership.emit(this.command.id);
   }

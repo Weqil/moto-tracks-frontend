@@ -323,6 +323,7 @@ editEmail(){
 }
 
 async deleteAccount() {
+  console.log('удаляю акк')
   // Показываем диалог подтверждения
   const alert = await this.alertController.create({
     header: 'Подтверждение',

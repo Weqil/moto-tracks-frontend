@@ -311,7 +311,7 @@ export class EventsViewPageComponent  implements OnInit {
         this.loaderService.hideLoading(loader)
       })
     ).subscribe((res:any)=>{
-      console.log(res);
+  
 
       this.allComands = []
       this.allComands.push(
@@ -745,7 +745,6 @@ export class EventsViewPageComponent  implements OnInit {
         let cleanedPhone = String(rawPhone).replace(/\D/g, '') || '';
      
         this.personalUserForm.patchValue({ phoneNumber: cleanedPhone });
-        console.log('отправка заявки')
          let currentForm = {
            ...this.personalUserForm.value,
            documentIds:[this.polisId, this.licensesId,this.notariusId]   

@@ -192,10 +192,8 @@ phoneSubmit(){
 }
 
 submitPersonalInfo(){
-  console.log(this.personalUserForm.value)
   if(this.validatePersonal()){
     if(!this.user.personal){
-      console.log(this.personalUserForm.value)
       let loader:HTMLIonLoadingElement
       this.loaderService.showLoading().then((res:HTMLIonLoadingElement) => {
         loader = res

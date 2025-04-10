@@ -503,8 +503,6 @@ submitForm(){
         this.loaderService.hideLoading(loader)
       })
     ).subscribe((res:any)=>{
-      console.log(res);
-
       this.allComands = []
       this.allComands.push(
           {id: '', name: 'Лично', region: 'papilapup'}
