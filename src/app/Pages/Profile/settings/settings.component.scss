@@ -170,8 +170,25 @@ ion-modal {
 
 .email-container{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: end;
+    width: 100%;
     gap: 1rem;
+    .email-control{
+        width: 100%;
+    }
+        
+    .edit-btn{
+        
+        padding-bottom: 0.2rem;
+    }
+}
+.button-edit-email{
+    padding: var(--standart-padding);
+}
+.email-title-container{
+    padding-bottom: 1rem;
 }
 
 .user-name-container{
@@ -201,4 +218,18 @@ ion-modal {
 .span-text{
     text-wrap: nowrap;
     font-family: var(--font-bold);
+}
+
+.verificate-email-container{
+   
+    padding: var(--standart-padding);
+    font-family: var(--font-regular);
+    
+  }
+
+  ion-modal{
+    --max-height:30%;
+    --width:90%;
+    --border-radius: 12px;
+    --overflow-y: hidden;
 }

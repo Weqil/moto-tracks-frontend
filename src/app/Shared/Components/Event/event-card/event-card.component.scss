@@ -71,6 +71,19 @@
     font-style: normal;
     
 }
+
+.event-address-with-users{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-regular);
+    font-size: var(--font-little-size);
+    padding-left: var(--little-padding);
+    padding-right: var(--standart-padding);
+    font-style: normal;
+    
+}
+
 .event-date{
     display: flex;
     justify-content: center;
@@ -87,9 +100,9 @@
 }
 
 .users-in-event{
-    position: absolute;
+    
     right: var(--standart-padding);
-    bottom: 0.5rem;
+    
     display: flex;
     flex-direction: row;
     align-items: center;
