@@ -140,13 +140,17 @@ editEmail(){
   ).subscribe((res:any)=>{
     console.log('Почта изменена')
 
-    this.userService.refreshUser()
-    this.personalViewForm.patchValue({emailView: this.personalSettingsForm.get('email')?.value})
+    this.userService.refreshUser(() => {
+      this.personalViewForm.patchValue({ emailView: this.personalSettingsForm.get('email')?.value });
+      this.closeEmailModal();
+      this.navController.navigateRoot('/verification');
+    });
+    // this.personalViewForm.patchValue({emailView: this.personalSettingsForm.get('email')?.value})
     // this.personalViewForm.patchValue({emailView: this.user?.email})
-    this.closeEmailModal()
+    // this.closeEmailModal()
 
     
-    this.navController.navigateRoot('/verification')
+    // this.navController.navigateRoot('/verification')
   }
 )
 

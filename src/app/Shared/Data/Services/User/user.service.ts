@@ -136,10 +136,13 @@ export class UserService {
     }
    
   }
-  refreshUser(){
+  refreshUser(callback?: () => void){
     this.getUserFromServerWithToken().pipe().subscribe((res:any)=>{
       this.setUserInLocalStorage(res.user, this.getAuthToken());
       this.user.next(res.user);
+      if (callback) {
+        callback();
+      }
     })
   }
   
