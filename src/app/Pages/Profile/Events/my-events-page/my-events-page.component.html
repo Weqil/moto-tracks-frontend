@@ -63,7 +63,7 @@
 
 </ion-content>
 
-<ion-modal [isOpen]="tableModalValue">
+<ion-modal [isOpen]="tableModalValue" (didDismiss)="closeModalAlert()">
   <ng-template>
     <ion-content>
       <div class="google-tabs">
@@ -72,7 +72,7 @@
           Сейчас можно открыть его по
           <a class="google-tabs__modal-text__link" target="_blank" [href]="googleTabsLink">этой ссылке</a>
         </div>
-        <app-standart-button style="width: 100%;" buttonText="Закрыть" theme="light"></app-standart-button>
+        <app-standart-button (click)="closeModalAlert()" style="width: 100%;" buttonText="Закрыть" theme="light"></app-standart-button>
       </div>
     </ion-content>
   </ng-template>

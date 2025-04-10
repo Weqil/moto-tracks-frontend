@@ -201,9 +201,6 @@ export class RegistrationPageComponent  implements OnInit {
         const fd:FormData = this.createFormData()
         this.register(fd)
       }
-
-    
-      
     }
 
     redirectInLogin() {
