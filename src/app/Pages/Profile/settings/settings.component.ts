@@ -323,27 +323,7 @@ editEmail(){
 }
 
 async deleteAccount() {
-  console.log('удаляю акк')
-  // Показываем диалог подтверждения
-  const alert = await this.alertController.create({
-    header: 'Подтверждение',
-    message: 'Вы уверены, что хотите удалить свой аккаунт? Это действие нельзя отменить.',
-    buttons: [
-      {
-        text: 'Отмена',
-        role: 'cancel'
-      },
-      {
-        text: 'Удалить',
-        role: 'destructive',
-        handler: () => {
-          this.confirmDeleteAccount();
-        }
-      }
-    ]
-  });
-
-  await alert.present();
+  this.confirmDeleteAccount();
 }
 
 private confirmDeleteAccount() {
