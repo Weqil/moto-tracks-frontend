@@ -46,6 +46,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    position: relative;
     // margin-left: var(--little-margin);
     .user-section__avatar__img{
         min-width: 4rem;
@@ -56,6 +57,18 @@
         overflow: hidden;
         background-color: rgb(99, 99, 99);
         border-radius: 50%;
+    }
+    .edit-btn{
+        background-color: #fff  ;
+        border-radius: 1rem;
+        width: 1.5rem;
+        height: 1.5rem;
+        position: absolute;
+        top: -8px;
+        right: -10px;
+        padding: 4px;
+        transform: rotate(0deg);  
+        opacity: 0.8; 
     }
 }
 
