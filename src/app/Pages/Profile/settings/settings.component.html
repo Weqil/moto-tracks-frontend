@@ -76,8 +76,14 @@
               <span class="verificate-email-title">Вам поступит код для подтверджения почты по указанному адресу:</span>
           </div>
           <app-standart-input class="email-control" [control]="personalSettingsForm.get('email')" [errorMessage]="formErrors.email.errorMessage" placeholder="Введите адрес электронной почты" label="Email"></app-standart-input>
-          <app-standart-button class="button-edit-email" [buttonText]="'Изменить'" (click)="editEmail()"></app-standart-button>
-          <app-standart-button class="button-confirm-email" [buttonText]="'Подтвердить текущую'" (click)="confirmEmail()"></app-standart-button>
+          
+          <div class="button-edit-email">
+            <app-standart-button class="button-edit-email" [buttonText]="'Изменить'" (click)="editEmail()"></app-standart-button>
+          </div>
+
+          <div class="button-confirm-email">
+              <app-standart-button class="button-confirm-email" [buttonText]="'Подтвердить текущую'" (click)="confirmEmail()"></app-standart-button>
+          </div>
         </div>
        
     </ion-content>
