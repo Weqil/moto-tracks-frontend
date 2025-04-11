@@ -477,7 +477,7 @@ export class GroupApplicationComponent implements OnInit {
       user.personal.engine,
       user.personal.number_and_seria,
       user.personal.location?.id,
-      user.personal.race_class
+     
     ];
 
     return requiredFields.some(field => !field || field === '');
