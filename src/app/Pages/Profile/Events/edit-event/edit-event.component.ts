@@ -186,16 +186,62 @@ export class EditEventComponent  implements OnInit {
       console.log(this.locationId)
     }
 
+    getCurrentCommissions(){
+      this.loadingService.showLoading()
+      this.eventService.getEventById(this.eventId,{
+        userId:String(this.userService.user.value?.id ? this.userService.user.value?.id : '' ),
+        appointmentUser:1,
+      }).pipe(
+        finalize(()=>{
+          this.loadingService.hideLoading()
+          
+        })
+      ).subscribe((res:any)=>{
+        
+        res.race.commissions.forEach((user:any)=> {
+          this.currentComission.push({
+            value:user.id,
+            name:user.personal?.surname +" " + user.personal?.name + " "  + user.personal?.patronymic,
+          })
+        });
+
+        console.log("Комиссия выбранная при получении:")
+        console.log(this.currentComission)
+        
+      })
+      
+    }
+
     getCommisionUsers(){
       this.userService.getComissionUsers().pipe().subscribe((res:any)=>{
         res.users.forEach((user:any) => {
           this.usersInCommision.push({
-            name:user.personal.name +" " + user.personal.surname + " "  + user.personal.patronymic,
-            value:user.id
+            value:user.id,
+            name:user.personal?.surname +" " + user.personal?.name + " "  + user.personal?.patronymic,
+            
           })
         });
+        console.log("Комиссия в целом:")
         console.log(this.usersInCommision)
+        console.log("Комиссия выбранная:")
+        console.log(this.currentComission)
       })
+    }
+
+    setComission(event:any){
+      if(this.currentComission.find((user:any)=>user.value == event.value)){
+        console.log('такой юзер уже есть')
+        console.log(this.currentComission)
+      }else {
+        this.currentComission.push(event)
+        console.log('В комиссию записали event')
+        // console.log('Выбранная комиссия')
+        // console.log(this.currentComission)
+        console.log('Event это:')
+        console.log(event)
+  
+      }
+      this.closeComissionModal()
     }
   
 
@@ -255,21 +301,7 @@ export class EditEventComponent  implements OnInit {
       openComissionModal(){
         this.comissionModalState = true
       }
-      setComission(event:any){
-        if(this.currentComission.find((user:any)=>user == event)){
-          console.log('такой юзер уже есть')
-          console.log(this.currentComission)
-        }else {
-          this.currentComission.push(event)
-          // console.log('В комиссию записали event')
-          // console.log('Выбранная комиссия')
-          // console.log(this.currentComission)
-          // console.log('Event это:')
-          // console.log(event)
-    
-        }
-        this.closeComissionModal()
-      }
+     
 
      getTracks(){
         this.loadingService.showLoading()
@@ -300,9 +332,13 @@ export class EditEventComponent  implements OnInit {
             if (
                 this.createEventForm.value.name.length <= 3 ||
                !this.createEventForm.value.images.length ||   
-               !this.createEventForm.value.dateStart ||  !this.trackSelected ||
+               !this.createEventForm.value.dateStart ||  
+               !this.trackSelected ||
               //  !this.currentComission.length ||
-                !this.locationId || !this.selectedGroup.length
+                !this.locationId || 
+                !this.selectedGroup.length ||
+                !this.createEventForm.value.recordStart||
+                !this.createEventForm.value.recordEnd
               ) {
                 return true
               } else {
@@ -391,7 +427,7 @@ export class EditEventComponent  implements OnInit {
           }
           this.selectEditType()
           this.locationId = res.race?.location?.id
-          this.currentComission = res.race.commissions
+          
           this.createEventForm.patchValue({
             ...res.race,
             locationId: res.race?.location?.id,
@@ -415,6 +451,8 @@ export class EditEventComponent  implements OnInit {
         })
         
       }
+
+     
 
 
     submitForm(){
@@ -473,18 +511,38 @@ export class EditEventComponent  implements OnInit {
         let loader:HTMLIonLoadingElement
         let race:any = res.race
         this.loadingService.showLoading().then((res:HTMLIonLoadingElement)=>loader = res)
-         this.userService.addComission(race.id,this.currentComission.map(user => user.value || user.id)).pipe(
-          catchError(error => {
+        
+        if(this.currentComission.length !== 0)
 
+          {
+            this.userService.addComission(race.id,this.currentComission.map(user => user.value || user.id)).pipe(
+        catchError(error => {
+
+          this.navController.navigateForward('/my-events')
+          this.loadingService.hideLoading(loader)
+          return throwError(()=> error)
+          
+        }),
+        finalize(()=>this.loadingService.hideLoading(loader))
+        ).subscribe((res:any)=>{
+        this.navController.navigateForward('/my-events')
+        }
+      )}else{
+        this.userService.addComission(race.id,this.currentComission.map(user => user.value || user.id)).pipe(
+          catchError(error => {
+  
             this.navController.navigateForward('/my-events')
             this.loadingService.hideLoading(loader)
             return throwError(()=> error)
             
           }),
           finalize(()=>this.loadingService.hideLoading(loader))
-         ).subscribe((res:any)=>{
+          ).subscribe((res:any)=>{
           this.navController.navigateForward('/my-events')
-        })
+          }
+        )
+      }
+
       })
     }
     } 
@@ -523,6 +581,7 @@ export class EditEventComponent  implements OnInit {
                 this.eventId = params['id']
                 this.getEvent()
                 this.getCommisionUsers()
+                this.getCurrentCommissions()
               })
       }
 

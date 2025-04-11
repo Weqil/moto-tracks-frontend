@@ -78,6 +78,7 @@
             <p class="comission-not-found" *ngIf="!currentComission.length">Судья не выбран</p>
 
             <div class="comission-grid" *ngIf="currentComission.length">
+              
               <div class="commission-name-container" *ngFor="let user of currentComission"> 
                 <p class="comission-name" >
                   {{user.name}}
