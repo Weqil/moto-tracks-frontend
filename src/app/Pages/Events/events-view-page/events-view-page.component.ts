@@ -353,6 +353,7 @@ export class EventsViewPageComponent  implements OnInit {
     }
     setGroup(event:any){
       this.personalUserForm.patchValue({group: event.name, gradeId:event.id})
+  
     }
     
     setRank(event:any){
@@ -495,10 +496,16 @@ export class EventsViewPageComponent  implements OnInit {
     }
     
     if (this.userService.user.value?.personal) {
+  
       let oldPersonal: any = { ...this.userService.user.value.personal };
-    
       // Переименовываем поля
+      oldPersonal.commandId = oldPersonal.command.id
+      delete oldPersonal['command']
+      oldPersonal.locationId = oldPersonal.location.id
+      delete oldPersonal['location']
+      oldPersonal.gradeId = this.personalUserForm.value.gradeId
       oldPersonal.dateOfBirth = oldPersonal.date_of_birth;
+      oldPersonal.comment = ''
       oldPersonal.phoneNumber = oldPersonal.phone_number;
       oldPersonal.startNumber = oldPersonal.start_number;
       oldPersonal.rankNumber = oldPersonal.rank_number;
@@ -525,7 +532,12 @@ export class EventsViewPageComponent  implements OnInit {
 
       // Используем Lodash
       personalFormChange = _.isEqual(normalizedOld, normalizedForm);
-
+      Object.keys(normalizedOld).map((key:string)=>{
+       
+        if(!normalizedForm[key]){
+         
+        }
+      })
       //Если обьекты различаются
       if(!personalFormChange){
         this.changePersonalDateModalValue = true

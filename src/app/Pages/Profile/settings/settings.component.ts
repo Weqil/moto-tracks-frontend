@@ -388,7 +388,12 @@ private confirmDeleteAccount() {
               // Перенаправляем на страницу авторизации
           this.navController.navigateRoot('/login');
         },0)
+        if(this.userService.user.value){
+          this.userService.deleteUserInUsersArrayInLocalStorage(this.userService.user.value)
+        }
+
         this.authService.logout();
+        
       },
       error: (error) => {
         console.error('Ошибка при удалении аккаунта:', error);

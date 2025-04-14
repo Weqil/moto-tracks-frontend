@@ -18,13 +18,7 @@
            [class.disabled]="hasIncompleteData(user)">
         <div class="user-item"
              (click)="!hasIncompleteData(user) && onUserSelect(user, !isUserSelected(user), $event)">
-          <ion-checkbox 
-          *ngIf="user.personal"
-            [checked]="isUserSelected(user)"
-            [disabled]="hasIncompleteData(user)"
-            (ionChange)="onUserSelect(user, $event.detail.checked, $event)"
-            (click)="$event.stopPropagation()">
-          </ion-checkbox>
+        
           <div class="user-info">
             <app-user-section 
               [user]="user"
@@ -33,6 +27,7 @@
               [hideEmail]="true">
             </app-user-section>
           </div>
+        
           <div *ngIf="user.personal" class="user-actions" (click)="$event.stopPropagation()">
             <div *ngIf="hasIncompleteData(user)" class="incomplete-data-indicator">
               <ion-icon name="warning" color="danger"></ion-icon>
@@ -52,6 +47,13 @@
               (click)="openUserModal(user, $event)">
             </ion-icon>
           </div>
+          <ion-checkbox 
+          *ngIf="user.personal"
+            [checked]="isUserSelected(user)"
+            [disabled]="hasIncompleteData(user)"
+            (ionChange)="onUserSelect(user, $event.detail.checked, $event)"
+            (click)="$event.stopPropagation()">
+          </ion-checkbox>
         </div>
         <div *ngIf="user.personal" class="class-selector-wrapper" (click)="$event.stopPropagation()">
           <div  class="class-selector">
