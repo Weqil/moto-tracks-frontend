@@ -55,33 +55,34 @@ export class AddUserInComissionComponent  implements OnInit {
 
   awardRole(){
 
-    let loader:HTMLIonLoadingElement
+    if(this.userService.userHaveCurrentPersonal(this.user)){
+      console.log(this.user)
+      let loader:HTMLIonLoadingElement
     this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
       loader = res
      })
-
     this.userService.addUserCommissionRole(this.id).pipe(
-
       catchError(error => {
-
         this.toastService.showToast('Ошибка в назначении судьи', 'warning')
         this.viewUserInfo = true
         return throwError(()=> error)
-        
       }),
-
       finalize(()=>{
         this.loadingService.hideLoading(loader)  
       })
-
     ).subscribe((res:any) => {
-
         this.toastService.showToast('Судья успешно назначен', "success")
         this.userService.refreshUser()
         // this.getUser()
         this.viewUserInfo = true
-        
     })
+
+    }
+    else{
+      this.toastService.showToast('Пожалуйста попросите пользователя стать организатором и заполнить анкету!','warning')
+    }
+
+    
   }
 
   translateRole(roleName: string){
