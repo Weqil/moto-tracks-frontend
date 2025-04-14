@@ -104,20 +104,26 @@ export class UserDocumentsComponent  implements OnInit {
  formErrors:any = {
     name: {
       errorMessage:''
-
       },
     surname: {
        errorMessage:''
       },
-    city: {
-       errorMessage:''
-      },
-      region:{
+    patronymic:{
+      errorMessage:''
+    },
+
+    region:{
         errorMessage:''
       },
     startNumber: {
        errorMessage:''
       },
+
+    dateOfBirth: {
+        errorMessage:''
+       },
+  
+   
   }
 
   engineItems:{name:string, value:string}[] = [
