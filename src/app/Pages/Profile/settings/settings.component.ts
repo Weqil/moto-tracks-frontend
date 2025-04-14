@@ -138,7 +138,7 @@ editEmail(){
       this.loadingService.hideLoading(loader);
     })
   ).subscribe((res:any)=>{
-    console.log('Почта изменена')
+   
     this.closeEmailModal();
     this.userService.refreshUser(() => {
       this.personalViewForm.patchValue({ emailView: this.personalSettingsForm.get('email')?.value });
@@ -372,26 +372,7 @@ confirmEmail(){
 }
 
 async deleteAccount() {
-  // Показываем диалог подтверждения
-  const alert = await this.alertController.create({
-    header: 'Подтверждение',
-    message: 'Вы уверены, что хотите удалить свой аккаунт? Это действие нельзя отменить.',
-    buttons: [
-      {
-        text: 'Отмена',
-        role: 'cancel'
-      },
-      {
-        text: 'Удалить',
-        role: 'destructive',
-        handler: () => {
-          this.confirmDeleteAccount();
-        }
-      }
-    ]
-  });
-
-  await alert.present();
+  this.confirmDeleteAccount();
 }
 
 private confirmDeleteAccount() {
@@ -407,7 +388,12 @@ private confirmDeleteAccount() {
               // Перенаправляем на страницу авторизации
           this.navController.navigateRoot('/login');
         },0)
+        if(this.userService.user.value){
+          this.userService.deleteUserInUsersArrayInLocalStorage(this.userService.user.value)
+        }
+
         this.authService.logout();
+        
       },
       error: (error) => {
         console.error('Ошибка при удалении аккаунта:', error);

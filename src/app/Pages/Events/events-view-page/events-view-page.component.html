@@ -64,14 +64,14 @@
 
       </div>
       
-      <div *ngIf="event.status?.name !== 'Планируемая'"  class="footer">
+      <div *ngIf="event.status?.name !== 'Планируемая' && event.record_start && event.record_end && !checkRecordEnd()"  class="footer">
           @if (!this.event.appointments_exists && !checkRecordStart() && !checkRecordEnd()) {
             <app-standart-button (click)="openApplicationForm()" buttonText="Заявиться" theme="big"></app-standart-button>
           }
           @else if(checkRecordStart()){
             <app-standart-button [disabled]="true"  buttonText="Дата начала регистрации: {{event.record_start}}"></app-standart-button>
           }
-          @else {
+          @else if(this.event.appointments_exists){
             <app-standart-button [disabled]="true"  buttonText="Заявка отправлена"></app-standart-button>
           }
 

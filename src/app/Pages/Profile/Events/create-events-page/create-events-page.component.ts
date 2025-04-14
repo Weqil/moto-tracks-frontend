@@ -337,7 +337,7 @@ export class CreateEventsPageComponent  implements OnInit {
     })
   ).subscribe((res:any)=>{
       this.toastService.showToast('Событие успешно создано', 'primary')
-      console.log(res)
+  
       let race:any = res.race
       let loader:HTMLIonLoadingElement
       this.loadingService.showLoading().then((res:HTMLIonLoadingElement)=>loader = res)
@@ -370,24 +370,18 @@ export class CreateEventsPageComponent  implements OnInit {
           value:user.id
         })
       });
-      console.log(this.usersInCommision)
+   
     })
   }
 
   setComission(event:any){
     if(this.currentComission.find((user:any)=>user == event)){
 
-      console.log('такой юзер уже есть')
-      console.log(this.currentComission)
 
       
     }else {
       this.currentComission.push(event)
-      // console.log('В комиссию записали event')
-      // console.log('Выбранная комиссия')
-      // console.log(this.currentComission)
-      // console.log('Event это:')
-      // console.log(event)
+
 
     }
     this.closeComissionModal()

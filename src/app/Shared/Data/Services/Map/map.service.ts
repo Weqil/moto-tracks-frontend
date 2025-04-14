@@ -12,8 +12,7 @@ export class MapService {
   http:HttpClient = inject(HttpClient)
  
   getAllRegions(existsRace?: boolean, existsTrack?: boolean, existComand?: boolean){
-    console.log(existsRace)
-    console.log(existsTrack)
+   
 
     const query = {
       raceCountExists: existsRace ? '1' : '0',

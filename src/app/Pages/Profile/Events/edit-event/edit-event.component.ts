@@ -182,8 +182,6 @@ export class EditEventComponent  implements OnInit {
       this.trackSelected = undefined
       this.createEventForm.patchValue({region:region.name})
       this.createEventForm.patchValue({locationId:region.value})
-      console.log('emae:')
-      console.log(this.locationId)
     }
 
     getCurrentCommissions(){
@@ -311,7 +309,6 @@ export class EditEventComponent  implements OnInit {
           })
         ).subscribe((res:any)=>{
           this.tracks = res.tracks
-          console.log(this.tracks)
           this.allTracks = res.tracks
         })
       }
@@ -386,7 +383,6 @@ export class EditEventComponent  implements OnInit {
       }
 
       openTrackSelectModalFunction(){
-        console.log(this.createEventForm.value.locationId)
         if(this.createEventForm.value.locationId){
          
           this.tracks = this.allTracks.filter((track) => Number(track.location?.id) == Number(this.createEventForm.value.locationId))
