@@ -13,7 +13,7 @@
   <ng-template>
     <ion-content> 
       <div class="header">
-        <app-header  headerTitle="Выбор команды" [hiddenBackButton]="true"></app-header>
+        <app-header (customBackClick)="close()" [customBack]="true"  headerTitle="Выбор команды"></app-header>
       <div class="back-button-container">
         <app-circle-button icon="/assets/icons/arrow.svg" (click)="close()"></app-circle-button>
       </div>
