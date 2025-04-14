@@ -64,14 +64,14 @@
 
       </div>
       
-      <div *ngIf="event.status?.name !== 'Планируемая' && event.record_start && event.record_end && !checkRecordEnd()"  class="footer">
+      <div *ngIf="event.status?.name !== 'Планируемая'"  class="footer">
           @if (!this.event.appointments_exists && !checkRecordStart() && !checkRecordEnd()) {
             <app-standart-button (click)="openApplicationForm()" buttonText="Заявиться" theme="big"></app-standart-button>
           }
           @else if(checkRecordStart()){
             <app-standart-button [disabled]="true"  buttonText="Дата начала регистрации: {{event.record_start}}"></app-standart-button>
           }
-          @else if(this.event.appointments_exists){
+          @else {
             <app-standart-button [disabled]="true"  buttonText="Заявка отправлена"></app-standart-button>
           }
 
@@ -147,10 +147,38 @@
           
           
           <div class="start-number-container">
-            <app-standart-input [errorMessage]="formErrors.startNumber.errorMessage" [invalid]="formErrors.startNumber.errorMessage.length !== 0" [control]="personalUserForm.get('startNumber')" [maxLength]="3" type="number" [invalid]="formErrors.startNumber.errorMessage.length !== 0" [errorMessage]="formErrors.startNumber.errorMessage" placeholder="Стартовый номер" label="Стартовый номер*"></app-standart-input>
+
+            <app-standart-input 
+              [errorMessage]="formErrors.startNumber.errorMessage" 
+              [invalid]="formErrors.startNumber.errorMessage.length !== 0" 
+              [control]="personalUserForm.get('startNumber')" 
+              [maxLength]="3" type="number" 
+              [invalid]="formErrors.startNumber.errorMessage.length !== 0" 
+              [errorMessage]="formErrors.startNumber.errorMessage" 
+              placeholder="Стартовый номер" 
+              label="Стартовый номер*">
+            </app-standart-input>
+
           </div>
-          <app-standart-input-select [errorMessage]="formErrors.group.errorMessage" [invalid]="formErrors.group.errorMessage.length !== 0"  selectedName="groupSelect" [items]="groupItems" (onChange)="setGroup($event)" [selectedItem]="{name:personalUserForm.value.group, value:personalUserForm.value.group}" label="Класс, группа*"></app-standart-input-select>
-          <app-standart-input-select [errorMessage]="formErrors.rank.errorMessage" [invalid]="formErrors.rank.errorMessage.length !== 0" selectedName="rankSelect" [items]="sportRankItems" (onChange)="setRank($event)" [selectedItem]="{name:personalUserForm.value.rank, value:personalUserForm.value.rank}" label="Спортивное звание, разряд*"></app-standart-input-select>
+          
+          <app-standart-input-select  
+            [errorMessage]="formErrors.group.errorMessage" 
+            [invalid]="formErrors.group.errorMessage.length !== 0"  
+            selectedName="groupSelect" 
+            [items]="groupItems" 
+            (onChange)="setGroup($event)" 
+            [selectedItem]="{name:personalUserForm.value.group, value:personalUserForm.value.group}" 
+            label="Класс, группа*">
+          </app-standart-input-select>
+
+          <app-standart-input-select  
+            [errorMessage]="formErrors.rank.errorMessage" 
+            [invalid]="formErrors.rank.errorMessage.length !== 0" 
+            selectedName="rankSelect" [items]="sportRankItems" 
+            (onChange)="setRank($event)" 
+            [selectedItem]="{name:personalUserForm.value.rank, value:personalUserForm.value.rank}" 
+            label="Спортивное звание, разряд*">
+          </app-standart-input-select>
           
           
           

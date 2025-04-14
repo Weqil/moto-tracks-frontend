@@ -20,9 +20,6 @@
 			"clearCache": true
 		}
 	},
-	"server": {
-		"url": "https://moto.vokrug.city"
-	},
 	"packageClassList": [
 		"AppPlugin",
 		"HapticsPlugin",

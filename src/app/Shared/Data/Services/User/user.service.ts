@@ -99,7 +99,7 @@ export class UserService {
     return this.http.post<any>(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/users/cabinet/documents/${id}/update`, document)
   }
 
-  userHaveCurrentPersonal(){
+  userHaveCurrentPersonal(user?: User){
     let userPersonalForm = new FormGroup({
       name: new FormControl('', [Validators.required]),
       surname: new FormControl('', [Validators.required]),
@@ -108,10 +108,18 @@ export class UserService {
       city: new FormControl('', [Validators.required]),
       region: new FormControl('', [Validators.required]),
     })
-    userPersonalForm.patchValue({
+    if(!user){
+      userPersonalForm.patchValue({
         ...this.user.value?.personal,
         dateOfBirth: this.user.value?.personal?.date_of_birth
     })
+    }else{
+      userPersonalForm.patchValue({
+        ...user.personal,
+        dateOfBirth: user.personal?.date_of_birth
+    })
+    }
+    
     return userPersonalForm.valid
   }
 
