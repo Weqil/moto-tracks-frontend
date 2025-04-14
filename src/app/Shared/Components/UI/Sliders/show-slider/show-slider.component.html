@@ -12,7 +12,7 @@
     <ng-container *ngFor = "let file of files">
       <swiper-slide>
         <ng-container class="img-container">
-          <img src="{{file| checkImgUrl: (standartImagesPath ? standartImagesPath: null) }}" />
+          <img class="img" src="{{file| checkImgUrl: (standartImagesPath ? standartImagesPath: null) }}" />
           <!-- <div class="darkening-background"></div> -->
         </ng-container>
       </swiper-slide>

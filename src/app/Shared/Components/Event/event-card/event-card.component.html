@@ -14,7 +14,8 @@
     </div> -->
     <div (click)="redirectInEvent()" >
         <div class="card__content">
-            <img src="{{event.images ? (event.images[0] | checkImgUrl : '/assets/images/moto-background.png') : '' | checkImgUrl : '/assets/images/moto-background.png'}}" alt="">
+            <img src="{{event.images ? (event.images[0] | checkImgUrl) : ''}}" alt="">
+            <!-- <img src="{{event.images ? (event.images[0] | checkImgUrl : '/assets/images/moto-background.png') : '' | checkImgUrl : '/assets/images/moto-background.png'}}" alt=""> -->
         </div>
         <div class="card__footer"> 
             

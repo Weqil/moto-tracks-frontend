@@ -42,6 +42,10 @@ export class TrackViewPageComponent  implements OnInit {
   statusImagesModal: boolean = false
   allContactsIncorrect: boolean = false
 
+  imgArray: any[] = []
+
+  
+
   openImagesModalFunction(){
     this.statusImagesModal = true
   }
@@ -93,6 +97,7 @@ export class TrackViewPageComponent  implements OnInit {
       })
     ).subscribe((res:any) => {
       this.track = res.track
+      this.imgArray = [res.track.schema_img]
       this.validateAllContacts()
     
     })
