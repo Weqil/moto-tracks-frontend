@@ -185,14 +185,14 @@ export class EditEventComponent  implements OnInit {
     }
 
     getCurrentCommissions(){
-      this.loadingService.showLoading()
+      let loader:HTMLIonLoadingElement
+      this.loadingService.showLoading().then((res)=>loader = res)
       this.eventService.getEventById(this.eventId,{
         userId:String(this.userService.user.value?.id ? this.userService.user.value?.id : '' ),
         appointmentUser:1,
       }).pipe(
         finalize(()=>{
-          this.loadingService.hideLoading()
-          
+          this.loadingService.hideLoading(loader)
         })
       ).subscribe((res:any)=>{
         
@@ -219,10 +219,6 @@ export class EditEventComponent  implements OnInit {
             
           })
         });
-        console.log("Комиссия в целом:")
-        console.log(this.usersInCommision)
-        console.log("Комиссия выбранная:")
-        console.log(this.currentComission)
       })
     }
 
@@ -396,13 +392,14 @@ export class EditEventComponent  implements OnInit {
       }
     
       getEvent(){
-        this.loadingService.showLoading()
+        let loader:HTMLIonLoadingElement
+        this.loadingService.showLoading().then((res)=> loader = res)
         this.eventService.getEventById(this.eventId,{
           userId:String(this.userService.user.value?.id ? this.userService.user.value?.id : '' ),
           appointmentUser:1,
         }).pipe(
           finalize(()=>{
-            this.loadingService.hideLoading()
+            this.loadingService.hideLoading(loader)
             this.getTracks()
           })
         ).subscribe((res:any)=>{
@@ -513,11 +510,8 @@ export class EditEventComponent  implements OnInit {
           {
             this.userService.addComission(race.id,this.currentComission.map(user => user.value || user.id)).pipe(
         catchError(error => {
-
           this.navController.navigateForward('/my-events')
-          this.loadingService.hideLoading(loader)
           return throwError(()=> error)
-          
         }),
         finalize(()=>this.loadingService.hideLoading(loader))
         ).subscribe((res:any)=>{
