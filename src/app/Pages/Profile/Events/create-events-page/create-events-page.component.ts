@@ -221,7 +221,9 @@ export class CreateEventsPageComponent  implements OnInit {
            !this.createEventForm.value.dateStart ||
            !this.trackSelected || 
            !this.locationId || 
-           !this.selectedGroup.length
+           !this.selectedGroup.length || 
+           !this.createEventForm.value.recordStart ||
+           !this.createEventForm.value.recordEnd
           ) {
             return true
           } else {
