@@ -55,7 +55,7 @@ export class AddUserInComissionComponent  implements OnInit {
 
   awardRole(){
 
-    if(this.userService.userHaveCurrentPersonal(this.user)){
+
       console.log(this.user)
       let loader:HTMLIonLoadingElement
     this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
@@ -77,12 +77,6 @@ export class AddUserInComissionComponent  implements OnInit {
         this.viewUserInfo = true
     })
 
-    }
-    else{
-      this.toastService.showToast('Пожалуйста попросите пользователя стать организатором и заполнить анкету!','warning')
-    }
-
-    
   }
 
   translateRole(roleName: string){
