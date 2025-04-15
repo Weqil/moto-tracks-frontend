@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
 import { CommonModule } from '@angular/common';
 import { HeaderModule } from 'src/app/Shared/Modules/header/header.module';
@@ -37,19 +37,39 @@ export class EventsTapePageComponent  implements OnInit {
    
    }
 
-   
-
   navController: NavController = inject(NavController)
   eventService: EventService = inject(EventService)
   loadingService:LoadingService = inject(LoadingService)
   eventTapeService: EventTapeService = inject(EventTapeService)
+  @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
   switchTypeService:SwitchTypeService = inject(SwitchTypeService)
   regionModalState:boolean = false
+  resultsFilesUpload!:[
+    {
+      file:File,
+      localPath:string,
+    }
+  ]|any 
   userService: UserService = inject(UserService)
   tableModalValue:boolean = false
   googleTabsLink:string = ''
   searchRegionItems:any[] = []
   regionFilterName:string = 'Россия'
+
+  isDragOver = false;
+   allowedTypes = [
+    'image/jpeg', 'image/png', 'image/gif', 'image/bmp', 'image/webp',
+    'application/pdf',
+    'application/msword',
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    'application/vnd.ms-excel',
+    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    'application/vnd.ms-powerpoint',
+    'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+    'text/plain',
+    'application/rtf',
+    'application/vnd.oasis.opendocument.text'
+  ];
   regionFilterId:string = ''
   uploadResultModalState:boolean = false
   expiredEvents:IEvent[]=[]
@@ -69,9 +89,59 @@ export class EventsTapePageComponent  implements OnInit {
   redirectInConfirm(id:number){
     this.navController.navigateForward(`/aplication/confirm/${id}`)
   }
- 
+  onDragOver(event: DragEvent) {
+    event.preventDefault(); 
+    this.isDragOver = true;
+  }
+  
+  onDragLeave(event: DragEvent) {
+    event.preventDefault();
+    this.isDragOver = false;
+  }
+  onDrop(event: DragEvent) {
+    this.isDragOver = false;
+  }
+  getResultFile(event:any){
+    this.isDragOver = false;
+    const input = event.target as HTMLInputElement;
+   
+  if (input.files) {
+    Array.from(input.files).forEach(file => {
+      if (!this.allowedTypes.includes(file.type)) {
+        console.warn('Неподдерживаемый тип файла:', file.name, file.type);
+        return;
+      }
+      const isDuplicate = this.resultsFilesUpload.some((existing:any) =>
+        existing.file.name === file.name &&
+        existing.file.size === file.size &&
+        existing.file.lastModified === file.lastModified
+      );
+
+      if (!isDuplicate) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.resultsFilesUpload.push({
+            file: file,
+            localPath: reader.result as string
+          });
+        };
+        reader.readAsDataURL(file);
+      } else {
+        
+      }
+    });
+
+    // Сброс input
+    this.fileInput.nativeElement.value = '';
+  }
+  }
+
+  deleteUploudResultFile(file:any){
+    this.resultsFilesUpload = this.resultsFilesUpload.filter((uploadFile:any)=> uploadFile.localPath !== file.localPath)
+  }
 
   openUploadResultMpdal(){
+    this.resultsFilesUpload = []
     this.uploadResultModalState = true
   }
 
@@ -97,6 +167,11 @@ export class EventsTapePageComponent  implements OnInit {
   setRegion(event:any){
 
   }
+
+  addResultFilesInRace(raceId:number){
+    
+  }
+
   generateGoogleLink(eventId:any){
     this.loadingService.showLoading()
     this.eventService.generateGoogleLink(eventId).pipe(

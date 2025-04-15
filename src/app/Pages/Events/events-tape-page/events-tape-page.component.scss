@@ -41,6 +41,91 @@
     --min-width: 100%;
     --min-height: 100%;
 }
+.files-result-upload{
+    width: 80vw;
+    max-width: 360px;
+    display: flex;
+    transition: 0.3s all;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 1px;
+    height: 150px;
+    border: 3px dashed rgb(137 199 245 / 60%);
+}
+.upload{
+    width: 80vw;
+    max-width: 360px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: var(--standart-padding);
+}
+.files-grid{
+    width: 100%;
+  
+    display: flex;
+    flex-direction: column;
+    gap: var(--little-padding);
+    .files-grid__item{
+        background-color: #fff;
+        padding: 0.3rem;
+        border-radius: 3px;
+        font-family: var(--font-regular);
+    }
+}
+.files-result-upload__wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.files-grid__item-wrapper{
+    display: flex;
+    gap: var(--little-padding);
+}
+.upload-text{
+    font-family: var(--font-regular);
+}
+.file{
+   padding: 5rem;
+   top: 0;
+   opacity: 0;
+   position: absolute;
+}
+.files-result-upload__active{
+    width: 80vw;
+    max-width: 360px;
+    display: flex;
+    align-items: center;
+    transition: 0.3s all;
+    background-color: #0b40ee31;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 1px;
+    height: 150px;
+    border: 3px dashed rgba(6, 137, 238, 0.6);
+}
+.upload-image{
+    width: 4rem;
+    height: 4rem;
+    margin: auto;
+    filter: brightness(0) saturate(100%) invert(49%) sepia(48%) saturate(3845%) hue-rotate(200deg) brightness(100%) contrast(96%);
+}
+.upload-wrapper{
+    background-color: #fff;
+    border-radius: 16px;
+    position: relative;
+    
+     margin-top: var(--standart-padding);
+    padding: var(--standart-padding);
+    display: inline-block;
+}
+
+.upload-label{
+    font-family: var(--font-regular);
+    font-size: 16px;
+    padding-bottom: var(--little-padding);
+}
 .tracks-grid__item{
     border-bottom: 1px solid rgba(76, 88, 97, .1568627451);
     padding-top: var(--little-padding);
