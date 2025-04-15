@@ -81,7 +81,7 @@
 
         <div class="group-button" *ngIf="!checkRecordStart()">
           @if(checkUserRoleService.userHaveRole(confirmUsersRolesInGroupAplication) && !checkRecordStart()){
-          <app-standart-button (click)="redirectTrenerInEditAplication()" buttonText="Заявится группой" theme="big"></app-standart-button>
+          <app-standart-button (click)="redirectTrenerInEditAplication()" buttonText="заявится командой" theme="big"></app-standart-button>
           }
           @else if(checkRecordStart() && checkRecordEnd()){
             <app-standart-button [disabled]="true"  buttonText="Дата начала регистрации: {{event.record_start}}"></app-standart-button>
