@@ -550,6 +550,15 @@ export class EventsViewPageComponent  implements OnInit {
     window.location.assign(`/aplication/${this.event.id}`);
   }
 
+  checkDateStartInRace(){
+    if(this.event){
+      let now = moment().format()
+      return moment(this.event.date_start).format() < now
+    }else{
+      return
+    }
+  }
+
   saveNewPersonal(){
     let loader:HTMLIonLoadingElement
     this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
