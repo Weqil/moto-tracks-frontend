@@ -58,6 +58,7 @@ export class SettingsComponent  implements OnInit {
   disabledAgreedButton:boolean = true
   statuses:any[] = [];
   emailModalValue:boolean = false
+  phoneModalValue:boolean = false
 
   personalSettingsForm: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.required]),
@@ -74,6 +75,13 @@ export class SettingsComponent  implements OnInit {
   }
   closeEmailModal(){
     this.emailModalValue = false
+  }
+
+  openPhoneModal(){
+    this.phoneModalValue = true
+  }
+  closePhoneModal(){
+    this.phoneModalValue = false
   }
 
   loginInvalid = {
@@ -159,6 +167,13 @@ confirmEmail(){
   this.closeEmailModal()
   setTimeout(() => {
     this.navController.navigateRoot('/verification'); // Переход после задержки
+  }, 300); // Задержка в 300 миллисекунд
+}
+
+confirmPhone(){
+  this.closePhoneModal()
+  setTimeout(() => {
+    this.navController.navigateRoot('/confirm-phone'); // Переход после задержки
   }, 300); // Задержка в 300 миллисекунд
 }
 
@@ -367,10 +382,10 @@ confirmEmail(){
     this.userService.user.pipe().subscribe(()=>{
     this.user = this.userService.user.value 
   })
-  this.personalSettingsForm.patchValue({email: this.user?.email})
-  this.personalViewForm.patchValue({emailView: this.user?.email})
-  this.personalSettingsForm.patchValue({phone: this.user?.phone})
-  this.personalViewForm.patchValue({phoneView: this.user?.phone})
+  this.personalSettingsForm.patchValue({email: this.user?.email || 'нет почты'})
+  this.personalViewForm.patchValue({emailView: this.user?.email || 'нет почты'})
+  this.personalSettingsForm.patchValue({phone: this.user?.phone?.number || 'нет телефона'})
+  this.personalViewForm.patchValue({phoneView: this.user?.phone?.number || 'нет телефона'})
 }
 
 async deleteAccount() {

@@ -42,20 +42,25 @@ export class AddUserInComissionComponent  implements OnInit {
 
 
   viewUser(){
-    
-    this.id = this.UserIdForm.get('userId')?.value
+    if(this.UserIdForm.get('userId')?.value){
+      this.id = this.UserIdForm.get('userId')?.value
     if(this.id == ''){
       this.viewUserInfo = true
     }
     else{
+      
       this.getUser()
     }
+    }else{
+      this.toastService.showToast('Такого пользователя нет в системе', 'warning')
+    }
+    
     
   }
 
   awardRole(){
 
-    if(this.userService.userHaveCurrentPersonal(this.user)){
+    // if(this.userService.userHaveCurrentPersonal(this.user)){
       console.log(this.user)
       let loader:HTMLIonLoadingElement
     this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
@@ -77,10 +82,12 @@ export class AddUserInComissionComponent  implements OnInit {
         this.viewUserInfo = true
     })
 
-    }
-    else{
-      this.toastService.showToast('Пожалуйста попросите пользователя стать организатором и заполнить анкету!','warning')
-    }
+    // }
+    // else{
+    //   console.log(this.user)
+    //   console.log(this.userService.userHaveCurrentPersonal(this.user))
+    //   this.toastService.showToast('Пожалуйста попросите пользователя стать организатором и заполнить анкету!','warning')
+    // }
 
     
   }
@@ -145,7 +152,7 @@ export class AddUserInComissionComponent  implements OnInit {
       this.user = res.user
       this.viewUserInfo = false
       // console.log('emae2:')
-      // console.log(this.user)
+      console.log(this.user)
     })
    }
 }

@@ -108,16 +108,23 @@ export class UserService {
       city: new FormControl('', [Validators.required]),
       region: new FormControl('', [Validators.required]),
     })
-    if(!user){
-      userPersonalForm.patchValue({
-        ...this.user.value?.personal,
-        dateOfBirth: this.user.value?.personal?.date_of_birth
-    })
-    }else{
+    if(user){
+
       userPersonalForm.patchValue({
         ...user.personal,
         dateOfBirth: user.personal?.date_of_birth
+        
+      
     })
+    console.log('Переданный пользователь')
+    console.log(userPersonalForm)
+    }else{
+     userPersonalForm.patchValue({
+        ...this.user.value?.personal,
+        dateOfBirth: this.user.value?.personal?.date_of_birth
+        
+    })
+    console.log('Пользователь из локал сторадж')
     }
     
     return userPersonalForm.valid
