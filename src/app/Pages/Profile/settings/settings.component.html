@@ -28,6 +28,11 @@
         <app-circle-button class="edit-btn" [icon]="'/assets/icons/edit.svg'" (click)="openEmailModal()"></app-circle-button>
       </div>
 
+      <div class="email-container">
+        <app-standart-input [readonly]="true" class="email-control" [control]="personalViewForm.get('phoneView')" [errorMessage]="formErrors.phone.errorMessage"  label="Телефон"></app-standart-input>
+        <app-circle-button class="edit-btn" [icon]="'/assets/icons/edit.svg'" (click)="openEmailModal()"></app-circle-button>
+      </div>
+
       
 
       <div class="status-container">

@@ -61,11 +61,11 @@ export class SettingsComponent  implements OnInit {
 
   personalSettingsForm: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.required]),
-   
+    phone: new FormControl('', [Validators.required]),
   })
 
   personalViewForm: FormGroup = new FormGroup({
-    
+    phoneView: new FormControl('', [Validators.required]),
     emailView: new FormControl('', [Validators.required]),
   })
 
@@ -110,7 +110,7 @@ export class SettingsComponent  implements OnInit {
 
 
   formErrors:any = {
-    name: {
+    phone: {
       errorMessage:''
 
     },
@@ -141,7 +141,7 @@ editEmail(){
    
     this.closeEmailModal();
     this.userService.refreshUser(() => {
-      this.personalViewForm.patchValue({ emailView: this.personalSettingsForm.get('email')?.value });
+      this.personalViewForm.patchValue({ emailView: this.personalSettingsForm.get('email')?.value, phoneView: this.personalSettingsForm.get('phone')});
       this.navController.navigateRoot('/verification');
     });
     // this.personalViewForm.patchValue({emailView: this.personalSettingsForm.get('email')?.value})
@@ -369,6 +369,8 @@ confirmEmail(){
   })
   this.personalSettingsForm.patchValue({email: this.user?.email})
   this.personalViewForm.patchValue({emailView: this.user?.email})
+  this.personalSettingsForm.patchValue({phone: this.user?.phone})
+  this.personalViewForm.patchValue({phoneView: this.user?.phone})
 }
 
 async deleteAccount() {
