@@ -4,7 +4,7 @@
       {{ event.date_start | date: 'dd.MM.YYYY ' : 'UTC' }}
     </div> 
   </app-header>
-  <main >
+  <main class="main-container--with-header">
   @if (this.event) {
       <div class="slider-container">
         <app-show-slider standartImagesPath='assets/images/moto-background.png' [files]="event.images" (click)="openImagesModalFunction()"></app-show-slider>
@@ -19,7 +19,7 @@
 
       <app-images-modal  *ngIf="event.images && event.images.length " [openModal]="statusImagesModal" (closeModalEmit)="closeImagesModal()" [imagesPathArray]="event.images"></app-images-modal>
       <div class="event-id">EID:{{event.id}}</div>
-      <div class="main-container">
+      <div class="">
         <div class="event-name">{{event.name}}</div>
         <div class="event-location-name">
           <div class="event-location-name__text">{{event.location?.name}} {{event.location?.type}}</div>
@@ -64,31 +64,7 @@
 
       </div>
       
-      <div *ngIf="event.status?.name !== 'Планируемая'"  class="footer">
-          @if (!this.event.appointments_exists && !checkRecordStart() && !checkRecordEnd()) {
-            <app-standart-button (click)="openApplicationForm()" buttonText="Заявиться" theme="big"></app-standart-button>
-          }
-          @else if(checkRecordStart()){
-            <app-standart-button [disabled]="true"  buttonText="Дата начала регистрации: {{event.record_start}}"></app-standart-button>
-          }
-          @else {
-            <app-standart-button [disabled]="true"  buttonText="Заявка отправлена"></app-standart-button>
-          }
-
-          <div class="group-button" *ngIf="!checkRecordStart()">
-            @if(checkUserRoleService.userHaveRole(confirmUsersRolesInGroupAplication) && !checkRecordStart()){
-            <app-standart-button (click)="redirectTrenerInEditAplication()" buttonText="Заявится группой" theme="big"></app-standart-button>
-            }
-            @else if(checkRecordStart() && checkRecordEnd()){
-              <app-standart-button [disabled]="true"  buttonText="Дата начала регистрации: {{event.record_start}}"></app-standart-button>
-            }
-            @else {
-              
-            }
-          </div>
-          
-         
-        </div>
+     
 
 
         <!-- <div *ngIf="!checkRecordEnd() && this.event.status && this.event.status.id !== 2" class="footer-group">
@@ -103,6 +79,36 @@
          
         </div> -->
     </div>
+
+    <div class="footer-page">
+      <div *ngIf="event.status?.name !== 'Планируемая'"  class="footer">
+        @if (!this.event.appointments_exists && !checkRecordStart() && !checkRecordEnd()) {
+          <app-standart-button (click)="openApplicationForm()" buttonText="Заявиться" theme="big"></app-standart-button>
+        }
+        @else if(checkRecordStart()){
+          <app-standart-button [disabled]="true"  buttonText="Дата начала регистрации: {{event.record_start}}"></app-standart-button>
+        }
+        @else {
+          <app-standart-button [disabled]="true"  buttonText="Заявка отправлена"></app-standart-button>
+        }
+
+        <div class="group-button" *ngIf="!checkRecordStart()">
+          @if(checkUserRoleService.userHaveRole(confirmUsersRolesInGroupAplication) && !checkRecordStart()){
+          <app-standart-button (click)="redirectTrenerInEditAplication()" buttonText="Заявится группой" theme="big"></app-standart-button>
+          }
+          @else if(checkRecordStart() && checkRecordEnd()){
+            <app-standart-button [disabled]="true"  buttonText="Дата начала регистрации: {{event.record_start}}"></app-standart-button>
+          }
+          @else {
+            
+          }
+        </div>
+        
+       
+      </div>
+    </div>
+     
+
     }
   </main>
 
@@ -220,6 +226,7 @@
             </div>
         </div>
       </div>
+      
       <div class="footer">
         <app-standart-button theme="big" (click)="toggleAplicationInRace()" buttonText="Заявиться"></app-standart-button>
       </div>
