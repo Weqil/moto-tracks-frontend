@@ -51,6 +51,7 @@ export class EventsTapePageComponent  implements OnInit {
   searchRegionItems:any[] = []
   regionFilterName:string = 'Россия'
   regionFilterId:string = ''
+  uploadResultModalState:boolean = false
   expiredEvents:IEvent[]=[]
   mapService:MapService = inject(MapService)
   startEvents: IEvent[]=[]
@@ -69,6 +70,14 @@ export class EventsTapePageComponent  implements OnInit {
     this.navController.navigateForward(`/aplication/confirm/${id}`)
   }
  
+
+  openUploadResultMpdal(){
+    this.uploadResultModalState = true
+  }
+
+  closeUploadResultModalState(){
+    this.uploadResultModalState = false
+  }
 
   getRegions(){
     this.mapService.getAllRegions(true, false, false).pipe().subscribe((res:any)=>{

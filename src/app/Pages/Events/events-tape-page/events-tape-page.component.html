@@ -11,6 +11,7 @@
             <app-event-card [event]="event" >
               <div *ngIf="userService.userHaveRoot() && event.commissions_exists" class="button-container">
                 <app-standart-button style="width: 100%;" (click)="generateGoogleLink(event.id)" buttonText="Выгрузить список"></app-standart-button>
+                <app-standart-button style="width: 100%;" (click)="openUploadResultMpdal()" buttonText="Добавить результаты"></app-standart-button>
                 <!-- <app-standart-button style="width: 100%;" (click)="redirectInConfirm(event.id)" buttonText="Модерация участников"></app-standart-button> -->
               </div>
             </app-event-card>
@@ -25,6 +26,7 @@
               <app-event-card [event]="event">
                 <div *ngIf="userService.userHaveRoot()" class="button-container">
                   <app-standart-button style="width: 100%;" (click)="generateGoogleLink(event.id)" buttonText="Выгрузить список"></app-standart-button>
+                  <app-standart-button style="width: 100%;" (click)="openUploadResultMpdal()" buttonText="Добавить результаты"></app-standart-button>
                 </div>
               </app-event-card>
             </div>
@@ -49,6 +51,16 @@
     </ion-content>
   </ng-template>
   
+</ion-modal>
+  
+<ion-modal class="upload-result-modal" (didDismiss)="closeUploadResultModalState()" [isOpen]="uploadResultModalState">
+  <ng-template>
+    <ion-content>
+        <div class="results-files-modal main-container__with-header">
+          <span class="label">Загрузите сюда документы связаные с результатами</span>
+        </div>
+    </ion-content>
+  </ng-template>
 </ion-modal>
 
 <ion-modal class="region-modal" (didDismiss)="closeRegionModal()"  [isOpen]="regionModalState">

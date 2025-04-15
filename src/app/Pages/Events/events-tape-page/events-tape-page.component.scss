@@ -37,6 +37,10 @@
     flex-direction: column;
     gap: var(--little-padding);
 }
+.upload-result-modal{
+    --min-width: 100%;
+    --min-height: 100%;
+}
 .tracks-grid__item{
     border-bottom: 1px solid rgba(76, 88, 97, .1568627451);
     padding-top: var(--little-padding);
