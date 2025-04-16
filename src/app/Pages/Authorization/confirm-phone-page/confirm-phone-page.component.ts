@@ -180,7 +180,7 @@ updateUserPhone(){
 
 phoneSubmit(){
   let now = moment()
-  if(now.diff(moment(localStorage.getItem('sendPhoneVerificateCodeTime')),'seconds') > 120 ||  !localStorage.getItem('sendPhoneVerificateCodeTime')){
+  if(now.diff(moment(localStorage.getItem('sendPhoneVerificateCodeTime')),'seconds') > 12 ||  !localStorage.getItem('sendPhoneVerificateCodeTime')){
     localStorage.setItem('sendPhoneVerificateCodeTime',now.toISOString())
     return this.loginService.getPhoneCodeInAuthUser(this.phoneForm.value).pipe(
     )
@@ -266,9 +266,11 @@ submitPersonalInfo(){
           locationId: this.user.personal?.location ? this.user.personal?.location.id:''
         })
         if(this.userService.userHaveCurrentPersonal() && this.userService.isPhoneVerified()){
+          console.log(this.userService.user.value)
           this.toastService.showToast('Информация успешно сохранена','success')
           this.navController.navigateRoot('/settings')
         }
+        console.log(this.userService.user.value)
       
         this.personalUserForm.invalid ? this.stepCurrent = 1 : this.stepCurrent = 2
       })

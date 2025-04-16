@@ -42,14 +42,19 @@ export class AddUserInComissionComponent  implements OnInit {
 
 
   viewUser(){
-    
-    this.id = this.UserIdForm.get('userId')?.value
+    if(this.UserIdForm.get('userId')?.value){
+      this.id = this.UserIdForm.get('userId')?.value
     if(this.id == ''){
       this.viewUserInfo = true
     }
     else{
+      
       this.getUser()
     }
+    }else{
+      this.toastService.showToast('Такого пользователя нет в системе', 'warning')
+    }
+    
     
   }
 
@@ -79,6 +84,9 @@ export class AddUserInComissionComponent  implements OnInit {
 
     }
     else{
+      console.log('Вывели пользователя если false на проверку заполнения данных:')
+      console.log(this.user)
+      // console.log(this.userService.userHaveCurrentPersonal(this.user))
       this.toastService.showToast('Пожалуйста попросите пользователя стать организатором и заполнить анкету!','warning')
     }
 
@@ -144,8 +152,8 @@ export class AddUserInComissionComponent  implements OnInit {
     ).subscribe((res:any) => {
       this.user = res.user
       this.viewUserInfo = false
-      // console.log('emae2:')
-      // console.log(this.user)
+      console.log('Получили юзера вот инфа о нем:')
+      console.log(this.user)
     })
    }
 }

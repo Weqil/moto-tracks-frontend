@@ -58,14 +58,33 @@ export class SettingsComponent  implements OnInit {
   disabledAgreedButton:boolean = true
   statuses:any[] = [];
   emailModalValue:boolean = false
+  phoneModalValue:boolean = false
+  emailStatus:boolean = false
+  phoneStatus:boolean = false
+
+  checkVerifiedEmail(){
+    if(this.user?.email_verified_at){
+
+      this.emailStatus = true
+
+    }
+  }
+
+  checkVerifiedPhone(){
+    if(this.user?.phone?.number_verified_at){
+
+      this.phoneStatus = true
+
+    }
+  }
 
   personalSettingsForm: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.required]),
-   
+    phone: new FormControl('', [Validators.required]),
   })
 
   personalViewForm: FormGroup = new FormGroup({
-    
+    phoneView: new FormControl('', [Validators.required]),
     emailView: new FormControl('', [Validators.required]),
   })
 
@@ -74,6 +93,13 @@ export class SettingsComponent  implements OnInit {
   }
   closeEmailModal(){
     this.emailModalValue = false
+  }
+
+  openPhoneModal(){
+    this.phoneModalValue = true
+  }
+  closePhoneModal(){
+    this.phoneModalValue = false
   }
 
   loginInvalid = {
@@ -110,7 +136,7 @@ export class SettingsComponent  implements OnInit {
 
 
   formErrors:any = {
-    name: {
+    phone: {
       errorMessage:''
 
     },
@@ -138,10 +164,10 @@ editEmail(){
       this.loadingService.hideLoading(loader);
     })
   ).subscribe((res:any)=>{
-   
+    this.checkVerifiedEmail()
     this.closeEmailModal();
     this.userService.refreshUser(() => {
-      this.personalViewForm.patchValue({ emailView: this.personalSettingsForm.get('email')?.value });
+      this.personalViewForm.patchValue({ emailView: this.personalSettingsForm.get('email')?.value, phoneView: this.personalSettingsForm.get('phone')});
       this.navController.navigateRoot('/verification');
     });
     // this.personalViewForm.patchValue({emailView: this.personalSettingsForm.get('email')?.value})
@@ -158,8 +184,61 @@ editEmail(){
 confirmEmail(){
   this.closeEmailModal()
   setTimeout(() => {
+    
     this.navController.navigateRoot('/verification'); // Переход после задержки
   }, 300); // Задержка в 300 миллисекунд
+}
+
+confirmPhone(){
+
+  
+  this.closePhoneModal()
+  
+    this.deletePhoneForUserId().then(()=>{
+      this.userService.refreshUser().then(()=>{
+        this.navController.navigateRoot('/confirm-phone')
+      })
+    })
+  
+    
+  
+}
+
+
+deletePhoneForUserId(){
+  return new Promise((resolve, reject)=>{
+    console.log('i load request')
+    if(this.user?.phone){
+      let loader:HTMLIonLoadingElement
+          this.loadingService.showLoading().then((res:HTMLIonLoadingElement)=>{
+            loader = res
+          })
+    
+          this.userService.deletePhoneUser(this.user?.id).pipe(
+            catchError(error => {
+        
+              this.toastService.showToast('Ошибка удаления номера телефона', 'warning')
+              console.log(error)
+              return throwError(()=> error)
+            }),
+            finalize(() => {
+              console.log('i finished request')
+              this.loadingService.hideLoading(loader);
+              resolve(true)
+            })
+          ).subscribe((res)=>{
+            
+            resolve(true)
+          })
+      
+      }else{
+        resolve(true)
+        this.checkVerifiedPhone()
+        this.navController.navigateRoot('/confirm-phone');
+      }
+  })
+  
+  
 }
 
   avatarUrl:string = ''
@@ -343,6 +422,8 @@ confirmEmail(){
     this.userService.user.pipe().subscribe(()=>{
       this.user = this.userService.user.value
       this.settingsAvatar = this.checkImgUrlPipe.checkUrlDontType(this.user?.avatar) 
+      this.checkVerifiedEmail()
+      this.checkVerifiedPhone()
       // this.selectedStatusItem = this.user?.roles[0].name
     })
   }
@@ -366,9 +447,13 @@ confirmEmail(){
     
     this.userService.user.pipe().subscribe(()=>{
     this.user = this.userService.user.value 
+    this.personalViewForm.patchValue({phoneView: this.user?.phone?.number || 'нет телефона'});
+    this.checkVerifiedPhone();
   })
-  this.personalSettingsForm.patchValue({email: this.user?.email})
-  this.personalViewForm.patchValue({emailView: this.user?.email})
+  this.personalSettingsForm.patchValue({email: this.user?.email || 'нет почты'})
+  this.personalViewForm.patchValue({emailView: this.user?.email || 'нет почты'})
+  this.personalSettingsForm.patchValue({phone: this.user?.phone?.number || 'нет телефона'})
+  this.personalViewForm.patchValue({phoneView: this.user?.phone?.number || 'нет телефона'})
 }
 
 async deleteAccount() {
