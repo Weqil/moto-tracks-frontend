@@ -11,7 +11,7 @@
             <app-event-card [event]="event" >
               <div *ngIf="userService.userHaveRoot() && event.commissions_exists" class="button-container">
                 <app-standart-button style="width: 100%;" (click)="generateGoogleLink(event.id)" buttonText="Выгрузить список"></app-standart-button>
-                <app-standart-button style="width: 100%;" (click)="openUploadResultMpdal()" buttonText="Добавить результаты"></app-standart-button>
+                <app-standart-button style="width: 100%;" (click)="openUploadResultModal(event)" buttonText="Добавить результаты"></app-standart-button>
                 <!-- <app-standart-button style="width: 100%;" (click)="redirectInConfirm(event.id)" buttonText="Модерация участников"></app-standart-button> -->
               </div>
             </app-event-card>
@@ -26,7 +26,7 @@
               <app-event-card [event]="event">
                 <div *ngIf="userService.userHaveRoot()" class="button-container">
                   <app-standart-button style="width: 100%;" (click)="generateGoogleLink(event.id)" buttonText="Выгрузить список"></app-standart-button>
-                  <app-standart-button style="width: 100%;" (click)="openUploadResultMpdal()" buttonText="Добавить результаты"></app-standart-button>
+                  <app-standart-button style="width: 100%;" (click)="openUploadResultModal(event)" buttonText="Добавить результаты"></app-standart-button>
                 </div>
               </app-event-card>
             </div>
@@ -56,46 +56,39 @@
 <ion-modal class="upload-result-modal" (didDismiss)="closeUploadResultModalState()" [isOpen]="uploadResultModalState">
   <ng-template>
     <ion-content>
-      <app-header headerTitle="Добавить результаты гонки" [customBack]="true" (customBackClick)="closeUploadResultModalState()">
+      <app-header headerTitle="Результаты гонки" [customBack]="true" (customBackClick)="closeUploadResultModalState()">
       </app-header>
         <div class="main-container--with-header">
             <article class="add-result">
-              <div class="upload">
-                <div  
-                (dragover)="onDragOver($event)"
-                (dragleave)="onDragLeave($event)"
-                (drop)="onDrop($event)"
-                class="upload-wrapper">
-                <div  [ngClass]="{ 'files-result-upload__active': isDragOver }" class="files-result-upload">
-                  <div class="files-result-upload__wrapper">
-                    <img class="upload-image" src="/assets/icons/images.svg" alt="">
-                    <div class="upload-text">Перетащите сюда файлы для загрузки</div>
-                    <input  accept=".jpg,.jpeg,.png,.gif,.bmp,.webp,.pdf,.doc,.docx," #fileInput class="file" multiple (change)="getResultFile($event)" type="file">
-                  </div>
+              <app-upload-file-input [resultsFilesUpload]="resultsFilesUploadArrayClear" [clearUploadFiles]="clearUploadFiles" [allowedTypes]="['application/pdf']" (resultsFilesUploadEmit)="getUploadResultsFiles($event)"></app-upload-file-input>
+              <div class="save-result-button-wrapper">
+                <app-standart-button style="width: 100%;" (click)="submitResultInRace()" buttonText="Сохранить"></app-standart-button>
+              </div>
+              <app-no-data-found [show]="!currentRace.pdf_files" message="Результаты гонки не добавлены"></app-no-data-found>
+              <ng-container *ngIf="currentRace.pdf_files">
+                <div class="documents-grid">
+              
+                    <ng-container *ngFor="let document of formattedResultsDocument"> 
+                      <div class="documents-grid__item">
+                        <pdf-viewer [src]="document.path | checkImgUrl" [zoom]="document.zoomLevel"
+                        [render-text]="true"
+                        [original-size]="false"
+                        
+                        class="file__img"
+                        ></pdf-viewer>
+                        <div class="button-container--pdf">
+                          <app-circle-button class="circle-button" [icon]="'assets/icons/plus.svg'" (click)="zoomIn(document)"></app-circle-button>
+                          <app-circle-button class="circle-button" [icon]="'assets/icons/minus.svg'" (click)="zoomOut(document)"></app-circle-button>
+                          <app-circle-button class="circle-button" [icon]="'assets/icons/close.svg'" (click)="resetZoom(document)"></app-circle-button>
+                          
+                        </div>
+                      </div>                  
+                    
+                    </ng-container>
               
                 </div>
-              </div>
-              <div class="files-grid">
-                <ng-container *ngFor="let fileElement of resultsFilesUpload">
-                  <div class="files-grid__item-wrapper">
-                    <div class="files-grid__item">
-                      <img src="/assets/icons/documents.svg" alt="">
-                      {{fileElement.file.name}}
-                    </div>
-                    <app-circle-button (click)="deleteUploudResultFile(fileElement)" icon="/assets/icons/trash.svg"></app-circle-button>
-                  </div>
-          
-                </ng-container>
-             
-              </div>
-            
-              
-              <app-standart-button style="width: 100%;" buttonText="Сохранить"></app-standart-button>
-            </div>
+              </ng-container>
             </article>
-         
-        
-        
         </div>
     </ion-content>
   </ng-template>

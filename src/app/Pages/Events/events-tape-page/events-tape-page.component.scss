@@ -31,6 +31,12 @@
 .tracks{
     padding-top: var(--standart-padding);
 }
+.button-container--pdf{
+    display: flex;
+    align-items: center;
+    gap: var(--standart-padding);
+    justify-content: center;
+}
 .button-container{
     padding: var(--standart-padding);
     display: flex;
@@ -79,52 +85,46 @@
     flex-direction: column;
     align-items: center;
 }
-.files-grid__item-wrapper{
-    display: flex;
-    gap: var(--little-padding);
+.save-result-button-wrapper{
+    width: 100%;
+    padding-top:  var(--standart-padding);
+    padding-bottom: var(--standart-padding);
 }
-.upload-text{
-    font-family: var(--font-regular);
+@media (min-width: 1024px) {
+    .save-result-button-wrapper{
+        width: 24rem;
+    }
 }
-.file{
-   padding: 5rem;
-   top: 0;
-   opacity: 0;
-   position: absolute;
-}
-.files-result-upload__active{
-    width: 80vw;
-    max-width: 360px;
+.add-result{
+    max-width: 1240px;
+    margin: auto;
     display: flex;
     align-items: center;
-    transition: 0.3s all;
-    background-color: #0b40ee31;
     flex-direction: column;
-    justify-content: center;
-    border-radius: 1px;
-    height: 150px;
-    border: 3px dashed rgba(6, 137, 238, 0.6);
 }
-.upload-image{
-    width: 4rem;
-    height: 4rem;
-    margin: auto;
-    filter: brightness(0) saturate(100%) invert(49%) sepia(48%) saturate(3845%) hue-rotate(200deg) brightness(100%) contrast(96%);
-}
-.upload-wrapper{
-    background-color: #fff;
-    border-radius: 16px;
-    position: relative;
-    
-     margin-top: var(--standart-padding);
-    padding: var(--standart-padding);
-    display: inline-block;
-}
-
 .upload-label{
     font-family: var(--font-regular);
     font-size: 16px;
     padding-bottom: var(--little-padding);
+}
+.file__img{
+    width: 300px;
+    height: 430px;
+}
+.documents-grid{
+    display: flex;
+    padding-bottom: 10rem;
+    flex-wrap: wrap;
+    align-items: center;
+    padding-top:4rem;
+    width: 100%;
+    justify-content: center;
+    gap: 2rem;
+}
+.documents-grid__item{
+    display: flex;
+    flex-direction: column;
+    gap: var(--standart-padding);
 }
 .tracks-grid__item{
     border-bottom: 1px solid rgba(76, 88, 97, .1568627451);

@@ -35,6 +35,10 @@ export class EventService {
     return this.http.post(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races/${eventId}/update`, editForm)
   }
 
+  addResultInRace(raceId:string, pdfFiles:File[]|FormData){
+    return this.http.post(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races/${raceId}/add-document`, pdfFiles)
+  }
+
   createEvent(event:FormData){
     return this.http.post(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races`, event)
   }

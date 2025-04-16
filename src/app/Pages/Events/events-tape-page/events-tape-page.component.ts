@@ -21,13 +21,20 @@ import { cloneDeep, find, extend } from 'lodash';
 import { StandartInputSearchComponent } from 'src/app/Shared/Components/Forms/standart-input-search/standart-input-search.component';
 import { MapService } from 'src/app/Shared/Data/Services/Map/map.service';
 import _ from 'lodash';
+import { UploadFileInputComponent } from '@app/Shared/Components/UI/upload-file-input/upload-file-input.component';
+import { NoDataFoundComponent } from "../../../Shared/Components/UI/no-data-found/no-data-found.component";
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { CheckImgUrlPipe } from "../../../Shared/Helpers/check-img-url.pipe";
 
 
 @Component({
   selector: 'app-events-tape-page',
   templateUrl: './events-tape-page.component.html',
   styleUrls: ['./events-tape-page.component.scss'],
-  imports: [SharedModule, CommonModule, HeaderModule, EventModule, IonModal, TabsComponent, TabsItemComponent,StandartInputSearchComponent]
+  imports: [SharedModule, CommonModule, HeaderModule,
+    EventModule, IonModal, TabsComponent, TabsItemComponent,
+    StandartInputSearchComponent, UploadFileInputComponent,
+    NoDataFoundComponent, NoDataFoundComponent, PdfViewerModule, CheckImgUrlPipe]
 })
 export class EventsTapePageComponent  implements OnInit {
 
@@ -55,32 +62,44 @@ export class EventsTapePageComponent  implements OnInit {
   googleTabsLink:string = ''
   searchRegionItems:any[] = []
   regionFilterName:string = 'Россия'
-
+  currentRace!:IEvent 
+  zoomLevel = 1.0;
   isDragOver = false;
-   allowedTypes = [
-    'image/jpeg', 'image/png', 'image/gif', 'image/bmp', 'image/webp',
+  allowedTypes = [
     'application/pdf',
-    'application/msword',
-    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-    'application/vnd.ms-excel',
-    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-    'application/vnd.ms-powerpoint',
-    'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-    'text/plain',
-    'application/rtf',
-    'application/vnd.oasis.opendocument.text'
   ];
   regionFilterId:string = ''
   uploadResultModalState:boolean = false
   expiredEvents:IEvent[]=[]
+  clearUploadFiles:boolean = false
   mapService:MapService = inject(MapService)
   startEvents: IEvent[]=[]
-
+  resultsFilesUploadArrayClear:any[] = []
+  formattedResultsDocument:[
+    {
+      path:string,
+      zoomLevel:number
+    }
+  ]|any[] = []
 
  
   redirectInTracks(){
     this.navController.navigateForward('/tracks')
   }
+
+  zoomIn(document:{path:string,zoomLevel:number}) {
+    let currentDocument = this.formattedResultsDocument.find((documentInArray:{path:string,zoomLevel:number})=>documentInArray.path == document.path )
+    currentDocument.zoomLevel += 0.1; // Увеличиваем масштаб на 10%
+  }
+
+  zoomOut(document:{path:string,zoomLevel:number}) {
+    let currentDocument = this.formattedResultsDocument.find((documentInArray:{path:string,zoomLevel:number})=>documentInArray.path == document.path )
+    currentDocument.zoomLevel -= 0.1; // Уменьшаем масштаб на 10%
+  }
+
+  resetZoom(document:{path:string,zoomLevel:number}) {
+    let currentDocument = this.formattedResultsDocument.find((documentInArray:{path:string,zoomLevel:number})=>documentInArray.path == document.path )
+    currentDocument.zoomLevel = 1.0; }
 
   closetTableModal(){
     this.tableModalValue = false
@@ -93,13 +112,48 @@ export class EventsTapePageComponent  implements OnInit {
     event.preventDefault(); 
     this.isDragOver = true;
   }
+  formatingZoomValuesInResults(){
+    this.formattedResultsDocument = []
+    this.clearUploadFiles = false
+    this.currentRace.pdf_files.forEach((file:any)=>{
+      this.formattedResultsDocument.push({
+        path:file,
+        zoomLevel:1,
+      })
+    })
+  }
+  submitResultInRace(){
+    let loader:HTMLIonLoadingElement
+    this.loadingService.showLoading().then((res:HTMLIonLoadingElement)=>loader = res)
+    const fd:FormData = new FormData()
   
+    this.resultsFilesUpload.forEach((fileElement:any,index:number) => {
+        fd.append(`pdfFiles[${index}]`,fileElement.file)
+    });
+    fd.forEach((value, key) => {
+      console.log(key, value);
+    });
+
+    this.eventService.addResultInRace(String(this.currentRace.id),fd).pipe(
+      finalize(()=>{
+        this.loadingService.hideLoading(loader)
+        this.resultsFilesUploadArrayClear = []
+      })
+    ).subscribe((res:any)=>{
+      this.currentRace = res.race
+      this.formatingZoomValuesInResults()
+    })
+  }
   onDragLeave(event: DragEvent) {
     event.preventDefault();
     this.isDragOver = false;
   }
   onDrop(event: DragEvent) {
     this.isDragOver = false;
+  }
+  getUploadResultsFiles(files:any){
+    console.log(files)
+    this.resultsFilesUpload = files
   }
   getResultFile(event:any){
     this.isDragOver = false;
@@ -140,8 +194,11 @@ export class EventsTapePageComponent  implements OnInit {
     this.resultsFilesUpload = this.resultsFilesUpload.filter((uploadFile:any)=> uploadFile.localPath !== file.localPath)
   }
 
-  openUploadResultMpdal(){
+  openUploadResultModal(event:any){
     this.resultsFilesUpload = []
+    this.formattedResultsDocument = []
+    this.currentRace = event
+    this.formatingZoomValuesInResults()
     this.uploadResultModalState = true
   }
 
