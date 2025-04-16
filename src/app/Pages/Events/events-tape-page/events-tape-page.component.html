@@ -70,6 +70,9 @@
               
                     <ng-container *ngFor="let document of formattedResultsDocument"> 
                       <div class="documents-grid__item">
+                        <div class="delete-button-container">
+                          <app-circle-button (click)="deleteResultFile(document)" icon="/assets/icons/trash.svg"></app-circle-button>
+                        </div>
                         <pdf-viewer [src]="document.path | checkImgUrl" [zoom]="document.zoomLevel"
                         [render-text]="true"
                         [original-size]="false"

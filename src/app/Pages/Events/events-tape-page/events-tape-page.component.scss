@@ -121,9 +121,17 @@
     justify-content: center;
     gap: 2rem;
 }
+.delete-button-container{
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 100;
+}
 .documents-grid__item{
     display: flex;
     flex-direction: column;
+    background: #fff;
+    position: relative;
     gap: var(--standart-padding);
 }
 .tracks-grid__item{

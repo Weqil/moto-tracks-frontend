@@ -144,6 +144,18 @@ export class EventsTapePageComponent  implements OnInit {
       this.formatingZoomValuesInResults()
     })
   }
+  deleteResultFile(file:any){
+    let loader:HTMLIonLoadingElement
+    this.loadingService.showLoading().then((res:HTMLIonLoadingElement)=>{
+      loader = res
+    })
+    this.eventService.deleteResultInRace(String(this.currentRace.id),[file.path]).pipe(
+      finalize(()=>this.loadingService.hideLoading(loader))
+    ).subscribe((res:any)=>{
+      this.currentRace = res.race
+      this.formatingZoomValuesInResults()
+    })
+  }
   onDragLeave(event: DragEvent) {
     event.preventDefault();
     this.isDragOver = false;
@@ -151,6 +163,7 @@ export class EventsTapePageComponent  implements OnInit {
   onDrop(event: DragEvent) {
     this.isDragOver = false;
   }
+ 
   getUploadResultsFiles(files:any){
     console.log(files)
     this.resultsFilesUpload = files
