@@ -87,6 +87,10 @@ export class UserService {
     return this.http.delete(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/users`);
   }
 
+  deletePhoneUser(userId?:number) {
+    return this.http.delete(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/phone/${userId}/delete`);
+  }
+
   userHaveRoot(){
     return this.user.value?.roles.find((role:any)=> role.name == userRoles.admin || role.name == userRoles.root || role.name == userRoles.commission) !== undefined
   }
@@ -113,11 +117,9 @@ export class UserService {
       userPersonalForm.patchValue({
         ...user.personal,
         dateOfBirth: user.personal?.date_of_birth
-        
-      
     })
-    console.log('Переданный пользователь')
-    console.log(userPersonalForm)
+    console.log('Переданный пользователь валидность:')
+    console.log(userPersonalForm.valid)
     }else{
      userPersonalForm.patchValue({
         ...this.user.value?.personal,
@@ -126,7 +128,10 @@ export class UserService {
     })
     console.log('Пользователь из локал сторадж')
     }
-    
+
+    // console.log('Валидность которую возвращает функция:')
+    // console.log(userPersonalForm.valid)
+    // console.log(userPersonalForm.value)
     return userPersonalForm.valid
   }
 
@@ -151,13 +156,17 @@ export class UserService {
    
   }
   refreshUser(callback?: () => void){
-    this.getUserFromServerWithToken().pipe().subscribe((res:any)=>{
-      this.setUserInLocalStorage(res.user, this.getAuthToken());
-      this.user.next(res.user);
-      if (callback) {
-        callback();
-      }
+    return new Promise((resolve)=>{
+      this.getUserFromServerWithToken().pipe().subscribe((res:any)=>{
+        this.setUserInLocalStorage(res.user, this.getAuthToken());
+        this.user.next(res.user);
+        resolve(res.user)
+        if (callback) {
+          callback();
+        }
+      })
     })
+   
   }
   
   clearUser(){

@@ -25,11 +25,13 @@
 
       <div class="email-container">
         <app-standart-input [readonly]="true" class="email-control" [control]="personalViewForm.get('emailView')" [errorMessage]="formErrors.email.errorMessage"  label="Email"></app-standart-input>
+        <div class="status-email" [ngClass]="{'status-email-green':emailStatus}"></div>
         <app-circle-button class="edit-btn" [icon]="'/assets/icons/edit.svg'" (click)="openEmailModal()"></app-circle-button>
       </div>
 
       <div class="email-container">
         <app-standart-input [readonly]="true" class="email-control" [control]="personalViewForm.get('phoneView')" [errorMessage]="formErrors.phone.errorMessage"  label="Телефон"></app-standart-input>
+        <div class="status-phone" [ngClass]="{'status-phone-green':phoneStatus}"></div>
         <app-circle-button class="edit-btn" [icon]="'/assets/icons/edit.svg'" (click)="openPhoneModal()"></app-circle-button>
       </div>
 
