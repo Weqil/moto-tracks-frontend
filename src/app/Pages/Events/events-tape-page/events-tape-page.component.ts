@@ -99,7 +99,8 @@ export class EventsTapePageComponent  implements OnInit {
 
   resetZoom(document:{path:string,zoomLevel:number}) {
     let currentDocument = this.formattedResultsDocument.find((documentInArray:{path:string,zoomLevel:number})=>documentInArray.path == document.path )
-    currentDocument.zoomLevel = 1.0; }
+    currentDocument.zoomLevel = 1.0; 
+  }
 
   closetTableModal(){
     this.tableModalValue = false
@@ -325,7 +326,7 @@ export class EventsTapePageComponent  implements OnInit {
     this.getRegions()
     window.addEventListener('popstate', (event) => {
       this.closetTableModal()
-      
+      this.closeUploadResultModalState()
     });
   }
 
