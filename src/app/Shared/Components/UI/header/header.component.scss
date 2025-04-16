@@ -32,6 +32,7 @@
                     font-size: var( --font-headers-size-little);
                     font-family: var(--font-bold);
                     color: var(--font-standart-white-color);
+                    
                 }
             }  
         }
@@ -43,5 +44,18 @@
     width: 1rem;
     height: 1rem;
 }
+
+@media (max-width: 700px) {
+    .header-title{
+        font-size: var( --font-headers-size-little);
+        font-family: var(--font-bold);
+        color: var(--font-standart-white-color);
+        white-space: nowrap;          // не переносить текст
+        overflow: hidden;             // скрыть выходящий за границу
+        text-overflow: ellipsis; 
+        width: 20rem;
+    }
+  }
+
 
 
