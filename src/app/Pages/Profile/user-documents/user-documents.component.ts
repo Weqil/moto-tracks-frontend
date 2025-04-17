@@ -3,7 +3,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { IonContent } from '@ionic/angular';
 import { IonModal } from '@ionic/angular/standalone';
-import { catchError, EMPTY, finalize } from 'rxjs';
+import { catchError, EMPTY, finalize, throwError } from 'rxjs';
 import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
 import { ButtonsModule } from 'src/app/Shared/Modules/buttons/buttons.module';
 import { FormsModule } from 'src/app/Shared/Modules/forms/forms.module';
@@ -23,13 +23,14 @@ import { SelectComandsComponent } from 'src/app/Shared/Components/Commands/selec
 import { ComandsService } from 'src/app/Shared/Data/Services/Comands/comands.service';
 import { ICommand, ICommandCreate } from 'src/app/Shared/Data/Interfaces/command';
 import { User } from 'src/app/Shared/Data/Interfaces/user-model';
-
+import { CheckImgUrlPipe } from "../../../Shared/Helpers/check-img-url.pipe";
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-user-documents',
   templateUrl: './user-documents.component.html',
   styleUrls: ['./user-documents.component.scss'],
-  imports: [SharedModule,HeaderModule,FormsModule,StandartInputSelectComponent,IonModal,SelectComandsComponent]
+  imports: [RouterModule, SharedModule, HeaderModule, FormsModule, StandartInputSelectComponent, IonModal, SelectComandsComponent, CheckImgUrlPipe]
 })
 export class UserDocumentsComponent  implements OnInit {
   navController:NavController = inject(NavController)
@@ -65,6 +66,11 @@ export class UserDocumentsComponent  implements OnInit {
   oldNotariusFile:any
   oldNotariusValue:any
   oldPolisFile:any
+  documentStatus:boolean = false
+  arrayDocument:any[] = []
+  licensed:any
+  notarius:any
+  polish:any
   
   licensesForm: FormGroup = new FormGroup(
     {
@@ -576,13 +582,22 @@ submitForm(){
     this.userService.getUserDocuments().pipe(
       finalize(()=>{
         // this.loaderService.hideLoading(loader)
-      })
+      }),
+      catchError(error => {
+        
+        return throwError(()=> error)
+      }),
     ).subscribe((res:any)=>{
       if(res.documents){
+        this.documentStatus = true
+        this.arrayDocument = res.documents
+        console.log(this.arrayDocument)
         if(res.documents.find((doc:any)=> doc.type === 'licenses')){
           let licensesDocument = res.documents.find((doc:any)=> doc.type === 'licenses')
           this.licensesForm.patchValue((res.documents.find((doc:any)=> doc.type === 'licenses')))
           this.licensesFile = {name:'Лицензия загружена', dontFile:true} 
+          this.licensed = licensesDocument
+          console.log(this.licensed)
         }
         if((res.documents.find((doc:any)=> doc.type === 'polis'))){
           let polis = (res.documents.find((doc:any)=> doc.type === 'polis'))
@@ -592,13 +607,16 @@ submitForm(){
             itWorksDate: moment(polis.it_works_date).format('YYYY-MM-DD')
           })
           this.polisFile = {name:'Полис загружен', dontFile:true}
+          this.polish = polis
         }
         if(res.documents.find((doc:any)=> doc.type === 'pasport')){
           this.pasportForm.patchValue((res.documents.find((doc:any)=> doc.type === 'pasport')))
         } 
         if(res.documents.find((doc:any)=> doc.type === 'notarius')){
+          let notarius = (res.documents.find((doc:any)=> doc.type === 'notarius'))
           this.notariusFile = {name:'Согласие загружено', dontFile:true}
           this.oldNotariusFile = {name:'Согласие загружено', dontFile:true}
+          this.notarius = notarius
         } 
 
       
@@ -607,6 +625,7 @@ submitForm(){
         this.oldNotariusValue = (res.documents.find((doc:any)=> doc.type === 'notarius'))
         this.oldPasportValue = (res.documents.find((doc:any)=> doc.type === 'pasport'))
       }
+      
      
     })
   }

@@ -75,15 +75,21 @@
         <app-standart-input  [control]="personalUserForm.get('community')" style="cursor: pointer;" (click)="openComandSelectModalStateValue()" [readonly]="true" placeholder="Команда" label="Название команды"></app-standart-input>
         <app-standart-input [control]="personalUserForm.get('coach')" placeholder="Тренер" label="ФИО тренера"></app-standart-input>
         <div class="user-document-container">
+
           <div class="document-header">Лицензии</div>
-          <div class="licenses document-container">
-            <app-standart-input [control]="licensesForm.get('number')" placeholder="Лицензия МФР" label="Лицензия МФР (тип, №):"></app-standart-input>
-            <span class="scan-header">Скан или фотография Лицензии</span>
-            <app-file-input (click)="licensesFileInput.click()" [fileName]="licensesFile.name"></app-file-input>
-            <input (change)="setLicensesFile($event)" #licensesFileInput style="display: none;"  type="file">
+            <div class="licenses document-container">
+              <app-standart-input [control]="licensesForm.get('number')" placeholder="Лицензия МФР" label="Лицензия МФР (тип, №):"></app-standart-input>
+              <div class="document" *ngIf="licensed">
+                {{licensed.name}}
+                <span class="view-pdf-btn" [routerLink]="['/view-document', licensed.url_view + licensed.name | checkImgUrl]" >
+                  <app-standart-button theme="light"  [buttonText]="'Показать'" [disabled]="!licensed"></app-standart-button>
+                </span>
+              </div>
+              <span class="scan-header">Скан или фотография Лицензии</span>
+              <app-file-input (click)="licensesFileInput.click()" [fileName]="licensesFile.name"></app-file-input>
+              <input (change)="setLicensesFile($event)" #licensesFileInput style="display: none;"  type="file">
+            </div>
           </div>
-    
-        </div>
 
         <div class="user-document-container">
           <div class="document-header">Страховой полис</div>
@@ -91,6 +97,12 @@
             <app-standart-input [control]="polisForm.get('number')" placeholder="Серия, номер" label="Серия и номер"></app-standart-input>
             <app-standart-input [control]="polisForm.get('issuedWhom')" placeholder="Кем выдан" label="Кем выдан"></app-standart-input>
             <app-standart-input [control]="polisForm.get('itWorksDate')" placeholder="Срок действия" type="date" label="Срок действия"></app-standart-input>
+            <div class="document" *ngIf="polish">
+              {{polish.name}}
+              <div class="view-pdf-btn">
+                <app-standart-button theme="light" [buttonText]="'Показать'" [disabled]="!polish"></app-standart-button>
+              </div>
+            </div>
             <span class="scan-header">Скан или фотография Страхового полиса</span>
             <app-file-input  [fileName]="polisFile.name" (click)="polisFileInput.click()"></app-file-input>
             <input (change)="setPolisFile($event)" #polisFileInput style="display: none;"  type="file">
@@ -101,6 +113,12 @@
         <div class="user-document-container">
           <div class="document-header">Нотариальное согласие</div>
           <div class="polis document-container">
+            <div class="document" *ngIf="notarius">
+              {{notarius.name}}
+              <div class="view-pdf-btn">
+                <app-standart-button theme="light" [buttonText]="'Показать'" [disabled]="!notarius"></app-standart-button>
+              </div>
+            </div>
             <span class="scan-header">Скан или фотография Нотариального согласия</span>
             <app-file-input [fileName]="notariusFile.name" (click)="notariusFileInput.click()"></app-file-input>
             <input (change)="setNotariusFile($event)" #notariusFileInput style="display: none;"  type="file">

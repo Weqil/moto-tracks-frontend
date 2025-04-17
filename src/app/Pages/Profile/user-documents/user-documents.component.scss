@@ -55,3 +55,15 @@ ion-modal{
     padding: var(--standart-padding);
     padding-top: 0rem;
 }
+
+.document{
+    width: 100%;
+    background-color: white;
+    border-radius: 0.5rem;
+    padding: 0.2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 1rem;
+    
+}
