@@ -106,7 +106,8 @@
     margin-bottom: var(--standart-padding);
     margin-top: var(--standart-padding);
     justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    display: inline-flex;
     font-family: var(--font-light);
     display: flex;
     flex-wrap: wrap;
