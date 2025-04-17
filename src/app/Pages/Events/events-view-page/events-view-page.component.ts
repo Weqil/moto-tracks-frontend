@@ -40,13 +40,14 @@ import { ComandsService } from 'src/app/Shared/Data/Services/Comands/comands.ser
 import { CheckUserRoleService } from 'src/app/Shared/Data/Services/check-user-role.service';
 import { userRoles } from 'src/app/Shared/Data/Enums/roles';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { CheckResultsPathPipe } from "../../../Shared/Helpers/check-results-path.pipe";
 
 @Component({
   selector: 'app-events-view-page',
   templateUrl: './events-view-page.component.html',
   styleUrls: ['./events-view-page.component.scss'],
   imports: [SharedModule, SlidersModule, ButtonsModule, TrackSectionComponent, IonModal, HeaderModule, StandartInputComponent, UsersPreviewComponent,
-    ConfirmModalComponent, CheckImgUrlPipe, FormsModule, StandartInputSelectComponent, RouterLink, ImagesModalComponent,SelectComandsComponent,PdfViewerModule]
+    ConfirmModalComponent, CheckImgUrlPipe, FormsModule, StandartInputSelectComponent, RouterLink, ImagesModalComponent, SelectComandsComponent, PdfViewerModule, CheckResultsPathPipe]
 })
 export class EventsViewPageComponent  implements OnInit {
 
@@ -69,6 +70,10 @@ export class EventsViewPageComponent  implements OnInit {
   usersInRace:User[] = []
   event!:IEvent
   openUserModalValue:boolean = false
+  currentResultFile:any = {
+    path:'',
+    zoomLevel:1
+  }
   raceUser!:User
   checkUserRoleService:CheckUserRoleService = inject(CheckUserRoleService)
   searchRegionItems:any[] = []
@@ -577,7 +582,8 @@ export class EventsViewPageComponent  implements OnInit {
   closeUploadResultModalState(){
     this.resultModalState = false
   }
-  openUploadResultModalState(){
+  openUploadResultModalState(document:any){
+    this.currentResultFile = document
     this.resultModalState = true
   }
   zoomIn(document:{path:string,zoomLevel:number}) {
