@@ -35,10 +35,22 @@ export class EventService {
     return this.http.post(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races/${eventId}/update`, editForm)
   }
 
+  addResultInRace(raceId:string, pdfFiles:File[]|FormData){
+    return this.http.post(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races/${raceId}/add-document`, pdfFiles)
+  }
+
+  deleteResultInRace(raceId:string, pdfFilesDel:string[]){
+    return this.http.post(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races/${raceId}/add-document`, {
+      pdfFilesDel:pdfFilesDel
+    })
+  }
+
   createEvent(event:FormData){
     return this.http.post(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races`, event)
   }
   toggleAplicationInRace(raceId:string,data:any){
     return this.http.post<any>(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races/${raceId}/toggle-appointment-race`, data)
   }
+
+  
 }

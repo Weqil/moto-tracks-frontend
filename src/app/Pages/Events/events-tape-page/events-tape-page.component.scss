@@ -31,11 +31,108 @@
 .tracks{
     padding-top: var(--standart-padding);
 }
+.button-container--pdf{
+    display: flex;
+    align-items: center;
+    gap: var(--standart-padding);
+    justify-content: center;
+}
 .button-container{
     padding: var(--standart-padding);
     display: flex;
     flex-direction: column;
     gap: var(--little-padding);
+}
+.upload-result-modal{
+    --min-width: 100%;
+    --min-height: 100%;
+}
+.files-result-upload{
+    width: 80vw;
+    max-width: 360px;
+    display: flex;
+    transition: 0.3s all;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 1px;
+    height: 150px;
+    border: 3px dashed rgb(137 199 245 / 60%);
+}
+.upload{
+    width: 80vw;
+    max-width: 360px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: var(--standart-padding);
+}
+.files-grid{
+    width: 100%;
+  
+    display: flex;
+    flex-direction: column;
+    gap: var(--little-padding);
+    .files-grid__item{
+        background-color: #fff;
+        padding: 0.3rem;
+        border-radius: 3px;
+        font-family: var(--font-regular);
+    }
+}
+.files-result-upload__wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.save-result-button-wrapper{
+    width: 100%;
+    padding-top:  var(--standart-padding);
+    padding-bottom: var(--standart-padding);
+}
+@media (min-width: 1024px) {
+    .save-result-button-wrapper{
+        width: 24rem;
+    }
+}
+.add-result{
+    max-width: 1240px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.upload-label{
+    font-family: var(--font-regular);
+    font-size: 16px;
+    padding-bottom: var(--little-padding);
+}
+.file__img{
+    width: 300px;
+    height: 430px;
+}
+.documents-grid{
+    display: flex;
+    padding-bottom: 10rem;
+    flex-wrap: wrap;
+    align-items: center;
+    padding-top:4rem;
+    width: 100%;
+    justify-content: center;
+    gap: 2rem;
+}
+.delete-button-container{
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 100;
+}
+.documents-grid__item{
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    position: relative;
+    gap: var(--standart-padding);
 }
 .tracks-grid__item{
     border-bottom: 1px solid rgba(76, 88, 97, .1568627451);

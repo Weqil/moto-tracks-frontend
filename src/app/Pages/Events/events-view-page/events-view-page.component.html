@@ -34,11 +34,40 @@
         </div>
         
         <div *ngIf="event.position_file || event.results_file" class="event-documents">
-           <span *ngIf="event.results_file" [routerLink]="['/view-document', event.results_file | checkImgUrl]" class="event-documents__text">Регламент <img class="event-documents__icon" src="/assets/icons/documents.svg" alt=""></span>
-           <span *ngIf="event.position_file" [routerLink]="['/view-document', event.position_file | checkImgUrl]" class="event-documents__text">Положение <img class="event-documents__icon" src="/assets/icons/documents.svg" alt=""></span>
+           <span *ngIf="event.results_file" [routerLink]="['/view-document', event.results_file | checkImgUrl]" class="event-documents__text"> <img class="event-documents__icon" src="/assets/icons/documents.svg"> Регламент</span>
+           <span *ngIf="event.position_file" [routerLink]="['/view-document', event.position_file | checkImgUrl]" class="event-documents__text"> <img class="event-documents__icon" src="/assets/icons/documents.svg"alt=""> Положение</span>
+           <ng-container *ngFor="let document of formattedResultsDocument">
+            <span (click)="openUploadResultModalState(document)" *ngIf="document" class="event-documents__text"><img class="event-documents__icon" src="/assets/icons/documents.svg" alt=""> {{document.path| checkResultsPath}} </span>
+           </ng-container>
         </div>
+        <ng-container *ngIf="event.pdf_files && event.pdf_files.length ">
+          <ion-modal [isOpen]="resultModalState" class="upload-result-modal">
+            <ng-template>
+              <ion-content>
+                <app-header headerTitle="Результаты гонки" [customBack]="true" (customBackClick)="closeUploadResultModalState()"></app-header>
+                <ng-container *ngIf="currentResultFile">
+                  <div class="documents-grid">
 
-        
+                      <div class="documents-grid__item">
+                        <pdf-viewer 
+                        [src]="currentResultFile.path | checkImgUrl"
+                        [render-text]="true"
+                        [zoom]="currentResultFile.zoomLevel"
+                        [original-size]="false"
+                        class="file__img"
+                        ></pdf-viewer>
+                        <div class="button-container--pdf">
+                          <app-circle-button class="circle-button" [icon]="'assets/icons/plus.svg'" (click)="zoomIn(currentResultFile)"></app-circle-button>
+                          <app-circle-button class="circle-button" [icon]="'assets/icons/minus.svg'" (click)="zoomOut(currentResultFile)"></app-circle-button>
+                          <app-circle-button class="circle-button" [icon]="'assets/icons/close.svg'" (click)="resetZoom(currentResultFile)"></app-circle-button>
+                        </div>
+                      </div>
+                  </div>
+                </ng-container>
+              </ion-content>
+            </ng-template>
+          </ion-modal>
+        </ng-container>
 
         <div class="event-track">
           <!-- <div class="event-track__title">Где проходит</div> -->
@@ -64,24 +93,11 @@
 
       </div>
       
-     
-
-
-        <!-- <div *ngIf="!checkRecordEnd() && this.event.status && this.event.status.id !== 2" class="footer-group">
-          
-
-          @if(checkUserRoleService.userHaveRole(confirmUsersRolesInGroupAplication)){
-            <app-standart-button (click)="redirectTrenerInEditAplication()" buttonText="Заявится группой" theme="big"></app-standart-button>
-          }
-          @else {
-
-          }
-         
-        </div> -->
+   
     </div>
 
     <div class="footer-page">
-      <div *ngIf="event.status?.name !== 'Планируемая'"  class="footer">
+      <div *ngIf="event.status?.name !== 'Планируемая' && !checkDateStartInRace()"  class="footer">
         @if (!this.event.appointments_exists && !checkRecordStart() && !checkRecordEnd()) {
           <app-standart-button (click)="openApplicationForm()" buttonText="Заявиться" theme="big"></app-standart-button>
         }
@@ -94,7 +110,7 @@
 
         <div class="group-button" *ngIf="!checkRecordStart()">
           @if(checkUserRoleService.userHaveRole(confirmUsersRolesInGroupAplication) && !checkRecordStart()){
-          <app-standart-button (click)="redirectTrenerInEditAplication()" buttonText="Заявится группой" theme="big"></app-standart-button>
+          <app-standart-button (click)="redirectTrenerInEditAplication()" buttonText="Заявится командой" theme="big"></app-standart-button>
           }
           @else if(checkRecordStart() && checkRecordEnd()){
             <app-standart-button [disabled]="true"  buttonText="Дата начала регистрации: {{event.record_start}}"></app-standart-button>

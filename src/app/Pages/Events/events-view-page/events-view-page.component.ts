@@ -39,13 +39,15 @@ import { ICommand, ICommandCreate } from 'src/app/Shared/Data/Interfaces/command
 import { ComandsService } from 'src/app/Shared/Data/Services/Comands/comands.service';
 import { CheckUserRoleService } from 'src/app/Shared/Data/Services/check-user-role.service';
 import { userRoles } from 'src/app/Shared/Data/Enums/roles';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { CheckResultsPathPipe } from "../../../Shared/Helpers/check-results-path.pipe";
 
 @Component({
   selector: 'app-events-view-page',
   templateUrl: './events-view-page.component.html',
   styleUrls: ['./events-view-page.component.scss'],
   imports: [SharedModule, SlidersModule, ButtonsModule, TrackSectionComponent, IonModal, HeaderModule, StandartInputComponent, UsersPreviewComponent,
-    ConfirmModalComponent, CheckImgUrlPipe, FormsModule, StandartInputSelectComponent, RouterLink, ImagesModalComponent,SelectComandsComponent]
+    ConfirmModalComponent, CheckImgUrlPipe, FormsModule, StandartInputSelectComponent, RouterLink, ImagesModalComponent, SelectComandsComponent, PdfViewerModule, CheckResultsPathPipe]
 })
 export class EventsViewPageComponent  implements OnInit {
 
@@ -68,6 +70,10 @@ export class EventsViewPageComponent  implements OnInit {
   usersInRace:User[] = []
   event!:IEvent
   openUserModalValue:boolean = false
+  currentResultFile:any = {
+    path:'',
+    zoomLevel:1
+  }
   raceUser!:User
   checkUserRoleService:CheckUserRoleService = inject(CheckUserRoleService)
   searchRegionItems:any[] = []
@@ -80,7 +86,7 @@ export class EventsViewPageComponent  implements OnInit {
   licensesId:string = ''
   polisId:string = ''
   notariusId:string = ''
-
+  resultModalState:boolean = false
   oldNotariusFile:any
   selectRegionInCommandModal:any = {}
   oldPolisFile:any
@@ -103,6 +109,12 @@ export class EventsViewPageComponent  implements OnInit {
   applicationFormValueState:boolean = false
 
   statusImagesModal?:boolean = false;
+  formattedResultsDocument:[
+    {
+      path:string,
+      zoomLevel:number
+    }
+  ]|any[] = []
 
   userService:UserService = inject(UserService)
   eventId: string = ''
@@ -418,6 +430,15 @@ export class EventsViewPageComponent  implements OnInit {
     let file = event.target.files[0]
     this.polisFile = file
   }
+  formatingZoomValuesInResults(){
+    this.formattedResultsDocument = []
+    this.event.pdf_files.forEach((file:any)=>{
+      this.formattedResultsDocument.push({
+        path:file,
+        zoomLevel:1,
+      })
+    })
+  }
 
    clearDescription(){
     return this.sanitizer.bypassSecurityTrustHtml(this.formatingText(String(this.event.desc)))
@@ -550,6 +571,35 @@ export class EventsViewPageComponent  implements OnInit {
     window.location.assign(`/aplication/${this.event.id}`);
   }
 
+  checkDateStartInRace(){
+    if(this.event){
+      let now = moment().format()
+      return moment(this.event.date_start).format() < now
+    }else{
+      return
+    }
+  }
+  closeUploadResultModalState(){
+    this.resultModalState = false
+  }
+  openUploadResultModalState(document:any){
+    this.currentResultFile = document
+    this.resultModalState = true
+  }
+  zoomIn(document:{path:string,zoomLevel:number}) {
+    let currentDocument = this.formattedResultsDocument.find((documentInArray:{path:string,zoomLevel:number})=>documentInArray.path == document.path )
+    currentDocument.zoomLevel += 0.1; // Увеличиваем масштаб на 10%
+  }
+
+  zoomOut(document:{path:string,zoomLevel:number}) {
+    let currentDocument = this.formattedResultsDocument.find((documentInArray:{path:string,zoomLevel:number})=>documentInArray.path == document.path )
+    currentDocument.zoomLevel -= 0.1; // Уменьшаем масштаб на 10%
+  }
+
+  resetZoom(document:{path:string,zoomLevel:number}) {
+    let currentDocument = this.formattedResultsDocument.find((documentInArray:{path:string,zoomLevel:number})=>documentInArray.path == document.path )
+    currentDocument.zoomLevel = 1.0; 
+  }
   saveNewPersonal(){
     let loader:HTMLIonLoadingElement
     this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
@@ -730,6 +780,7 @@ export class EventsViewPageComponent  implements OnInit {
     ).subscribe((res:any)=>{
       this.raceUser = res.race.user
       this.event = res.race
+      this.formatingZoomValuesInResults()
       this.checkRecordEnd()
       this.groupItems = this.event.grades
     })
@@ -966,6 +1017,7 @@ export class EventsViewPageComponent  implements OnInit {
       this.closeStateUsersModal()
       this.closeApplicationForm()
       this.closeImagesModal()
+      this.closeUploadResultModalState()
       this.closeRegionModal()
       this.closeComandSelectModalStateValue()
     });
