@@ -11,7 +11,7 @@ export class IconButtonComponent  implements OnInit {
 
   constructor() { }
    /**
-   * Тема кнопки: `dark` — тёмная по умолчанию, `red` — красная
+   * Тема кнопки: `dark` — тёмная по умолчанию, `red` — красная,`white` - белая
    */
   @Input() theme: 'dark'|'red'|'white' = 'dark'
 

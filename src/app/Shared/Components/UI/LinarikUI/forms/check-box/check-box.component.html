@@ -1,0 +1,9 @@
+<div (click)="onChange()" [ngClass]="getClasses" class="check-box">
+    <div [ngClass]="{'checked-box':!checked,'checked-box__active':checked }">
+      <svg width="8" height="7" viewBox="0 0 8 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0.999999 4.44231L2.07924 5.25174C2.50793 5.57326 3.11387 5.49972 3.4532 5.08498L7 0.75" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        
+    </div>
+    <span>{{labelText}}</span>
+</div>
