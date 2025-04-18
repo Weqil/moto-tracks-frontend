@@ -13,12 +13,13 @@ ion-content{
     width: 120px;
     padding: 0.5rem;
     display: flex;
+    height: fit-content;
     flex-wrap: wrap;
     border: 2px dashed rgb(61, 61, 61);
     gap: 8px 18px;
 }
 .icon-buttons-grid__icon-buttons-grid--beveled{
-   
+    height: fit-content;
     padding: 0.5rem;
     display: flex;
     flex-wrap: wrap;
@@ -27,5 +28,13 @@ ion-content{
 }
 
 .icon-buttons-grid__icon-buttons-grid--beveled{
-    max-width: 368px;
+    max-width: 310px;
+}
+.back-buttons-grid{
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    max-width: 105px;
+    border: 2px dashed rgb(61, 61, 61);
+    gap: 18px;
 }
