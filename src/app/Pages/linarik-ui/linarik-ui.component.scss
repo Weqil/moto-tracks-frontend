@@ -1,0 +1,31 @@
+ion-content{
+    --background:#181818;
+}
+.elements-grid{
+    display: flex;
+    padding: 1rem;
+    max-width: 960px;
+    margin: auto;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+.icon-buttons-grid{
+    width: 120px;
+    padding: 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    border: 2px dashed rgb(61, 61, 61);
+    gap: 8px 18px;
+}
+.icon-buttons-grid__icon-buttons-grid--beveled{
+   
+    padding: 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    border: 2px dashed rgb(61, 61, 61);
+    gap: 8px 18px;
+}
+
+.icon-buttons-grid__icon-buttons-grid--beveled{
+    max-width: 368px;
+}

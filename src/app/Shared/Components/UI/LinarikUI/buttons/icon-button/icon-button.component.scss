@@ -1,0 +1,111 @@
+.standart-height{
+    height: 2.5rem;
+}
+
+.long-height{
+    height: 3.25rem;
+}
+.little-height{
+    height: 1.875rem;
+}
+.font{
+    font-size: 14px;
+}
+.w40{
+    min-width: 2.5rem;
+}
+.w49{
+    min-width: 3.063rem;
+}
+.w52{
+    min-width: 3.25rem;
+}
+.w58{
+    min-width: 3.625rem;
+}
+.w71{
+    min-width: 4.438rem;
+}
+
+.dark{
+    background: #181818;
+    background: linear-gradient(180deg, rgba(24, 24, 24, 1) 0%, rgba(46, 46, 46, 1) 100%);
+    transition: 0.3s all;
+    &:active{
+        transition: 0.3s all;
+        background: #363636;
+    }
+    span{
+        color: #fff;
+    }
+}
+.red{
+    background: #FF5555;
+    background: linear-gradient(180deg, rgba(255, 85, 85, 1) 0%, rgba(213, 49, 49, 1) 100%);
+    transition: 0.3s all;
+    &:active{
+        transition: 0.3s all;
+        background: #fc6969;
+    }
+    span{
+        color: #fff;
+    }
+}
+.white{
+    background: #FFF;
+    transition: 0.3s all;
+    &:active{
+        transition: 0.3s all;
+        background: #b9b9b9;
+    }
+    .icon-filter{
+        filter: brightness(0) saturate(100%) invert(0%) sepia(96%) saturate(16%) hue-rotate(246deg) brightness(98%) contrast(105%);
+    }
+    span{
+        color: #000000;
+    }
+  
+}
+.disabled{
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+.icon-filter{
+    filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(5deg) brightness(102%) contrast(102%);
+    width: 1.375rem;
+    height: 1.375rem;
+}
+
+.icon-button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.clippy-right{
+    clip-path: polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%);
+    width: 3.5rem;
+}
+
+.clippy-left{
+    clip-path: polygon(0% 0%, 85% 0%, 100% 100%, 15% 100%);
+    width: 3.25rem;
+}
+.elements-position{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.elements-position__row{
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    img{
+        width: 14px;
+        height: 14px;
+    }
+}

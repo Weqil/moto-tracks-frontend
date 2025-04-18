@@ -1,0 +1,4 @@
+<button [type]="type" [ngClass]="getClasses">
+    <img *ngIf="icon" [src]="icon" class="icon-filter" alt="">
+    <span *ngIf="buttonText">{{buttonText}}</span>
+</button>
