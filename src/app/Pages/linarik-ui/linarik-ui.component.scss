@@ -42,6 +42,17 @@ ion-content{
     padding: 0.5rem;
     display: flex;
     width: 360px;
+    height: fit-content;
+    flex-direction: column;
+    border: 2px dashed rgb(61, 61, 61);
+    gap: 18px;
+}
+.tab-menu-list-grid{
+    padding: 0.5rem;
+    display: flex;
+    width: 360px;
+    height: fit-content;
+    background: #fff;
     flex-direction: column;
     border: 2px dashed rgb(61, 61, 61);
     gap: 18px;

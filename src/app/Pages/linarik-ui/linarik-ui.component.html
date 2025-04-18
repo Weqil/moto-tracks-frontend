@@ -36,7 +36,13 @@
             <ng-container *ngFor="let box of checkBoxArray">
                 <app-check-box (change)="getCheckBoxValue($event)" [value]="box.value" [checked]="box.state" [labelText]="box.labelText" [theme]="box.theme" [clippy]="box.clippy" ></app-check-box>
             </ng-container>
-            
+        </div>
+
+        <div class="tab-menu-list-grid">
+            <app-tab-menu-item icon="/assets/icons/documents.svg" name="Анкета участника" ></app-tab-menu-item>
+            <app-tab-menu-item icon="/assets/icons/documents.svg" name="Анкета участника" ></app-tab-menu-item>
+            <app-tab-menu-item icon="/assets/icons/documents.svg" name="Анкета участника" ></app-tab-menu-item>
+            <app-tab-menu-item icon="/assets/icons/documents.svg" name="Анкета участника" ></app-tab-menu-item>
         </div>
        
     </main>
