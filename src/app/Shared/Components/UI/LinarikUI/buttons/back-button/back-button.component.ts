@@ -46,7 +46,7 @@ export class BackButtonComponent  implements OnInit {
    */
 
     get getClasses():string[]{
-      return [this.theme, this.disabled ? 'disabled':'',this.widht, this.border, this.fontColor,'back-button']
+      return [this.theme, this.disabled ? 'disabled':'',this.widht, this.border, this.fontColor,'back-button','font']
     }
 
   ngOnInit() {}
