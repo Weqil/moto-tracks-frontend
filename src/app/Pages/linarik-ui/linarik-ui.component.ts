@@ -24,6 +24,7 @@ import { IonContent } from "@ionic/angular/standalone";
 export class LinarikUiComponent  implements OnInit {
 
   constructor() { }
+  activeTab:boolean = false
   checkBoxArray:any = [
     {
       value:1,
@@ -61,5 +62,9 @@ export class LinarikUiComponent  implements OnInit {
   getCheckBoxValue(event:any){
     let currentItem = this.checkBoxArray.find((box:any)=> event.value == box.value )
     currentItem.state = !event.state
+  }
+
+  changeTab(event:any){
+    this.activeTab = !event.state
   }
 }

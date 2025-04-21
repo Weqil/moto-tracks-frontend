@@ -20,7 +20,7 @@ export class TabElementComponent  implements OnInit {
    /**
    * Состояние вкладки
    */
-  @Input() active:boolean = false
+  @Input() active:boolean = true
 
    /**
    * Текст вкладки
