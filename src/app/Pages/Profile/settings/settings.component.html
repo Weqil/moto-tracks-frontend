@@ -8,9 +8,12 @@
     <div class="document-container">
       <div class="up-container">
         <div class="user-section__avatar">
-          <img (click)="file.click()" class="user-section__avatar__img" [src]="settingsAvatar" alt="" alt="">
+          <img (click)="file.click()" class="user-section__avatar__img" [src]="settingsAvatar" alt="" >
           <input (change)="setAvatar($event)" #file style="display: none;" accept="image/png, image/jpeg"   type="file">
           <span class="user_id">UID {{user?.id}}</span>   
+          <div class="">
+            <img class="edit-btn" (click)="file.click()" [src]="'/assets/icons/edit-img.svg'" >
+          </div>
         </div>
 
         <div class="user-name-container">
@@ -21,9 +24,11 @@
       </div>
 
       <div class="email-container">
-        <app-standart-input [control]="personalSettingsForm.get('email')" [errorMessage]="formErrors.email.errorMessage" placeholder="Введите адрес электронной почты" label="Email"></app-standart-input>
-        <!-- <app-standart-button [buttonText]="'Изменить'" (click)="editEmail()"></app-standart-button> -->
+        <app-standart-input [readonly]="true" class="email-control" [control]="personalViewForm.get('emailView')" [errorMessage]="formErrors.email.errorMessage"  label="Email"></app-standart-input>
+        <app-circle-button class="edit-btn" [icon]="'/assets/icons/edit.svg'" (click)="openEmailModal()"></app-circle-button>
       </div>
+
+      
 
       <div class="status-container">
         <span class="span-text">Смена роли:</span>
@@ -60,4 +65,31 @@
  
     
   </main>
+
+ 
+
 </ion-content>
+
+<ion-modal [isOpen]="emailModalValue"  (didDismiss)="closeEmailModal()">
+  <ng-template>
+    <ion-content>
+
+        <div class="verificate-email-container" >
+          <div class="email-title-container">
+              <span class="verificate-email-title">Вам поступит код для подтверджения почты по указанному адресу:</span>
+          </div>
+          <app-standart-input class="email-control" [control]="personalSettingsForm.get('email')" [errorMessage]="formErrors.email.errorMessage" placeholder="Введите адрес электронной почты" label="Email"></app-standart-input>
+          
+          <div class="button-edit-email">
+            <app-standart-button class="button-edit-email" [buttonText]="'Изменить'" (click)="editEmail()"></app-standart-button>
+          </div>
+
+          <div class="button-confirm-email">
+              <app-standart-button class="button-confirm-email" [buttonText]="'Подтвердить текущую'" (click)="confirmEmail()"></app-standart-button>
+          </div>
+        </div>
+       
+    </ion-content>
+  </ng-template>
+  
+</ion-modal>

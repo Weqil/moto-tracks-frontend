@@ -21,6 +21,9 @@ export class UserService {
   constructor(
   ) { }
 
+  getUserById(id:string){
+    return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/users/${id}`)
+  }
 
   getAllUsersInLocalStorage(){
     let usersArray:any = localStorage.getItem('allUsers')
@@ -47,6 +50,7 @@ export class UserService {
   //Занёс данные о пользователе
   setUserInLocalStorage(user:User,token?:string|null) {
     if(user){
+     
       let usersArray:any = localStorage.getItem('allUsers')
       if(usersArray){
         usersArray = JSON.parse(usersArray)
@@ -58,6 +62,14 @@ export class UserService {
           user.access_token = token
         }
         usersArray.push(user)
+      }else if(usersArray.find((userInArray:any)=> userInArray.id == user.id)){
+        if(token){
+          user.access_token = token
+        }
+        let index = usersArray.findIndex((currentUser:User) => currentUser.id == user.id)
+        if(index >= 0 && usersArray[index]){
+          usersArray[index] = user
+        }
       }
       localStorage.setItem('allUsers', JSON.stringify(usersArray))
     
@@ -87,7 +99,7 @@ export class UserService {
     return this.http.post<any>(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/users/cabinet/documents/${id}/update`, document)
   }
 
-  userHaveCurrentPersonal(){
+  userHaveCurrentPersonal(user?: User){
     let userPersonalForm = new FormGroup({
       name: new FormControl('', [Validators.required]),
       surname: new FormControl('', [Validators.required]),
@@ -96,10 +108,18 @@ export class UserService {
       city: new FormControl('', [Validators.required]),
       region: new FormControl('', [Validators.required]),
     })
-    userPersonalForm.patchValue({
+    if(!user){
+      userPersonalForm.patchValue({
         ...this.user.value?.personal,
         dateOfBirth: this.user.value?.personal?.date_of_birth
     })
+    }else{
+      userPersonalForm.patchValue({
+        ...user.personal,
+        dateOfBirth: user.personal?.date_of_birth
+    })
+    }
+    
     return userPersonalForm.valid
   }
 
@@ -123,10 +143,13 @@ export class UserService {
     }
    
   }
-  refreshUser(){
+  refreshUser(callback?: () => void){
     this.getUserFromServerWithToken().pipe().subscribe((res:any)=>{
       this.setUserInLocalStorage(res.user, this.getAuthToken());
       this.user.next(res.user);
+      if (callback) {
+        callback();
+      }
     })
   }
   
@@ -158,15 +181,28 @@ export class UserService {
     return this.http.post<any>(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/roles-change`, { roleId: roleId })
   }
 
+  getComissionUsers(){
+    return this.http.get<any>(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/users-commissions`)
+  }
+
   //Проверка подтвержденной почты
   isEmailVerified(): boolean {
     return this.user.value?.email_verified_at!== null;
   }
+
+  addComission(id:number,usersId:number[]){
+    return this.http.post<any>(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races/${id}/commission/add`,{usersIds:usersId},)
+  }
+
   isPhoneVerified(): boolean {
     if(!this.user.value?.phone){
       return false
     }
     return this.user.value?.phone?.number_verified_at !== null;
+  }
+
+  addUserCommissionRole(userId: string){
+    return this.http.post(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/roles-change/${userId}/commission`, userId)
   }
   
 }

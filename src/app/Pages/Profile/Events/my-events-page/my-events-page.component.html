@@ -4,24 +4,66 @@
   </app-header>
 
   <div class="main-container--with-header">
-    <div class="events-grid">
-      @for (event of events; track $index) {
-        <div>
-          <app-event-card [event]="event">
-            <div class="buttons-container">
-              <app-standart-button *ngIf="userHaveRoot()" style="width: 100%;" (click)="generateGoogleLink(event.id)" buttonText="Выгрузить список"></app-standart-button>
-              <app-standart-button theme="orange" style="width: 100%;" (click)="redirectInEditPage(event.id)" buttonText="Редактировать"></app-standart-button>
-            </div>
-          </app-event-card>
-        </div>
+   
+   <div class="tabs-container">
+    <app-tabs>
+      <app-tabs-item name="Текущие">
+        
+      <div class="events-grid">
+        @for (event of events; track $index) {
+          <div>
+            <app-event-card [event]="event">
+              <div class="buttons-container">
+                <app-standart-button *ngIf="userHaveRoot()" style="width: 100%;" (click)="generateGoogleLink(event.id)" buttonText="Выгрузить список"></app-standart-button>
+                <app-standart-button theme="orange" style="width: 100%;" (click)="redirectInEditPage(event.id)" buttonText="Редактировать"></app-standart-button>
+              </div>
+            </app-event-card>
+          </div>}
+      </div>
+
+        <!-- <div *ngFor="let group of formatedEvents" class="events-grid">
+          <span class="month">{{group.groupMonth}}</span>
+          <div  *ngFor="let event of group.events; let i = index">
+            <app-event-card [event]="event">
+              <div *ngIf="userService.userHaveRoot()" class="button-container">
+                <app-standart-button style="width: 100%;" (click)="generateGoogleLink(event.id)" buttonText="Выгрузить список"></app-standart-button>
+              </div>
+            </app-event-card>
+          </div>
+        </div> -->
+      </app-tabs-item>      
       
-      }
-   </div>
+      <app-tabs-item name="Прошедшие">
+
+        <div class="events-grid">
+          @for (event of finishedEvents; track $index) {
+            <div>
+              <app-event-card [event]="event">
+                <div class="buttons-container">
+                  <app-standart-button *ngIf="userHaveRoot()" style="width: 100%;" (click)="generateGoogleLink(event.id)" buttonText="Выгрузить список"></app-standart-button>
+                  <app-standart-button theme="orange" style="width: 100%;" (click)="redirectInEditPage(event.id)" buttonText="Редактировать"></app-standart-button>
+                </div>
+              </app-event-card>
+            </div>}
+        </div>
+        <!-- <div *ngFor="let group of formatedExpiredEvents" class="events-grid">
+          <span class="month">{{group.groupMonth}}</span>
+            <div  *ngFor="let event of group.events; let i = index">
+              <app-event-card [event]="event">
+                <div *ngIf="userService.userHaveRoot()" class="button-container">
+                  <app-standart-button style="width: 100%;" (click)="generateGoogleLink(event.id)" buttonText="Выгрузить список"></app-standart-button>
+                </div>
+              </app-event-card>
+            </div>
+          </div> -->
+        </app-tabs-item>
+      </app-tabs>
+  </div>
   </div>
 
 </ion-content>
 
-<ion-modal [isOpen]="tableModalValue">
+<ion-modal [isOpen]="tableModalValue" (didDismiss)="closeModalAlert()">
   <ng-template>
     <ion-content>
       <div class="google-tabs">
@@ -30,7 +72,7 @@
           Сейчас можно открыть его по
           <a class="google-tabs__modal-text__link" target="_blank" [href]="googleTabsLink">этой ссылке</a>
         </div>
-        <app-standart-button style="width: 100%;" buttonText="Закрыть" theme="light"></app-standart-button>
+        <app-standart-button (click)="closeModalAlert()" style="width: 100%;" buttonText="Закрыть" theme="light"></app-standart-button>
       </div>
     </ion-content>
   </ng-template>

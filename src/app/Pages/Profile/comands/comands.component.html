@@ -6,11 +6,11 @@
     <article class="commands-grid">
     <ng-container *ngFor="let command of comands">
       <div class="commands-grid__item">
-        <app-command-section [command]="command"></app-command-section>
+        <app-command-section (click)="redirectInViewPage(command.id)" [command]="command"></app-command-section>
         <div class="edit-button-container">
           <div style="display: flex;">
             <app-standart-button theme="orange" style="width: 100%; margin: 4px;" (click)="redirectInEditPage(command.id)" buttonText="Редактировать"></app-standart-button>
-            <app-standart-button theme="standart" style="width: 100%; margin: 4px;" (click)="redirectInViewPage(command.id)" buttonText="Просмотр"></app-standart-button>
+            <!-- <app-standart-button theme="standart" style="width: 100%; margin: 4px;" (click)="redirectInViewPage(command.id)" buttonText="Просмотр"></app-standart-button> -->
           </div>
         </div>
       </div>

@@ -1,9 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { IonModal } from '@ionic/angular/standalone';
 import { Track } from 'src/app/Shared/Data/Interfaces/track-model';
 import { TrackModule } from 'src/app/Shared/Modules/track/track.module';
 import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
+import { NavController } from '@ionic/angular/standalone';
+
 
 @Component({
   selector: 'app-track-select-modal',
@@ -22,6 +24,12 @@ export class TrackSelectModalComponent  implements OnInit {
   @Output() openTrackSelectModal: EventEmitter<any> = new EventEmitter();
   @Output() closeTrackSelectModal: EventEmitter<any> = new EventEmitter();
   @Output() selectTrack: EventEmitter<Track> = new EventEmitter();
+  navController: NavController = inject(NavController)
+
+  redirectInCreate(){
+    this.navController.navigateRoot('/create-track')
+    this.closeTrackSelectModal.emit();
+  }
 
   openModal(){
     this.openTrackSelectModal.emit();
@@ -30,7 +38,7 @@ export class TrackSelectModalComponent  implements OnInit {
     this.closeTrackSelectModal.emit();
   }
   ngOnChanges(){
-    console.log(this.tracks)
+  
   }
  
   select(event:Track){

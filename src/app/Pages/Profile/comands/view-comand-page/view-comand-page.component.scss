@@ -145,7 +145,7 @@ ion-card {
   padding: 1rem;
   max-width: 800px;
   margin: 0 auto;
-  margin-top: 1rem;
+  margin-top: 0rem;
 }
 
 .member-item {
@@ -195,4 +195,13 @@ ion-card {
     font-family: var(--font-semi-bold);
     font-size: var(--font-headers-size-little);
   }
+}
+
+.command-id{
+  display: flex;
+  justify-content: end;
+  padding-right: 1rem;
+  
+  opacity: 0.5;
+  font-size: smaller;
 }

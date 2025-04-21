@@ -192,7 +192,15 @@ export class CabinetComponent  implements OnInit {
         icon:'/assets/icons/team.svg',
         iconFilter:'',
         name:'Мои команды'
+      }, 
+      {
+        routing:'add-users-in-comissions',
+        iconColor:'#0000',
+        icon:'/assets/icons/star.svg',
+        iconFilter:'',
+        name:'Назначение судьи'
       }
+
     ],
   }
   statuses:any[] = [
@@ -240,6 +248,11 @@ export class CabinetComponent  implements OnInit {
   }
   constructor() { }
   logoutInAccount() {
+    let user = this.userService.user.value
+    if(user){
+      this.userService.deleteUserInUsersArrayInLocalStorage(user)
+    }
+ 
     this.authService.logout()
     this.navControler.navigateForward('/login',{  animated: false })
   }

@@ -46,6 +46,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    position: relative;
     // margin-left: var(--little-margin);
     .user-section__avatar__img{
         min-width: 4rem;
@@ -56,6 +57,18 @@
         overflow: hidden;
         background-color: rgb(99, 99, 99);
         border-radius: 50%;
+    }
+    .edit-btn{
+        background-color: #fff  ;
+        border-radius: 1rem;
+        width: 1.5rem;
+        height: 1.5rem;
+        position: absolute;
+        top: -8px;
+        right: -10px;
+        padding: 4px;
+        transform: rotate(0deg);  
+        opacity: 0.8; 
     }
 }
 
@@ -170,8 +183,34 @@ ion-modal {
 
 .email-container{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: end;
+    width: 100%;
     gap: 1rem;
+    .email-control{
+        width: 100%;
+    }
+        
+    .edit-btn{
+        
+        padding-bottom: 0.2rem;
+    }
+}
+
+
+
+.button-edit-email{
+    margin-top: 1rem;
+}
+
+.button-confirm-email{
+    height:3rem;
+    margin-top: 1rem;
+}
+
+.email-title-container{
+    padding-bottom: 1rem;
 }
 
 .user-name-container{
@@ -201,4 +240,18 @@ ion-modal {
 .span-text{
     text-wrap: nowrap;
     font-family: var(--font-bold);
+}
+
+.verificate-email-container{
+   
+    padding: var(--standart-padding);
+    font-family: var(--font-regular);
+    
+  }
+
+  ion-modal{
+    --max-height:30%;
+    --width:90%;
+    --border-radius: 12px;
+    --overflow-y: hidden;
 }

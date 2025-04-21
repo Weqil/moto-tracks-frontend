@@ -8,6 +8,7 @@
     transition: 0.1s;
     margin-top: 3px;
     padding: 0.5rem;
+    
     color: #363d42;
     font-family: var(--font-regular);
     background: none;
@@ -94,6 +95,7 @@
     width: 100%;
     z-index: 100;
     background-color: var(--page-bg, #f0f0f0);
+    margin-top: 0.5rem;
 }
 .search-form{
     padding-right: 2px;

@@ -29,6 +29,11 @@
         }
     }
     .card__content{
+        img{
+            border-top-left-radius: 0.5rem;
+            border-top-right-radius: 0.5rem;
+        }
+        
         display: flex;
         justify-content: center;
     }
@@ -63,9 +68,22 @@
     font-family: var(--font-regular);
     font-size: var(--font-little-size);
     padding-left: var(--little-padding);
-    font-style: italic;
+    font-style: normal;
     
 }
+
+.event-address-with-users{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-regular);
+    font-size: var(--font-little-size);
+    padding-left: var(--little-padding);
+    padding-right: var(--standart-padding);
+    font-style: normal;
+    
+}
+
 .event-date{
     display: flex;
     justify-content: center;
@@ -82,9 +100,9 @@
 }
 
 .users-in-event{
-    position: absolute;
+    
     right: var(--standart-padding);
-    bottom: 0.5rem;
+    
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -115,4 +133,13 @@
     padding-right: var(--standart-padding);
     padding-bottom: 0.2rem;
     padding-top: 0.2rem;
+}
+.status-events{
+    border: 1px black solid;
+    border-radius: 0.5rem;
+    margin-right: 1rem;
+    padding: 0.3rem;
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
 }

@@ -1,0 +1,36 @@
+<ion-content>
+  <ng-container >
+    <app-header [headerTitle]= "'Просмотр пользователя'" >
+    </app-header>
+    <main class="main-container--with-header">
+      <div class="up-container">
+        <div class="user-section__avatar">
+          <img  class="user-section__avatar__img" [src]="user?.avatar|checkImgUrl" alt="" alt="">
+          
+        </div>
+        <div class="user-name-container">
+          <div class="user_name">{{user?.personal?.surname}} {{user?.personal?.name}} {{user?.personal?.patronymic}} </div>
+        </div>
+
+        <div class="info-container">
+          <div class="user-parametr">
+            <span>{{user?.personal?.city}}</span>
+          </div>
+          <div class="user-parametr">
+            <span>Гоночный номер: {{user?.personal?.start_number}}</span>
+          </div>
+          <div class="user-parametr">
+            <span>Звание: {{user?.personal?.rank}}</span>
+          </div>
+          <div class="user-parametr">
+            <span>Команда: {{user?.personal?.command?.name}}</span>
+          </div>
+          
+        </div>
+
+      </div>
+      
+    </main>
+    
+  </ng-container>
+</ion-content>

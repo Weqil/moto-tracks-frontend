@@ -10,7 +10,8 @@ export class EventService {
 
   constructor() { }
   http:HttpClient = inject(HttpClient)
-  getAllEvents(params?:{userId?:string,appointmentUser?:number, dateStart?:string, dateEnd?:string,locationId?:string[], sortField?:string, sort?:string}){
+  
+  getAllEvents(params?:{userId?:string,appointmentUser?:number, dateStart?:string, dateEnd?:string,locationId?:string[], sortField?:string, sort?:string, commissionUser?:number,userIdExists?:number|string}){
     return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races`, {params:{...params}})
   }
 

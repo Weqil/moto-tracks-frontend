@@ -9,7 +9,6 @@
       <div class="slider-container">
         <app-show-slider standartImagesPath='assets/images/moto-background.png' [files]="event.images" (click)="openImagesModalFunction()"></app-show-slider>
         <div class="slider-container__header">
-         
           <!-- <app-back-button ></app-back-button> -->
         </div> 
        
@@ -19,11 +18,11 @@
     <div class="main-container-parent">
 
       <app-images-modal  *ngIf="event.images && event.images.length " [openModal]="statusImagesModal" (closeModalEmit)="closeImagesModal()" [imagesPathArray]="event.images"></app-images-modal>
-
+      <div class="event-id">EID:{{event.id}}</div>
       <div class="main-container">
         <div class="event-name">{{event.name}}</div>
         <div class="event-location-name">
-          <div class="event-location-name__text">{{event.location?.name}}</div>
+          <div class="event-location-name__text">{{event.location?.name}} {{event.location?.type}}</div>
         </div>
         <div [innerHTML]="clearDescription()" *ngIf="event.desc" class="event-description">{{event.desc}}</div>
 
@@ -35,8 +34,8 @@
         </div>
         
         <div *ngIf="event.position_file || event.results_file" class="event-documents">
-           <span *ngIf="event.results_file" [routerLink]="['/view-document', event.results_file | checkImgUrl]" class="event-documents__text">Регламент <img class="event-documents__icon" src="/assets/icons/documents.svg" alt=""></span>
-           <span *ngIf="event.position_file" [routerLink]="['/view-document', event.position_file | checkImgUrl]" class="event-documents__text">Положение <img class="event-documents__icon" src="/assets/icons/documents.svg" alt=""></span>
+           <span *ngIf="event.results_file" [routerLink]="['/view-document', event.results_file | checkImgUrl]" class="event-documents__text">Расписание <img class="event-documents__icon" src="/assets/icons/documents.svg" alt=""></span>
+           <span *ngIf="event.position_file" [routerLink]="['/view-document', event.position_file | checkImgUrl]" class="event-documents__text">Регламент <img class="event-documents__icon" src="/assets/icons/documents.svg" alt=""></span>
         </div>
 
         
@@ -51,29 +50,59 @@
           @if (usersPreviewConfig.usersCount) {
             <div class="user-modal-header">
               Участники гонки
-              {{usersInRace.length}}
+              {{usersPreviewConfig.usersCount}}
             </div>
-          <app-users-preview [groups]="event.grades"  [fullValueUsers]="usersPreviewConfig.usersCount" [users]="usersInRace" [moreCount]="usersPreviewConfig.usersCount" [openUsersModal]="openUserModalValue" (closeModalEmit)="closeStateUsersModal()" (openModalEmit)="openStateUsersModal()"></app-users-preview>
+          <app-users-preview 
+          [groups]="event.grades"  
+          [fullValueUsers]="usersPreviewConfig.usersCount" 
+          [users]="usersInRace" [moreCount]="usersPreviewConfig.usersCount" 
+          [openUsersModal]="openUserModalValue" 
+          (closeModalEmit)="closeStateUsersModal()" 
+          (openModalEmit)="openStateUsersModal()"></app-users-preview>
         }
         </div>
 
       </div>
       
-      <div *ngIf="!checkRecordEnd() && this.event.status && this.event.status.id !== 2" class="footer">
-          @if (!this.event.appointments_exists ) {
+      <div *ngIf="event.status?.name !== 'Планируемая'"  class="footer">
+          @if (!this.event.appointments_exists && !checkRecordStart() && !checkRecordEnd()) {
             <app-standart-button (click)="openApplicationForm()" buttonText="Заявиться" theme="big"></app-standart-button>
+          }
+          @else if(checkRecordStart()){
+            <app-standart-button [disabled]="true"  buttonText="Дата начала регистрации: {{event.record_start}}"></app-standart-button>
           }
           @else {
             <app-standart-button [disabled]="true"  buttonText="Заявка отправлена"></app-standart-button>
           }
 
+          <div class="group-button" *ngIf="!checkRecordStart()">
+            @if(checkUserRoleService.userHaveRole(confirmUsersRolesInGroupAplication) && !checkRecordStart()){
+            <app-standart-button (click)="redirectTrenerInEditAplication()" buttonText="Заявится группой" theme="big"></app-standart-button>
+            }
+            @else if(checkRecordStart() && checkRecordEnd()){
+              <app-standart-button [disabled]="true"  buttonText="Дата начала регистрации: {{event.record_start}}"></app-standart-button>
+            }
+            @else {
+              
+            }
+          </div>
+          
+         
+        </div>
+
+
+        <!-- <div *ngIf="!checkRecordEnd() && this.event.status && this.event.status.id !== 2" class="footer-group">
+          
+
           @if(checkUserRoleService.userHaveRole(confirmUsersRolesInGroupAplication)){
             <app-standart-button (click)="redirectTrenerInEditAplication()" buttonText="Заявится группой" theme="big"></app-standart-button>
           }
+          @else {
+
+          }
          
-        </div>
-      </div>
-       
+        </div> -->
+    </div>
     }
   </main>
 
@@ -113,16 +142,50 @@
           
           
           
-          <app-standart-input [errorMessage]="formErrors.phoneNumber.errorMessage" [invalid]="formErrors.phoneNumber.errorMessage.length !== 0" [control]="personalUserForm.get('phoneNumber')" placeholder="Номер телефона" label="Телефон*"></app-standart-input>
+          <app-standart-input [control]="personalUserForm.get('phoneNumber')" [errorMessage]="formErrors.phoneNumber.errorMessage" [invalid]="formErrors.phoneNumber.errorMessage.length !== 0" placeholder="Номер телефона" label="Телефон*"></app-standart-input>
           
           
           
           <div class="start-number-container">
-            <app-standart-input [errorMessage]="formErrors.startNumber.errorMessage" [invalid]="formErrors.startNumber.errorMessage.length !== 0" [control]="personalUserForm.get('startNumber')" [maxLength]="3" type="number" [invalid]="formErrors.startNumber.errorMessage.length !== 0" [errorMessage]="formErrors.startNumber.errorMessage" placeholder="Стартовый номер" label="Стартовый номер*"></app-standart-input>
+
+            <app-standart-input 
+              [errorMessage]="formErrors.startNumber.errorMessage" 
+              [invalid]="formErrors.startNumber.errorMessage.length !== 0" 
+              [control]="personalUserForm.get('startNumber')" 
+              [maxLength]="3" type="number" 
+              [invalid]="formErrors.startNumber.errorMessage.length !== 0" 
+              [errorMessage]="formErrors.startNumber.errorMessage" 
+              placeholder="Стартовый номер" 
+              label="Стартовый номер*">
+            </app-standart-input>
+
           </div>
-          <app-standart-input-select [errorMessage]="formErrors.group.errorMessage" [invalid]="formErrors.group.errorMessage.length !== 0"  selectedName="groupSelect" [items]="groupItems" (onChange)="setGroup($event)" [selectedItem]="{name:personalUserForm.value.group, value:personalUserForm.value.group}" label="Класс, группа*"></app-standart-input-select>
-          <app-standart-input-select [errorMessage]="formErrors.rank.errorMessage" [invalid]="formErrors.rank.errorMessage.length !== 0" selectedName="rankSelect" [items]="sportRankItems" (onChange)="setRank($event)" [selectedItem]="{name:personalUserForm.value.rank, value:personalUserForm.value.rank}" label="Спортивное звание, разряд*"></app-standart-input-select>
+          
+          <app-standart-input-select  
+            [errorMessage]="formErrors.group.errorMessage" 
+            [invalid]="formErrors.group.errorMessage.length !== 0"  
+            selectedName="groupSelect" 
+            [items]="groupItems" 
+            (onChange)="setGroup($event)" 
+            [selectedItem]="{name:personalUserForm.value.group, value:personalUserForm.value.group}" 
+            label="Класс, группа*">
+          </app-standart-input-select>
+
+          <app-standart-input-select  
+            [errorMessage]="formErrors.rank.errorMessage" 
+            [invalid]="formErrors.rank.errorMessage.length !== 0" 
+            selectedName="rankSelect" [items]="sportRankItems" 
+            (onChange)="setRank($event)" 
+            [selectedItem]="{name:personalUserForm.value.rank, value:personalUserForm.value.rank}" 
+            label="Спортивное звание, разряд*">
+          </app-standart-input-select>
+          
+          
+          
           <app-standart-input [control]="personalUserForm.get('rankNumber')" placeholder="№ удостоверения (МСМК, МС, КМС)" label="№ удостоверения"></app-standart-input>
+          
+          
+          
           <app-standart-input [errorMessage]="formErrors.community.errorMessage" [invalid]="formErrors.community.errorMessage.length !== 0" (click)="openComandSelectModalStateValue()" [readonly]="true" [control]="personalUserForm.get('community')" placeholder="Команда" label="Название команды*"></app-standart-input>
           <app-standart-input [control]="personalUserForm.get('coach')" placeholder="Тренер" label="ФИО тренера"></app-standart-input>
           <app-standart-input-select [errorMessage]="formErrors.motoStamp.errorMessage" [invalid]="formErrors.motoStamp.errorMessage.length !== 0" selectedName="motoStampSelect" [items]="motoStampItems" (onChange)="setMotoStamp($event)" [selectedItem]="{name:personalUserForm.value.motoStamp, value:personalUserForm.value.motoStamp}" label="Марка мотоцикла*"></app-standart-input-select>
@@ -155,7 +218,6 @@
               <app-file-input [fileName]="notariusFile.name" (click)="!notariusFile ? notariusFileInput.click(): showToastInfoFileUpload()"></app-file-input>
               <input (change)="setNotariusFile($event)" #notariusFileInput style="display: none;"  type="file">
             </div>
-
         </div>
       </div>
       <div class="footer">

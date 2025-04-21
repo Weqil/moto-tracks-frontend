@@ -1,0 +1,61 @@
+<ion-content>
+  <app-header [headerTitle]="'Присвоение роли'">
+  </app-header>
+  <main class="main-container--with-header">
+    <div class="input-id">
+      <div class="input-container">
+          <app-standart-input type="number"[control]="UserIdForm.get('userId')"  placeholder="Введите id пользователя" label="UseId"></app-standart-input>
+      </div>
+      <div class="btn-view" >
+        <app-standart-button (click)="viewUser()" [buttonText]="'Показать'" theme="standart"></app-standart-button>
+      </div>
+    </div>
+
+    <div class="up-container" *ngIf="!viewUserInfo">
+      <div class="user-section__avatar">
+        <img  class="user-section__avatar__img" [src]="user?.avatar|checkImgUrl" alt="" alt="">
+        
+      </div>
+      <div class="user-name-container">
+        <div class="user_name">{{user?.personal?.surname}} {{user?.personal?.name}} {{user?.personal?.patronymic}} </div>
+      </div>
+
+      <div class="user-name-container" *ngIf="!user?.personal?.surname && !user?.personal?.name && !user?.personal?.patronymic">
+        <div class="user_name">Никнейм: {{user?.name}} </div>
+      </div>
+
+      <div class="info-container">
+        <div class="user-parametr" *ngIf="user?.personal?.city">
+          <span>{{user?.personal?.city}}</span>
+        </div>
+        <div class="user-parametr" *ngIf="user?.personal?.start_number">
+          <span>Гоночный номер: {{user?.personal?.start_number}}</span>
+        </div>
+        <div class="user-parametr"  *ngIf="user?.personal?.rank">
+          <span>Звание: {{user?.personal?.rank}}</span>
+        </div>
+        <div class="user-parametr"  *ngIf="user?.roles?.length">
+          <span class="rol-text"> Роль: </span>
+          <div class="text-role" *ngFor="let item of user?.roles">
+
+            <div class="role">
+             {{translateRole(item.name)}}
+            </div>
+
+          </div>
+          
+        </div>
+        
+        
+        
+      </div>
+      <div class="button-container" >
+        <div class="btn" >
+          <app-standart-button (click)="awardRole()" [buttonText]="'Назначить судьей'" theme="standart"></app-standart-button>
+        </div>
+     </div>
+    </div>
+
+    
+  </main>
+</ion-content>

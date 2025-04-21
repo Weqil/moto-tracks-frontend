@@ -13,15 +13,8 @@ import { SelectStateService } from '../../../../../Services/select-state.service
 export class StandartInputSelectComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
 
-  constructor(@Inject(SelectStateService) private selectStateService: SelectStateService) {
-    this.subscription = this.selectStateService.activeSelectName$.subscribe((activeName: string | null) => {
-      const previousActive = this.selectStateService.getPreviousActiveSelect();
-      console.log(previousActive)
-      if (activeName && activeName !== this.selectedName && previousActive === this.selectedName) {
-        this.stateValue = false;
-      }
-      this.stateValue = activeName === this.selectedName;
-    });
+  constructor() {
+
   }
 
   @HostListener('document:click', ['$event'])
@@ -58,11 +51,8 @@ export class StandartInputSelectComponent implements OnInit, OnDestroy {
 
   changeState(){
     if (!this.stateValue) {
-      this.selectStateService.setActiveSelect(this.selectedName);
-      console.log(this.selectedName)
       this.stateValue = true;
     } else {
-      this.selectStateService.closeAllSelects();
       this.stateValue = false;
     }
   }

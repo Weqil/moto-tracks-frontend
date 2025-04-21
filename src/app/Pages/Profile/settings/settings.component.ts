@@ -11,10 +11,11 @@ import { ButtonsModule } from "../../../Shared/Modules/buttons/buttons.module";
 import { User } from 'src/app/Shared/Data/Interfaces/user-model';
 import { CheckImgUrlPipe } from "../../../Shared/Helpers/check-img-url.pipe";
 import { ProfileModule } from 'src/app/Shared/Modules/user/profile.module';
-
+import { NoDataFoundComponent } from 'src/app/Shared/Components/UI/no-data-found/no-data-found.component';
+import { NgZone } from '@angular/core';
 import { UserModule } from 'src/app/Shared/Modules/user/user.module';
 import { selectedModule } from "../../../Shared/Modules/selected/selected.module";
-import { catchError, EMPTY, finalize } from 'rxjs';
+import { catchError, EMPTY, finalize, throwError } from 'rxjs';
 import { userRoles } from 'src/app/Shared/Data/Enums/roles';
 import { NavController } from '@ionic/angular';
 import { serverError } from 'src/app/Shared/Data/Interfaces/errors';
@@ -28,8 +29,22 @@ import { AlertController } from '@ionic/angular';
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  imports: [IonButton, SharedModule, CommonModule, HeaderModule, FormsModule, UserModule,
-    ProfileModule, selectedModule, IonModal, IonCheckbox, RouterLink, StandartInputComponent]
+  imports: [
+    SharedModule, 
+    CommonModule, 
+    HeaderModule, 
+    FormsModule, 
+    UserModule,
+    ProfileModule, 
+    selectedModule, 
+    IonModal, 
+    IonCheckbox, 
+    RouterLink, 
+    StandartInputComponent,
+    NoDataFoundComponent,
+    
+  ],
+  standalone: true
 })
 export class SettingsComponent  implements OnInit {
   authService: any;
@@ -42,10 +57,24 @@ export class SettingsComponent  implements OnInit {
   selectedStatusItem:any  = {}
   disabledAgreedButton:boolean = true
   statuses:any[] = [];
+  emailModalValue:boolean = false
 
   personalSettingsForm: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.required]),
+   
   })
+
+  personalViewForm: FormGroup = new FormGroup({
+    
+    emailView: new FormControl('', [Validators.required]),
+  })
+
+  openEmailModal(){
+    this.emailModalValue = true
+  }
+  closeEmailModal(){
+    this.emailModalValue = false
+  }
 
   loginInvalid = {
     localError: false,
@@ -74,7 +103,8 @@ export class SettingsComponent  implements OnInit {
     private loadingService: LoadingService,
     private toastService: ToastService,
     private navController: NavController,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private ngZone: NgZone
   ) {}
 
 
@@ -97,13 +127,39 @@ editEmail(){
       loader = res
     })
   this.userService.editUser(this.personalSettingsForm.value).pipe(
+    catchError(error => {
+
+      this.toastService.showToast('Такая почта уже есть', 'warning')
+      
+      return throwError(()=> error)
+      
+    }),
     finalize(() => {
       this.loadingService.hideLoading(loader);
     })
   ).subscribe((res:any)=>{
-    this.userService.refreshUser()
-  }
-)
+   
+    this.closeEmailModal();
+    this.userService.refreshUser(() => {
+      this.personalViewForm.patchValue({ emailView: this.personalSettingsForm.get('email')?.value });
+      this.navController.navigateRoot('/verification');
+    });
+    // this.personalViewForm.patchValue({emailView: this.personalSettingsForm.get('email')?.value})
+    // this.personalViewForm.patchValue({emailView: this.user?.email})
+    // this.closeEmailModal()
+
+    
+    // this.navController.navigateRoot('/verification')
+    }
+  )
+
+}
+
+confirmEmail(){
+  this.closeEmailModal()
+  setTimeout(() => {
+    this.navController.navigateRoot('/verification'); // Переход после задержки
+  }, 300); // Задержка в 300 миллисекунд
 }
 
   avatarUrl:string = ''
@@ -302,33 +358,21 @@ editEmail(){
 
   
 
-  ngOnInit() { this.userService.user.pipe().subscribe(()=>{
+  ngOnInit() { 
+    
+    window.addEventListener('popstate', (event) => {
+      this.closeEmailModal()
+    });
+    
+    this.userService.user.pipe().subscribe(()=>{
     this.user = this.userService.user.value 
   })
   this.personalSettingsForm.patchValue({email: this.user?.email})
+  this.personalViewForm.patchValue({emailView: this.user?.email})
 }
 
 async deleteAccount() {
-  // Показываем диалог подтверждения
-  const alert = await this.alertController.create({
-    header: 'Подтверждение',
-    message: 'Вы уверены, что хотите удалить свой аккаунт? Это действие нельзя отменить.',
-    buttons: [
-      {
-        text: 'Отмена',
-        role: 'cancel'
-      },
-      {
-        text: 'Удалить',
-        role: 'destructive',
-        handler: () => {
-          this.confirmDeleteAccount();
-        }
-      }
-    ]
-  });
-
-  await alert.present();
+  this.confirmDeleteAccount();
 }
 
 private confirmDeleteAccount() {
@@ -339,9 +383,17 @@ private confirmDeleteAccount() {
       next: () => {
         this.toastService.showToast('Аккаунт успешно удален', 'success');
         // Выходим из аккаунта
+    
+        setTimeout(()=>{
+              // Перенаправляем на страницу авторизации
+          this.navController.navigateRoot('/login');
+        },0)
+        if(this.userService.user.value){
+          this.userService.deleteUserInUsersArrayInLocalStorage(this.userService.user.value)
+        }
+
         this.authService.logout();
-        // Перенаправляем на страницу авторизации
-        this.navController.navigateRoot('/login');
+        
       },
       error: (error) => {
         console.error('Ошибка при удалении аккаунта:', error);

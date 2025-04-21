@@ -12,6 +12,7 @@ export interface User{
     access_token?:string,
     user?:any
     start_number?:number|null,
+    user_id?:any,
     personal?:{
         name: string,
         surname:string,

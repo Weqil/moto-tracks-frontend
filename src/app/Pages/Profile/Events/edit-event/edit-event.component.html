@@ -9,23 +9,96 @@
       <app-step-container-item [maxStepsCount]="maxStepsCount" [stepCurrency]="stepCurrency" stepNum="1">
         <div class="name-wrapper">
           <app-standart-input label="Название" [control]="createEventForm.get('name')" placeholder="Введите название вашего соревнования"></app-standart-input>
+         
           <app-standart-input (click)="openRegionModal()" [readonly]="true" label="Область/край" [control]="createEventForm.get('region')" placeholder="Выберите область вашего соревнования"></app-standart-input>          
         </div>
+        <ion-modal (didDismiss)="closeComissionModal()"  [isOpen]="comissionModalState">
+          <ng-template>
+            <ion-content>
+              <div class="region-modal-container">
+                <app-standart-input-search label="Поиск пользователя" [searchCurrentItems]="usersInCommision" [searchItems]="usersInCommision" (changeSearchValue)="setComission($event)"></app-standart-input-search>
+              </div>
+            </ion-content>
+          </ng-template>  
+        </ion-modal>  
+
         <ng-container *ngIf="raceTypeSelectedItem.name == 'Согласована (обычная)'">
           <div class="select-track-wrapper">
             <div class="label">Трасса гонки</div>
             <app-track-select-modal [selectedTrack]="trackSelected" (selectTrack)="selectTrack($event)" [trackSelectModalStateValue]="trackSelectedModalState" [tracks]="tracks" (closeTrackSelectModal)="closeTrackSelectModalFunction()" (openTrackSelectModal)="openTrackSelectModalFunction()"></app-track-select-modal>
           </div>
   
+
+    
+          <div class="photo-slider">
+            <app-edit-slider [files]="sliderImages" (filesEmit)="getImages($event)" type="create"></app-edit-slider>
+          </div>
+
+
+          <!-- <div class="logo-track">
+            <button (click)="schemeFile.click()" class="upload-logo">
+              <img src="/assets/icons/addPhoto.svg" alt="">
+            </button>
+            <div class="logo-track__text">
+                <ng-container *ngIf="!event.images">
+                      <span class="logo-track__file-name">Фото не загружено</span>
+                </ng-container>
+                <input (change)="setScheme($event,schemeFile)" #schemeFile style="display: none;" accept="image/png, image/jpeg" type="file" type="file">
+                <ng-container *ngIf="event.images" >
+                          <img [src]="event.images[0] | checkImgUrl" alt="" class="logo-track__scheme">
+                </ng-container>
+                      
+            </div>
+          </div> -->
+  
+          <div class="description">
+            <app-standart-rich-input [control]="createEventForm.get('desc')" label="Описание" placeholder="Введите описание вашего трека"></app-standart-rich-input>
+          </div>
+        </ng-container>
+        
+        <div class="date-start-wrapper">
+          <app-standart-input type="datetime-local" label="Дата начала" [control]="createEventForm.get('dateStart')"></app-standart-input>
+        </div>
+        <ng-container *ngIf="raceTypeSelectedItem.name == 'Согласована (обычная)'">
+          <div class="records-end">
+            <app-standart-input type="datetime-local" label="Дата открытия регистрации" [control]="createEventForm.get('recordStart')"></app-standart-input>
+          </div>
+          <div class="records-end">
+            <app-standart-input type="datetime-local" label="Дата закрытия регистрации" [control]="createEventForm.get('recordEnd')"></app-standart-input>
+          </div>
+
+          <div class="comission-in-race" *ngIf="raceTypeSelectedItem.name == 'Согласована (обычная)'">
+            <div class="label">Комисcия гонки</div>
+            <p class="comission-not-found" *ngIf="!currentComission.length">Судья не выбран</p>
+            <div class="comission-grid" *ngIf="currentComission.length">
+
+              <div class="commission-name-container" *ngFor="let user of currentComission">
+                <p class="comission-name" >
+                  {{user.name}}
+                  <app-circle-button (click)="deleteComission(user)" icon="/assets/icons/trash.svg"></app-circle-button>
+                </p>
+              </div>
+            </div>
+            <div class="btn-container">
+              <div class="btn">
+                  <app-standart-button theme="light" (click)="openComissionModal()" buttonText="Добавить судью"></app-standart-button>
+              </div>
+            </div>
+          </div>
+
           <div class="race-groups">
             <span class="label">Классы гонки</span>
             <div class="race-groups__selected">
                   <ng-container>
-                    <ul class="race-groups__selected">
+                    <ul class="race-groups__selected" (click)="openModalGroupModal()">
                       <li class="race-groups__selected__item" *ngIf="!selectedGroup.length">Классы не добавлены</li>
                         <li class="race-groups__selected__item" *ngFor="let group of selectedGroup">{{ group.name }}</li>
                     </ul>
-                    <app-standart-button (click)="openModalGroupModal()" [buttonText]="selectedGroup.length ? 'Выбрать':'Выбрать'"></app-standart-button>
+                    <div class="btn-container">
+                      <div class="btn">
+                        <app-standart-button theme="light" (click)="openModalGroupModal()" [buttonText]="selectedGroup.length ? 'Выбрать':'Выбрать'"></app-standart-button>
+                      </div>
+                    </div>
                   </ng-container>
             </div>
            
@@ -78,22 +151,6 @@
                   </ion-content>
                 </ng-template>
               </ion-modal>   
-          </div>
-    
-          <div class="photo-slider">
-            <app-edit-slider (filesEmit)="getImages($event)" type="create"></app-edit-slider>
-          </div>
-  
-          <div class="description">
-            <app-standart-rich-input [control]="createEventForm.get('desc')" label="Описание" placeholder="Введите описание вашего трека"></app-standart-rich-input>
-          </div>
-        </ng-container>
-        <div class="date-start-wrapper">
-          <app-standart-input type="datetime-local" label="Дата начала" [control]="createEventForm.get('dateStart')"></app-standart-input>
-        </div>
-        <ng-container *ngIf="raceTypeSelectedItem.name == 'Согласована (обычная)'">
-          <div class="records-end">
-            <app-standart-input type="datetime-local" label="Дата закрытия регистрации" [control]="createEventForm.get('recordEnd')"></app-standart-input>
           </div>
           
           <div (click)="fileResults.click()" class="document-container">

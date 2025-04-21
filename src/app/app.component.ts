@@ -18,34 +18,31 @@ export class AppComponent {
   navController: NavController = inject(NavController)
   constructor(private navCtrl: NavController, private router: Router) {
     
-    App.addListener('resume', () => { 
-      this.finishTimeInBackground = moment()
-        // console.log(`Приложение снова активно`);
-        // console.log(this.finishTimeInBackground.format('HH:mm:ss'))
-        if (this.startTimeInBackground) {
-          const diffInSeconds = this.finishTimeInBackground.diff(this.startTimeInBackground, 'seconds');
-          // console.log(`Приложение было в фоновом режиме ${diffInSeconds} секунд`);
-          if(diffInSeconds>20){
-            window.location.reload();
-            // console.log(`Отправили на ту же страницу`);
-          }
-        }
-    });
+    // App.addListener('resume', () => { 
+    //   this.finishTimeInBackground = moment()
+    //     // console.log(`Приложение снова активно`);
+    //     // console.log(this.finishTimeInBackground.format('HH:mm:ss'))
+    //     if (this.startTimeInBackground) {
+    //       const diffInSeconds = this.finishTimeInBackground.diff(this.startTimeInBackground, 'seconds');
+    //       // console.log(`Приложение было в фоновом режиме ${diffInSeconds} секунд`);
+    //       if(diffInSeconds>20){
+    //         window.location.reload();
+    //         // console.log(`Отправили на ту же страницу`);
+    //       }
+    //     }
+    // });
 
-    App.addListener('pause', () => { 
-      this.startTimeInBackground = moment()
-      // console.log(`Приложение ушло в фон`);
-      // console.log(this.startTimeInBackground.format('HH:mm:ss'))
-  });
+  //   App.addListener('pause', () => { 
+  //     this.startTimeInBackground = moment()
+  //     // console.log(`Приложение ушло в фон`);
+  //     // console.log(this.startTimeInBackground.format('HH:mm:ss'))
+  // });
   }
   
   userService:UserService = inject(UserService)
   ngOnInit() {
-    console.log('запускаю сайт')
     this.userService.getChangeRoles().pipe().subscribe((res:any)=>{
-      console.log(res)
       this.userService.allRoles = res.role
-      console.log( this.userService.allRoles)
     })
     this.userService.refreshUser();
     

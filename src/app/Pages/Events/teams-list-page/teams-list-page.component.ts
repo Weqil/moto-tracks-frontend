@@ -37,8 +37,9 @@ export class TeamsListPageComponent implements OnInit {
   loaderService: LoadingService = inject(LoadingService);
   authService: AuthService = inject(AuthService);
   mapService:MapService = inject(MapService)
+  loadingService:LoadingService = inject(LoadingService)
 
-
+  teamslocation: ICommand[] = [];
   teams: ICommand[] = [];
   filteredTeams: ICommand[] = [];
   searchQuery: string = '';
@@ -46,7 +47,8 @@ export class TeamsListPageComponent implements OnInit {
   regionFilterName:string = 'Россия'    
   searchRegionItems:any[] = []
   regionModalState:boolean = false
-  locationId?:number;
+
+  locationId!:number
 
   openRegionModal(){
     this.regionModalState = true
@@ -57,9 +59,9 @@ export class TeamsListPageComponent implements OnInit {
 
   filterEventsInLocation(event:any){
     this.regionFilterName = event.name
-    this.locationId = event.value
+    this.locationId = event.value 
     this.closeRegionModal()
-    this.getTeams()
+    this.getTeamslocation()
   }
 
   
@@ -84,23 +86,41 @@ export class TeamsListPageComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.getTeams()
     this.getRegions()
     this.currentUserId = this.authService.getCurrentUserId();
+  }
+  
+  getTeamslocation() {
+    let loader:HTMLIonLoadingElement
+    this.loadingService.showLoading().then((res: HTMLIonLoadingElement)=>{
+        loader = res
+    })
+    this.comandService.getComandLocationId({
+      locationId: this.locationId
+    }).pipe(
+      finalize(() => this.loaderService.hideLoading(loader))
+    ).subscribe((res: any) => {
+      
+      this.teams = res.commands;
+      this.filteredTeams = this.teams;
+    });
   }
 
 
   getTeams() {
-    this.loaderService.showLoading();
+    let loader:HTMLIonLoadingElement
+    this.loadingService.showLoading().then((res: HTMLIonLoadingElement)=>{
+        loader = res
+    })
     this.comandService.getComands({
-      
       userId: this.currentUserId || undefined,
       checkMember: true,
-      locationId: this.locationId
-      
     }).pipe(
-      finalize(() => this.loaderService.hideLoading() )
+      finalize(() => this.loaderService.hideLoading(loader))
     ).subscribe((res: any) => {
-      console.log(this.locationId)
+      
       this.teams = res.commands;
       this.filteredTeams = this.teams;
     });

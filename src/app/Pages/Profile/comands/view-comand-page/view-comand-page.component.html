@@ -8,6 +8,7 @@
           <img *ngIf="command?.avatar" [alt]="command?.name" [src]="getImgUrl()" />
           <img *ngIf="!command?.avatar" alt="no_photo" src="/assets/icons/team-bg.png" />
         </div>
+        
         <div class="command-info">
           <h1 class="command-name">{{command?.name}}</h1>
           <p class="command-full-name" *ngIf="command?.full_name">{{command?.full_name}}</p>
@@ -33,8 +34,20 @@
         ></app-standart-button> -->
       </div>
     </div>
-
+    <div class="command-id">CID:{{command.id}}</div>
 <div >
+
+      <div class="members-list" *ngIf="membersForUser.length">
+        <div class="users-in-comands-container">
+          <div class="users-in-comands">
+            Тренера команды: {{membersForCouch.length}}
+          </div>
+        </div>
+        <div *ngFor="let user of membersForCouch" class="member-item" [routerLink]="['/users/', user.id]">
+          <app-user-section  [hideEmail]="true" [user]="user"></app-user-section>
+        </div>
+      </div>
+
       <div class="members-list" *ngIf="membersForUser.length">
         <div class="users-in-comands-container">
           <div class="users-in-comands">
@@ -42,12 +55,13 @@
           </div>
         </div>
         <div *ngFor="let user of membersForUser" class="member-item">
-          <app-user-section [hideEmail]="true" [user]="user"></app-user-section>
+          <app-user-section [routerLink]="['/users/', user.id]" [hideEmail]="true" [user]="user"></app-user-section>
           <div *ngIf="user?.personal?.start_number" class="member-number">
             {{user?.personal?.start_number}}
           </div>
         </div>
       </div>
+
       <div class="no-members" *ngIf="!membersForUser.length">
         <h2>Список участников пуст</h2>
       </div>

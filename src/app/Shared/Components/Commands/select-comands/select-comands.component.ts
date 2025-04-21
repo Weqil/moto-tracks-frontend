@@ -90,8 +90,7 @@ export class SelectComandsComponent  implements OnInit {
     this.locationId = region.value
     this.createComandForm.patchValue({region:region.name})
     this.createComandForm.patchValue({locationId:region.value})
-    console.log(`получили регион: "${this.createComandForm.get('region')?.value}"`);
-    console.log(`id регион: "${this.createComandForm.get('locationId')?.value}"`);
+
   }
 
   openModal(){
@@ -121,7 +120,6 @@ export class SelectComandsComponent  implements OnInit {
     this.createNewComand.emit(this.createComandForm.value)
     this.sortComands = []
     this.clearSelectRegion()
-    console.log(this.createComandForm.value)
 
     this.createComandForm.reset();
 

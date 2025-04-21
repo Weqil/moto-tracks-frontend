@@ -165,18 +165,10 @@ export class EventsViewPageComponent  implements OnInit {
     {name:'Zabel', value:'Zabel'},
     {name:'MTX', value:'MTX'},
     {name:'TRIUMPH', value:'TRIUMPH'},
+    {name:'Suzuki', value:'Suzuki'},
+    {name:'Другое', value:'Другое'}
    ]
-   groupItems: {name:string, value:string}[] = [
-    {name:'Тренер', value:'Тренер'},
-    {name:'Стажер', value:'Стажер'},
-    {name:'Контролер', value:'Контролер'},
-    {name:'Мастер', value:'Мастер'},
-    {name:'Менеджер', value:'Менеджер'},
-    {name:'Старший менеджер', value:'Старший менеджер'},
-    {name:'Специалист', value:'Специалист'},
-    {name:'Мастер-контролер', value:'Мастер-контролер'},
-    {name:'Менеджер-контролер', value:'Менеджер-контролер'},
-   ]
+   groupItems: {name:string, value:string}[] = []
 
     licensesForm: FormGroup = new FormGroup(
       {
@@ -311,7 +303,7 @@ export class EventsViewPageComponent  implements OnInit {
         this.loaderService.hideLoading(loader)
       })
     ).subscribe((res:any)=>{
-      console.log(res);
+  
 
       this.allComands = []
       this.allComands.push(
@@ -336,8 +328,24 @@ export class EventsViewPageComponent  implements OnInit {
     }
 
     checkRecordEnd(){
-        let now = moment()
-        return moment(this.event?.record_end) < now
+      let now = moment().format('YYYY-MM-DD HH:mm')
+      // console.log(now > moment(this.event?.record_end) )
+      return now > moment(this.event?.record_end).format('YYYY-MM-DD HH:mm')
+    }
+
+    checkDateStart(){
+      let now = moment().format('YYYY-MM-DD HH:mm')
+      return now > moment(this.event?.date_start).format('YYYY-MM-DD HH:mm')
+    }
+
+    checkRecordStart(){
+      let now = moment().format('YYYY-MM-DD HH:mm')
+      if(this.event?.record_start){
+        return now < moment(this.event?.record_start).format('YYYY-MM-DD HH:mm')
+      }else{
+        return false
+      }
+     
     }
 
     setEngine(event:any){
@@ -345,6 +353,7 @@ export class EventsViewPageComponent  implements OnInit {
     }
     setGroup(event:any){
       this.personalUserForm.patchValue({group: event.name, gradeId:event.id})
+  
     }
     
     setRank(event:any){
@@ -487,10 +496,16 @@ export class EventsViewPageComponent  implements OnInit {
     }
     
     if (this.userService.user.value?.personal) {
+  
       let oldPersonal: any = { ...this.userService.user.value.personal };
-    
       // Переименовываем поля
+      oldPersonal.commandId = oldPersonal.command.id
+      delete oldPersonal['command']
+      oldPersonal.locationId = oldPersonal.location.id
+      delete oldPersonal['location']
+      oldPersonal.gradeId = this.personalUserForm.value.gradeId
       oldPersonal.dateOfBirth = oldPersonal.date_of_birth;
+      oldPersonal.comment = ''
       oldPersonal.phoneNumber = oldPersonal.phone_number;
       oldPersonal.startNumber = oldPersonal.start_number;
       oldPersonal.rankNumber = oldPersonal.rank_number;
@@ -517,7 +532,12 @@ export class EventsViewPageComponent  implements OnInit {
 
       // Используем Lodash
       personalFormChange = _.isEqual(normalizedOld, normalizedForm);
-
+      Object.keys(normalizedOld).map((key:string)=>{
+       
+        if(!normalizedForm[key]){
+         
+        }
+      })
       //Если обьекты различаются
       if(!personalFormChange){
         this.changePersonalDateModalValue = true
@@ -722,18 +742,18 @@ export class EventsViewPageComponent  implements OnInit {
       return false
     }
   }
+  
 
 
   async toggleAplicationInRace(){
     if(this.submitValidate()){
       await this.setFirstDocuments().pipe().subscribe(()=>{
         this.setDocuments().pipe().subscribe(()=>{
-        
            // Форматируем номер телефона перед отправкой
         let rawPhone = this.personalUserForm.value.phoneNumber || '';
-        let cleanedPhone = parseInt(rawPhone.replace(/\D/g, ''), 10) || 0;
+        let cleanedPhone = String(rawPhone).replace(/\D/g, '') || '';
+     
         this.personalUserForm.patchValue({ phoneNumber: cleanedPhone });
-
          let currentForm = {
            ...this.personalUserForm.value,
            documentIds:[this.polisId, this.licensesId,this.notariusId]   
@@ -761,7 +781,7 @@ export class EventsViewPageComponent  implements OnInit {
         })
      })
     }else{
-      this.toastService.showToast('Заполните обязательные поля - Фамилия, имя, область, класс, спортивное звание','danger')
+      this.toastService.showToast('Заполните обязательные поля - Фамилия, имя, область, класс, спортивное звание, телефон','danger')
     }
   }
 
@@ -939,6 +959,8 @@ export class EventsViewPageComponent  implements OnInit {
 
     
   ngOnInit() {
+
+    
     //Необходимо что бы не ломалась модалка
     window.addEventListener('popstate', (event) => {
       this.closeStateUsersModal()
