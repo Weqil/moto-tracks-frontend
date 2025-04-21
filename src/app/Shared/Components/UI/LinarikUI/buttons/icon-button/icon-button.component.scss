@@ -13,9 +13,13 @@
 }
 .w40{
     min-width: 2.5rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
 }
 .w49{
     min-width: 3.063rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 .w52{
     min-width: 3.25rem;
@@ -24,9 +28,13 @@
 }
 .w58{
     min-width: 3.625rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 .w71{
     min-width: 4.438rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 
 .dark{
@@ -98,6 +106,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    
 }
 .elements-position__row{
     display: flex;
