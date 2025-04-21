@@ -1,0 +1,31 @@
+<div class="backdrop" (click)="close()" *ngIf="visible"></div>
+
+<div
+  class="modal"
+  *ngIf="visible"
+  [@slideUpDown]
+  (@slideUpDown.done)="onAnimationDone($event)"
+>
+  <div class="modal-header">
+    <button
+      class="close-button"
+      (mousedown)="startCloseHold()"
+      (mouseup)="cancelCloseHold()"
+      (mouseleave)="cancelCloseHold()"
+    >
+      ⬇ Закрыть
+    </button>
+  </div>
+
+  <h3>Область/край</h3>
+  <input type="text" placeholder="Поиск" class="search-input" />
+
+  <div class="region-list">
+    <div class="region-item" *ngFor="let region of regions">{{ region }}</div>
+  </div>
+
+  <div class="modal-actions">
+    <button class="save">Сохранить</button>
+    <button class="reset">Сбросить</button>
+  </div>
+</div>

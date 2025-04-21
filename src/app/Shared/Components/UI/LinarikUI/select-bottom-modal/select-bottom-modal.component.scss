@@ -1,0 +1,78 @@
+.backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+  }
+  
+  .modal {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #1a1a1a;
+    color: white;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    padding: 1rem;
+    z-index: 1001;
+  }
+  
+  .modal-header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+  }
+  
+  .close-button {
+    background: transparent;
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .search-input {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    background: #333;
+    border: none;
+    color: white;
+    border-radius: 8px;
+  }
+  
+  .region-list {
+    max-height: 200px;
+    overflow-y: auto;
+  }
+  
+  .region-item {
+    padding: 0.5rem;
+    background: #333;
+    margin-bottom: 0.5rem;
+    border-radius: 8px;
+  }
+  
+  .modal-actions {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .save {
+    background: #ff4444;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 8px;
+  }
+  
+  .reset {
+    background: #444;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 8px;
+  }
+  

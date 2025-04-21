@@ -48,7 +48,10 @@
             <app-tab-menu-item icon="/assets/icons/documents.svg" name="Анкета участника" ></app-tab-menu-item>
             <app-tab-menu-item icon="/assets/icons/documents.svg" name="Анкета участника" ></app-tab-menu-item>
         </div>
- 
+        <div class="tab-menu-list-grid">
+            <app-icon-button  (click)="openModal()"  buttonText="Открыть модальное окно" clippy="clippy-right" theme="red"></app-icon-button>
+            <app-select-bottom-modal (onClose)="closeModal()" [visible]="selectModalState"></app-select-bottom-modal>
+        </div>
        
     </main>
 </ion-content>
