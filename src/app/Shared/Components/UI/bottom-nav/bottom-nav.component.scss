@@ -1,15 +1,16 @@
 
 
 .bottom-nav{
-    height: 3rem;
+    position: relative;
+    height: 3.25rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: var(--standart-margin);
-    background-color: var(--white-backgrounds);
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+    background-color: var(--white-color);
+    // clip-path: polygon(3% 0%, 100% 0%, 95.9% 100%, 0px 100%);
+    
 }
 
 .bottom-nav__item{
@@ -19,6 +20,8 @@
     font-size: var( --font-little-size);
     font-family: var(--font-regular);
     align-items: center;
+    
+    
     .icon{
         width: 20px;
         height: 22px;
