@@ -1,28 +1,42 @@
+
 .tab-element{
+    
     display: flex;
     align-items: center;
     cursor: pointer;
     justify-content: center;
+    flex-direction: column;
     width: 100%;
     span{
         color:#373737;
         font-family: var(--font-regular);
     }
     .splash{
-
+        display: none;
     }
 }
 .tab-element__active{
     display: flex;
+    gap: 5px;
     align-items: center;
     cursor: pointer;
     justify-content: center;
+    flex-direction: column;
+    
     width: 100%;
     span{
-        color:#373737;
+        color:#FF5555;
         font-family: var(--font-regular);
     }
     .splash{
-        width: 100%;
+        display: block;
+        clip-path: polygon(5% 0%, 100% 0%, 95% 100%, 0% 100%);
     }
+  
+}
+.splash{
+    height: 3px;
+    width:80% ;
+    background: linear-gradient(180deg, rgba(255, 85, 85, 1) 0%, rgba(213, 49, 49, 1) 100%);
+
 }

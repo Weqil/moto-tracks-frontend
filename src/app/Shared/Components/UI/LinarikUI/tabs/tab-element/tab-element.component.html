@@ -1,4 +1,4 @@
-<div class="tab-element">
+<div (click)="onChange()" class="none-text-change" [ngClass]="{'tab-element':!active,'tab-element__active':active}">
   <span>{{text}}</span> 
   <div class="splash">
     
