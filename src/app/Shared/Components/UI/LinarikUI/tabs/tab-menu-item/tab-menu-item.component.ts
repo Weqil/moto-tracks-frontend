@@ -17,8 +17,17 @@ export class TabMenuItemComponent  implements OnInit {
   * Текст внутри элемента
   */
   @Input() name!: string
+    /**
+  * Иконка слева от текста
+  */
   @Input() icon!: string
+    /**
+  * Цвет иконки
+  */
   @Input() iconColor!: string
+     /**
+  * Фильтер на икноке 
+  */
   @Input() iconFilter!: string
   @Input() routing!: string
 

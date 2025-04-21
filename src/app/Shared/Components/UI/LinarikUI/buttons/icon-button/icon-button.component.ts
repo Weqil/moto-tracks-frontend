@@ -42,7 +42,7 @@ export class IconButtonComponent  implements OnInit {
   @Input() clippy:'clippy-right'|'clippy-left'|'' = ''
 
     /**
-   *Размер кнопки
+   *Размер 
    */
   @Input() widht:'w40'|'w49'|'w52'|'w58'|'w71' = 'w40'
 

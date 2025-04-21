@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { BackButtonComponent } from '@app/Shared/Components/UI/LinarikUI/buttons/back-button/back-button.component';
 import { IconButtonComponent } from '@app/Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component';
 import { CheckBoxComponent } from '@app/Shared/Components/UI/LinarikUI/forms/check-box/check-box.component';
+import { TabElementComponent } from '@app/Shared/Components/UI/LinarikUI/tabs/tab-element/tab-element.component';
 import { TabMenuItemComponent } from '@app/Shared/Components/UI/LinarikUI/tabs/tab-menu-item/tab-menu-item.component';
 import { IonContent } from "@ionic/angular/standalone";
 
@@ -16,7 +17,8 @@ import { IonContent } from "@ionic/angular/standalone";
     BackButtonComponent,
     CheckBoxComponent,
     CommonModule,
-    TabMenuItemComponent
+    TabMenuItemComponent,
+    TabElementComponent
   ]
 })
 export class LinarikUiComponent  implements OnInit {

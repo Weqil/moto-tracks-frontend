@@ -32,6 +32,10 @@
             <app-back-button [disabled]="true" theme="gray"></app-back-button>
         </div>
 
+        <div class="tab-element-grid">
+            <app-tab-element text="Информация"></app-tab-element>
+        </div>
+
         <div class="check-box-grid">
             <ng-container *ngFor="let box of checkBoxArray">
                 <app-check-box (change)="getCheckBoxValue($event)" [value]="box.value" [checked]="box.state" [labelText]="box.labelText" [theme]="box.theme" [clippy]="box.clippy" ></app-check-box>
@@ -44,6 +48,7 @@
             <app-tab-menu-item icon="/assets/icons/documents.svg" name="Анкета участника" ></app-tab-menu-item>
             <app-tab-menu-item icon="/assets/icons/documents.svg" name="Анкета участника" ></app-tab-menu-item>
         </div>
+ 
        
     </main>
 </ion-content>

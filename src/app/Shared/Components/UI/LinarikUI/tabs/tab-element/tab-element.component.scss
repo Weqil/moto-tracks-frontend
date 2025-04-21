@@ -1,0 +1,28 @@
+.tab-element{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    justify-content: center;
+    width: 100%;
+    span{
+        color:#373737;
+        font-family: var(--font-regular);
+    }
+    .splash{
+
+    }
+}
+.tab-element__active{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    justify-content: center;
+    width: 100%;
+    span{
+        color:#373737;
+        font-family: var(--font-regular);
+    }
+    .splash{
+        width: 100%;
+    }
+}
