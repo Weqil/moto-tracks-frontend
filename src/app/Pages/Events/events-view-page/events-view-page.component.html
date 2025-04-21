@@ -36,6 +36,7 @@
         <div *ngIf="event.position_file || event.results_file" class="event-documents">
            <span *ngIf="event.results_file" [routerLink]="['/view-document', event.results_file | checkImgUrl]" class="event-documents__text"> <img class="event-documents__icon" src="/assets/icons/documents.svg"> Регламент</span>
            <span *ngIf="event.position_file" [routerLink]="['/view-document', event.position_file | checkImgUrl]" class="event-documents__text"> <img class="event-documents__icon" src="/assets/icons/documents.svg"alt=""> Положение</span>
+           
            <ng-container *ngFor="let document of formattedResultsDocument">
             <span (click)="openUploadResultModalState(document)" *ngIf="document" class="event-documents__text"><img class="event-documents__icon" src="/assets/icons/documents.svg" alt=""> {{document.path| checkResultsPath}} </span>
            </ng-container>

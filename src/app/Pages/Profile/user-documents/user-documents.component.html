@@ -80,9 +80,10 @@
             <div class="licenses document-container">
               <app-standart-input [control]="licensesForm.get('number')" placeholder="Лицензия МФР" label="Лицензия МФР (тип, №):"></app-standart-input>
               <div class="document" *ngIf="licensed">
-                {{licensed.name}}
-                <span class="view-pdf-btn" [routerLink]="['/view-document', licensed.url_view + licensed.name | checkImgUrl]" >
-                  <app-standart-button theme="light"  [buttonText]="'Показать'" [disabled]="!licensed"></app-standart-button>
+                <!-- {{licensed.name}} -->
+                <span class="view-pdf-btn"  (click)="openUploadResultModalState(licensed)" >
+                  {{licensed.url_view}}
+                  <!-- <app-standart-button theme="light"  [buttonText]="'Показать'" [disabled]="!licensed"></app-standart-button> -->
                 </span>
               </div>
               <span class="scan-header">Скан или фотография Лицензии</span>
@@ -129,6 +130,33 @@
       </div>     
   </main>
 </ion-content>
+
+<ion-modal [isOpen]="resultModalState" class="upload-result-modal">
+  <ng-template>
+    <ion-content>
+      <app-header headerTitle="Результаты гонки" [customBack]="true" (customBackClick)="closeUploadResultModalState()"></app-header>
+      <ng-container *ngIf="currentResultFile">
+        <div class="documents-grid">
+
+            <div class="documents-grid__item">
+              <pdf-viewer 
+              [src]="currentResultFile.path | checkImgUrl"
+              [render-text]="true"
+              [zoom]="currentResultFile.zoomLevel"
+              [original-size]="false"
+              class="file__img"
+              ></pdf-viewer>
+              <div class="button-container--pdf">
+                <app-circle-button class="circle-button" [icon]="'assets/icons/plus.svg'" (click)="zoomIn(currentResultFile)"></app-circle-button>
+                <app-circle-button class="circle-button" [icon]="'assets/icons/minus.svg'" (click)="zoomOut(currentResultFile)"></app-circle-button>
+                <app-circle-button class="circle-button" [icon]="'assets/icons/close.svg'" (click)="resetZoom(currentResultFile)"></app-circle-button>
+              </div>
+            </div>
+        </div>
+      </ng-container>
+    </ion-content>
+  </ng-template>
+</ion-modal>
 
 <app-select-comands 
   (createNewComand)="createNewComand($event)" 

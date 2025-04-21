@@ -25,12 +25,14 @@ import { ICommand, ICommandCreate } from 'src/app/Shared/Data/Interfaces/command
 import { User } from 'src/app/Shared/Data/Interfaces/user-model';
 import { CheckImgUrlPipe } from "../../../Shared/Helpers/check-img-url.pipe";
 import { RouterModule } from '@angular/router';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { CheckResultsPathPipe } from "../../../Shared/Helpers/check-results-path.pipe";
 
 @Component({
   selector: 'app-user-documents',
   templateUrl: './user-documents.component.html',
   styleUrls: ['./user-documents.component.scss'],
-  imports: [RouterModule, SharedModule, HeaderModule, FormsModule, StandartInputSelectComponent, IonModal, SelectComandsComponent, CheckImgUrlPipe]
+  imports: [PdfViewerModule, RouterModule, SharedModule, HeaderModule, FormsModule, StandartInputSelectComponent, IonModal, SelectComandsComponent, CheckImgUrlPipe, CheckResultsPathPipe]
 })
 export class UserDocumentsComponent  implements OnInit {
   navController:NavController = inject(NavController)
@@ -71,6 +73,41 @@ export class UserDocumentsComponent  implements OnInit {
   licensed:any
   notarius:any
   polish:any
+  resultModalState:boolean = false
+  formattedResultsDocument:[
+    {
+      path:string,
+      zoomLevel:number
+    }
+  ]|any[] = []
+
+  currentResultFile:any = {
+    path:'',
+    zoomLevel:1
+  }
+
+  closeUploadResultModalState(){
+    this.resultModalState = false
+  }
+  openUploadResultModalState(document:any){
+    this.currentResultFile.path = document.url_view
+    this.resultModalState = true
+  }
+
+  zoomIn(document:{path:string,zoomLevel:number}) {
+    let currentDocument = this.formattedResultsDocument.find((documentInArray:{path:string,zoomLevel:number})=>documentInArray.path == document.path )
+    currentDocument.zoomLevel += 0.1; // Увеличиваем масштаб на 10%
+  }
+
+  zoomOut(document:{path:string,zoomLevel:number}) {
+    let currentDocument = this.formattedResultsDocument.find((documentInArray:{path:string,zoomLevel:number})=>documentInArray.path == document.path )
+    currentDocument.zoomLevel -= 0.1; // Уменьшаем масштаб на 10%
+  }
+
+  resetZoom(document:{path:string,zoomLevel:number}) {
+    let currentDocument = this.formattedResultsDocument.find((documentInArray:{path:string,zoomLevel:number})=>documentInArray.path == document.path )
+    currentDocument.zoomLevel = 1.0; 
+  }
   
   licensesForm: FormGroup = new FormGroup(
     {
