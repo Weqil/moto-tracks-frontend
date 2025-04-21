@@ -2,6 +2,7 @@ import { Component, EventEmitter, inject, Input, OnInit, Output, ViewEncapsulati
 import { ActivatedRoute } from '@angular/router';
 import { Link } from 'src/app/CommonUI/Interfaces/navigation-link';
 import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
+import { IconButtonComponent } from "../LinarikUI/buttons/icon-button/icon-button.component";
 
 
 @Component({
@@ -10,8 +11,9 @@ import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
   styleUrls: ['./bottom-nav.component.scss'],
   encapsulation: ViewEncapsulation.None,
   imports: [
-    SharedModule
-  ]
+    SharedModule,
+    IconButtonComponent
+]
 })
 
 export class BottomNavComponent  {
