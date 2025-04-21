@@ -9,19 +9,19 @@
                 <app-icon-button [disabled]="true" icon="/assets/icons/user.svg" theme="dark"></app-icon-button>
         </div>
         <div class="icon-buttons-grid__icon-buttons-grid--beveled">
-            <app-icon-button widht="w49" buttonText="Все" clippy="clippy-right" theme="dark"></app-icon-button>
-            <app-icon-button widht="w52" buttonText="Все"  clippy="clippy-right" icon="/assets/icons/flagFinished.svg" height="long-height" theme="white"></app-icon-button>
-            <app-icon-button widht="w58" buttonText="Все" clippy="clippy-right" theme="red"></app-icon-button>
-            <app-icon-button [disabled]="true" widht="w58" buttonText="Все" clippy="clippy-right" theme="dark"></app-icon-button>
-            <app-icon-button widht="w49" buttonText="Все" clippy="clippy-right" theme="red"></app-icon-button>
-            <app-icon-button widht="w52" buttonText="Трассы"  clippy="clippy-right" icon="/assets/icons/flagFinished.svg" height="long-height" theme="red"></app-icon-button>
-            <app-icon-button widht="w58" buttonText="Все" clippy="clippy-right" theme="dark"></app-icon-button>
-            <app-icon-button widht="w58" buttonText="Все" clippy="clippy-right" theme="dark"></app-icon-button>
-            <app-icon-button [disabled]="true" buttonText="Все" clippy="clippy-left" theme="dark"></app-icon-button>
-            <app-icon-button [disabled]="true" widht="w52" buttonText="Все"  clippy="clippy-right" icon="/assets/icons/flagFinished.svg" height="long-height" theme="white"></app-icon-button>
-            <app-icon-button [disabled]="true" widht="w52" buttonText="Все" clippy="clippy-right" theme="dark"></app-icon-button>
-            <app-icon-button [disabled]="true" widht="w58" buttonText="Все" clippy="clippy-right" theme="dark"></app-icon-button>
-            <app-icon-button elementsPosition="elements-position__row" widht="w71" height="little-height" icon="/assets/icons/flagFinished.svg" widht="w58" buttonText="Все" clippy="clippy-right" theme="white"></app-icon-button>
+            <app-icon-button widht="w49" buttonText="Трассы" clippy="clippy-right" theme="dark"></app-icon-button>
+            <app-icon-button widht="w52" buttonText="Трассы"  clippy="clippy-right" icon="/assets/icons/flagFinished.svg" height="long-height" theme="white"></app-icon-button>
+            <app-icon-button widht="w58" buttonText="Трассы" clippy="clippy-right" theme="red"></app-icon-button>
+            <app-icon-button [disabled]="true" widht="w58" buttonText="Трассы" clippy="clippy-right" theme="dark"></app-icon-button>
+            <app-icon-button widht="w49" buttonText="Трассы" clippy="clippy-right" theme="red"></app-icon-button>
+            <app-icon-button widht="w52" buttonText="Все"  clippy="clippy-right" icon="/assets/icons/flagFinished.svg" height="long-height" theme="red"></app-icon-button>
+            <app-icon-button widht="w58" buttonText="Трассы" clippy="clippy-right" theme="dark"></app-icon-button>
+            <app-icon-button widht="w58" buttonText="Трассы" clippy="clippy-right" theme="dark"></app-icon-button>
+            <app-icon-button [disabled]="true" buttonText="Трассы" clippy="clippy-left" theme="dark"></app-icon-button>
+            <app-icon-button [disabled]="true" widht="w52" buttonText="Трассы"  clippy="clippy-right" icon="/assets/icons/flagFinished.svg" height="long-height" theme="white"></app-icon-button>
+            <app-icon-button [disabled]="true" widht="w52" buttonText="Трассы" clippy="clippy-right" theme="dark"></app-icon-button>
+            <app-icon-button [disabled]="true" widht="w58" buttonText="Трассы" clippy="clippy-right" theme="dark"></app-icon-button>
+            <app-icon-button elementsPosition="elements-position__row" widht="w71" height="little-height" icon="/assets/icons/flagFinished.svg" widht="w58" buttonText="Трассы" clippy="clippy-right" theme="white"></app-icon-button>
         </div>
 
         <div class="back-buttons-grid">
@@ -48,7 +48,10 @@
             <app-tab-menu-item icon="/assets/icons/documents.svg" name="Анкета участника" ></app-tab-menu-item>
             <app-tab-menu-item icon="/assets/icons/documents.svg" name="Анкета участника" ></app-tab-menu-item>
         </div>
- 
+        <div class="tab-menu-list-grid">
+            <app-icon-button  (click)="openModal()"  buttonText="Открыть модальное окно" clippy="clippy-right" theme="red"></app-icon-button>
+            <app-select-bottom-modal (onClose)="closeModal()" [visible]="selectModalState"></app-select-bottom-modal>
+        </div>
        
     </main>
 </ion-content>

@@ -13,9 +13,13 @@
 }
 .w40{
     min-width: 2.5rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
 }
 .w49{
     min-width: 3.063rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 .w52{
     min-width: 3.25rem;
@@ -25,9 +29,13 @@
 }
 .w58{
     min-width: 3.625rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 .w71{
     min-width: 4.438rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 
 .dark{
@@ -87,11 +95,24 @@
 }
 
 .clippy-right{
-    clip-path: polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%);
+    transform: skew(-13deg);
+    span{
+        transform: skew(13deg);
+    }
+    img{
+        transform: skew(13deg);
+    }
 }
 
 .clippy-left{
-    clip-path: polygon(0% 0%, 85% 0%, 100% 100%, 15% 100%);
+    transform: skew(13deg);
+    span{
+        transform: skew(-13deg);
+    }
+    img{
+        transform: skew(-13deg);
+    }
+
 }
 
 .elements-position{
