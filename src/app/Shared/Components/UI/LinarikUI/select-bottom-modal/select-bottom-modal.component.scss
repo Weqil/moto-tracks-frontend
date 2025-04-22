@@ -32,11 +32,26 @@
     padding: 1rem;
     z-index: 1001;
   }
+
+  .splash-button{
+    width: 100px;
+    background: #ffffff4b;
+    transform: skew(20deg);
+    height: 6px;
+  }
   
   .modal-header {
     display: flex;
-    justify-content: flex-end;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     margin-bottom: 1rem;
+    gap:0.8rem;
+    span{
+      color: #fff;
+      font-family: var( --font-bold);
+      font-size: 18px;
+    }
   }
   
 

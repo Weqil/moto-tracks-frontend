@@ -23,6 +23,7 @@ export class SelectBottomModalComponent  implements OnInit {
 
   constructor() { }
   @Input() visible = false;
+  @Input() headerText = 'Модальное окно'
   @Output() onClose: EventEmitter<any> = new EventEmitter()
 
   closeTimeout: any;

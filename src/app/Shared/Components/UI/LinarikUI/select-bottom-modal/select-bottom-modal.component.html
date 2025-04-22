@@ -1,10 +1,25 @@
 <div class="backdrop" (click)="close()" *ngIf="visible"></div>
 
-<div
+<article
   class="modal"
   *ngIf="visible"
   [@slideUpDown]
   (@slideUpDown.done)="onAnimationDone($event)"
 >
+  <div class="modal-header">
+    <button class="splash-button">
 
-</div>
+    </button>
+    <span>
+      {{headerText}}
+    </span>
+   
+  </div>
+  <div class="modal-content">
+   <ng-content>
+    
+   </ng-content>
+   
+  </div>
+
+</article>
