@@ -5,12 +5,13 @@
         <app-back-button  *ngIf="!customBack"></app-back-button>
       </ng-content>
 
-    <app-circle-button *ngIf="customBack" (click)="backButtonClick()" icon="/assets/icons/arrow.svg"></app-circle-button>
+    <app-circle-button *ngIf="customBack" (click)="backButtonClick()" icon="/assets/icons/back-arrow.svg"></app-circle-button>
     <div class="header-title-container">
       <div class="header-title">{{headerTitle}}</div>
       <img *ngIf="icon" src="{{icon}}" alt="" class="icon-title">
     </div>
     
+   
     
     <ng-container *ngIf="customButton">
       <ng-content>
