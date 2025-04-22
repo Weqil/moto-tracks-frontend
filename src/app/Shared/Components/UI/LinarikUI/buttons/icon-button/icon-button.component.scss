@@ -51,7 +51,7 @@
 }
 .red{
     background: #FF5555;
-    background: linear-gradient(180deg, rgba(255, 85, 85, 1) 0%, rgba(213, 49, 49, 1) 100%);
+    background: linear-gradient(180deg, rgba(255, 85, 85, 1) 0%, rgba(210, 49, 49, 1) 100%);
     transition: 0.3s all;
     &:active{
         transition: 0.3s all;
@@ -94,22 +94,22 @@
 }
 
 .clippy-right{
-    transform: skew(-13deg);
+    transform: skew(-10deg);
     span{
-        transform: skew(13deg);
+        transform: skew(10deg);
     }
     img{
-        transform: skew(13deg);
+        transform: skew(10deg);
     }
 }
 
 .clippy-left{
-    transform: skew(13deg);
+    transform: skew(10deg);
     span{
-        transform: skew(-13deg);
+        transform: skew(-10deg);
     }
     img{
-        transform: skew(-13deg);
+        transform: skew(-10deg);
     }
 
 }
