@@ -73,8 +73,41 @@ ion-content{
 .modal-grid{
     border: 2px dashed rgb(61, 61, 61);
     padding: 0.5rem;
-    width: 202px;
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: center;
     height: fit-content;
+}
+.region-modal-main{
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+.buttons-container{
+    position: fixed;
+    display: flex;
+    padding-top: 10px;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 10px;
+    width: 100%;
+    background: #181818;
+    bottom: 0;
+    gap: 1rem;
+    z-index: 1000;
+}
+.buttons-container__item{
+    width: 50%;
+}
+.region-modal-main{
+    position: relative;
+}
+.regions-grid{
+    display: grid;
+    padding-top: 1rem;
+    width: 100%;
+    gap: 0.5rem;
 }
 .inputs-grid{
     border: 2px dashed rgb(61, 61, 61);

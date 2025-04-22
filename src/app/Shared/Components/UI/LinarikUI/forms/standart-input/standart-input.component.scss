@@ -32,13 +32,16 @@
     width: 18px;
     height: 18px;
 }
+.input-height-wrapper{
+    display: flex;
+    align-items: center;
+}
 .icon-left{
     position: relative;
     line-height: 0;
     img{
         position: absolute;
         left: 10px;
-        top: 28px;
     }
     input{
         padding-left: 2.2rem;
@@ -89,7 +92,6 @@
 }
 .label_invalid{
     color: #ff0000;
- 
     font-size: 12px;
     padding-bottom: 1px;
     font-family: var(--font-regular);
@@ -127,8 +129,8 @@
     opacity: 0.6;
 }
 .dark{
-    background-color: #6A6A6A;
-    color: #b9b9b9;
+    background-color: #373737;
+    color: #6A6A6A;
 }
 .dark:focus{
     transition: 0.2s;
@@ -136,12 +138,12 @@
     margin-top: 3px;
     width: 100%;
     min-height: 2.25rem;
-    background-color: #6A6A6A;
+    background-color: #373737;
     font-size: 12px;
     font-family: var(--font-regular);
     padding-left: 0.8rem;
-    color: #b9b9b9;
+    color: #6A6A6A;
 }
 .dark::placeholder {
-    color: #b9b9b9;
+    color: #6A6A6A;
 }

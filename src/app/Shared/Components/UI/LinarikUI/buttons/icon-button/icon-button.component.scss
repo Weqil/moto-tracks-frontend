@@ -50,6 +50,25 @@
         color: #fff;
     }
 }
+.elements-in-start{
+    padding-left: 1rem;
+    padding-right: 1rem;
+    align-items: start !important;
+}
+.dark-gray{
+    background-color: #373737;
+    transition: 0.3s all;
+    .checked-box,.checked-box__active{
+        border: 1px solid #979797;
+    }
+    span{
+        color: #fff;
+    }
+    &:active{
+        transition: 0.3s all;
+        background-color: #4e4e4e;
+    }
+}
 .red{
     background: #FF5555;
     background: linear-gradient(180deg, rgba(255, 85, 85, 1) 0%, rgba(210, 49, 49, 1) 100%);
@@ -102,6 +121,9 @@
     img{
         transform: skew(10deg);
     }
+}
+.full{
+    width: 100%;
 }
 
 .clippy-left{

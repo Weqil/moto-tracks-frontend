@@ -11,9 +11,11 @@ export class IconButtonComponent  implements OnInit {
 
   constructor() { }
    /**
-   * Тема кнопки: `dark` — тёмная по умолчанию, `red` — красная,`white` - белая
+   * Тема кнопки: `dark` — тёмная по умолчанию, `red` — красная,`white` - белая,`gray`
    */
-  @Input() theme: 'dark'|'red'|'white' = 'dark'
+  @Input() theme: 'dark'|'red'|'white'|'dark-gray' = 'dark'
+
+  @Input() elementsInStart:boolean = false
 
   /**
    * Кнопка будет выглядеть недоступной
@@ -44,7 +46,7 @@ export class IconButtonComponent  implements OnInit {
     /**
    *Размер 
    */
-  @Input() widht:'w40'|'w49'|'w52'|'w58'|'w71' = 'w40'
+  @Input() widht:'w40'|'w49'|'w52'|'w58'|'w71'|'full' = 'w40'
 
    /**
    *Как будут расположены элементы внутри кнопки
@@ -60,7 +62,7 @@ export class IconButtonComponent  implements OnInit {
    * Функция собирает все классы и возвращает массив с нужными значениями
    */
   get getClasses():string[]{
-    return [this.theme, this.height, this.disabled ? 'disabled':'','icon-button',this.clippy, this.elementsPosition, this.widht, 'font']
+    return [this.theme, this.height, this.disabled ? 'disabled':'','icon-button',this.clippy, this.elementsPosition, this.widht, 'font', this.elementsInStart ? 'elements-in-start':'']
   }
 
   ngOnInit() {}

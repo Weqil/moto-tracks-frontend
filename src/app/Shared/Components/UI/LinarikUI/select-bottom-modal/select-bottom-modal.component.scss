@@ -25,6 +25,8 @@
     min-height: 34rem;
     background: #1a1a1a;
     max-width: 460px;
+    max-height: 557px;
+    overflow-y: auto;
     margin: auto;
     color: white;
     border-top-left-radius: 32px;
@@ -32,6 +34,8 @@
     padding: 1rem;
     z-index: 1001;
   }
+
+
 
   .splash-button{
     width: 100px;
