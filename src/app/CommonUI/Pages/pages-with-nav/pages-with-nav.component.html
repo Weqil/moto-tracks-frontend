@@ -3,7 +3,7 @@
         <ion-router-outlet ></ion-router-outlet>
     </ion-content>
 
-<div class="bottom-nav-con">
+<div [ngClass]="{'hidden':!visibleNavBar}" class="bottom-nav-con">
     <div class="bottom-nav-container">
     <!-- Передаю элементы меню в компонент и прослушиваю клик на ссылку -->
         <app-bottom-nav (linkChanged)="activateLink($event)" [links]="links"></app-bottom-nav>

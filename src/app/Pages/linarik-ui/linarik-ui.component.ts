@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { BackButtonComponent } from '@app/Shared/Components/UI/LinarikUI/buttons/back-button/back-button.component';
 import { IconButtonComponent } from '@app/Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component';
 import { CheckBoxComponent } from '@app/Shared/Components/UI/LinarikUI/forms/check-box/check-box.component';
@@ -8,6 +8,7 @@ import { SelectBottomModalComponent } from '@app/Shared/Components/UI/LinarikUI/
 import { TabElementComponent } from '@app/Shared/Components/UI/LinarikUI/tabs/tab-element/tab-element.component';
 import { TabMenuItemComponent } from '@app/Shared/Components/UI/LinarikUI/tabs/tab-menu-item/tab-menu-item.component';
 import { User } from '@app/Shared/Data/Interfaces/user-model';
+import { NavbarVisibleService } from '@app/Shared/Services/navbar-visible.service';
 import { IonContent } from "@ionic/angular/standalone";
 
 @Component({
@@ -121,16 +122,21 @@ export class LinarikUiComponent  implements OnInit {
   }
   ngOnInit() {}
 
-
+  navBarVisibleService:NavbarVisibleService = inject(NavbarVisibleService)
   getCheckBoxValue(event:any){
     let currentItem = this.checkBoxArray.find((box:any)=> event.value == box.value )
     currentItem.state = !event.state
   }
   openModal(){
     this.selectModalState = true
+    this.navBarVisibleService.hideNavBar()
   }
   closeModal(){
     this.selectModalState = false
+    setTimeout(()=>{
+      this.navBarVisibleService.showNavBar()
+    },100)
+ 
   }
 
   changeTab(event:any){

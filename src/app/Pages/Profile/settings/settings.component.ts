@@ -15,7 +15,7 @@ import { NoDataFoundComponent } from 'src/app/Shared/Components/UI/no-data-found
 import { NgZone } from '@angular/core';
 import { UserModule } from 'src/app/Shared/Modules/user/user.module';
 import { selectedModule } from "../../../Shared/Modules/selected/selected.module";
-import { catchError, EMPTY, finalize, throwError } from 'rxjs';
+import { catchError, EMPTY, finalize, Subject, takeUntil, throwError } from 'rxjs';
 import { userRoles } from 'src/app/Shared/Data/Enums/roles';
 import { NavController } from '@ionic/angular';
 import { serverError } from 'src/app/Shared/Data/Interfaces/errors';
@@ -55,6 +55,7 @@ export class SettingsComponent  implements OnInit {
   userAgreedModalState:boolean = false
   statusesSelect:boolean = false
   selectedStatusItem:any  = {}
+   private readonly destroy$ = new Subject<void>()
   disabledAgreedButton:boolean = true
   statuses:any[] = [];
   emailModalValue:boolean = false
@@ -435,6 +436,8 @@ deletePhoneForUserId(){
 
   ionViewDidLeave(){
     this.userAgreedModalState = false
+    this.destroy$.next()
+    this.destroy$.complete()
   }
 
   
@@ -445,7 +448,9 @@ deletePhoneForUserId(){
       this.closeEmailModal()
     });
     
-    this.userService.user.pipe().subscribe(()=>{
+    this.userService.user.pipe(
+      takeUntil(this.destroy$)
+    ).subscribe(()=>{
     this.user = this.userService.user.value 
     this.personalViewForm.patchValue({phoneView: this.user?.phone?.number || 'нет телефона'});
     this.checkVerifiedPhone();
@@ -459,6 +464,7 @@ deletePhoneForUserId(){
 async deleteAccount() {
   this.confirmDeleteAccount();
 }
+
 
 private confirmDeleteAccount() {
   this.loading.showLoading().then(loader => {
