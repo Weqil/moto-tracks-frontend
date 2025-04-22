@@ -56,7 +56,14 @@ export const publicRoutes: Routes = [
         loadComponent: () => import('../Pages/Authorization/distribution-agreement/distribution-agreement.component').then((m) => m.DistributionAgreementComponent)
       },
 
-      
+      {
+        path:'about-the-program',
+        loadComponent: () => import('../Pages/Profile/about-the-program/about-the-program.component').then((m) => m.AboutTheProgramComponent)
+      },
+      {
+        path:'oferta',
+        loadComponent: () => import('../Pages/Profile/oferta/oferta.component').then((m) => m.OfertaComponent)
+      },
     ]
   },
   

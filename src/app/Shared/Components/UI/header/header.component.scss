@@ -29,6 +29,7 @@
             align-items: center;
             gap: 8px;
                 .header-title{
+                    text-wrap: nowrap;
                     font-size: var( --font-headers-size-little);
                     font-family: var(--font-bold);
                     color: var(--font-standart-white-color);
