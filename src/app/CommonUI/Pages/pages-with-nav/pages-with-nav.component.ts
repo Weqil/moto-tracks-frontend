@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { HeaderModule } from 'src/app/Shared/Modules/header/header.module';
 import { SwitchTypeService } from 'src/app/Shared/Services/switch-type.service';
+import { NavbarVisibleService } from '@app/Shared/Services/navbar-visible.service';
 @Component({
   selector: 'app-pages-with-nav',
   templateUrl: './pages-with-nav.component.html',
@@ -19,10 +20,10 @@ export class PagesWithNavComponent  {
   constructor() { }
   router:Router = inject(Router)
   activatedRoute:ActivatedRoute = inject(ActivatedRoute)
-
+  visibleNavBar:boolean = true
   navController:NavController = inject(NavController)
   switchTypeService:SwitchTypeService = inject(SwitchTypeService)
-
+  navBarVisibleService:NavbarVisibleService = inject(NavbarVisibleService)
   tapeLink:string =  this.switchTypeService.link.value
 
   links: Link[] = [
@@ -88,7 +89,9 @@ export class PagesWithNavComponent  {
   }
  
   ngOnInit(): void {
-
+    this.navBarVisibleService.visible.subscribe((res)=>{
+      this.visibleNavBar = res
+    })
     this.switchTypeService.currentType.pipe().subscribe((event:any)=>{
       this.links[0].activeLink =  this.tapeLink = '/' + event
     })
