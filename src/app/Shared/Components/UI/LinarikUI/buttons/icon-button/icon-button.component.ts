@@ -36,6 +36,12 @@ export class IconButtonComponent  implements OnInit {
    */
   @Input() icon:string = ''
 
+         /**
+   *Цвет иконки кнопки
+   */
+@Input() buttonIconColor:'noColorIcon'|'darkIcon'|'redIcon' = 'noColorIcon'
+
+
     /**
    *Будут ли скошены углы у кнопки
    */
@@ -56,11 +62,21 @@ export class IconButtonComponent  implements OnInit {
    */
   @Input() buttonText:string =''
 
+      /**
+   *Границы кнопки
+   */
+  @Input() buttonBorder:'b0'|'b1'|'b2'|'b3' = 'b0'
+
+        /**
+   *Цвет границы кнопки
+   */
+   @Input() buttonBorderColor:'nullBorder'|'darkBorder'|'redBorder' = 'nullBorder'
+
    /**
    * Функция собирает все классы и возвращает массив с нужными значениями
    */
   get getClasses():string[]{
-    return [this.theme, this.height, this.disabled ? 'disabled':'','icon-button',this.clippy, this.elementsPosition, this.widht, 'font']
+    return [this.theme,  this.buttonBorder, this.buttonBorderColor, this.height, this.disabled ? 'disabled':'','icon-button',this.clippy, this.elementsPosition, this.widht, 'font']
   }
 
   ngOnInit() {}

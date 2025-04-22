@@ -58,9 +58,39 @@
     min-height: 1rem;
     border: 1px solid var(--font-gray-color);
     border-radius: 10px;
+
     .span-text{
         color: #000000;
         
+    }
+
+    
+}
+
+.rounded-button__red-line{
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    font-size: 0.75rem;
+    color: white;
+    min-width: 2.5rem;
+    min-height: 2rem;
+    gap: 3px;
+    padding: 0.3rem;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    transition: 0.2s;
+    border: 1px solid var(--red-color);
+    border-radius: 0px;
+    transform: skew(-10deg);
+    .span-text{
+        color: #000000;
+        
+    }
+    .rounded-button-img{
+        filter: brightness(0) saturate(100%) invert(14%) sepia(99%) saturate(7451%) hue-rotate(356deg) brightness(91%) contrast(109%);
+
     }
 }
 
@@ -86,7 +116,7 @@
     display: flex;
     font-family: var(--font-bold);
     color: var(--font-gray-color);
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 
 }
