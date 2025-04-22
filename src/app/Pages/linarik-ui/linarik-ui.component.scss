@@ -70,3 +70,21 @@ ion-content{
 .elements-grid{
     padding-bottom: 10rem;
 }
+.modal-grid{
+    border: 2px dashed rgb(61, 61, 61);
+    padding: 0.5rem;
+    width: 202px;
+    height: fit-content;
+}
+.inputs-grid{
+    border: 2px dashed rgb(61, 61, 61);
+    width:360px;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-bottom: 2rem;
+}
+.inputs-grid{
+    background: #fff;
+}

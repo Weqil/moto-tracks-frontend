@@ -1,8 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { BackButtonComponent } from '@app/Shared/Components/UI/LinarikUI/buttons/back-button/back-button.component';
 import { IconButtonComponent } from '@app/Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component';
 import { CheckBoxComponent } from '@app/Shared/Components/UI/LinarikUI/forms/check-box/check-box.component';
+import { StandartInputComponent } from '@app/Shared/Components/UI/LinarikUI/forms/standart-input/standart-input.component';
 import { SelectBottomModalComponent } from '@app/Shared/Components/UI/LinarikUI/select-bottom-modal/select-bottom-modal.component';
 
 import { TabElementComponent } from '@app/Shared/Components/UI/LinarikUI/tabs/tab-element/tab-element.component';
@@ -24,6 +26,7 @@ import { IonContent } from "@ionic/angular/standalone";
     TabMenuItemComponent,
     TabElementComponent,
     SelectBottomModalComponent,
+    StandartInputComponent,
   ]
 })
 export class LinarikUiComponent  implements OnInit {
@@ -31,6 +34,9 @@ export class LinarikUiComponent  implements OnInit {
   constructor() { }
   activeTab:boolean = false
   selectModalState:boolean = false
+  form = new FormGroup({
+    text: new FormControl()
+  })
   checkBoxArray:any = [
     {
       value:1,

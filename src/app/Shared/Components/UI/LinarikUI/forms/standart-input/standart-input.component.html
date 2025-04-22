@@ -1,0 +1,30 @@
+
+<div *ngIf="control" [ngClass]="getClassesInWrapper"  class="input-wrapper">
+
+  <ng-container>
+    <label [ngClass]="{'label':!invalid,'label_invalid':invalid}" for="{{label}}">{{label}}</label>
+    <input  
+    [maskito]="optionMask" 
+    [maxlength]="maxLength" 
+    [ngClass]="allClasses" 
+    (input)="emitInput($event)" 
+    #input 
+    (blur)="TrimValue()"
+    [readonly]="readonly" 
+    placeholder="{{placeholder}}"  
+    type="{{type}}" name="{{label}}"  
+    [formControl]="control" 
+    name="new_name">
+    <img class="icon" *ngIf="iconLeft" src="{{iconLeft}}" alt="">
+    <button (click)="openPasword(input)" *ngIf="openPassword" type="button" class="open-input"><img class="open-input-icon" src="/assets/icons/open-input.svg" alt=""></button>
+    <span *ngIf="errorMessage" class="error-message">{{errorMessage}}</span>
+  </ng-container>
+
+
+</div>
+
+<span *ngIf="!control">
+  добавьте formControl - например:
+  <br>
+  app-standart-input [control]="createSightForm.get('site')"
+</span>

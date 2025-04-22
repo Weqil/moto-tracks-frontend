@@ -48,9 +48,22 @@
             <app-tab-menu-item icon="/assets/icons/documents.svg" name="Анкета участника" ></app-tab-menu-item>
             <app-tab-menu-item icon="/assets/icons/documents.svg" name="Анкета участника" ></app-tab-menu-item>
         </div>
-        <div class="tab-menu-list-grid">
+        <div class="modal-grid">
             <app-icon-button  (click)="openModal()"  buttonText="Открыть модальное окно" clippy="clippy-right" theme="red"></app-icon-button>
             <app-select-bottom-modal (onClose)="closeModal()" [visible]="selectModalState"></app-select-bottom-modal>
+        </div>
+        <div class="inputs-grid">
+            <app-standart-input placeholder="Введите данные вашего сайта" label="Сайт" [control]="form.get('text')"></app-standart-input>
+            <app-standart-input [disabled]="true" placeholder="Введите данные вашего сайта" label="Сайт" [control]="form.get('text')"></app-standart-input>
+            <app-standart-input  placeholder="Введите данные для поиска" [dark]="true" label="Поиск" [control]="form.get('text')"></app-standart-input>
+            <app-standart-input  placeholder="Введите данные для поиска" [disabled]="true" [dark]="true" label="Поиск" [control]="form.get('text')"></app-standart-input>
+            <app-standart-input iconLeft="/assets/icons/chat.svg" placeholder="Введите данные вашего сайта" label="Сайт" [control]="form.get('text')"></app-standart-input>
+            <app-standart-input iconLeft="/assets/icons/search.svg" placeholder="Введите данные вашего сайта" [dark]="true" label="Сайт" [control]="form.get('text')"></app-standart-input>
+            <app-standart-input [disabled]="true" iconLeft="/assets/icons/chat.svg" placeholder="Введите данные вашего сайта" label="Сайт" [control]="form.get('text')"></app-standart-input>
+            <app-standart-input [disabled]="true" iconLeft="/assets/icons/search.svg" placeholder="Введите данные вашего сайта" [dark]="true" label="Сайт" [control]="form.get('text')"></app-standart-input>
+            <app-standart-input  [invalid]="true" iconLeft="/assets/icons/chat.svg" placeholder="Введите данные вашего сайта" label="Сайт" [control]="form.get('text')"></app-standart-input>
+            <app-standart-input errorMessage="Введите корректные данные" [invalid]="true" iconLeft="/assets/icons/search.svg" placeholder="Введите данные вашего сайта" [dark]="true" label="Сайт" [control]="form.get('text')"></app-standart-input>
+
         </div>
        
     </main>
