@@ -18,7 +18,9 @@ export const canActivateRoleAdmin = ()=>{
     if (permission) {
         return true
     }
-
-    toast.showToast(AuthErrosMessages.notPermission, 'warning')
+    else{
+        toast.showToast(AuthErrosMessages.notPermission, 'warning')
     return navController.navigateForward('/cabinet')
+    }
+   
 }
