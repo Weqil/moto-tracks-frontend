@@ -13,7 +13,7 @@ export const canActivateRoleAdmin = ()=>{
     const userService: UserService = inject(UserService)
     const toast: ToastService = inject(ToastService)
 
-    const permission = userService.hasRole(userRoles.admin) || userService.hasRole(userRoles.root)
+    const permission = userService.hasRole(userRoles.admin) || userService.hasRole(userRoles.root)|| userService.hasRole(userRoles.commission)
 
     if (permission) {
         return true
