@@ -81,10 +81,13 @@
               <app-standart-input [control]="licensesForm.get('number')" placeholder="Лицензия МФР" label="Лицензия МФР (тип, №):"></app-standart-input>
               <div class="document" *ngIf="licensed">
                 <!-- {{licensed.name}} -->
-                <span class="view-pdf-btn"  (click)="openUploadResultModalState(licensed)" >
-                  {{licensed.url_view}}
-                  <!-- <app-standart-button theme="light"  [buttonText]="'Показать'" [disabled]="!licensed"></app-standart-button> -->
-                </span>
+                <a href="{{licensed.url_view}}">
+                  <span class="view-pdf-btn"  >
+                    {{licensed.name}}
+                    <!-- (click)="openUploadResultModalState(licensed)" -->
+                    <!-- <app-standart-button theme="light"  [buttonText]="'Показать'" [disabled]="!licensed"></app-standart-button> -->
+                  </span>
+                </a>
               </div>
               <span class="scan-header">Скан или фотография Лицензии</span>
               <app-file-input (click)="licensesFileInput.click()" [fileName]="licensesFile.name"></app-file-input>
@@ -98,12 +101,17 @@
             <app-standart-input [control]="polisForm.get('number')" placeholder="Серия, номер" label="Серия и номер"></app-standart-input>
             <app-standart-input [control]="polisForm.get('issuedWhom')" placeholder="Кем выдан" label="Кем выдан"></app-standart-input>
             <app-standart-input [control]="polisForm.get('itWorksDate')" placeholder="Срок действия" type="date" label="Срок действия"></app-standart-input>
+            
             <div class="document" *ngIf="polish">
-              {{polish.name}}
-              <div class="view-pdf-btn">
-                <app-standart-button theme="light" [buttonText]="'Показать'" [disabled]="!polish"></app-standart-button>
-              </div>
+              <a href="{{polish.url_view}}">
+                <span class="view-pdf-btn"  >
+                  {{polish.name}}
+                  <!-- (click)="openUploadResultModalState(licensed)" -->
+                  <!-- <app-standart-button theme="light"  [buttonText]="'Показать'" [disabled]="!licensed"></app-standart-button> -->
+                </span>
+              </a>
             </div>
+            
             <span class="scan-header">Скан или фотография Страхового полиса</span>
             <app-file-input  [fileName]="polisFile.name" (click)="polisFileInput.click()"></app-file-input>
             <input (change)="setPolisFile($event)" #polisFileInput style="display: none;"  type="file">
@@ -115,10 +123,13 @@
           <div class="document-header">Нотариальное согласие</div>
           <div class="polis document-container">
             <div class="document" *ngIf="notarius">
-              {{notarius.name}}
-              <div class="view-pdf-btn">
-                <app-standart-button theme="light" [buttonText]="'Показать'" [disabled]="!notarius"></app-standart-button>
-              </div>
+              <a href="{{notarius.url_view}}">
+                <span class="view-pdf-btn"  >
+                  {{notarius.name}}
+                  <!-- (click)="openUploadResultModalState(licensed)" -->
+                  <!-- <app-standart-button theme="light"  [buttonText]="'Показать'" [disabled]="!licensed"></app-standart-button> -->
+                </span>
+              </a>
             </div>
             <span class="scan-header">Скан или фотография Нотариального согласия</span>
             <app-file-input [fileName]="notariusFile.name" (click)="notariusFileInput.click()"></app-file-input>

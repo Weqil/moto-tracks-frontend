@@ -92,6 +92,7 @@ export class UserDocumentsComponent  implements OnInit {
   openUploadResultModalState(document:any){
     this.currentResultFile.path = document.url_view
     this.resultModalState = true
+    console.log(this.currentResultFile.path)
   }
 
   zoomIn(document:{path:string,zoomLevel:number}) {
