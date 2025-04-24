@@ -97,8 +97,18 @@
    
     </div>
 
+    
+
     <div class="footer-page">
+
+      
+
       <div *ngIf="event.status?.name !== 'Планируемая' && !checkDateStartInRace()"  class="footer">
+
+        <div class="button-commission">
+          <app-standart-button buttonText="Просмотр заявок" (click)="redirectApplicationForRace()"></app-standart-button>
+        </div>
+
         @if (!this.event.appointments_exists && !checkRecordStart() && !checkRecordEnd()) {
           <app-standart-button (click)="openApplicationForm()" buttonText="Заявиться" theme="big"></app-standart-button>
         }
@@ -123,6 +133,8 @@
         
        
       </div>
+
+      
     </div>
      
 

@@ -1,0 +1,25 @@
+<ion-content>
+  <app-header [headerTitle]="usersPreviewConfig.usersCount ? 'Участники: ' + usersPreviewConfig.usersCount : ' '">
+
+  </app-header>
+  <main class="main-container--with-header">
+    <div *ngFor="let group of formattedUsers">
+      <h3>{{ group.group }}</h3>
+      <ul>
+        <div *ngFor="let user of group.users" >
+          <div class="user-card" (click)=" navigateToUser(user.id);">
+            <app-user-section   [showRank]="true"  [hideEmail]= "true"  [user]="createUserInAplication(user)"></app-user-section>
+          </div>
+          <!-- подставь нужное поле -->
+        </div>
+      </ul>
+    </div>
+      
+    
+  </main>
+
+  
+ 
+   
+
+</ion-content>

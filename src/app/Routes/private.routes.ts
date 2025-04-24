@@ -116,6 +116,11 @@ export const privateRoutes: Routes = [
                 canActivate:[canActivateAuth,canActivateUserHaveRole([userRoles.commission],'комиссия')],
                 loadComponent: () => import('../Pages/Profile/add-user-in-comission/add-user-in-comission.component').then((m) => m.AddUserInComissionComponent)
             },
+            {
+                path:'application-for-race/:id',
+                canActivate:[canActivateAuth],
+                loadComponent: () => import('../Pages/application-for-race/application-for-race.component').then((m) => m.ApplicationForRaceComponent)
+            },
         ]
     },
 

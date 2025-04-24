@@ -1022,4 +1022,8 @@ export class EventsViewPageComponent  implements OnInit {
       this.closeComandSelectModalStateValue()
     });
   }
+
+  redirectApplicationForRace(){
+    this.navController.navigateForward(`application-for-race/${this.event.id}`)
+  }
 }
