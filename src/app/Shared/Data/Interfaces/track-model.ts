@@ -26,6 +26,9 @@ export interface Track {
     schema_img?:string;
     light?:boolean;
     season?:boolean;
+    store:{
+        id:number
+    }
     
 
 }

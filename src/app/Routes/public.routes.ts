@@ -51,6 +51,7 @@ export const publicRoutes: Routes = [
         path:'user-politic',
         loadComponent: () => import('../Pages/Authorization/user-politic/user-politic.component').then((m) => m.UserPoliticComponent)
       },
+     
       {
         path:'distribution-agreement',
         loadComponent: () => import('../Pages/Authorization/distribution-agreement/distribution-agreement.component').then((m) => m.DistributionAgreementComponent)

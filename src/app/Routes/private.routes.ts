@@ -28,6 +28,12 @@ export const privateRoutes: Routes = [
 
             },
             {
+                path:'track-payment',
+                canActivate:[canActivateAuth],
+                 loadComponent: () => import('../Pages/Track/track-payment/track-payment.component').then((m)=> m.TrackPaymentComponent)
+
+            },
+            {
                 path:'my-tracks',
                 canActivate:[canActivateAuth,canActivateUserHaveRole(userRoles.organization,'организатора')],
                 loadComponent: () => import('../Pages/Profile/Tracks/my-tracks-page/my-tracks-page.component').then((m) => m.MyTracksPageComponent)

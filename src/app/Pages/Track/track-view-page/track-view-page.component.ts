@@ -5,7 +5,7 @@ import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
 import { CheckImgUrlPipe } from "../../../Shared/Helpers/check-img-url.pipe";
 import { SlidersModule } from 'src/app/Shared/Modules/sliders/sliders.module';
 import { AngularYandexMapsModule } from 'angular8-yandex-maps';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { finalize, Subject, takeUntil } from 'rxjs';
 import { TrackService } from 'src/app/Shared/Data/Services/Track/track.service';
 import { ButtonsModule } from 'src/app/Shared/Modules/buttons/buttons.module';
@@ -26,7 +26,8 @@ import { InfoPopoverComponent } from "../../../Shared/Components/UI/info-popover
     AngularYandexMapsModule,
     ImagesModalComponent,
     AddressInputComponent,
-    InfoPopoverComponent
+    InfoPopoverComponent,
+    RouterLink
 ]
 })
 

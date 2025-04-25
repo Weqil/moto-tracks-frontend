@@ -194,7 +194,9 @@
 
           
         </div>
-
+        <div *ngIf="track.store" class="payment-button">
+          <app-standart-button routerLink="/track-payment" buttonText="Оплатить тренировку"></app-standart-button>
+        </div>
       </div>
 
       <!-- <div class="video-container">

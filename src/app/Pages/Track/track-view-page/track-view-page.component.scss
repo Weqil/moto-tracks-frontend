@@ -20,7 +20,9 @@
     }
 }
 
-
+.payment-button{
+    padding-top: var(--standart-padding);
+}
 .track__header__params{
     display: flex;
     flex-direction: column  ;
