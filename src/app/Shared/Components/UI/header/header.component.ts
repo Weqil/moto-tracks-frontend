@@ -16,6 +16,10 @@ export class HeaderComponent  implements OnInit {
   @Input() customBackFunction!:void
   @Input() customBack: boolean = false
   @Input() customButton = false
+   /**
+   * Будет ли кастомный контент внутри
+   */
+  @Input() customContainer = false
   @Input() icon?:string
   @Output() customBackClick: EventEmitter<boolean> = new EventEmitter
   constructor() { }

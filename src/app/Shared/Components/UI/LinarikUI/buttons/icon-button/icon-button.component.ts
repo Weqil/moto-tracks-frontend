@@ -38,17 +38,13 @@ export class IconButtonComponent  implements OnInit {
    */
   @Input() icon:string = ''
 
-         /**
+  
+
+
+    /**
    *Цвет иконки кнопки
    */
-@Input() buttonIconColor:'dark-icon'|'red-icon'|'white-icon' = 'dark-icon'
-
-
-         /**
-   *Цвет иконки кнопки
-   */
-@Input() buttonIconColor:'dark-icon'|'red-icon'|'white-icon' = 'dark-icon'
-
+  @Input() buttonIconColor:'dark-icon'|'red-icon'|'white-icon' = 'dark-icon'
 
     /**
    *Будут ли скошены углы у кнопки

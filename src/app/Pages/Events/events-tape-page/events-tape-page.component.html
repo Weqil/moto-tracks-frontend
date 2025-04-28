@@ -1,6 +1,15 @@
 <ion-content>
 
-  <app-header (click)="openRegionModal()" [hiddenBackButton]="true" [headerTitle]="regionFilterName" ></app-header>
+  <app-header (click)="openRegionModal()" [customContainer]="true" [hiddenBackButton]="true" [headerTitle]="regionFilterName" >
+   <div class="header-container">
+      <button class="header__open-region-modal">
+          {{regionFilterName}}
+         <img src="/assets/icons/arrow_down.svg" alt="">
+      </button>
+  
+        
+   </div>
+  </app-header>
 
   <div class="tabs-container">
     <app-tabs>

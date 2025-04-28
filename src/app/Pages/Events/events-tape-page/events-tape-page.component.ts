@@ -25,6 +25,8 @@ import { UploadFileInputComponent } from '@app/Shared/Components/UI/upload-file-
 import { NoDataFoundComponent } from "../../../Shared/Components/UI/no-data-found/no-data-found.component";
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { CheckImgUrlPipe } from "../../../Shared/Helpers/check-img-url.pipe";
+import { StandartInputComponent } from '@app/Shared/Components/UI/LinarikUI/forms/standart-input/standart-input.component';
+import { FormControl, FormGroup } from '@angular/forms';
 
 
 @Component({
@@ -33,7 +35,7 @@ import { CheckImgUrlPipe } from "../../../Shared/Helpers/check-img-url.pipe";
   styleUrls: ['./events-tape-page.component.scss'],
   imports: [SharedModule, CommonModule, HeaderModule,
     EventModule, IonModal, TabsComponent, TabsItemComponent,
-    StandartInputSearchComponent, UploadFileInputComponent,
+    StandartInputSearchComponent, UploadFileInputComponent,StandartInputComponent,
     NoDataFoundComponent, NoDataFoundComponent, PdfViewerModule, CheckImgUrlPipe]
 })
 export class EventsTapePageComponent  implements OnInit {
@@ -57,6 +59,9 @@ export class EventsTapePageComponent  implements OnInit {
       localPath:string,
     }
   ]|any 
+  searchForm:FormGroup = new FormGroup({
+    searchLabael: new FormControl('')
+  })
   userService: UserService = inject(UserService)
   tableModalValue:boolean = false
   googleTabsLink:string = ''
@@ -86,6 +91,7 @@ export class EventsTapePageComponent  implements OnInit {
   redirectInTracks(){
     this.navController.navigateForward('/tracks')
   }
+  
 
   zoomIn(document:{path:string,zoomLevel:number}) {
     let currentDocument = this.formattedResultsDocument.find((documentInArray:{path:string,zoomLevel:number})=>documentInArray.path == document.path )

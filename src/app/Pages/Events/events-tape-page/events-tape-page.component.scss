@@ -134,6 +134,23 @@
     position: relative;
     gap: var(--standart-padding);
 }
+.header-container{
+    width: 100%;
+}
+.header__open-region-modal{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    height: 40px;
+    justify-content: space-between;
+    background: var(--white-color);
+    text-align: start;
+    font-size: var( --font-regular-size);
+    font-family: var(--font-semi-bold);
+    border: 1px solid var(--dark-2);
+}
 .tracks-grid__item{
     border-bottom: 1px solid rgba(76, 88, 97, .1568627451);
     padding-top: var(--little-padding);
