@@ -111,6 +111,12 @@
     font-size: 16px;
     padding-bottom: var(--little-padding);
 }
+.header__filter-grid{
+    display: flex;
+    padding-top: 1rem;
+    padding-left: 0.5rem;
+    gap: 0.5rem;
+}
 .file__img{
     width: 300px;
     height: 430px;
@@ -147,6 +153,11 @@
     align-items: center;
     padding-left: 0.75rem;
     padding-right: 0.75rem;
+    white-space: nowrap;
+    overflow: hidden;         
+    text-overflow: ellipsis;   
+    max-width: 100%; 
+    padding-right: 0.75rem;
     height: 40px;
     justify-content: space-between;
     background: var(--white-color);
@@ -161,7 +172,7 @@
     padding-bottom: var(--little-padding);
 }
 .events-grid{
-    padding-top: var(--standart-padding);
+    padding-top:8.375rem;
     width: 100%;
     display: flex;
     justify-content: center;

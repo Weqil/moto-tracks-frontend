@@ -1,19 +1,73 @@
 <ion-content>
 
-  <app-header (click)="openRegionModal()" [customContainer]="true" [hiddenBackButton]="true" [headerTitle]="regionFilterName" >
+  <app-header  [customContainer]="true" [hiddenBackButton]="true" [headerTitle]="regionFilterName" >
    <div class="header-container">
-      <button class="header__open-region-modal">
+      <button (click)="openRegionModal()" class="header__open-region-modal">
           {{regionFilterName}}
          <img src="/assets/icons/arrow_down.svg" alt="">
       </button>
-  
         
+      <div class="header__filter-grid">
+          <app-icon-button (click)="setFilterInTape('all')" height="little-height" clippy="clippy-right" buttonText="Все" [theme]="allFilter ? 'red':'dark'"></app-icon-button>
+          <app-icon-button (click)="setFilterInTape('current')" height="little-height" clippy="clippy-right" buttonText="Текущие"  [theme]="currentFilter ? 'red':'dark'"></app-icon-button>
+          <app-icon-button (click)="setFilterInTape('expired')" height="little-height" clippy="clippy-right" buttonText="Прошедшие"  [theme]="expiredFilter ? 'red':'dark'"></app-icon-button>
+      </div>
    </div>
   </app-header>
-  <app-regions-select-modal (select)="filterEventsInLocation($event)" [selectedRegion]="regionFilterName" [visible]="regionModalState" (onClose)="closeRegionModal()" [regions]="searchRegionItems">
+  <app-regions-select-modal (select)="filterEventsInLocation($event)" [selectedRegion]="regionFilterName" [visible]="regionModalState" (onClose)="closeRegionModal()" [regions]="searchRegionItems"> </app-regions-select-modal>
+  <ng-container *ngIf="currentFilter">
+    <div *ngFor="let group of formatedEvents" class="events-grid">
+      <span class="month">{{group.groupMonth}}</span>
+      <div  *ngFor="let event of group.events; let i = index">
+        <app-event-card [event]="event" >
+          <div *ngIf="userService.userHaveRoot() && event.commissions_exists" class="button-container">
+            <app-standart-button style="width: 100%;" (click)="generateGoogleLink(event.id)" buttonText="Выгрузить список"></app-standart-button>
+            <app-standart-button style="width: 100%;" (click)="openUploadResultModal(event)" buttonText="Добавить результаты"></app-standart-button>
+          </div>
+        </app-event-card>
+      </div>
+    </div>
+  </ng-container>
 
-  </app-regions-select-modal>
-  <div class="tabs-container">
+  <ng-container *ngIf="expiredFilter">
+    <div *ngFor="let group of formatedExpiredEvents" class="events-grid">
+      <span class="month">{{group.groupMonth}}</span>
+        <div  *ngFor="let event of group.events; let i = index">
+          <app-event-card [event]="event">
+            <div *ngIf="userService.userHaveRoot()" class="button-container">
+              <app-standart-button style="width: 100%;" (click)="generateGoogleLink(event.id)" buttonText="Выгрузить список"></app-standart-button>
+              <app-standart-button style="width: 100%;" (click)="openUploadResultModal(event)" buttonText="Добавить результаты"></app-standart-button>
+            </div>
+          </app-event-card>
+        </div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="allFilter">
+    <div *ngFor="let group of formatedEvents" class="events-grid">
+      <span class="month">{{group.groupMonth}}</span>
+      <div  *ngFor="let event of group.events; let i = index">
+        <app-event-card [event]="event" >
+          <div *ngIf="userService.userHaveRoot() && event.commissions_exists" class="button-container">
+            <app-standart-button style="width: 100%;" (click)="generateGoogleLink(event.id)" buttonText="Выгрузить список"></app-standart-button>
+            <app-standart-button style="width: 100%;" (click)="openUploadResultModal(event)" buttonText="Добавить результаты"></app-standart-button>
+          </div>
+        </app-event-card>
+      </div>
+    </div>
+    <div *ngFor="let group of formatedExpiredEvents" class="events-grid">
+      <span class="month">{{group.groupMonth}}</span>
+        <div  *ngFor="let event of group.events; let i = index">
+          <app-event-card [event]="event">
+            <div *ngIf="userService.userHaveRoot()" class="button-container">
+              <app-standart-button style="width: 100%;" (click)="generateGoogleLink(event.id)" buttonText="Выгрузить список"></app-standart-button>
+              <app-standart-button style="width: 100%;" (click)="openUploadResultModal(event)" buttonText="Добавить результаты"></app-standart-button>
+            </div>
+          </app-event-card>
+        </div>
+    </div>
+  </ng-container>
+  <!-- <div class="tabs-container">
     <app-tabs>
       <app-tabs-item name="Текущие">
         <div *ngFor="let group of formatedEvents" class="events-grid">
@@ -23,7 +77,6 @@
               <div *ngIf="userService.userHaveRoot() && event.commissions_exists" class="button-container">
                 <app-standart-button style="width: 100%;" (click)="generateGoogleLink(event.id)" buttonText="Выгрузить список"></app-standart-button>
                 <app-standart-button style="width: 100%;" (click)="openUploadResultModal(event)" buttonText="Добавить результаты"></app-standart-button>
-                <!-- <app-standart-button style="width: 100%;" (click)="redirectInConfirm(event.id)" buttonText="Модерация участников"></app-standart-button> -->
               </div>
             </app-event-card>
           </div>
@@ -44,7 +97,7 @@
           </div>
         </app-tabs-item>
       </app-tabs>
-  </div>
+  </div> -->
     
 </ion-content>
 
@@ -107,18 +160,3 @@
   </ng-template>
 </ion-modal>
 
-<!-- <ion-modal class="region-modal" (didDismiss)="closeRegionModal()"  [isOpen]="regionModalState">
-  <ng-template>
-    <ion-content>
-      <div class="region-modal-container">
-       
-      </div>
-    </ion-content>
-  </ng-template>  
-</ion-modal>        -->
-<!-- <app-standart-input-search 
-label="Область/край*" 
-[searchCurrentItems]="searchRegionItems" 
-[searchItems]="searchRegionItems" 
-(changeSearchValue)="filterEventsInLocation($event)">
-</app-standart-input-search> -->

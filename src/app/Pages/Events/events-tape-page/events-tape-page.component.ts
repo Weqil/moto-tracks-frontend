@@ -29,16 +29,17 @@ import { StandartInputComponent } from '@app/Shared/Components/UI/LinarikUI/form
 import { FormControl, FormGroup } from '@angular/forms';
 import { RegionsSelectModalComponent } from '@app/Shared/Components/Modals/regions-select-modal/regions-select-modal.component';
 import { NavbarVisibleService } from '@app/Shared/Services/navbar-visible.service';
+import { IconButtonComponent } from "../../../Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component";
 
-
+type Item = { title: string; createdAt: string; };
 @Component({
   selector: 'app-events-tape-page',
   templateUrl: './events-tape-page.component.html',
   styleUrls: ['./events-tape-page.component.scss'],
   imports: [SharedModule, CommonModule, HeaderModule,
     EventModule, IonModal, TabsComponent, TabsItemComponent,
-    StandartInputSearchComponent, UploadFileInputComponent,StandartInputComponent,
-    NoDataFoundComponent, NoDataFoundComponent, PdfViewerModule, CheckImgUrlPipe,RegionsSelectModalComponent]
+    StandartInputSearchComponent, UploadFileInputComponent, StandartInputComponent,
+    NoDataFoundComponent, NoDataFoundComponent, PdfViewerModule, CheckImgUrlPipe, RegionsSelectModalComponent, IconButtonComponent]
 })
 export class EventsTapePageComponent  implements OnInit {
 
@@ -54,6 +55,7 @@ export class EventsTapePageComponent  implements OnInit {
   eventService: EventService = inject(EventService)
   loadingService:LoadingService = inject(LoadingService)
   eventTapeService: EventTapeService = inject(EventTapeService)
+  
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
   switchTypeService:SwitchTypeService = inject(SwitchTypeService)
   regionModalState:boolean = false
@@ -72,6 +74,11 @@ export class EventsTapePageComponent  implements OnInit {
   searchRegionItems:any[] = []
   regionFilterName:string = 'Россия'
   currentRace!:IEvent 
+  
+  allFilter:boolean = false
+  expiredFilter:boolean = false
+  currentFilter:boolean = true
+
   zoomLevel = 1.0;
   isDragOver = false;
   allowedTypes = [
@@ -92,6 +99,12 @@ export class EventsTapePageComponent  implements OnInit {
   ]|any[] = []
 
  
+  setFilterInTape(filter:'all'|'current'|'expired'){
+    this.allFilter = filter == 'all'
+    this.currentFilter = filter == 'current'
+    this.expiredFilter = filter == 'expired'
+  }
+
   redirectInTracks(){
     this.navController.navigateForward('/tracks')
   }
@@ -271,6 +284,20 @@ export class EventsTapePageComponent  implements OnInit {
       this.navBarVisibleService.showNavBar()
     },100)
     this.regionModalState = false
+  }
+
+  
+
+  items:Item[] = [
+    {title:'B',createdAt:'21.04.2025'},
+    {title:'A', createdAt:'20.04.2025'}
+  ]
+  sortingInTitle(){
+    this.items.sort((a:any,b:any) => a.title - b.title)
+  }
+
+  sortingInCreatedAt(){
+    this.items.sort((a:any,b:any) => a.createdAt - b.createdAt)
   }
 
   filterEventsInLocation(event:any){
