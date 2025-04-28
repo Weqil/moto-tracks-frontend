@@ -155,6 +155,9 @@ export class RegistrationPageComponent  implements OnInit {
   closePhoneLoginModal(){
     this.phoneLoginModalValue = false;
   }
+  redirectInAbout(){
+    this.navController.navigateRoot('/about-the-program')
+  }
   changeCode(code:any){
     this.codeValue = code.join('')
     if(this.codeValue.length === 4){

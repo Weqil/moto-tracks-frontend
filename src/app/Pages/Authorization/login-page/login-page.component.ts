@@ -237,6 +237,9 @@ export class LoginPageComponent  implements OnInit {
       })
     }
   }
+  redirectInAbout(){
+    this.navController.navigateRoot('/about-the-program')
+  }
   closePhoneLoginModal(){
     this.phoneLoginModalValue = false
   }

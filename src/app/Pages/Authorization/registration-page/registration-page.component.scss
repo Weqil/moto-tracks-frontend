@@ -32,19 +32,31 @@
 .submit-button{
     padding-top: var(--standart-padding);
 }
+.about{
+  font-size: 0.9rem;
+  font-family: var(--font-regular);
+  text-align: center;
+  color: var(--blue-color);
+  cursor: pointer;
+  color: var(--blue-primary-color);;
+  margin-top: var(--standart-padding);
+}
 .dont-have-account{
     padding-top: 2rem;
     display: flex;
+    flex-direction: column;
     align-items: center;
+
     justify-content: center;
     .dont-have-account__registration-link{
-      font-size:0.75rem;
+      font-size:0.9rem;
       font-family: var(--font-regular);
+      cursor: pointer;
       color: var(--gray-color);
       cursor: pointer;
     }
     .dont-have-account__registration-link__route{
-      font-size:0.75rem;
+      font-size:0.9rem;
       font-family: var(--font-regular);
       color: var(--blue-primary-color);
       cursor: pointer;
