@@ -130,7 +130,7 @@
 }
 .dark{
     background-color: #373737;
-    color: #6A6A6A;
+    color: #ffffff;
 }
 .dark:focus{
     transition: 0.2s;
@@ -142,8 +142,8 @@
     font-size: 12px;
     font-family: var(--font-regular);
     padding-left: 0.8rem;
-    color: #6A6A6A;
+    color: #ffffff;
 }
 .dark::placeholder {
-    color: #6A6A6A;
+    color: #d5d5d5;
 }

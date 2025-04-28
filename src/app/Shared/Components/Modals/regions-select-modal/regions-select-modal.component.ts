@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { SelectBottomModalComponent } from '../../UI/LinarikUI/select-bottom-modal/select-bottom-modal.component';
 
 import { IconButtonComponent } from '../../UI/LinarikUI/buttons/icon-button/icon-button.component';
@@ -22,31 +22,61 @@ export class RegionsSelectModalComponent  implements OnInit {
    /**
    * Регионы 
    */
+
   @Input() regions:[
    {
      name:string,
      value:any
    }
   ]|any[] = []
+
   @Input() visible:boolean = false
+
    /**
    * Имя выбраного региона
    */
+
   @Input() selectedRegion:string = ''
      /**
    * Отправка выбраного региона
    */
+
   @Output() select:EventEmitter<any> = new EventEmitter()
+
   @Output() onClose:EventEmitter<any> = new EventEmitter()
+
   selectedRegionInModal:any = {}
+
+  searchItems:[
+    {
+      name:string,
+      value:any
+    }
+   ]|any[] = []
+
   regionSearchForm = new FormGroup({
-      text: new FormControl(),
       searchRegion: new FormControl(),
   })
    /**
    * Буфер для созранения региона
    */
-  tempRegionStorage:any = {}
+  tempRegionStorage:any = {
+     name:'Россия',
+      value:''
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.searchItems = this.regions
+  }
+
+  searchInputChange(event:any) {
+    this.search()
+  }
+  
+  search() {
+    this.searchItems = this.regions.filter(item => item.name.toLowerCase().includes(this.regionSearchForm.value.searchRegion.toLowerCase()))
+  }
+
   selectRegion(region:{name:string,value:any})
   {
     this.selectedRegion = region.name
@@ -67,6 +97,7 @@ export class RegionsSelectModalComponent  implements OnInit {
 
   closeRegionModal(){
     this.onClose.emit()
+    this.regionSearchForm.reset()
   }
 
   ngOnInit() {}

@@ -245,9 +245,7 @@ export class EventsTapePageComponent  implements OnInit {
     })
   }
 
-  setRegion(event:any){
-    
-  }
+
 
   addResultFilesInRace(raceId:number){
     
@@ -276,11 +274,14 @@ export class EventsTapePageComponent  implements OnInit {
   }
 
   filterEventsInLocation(event:any){
-    this.regionFilterName = event.name
-    this.regionFilterId = event.value
+
+    if(this.regionFilterName !== event.name){
+      this.regionFilterName = event.name
+      this.regionFilterId = event.value
+      this.getExpiredEvents()
+      this.getStartEvents()
+    }
     this.closeRegionModal()
-    this.getExpiredEvents()
-    this.getStartEvents()
   }
 
   getExpiredEvents(){
