@@ -10,7 +10,7 @@
         
    </div>
   </app-header>
-  <app-regions-select-modal [visible]="regionModalState" (onClose)="closeRegionModal()" [regions]="searchRegionItems">
+  <app-regions-select-modal (select)="filterEventsInLocation($event)" [selectedRegion]="regionFilterName" [visible]="regionModalState" (onClose)="closeRegionModal()" [regions]="searchRegionItems">
 
   </app-regions-select-modal>
   <div class="tabs-container">

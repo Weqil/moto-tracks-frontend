@@ -246,7 +246,7 @@ export class EventsTapePageComponent  implements OnInit {
   }
 
   setRegion(event:any){
-
+    
   }
 
   addResultFilesInRace(raceId:number){
