@@ -27,6 +27,8 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { CheckImgUrlPipe } from "../../../Shared/Helpers/check-img-url.pipe";
 import { StandartInputComponent } from '@app/Shared/Components/UI/LinarikUI/forms/standart-input/standart-input.component';
 import { FormControl, FormGroup } from '@angular/forms';
+import { RegionsSelectModalComponent } from '@app/Shared/Components/Modals/regions-select-modal/regions-select-modal.component';
+import { NavbarVisibleService } from '@app/Shared/Services/navbar-visible.service';
 
 
 @Component({
@@ -36,7 +38,7 @@ import { FormControl, FormGroup } from '@angular/forms';
   imports: [SharedModule, CommonModule, HeaderModule,
     EventModule, IonModal, TabsComponent, TabsItemComponent,
     StandartInputSearchComponent, UploadFileInputComponent,StandartInputComponent,
-    NoDataFoundComponent, NoDataFoundComponent, PdfViewerModule, CheckImgUrlPipe]
+    NoDataFoundComponent, NoDataFoundComponent, PdfViewerModule, CheckImgUrlPipe,RegionsSelectModalComponent]
 })
 export class EventsTapePageComponent  implements OnInit {
 
@@ -45,6 +47,8 @@ export class EventsTapePageComponent  implements OnInit {
   constructor() {
    
    }
+
+  navBarVisibleService:NavbarVisibleService = inject(NavbarVisibleService)
 
   navController: NavController = inject(NavController)
   eventService: EventService = inject(EventService)
@@ -262,8 +266,12 @@ export class EventsTapePageComponent  implements OnInit {
 
   openRegionModal(){
     this.regionModalState = true
+    this.navBarVisibleService.hideNavBar()
   }
   closeRegionModal(){
+    setTimeout(()=>{
+      this.navBarVisibleService.showNavBar()
+    },100)
     this.regionModalState = false
   }
 

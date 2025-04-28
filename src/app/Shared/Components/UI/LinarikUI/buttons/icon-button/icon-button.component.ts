@@ -15,6 +15,9 @@ export class IconButtonComponent  implements OnInit {
    */
   @Input() theme: 'dark'|'red'|'white'|'dark-gray' = 'dark'
 
+    /**
+   * Расположить элементы сначала
+   */
   @Input() elementsInStart:boolean = false
 
   /**

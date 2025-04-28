@@ -1,3 +1,8 @@
+span{    
+    overflow: hidden;         
+    text-overflow: ellipsis;   
+    max-width: 100%; 
+}
 .standart-height{
     height: 2.5rem;
 }

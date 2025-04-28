@@ -1,0 +1,20 @@
+<app-select-bottom-modal headerText="Область / край" (onClose)="closeRegionModal()" [visible]="visible">
+  <div class="region-modal-main">
+    <div class="region-modal-wrapper">
+        <app-standart-input iconLeft="/assets/icons/search.svg" placeholder="Поиск" [dark]="true" [control]="regionSearchForm.get('searchRegion')"></app-standart-input>
+        <div class="regions-grid">
+            <app-icon-button style="white-space: nowrap;" [elementsInStart]="true" *ngFor="let region of regions" widht="full" [buttonText]="region.name" clippy="clippy-right" theme="dark-gray"></app-icon-button>
+        </div>
+    </div>
+   
+    <div class="buttons-container">
+        <div class="buttons-container__item">
+            <app-icon-button widht="full" buttonText="Сохранить" clippy="clippy-right" theme="red"></app-icon-button>
+        </div>
+        <div class="buttons-container__item">
+            <app-icon-button  widht="full" buttonText="Сбросить" clippy="clippy-right" theme="dark-gray"></app-icon-button>
+        </div>
+       
+    </div>
+</div>
+</app-select-bottom-modal>

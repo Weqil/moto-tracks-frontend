@@ -10,7 +10,9 @@
         
    </div>
   </app-header>
+  <app-regions-select-modal [visible]="regionModalState" (onClose)="closeRegionModal()" [regions]="searchRegionItems">
 
+  </app-regions-select-modal>
   <div class="tabs-container">
     <app-tabs>
       <app-tabs-item name="Текущие">
@@ -105,7 +107,7 @@
   </ng-template>
 </ion-modal>
 
-<ion-modal class="region-modal" (didDismiss)="closeRegionModal()"  [isOpen]="regionModalState">
+<!-- <ion-modal class="region-modal" (didDismiss)="closeRegionModal()"  [isOpen]="regionModalState">
   <ng-template>
     <ion-content>
       <div class="region-modal-container">
@@ -118,4 +120,4 @@
       </div>
     </ion-content>
   </ng-template>  
-</ion-modal>       
+</ion-modal>        -->
