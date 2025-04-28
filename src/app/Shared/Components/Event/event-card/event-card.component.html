@@ -2,26 +2,26 @@
     
    
  <div class="card">
-    <!-- <div class="event-date">
-
-        @if(registrate()){
-            Регистрация
-        }
-            
-        
-        
-        {{ event.date_start | date: 'dd.MM.YYYY' }}
-    </div> -->
+ 
     <div (click)="redirectInEvent()" >
+        <div *ngIf="event.date_start" class="card__date-start">
+            <img src="/assets/icons/red-finished.svg" alt="">
+            {{ formatDate(event.date_start) }}
+        </div>
         <div class="card__content">
             <img src="{{event.images ? (event.images[0] | checkImgUrl) : ''}}" alt="">
-            <!-- <img src="{{event.images ? (event.images[0] | checkImgUrl : '/assets/images/moto-background.png') : '' | checkImgUrl : '/assets/images/moto-background.png'}}" alt=""> -->
         </div>
         <div class="card__footer"> 
-            
-            
 
-            <div class="event-name">
+            <h3 class="card__name">
+                {{event.name}}
+            </h3>
+
+            <div *ngIf="event.track" class="event-address">
+                {{event.track.location?.name}} {{event.track.location?.type}}
+            </div>
+
+            <!-- <div class="event-name">
                 {{event.name}}
             </div>
 
@@ -79,7 +79,7 @@
                   <span>Регистрация закрыта</span>
                 </ng-template>
             </div>
-        </div>
+        </div> -->
     </div>
     
 </div>

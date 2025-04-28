@@ -23,7 +23,7 @@ export class EventCardComponent  implements OnInit {
     
   }
   formatDate(dateString: string): string {
-    return moment(dateString).format('DD.MM.YYYY (HH:mm)');
+    return moment(dateString).format('D MMMM YYYY');
   }
 
   registrate() {

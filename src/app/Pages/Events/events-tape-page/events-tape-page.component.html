@@ -19,7 +19,11 @@
 
   <ng-container *ngIf="currentFilter">
     <div *ngFor="let group of formatedEvents" class="events-grid">
-      <span class="month">{{group.groupMonth}}</span>
+      <div class="month-container">
+        <span class="month">{{group.groupMonth}}</span>
+        <div class="month-shape"></div>
+      </div>
+  
       <div  *ngFor="let event of group.events; let i = index">
         <app-event-card [event]="event" >
           <div *ngIf="userService.userHaveRoot() && event.commissions_exists" class="button-container">
@@ -33,7 +37,10 @@
 
   <ng-container *ngIf="expiredFilter">
     <div *ngFor="let group of formatedExpiredEvents" class="events-grid">
-      <span class="month">{{group.groupMonth}}</span>
+      <div class="month-container">
+        <span class="month">{{group.groupMonth}}</span>
+        <div class="month-shape"></div>
+      </div>
         <div  *ngFor="let event of group.events; let i = index">
           <app-event-card [event]="event">
             <div *ngIf="userService.userHaveRoot()" class="button-container">
@@ -47,7 +54,10 @@
 
   <ng-container *ngIf="allFilter">
     <div *ngFor="let group of formatedEvents" class="events-grid">
-      <span class="month">{{group.groupMonth}}</span>
+      <div class="month-container">
+        <span class="month">{{group.groupMonth}}</span>
+        <div class="month-shape"></div>
+      </div>
       <div  *ngFor="let event of group.events; let i = index">
         <app-event-card [event]="event" >
           <div *ngIf="userService.userHaveRoot() && event.commissions_exists" class="button-container">
@@ -58,7 +68,10 @@
       </div>
     </div>
     <div *ngFor="let group of formatedExpiredEvents" class="events-grid">
-      <span class="month">{{group.groupMonth}}</span>
+      <div class="month-container">
+        <span class="month">{{group.groupMonth}}</span>
+        <div class="month-shape"></div>
+      </div>
         <div  *ngFor="let event of group.events; let i = index">
           <app-event-card [event]="event">
             <div *ngIf="userService.userHaveRoot()" class="button-container">
