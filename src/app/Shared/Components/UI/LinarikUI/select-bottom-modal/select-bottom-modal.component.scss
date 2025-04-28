@@ -31,7 +31,6 @@
     color: white;
     border-top-left-radius: 32px;
     border-top-right-radius: 32px;
-    padding: 1rem;
     z-index: 1001;
   }
 
@@ -45,11 +44,11 @@
   }
   
   .modal-header {
+    padding-top:10px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-bottom: 1rem;
     gap:0.8rem;
     span{
       color: #fff;

@@ -53,23 +53,27 @@
             <app-select-bottom-modal (onClose)="closeModal()" [visible]="selectModalState"></app-select-bottom-modal>
             <app-icon-button  (click)="openRegionModal()"  buttonText="Выбор региона" clippy="clippy-right" theme="red"></app-icon-button>
             <app-select-bottom-modal (onClose)="closeRegionModal()" [visible]="selectRegionModalState">
-                <div class="buttons-container">
-                    <div class="buttons-container__item">
-                        <app-icon-button widht="full" buttonText="Сохранить" clippy="clippy-right" theme="red"></app-icon-button>
-                    </div>
-                    <div class="buttons-container__item">
-                        <app-icon-button  widht="full" buttonText="Сбросить" clippy="clippy-right" theme="dark-gray"></app-icon-button>
-                    </div>
-                   
-                </div>
+               
                 <div class="region-modal-main">
-                    <app-standart-input iconLeft="/assets/icons/search.svg" placeholder="Поиск" [dark]="true" [control]="form.get('searchRegion')"></app-standart-input>
-                    <div class="regions-grid">
-                        <app-icon-button [elementsInStart]="true" widht="full" buttonText="Россия" clippy="clippy-right" theme="white"></app-icon-button>
-                        <app-icon-button [elementsInStart]="true" *ngFor="let region of regions" widht="full" [buttonText]="region.name" clippy="clippy-right" theme="dark-gray"></app-icon-button>
+                    <div class="region-modal-wrapper">
+                        <app-standart-input iconLeft="/assets/icons/search.svg" placeholder="Поиск" [dark]="true" [control]="form.get('searchRegion')"></app-standart-input>
+                        <div class="regions-grid">
+                            <app-icon-button [elementsInStart]="true" widht="full" buttonText="Россия" clippy="clippy-right" theme="white"></app-icon-button>
+                            <app-icon-button [elementsInStart]="true" *ngFor="let region of regions" widht="full" [buttonText]="region.name" clippy="clippy-right" theme="dark-gray"></app-icon-button>
+                        </div>
                     </div>
                    
+                    <div class="buttons-container">
+                        <div class="buttons-container__item">
+                            <app-icon-button widht="full" buttonText="Сохранить" clippy="clippy-right" theme="red"></app-icon-button>
+                        </div>
+                        <div class="buttons-container__item">
+                            <app-icon-button  widht="full" buttonText="Сбросить" clippy="clippy-right" theme="dark-gray"></app-icon-button>
+                        </div>
+                       
+                    </div>
                 </div>
+
             </app-select-bottom-modal>
         </div>
         <div class="inputs-grid">

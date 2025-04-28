@@ -80,22 +80,23 @@ ion-content{
     justify-content: center;
     height: fit-content;
 }
-.region-modal-main{
-    padding-left: 1rem;
-    padding-right: 1rem;
+.region-modal-wrapper{
+    padding: 0.5rem 1.2rem;
 }
 .buttons-container{
-    position: fixed;
+    position: sticky;
     display: flex;
-    padding-top: 10px;
+    transform: translateZ(0);
+    padding: 1rem 1.2rem;
+    will-change:transform;
     align-items: center;
     justify-content: center;
-    padding-bottom: 10px;
     width: 100%;
     background: #181818;
     bottom: 0;
+    transform: translate3d(0,0,0);
     gap: 1rem;
-    z-index: 1000;
+    z-index: 11000;
 }
 .buttons-container__item{
     width: 50%;
