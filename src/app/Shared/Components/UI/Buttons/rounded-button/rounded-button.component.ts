@@ -35,6 +35,9 @@ export class RoundedButtonComponent implements OnInit {
       else if(this.theme == 'line'){
          return 'rounded-button__line'
       }
+      else if(this.theme == 'red-line'){
+        return 'rounded-button__red-line'
+     }
      
     }
     return 'rounded-button'

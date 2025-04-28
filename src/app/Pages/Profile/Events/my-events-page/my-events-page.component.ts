@@ -13,11 +13,12 @@ import { userRoles } from 'src/app/Shared/Data/Enums/roles';
 import { TabsComponent } from "../../../../Shared/Components/UI/tabs/tabs.component";
 import { TabsItemComponent } from "../../../../Shared/Components/UI/tabs-item/tabs-item.component";
 import moment from 'moment';
+import { IconButtonComponent } from "../../../../Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component";
 @Component({
   selector: 'app-my-events-page',
   templateUrl: './my-events-page.component.html',
   styleUrls: ['./my-events-page.component.scss'],
-  imports: [SharedModule, HeaderModule, EventModule, IonModal, TabsComponent, TabsItemComponent]
+  imports: [SharedModule, HeaderModule, EventModule, IonModal, TabsComponent, TabsItemComponent, IconButtonComponent]
 })
 export class MyEventsPageComponent  implements OnInit {
 

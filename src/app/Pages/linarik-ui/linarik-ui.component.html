@@ -1,12 +1,12 @@
 <ion-content>
     <main class="elements-grid">
         <div class="icon-buttons-grid">
-                <app-icon-button icon="/assets/icons/user.svg" theme="dark"></app-icon-button>
-                <app-icon-button icon="/assets/icons/user.svg" height="long-height" theme="red"></app-icon-button>
-                <app-icon-button icon="/assets/icons/user.svg" theme="red"></app-icon-button>
-                <app-icon-button icon="/assets/icons/user.svg" theme="dark"></app-icon-button>
-                <app-icon-button [disabled]="true" icon="/assets/icons/user.svg" theme="red"></app-icon-button>
-                <app-icon-button [disabled]="true" icon="/assets/icons/user.svg" theme="dark"></app-icon-button>
+                <app-icon-button [buttonIconColor]="'white-icon'" icon="/assets/icons/user.svg" theme="dark"></app-icon-button>
+                <app-icon-button [buttonIconColor]="'white-icon'" icon="/assets/icons/user.svg" height="long-height" theme="red"></app-icon-button>
+                <app-icon-button [buttonIconColor]="'white-icon'" icon="/assets/icons/user.svg" theme="red"></app-icon-button>
+                <app-icon-button [buttonIconColor]="'white-icon'" icon="/assets/icons/user.svg" theme="dark"></app-icon-button>
+                <app-icon-button [buttonIconColor]="'white-icon'" [disabled]="true" icon="/assets/icons/user.svg" theme="red"></app-icon-button>
+                <app-icon-button [buttonIconColor]="'white-icon'" [disabled]="true" icon="/assets/icons/user.svg" theme="dark"></app-icon-button>
         </div>
         <div class="icon-buttons-grid__icon-buttons-grid--beveled">
             <app-icon-button widht="w49" buttonText="Трассы" clippy="clippy-right" theme="dark"></app-icon-button>
@@ -22,6 +22,9 @@
             <app-icon-button [disabled]="true" widht="w52" buttonText="Трассы" clippy="clippy-right" theme="dark"></app-icon-button>
             <app-icon-button [disabled]="true" widht="w58" buttonText="Трассы" clippy="clippy-right" theme="dark"></app-icon-button>
             <app-icon-button elementsPosition="elements-position__row" widht="w71" height="little-height" icon="/assets/icons/flagFinished.svg" widht="w58" buttonText="Трассы" clippy="clippy-right" theme="white"></app-icon-button>
+            <app-icon-button  [buttonIconColor]="'red-icon'" [buttonBorderWidth]="'b1'" [buttonBorderColor]="'red-border'" clippy="clippy-right" icon="assets/icons/plus.svg" height="standart-height" sizeIcon="little-size" theme="white"></app-icon-button>
+            <app-icon-button  [buttonIconColor]="'dark-icon'" [buttonBorderWidth]="'b3'" [buttonBorderColor]="'white-border'" clippy="clippy-right" icon="assets/icons/plus.svg" height="standart-height" sizeIcon="standart-size" theme="red"></app-icon-button>
+
         </div>
 
         <div class="back-buttons-grid">

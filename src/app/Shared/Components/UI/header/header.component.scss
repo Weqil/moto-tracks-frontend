@@ -1,5 +1,5 @@
 .header{
-    background: var(--dark-grey-color);
+    background: white;
     align-items: center;
     position: fixed;
     padding-top: var(--ion-safe-area-top, var(--standart-padding));
@@ -11,7 +11,7 @@
     justify-content: space-between;
     align-items: center;
     display: flex;
-    border-radius: 0px 0px 1rem 1rem;
+    border-radius: 0px 0px 0rem 0rem;
     padding-left: var(--standart-padding);
     padding-right: var(--standart-padding);
     .header-wrapper{
@@ -30,8 +30,8 @@
             gap: 8px;
                 .header-title{
                     font-size: var( --font-headers-size-little);
-                    font-family: var(--font-bold);
-                    color: var(--font-standart-white-color);
+                    font-family: var(--font-standart);
+                    color: var(--dark-grey-color);
                     
                 }
             }  
@@ -40,7 +40,7 @@
 
 .icon-title{
     border-radius: 50%;
-    background-color: var(--white-color);
+    background-color: var(--dark-grey-color);
     width: 1rem;
     height: 1rem;
 }
@@ -48,12 +48,12 @@
 @media (max-width: 700px) {
     .header-title{
         font-size: var( --font-headers-size-little);
-        font-family: var(--font-bold);
-        color: var(--font-standart-white-color);
+        font-family: var(--font-standart);
+        color: var(--dark-grey-color);
         white-space: nowrap;          // не переносить текст
         overflow: hidden;             // скрыть выходящий за границу
         text-overflow: ellipsis; 
-        width: 20rem;
+        width: 15rem;
     }
   }
 

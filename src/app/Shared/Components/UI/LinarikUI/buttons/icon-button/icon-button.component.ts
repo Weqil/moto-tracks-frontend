@@ -38,6 +38,18 @@ export class IconButtonComponent  implements OnInit {
    */
   @Input() icon:string = ''
 
+         /**
+   *Цвет иконки кнопки
+   */
+@Input() buttonIconColor:'dark-icon'|'red-icon'|'white-icon' = 'dark-icon'
+
+
+         /**
+   *Цвет иконки кнопки
+   */
+@Input() buttonIconColor:'dark-icon'|'red-icon'|'white-icon' = 'dark-icon'
+
+
     /**
    *Будут ли скошены углы у кнопки
    */
@@ -58,11 +70,28 @@ export class IconButtonComponent  implements OnInit {
    */
   @Input() buttonText:string =''
 
+      /**
+   *Границы кнопки
+   */
+  @Input() buttonBorderWidth:'b0'|'b1'|'b2'|'b3' = 'b0'
+
+        /**
+   *Цвет границы кнопки
+   */
+   @Input() buttonBorderColor:'null-border'|'dark-border'|'red-border'|'white-border' = 'null-border'
+
+        /**
+   *Размер изображения
+   */
+   @Input() sizeIcon:'standart-size'|'little-size'= 'standart-size'
+
+
+
    /**
    * Функция собирает все классы и возвращает массив с нужными значениями
    */
   get getClasses():string[]{
-    return [this.theme, this.height, this.disabled ? 'disabled':'','icon-button',this.clippy, this.elementsPosition, this.widht, 'font', this.elementsInStart ? 'elements-in-start':'']
+    return [this.theme, this.buttonIconColor, this.sizeIcon, this.buttonBorderWidth, this.buttonBorderColor, this.height, this.disabled ? 'disabled':'','icon-button',this.clippy, this.elementsPosition, this.widht, 'font', this.elementsInStart ? 'elements-in-start':'']
   }
 
   ngOnInit() {}
