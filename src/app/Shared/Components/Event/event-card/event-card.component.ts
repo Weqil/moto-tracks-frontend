@@ -46,6 +46,25 @@ export class EventCardComponent  implements OnInit {
     return this.event.record_start &&  !this.event.record_end ? `с ${this.formatDate(this.event.record_start,true)}` : `с ${this.formatDate(this.event.record_start,true)} по ${this.formatDate(String(this.event.record_end),true)}`
   }
 
+  get checkRecord():string{
+    
+    const recordStart = moment(this.event.record_start);
+    const recordEnd = moment(this.event.record_end);
+    const now = moment();
+    if(!this.event.record_start){
+      return 'Регистрация закрыта'
+    }
+    if(!this.registrationStatus){
+      if(now > recordEnd){
+        return 'Регистрация закрыта'
+      }
+      if(now < recordStart){
+        return `Регистрация с ${recordStart.format('DD.MM HH:mm')}`
+      }
+    }
+    return 'Регистрация открыта'
+  }
+
   redirectInTrack(){
     this.navController.navigateForward(`/track/${this.event.track.id}`)
   }

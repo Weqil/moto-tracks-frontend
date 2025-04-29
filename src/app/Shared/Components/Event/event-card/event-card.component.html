@@ -16,9 +16,9 @@
             </h3>
 
         
-            <div class="record-information" *ngIf="formatingDate"> 
+            <!-- <div class="record-information" *ngIf="formatingDate"> 
                 <app-icon-button  theme="dark-gray" height="little-height" clippy="clippy-right" buttonText="Регистрация {{formatingDate}}"> </app-icon-button>
-            </div>
+            </div> -->
 
             <div *ngIf="event.track" class="event-address">
                 {{event.track.location?.name}} {{event.track.location?.type}}
@@ -37,11 +37,10 @@
                 </div>
             </div>
 
-            
             <div class="status-events">
-                <app-icon-button height="little-height" widht="full" theme="red" buttonText="Регистрация открыта" *ngIf="registrationStatus; else registrationClosed"></app-icon-button>
+                <app-icon-button height="little-height" widht="full" theme="red" [buttonText]="checkRecord" *ngIf="registrationStatus; else registrationClosed"></app-icon-button>
                 <ng-template #registrationClosed>
-                  <app-icon-button [disabled]="true" buttonText="Регистрация закрыта" widht="full" height="little-height"></app-icon-button>
+                  <app-icon-button [disabled]="true" [buttonText]="checkRecord" widht="full" height="little-height"></app-icon-button>
                 </ng-template>
             </div>
             
