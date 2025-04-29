@@ -4,12 +4,13 @@ import { CheckImgUrlPipe } from "../../../Helpers/check-img-url.pipe";
 import { NavController } from '@ionic/angular';
 import { CommonModule, DatePipe } from '@angular/common';
 import moment from 'moment';
+import { UsersPluralRulePipe } from "../../../Helpers/users-plural-rule.pipe";
 
 @Component({
   selector: 'app-event-card',
   templateUrl: './event-card.component.html',
   styleUrls: ['./event-card.component.scss'],
-  imports: [CheckImgUrlPipe, DatePipe,CommonModule],
+  imports: [CheckImgUrlPipe, DatePipe, CommonModule, UsersPluralRulePipe],
 })
 export class EventCardComponent  implements OnInit {
   @Input() event!:IEvent

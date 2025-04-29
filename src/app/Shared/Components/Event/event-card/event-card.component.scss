@@ -54,13 +54,14 @@
 
 .track-name{
     display: flex;
-    justify-content: space-between;
-    padding-left: var(--little-padding);
     padding-right: var(--standart-padding);
+    padding-top: 12px;
     height: 1rem;
+    gap: var(--little-padding);
     align-items: center;
     width: 100%;
-    font-family: var(--font-bold);
+    color: #6A6A6A;
+    font-family: var(--font-regular);
 }
 .event-address{
     font-family: var(--font-regular);
@@ -68,6 +69,9 @@
     font-style: italic;
     color: #373737;
     font-size: var(--font-little-size);
+}
+.wheel-img{
+    width: 1.1rem;
 }
 
 .event-address-with-users{

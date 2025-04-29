@@ -12,13 +12,24 @@
             <img src="{{event.images ? (event.images[0] | checkImgUrl) : ''}}" alt="">
         </div>
         <div class="card__footer"> 
-
             <h3 class="card__name">
                 {{event.name}}
             </h3>
 
             <div *ngIf="event.track" class="event-address">
                 {{event.track.location?.name}} {{event.track.location?.type}}
+            </div>
+            <div *ngIf="event.track" class="users-in-track-container">
+                <div *ngIf="event.track" class="track-name">
+                    <img class="wheel-img" src="/assets/icons/wheel.svg" alt="">
+                    {{event.track.name}}
+                </div>
+            </div>
+            <div *ngIf="event.appointment_count" class="users-in-track-container">
+                <div *ngIf="event.appointment_count" class="track-name">
+                    <img class="wheel-img" src="/assets/icons/user-group.svg" alt="">
+                    {{event.appointment_count?.count | usersPluralRule}} 
+                </div>
             </div>
 
             <!-- <div class="event-name">
@@ -29,7 +40,6 @@
                 <div *ngIf="event.track" class="track-name">
                     {{event.track.name}}
                 </div>
-
             </div>
 
 
