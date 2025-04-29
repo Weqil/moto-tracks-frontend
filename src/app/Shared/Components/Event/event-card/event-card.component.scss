@@ -56,8 +56,6 @@
 .track-name{
     display: flex;
     padding-right: var(--standart-padding);
-    padding-top: 12px;
-    height: 1rem;
     gap: var(--little-padding);
     align-items: center;
     width: 100%;
@@ -65,14 +63,14 @@
     font-family: var(--font-regular);
 }
 .event-address{
-    font-family: var(--font-regular);
-    padding-top: 6px;
+    font-family: var(--font-bold);
+    padding-top: 12px;
     font-style: italic;
     color: #373737;
     font-size: var(--font-little-size);
 }
 .record-information{
-    padding-top: 6px;
+    padding-top: 12px;
 }
 .wheel-img{
     width: 1.1rem;
@@ -134,14 +132,13 @@
 }
 
 
-
 .users-in-track-container{
+    padding-top: 6px;
     display: flex;
     justify-content: center;
     align-items: center;
     padding-right: var(--standart-padding);
-    padding-bottom: 0.2rem;
-    padding-top: 0.2rem;
+    
 }
 .status-events{
    padding-top: 12px;

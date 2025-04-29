@@ -26,7 +26,7 @@ export class EventCardComponent  implements OnInit {
   }
   formatDate(dateString: string, noYear?:boolean): string {
     if(noYear){
-      return moment(dateString).format('D MMMM');
+      return moment(dateString).format('D.MM  HH:MM');
     }
     return moment(dateString).format('D MMMM YYYY');
   }
