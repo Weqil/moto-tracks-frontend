@@ -13,12 +13,14 @@ import { SwitchTypeService } from 'src/app/Shared/Services/switch-type.service';
 import { LoadingService } from 'src/app/Shared/Services/loading.service';
 import { FormsModule } from "../../../Shared/Modules/forms/forms.module";
 import { MapService } from 'src/app/Shared/Data/Services/Map/map.service';
+import { FormControl, FormGroup } from '@angular/forms';
+import { StandartInputComponent } from '@app/Shared/Components/UI/LinarikUI/forms/standart-input/standart-input.component';
 
 @Component({
   selector: 'app-track-tape-page',
   templateUrl: './track-tape-page.component.html',
   styleUrls: ['./track-tape-page.component.scss'],
-  imports: [SharedModule, HeaderModule, TrackModule, IonModal, RouterLink, FormsModule]
+  imports: [SharedModule, HeaderModule, TrackModule, IonModal, RouterLink,StandartInputComponent]
 })
 
 export class TrackTapePageComponent  implements OnInit {
@@ -36,6 +38,10 @@ export class TrackTapePageComponent  implements OnInit {
   trackTapeService:TrackTapeService = inject(TrackTapeService)
   switchTypeService:SwitchTypeService = inject(SwitchTypeService)
   loadingService:LoadingService = inject(LoadingService)
+
+  searchTapeTrackForm:FormGroup = new FormGroup({
+    searchInput: new FormControl()
+  })
 
   @ViewChild(IonContent) ionContent!: IonContent
 
@@ -58,6 +64,7 @@ export class TrackTapePageComponent  implements OnInit {
   closeRegionModal(){
     this.regionModalState = false
   }
+
 
   getRegions(){
     this.mapService.getAllRegions(false, true,false).pipe().subscribe((res:any)=>{

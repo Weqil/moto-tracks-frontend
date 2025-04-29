@@ -235,5 +235,33 @@ span{
     }
 }
 
+.green--light{
+    background: #00890996;
+    transition: 0.3s all;
+    &:active{
+        transition: 0.3s all;
+        background: #008909;
+    }
+    // .icon-filter{
+    //     filter: brightness(0) saturate(100%) invert(0%) sepia(96%) saturate(16%) hue-rotate(246deg) brightness(98%) contrast(105%);
+    // }
+    span{
+        color: #54fb5f;
+    }
+}
+.red--light{
+    background: #700000;
+    transition: 0.3s all;
+    &:active{
+        transition: 0.3s all;
+        background: #700000;
+    }
+    // .icon-filter{
+    //     filter: brightness(0) saturate(100%) invert(0%) sepia(96%) saturate(16%) hue-rotate(246deg) brightness(98%) contrast(105%);
+    // }
+    span{
+        color: #FF5C5C;
+    }
+}
 
 

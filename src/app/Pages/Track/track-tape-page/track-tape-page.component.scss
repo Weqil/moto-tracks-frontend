@@ -31,10 +31,19 @@
 .tracks{
     
 }
+.header-container{
+    max-width: 960px;
+    margin: auto;
+    width: 100%;
+}
 .tracks-grid__item{
-    border-bottom: 1px solid rgba(76, 88, 97, .1568627451);
-    padding-top: var(--little-padding);
-    padding-bottom: var(--little-padding);
+    display: flex;
+    justify-content: center;
+}
+.tracks-grid{
+    display: flex;
+    flex-direction: column;
+    gap:var(--standart-padding);
 }
 
 .region-modal{

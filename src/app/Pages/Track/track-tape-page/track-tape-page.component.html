@@ -1,6 +1,10 @@
 <ion-content [scrollEvents]="true">
-  
-  <app-header [hiddenBackButton]="true" (click)="openRegionModal()" [headerTitle]="regionFilterName" ></app-header>
+  <app-header  [customContainer]="true">
+    <div class="header-container">
+      <app-standart-input iconLeft="/assets/icons/search.svg" placeholder="Поиск трассы" style="width: 100%;" [control]="searchTapeTrackForm.get('searchInput')"></app-standart-input>
+    </div>
+ 
+  </app-header>
   <main class="main-container--with-header">
     <div class="tracks">
       <div class="tracks-grid">
@@ -10,12 +14,11 @@
           </div>
         } 
       </div>
-    </div>
-    
+    </div> 
   </main>
 </ion-content>
 
-<ion-modal class="region-modal" (didDismiss)="closeRegionModal()"  [isOpen]="regionModalState">
+<!-- <ion-modal class="region-modal" (didDismiss)="closeRegionModal()"  [isOpen]="regionModalState">
   <ng-template>
     <ion-content>
       <div class="region-modal-container">
@@ -28,4 +31,4 @@
       </div>
     </ion-content>
   </ng-template>  
-</ion-modal>       
+</ion-modal>        -->

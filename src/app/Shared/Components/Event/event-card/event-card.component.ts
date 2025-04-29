@@ -62,7 +62,7 @@ export class EventCardComponent  implements OnInit {
         return `Регистрация с ${recordStart.format('DD.MM HH:mm')}`
       }
     }
-    return 'Регистрация открыта'
+    return `Регистрация до ${recordEnd.format('D MMMM HH:mm')}`
   }
 
   redirectInTrack(){
