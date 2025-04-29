@@ -39,6 +39,7 @@
     flex-direction: column;
     position: relative;
     padding-left: var(--little-padding);
+    padding-right: var(--little-padding);
     padding-top: var(--little-padding);
     background: #EDEDED;
     background: linear-gradient(328deg, rgb(225 225 225) 0%, rgb(255, 255, 255) 50%, rgb(247 247 247 / 38%) 100%);
@@ -70,10 +71,16 @@
     color: #373737;
     font-size: var(--font-little-size);
 }
+.record-information{
+    padding-top: 6px;
+}
 .wheel-img{
     width: 1.1rem;
 }
-
+.users-count{
+    font-family: var(--font-extra-bold);
+    font-size: 14px;
+}
 .event-address-with-users{
     display: flex;
     justify-content: space-between;
@@ -137,13 +144,7 @@
     padding-top: 0.2rem;
 }
 .status-events{
-    border: 1px black solid;
-    border-radius: 0.5rem;
-    margin-right: 1rem;
-    padding: 0.3rem;
-    margin-top: 1rem;
-    display: flex;
-    justify-content: center;
+   padding-top: 12px;
 }
 .card__date-start{
     font-family: var(--font-extra-bold);

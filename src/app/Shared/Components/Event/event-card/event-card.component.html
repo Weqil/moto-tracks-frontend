@@ -1,24 +1,29 @@
-@if (event) {
-    
+
    
- <div class="card">
+ <div *ngIf="event" class="card">
  
-    <div (click)="redirectInEvent()" >
+    <div>
         <div *ngIf="event.date_start" class="card__date-start">
             <img src="/assets/icons/red-finished.svg" alt="">
             {{ formatDate(event.date_start) }}
         </div>
-        <div class="card__content">
+        <div (click)="redirectInEvent()" class="card__content">
             <img src="{{event.images ? (event.images[0] | checkImgUrl) : ''}}" alt="">
         </div>
-        <div class="card__footer"> 
+        <div (click)="redirectInEvent()" class="card__footer"> 
             <h3 class="card__name">
                 {{event.name}}
             </h3>
 
+        
+            <div class="record-information" *ngIf="formatingDate"> 
+                <app-icon-button  theme="dark-gray" height="little-height" clippy="clippy-right" buttonText="Регистрация {{formatingDate}}"> </app-icon-button>
+            </div>
+
             <div *ngIf="event.track" class="event-address">
                 {{event.track.location?.name}} {{event.track.location?.type}}
             </div>
+            
             <div *ngIf="event.track" class="users-in-track-container">
                 <div *ngIf="event.track" class="track-name">
                     <img class="wheel-img" src="/assets/icons/wheel.svg" alt="">
@@ -26,11 +31,20 @@
                 </div>
             </div>
             <div *ngIf="event.appointment_count" class="users-in-track-container">
-                <div *ngIf="event.appointment_count" class="track-name">
+                <div *ngIf="event.appointment_count" class="track-name users-count">
                     <img class="wheel-img" src="/assets/icons/user-group.svg" alt="">
                     {{event.appointment_count?.count | usersPluralRule}} 
                 </div>
             </div>
+
+            
+            <div class="status-events">
+                <app-icon-button height="little-height" widht="full" theme="red" buttonText="Регистрация открыта" *ngIf="registrationStatus; else registrationClosed"></app-icon-button>
+                <ng-template #registrationClosed>
+                  <app-icon-button [disabled]="true" buttonText="Регистрация закрыта" widht="full" height="little-height"></app-icon-button>
+                </ng-template>
+            </div>
+            
 
             <!-- <div class="event-name">
                 {{event.name}}
@@ -96,4 +110,3 @@
 <ng-content>
 </ng-content>
 </div>
-}

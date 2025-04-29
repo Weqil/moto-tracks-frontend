@@ -5,12 +5,13 @@ import { NavController } from '@ionic/angular';
 import { CommonModule, DatePipe } from '@angular/common';
 import moment from 'moment';
 import { UsersPluralRulePipe } from "../../../Helpers/users-plural-rule.pipe";
+import { IconButtonComponent } from "../../UI/LinarikUI/buttons/icon-button/icon-button.component";
 
 @Component({
   selector: 'app-event-card',
   templateUrl: './event-card.component.html',
   styleUrls: ['./event-card.component.scss'],
-  imports: [CheckImgUrlPipe, DatePipe, CommonModule, UsersPluralRulePipe],
+  imports: [CheckImgUrlPipe, DatePipe, CommonModule, UsersPluralRulePipe, IconButtonComponent],
 })
 export class EventCardComponent  implements OnInit {
   @Input() event!:IEvent
@@ -23,7 +24,10 @@ export class EventCardComponent  implements OnInit {
     this.registrate()
     
   }
-  formatDate(dateString: string): string {
+  formatDate(dateString: string, noYear?:boolean): string {
+    if(noYear){
+      return moment(dateString).format('D MMMM');
+    }
     return moment(dateString).format('D MMMM YYYY');
   }
 
@@ -32,6 +36,14 @@ export class EventCardComponent  implements OnInit {
     const recordEnd = moment(this.event.record_end);
     const now = moment();
     this.registrationStatus = now <= recordEnd && now >= recordStart
+  }
+
+  get formatingDate():string|boolean{
+  
+    if(!this.event.record_start){
+      return false
+    }
+    return this.event.record_start &&  !this.event.record_end ? `с ${this.formatDate(this.event.record_start,true)}` : `с ${this.formatDate(this.event.record_start,true)} по ${this.formatDate(String(this.event.record_end),true)}`
   }
 
   redirectInTrack(){
