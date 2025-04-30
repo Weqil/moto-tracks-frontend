@@ -1,6 +1,6 @@
 import { Component, Inject, inject, NgZone, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { catchError, EMPTY, finalize,forkJoin, map, Observable, of, Subject, switchMap, takeUntil, tap } from 'rxjs';
+import { catchError, debounceTime, EMPTY, finalize,forkJoin, fromEvent, map, Observable, of, Subject, Subscription, switchMap, takeUntil, tap } from 'rxjs';
 import { IEvent } from 'src/app/Shared/Data/Interfaces/event';
 import { EventService } from 'src/app/Shared/Data/Services/Event/event.service';
 import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
@@ -58,13 +58,14 @@ export class EventsViewPageComponent  implements OnInit {
   route: ActivatedRoute = inject(ActivatedRoute)
   eventService: EventService = inject(EventService)
   authService: AuthService = inject(AuthService)
+  resizeSubscription!: Subscription;
   navController: NavController = inject(NavController)
   loadingService: LoadingService = inject(LoadingService)
   switchTypeService:SwitchTypeService = inject(SwitchTypeService)
   mapService:MapService = inject(MapService)
 
   comandSelectModalStateValue:boolean = false
-
+  backgroundImages:string = ''
   changePersonalDateModalValue:boolean = false
   createRegionItems:any[] = []
   usersInRace:User[] = []
@@ -977,6 +978,21 @@ export class EventsViewPageComponent  implements OnInit {
   openImagesModalFunction() {
     this.statusImagesModal = true
   }
+  onResize() {
+    this.checkInImagesBackGround()
+  }
+
+  checkInImagesBackGround(){
+    const width = window.innerWidth;
+    if(width > 696){
+      this.backgroundImages = '/assets/images/race-background__big.jpg'
+    }else{
+      this.backgroundImages = '/assets/images/race-background.jpg'
+    }
+  }
+
+
+  
 
   getCreateRegions(){
     this.mapService.getAllRegions().pipe().subscribe((res:any)=>{
@@ -988,6 +1004,10 @@ export class EventsViewPageComponent  implements OnInit {
         })
       });
     })
+  }
+  
+  backNavigate(){
+    this.navController.back()
   }
 
   ionViewWillEnter(){
@@ -1008,10 +1028,9 @@ export class EventsViewPageComponent  implements OnInit {
       })
     }
 
-    
+  
   ngOnInit() {
-
-    
+    this.checkInImagesBackGround()
     //Необходимо что бы не ломалась модалка
     window.addEventListener('popstate', (event) => {
       this.closeStateUsersModal()
@@ -1020,6 +1039,13 @@ export class EventsViewPageComponent  implements OnInit {
       this.closeUploadResultModalState()
       this.closeRegionModal()
       this.closeComandSelectModalStateValue()
+    });
+    this.resizeSubscription = fromEvent(window, 'resize')
+    .pipe(
+      debounceTime(200) // Убирает лишние вызовы при частом ресайзе
+    )
+    .subscribe(() => {
+      this.onResize();
     });
   }
 }

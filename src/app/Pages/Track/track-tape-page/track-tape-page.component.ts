@@ -15,12 +15,15 @@ import { FormsModule } from "../../../Shared/Modules/forms/forms.module";
 import { MapService } from 'src/app/Shared/Data/Services/Map/map.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { StandartInputComponent } from '@app/Shared/Components/UI/LinarikUI/forms/standart-input/standart-input.component';
+import { IconButtonComponent } from '@app/Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component';
+import { RegionsSelectModalComponent } from '@app/Shared/Components/Modals/regions-select-modal/regions-select-modal.component';
+import { NavbarVisibleService } from '@app/Shared/Services/navbar-visible.service';
 
 @Component({
   selector: 'app-track-tape-page',
   templateUrl: './track-tape-page.component.html',
   styleUrls: ['./track-tape-page.component.scss'],
-  imports: [SharedModule, HeaderModule, TrackModule, IonModal, RouterLink,StandartInputComponent]
+  imports: [SharedModule, HeaderModule, TrackModule, IonModal, RouterLink,StandartInputComponent,IconButtonComponent,RegionsSelectModalComponent]
 })
 
 export class TrackTapePageComponent  implements OnInit {
@@ -34,20 +37,21 @@ export class TrackTapePageComponent  implements OnInit {
   private readonly destroy$ = new Subject<void>()
   navController: NavController = inject(NavController)
   mapService:MapService = inject(MapService)
+  navBarVisibleService:NavbarVisibleService = inject(NavbarVisibleService)
   trackService:TrackService = inject(TrackService)
   trackTapeService:TrackTapeService = inject(TrackTapeService)
   switchTypeService:SwitchTypeService = inject(SwitchTypeService)
   loadingService:LoadingService = inject(LoadingService)
 
   searchTapeTrackForm:FormGroup = new FormGroup({
-    searchInput: new FormControl()
+    searchInput: new FormControl('')
   })
 
   @ViewChild(IonContent) ionContent!: IonContent
 
   getTracks(){
     this.loadingService.showLoading()
-    this.trackService.getTracks({locationId:[this.regionFilterId]}).pipe(
+    this.trackService.getTracks({locationId:[this.regionFilterId], name:this.searchTapeTrackForm.value.searchInput}).pipe(
       finalize(()=>this.loadingService.hideLoading())
     ).subscribe((res:any)=>{
       this.trackTapeService.tracks = res.tracks
@@ -60,11 +64,25 @@ export class TrackTapePageComponent  implements OnInit {
 
   openRegionModal(){
     this.regionModalState = true
+    this.navBarVisibleService.hideNavBar()
   }
   closeRegionModal(){
+    setTimeout(()=>{
+      this.navBarVisibleService.showNavBar()
+    },100)
     this.regionModalState = false
   }
 
+  search(){
+   this.getTracks()
+  }
+  clearAllFilters(){
+    this.regionFilterId = ''
+    this.searchTapeTrackForm.patchValue({
+      searchInput:''
+    })
+    this.getTracks()
+  }
 
   getRegions(){
     this.mapService.getAllRegions(false, true,false).pipe().subscribe((res:any)=>{
@@ -100,6 +118,9 @@ export class TrackTapePageComponent  implements OnInit {
   }
 
   ionViewDidLeave(){
+    this.searchTapeTrackForm.patchValue({
+      searchInput:''
+    })
     this.destroy$.next()
   }
 

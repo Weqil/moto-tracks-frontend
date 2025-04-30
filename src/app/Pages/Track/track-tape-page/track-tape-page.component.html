@@ -1,11 +1,16 @@
 <ion-content [scrollEvents]="true">
   <app-header  [customContainer]="true">
-    <div class="header-container">
-      <app-standart-input iconLeft="/assets/icons/search.svg" placeholder="Поиск трассы" style="width: 100%;" [control]="searchTapeTrackForm.get('searchInput')"></app-standart-input>
-    </div>
+    <form (ngSubmit)="search()" class="header-container">
+      <app-standart-input type="search" iconLeft="/assets/icons/search.svg" placeholder="Поиск трассы" style="width: 100%;" [control]="searchTapeTrackForm.get('searchInput')"></app-standart-input>
+      <div class="header__filter-grid">
+        <app-icon-button (click)="clearAllFilters()" [theme]="!this.regionFilterId ? 'red':'dark'" height="little-height" clippy="clippy-right" buttonText="Все"></app-icon-button>
+        <app-icon-button (click)="openRegionModal()" [theme]="this.regionFilterId ? 'red':'dark'" height="little-height" clippy="clippy-right" buttonText="По области"></app-icon-button>
+      </div>
+    </form>
  
   </app-header>
-  <main class="main-container--with-header">
+  <app-regions-select-modal (select)="filterEventsInLocation($event)" [selectedRegion]="regionFilterName" [visible]="regionModalState" (onClose)="closeRegionModal()" [regions]="searchRegionItems"> </app-regions-select-modal>
+  <main class="main-container--with-header--strong">
     <div class="tracks">
       <div class="tracks-grid">
         @for (track of  this.trackTapeService.tracks; track $index) {
