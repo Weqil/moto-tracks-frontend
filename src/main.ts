@@ -18,11 +18,12 @@ import { AngularYandexMapsModule } from "angular8-yandex-maps";
 import config from "capacitor.config";
 import { MetrikaModule } from "ng-yandex-metrika";
 import { YandexMetrikaModule } from "./app/Shared/Modules/yandex-metrika/yandex-metrika.module";
-
+import { registerLocaleData } from "@angular/common";
+import localeRu from '@angular/common/locales/ru';
 const yandexMapConfig: YaConfig = {
   apikey: environment.apiKeyYandex + '&' + `suggest_apikey=${environment.apiKeyYandexSubject}`,
 };
-
+registerLocaleData(localeRu, 'ru');
 bootstrapApplication(AppComponent, {
   providers: [
         provideAnimations(),
@@ -40,5 +41,6 @@ bootstrapApplication(AppComponent, {
         provideRouter(errorsRoutes),
         importProvidersFrom(AngularYandexMapsModule.forRoot(yandexMapConfig)),
         provideHttpClient(withInterceptors([authTokenInterceptor])),
+        { provide: LOCALE_ID, useValue: 'ru' },
     ],
 });
