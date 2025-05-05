@@ -15,6 +15,7 @@ import { CommonModule } from '@angular/common';
 import { User } from '@app/Shared/Data/Interfaces/user-model';
 import { UserViewPageComponent } from "../Users/user-view-page/user-view-page.component";
 import { UserInApplicationComponent } from "../../Shared/Components/UserElements/user-in-application/user-in-application.component";
+import { Documents } from '@app/Shared/Data/Interfaces/document-models';
 
 
 @Component({
@@ -48,7 +49,7 @@ export class ApplicationForRaceComponent  implements OnInit {
   viewUser: boolean = false
   userGetId!: string
   userGet!:User
-  arrayDocument: any[] = []
+  arrayDocument:Documents[]=[]
 
   usersPreviewConfig:{usersCount:number}={
     usersCount:0
@@ -124,22 +125,28 @@ export class ApplicationForRaceComponent  implements OnInit {
     navigateToUser(userId: string, userGet: User) {
       console.log('Типа передл id:' )
       console.log(userId)
+      this.getDocumentUserById(Number(userId))
       this.userGetId = userId
       this.userGet= userGet
-      this.viewUser = true
-      
-      
-
-      this.getDocumentUserById(Number(userId))
-
       
     }
 
     getDocumentUserById(userId:number){
+      let loader:HTMLIonLoadingElement
+      this.loadingService.showLoading().then((res: HTMLIonLoadingElement)=>{
+          loader = res
+      })
 
-        this.userService.getUserDocumentsForUserId(userId).pipe().subscribe((res:any)=>{
+        this.userService.getUserDocumentsForUserId(userId).pipe(
+          finalize(()=>{
+            this.loadingService.hideLoading(loader)
+          })
+        ).subscribe((res:any)=>{
           this.arrayDocument = res.documents 
-          console.log(this.arrayDocument)
+          console.log('Загрузил документы:', this.arrayDocument)
+
+          // Только теперь открываем компонент
+          this.viewUser = true
         })
     
       }

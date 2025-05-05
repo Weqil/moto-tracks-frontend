@@ -51,7 +51,11 @@ export interface User{
     coach?:string,
     community?:string,
     patronymic:string,
-    location_id:string,
+    location:{
+        id:string,
+        name:string,
+        type:string,
+    },
     date_of_birth:string,
     phone_number:string,
     engine:string,

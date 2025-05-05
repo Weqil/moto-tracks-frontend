@@ -14,12 +14,12 @@
     <div class="user-parametr">
       <span>Отчество: {{user.patronymic}} </span>
     </div>
-
   </div>
+
 
   <div class="info-container">
     <div class="user-parametr">
-      <span>Адрес: {{user.location_id}}{{user?.city}}</span>
+      <span>Адрес: {{user.location.name}} {{user.location.type}}, {{user?.city}}</span>
     </div>
 
     <div class="user-parametr">
@@ -83,5 +83,11 @@
     <div class="user-parametr">
       <span>ИНН: {{user?.inn}}</span>
     </div>
+  </div>
+
+  <div class="licensed-container">
+    <span>Лицензия: {{licensed.number}}</span>
+    <br>
+    <a href="{{licensed.url_view}}" target="_blank">{{licensed.name}}</a>
   </div>
 
