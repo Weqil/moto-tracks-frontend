@@ -18,7 +18,7 @@ export const privateRoutes: Routes = [
         children:[
             {
                 path:'document/:id',
-                canActivate:[canActivateAuth,canActivateRoleAdmin,],
+                canActivate:[canActivateAuth,canActivateRoleAdmin],
                 loadComponent: () => import('../CommonUI/Pages/private-files/private-files.component').then((m) => m.PrivateFilesComponent)
             },
             {
