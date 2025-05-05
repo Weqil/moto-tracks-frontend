@@ -35,9 +35,8 @@ export class TrackPaymentComponent  implements OnInit {
         this.loadingService.hideLoading(loader)
       })
     ).subscribe((res:any)=>{
-      // this.paymentLink = this.sanitizer.bypassSecurityTrustResourceUrl(res.payment_link)
-      Browser.open({ url:res.payment_link });
-      console.log(res)
+      this.paymentLink = this.sanitizer.bypassSecurityTrustResourceUrl(res.payment_link)
+  
     })
   }
   ionViewWillEnter(){
