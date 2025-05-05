@@ -20,6 +20,8 @@ export class UserSectionComponent  implements OnInit {
   @Input() showAddress:boolean = true;
   @Input() hideEmail:boolean = false;
   @Input() status ?:string
+  @Input() startNumber:boolean = false;
+  
 
   translitRole:string = ''
 

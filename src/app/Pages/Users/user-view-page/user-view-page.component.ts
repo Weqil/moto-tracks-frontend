@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit, SimpleChanges } from '@angular/core';
 import { IonContent } from "@ionic/angular/standalone";
 import { HeaderModule } from "../../../Shared/Modules/header/header.module";
 import { User } from '@app/Shared/Data/Interfaces/user-model';
@@ -24,16 +24,22 @@ export class UserViewPageComponent  implements OnInit {
   route: ActivatedRoute = inject(ActivatedRoute)
   private readonly destroy$ = new Subject<void>()
   loaderService:LoadingService = inject(LoadingService)
+  @Input() userIdGet!: string
 
 
   constructor() { }
 
   ngOnInit() {
-    this.route.params.pipe(takeUntil(this.destroy$)).subscribe((params) => {
-      this.userId = params['id']
+
+    if(this.userIdGet){
+      this.userId = this.userIdGet
       this.getUser()
-      
-    })
+    }else{
+      this.route.params.pipe(takeUntil(this.destroy$)).subscribe((params) => {
+        this.userId = params['id']
+        this.getUser()})
+    }
+  
   }
   
   getUser(){
@@ -41,6 +47,8 @@ export class UserViewPageComponent  implements OnInit {
     this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
       loader = res
      })
+
+    
     
     this.userService.getUserById(this.userId).pipe(
       finalize(()=>{
@@ -55,6 +63,12 @@ export class UserViewPageComponent  implements OnInit {
 
   ionViewWillEnter(){
    
+  }
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['userIdGet'] && changes['userIdGet'].currentValue) {
+      this.userId = changes['userIdGet'].currentValue;
+      this.getUser()
+    }
   }
 
   

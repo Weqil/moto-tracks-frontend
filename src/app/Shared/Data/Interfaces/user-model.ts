@@ -13,6 +13,9 @@ export interface User{
     user?:any
     start_number?:number|null,
     user_id?:any,
+    grade?:{
+        name?:string
+    }
     personal?:{
         name: string,
         surname:string,
@@ -35,13 +38,34 @@ export interface User{
             id:string,
             name:string,
         }
-        coach:string,
+        
         moto_stamp:string,
         engines:string,
         engine:string,
         number_and_seria:string,
-        race_class?:string
+        race_class?:string,
+        command_name?:string
+        
+        
     },
+    coach?:string,
+    community?:string,
+    patronymic:string,
+    location:{
+        id:string,
+        name:string,
+        type:string,
+    },
+    date_of_birth:string,
+    phone_number:string,
+    engine:string,
+    number_and_seria:string,
+    race_class?:string
+    moto_stamp:string,
+    inn:string,
+    snils:number,
+
+
     roles:{
         id:number,
         name:string

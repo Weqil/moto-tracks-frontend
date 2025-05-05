@@ -775,15 +775,26 @@ export class EventsViewPageComponent  implements OnInit {
       userId:String(this.userService.user.value?.id ? this.userService.user.value?.id : '' ),
       appointmentUser:1,
     }).pipe(
+      catchError(err => {
+        console.log('Кринж случился я прошел c ошибкой')
+        console.log(err)
+        // console.error('Ошибка при загрузке:', err);
+        // this.errorMessage = 'Ошибка загрузки пользователей';
+        return err; // или [] — в зависимости от ожидаемой структуры
+      }),
       finalize(()=>{
         this.loadingService.hideLoading(loader)
       })
     ).subscribe((res:any)=>{
       this.raceUser = res.race.user
       this.event = res.race
+      
+      this.groupItems = this.event.grades
+      console.log('e mae')
+      console.log(this.groupItems)
+      
       this.formatingZoomValuesInResults()
       this.checkRecordEnd()
-      this.groupItems = this.event.grades
     })
   }
 
@@ -820,8 +831,18 @@ export class EventsViewPageComponent  implements OnInit {
          this.eventService.toggleAplicationInRace(this.eventId, fd).pipe(
            finalize(()=>{
              this.loadingService.hideLoading(loader)
-           })
+             
+           }),
+           catchError(err => {
+            console.log('Кринж случился я прошел c ошибкой')
+            console.log(err)
+            // console.error('Ошибка при загрузке:', err);
+            // this.errorMessage = 'Ошибка загрузки пользователей';
+            return err; // или [] — в зависимости от ожидаемой структуры
+          })
+      
          ).subscribe((res:any)=>{
+          
              this.getUsersInRace()
              this.closeApplicationForm()
              this.getEvent()
@@ -1047,5 +1068,9 @@ export class EventsViewPageComponent  implements OnInit {
     .subscribe(() => {
       this.onResize();
     });
+  }
+
+  redirectApplicationForRace(){
+    this.navController.navigateForward(`application-for-race/${this.event.id}`)
   }
 }
