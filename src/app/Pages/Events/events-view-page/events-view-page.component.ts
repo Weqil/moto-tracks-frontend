@@ -819,8 +819,18 @@ export class EventsViewPageComponent  implements OnInit {
          this.eventService.toggleAplicationInRace(this.eventId, fd).pipe(
            finalize(()=>{
              this.loadingService.hideLoading(loader)
-           })
+             
+           }),
+           catchError(err => {
+            console.log('Кринж случился я прошел c ошибкой')
+            console.log(err)
+            // console.error('Ошибка при загрузке:', err);
+            // this.errorMessage = 'Ошибка загрузки пользователей';
+            return err; // или [] — в зависимости от ожидаемой структуры
+          })
+      
          ).subscribe((res:any)=>{
+          
              this.getUsersInRace()
              this.closeApplicationForm()
              this.getEvent()

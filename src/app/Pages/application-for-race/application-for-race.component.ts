@@ -4,7 +4,7 @@ import { IEvent } from '@app/Shared/Data/Interfaces/event';
 import { AuthService } from '@app/Shared/Data/Services/Auth/auth.service';
 import { EventService } from '@app/Shared/Data/Services/Event/event.service';
 import { UserService } from '@app/Shared/Data/Services/User/user.service';
-import { User } from '@app/Shared/Interfaces/user.interface';
+
 import { LoadingService } from '@app/Shared/Services/loading.service';
 import { finalize, Subject, takeUntil } from 'rxjs';
 import { HeaderModule } from "../../Shared/Modules/header/header.module";
@@ -12,13 +12,16 @@ import { IonModal, NavController, Platform, IonContent } from '@ionic/angular/st
 import { isNull } from 'lodash';
 import { UserModule } from "../../Shared/Modules/user/user.module";
 import { CommonModule } from '@angular/common';
+import { User } from '@app/Shared/Data/Interfaces/user-model';
+import { UserViewPageComponent } from "../Users/user-view-page/user-view-page.component";
+import { UserInApplicationComponent } from "../../Shared/Components/UserElements/user-in-application/user-in-application.component";
 
 
 @Component({
   selector: 'app-application-for-race',
   templateUrl: './application-for-race.component.html',
   styleUrls: ['./application-for-race.component.scss'],
-  imports: [CommonModule, IonContent, HeaderModule, UserModule],
+  imports: [CommonModule, IonContent, HeaderModule, UserModule, UserViewPageComponent, UserInApplicationComponent],
 })
 export class ApplicationForRaceComponent  implements OnInit {
 
@@ -42,6 +45,10 @@ export class ApplicationForRaceComponent  implements OnInit {
   usersPreview: any[] = []
   groups:any = []
   sortUsers: any = {}
+  viewUser: boolean = false
+  userGetId!: string
+  userGet!:User
+  arrayDocument: any[] = []
 
   usersPreviewConfig:{usersCount:number}={
     usersCount:0
@@ -89,6 +96,7 @@ export class ApplicationForRaceComponent  implements OnInit {
       this.eventService.getUsersInRace(this.eventId).pipe().subscribe((res:any)=>{
         
         this.usersInRace = res.users
+        console.log(this.usersInRace)
         this.formattedUsers = [];
 
         Object.keys(this.usersInRace).forEach((key: string) => {
@@ -110,13 +118,31 @@ export class ApplicationForRaceComponent  implements OnInit {
      
     }
 
-
-    navigateToUser(userId: string) {
     
-      this.router.navigate(['/users', userId]).then(() => {
-        window.location.reload();
-      });
+  
+
+    navigateToUser(userId: string, userGet: User) {
+      console.log('Типа передл id:' )
+      console.log(userId)
+      this.userGetId = userId
+      this.userGet= userGet
+      this.viewUser = true
+      
+      
+
+      this.getDocumentUserById(Number(userId))
+
+      
     }
+
+    getDocumentUserById(userId:number){
+
+        this.userService.getUserDocumentsForUserId(userId).pipe().subscribe((res:any)=>{
+          this.arrayDocument = res.documents 
+          console.log(this.arrayDocument)
+        })
+    
+      }
 
     createUserInAplication(aplication:any){
       let userInAplication:any = {
@@ -124,7 +150,8 @@ export class ApplicationForRaceComponent  implements OnInit {
         rank:aplication.rank,
         surname:aplication.surname,
         city:aplication.city,
-        avatar:aplication.user.avatar
+        avatar:aplication.user.avatar,
+        start_number:aplication.start_number
       }
       return userInAplication
     }

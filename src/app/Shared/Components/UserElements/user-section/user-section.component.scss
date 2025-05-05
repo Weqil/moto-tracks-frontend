@@ -9,9 +9,11 @@ p{
     overflow: hidden;
 }
 .user-section{
-    display: inline-flex;
+    display: flex;
     flex-wrap: nowrap;
     gap: 10px;
+    justify-content: start;
+    align-items: center;
     .user-section__avatar{
         display: flex;
         justify-content: center;
@@ -71,6 +73,24 @@ p{
     font-family: var(--font-regular);
     box-shadow: 0 5px 10px 2px rgba(34, 60, 80, 0.151);
     border-radius: 2rem;
+}
+
+.user-section__start-number{
+    flex-grow: 1;
+    display: flex;
+    justify-content: end;
+    margin-right: 0.5rem;
+}
+.start_number{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    background-color: black;
+    color: white;
+    border-radius: 2rem;
+    font-weight: 500;
 }
 
 
