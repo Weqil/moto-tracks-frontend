@@ -57,6 +57,7 @@ export class EventsViewPageComponent  implements OnInit {
   eventService: EventService = inject(EventService)
   authService: AuthService = inject(AuthService)
   navController: NavController = inject(NavController)
+  
   loadingService: LoadingService = inject(LoadingService)
   switchTypeService:SwitchTypeService = inject(SwitchTypeService)
   mapService:MapService = inject(MapService)
@@ -943,8 +944,8 @@ export class EventsViewPageComponent  implements OnInit {
     this.getRegions()
     this.getCreateRegions()
     this.route.params.pipe(takeUntil(this.destroy$)).pipe(
-      finalize(()=>{
-})
+    finalize(()=>{
+    })
     ).subscribe((params) => {
         this.eventId = params['id']
         this.getEvent()

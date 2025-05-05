@@ -9,9 +9,9 @@ export class TransactionsService {
 
   constructor() { }
   http:HttpClient = inject(HttpClient)
-  createTransactions(id?:FormData){
+  createTransactions(id?:number){
     return this.http.post(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/transactions`, {attendanceIds:[
-      1
+      id
     ]})
   }
 }

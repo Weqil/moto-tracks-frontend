@@ -14,6 +14,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ImagesModalComponent } from "../../../Shared/Components/UI/images-modal/images-modal.component";
 import { AddressInputComponent } from "../../../Shared/Components/Forms/address-input/address-input.component";
 import { InfoPopoverComponent } from "../../../Shared/Components/UI/info-popover/info-popover.component";
+import { NavController } from '@ionic/angular';
 @Component({
   selector: 'app-track-view-page',
   templateUrl: './track-view-page.component.html',
@@ -36,6 +37,7 @@ export class TrackViewPageComponent  implements OnInit {
   track!:Track 
   trackService:TrackService = inject(TrackService)
   trackId!: string 
+  navController:NavController = inject(NavController)
   sanitizer:DomSanitizer = inject(DomSanitizer)
   constructor() { }
   route: ActivatedRoute = inject(ActivatedRoute)
@@ -119,6 +121,13 @@ export class TrackViewPageComponent  implements OnInit {
   clearDescription(){
     return this.sanitizer.bypassSecurityTrustHtml(this.formatingText(String(this.track.desc)))
    }
+
+  redirectInPayment(){
+    if(this.track.attendance?.length){
+       this.navController.navigateRoot(['/track-payment',this.track.attendance[0].id,this.track.attendance[0].price])
+    }
+   
+  }
 
   ionViewDidLeave(){
     this.destroy$.next()

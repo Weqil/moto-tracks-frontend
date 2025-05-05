@@ -28,7 +28,7 @@ export const privateRoutes: Routes = [
 
             },
             {
-                path:'track-payment',
+                path:'track-payment/:id/:price',
                 canActivate:[canActivateAuth],
                  loadComponent: () => import('../Pages/Track/track-payment/track-payment.component').then((m)=> m.TrackPaymentComponent)
 

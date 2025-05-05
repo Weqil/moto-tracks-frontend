@@ -8,6 +8,7 @@ export interface Track {
     longitude: number;
     logo?: string|null;
     is_work?:boolean;
+    attendance?:[{id:number,price:string}],
     location:{
         id:number,
         name:string,
