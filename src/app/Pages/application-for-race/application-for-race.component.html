@@ -1,0 +1,42 @@
+
+
+<ion-content scroll-y="false">
+  <!-- <app-header [headerTitle]="usersPreviewConfig.usersCount ? 'Участники: ' + usersPreviewConfig.usersCount : ' '"> -->
+    <app-header [customContainer]="true">
+      <span style="color:white; width: 100%; margin: auto;">Количество заявок</span>
+    </app-header>
+  <main class="main">
+    <div class="main-content">
+      <div *ngFor="let group of formattedUsers">
+        <div class="class-name">
+          {{ group.group }}
+        </div>
+        
+        <div class="application-list">
+          <div *ngFor="let user of group.users" >
+            <div class="user-card" (click)=" navigateToUser(user.user_id, user)">
+              <app-user-section 
+                [startNumber]="true"   
+                [showRank]="true"  
+                [hideEmail]= "true"  
+                [user]="user">
+              </app-user-section>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+        
+    </div>
+
+    <div class="view-user" *ngIf="viewUser">
+      <app-user-in-application [arrayDocument]="arrayDocument" [user]="userGet"></app-user-in-application>
+    </div>
+    
+  </main>
+
+  
+ 
+   
+
+</ion-content>

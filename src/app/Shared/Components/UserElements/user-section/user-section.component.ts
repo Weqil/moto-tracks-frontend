@@ -18,8 +18,11 @@ export class UserSectionComponent  implements OnInit {
   @Input() user !:User|null
   @Input() showRank:boolean = true;
   @Input() showAddress:boolean = true;
+  @Input() showRoles:boolean = true;
   @Input() hideEmail:boolean = false;
   @Input() status ?:string
+  @Input() startNumber:boolean = false;
+  
 
   translitRole:string = ''
 
@@ -63,6 +66,24 @@ export class UserSectionComponent  implements OnInit {
 
   ngOnChanges(){
     this.changeRoleName()
+  }
+
+
+   /**
+   * Параметр отвечает за ширину боковой границы
+   */
+  @Input() cardLeftBorderWidth:'b0'|'b1' = 'b0'
+
+   /**
+   * Параметр отвечает за цвет боковой границы
+   */
+  @Input() borderColor: 'red'|'green'|'yellow' = 'red'
+
+   /**
+   * Функция собирает все классы и возвращает массив с нужными значениями
+   */
+   get getClasses():string[]{
+    return [this.cardLeftBorderWidth, this.borderColor]
   }
 
   ngOnInit() {

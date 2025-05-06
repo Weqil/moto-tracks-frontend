@@ -1,5 +1,29 @@
 <ion-content>
     <main class="elements-grid">
+
+        <div class="user-card">
+            <app-user-section cardLeftBorderWidth="b1" borderColor="red" [startNumber]="true"  [showRank]="true"  [showAddress]= "true" [showRoles]="false" [user]="user">
+            </app-user-section>
+        </div>
+
+        <!-- <div class="user-card">
+            <app-user-section [startNumber]="true"  [showRank]="true"  [showAddress]= "true" [showRoles]="false" [user]="user">
+            </app-user-section>
+        </div>
+
+        <div class="user-card">
+            <app-user-section [startNumber]="true"  [showRank]="true"  [showAddress]= "true" [showRoles]="false" [user]="user">
+            </app-user-section>
+        </div>
+
+        <div class="user-card">
+            <app-user-section [startNumber]="true"  [showRank]="true"  [showAddress]= "true" [showRoles]="false" [user]="user">
+            </app-user-section>
+        </div> -->
+
+
+
+        
         <div class="icon-buttons-grid">
                 <app-icon-button [buttonIconColor]="'white-icon'" icon="/assets/icons/user.svg" theme="dark"></app-icon-button>
                 <app-icon-button [buttonIconColor]="'white-icon'" icon="/assets/icons/user.svg" height="long-height" theme="red"></app-icon-button>
@@ -92,6 +116,8 @@
             <app-standart-input errorMessage="Введите корректные данные" [invalid]="true" iconLeft="/assets/icons/search.svg" placeholder="Введите данные вашего сайта" [dark]="true" label="Сайт" [control]="form.get('text')"></app-standart-input>
 
         </div>
+        
+        
        
     </main>
 </ion-content>

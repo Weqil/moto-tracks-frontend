@@ -43,7 +43,7 @@
         </div>
           <div  *ngFor="let event of group.events; let i = index">
             <app-event-card [event]="event">
-              <div *ngIf="userService.userHaveRoot()" class="button-container">
+              <div *ngIf="userService.userHaveRoot() && event.commissions_exists" class="button-container">
                 <app-standart-button style="width: 100%;" (click)="generateGoogleLink(event.id)" buttonText="Выгрузить список"></app-standart-button>
                 <app-standart-button style="width: 100%;" (click)="openUploadResultModal(event)" buttonText="Добавить результаты"></app-standart-button>
               </div>

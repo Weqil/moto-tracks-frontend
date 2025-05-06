@@ -139,6 +139,10 @@ export class UserService {
     return this.http.get<any>(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/users/cabinet/documents`)
   }
 
+  getUserDocumentsForUserId(userId:number){
+    return this.http.get<any>(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/users/cabinet/documents`, {params:{userId:userId}})
+  }
+
   getUserDocumentFileBiId(id: number): Observable<Blob> {
     return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/users/cabinet/documents/${id}/files`, { responseType: 'blob' })
 

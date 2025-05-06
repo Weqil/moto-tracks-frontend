@@ -18,7 +18,7 @@ export const privateRoutes: Routes = [
         children:[
             {
                 path:'document/:id',
-                canActivate:[canActivateAuth,canActivateRoleAdmin,],
+                canActivate:[canActivateAuth,canActivateRoleAdmin],
                 loadComponent: () => import('../CommonUI/Pages/private-files/private-files.component').then((m) => m.PrivateFilesComponent)
             },
             {
@@ -115,6 +115,11 @@ export const privateRoutes: Routes = [
                 path:'add-users-in-comissions',
                 canActivate:[canActivateAuth,canActivateUserHaveRole([userRoles.commission],'комиссия')],
                 loadComponent: () => import('../Pages/Profile/add-user-in-comission/add-user-in-comission.component').then((m) => m.AddUserInComissionComponent)
+            },
+            {
+                path:'application-for-race/:id',
+                canActivate:[canActivateAuth],
+                loadComponent: () => import('../Pages/application-for-race/application-for-race.component').then((m) => m.ApplicationForRaceComponent)
             },
         ]
     },

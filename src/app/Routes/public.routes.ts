@@ -72,5 +72,9 @@ export const publicRoutes: Routes = [
       path:'track/:id',
       loadComponent: () => import('../Pages/Track/track-view-page/track-view-page.component').then((m) => m.TrackViewPageComponent)
     },
+    {
+      path:'test-payment',
+      loadComponent: () => import('../Pages/test-payment/test-payment.component').then((m)=> m.TestPaymentComponent)
+    }
    
   ];
