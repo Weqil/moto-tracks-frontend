@@ -2,10 +2,10 @@
   <main>
     <div class="event">
       <div class="event-header">
-        <div class="event-header__content" style="background-image: url('{{backgroundImages}}');">
+        <div class="event-header__content height-header" style="background-image: url('{{backgroundImages}}');">
           
-          <div class="event-header__background__dark"></div>
-          <div class="header-block">
+          <div class="event-header__background__dark height-header"></div>
+          <div class="header-block height-header">
             <div class="header-content__wrapper">
               <div class="event-header__content__top">
                 <img (click)="backNavigate()" src="/assets/icons/back-arrow.svg" alt="">
@@ -21,7 +21,7 @@
               </ng-container>
             </div>
         
-            <div class="bottom">
+            <div *ngIf="currentTab == 'Информация'" class="bottom">
               <ng-container *ngIf="event">
                 <div *ngIf="event.date_start" class="event-date">
                   <div class="date-start">
@@ -72,13 +72,106 @@
       <div class="event-content">
         <div class="event-content__tabs-grid">
           <div *ngFor="let tab of eventTabs" class="tab-container">
-            <app-tab-element [active]="tab.state" [text]="tab.name" ></app-tab-element>
-          </div>
-            
+            <app-tab-element  (change)="changeTab($event)" [active]="tab.state" [text]="tab.name" ></app-tab-element>
+          </div>      
         </div>
+        <ng-container *ngIf="event">
+          <ng-container *ngIf="currentTab == 'Информация'">
+            <div class="event-information">
+              <ng-container *ngIf="event.desc && event.desc.length">  
+                <div class="event-desc--wrapper">
+                  <div class="event-information-title">
+                    <img src="/assets/icons/red-finished.svg" alt="">
+                    Описание
+                  </div>
+                  <div class="event-desc">
+                    {{event.desc}}
+                  </div>
+                </div>
+              </ng-container>
+
+              <ng-container *ngIf="event.position_file || event.results_file">  
+                <div class="event-desc--wrapper">
+                  <div class="event-information-title">
+                    <img src="/assets/icons/red-finished.svg" alt="">
+                    Документы
+                  </div>
+                  <div class="event-documents-grid">
+                    <div  [routerLink]="['/view-document', event.results_file | checkImgUrl]" *ngIf="event.results_file" class="event-documents-grid__item">
+                      <div class="document-preview">
+                        <img src="/assets/icons/documents.svg" alt="">
+                      </div>
+                      Регламент
+                    </div>
+                    <div [routerLink]="['/view-document', event.position_file | checkImgUrl]" *ngIf="event.position_file" class="event-documents-grid__item">
+                      <div class="document-preview">
+                        <img src="/assets/icons/documents.svg" alt="">
+                      </div>
+                      Расписание
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+
+              <ng-container *ngIf="event.images && event.images.length">  
+   
+                <div class="event-desc--wrapper">
+                  <div class="event-information-title">
+                    <img src="/assets/icons/red-finished.svg" alt="">
+                    Галерея
+                  </div>
+                  <div class="event-images-grid">
+                    <ng-container *ngFor="let image of event.images">
+                      <img (click)="openImagesModalFunction()" class="event-images-grid__item"  [src]="image| checkImgUrl" alt="">
+                    </ng-container>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="currentTab == 'Участники'">
+            <ng-container *ngIf="usersInRace && usersInRace.length ">
+              <div class="event-information-title users-title">
+                <img src="/assets/icons/red-finished.svg" alt="">
+                Гонщики
+              </div>
+              <div class="group-grid">
+                <ng-container *ngFor="let group of usersInRace">
+                  <div class="group-grid__item">
+                    <div class="event-information-title">
+                      <img src="/assets/icons/red-finished.svg" alt="">
+                      {{group.group}}
+                    </div> 
+                    <div class="users-grid">
+                      <ng-container *ngFor="let user of group.users">
+                        <app-user-section [user]="user"></app-user-section>
+                      </ng-container>
+                    </div>
+                
+      
+                  </div>
+                </ng-container>
+                
+              </div>
+            </ng-container>
+
+            <ng-container *ngIf="!usersInRace || usersInRace.length == 0 ">
+              <div class="not-found-users">Гонщиков пока что нет...</div>
+            </ng-container>
+            
+          
+          </ng-container>
+          <ng-container *ngIf="currentTab == 'Результаты'">
+            <p>Результаты</p>
+          </ng-container>
+        </ng-container>
+        
+        
+        
       </div>
   
     </div>
+  
 
   @if (this.event) {
    
@@ -172,12 +265,7 @@
    
     </div> -->
 
-    
-
-    <div class="footer-page">
-
-      
-
+    <!-- <div class="footer-page">
       <div *ngIf="event.status?.name !== 'Планируемая' && !checkDateStartInRace()"  class="footer">
 
         <div class="button-commission">
@@ -208,9 +296,7 @@
         
        
       </div>
-
-      
-    </div>
+    </div> -->
      
 
     }
@@ -354,3 +440,7 @@
 [createRegions]="createRegionItems"
 (clearFilterRegion)="clearRegionInComandFilter()"
 ></app-select-comands>}
+<ng-container *ngIf="event">
+  <app-images-modal  *ngIf="event.images && event.images.length " [openModal]="statusImagesModal" (closeModalEmit)="closeImagesModal()" [imagesPathArray]="event.images"></app-images-modal>
+</ng-container>
+

@@ -49,21 +49,21 @@
 
 
     .header{
-        background: var(--dark-grey-color);
-        align-items: center;
-        position: fixed;
-        padding-top: var(--ion-safe-area-top, var(--standart-padding));
-        padding-bottom: var(--standart-padding);
-        width: 100%;
-        z-index: 500;
-        top: 0;
-        text-align: center;
-        justify-content: space-between;
-        align-items: center;
-        display: flex;
-        border-radius: 0px 0px 1rem 1rem;
-        padding-left: var(--standart-padding);
-        padding-right: var(--standart-padding);
+        background: white;
+    align-items: center;
+    position: fixed;
+    padding-top: var(--ion-safe-area-top, var(--standart-padding));
+    padding-bottom: var(--standart-padding);
+    width: 100%;
+    z-index: 500;
+    top: 0;
+    text-align: center;
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+    border-radius: 0px 0px 0rem 0rem;
+    padding-left: var(--standart-padding);
+    padding-right: var(--standart-padding);
         .header-wrapper{
             display: flex;
             padding-top: var(--standart-padding);

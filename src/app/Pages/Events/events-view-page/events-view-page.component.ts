@@ -42,13 +42,14 @@ import { userRoles } from 'src/app/Shared/Data/Enums/roles';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { CheckResultsPathPipe } from "../../../Shared/Helpers/check-results-path.pipe";
 import { TabElementComponent } from '@app/Shared/Components/UI/LinarikUI/tabs/tab-element/tab-element.component';
+import { UserSectionComponent } from '@app/Shared/Components/UserElements/user-section/user-section.component';
 
 @Component({
   selector: 'app-events-view-page',
   templateUrl: './events-view-page.component.html',
   styleUrls: ['./events-view-page.component.scss'],
   imports: [SharedModule, SlidersModule, ButtonsModule,TabElementComponent, TrackSectionComponent, IonModal, HeaderModule, StandartInputComponent, UsersPreviewComponent,
-    ConfirmModalComponent, CheckImgUrlPipe, FormsModule, StandartInputSelectComponent, RouterLink, ImagesModalComponent, SelectComandsComponent, PdfViewerModule,]
+    ConfirmModalComponent, CheckImgUrlPipe, FormsModule, StandartInputSelectComponent, RouterLink, ImagesModalComponent, SelectComandsComponent, PdfViewerModule,UserSectionComponent]
 })
 export class EventsViewPageComponent  implements OnInit {
 
@@ -69,7 +70,7 @@ export class EventsViewPageComponent  implements OnInit {
   backgroundImages:string = ''
   changePersonalDateModalValue:boolean = false
   createRegionItems:any[] = []
-  usersInRace:User[] = []
+  usersInRace:any[] = []
   event!:IEvent
   openUserModalValue:boolean = false
   currentResultFile:any = {
@@ -91,6 +92,7 @@ export class EventsViewPageComponent  implements OnInit {
   resultModalState:boolean = false
   oldNotariusFile:any
   selectRegionInCommandModal:any = {}
+  currentTab = 'Информация'
   oldPolisFile:any
   selectRegionInCommandModalFunction(event:any){
     this.selectRegionInCommandModal = event
@@ -132,6 +134,13 @@ export class EventsViewPageComponent  implements OnInit {
       zoomLevel:number
     }
   ]|any[] = []
+
+  changeTab(event:any){
+    this.eventTabs.map((tab:{name:string,state:boolean})=>{
+      tab.state = tab.name == event.value 
+      this.currentTab = tab.name == event.value ? event.value : this.currentTab
+    })
+  }
 
   userService:UserService = inject(UserService)
   eventId: string = ''
@@ -954,14 +963,14 @@ export class EventsViewPageComponent  implements OnInit {
 
   getUsersInRace(){
     this.eventService.getUsersInRace(this.eventId).pipe().subscribe((res:any)=>{
-      
-      this.usersInRace = res.users
-      if(this.usersInRace){
-        Object.keys(this.usersInRace).forEach((res:any)=>{
-        let tempArray:any = Array(this.usersInRace[res])[0]
-         this.usersPreviewConfig.usersCount += tempArray.length
+      if(res.users){
+        Object.keys(res.users).forEach((group:string)=>{
+          this.usersInRace.push({group:group, users:res.users[group]})  
         })
       }
+      console.log( this.usersInRace)
+      console.log( this.usersInRace.length)
+     
       
     })
   }
