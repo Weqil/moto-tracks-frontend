@@ -136,22 +136,31 @@
                 Гонщики
                 <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button>
               </div>
+              <div class="grades-filter-grid">
+                <app-icon-button (click)="selectGradeFilter('')" [theme]=" currentGradeName == '' ? 'red' : 'dark-gray' " *ngIf="allUsers.length" widht="w20" clippy="clippy-right" height="little-height" buttonText="Все"></app-icon-button>
+                <ng-container *ngFor=" let group of usersInRace">
+                  <app-icon-button (click)="selectGradeFilter(group.group)" [theme]=" currentGradeName == group.group ? 'red' : 'dark-gray' "  *ngIf="allUsers.length" widht="w20" clippy="clippy-right" height="little-height" [buttonText]="group.group"></app-icon-button>
+                </ng-container>
+              </div>
               <div class="group-grid">
-                <ng-container *ngFor="let group of usersInRace">
-                  <div *ngIf="group.users.length" class="group-grid__item">
-                    <div class="event-information-title">
-                      <img src="/assets/icons/red-finished.svg" alt="">
-                      {{group.group}}
-                      <app-icon-button font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="group.users.length"></app-icon-button>
-                    </div> 
-                    <div class="users-grid">
-                      <ng-container *ngFor="let user of group.users">
-                        <app-user-section [startNumber]="true" [user]="user"></app-user-section>
-                      </ng-container>
+                <ng-container  *ngFor="let group of usersInRace">
+                  <ng-container *ngIf="currentGradeName == '' || currentGradeName == group.group ">
+                    <div *ngIf="group.users.length" class="group-grid__item">
+                      <div class="event-information-title">
+                        <img src="/assets/icons/red-finished.svg" alt="">
+                        {{group.group}}
+                        <app-icon-button font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="group.users.length"></app-icon-button>
+                      </div> 
+                      <div class="users-grid">
+                        <ng-container *ngFor="let user of group.users">
+                          <app-user-section [startNumber]="true" [user]="user"></app-user-section>
+                        </ng-container>
+                      </div>
+                  
+        
                     </div>
+                  </ng-container>
                 
-      
-                  </div>
                 </ng-container>
                 
               </div>

@@ -73,6 +73,7 @@ export class EventsViewPageComponent  implements OnInit {
   createRegionItems:any[] = []
   usersInRace:any[] = []
   event!:IEvent
+  currentGradeName:string = ''
   openUserModalValue:boolean = false
   currentResultFile:any = {
     path:'',
@@ -312,6 +313,10 @@ export class EventsViewPageComponent  implements OnInit {
    showToastInfoFileUpload(){
      this.toastService.showToast('Файл уже был загружен, измените его в анкете участника','primary')
  
+   }
+
+   selectGradeFilter(grade:string){
+    this.currentGradeName = grade
    }
 
    setRegion(region:any){
@@ -966,6 +971,8 @@ export class EventsViewPageComponent  implements OnInit {
       }
     })
   }
+
+
 
   invalidRequest(){
     if(this.personalUserForm.invalid || this.polisForm.invalid || this.licensesForm.invalid ){

@@ -233,6 +233,11 @@
     flex-direction: column;
     gap: var(--standart-padding);
 }
+.grades-filter-grid{
+    padding-top: var(--little-padding);
+    display: flex;
+    gap: var(--little-padding);
+}
 
 .region-modal{
     ion-content{
