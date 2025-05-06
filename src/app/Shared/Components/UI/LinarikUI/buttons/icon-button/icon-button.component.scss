@@ -13,11 +13,19 @@ span{
 .little-height{
     height: 1.875rem;
 }
+.auto-height{
+    height: auto;
+}
 .font{
     font-size: 14px;
 }
 .w40{
     min-width: 2.5rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+.w20{
+    min-width: 25px;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
 }
@@ -164,6 +172,10 @@ span{
 }
 .font{
     font-family: var( --font-semi-bold);
+}
+.font-bold{
+    font-size: 16px;
+    font-family: var( --font-bold);
 }
 
 .b0{

@@ -221,12 +221,17 @@
 .event-information-title{
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
     img{
        width: 24px; 
     }
     font-family: var(--font-bold);
     font-size: 18px;
+}
+.users-grid{
+    display: flex;
+    flex-direction: column;
+    gap: var(--standart-padding);
 }
 
 .region-modal{

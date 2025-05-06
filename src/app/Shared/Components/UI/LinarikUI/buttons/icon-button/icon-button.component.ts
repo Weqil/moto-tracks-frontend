@@ -34,7 +34,7 @@ export class  IconButtonComponent  implements OnInit {
    /**
    * Высота кнопки: стандартная или удлинённая
    */
-  @Input() height: 'standart-height'|'long-height'|'little-height' = 'standart-height'
+  @Input() height: 'auto-height'|'standart-height'|'long-height'|'little-height' = 'standart-height'
 
    /**
    * Путь картинки которая будет слева от текста
@@ -57,7 +57,7 @@ export class  IconButtonComponent  implements OnInit {
     /**
    *Размер 
    */
-  @Input() widht:'w40'|'w49'|'w52'|'w58'|'w71'|'full' = 'w40'
+  @Input() widht:'w20'|'w40'|'w49'|'w52'|'w58'|'w71'|'full' = 'w40'
 
    /**
    *Как будут расположены элементы внутри кнопки
@@ -67,7 +67,7 @@ export class  IconButtonComponent  implements OnInit {
     /**
    *Текст кнопки
    */
-  @Input() buttonText:string =''
+  @Input() buttonText:string|number =''
 
       /**
    *Границы кнопки
@@ -84,13 +84,14 @@ export class  IconButtonComponent  implements OnInit {
    */
    @Input() sizeIcon:'standart-size'|'little-size'= 'standart-size'
 
+   @Input() font:'font'|'font-bold'|'none' = 'font'
 
 
    /**
    * Функция собирает все классы и возвращает массив с нужными значениями
    */
   get getClasses():string[]{
-    return [this.theme, this.buttonIconColor, this.sizeIcon, this.buttonBorderWidth, this.buttonBorderColor, this.height, this.disabled ? 'disabled':'','icon-button',this.clippy, this.elementsPosition, this.widht, 'font', this.elementsInStart ? 'elements-in-start':'']
+    return [this.theme, this.buttonIconColor, this.sizeIcon, this.buttonBorderWidth, this.buttonBorderColor, this.height, this.disabled ? 'disabled':'','icon-button',this.clippy, this.elementsPosition, this.widht, this.font, this.elementsInStart ? 'elements-in-start':'']
   }
 
   ngOnInit() {}
