@@ -63,7 +63,7 @@ p{
             font-size: var(--font-regular-size);
             color: var(--font-standart-color);
             font-family: var(--font-regular);
-            margin-bottom: 6px;
+            
         }
         .user-section__rank{
             height: 14px;
@@ -111,6 +111,12 @@ p{
         font-size: var(--font-headers-size-little);
         font-family: var(--font-black);
     }
+}
+
+.user-section__date{
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
 }
 
 
