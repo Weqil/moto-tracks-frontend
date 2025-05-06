@@ -134,17 +134,19 @@
               <div class="event-information-title users-title">
                 <img src="/assets/icons/red-finished.svg" alt="">
                 Гонщики
+                <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button>
               </div>
               <div class="group-grid">
                 <ng-container *ngFor="let group of usersInRace">
-                  <div class="group-grid__item">
+                  <div *ngIf="group.users.length" class="group-grid__item">
                     <div class="event-information-title">
                       <img src="/assets/icons/red-finished.svg" alt="">
                       {{group.group}}
+                      <app-icon-button font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="group.users.length"></app-icon-button>
                     </div> 
                     <div class="users-grid">
                       <ng-container *ngFor="let user of group.users">
-                        <app-user-section [user]="user"></app-user-section>
+                        <app-user-section [startNumber]="true" [user]="user"></app-user-section>
                       </ng-container>
                     </div>
                 
