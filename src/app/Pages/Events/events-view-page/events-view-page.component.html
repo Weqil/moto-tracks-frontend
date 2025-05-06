@@ -2,72 +2,84 @@
   <main>
     <div class="event">
       <div class="event-header">
-        <img class="event-header__background" [src]="backgroundImages" alt="">
-        <div class="event-header__background__dark"></div>
-        <div class="event-header__content">
-          <div class="header-content__wrapper">
-            <div class="event-header__content__top">
-              <img (click)="backNavigate()" src="/assets/icons/back-arrow.svg" alt="">
-              <span>Подробности гонки</span>
-             <img src="/assets/icons/circle_menu.svg" alt="">
+        <div class="event-header__content" style="background-image: url('{{backgroundImages}}');">
+          
+          <div class="event-header__background__dark"></div>
+          <div class="header-block">
+            <div class="header-content__wrapper">
+              <div class="event-header__content__top">
+                <img (click)="backNavigate()" src="/assets/icons/back-arrow.svg" alt="">
+                <span>Подробности гонки</span>
+               <img src="/assets/icons/circle_menu.svg" alt="">
+              </div>
+              <ng-container  *ngIf="event">
+                <div class="content">
+                  <h2 class="event-name">{{event.name}}</h2>
+                  <div *ngIf="event.track" class="event-address">{{event.track.address}}</div>
+                </div>
+    
+              </ng-container>
             </div>
-            <ng-container  *ngIf="event">
-              <div class="content">
-                <h2 class="event-name">{{event.name}}</h2>
-                <div *ngIf="event.track" class="event-address">{{event.track.address}}</div>
-              </div>
+        
+            <div class="bottom">
+              <ng-container *ngIf="event">
+                <div *ngIf="event.date_start" class="event-date">
+                  <div class="date-start">
+                    <div class="date-name header-bottom__title">
+                      Дата
+                    </div>
+                    <div class="date-content">
+                      {{event.date_start | date:'dd MMM YYYY' }}
+                    </div>
+                  </div>
+                  <div class="date-time">
+                    <div class="date-name header-bottom__title">
+                      Время начала
+                    </div>
+                    <div class="date-content">
+                      {{event.date_start | date:'HH:MM' }}
+                    </div>
+                  </div>
+               </div>
+               <div *ngIf="event.track && event.track.name" class="event-track">
+                <div class="header-bottom__title">
+                  Трасса
+                </div>
+                <div (click)="redirectInRace()" class="event-track__name">
+                  {{event.track.name}}
+                  <img src="/assets/icons/arrow-link.svg" alt="Ссылка на трек">
+                </div>
+               </div>
+               <div *ngIf="event.grades && event.grades.length" class="event-grades">
+                <div class="header-bottom__title">
+                  Классы соревнования
+                </div>
+                <div class="event-grade" *ngFor="let grade of event.grades">
+                  {{grade.name}}
+                </div>
+               </div>
+               <div class="header-buttons__grid">
+                  <button (click)="goToPoint()" class="header-button"> 
+                    <img src="/assets/icons/map.svg" alt="">Показать на карте
+                  </button>
+               </div>
   
-            </ng-container>
-          </div>
-      
-          <div class="bottom">
-            <ng-container *ngIf="event">
-              <div *ngIf="event.date_start" class="event-date">
-                <div class="date-start">
-                  <div class="date-name header-bottom__title">
-                    Дата
-                  </div>
-                  <div class="date-content">
-                    {{event.date_start | date:'dd MMM YYYY' }}
-                  </div>
-                </div>
-                <div class="date-time">
-                  <div class="date-name header-bottom__title">
-                    Время начала
-                  </div>
-                  <div class="date-content">
-                    {{event.date_start | date:'HH:MM' }}
-                  </div>
-                </div>
-             </div>
-             <div *ngIf="event.track && event.track.name" class="event-track">
-              <div class="header-bottom__title">
-                Трасса
-              </div>
-              <div (click)="redirectInRace()" class="event-track__name">
-                {{event.track.name}}
-                <img src="/assets/icons/arrow-link.svg" alt="Ссылка на трек">
-              </div>
-             </div>
-             <div *ngIf="event.grades && event.grades.length" class="event-grades">
-              <div class="header-bottom__title">
-                Классы соревнования
-              </div>
-              <div class="event-grade" *ngFor="let grade of event.grades">
-                {{grade.name}}
-              </div>
-             </div>
-             <div class="header-buttons__grid">
-                <button class="header-button"> 
-                  <img src="/assets/icons/map.svg" alt="">Показать на карте
-                </button>
-             </div>
-            </ng-container>
+              </ng-container>
+            </div>
           </div>
         </div>
       </div>
-       
+      <div class="event-content">
+        <div class="event-content__tabs-grid">
+          <div *ngFor="let tab of eventTabs" class="tab-container">
+            <app-tab-element [active]="tab.state" [text]="tab.name" ></app-tab-element>
+          </div>
+            
+        </div>
+      </div>
+  
     </div>
+
   @if (this.event) {
    
     

@@ -41,13 +41,14 @@ import { CheckUserRoleService } from 'src/app/Shared/Data/Services/check-user-ro
 import { userRoles } from 'src/app/Shared/Data/Enums/roles';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { CheckResultsPathPipe } from "../../../Shared/Helpers/check-results-path.pipe";
+import { TabElementComponent } from '@app/Shared/Components/UI/LinarikUI/tabs/tab-element/tab-element.component';
 
 @Component({
   selector: 'app-events-view-page',
   templateUrl: './events-view-page.component.html',
   styleUrls: ['./events-view-page.component.scss'],
-  imports: [SharedModule, SlidersModule, ButtonsModule, TrackSectionComponent, IonModal, HeaderModule, StandartInputComponent, UsersPreviewComponent,
-    ConfirmModalComponent, CheckImgUrlPipe, FormsModule, StandartInputSelectComponent, RouterLink, ImagesModalComponent, SelectComandsComponent, PdfViewerModule, CheckResultsPathPipe]
+  imports: [SharedModule, SlidersModule, ButtonsModule,TabElementComponent, TrackSectionComponent, IonModal, HeaderModule, StandartInputComponent, UsersPreviewComponent,
+    ConfirmModalComponent, CheckImgUrlPipe, FormsModule, StandartInputSelectComponent, RouterLink, ImagesModalComponent, SelectComandsComponent, PdfViewerModule,]
 })
 export class EventsViewPageComponent  implements OnInit {
 
@@ -103,6 +104,21 @@ export class EventsViewPageComponent  implements OnInit {
   usersPreviewConfig:{usersCount:number}={
     usersCount:0
   }
+
+  eventTabs = [
+    {
+      name:'Информация',
+      state:true
+    },
+    {
+      name:'Участники',
+      state:false
+    },
+    {
+      name:'Результаты',
+      state:false
+    },
+  ]
   
   formdataService:formdataService = inject(formdataService)
   commandService:ComandsService = inject(ComandsService)
@@ -936,6 +952,16 @@ export class EventsViewPageComponent  implements OnInit {
       return false
     }
   }
+  goToPoint(){
+    if(this.event.track){
+      if (this.event.track?.latitude && this.event.track?.longitude) {
+        window.location.href = 'https://yandex.ru/maps/?rtext=~' + this.event.track.latitude + ',' + this.event.track.longitude
+      } else {
+        // this.toastService.showToast('Произошла ошибка при получении координат', 'warning')
+      }
+    }
+  
+   }
 
   submitValidate(){
     let valid = true
