@@ -18,9 +18,9 @@ p{
     justify-content: space-between;
     align-items: center;
     height: 70px;
-    width: 360px;
+    width: 100%;
     padding: 10px;
-    
+    box-shadow: 0 0 20px #0000001A; 
     .user-section__avatar{
         display: flex;
         justify-content: center;
@@ -156,9 +156,7 @@ p{
 .standart-them{
     .user-section{
         background: #EDEDED;
-        background: linear-gradient(170deg, rgba(237, 237, 237, 1) 23%, rgba(255, 255, 255, 1) 50%, rgba(227, 227, 227, 1) 76%);
-
-    }
+        background: linear-gradient(340deg, rgb(192 192 192 / 44%) 11%, rgb(255, 255, 255) 50%, rgba(236, 236, 236, 0.74) 92%);    }
 }
 
 .red-them{
