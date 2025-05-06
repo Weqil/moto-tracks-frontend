@@ -91,6 +91,7 @@ export class EventsViewPageComponent  implements OnInit {
   resultModalState:boolean = false
   oldNotariusFile:any
   selectRegionInCommandModal:any = {}
+  currentTab = 'Информация'
   oldPolisFile:any
   selectRegionInCommandModalFunction(event:any){
     this.selectRegionInCommandModal = event
@@ -132,6 +133,13 @@ export class EventsViewPageComponent  implements OnInit {
       zoomLevel:number
     }
   ]|any[] = []
+
+  changeTab(event:any){
+    this.eventTabs.map((tab:{name:string,state:boolean})=>{
+      tab.state = tab.name == event.value 
+      this.currentTab = tab.name == event.value ? event.value : this.currentTab
+    })
+  }
 
   userService:UserService = inject(UserService)
   eventId: string = ''
