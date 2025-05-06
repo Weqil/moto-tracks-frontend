@@ -1,5 +1,9 @@
 <div [ngClass]="getClasses">
+  <div class="left-border">
+    
+  </div>
   <div *ngIf="user" class="user-section">
+    
     <div class="user-section__avatar">
       <img class="user-section__avatar__img" [src]="user.avatar ? (user.avatar | checkImgUrl) : (user?.user?.avatar | checkImgUrl)" alt="">
     </div>
