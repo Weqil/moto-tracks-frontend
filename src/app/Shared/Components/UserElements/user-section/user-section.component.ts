@@ -22,6 +22,7 @@ export class UserSectionComponent  implements OnInit {
   @Input() hideEmail:boolean = false;
   @Input() status ?:string
   @Input() startNumber:boolean = false;
+  rowContent: string = 'row'
   
 
   translitRole:string = ''
@@ -68,14 +69,18 @@ export class UserSectionComponent  implements OnInit {
     this.changeRoleName()
   }
 
+  /**
+   * Параметр отвечает за тему карточки пользователя стандартная, красная, желтая, зеленая. 
+   */
+  @Input() them:'standart-them'|'red-them'|'green-them'|'yellow-them' = 'standart-them'
 
    /**
-   * Параметр отвечает за ширину боковой границы
+   * Параметр отвечает за ширину бокового контейнера
    */
   @Input() cardLeftBorderWidth:'b0'|'b1' = 'b0'
 
    /**
-   * Параметр отвечает за цвет боковой границы
+   * Параметр отвечает за цвет бокового контейнера
    */
   @Input() borderColor: 'red'|'green'|'yellow' = 'red'
 
@@ -83,7 +88,7 @@ export class UserSectionComponent  implements OnInit {
    * Функция собирает все классы и возвращает массив с нужными значениями
    */
    get getClasses():string[]{
-    return [this.cardLeftBorderWidth, this.borderColor]
+    return [this.rowContent, this.borderColor, this.cardLeftBorderWidth, this.them]
   }
 
   ngOnInit() {

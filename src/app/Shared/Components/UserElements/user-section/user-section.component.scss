@@ -1,27 +1,26 @@
 p{
+    display: flex;
+    align-items: center;
     font-size: var(--font-regular-size);
-    margin-bottom: 0;
+    margin: 0;
     padding: 0;
   }
 .user-section-text{
-    display: -webkit-box;
-    -webkit-line-clamp: 1; 
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    
-    
+    display: flex;
+    align-items: center;
+    height: 10px;
+    margin-bottom: 8px;
 }
 .user-section{
     display: flex;
     flex-wrap: nowrap;
     gap: 10px;
     justify-content: space-between;
-    background: linear-gradient(-10deg, #EDEDED, #ffffff, #E3E3E3);
     align-items: center;
     height: 70px;
     width: 360px;
     padding: 10px;
-    background-color: rgb(249, 126, 50);
+    
     .user-section__avatar{
         display: flex;
         justify-content: center;
@@ -43,36 +42,40 @@ p{
         display: flex;
         justify-content: start;
         flex-direction: column;
-        padding-bottom: 8px;
+        
         flex-grow: 1;
         .user-section__name{
-            height: 15px;
+            
             display: flex;
             gap:5px;
             word-break: break-all;
             margin: 0;
             color: var(--font-standart-color);
             font-family: var(--font-black);
-            font-size: 15px;
+            font-size: 14px;
             flex-wrap: wrap;
             text-wrap: wrap;
+            
         }
         
         .user-section__email{
-            height: 15px;
+            height: 14px;
             font-size: var(--font-regular-size);
             color: var(--font-standart-color);
+            font-family: var(--font-regular);
             
         }
         .user-section__rank{
-            height: 15px;
+            height: 14px;
             color: var(--font-standart-color);
             font-size: var(--font-regular-size);
+            font-family: var(--font-regular);
             margin: 0rem;
         }
         .user-section-city{
-            height: 15px;
+            height: 14px;
             margin: 0px;
+            font-family: var(--font-regular);
         }
     }
 }
@@ -103,25 +106,78 @@ p{
         justify-content: center;
         align-items: center;
         color: white;
-        font-weight: 500;
+        font-size: var(--font-headers-size-little);
+        font-family: var(--font-black);
     }
 }
 
+
+
 .b0{
-    border-left: 0px solid ;
+    .left-border{
+        width: 0px;
+        height: 70px;
+    }
    }
 
 .b1{
- border-left: 5px solid;
+    .left-border{
+        width: 5px;
+        height: 70px;
+    }
 }
 
 .red{
-    border-color: red;  
+
+    .left-border{
+        background: #FF5555;
+        background: linear-gradient(180deg, rgba(255, 85, 85, 1) 23%, rgba(213, 49, 49, 1) 76%);
+    }
+    
 }
 .green{
-    border-color: green;  
+    .left-border{
+        background: green;  
+    }
+    
 }
 .yellow{
-    border-color: yellow;  
+    .left-border{
+        background: yellow;  
+    }
+}
+
+.row{
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+}
+
+.standart-them{
+    .user-section{
+        background: #EDEDED;
+        background: linear-gradient(170deg, rgba(237, 237, 237, 1) 23%, rgba(255, 255, 255, 1) 50%, rgba(227, 227, 227, 1) 76%);
+
+    }
+}
+
+.red-them{
+    .user-section{
+        background-color: #FFE2E2;
+
+    }
+}
+
+.green-them{
+    .user-section{
+        background-color: #D0FFE0;
+
+    }
+}
+
+.yellow-them{
+    .user-section{
+        background-color: #FFECD0;
+    }
 }
 
