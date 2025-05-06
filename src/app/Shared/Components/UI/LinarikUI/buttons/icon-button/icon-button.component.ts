@@ -7,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./icon-button.component.scss'],
   imports:[NgClass,CommonModule]
 })
-export class IconButtonComponent  implements OnInit {
+export class  IconButtonComponent  implements OnInit {
 
   constructor() { }
    /**

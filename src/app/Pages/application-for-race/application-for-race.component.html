@@ -1,7 +1,10 @@
-<ion-content scroll-y="false">
-  <app-header [headerTitle]="usersPreviewConfig.usersCount ? 'Участники: ' + usersPreviewConfig.usersCount : ' '">
 
-  </app-header>
+
+<ion-content scroll-y="false">
+  <!-- <app-header [headerTitle]="usersPreviewConfig.usersCount ? 'Участники: ' + usersPreviewConfig.usersCount : ' '"> -->
+    <app-header [customContainer]="true">
+      <span style="color:white; width: 100%; margin: auto;">Количество заявок</span>
+    </app-header>
   <main class="main">
     <div class="main-content">
       <div *ngFor="let group of formattedUsers">

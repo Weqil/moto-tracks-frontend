@@ -12,12 +12,13 @@ import { TabMenuItemComponent } from '@app/Shared/Components/UI/LinarikUI/tabs/t
 import { User } from '@app/Shared/Data/Interfaces/user-model';
 import { NavbarVisibleService } from '@app/Shared/Services/navbar-visible.service';
 import { IonContent } from "@ionic/angular/standalone";
+import { UserSectionComponent } from "../../Shared/Components/UserElements/user-section/user-section.component";
 
 @Component({
   selector: 'app-linarik-ui',
   templateUrl: './linarik-ui.component.html',
   styleUrls: ['./linarik-ui.component.scss'],
-  imports:[
+  imports: [
     IonContent,
     IconButtonComponent,
     BackButtonComponent,
@@ -27,7 +28,8 @@ import { IonContent } from "@ionic/angular/standalone";
     TabElementComponent,
     SelectBottomModalComponent,
     StandartInputComponent,
-  ]
+    UserSectionComponent
+]
 })
 export class LinarikUiComponent  implements OnInit {
 
@@ -162,6 +164,7 @@ export class LinarikUiComponent  implements OnInit {
     "email": "arsipooshka@gmail.com",
     "email_verified_at": "2025-01-29T13:10:00.000000Z",
     "avatar": "user/3/mV3lVbsOOUDkgCU9K6ZSBi8gboseaQBsE756VuXy.jpg",
+    "start_number": "126",
     "roles": [
       {
         "id": 3,
@@ -181,15 +184,15 @@ export class LinarikUiComponent  implements OnInit {
       }
     ],
     "personal": {
-      "name": "Пётр11",
-      "surname": "Nвапвапва",
+      "name": "Иван",
+      "surname": "Иванов",
       "patronymic": "Евгеньевич",
       "date_of_birth": "2025-01-18",
-      "city": "Челябинская Область",
+      "city": "Екатеринбург",
       "inn": "12321321",
       "snils": 888,
       "phone_number": "9826190989",
-      "start_number": "126",
+      "start_number": 126,
       "group": "1B",
       "rank_number": '',
       "rank": "МС",
@@ -247,4 +250,6 @@ export class LinarikUiComponent  implements OnInit {
   changeTab(event:any){
     this.activeTab = !event.state
   }
+
+  
 }
