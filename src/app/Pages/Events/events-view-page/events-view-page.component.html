@@ -114,7 +114,7 @@
               </ng-container>
 
               <ng-container *ngIf="event.images && event.images.length">  
-                <app-images-modal  *ngIf="event.images && event.images.length " [openModal]="statusImagesModal" (closeModalEmit)="closeImagesModal()" [imagesPathArray]="event.images"></app-images-modal>
+   
                 <div class="event-desc--wrapper">
                   <div class="event-information-title">
                     <img src="/assets/icons/red-finished.svg" alt="">
@@ -410,3 +410,7 @@
 [createRegions]="createRegionItems"
 (clearFilterRegion)="clearRegionInComandFilter()"
 ></app-select-comands>}
+<ng-container *ngIf="event">
+  <app-images-modal  *ngIf="event.images && event.images.length " [openModal]="statusImagesModal" (closeModalEmit)="closeImagesModal()" [imagesPathArray]="event.images"></app-images-modal>
+</ng-container>
+
