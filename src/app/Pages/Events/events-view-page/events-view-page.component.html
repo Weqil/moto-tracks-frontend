@@ -2,10 +2,10 @@
   <main>
     <div class="event">
       <div class="event-header">
-        <div class="event-header__content" style="background-image: url('{{backgroundImages}}');">
+        <div class="event-header__content height-header" style="background-image: url('{{backgroundImages}}');">
           
-          <div class="event-header__background__dark"></div>
-          <div class="header-block">
+          <div class="event-header__background__dark height-header"></div>
+          <div class="header-block height-header">
             <div class="header-content__wrapper">
               <div class="event-header__content__top">
                 <img (click)="backNavigate()" src="/assets/icons/back-arrow.svg" alt="">
@@ -21,7 +21,7 @@
               </ng-container>
             </div>
         
-            <div class="bottom">
+            <div *ngIf="currentTab == 'Информация'" class="bottom">
               <ng-container *ngIf="event">
                 <div *ngIf="event.date_start" class="event-date">
                   <div class="date-start">
@@ -72,7 +72,7 @@
       <div class="event-content">
         <div class="event-content__tabs-grid">
           <div *ngFor="let tab of eventTabs" class="tab-container">
-            <app-tab-element (change)="changeTab($event)" [active]="tab.state" [text]="tab.name" ></app-tab-element>
+            <app-tab-element  (change)="changeTab($event)" [active]="tab.state" [text]="tab.name" ></app-tab-element>
           </div>      
         </div>
         <ng-container *ngIf="event">
@@ -130,7 +130,36 @@
             </div>
           </ng-container>
           <ng-container *ngIf="currentTab == 'Участники'">
-            <p>Участники</p>
+            <ng-container *ngIf="usersInRace && usersInRace.length ">
+              <div class="event-information-title users-title">
+                <img src="/assets/icons/red-finished.svg" alt="">
+                Гонщики
+              </div>
+              <div class="group-grid">
+                <ng-container *ngFor="let group of usersInRace">
+                  <div class="group-grid__item">
+                    <div class="event-information-title">
+                      <img src="/assets/icons/red-finished.svg" alt="">
+                      {{group.group}}
+                    </div> 
+                    <div class="users-grid">
+                      <ng-container *ngFor="let user of group.users">
+                        <app-user-section [user]="user"></app-user-section>
+                      </ng-container>
+                    </div>
+                
+      
+                  </div>
+                </ng-container>
+                
+              </div>
+            </ng-container>
+
+            <ng-container *ngIf="!usersInRace || usersInRace.length == 0 ">
+              <div class="not-found-users">Гонщиков пока что нет...</div>
+            </ng-container>
+            
+          
           </ng-container>
           <ng-container *ngIf="currentTab == 'Результаты'">
             <p>Результаты</p>
@@ -143,6 +172,7 @@
   
     </div>
   
+
   @if (this.event) {
    
     

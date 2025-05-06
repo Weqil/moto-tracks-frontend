@@ -167,6 +167,31 @@
         filter: brightness(0) saturate(100%) invert(99%) sepia(6%) saturate(564%) hue-rotate(224deg) brightness(117%) contrast(100%);
     }
 }
+.users-title{
+    padding-top: var(--standart-padding);
+}
+.height-header{
+    flex-grow: 1;
+    transition: 0.3s;
+    background-position: center;
+    padding-bottom: 2rem;
+}
+.not-found-users{
+    color:#929292;
+    font-family: var(--font-regular);
+    font-size: 24px;
+    text-align: center;
+    margin-top: 40px;
+}
+.group-grid{
+    padding-top: var(--standart-padding);
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+}
+.users-grid{
+    padding-top: var(--little-padding);
+}
 .event-images-grid{
     margin-left: -1rem;
     padding-left: var(--little-padding);
@@ -232,18 +257,18 @@
     width: 100%;
     height: 100%;
     display: flex;
+    transition: 0.3s all;
     justify-content: space-between;
     flex-direction: column;
     margin-left: auto;
     margin-right: auto;
-    min-height: 614px;
     border-radius: 0px 0px 100px 100px;
 }
 .bottom{
     z-index: 100;
+    padding-top: 100px;
 }
 .event-header__background__dark{
-    min-height: 614px;
     position: absolute;
     left: 0;
     height: 100%;
@@ -260,7 +285,6 @@
     margin: auto;
     position: relative;
     background-size: cover;
-    min-height: 614px;
     border-radius: 0px 0px 20px 20px;
     z-index: 10;
     display: flex;
