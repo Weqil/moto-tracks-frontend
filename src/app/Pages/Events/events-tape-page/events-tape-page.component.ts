@@ -55,7 +55,8 @@ export class EventsTapePageComponent  implements OnInit {
   eventService: EventService = inject(EventService)
   loadingService:LoadingService = inject(LoadingService)
   eventTapeService: EventTapeService = inject(EventTapeService)
-  
+  rgpFilter:boolean = false
+
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
   switchTypeService:SwitchTypeService = inject(SwitchTypeService)
   regionModalState:boolean = false
@@ -99,10 +100,11 @@ export class EventsTapePageComponent  implements OnInit {
   ]|any[] = []
 
  
-  setFilterInTape(filter:'all'|'current'|'expired'){
+  setFilterInTape(filter:'all'|'current'|'expired'|'rgp'){
     this.allFilter = filter == 'all'
     this.currentFilter = filter == 'current'
     this.expiredFilter = filter == 'expired'
+    this.rgpFilter = filter == 'rgp'
   }
 
   redirectInTracks(){
@@ -113,6 +115,11 @@ export class EventsTapePageComponent  implements OnInit {
   zoomIn(document:{path:string,zoomLevel:number}) {
     let currentDocument = this.formattedResultsDocument.find((documentInArray:{path:string,zoomLevel:number})=>documentInArray.path == document.path )
     currentDocument.zoomLevel += 0.1; // Увеличиваем масштаб на 10%
+  }
+
+  setRgpFilter(event:any){
+    this.setFilterInTape('rgp')
+    this.rgpFilter = event
   }
 
   zoomOut(document:{path:string,zoomLevel:number}) {
