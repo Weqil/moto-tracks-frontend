@@ -1,15 +1,26 @@
 
 
 <ion-content scroll-y="false">
+  <ng-container *ngIf="event">
   <!-- <app-header [headerTitle]="usersPreviewConfig.usersCount ? 'Участники: ' + usersPreviewConfig.usersCount : ' '"> -->
     <app-header [customContainer]="true">
-      <span style="color:white; width: 100%; margin: auto;">Количество заявок</span>
+      <span  style="color:rgb(0, 0, 0); width: 100%; margin: auto; background-color: bisque;">{{event.name}}</span>
     </app-header>
   <main class="main">
     <div class="main-content">
+
+      <div class="event-information-title users-title">
+        <img src="/assets/icons/red-finished.svg" alt="">
+        Список участников
+        <!-- <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
+      </div>
       <div *ngFor="let group of formattedUsers">
         <div class="class-name">
-          {{ group.group }}
+          <div class="event-information-title users-title">
+            <img src="/assets/icons/red-finished.svg" alt="">
+            {{group.group}}
+            <!-- <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
+          </div>
         </div>
         
         <div class="application-list">
@@ -34,9 +45,5 @@
     </div>
     
   </main>
-
-  
- 
-   
-
+</ng-container>
 </ion-content>

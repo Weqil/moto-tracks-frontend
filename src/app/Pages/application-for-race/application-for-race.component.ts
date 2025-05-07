@@ -16,13 +16,14 @@ import { User } from '@app/Shared/Data/Interfaces/user-model';
 import { UserViewPageComponent } from "../Users/user-view-page/user-view-page.component";
 import { UserInApplicationComponent } from "../../Shared/Components/UserElements/user-in-application/user-in-application.component";
 import { Documents } from '@app/Shared/Data/Interfaces/document-models';
+import { IconButtonComponent } from "../../Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component";
 
 
 @Component({
   selector: 'app-application-for-race',
   templateUrl: './application-for-race.component.html',
   styleUrls: ['./application-for-race.component.scss'],
-  imports: [CommonModule, IonContent, HeaderModule, UserModule, UserViewPageComponent, UserInApplicationComponent],
+  imports: [CommonModule, IonContent, HeaderModule, UserModule, UserViewPageComponent, UserInApplicationComponent, IconButtonComponent],
 })
 export class ApplicationForRaceComponent  implements OnInit {
 
