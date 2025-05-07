@@ -69,7 +69,8 @@ export class ApplicationForRaceComponent  implements OnInit {
         this.eventId = params['id']
         this.getEvent()
         this.getUsersInRace()
-       
+        
+    
       })
     }
 
@@ -88,8 +89,6 @@ export class ApplicationForRaceComponent  implements OnInit {
       ).subscribe((res:any)=>{
         this.raceUser = res.race.user
         this.event = res.race
-        
-        
         this.groupItems = this.event.grades
       })
     }
@@ -115,6 +114,8 @@ export class ApplicationForRaceComponent  implements OnInit {
            
           })
         }
+
+        
         
       })
      
@@ -177,6 +178,8 @@ export class ApplicationForRaceComponent  implements OnInit {
 
     
 
-  ngOnInit() {}
+  ngOnInit() {
+   
+  }
 
 }
