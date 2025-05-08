@@ -34,7 +34,8 @@
             <app-profile-menu-item  [routing]="menuItem.routing" [iconColor]="menuItem.iconColor" [icon]="menuItem.icon" [name]="menuItem.name"></app-profile-menu-item>
           </ng-container>
       </ng-container>
-     
+      <app-profile-menu-item  [routing]="'transactions'" [iconColor]="'#0000'" [icon]="'/assets/icons/shopping-cart.svg'" [name]="'Покупки'"></app-profile-menu-item> 
+
       <app-profile-menu-item  [routing]="'settings'" [iconColor]="'#0000'" [icon]="'/assets/icons/settings.svg'" [name]="'Настройки'"></app-profile-menu-item> 
       <a  href="https://t.me/mototrackapp">
         <app-profile-menu-item  [routing]="'link'" [iconColor]="'#0000'" [icon]="'/assets/icons/support-icon.svg'" [name]="'Обратная связь'"></app-profile-menu-item>

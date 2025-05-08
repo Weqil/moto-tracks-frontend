@@ -1,5 +1,3 @@
-
-
 import { Routes } from '@angular/router';
 import { canActivateAuth } from '../Shared/Guards/Auth/auth.guard';
 import {  } from '../Shared/Guards/Auth/email-confirm.guard';
@@ -121,6 +119,16 @@ export const privateRoutes: Routes = [
                 path:'add-users-in-comissions',
                 canActivate:[canActivateAuth,canActivateUserHaveRole([userRoles.commission],'комиссия')],
                 loadComponent: () => import('../Pages/Profile/add-user-in-comission/add-user-in-comission.component').then((m) => m.AddUserInComissionComponent)
+            },
+            {
+                path:'transactions',
+                canActivate:[canActivateAuth],
+                loadComponent: () => import('../Pages/Profile/transactions/transactions.component').then((m) => m.TransactionsComponent)
+            },
+            {
+                path: 'transaction/:id',
+                canActivate: [canActivateAuth],
+                loadComponent: () => import('../Pages/Profile/transactions/transaction-details/transaction-details.component').then(m => m.TransactionDetailsComponent)
             },
         ]
     },
