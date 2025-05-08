@@ -43,4 +43,11 @@ export class TransactionsComponent implements OnInit {
         }
       });
   }
+
+  calculateTotalCost(transaction: ITransaction): number {
+    if (!transaction.attendances) return 0;
+    return transaction.attendances.reduce((total, service) => {
+      return Number(total) + Number(service.price || 0);
+    }, 0);
+  }
 }
