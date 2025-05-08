@@ -3,13 +3,20 @@
   <div class="main-container--with-header">
     <div class="cabinet">
       <div class="cabinet__user-info">
-        <app-user-section [showRank]="false" [showAddress]="false" (changeStatus)="setNewStatusModalOpen()" [user]="user"></app-user-section>
-        <div *ngIf="user?.personal?.start_number" class="user-info__class">
-            {{user?.personal?.start_number}}
+
+        <div class="user-section-container">
+          <app-user-section 
+            [startNumber]="true"  
+            [showRank]="false" 
+            [showAddress]="false" 
+            (changeStatus)="setNewStatusModalOpen()" 
+            [user]="user">
+          </app-user-section>
         </div>
-        <div (click)="selectAccountValue.set(!selectAccountValue())" [class.active]="selectAccountValue()" class="select-account-open">
+        <div class="select-account-open" (click)="selectAccountValue.set(!selectAccountValue())" [class.active]="selectAccountValue()" >
           <img src="assets/icons/arrow.svg" alt="">
         </div>
+
       </div>
       <div [class.active]="selectAccountValue()" class="accounts-container">
         <div (click)="navigateInLogin()" class="accounts-container__add-account">

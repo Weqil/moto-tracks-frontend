@@ -31,6 +31,10 @@
       <div class="start_number">{{user?.start_number}}
       </div>
     </div>
+    <div *ngIf="user?.personal?.start_number && startNumber" class="user-section__start-number">
+      <div class="start_number">{{user?.personal?.start_number}}
+      </div>
+    </div>
 
   </div>
   <div *ngIf="status" class="cabinet__user-status">{{status}}</div>  

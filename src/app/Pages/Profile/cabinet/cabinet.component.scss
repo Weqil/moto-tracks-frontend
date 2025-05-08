@@ -1,24 +1,29 @@
 .cabinet{
     padding-top: var(--standart-padding);
+    width: 100%;
 }
 
 .cabinet__user-info{
+    width: 100%;
     display: flex;
-    justify-content:space-between;
+    justify-content: center;
     align-items: center;
+    flex-grow: 1;
     gap: 8px;
-    .user-info__class{
-        border-radius: 50%;
-        overflow-y: none;
-        img{
-            border-radius: 50%;
-            overflow-y: none;
-            width: 4.5rem;
-        }
-    }
     padding-bottom: var(--standart-padding);
-
+        .user_section_container{
+            
+            flex-grow: 1;
+            flex-basis: 0;
+            min-width: 300px;
+        }
+        .select-account-open {
+            flex-shrink: 0;
+            width: 40px; // или auto, если нужно
+          }
 }
+
+
 
 .cabinet__logout{
     
