@@ -1,9 +1,5 @@
-<p>
-  transactions works!
-</p>
-
 <ion-content>
-  <app-header headerTitle="Мои транзакции"></app-header>
+  <app-header headerTitle="Мои покупки"></app-header>
   
   <main class="main-container--with-header">
     <div class="transactions-container">
@@ -15,8 +11,10 @@
         <div class="transaction-info">
           <div class="transaction-title">{{transaction.desc || 'Транзакция'}}</div>
           <div class="transaction-date">{{transaction.date | date:'dd.MM.yyyy HH:mm'}}</div>
-          <div class="transaction-status" [ngClass]="{'status-success': transaction.status, 'status-failed': !transaction.status}">
-            {{transaction.status ? 'Успешно' : 'Отклонено'}}
+          <div class="transaction-status" [ngClass]="{'status-success': transaction.status === true, 'status-failed': transaction.status === false}">
+            {{transaction.status === null ? 'Ожидание' : ''}}
+            {{transaction.status === true ? 'Успешно' : ''}}
+            {{transaction.status === false ? 'Отказ' : ''}}
           </div>
         </div>
         <div class="transaction-details">
@@ -25,6 +23,9 @@
           </div>
           <div class="transaction-user">
             {{transaction.user.personal?.name}} {{transaction.user.personal?.surname}}
+          </div>
+          <div class="transaction-total">
+            {{calculateTotalCost(transaction) | currency:'RUB':'symbol-narrow':'1.0-0'}}
           </div>
         </div>
       </div>

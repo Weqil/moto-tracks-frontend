@@ -4,7 +4,7 @@ import { IAttenden } from './attenden';
 
 export interface ITransaction {
     id: number,
-    status: boolean,
+    status?: boolean,
     desc?: string,
     count?: number,
     date: Date,
