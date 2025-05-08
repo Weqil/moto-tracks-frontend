@@ -62,7 +62,7 @@ export class  IconButtonComponent  implements OnInit {
    /**
    *Как будут расположены элементы внутри кнопки
    */
-  @Input() elementsPosition:'elements-position'|'elements-position__row' = 'elements-position'
+   @Input() elementsPosition:'elements-position'|'elements-position__row'|'elements-position__row_reverse' = 'elements-position'
 
     /**
    *Текст кнопки
@@ -72,18 +72,26 @@ export class  IconButtonComponent  implements OnInit {
       /**
    *Границы кнопки
    */
-  @Input() buttonBorderWidth:'b0'|'b1'|'b2'|'b3' = 'b0'
+  @Input() buttonBorderWidth:'b0'|'b1'|'b2'|'b3'|'b05' = 'b0'
 
         /**
    *Цвет границы кнопки
    */
    @Input() buttonBorderColor:'null-border'|'dark-border'|'red-border'|'white-border' = 'null-border'
 
+           /**
+   *Цвет текста кнопки
+   */
+  //  @Input() buttonTextColor:'black-text'|'white-text'|'red-text' = 'black-text'
+
         /**
    *Размер изображения
    */
    @Input() sizeIcon:'standart-size'|'little-size'= 'standart-size'
 
+         /**
+   *Жирность текста
+   */
    @Input() font:'font'|'font-bold'|'none' = 'font'
 
 
@@ -91,7 +99,7 @@ export class  IconButtonComponent  implements OnInit {
    * Функция собирает все классы и возвращает массив с нужными значениями
    */
   get getClasses():string[]{
-    return [this.theme, this.buttonIconColor, this.sizeIcon, this.buttonBorderWidth, this.buttonBorderColor, this.height, this.disabled ? 'disabled':'','icon-button',this.clippy, this.elementsPosition, this.widht, this.font, this.elementsInStart ? 'elements-in-start':'']
+    return [ this.theme, this.buttonIconColor, this.sizeIcon, this.buttonBorderWidth, this.buttonBorderColor, this.height, this.disabled ? 'disabled':'','icon-button',this.clippy, this.elementsPosition, this.widht, this.font, this.elementsInStart ? 'elements-in-start':'']
   }
 
   ngOnInit() {}

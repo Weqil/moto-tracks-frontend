@@ -1,3 +1,4 @@
+
 span{    
     overflow: hidden;         
     text-overflow: ellipsis;   
@@ -51,6 +52,10 @@ span{
     padding-right: 1rem;
 }
 
+.full{
+    width: 100%;
+}
+
 .dark{
     background: #181818;
     background: linear-gradient(180deg, rgba(24, 24, 24, 1) 0%, rgba(46, 46, 46, 1) 100%);
@@ -94,6 +99,7 @@ span{
     //     filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
     // }
     span{
+        text-wrap: nowrap;
         color: #fff;
     }
 }
@@ -138,9 +144,7 @@ span{
         transform: skew(10deg);
     }
 }
-.full{
-    width: 100%;
-}
+
 
 .clippy-left{
     transform: skew(10deg);
@@ -159,7 +163,7 @@ span{
     align-items: center;
     justify-content: center;
 }
-.elements-position__row{
+.elements-position__row_reverse{
     display: flex;
     flex-direction: row-reverse;
     align-items: center;
@@ -170,6 +174,41 @@ span{
         height: 14px;
     }
 }
+
+.elements-position__row{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    img{
+        width: 14px;
+        height: 14px;
+    }
+}
+
+
+.black-text{
+    span{
+        color: #000000;
+    }
+    
+}
+
+.white-text{
+    span{
+        color: #ffffff;
+    }
+    
+}
+
+.red-text{
+    span{
+        color: #ff0000;
+    }
+
+}
+
 .font{
     font-family: var( --font-semi-bold);
 }
@@ -181,6 +220,9 @@ span{
 .b0{
     border: 0px solid ;
    }
+.b05{
+    border: 1px solid ;
+}
 
 .b1{
  border: 1.5px solid ;
