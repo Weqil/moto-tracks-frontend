@@ -1,0 +1,33 @@
+<p>
+  transactions works!
+</p>
+
+<ion-content>
+  <app-header headerTitle="Мои транзакции"></app-header>
+  
+  <main class="main-container--with-header">
+    <div class="transactions-container">
+      <div *ngIf="transactions.length === 0" class="no-transactions">
+        У вас пока нет транзакций
+      </div>
+      
+      <div *ngFor="let transaction of transactions" class="transaction-item" [routerLink]="['/transaction', transaction.id]">
+        <div class="transaction-info">
+          <div class="transaction-title">{{transaction.desc || 'Транзакция'}}</div>
+          <div class="transaction-date">{{transaction.date | date:'dd.MM.yyyy HH:mm'}}</div>
+          <div class="transaction-status" [ngClass]="{'status-success': transaction.status, 'status-failed': !transaction.status}">
+            {{transaction.status ? 'Успешно' : 'Отклонено'}}
+          </div>
+        </div>
+        <div class="transaction-details">
+          <div class="transaction-count" *ngIf="transaction.count">
+            Количество: {{transaction.count}}
+          </div>
+          <div class="transaction-user">
+            {{transaction.user.personal?.name}} {{transaction.user.personal?.surname}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</ion-content>
