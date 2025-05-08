@@ -86,6 +86,14 @@ export class EventsTapePageComponent  implements OnInit {
     'application/pdf',
   ];
   regionFilterId:string = ''
+  eventsFilter:any = {
+    dateStart:moment().subtract(2,'days').format('YYYY-MM-DD'),
+    locationId:[this.regionFilterId], 
+    sortField:'date_start',
+    sort:'asc',
+    commissionUser:1,
+    userIdExists: this.userService.user.value?.id ? this.userService.user.value?.id: ''
+  }
   uploadResultModalState:boolean = false
   expiredEvents:IEvent[]=[]
   clearUploadFiles:boolean = false
@@ -105,6 +113,48 @@ export class EventsTapePageComponent  implements OnInit {
     this.currentFilter = filter == 'current'
     this.expiredFilter = filter == 'expired'
     this.rgpFilter = filter == 'rgp'
+
+    if(this.currentFilter){
+      this.eventsFilter =  {
+        dateStart:moment().subtract(2,'days').format('YYYY-MM-DD'),
+        locationId:[this.regionFilterId], 
+        sortField:'date_start',
+        sort:'asc',
+        commissionUser:1,
+        userIdExists: this.userService.user.value?.id ? this.userService.user.value?.id: ''
+      }
+    }
+    if(this.expiredFilter){
+      this.eventsFilter = {
+        dateEnd:moment().subtract(2, 'days').locale('ru'). format('YYYY-MM-DD'), 
+        locationId:[this.regionFilterId], sortField:'date_start',
+         sort:'desc',commissionUser:1,
+         userIdExists: this.userService.user.value?.id ? this.userService.user.value?.id: ''
+      }
+    }
+
+    if(this.allFilter){
+      this.eventsFilter =  {
+        locationId:[this.regionFilterId], 
+        sort:'asc',
+        commissionUser:1,
+        userIdExists: this.userService.user.value?.id ? this.userService.user.value?.id: ''
+      }
+    }
+
+    if(this.rgpFilter){
+      this.eventsFilter =  {
+        dateStart:moment().subtract(2,'days').format('YYYY-MM-DD'),
+        locationId:[this.regionFilterId], 
+        sortField:'date_start',
+        sort:'asc',
+        commissionUser:1,
+        userIdExists: this.userService.user.value?.id ? this.userService.user.value?.id: '',
+
+      }
+    }
+    this.getEvents()
+
   }
 
   redirectInTracks(){
@@ -312,8 +362,8 @@ export class EventsTapePageComponent  implements OnInit {
     if(this.regionFilterName !== event.name){
       this.regionFilterName = event.name
       this.regionFilterId = event.value
-      this.getExpiredEvents()
-      this.getStartEvents()
+      this.eventsFilter.locationId =  this.regionFilterId
+      this.getEvents()
     }
     this.closeRegionModal()
   }
@@ -342,14 +392,13 @@ export class EventsTapePageComponent  implements OnInit {
 
   }
 
-  getStartEvents(){
+  getEvents(){
     let loader:HTMLIonLoadingElement
     this.loadingService.showLoading().then((res: HTMLIonLoadingElement)=>{
         loader = res
     })
-
-    this.eventService.getAllEvents({dateStart:moment().subtract(2,'days').format('YYYY-MM-DD'),locationId:[this.regionFilterId], sortField:'date_start', sort:'asc', commissionUser:1,
-       userIdExists: this.userService.user.value?.id ? this.userService.user.value?.id: '' }).pipe(
+    console.log(this.eventsFilter)
+    this.eventService.getAllEvents(this.eventsFilter).pipe(
       finalize(()=>{ 
         this.loadingService.hideLoading(loader)
       })).subscribe((res:any)=>{
@@ -365,7 +414,7 @@ export class EventsTapePageComponent  implements OnInit {
 
   ionViewWillEnter(){
 
-    this.getStartEvents()
+    this.getEvents()
     this.getExpiredEvents()
     this.switchTypeService.setTypeInLocalSorage('events')
 

@@ -11,7 +11,7 @@
         <app-icon-button (click)="setFilterInTape('current')" height="little-height" clippy="clippy-right" buttonText="Текущие"  [theme]="currentFilter ? 'red':'dark'"></app-icon-button>
         <app-icon-button (click)="setFilterInTape('expired')" height="little-height" clippy="clippy-right" buttonText="Прошедшие"  [theme]="expiredFilter ? 'red':'dark'"></app-icon-button>
         <button [ngClass]="{'rgp-logo': !rgpFilter, 'rgp-logo--dark':rgpFilter }" (click)="setRgpFilter(rgpFilter ? '' : 'rgp')" class="rgp-logo">
-          <img  [src]="rgpFilter ? '/assets/images/logo-supercross.jpeg' : '/assets/images/rgp-logo-red.png'" alt="">
+          <img  [src]="'/assets/icons/motoRGP.svg'" alt="">
         </button>
 
       </div>
@@ -21,7 +21,7 @@
   <app-regions-select-modal (select)="filterEventsInLocation($event)" [selectedRegion]="regionFilterName" [visible]="regionModalState" (onClose)="closeRegionModal()" [regions]="searchRegionItems"> </app-regions-select-modal>
  <div class="main-container--with-header--strong events">
   <div class="events">
-    <ng-container *ngIf="currentFilter">
+    <ng-container *ngIf="formatedEvents">
       <div *ngFor="let group of formatedEvents" class="events-grid">
         <div class="month-container">
           <span class="month">{{group.groupMonth}}</span>
@@ -39,53 +39,6 @@
       </div>
     </ng-container>
   
-    <ng-container *ngIf="expiredFilter">
-      <div *ngFor="let group of formatedExpiredEvents" class="events-grid">
-        <div class="month-container">
-          <span class="month">{{group.groupMonth}}</span>
-          <div class="month-shape"></div>
-        </div>
-          <div  *ngFor="let event of group.events; let i = index">
-            <app-event-card [event]="event">
-              <div *ngIf="userService.userHaveRoot() && event.commissions_exists" class="button-container">
-                <app-standart-button style="width: 100%;" (click)="generateGoogleLink(event.id)" buttonText="Выгрузить список"></app-standart-button>
-                <app-standart-button style="width: 100%;" (click)="openUploadResultModal(event)" buttonText="Добавить результаты"></app-standart-button>
-              </div>
-            </app-event-card>
-          </div>
-      </div>
-    </ng-container>
-  
-    <ng-container *ngIf="allFilter">
-      <div *ngFor="let group of formatedEvents" class="events-grid">
-        <div class="month-container">
-          <span class="month">{{group.groupMonth}}</span>
-          <div class="month-shape"></div>
-        </div>
-        <div  *ngFor="let event of group.events; let i = index">
-          <app-event-card [event]="event" >
-            <div *ngIf="userService.userHaveRoot() && event.commissions_exists" class="button-container">
-              <app-standart-button style="width: 100%;" (click)="generateGoogleLink(event.id)" buttonText="Выгрузить список"></app-standart-button>
-              <app-standart-button style="width: 100%;" (click)="openUploadResultModal(event)" buttonText="Добавить результаты"></app-standart-button>
-            </div>
-          </app-event-card>
-        </div>
-      </div>
-      <div *ngFor="let group of formatedExpiredEvents" class="events-grid">
-        <div class="month-container">
-          <span class="month">{{group.groupMonth}}</span>
-          <div class="month-shape"></div>
-        </div>
-          <div  *ngFor="let event of group.events; let i = index">
-            <app-event-card [event]="event">
-              <div *ngIf="userService.userHaveRoot()" class="button-container">
-                <app-standart-button style="width: 100%;" (click)="generateGoogleLink(event.id)" buttonText="Выгрузить список"></app-standart-button>
-                <app-standart-button style="width: 100%;" (click)="openUploadResultModal(event)" buttonText="Добавить результаты"></app-standart-button>
-              </div>
-            </app-event-card>
-          </div>
-      </div>
-    </ng-container>
   </div>
   
  </div>

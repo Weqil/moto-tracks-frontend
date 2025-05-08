@@ -124,10 +124,12 @@
     height: 430px;
 }
 .rgp-logo{
+    transform: skew(-12deg);
     width: 6rem;
     transition: 0.1s all;
   img{
     width: 6rem;
+    transform: skew(10deg);
   }
   background: #fff;
   -webkit-box-shadow: 0px 5px 10px 2px rgb(34 60 80 / 4%);
@@ -138,12 +140,14 @@
 .rgp-logo--dark{
     transition: 0.1s all;
     img{
-        width: 5rem;
+        width: 6rem;
         transform: skew(10deg);
+        filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(7492%) hue-rotate(88deg) brightness(113%) contrast(101%);
       }
     width: 6rem;
     transform: skew(-12deg);
-    background: linear-gradient(181deg, rgb(153 1 1 / 87%) 0%, rgb(0 0 0) 100%);
+    background: #FF5555;
+    background: linear-gradient(180deg, rgb(255, 85, 85) 0%, rgb(210, 49, 49) 100%);
     padding: 0.2rem;
     
 }
