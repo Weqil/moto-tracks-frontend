@@ -43,7 +43,15 @@
       Документы
       <!-- <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
     </div>
-
+    <app-standart-input 
+      [control]="personalUserForm.get('dateOfBirth')" 
+      [errorMessage]="formErrors.dateOfBirth.errorMessage" 
+      [invalid]="formErrors.dateOfBirth.errorMessage.length !== 0"  
+      placeholder="Выберите дату" 
+      label="Дата рождения*" 
+      type="date"
+      
+      ></app-standart-input>
     <app-standart-input [control]="personalUserForm.get('numberAndSeria')" placeholder="Серия, номер" label="Паспорт/Свидетельство о рождении"></app-standart-input>
     <div class="snils-inn">
       <app-standart-input  selectedName="engineSelect"  [control]="personalUserForm.get('inn')" placeholder="ИНН" label="ИНН"></app-standart-input>
@@ -52,37 +60,71 @@
 
     <div class="ranknumber-startnumber">
       <app-standart-input [control]="personalUserForm.get('rankNumber')" placeholder="№ удостоверения (МСМК, МС, КМС)" label="№ удостоверения"></app-standart-input>
-      <app-standart-input [control]="personalUserForm.get('startNumber')" [maxLength]="3" type="number" [invalid]="formErrors.startNumber.errorMessage.length !== 0" [errorMessage]="formErrors.startNumber.errorMessage" placeholder="Стартовый номер" label="Стартовый номер*">
-    </app-standart-input>
+      
     </div>
 
     <div class="licensed">
       <div class="document-container">
         <app-standart-input [control]="licensesForm.get('number')" placeholder="Лицензия МФР" label="Лицензия МФР (тип, №):"></app-standart-input>
-        
-        
         <div class="document" *ngIf="licensed">
-          
           <a href="{{licensed.url_view}}">
             <app-standart-input iconLeft="/assets/icons/documents.svg" placeholder="{{licensed.name}}" label="Файл" [control]="licensed.name"></app-standart-input>
           </a>
         </div>
-        
         <div class="button-container">
-          <app-icon-button class="width-button" [widht]="'full'" height="long-height" [elementsPosition]="'elements-position__row'" buttonTextColor='red-text' [buttonIconColor]="'red-icon'" buttonText="{{licensesFile.name}}" [buttonBorderWidth]="'b05'" [buttonBorderColor]="'red-border'"  clippy="" icon="assets/icons/upload.svg" height="standart-height" sizeIcon="standart-size" theme="white"></app-icon-button>
-          <app-icon-button    buttonText="Загрузить файл" clippy="" theme="red" ></app-icon-button>  
+          <app-icon-button (click)="licensesFileInput.click()"  class="width-button" [widht]="'full'" height="long-height" [elementsPosition]="'elements-position__row'" buttonTextColor='red-text' [buttonIconColor]="'red-icon'" buttonText="{{licensesFile.name}}" [buttonBorderWidth]="'b05'" [buttonBorderColor]="'red-border'"  clippy="" icon="assets/icons/upload.svg" height="standart-height" sizeIcon="standart-size" theme="white"></app-icon-button>
+          <app-icon-button    buttonText="Купить" clippy="" theme="red" ></app-icon-button>  
         </div>
-                <!-- <app-file-input (click)="licensesFileInput.click()" [fileName]="licensesFile.name"></app-file-input> -->
         <input (change)="setLicensesFile($event)" #licensesFileInput style="display: none;"  type="file">
       </div>
     </div>
 
     <div class="polish">
-
+      <div class="document-container">
+        <app-standart-input [control]="polisForm.get('number')" placeholder="Страховой полис" label="Страховой полис"></app-standart-input>
+        <app-standart-input [control]="polisForm.get('issuedWhom')" placeholder="Кем выдан" label=""></app-standart-input>
+        <app-standart-input [control]="polisForm.get('itWorksDate')" placeholder="Срок действия" label="" type="date"></app-standart-input>
+        <div class="document" *ngIf="polish">
+          <a href="{{polish.url_view}}">
+            <app-standart-input iconLeft="/assets/icons/documents.svg" placeholder="{{polish.name}}" label="Файл" [control]="polish.name"></app-standart-input>
+          </a>
+        </div>
+        <div class="button-container">
+          <app-icon-button 
+          (click)="polishFileInput.click()" 
+          class="width-button" 
+          [widht]="'full'" 
+          height="long-height" 
+          [elementsPosition]="'elements-position__row'" 
+          buttonTextColor='red-text' 
+          [buttonIconColor]="'red-icon'" 
+          buttonText="{{polisFile.name}}" 
+          [buttonBorderWidth]="'b05'" 
+          [buttonBorderColor]="'red-border'"  
+          clippy="" 
+          icon="assets/icons/upload.svg" 
+          height="standart-height" 
+          sizeIcon="standart-size" 
+          theme="white"></app-icon-button>
+          <app-icon-button    buttonText="Купить" clippy="" theme="red" ></app-icon-button>  
+        </div>
+        <input (change)="setPolisFile($event)" #polishFileInput style="display: none;"  type="file">
+      </div>
     </div>
 
     <div class="notarius">
-
+      <div class="document-container">
+        <div class="document" *ngIf="notarius">
+          <a href="{{notarius.url_view}}">
+            <app-standart-input iconLeft="/assets/icons/documents.svg" placeholder="{{notarius.name}}" label="Нотариальное согласие" [control]="notarius.name"></app-standart-input>
+          </a>
+        </div>
+        <div class="button-container">
+          <app-icon-button (click)="notariusFileInput.click()"  class="width-button" [widht]="'full'" height="long-height" [elementsPosition]="'elements-position__row'" buttonTextColor='red-text' [buttonIconColor]="'red-icon'" buttonText="{{notariusFile.name}}" [buttonBorderWidth]="'b05'" [buttonBorderColor]="'red-border'"  clippy="" icon="assets/icons/upload.svg" height="standart-height" sizeIcon="standart-size" theme="white"></app-icon-button>
+          <app-icon-button    buttonText="Купить" clippy="" theme="red" ></app-icon-button>  
+        </div>
+        <input (change)="setNotariusFile($event)" #notariusFileInput style="display: none;"  type="file">
+      </div>
     </div>
 
   </div>
@@ -90,6 +132,14 @@
     <div class="event-information-title">
       <img src="/assets/icons/red-finished.svg" alt="">
       Гонки
+      <div class="engine-mark">
+        
+      </div>
+      <div class="startnumber-sportrang">
+        <app-standart-input [control]="personalUserForm.get('rank')" [maxLength]="3" type="number" [invalid]="formErrors.startNumber.errorMessage.length !== 0" [errorMessage]="formErrors.startNumber.errorMessage" placeholder="Стартовый номер" label="Стартовый номер*"></app-standart-input>
+        <app-standart-input [control]="personalUserForm.get('startNumber')" [maxLength]="3" type="number" [invalid]="formErrors.startNumber.errorMessage.length !== 0" [errorMessage]="formErrors.startNumber.errorMessage" placeholder="Стартовый номер" label="Стартовый номер*"></app-standart-input>
+        
+      </div>
       <!-- <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
     </div>
   </div>

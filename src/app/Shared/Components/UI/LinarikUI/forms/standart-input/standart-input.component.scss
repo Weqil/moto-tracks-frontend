@@ -33,6 +33,7 @@
     height: 18px;
 }
 .input-height-wrapper{
+    position: relative;
     display: flex;
     align-items: center;
 }
@@ -147,3 +148,30 @@
 .dark::placeholder {
     color: #d5d5d5;
 }
+
+.gradient{
+    background: #a8a8a8;
+    background: linear-gradient(270deg, rgba(168, 168, 168, 1) 0%, rgba(255, 255, 255, 1) 15%);
+}
+
+input[type="date"]{
+    line-height: normal;
+    box-sizing: border-box;
+    padding: 0px;
+    padding-left: 0.8rem;
+    padding-right: 2rem;
+}
+.calendar-icon{
+    position: absolute;
+    right: 12px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    pointer-events: auto;
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0;
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+  }
