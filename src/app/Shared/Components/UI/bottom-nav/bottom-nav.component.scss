@@ -2,17 +2,17 @@
 
 .bottom-nav{
   display: flex;
-  transform: skew(-5deg);
+  transform: skew(-8deg);
   -webkit-box-shadow: 4px 0px 29px 0px rgba(34, 60, 80, 0.2);
   -moz-box-shadow: 4px 0px 29px 0px rgba(34, 60, 80, 0.2);
   box-shadow: 4px 0px 29px 0px rgba(34, 60, 80, 0.2);
 }
 .button-container{
     img{
-        transform: skew(5deg);
+        transform: skew(8deg);
     }
     span{
-        transform: skew(5deg);
+        transform: skew(8deg);
     }
 }
 
