@@ -6,6 +6,12 @@
     padding-right:var(--standart-padding);
     width: 100%;
 }
+.main-container--with-litle-header{
+    padding-top:var(--litle-header-padding);
+    padding-left:var(--standart-padding);
+    padding-right:var(--standart-padding);
+    width: 100%;
+}
 .main-container--with-header--strong{
     padding-top: var(--strong-header-padding);
     padding-left:var(--standart-padding) ;

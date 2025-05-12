@@ -1,7 +1,56 @@
 .cabinet{
-    padding-top: var(--standart-padding);
+    
 }
-
+.cabinet-header{
+    max-width: 960px;
+    width: 100%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    .cabinet-header__back{
+        background: none;
+    }
+    .cabinet-header__exite{
+        background: none;
+    }
+    .cabinet-header__title{
+        font-family: var(--font-regular);
+    }
+}
+.cabinet__user-section{
+    padding: 14px;
+    display: flex;
+    gap: 10px;
+    background: #EDEDED;
+    background: linear-gradient(165deg, rgb(246 246 246 / 49%) 0%, rgb(255, 255, 255) 50%, rgb(243 243 243) 100%);
+}
+.uid{
+    color: #838383;
+    font-family: var(--font-regular);
+    font-size: 12px;
+    padding-bottom: var(--standart-padding);
+}
+.cabinet__user-section__info__name{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding-bottom: 8px;
+}
+.email{
+    font-size: 14px;
+    font-family: var(--font-regular);
+}
+.info__name__item{
+    font-size: 16px;
+    font-family: var(--font-bold);
+}
+.user-images{
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    overflow-y: hidden;
+    object-fit: cover;
+}
 .cabinet__user-info{
     display: flex;
     justify-content:space-between;

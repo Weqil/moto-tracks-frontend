@@ -14,20 +14,24 @@ import { ProfileModule } from 'src/app/Shared/Modules/user/profile.module';
 import { UserModule } from 'src/app/Shared/Modules/user/user.module';
 import { LoadingService } from 'src/app/Shared/Services/loading.service';
 import { CommonModule } from '@angular/common';
+import { CheckImgUrlPipe } from "../../../Shared/Helpers/check-img-url.pipe";
+import { IconButtonComponent } from '@app/Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component';
 
 @Component({
   selector: 'app-cabinet',
   templateUrl: './cabinet.component.html',
   styleUrls: ['./cabinet.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  imports:[
+  imports: [
     SharedModule,
     HeaderModule,
     UserModule,
     ProfileModule,
     selectedModule,
-    CommonModule
-  ]
+    CommonModule,
+    CheckImgUrlPipe,
+    IconButtonComponent
+]
 })
 export class CabinetComponent  implements OnInit {
   
@@ -235,6 +239,12 @@ export class CabinetComponent  implements OnInit {
 
     return this.user?.roles.find((role:any)=> role.name == highestRole.name)
 }
+
+
+  back(){
+    this.navControler.back()
+  }
+  
 
   selectStatus(event:any){
     this.searchLastRole()
