@@ -4,7 +4,7 @@
         <div [ngClass]="theme" class="shape-column-right"></div>
     </div>
   
-    <button [type]="type" [ngClass]="getClasses">
+    <button class="btn" [type]="type" [ngClass]="getClasses">
         <img *ngIf="icon" class="icon" [src]="icon"  alt="">
         <span *ngIf="buttonText">{{buttonText}}</span>
     </button>

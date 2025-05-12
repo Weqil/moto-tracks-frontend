@@ -18,6 +18,8 @@ import { CommonModule } from '@angular/common';
 })
 export class RegionsSelectModalComponent  implements OnInit {
 
+  @Input() visibleSearch:boolean = true
+
   constructor() { }
    /**
    * Регионы 
@@ -58,7 +60,7 @@ export class RegionsSelectModalComponent  implements OnInit {
       searchRegion: new FormControl(),
   })
    /**
-   * Буфер для созранения региона
+   * Буфер для сохранения региона
    */
   tempRegionStorage:any = {
      name:'Россия',

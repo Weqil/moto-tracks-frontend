@@ -30,12 +30,15 @@ import { RouterModule } from '@angular/router';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { CheckResultsPathPipe } from "../../../Shared/Helpers/check-results-path.pipe";
 import { IconButtonComponent } from "../../../Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component";
+import { SelectBottomModalComponent } from "../../../Shared/Components/UI/LinarikUI/select-bottom-modal/select-bottom-modal.component";
+import { RegionsSelectModalComponent } from "../../../Shared/Components/Modals/regions-select-modal/regions-select-modal.component";
+import { NavbarVisibleService } from '@app/Shared/Services/navbar-visible.service';
 
 @Component({
   selector: 'app-user-documents',
   templateUrl: './user-documents.component.html',
   styleUrls: ['./user-documents.component.scss'],
-  imports: [PdfViewerModule, RouterModule, SharedModule, FormsModule, StandartInputComponent, HeaderModule, StandartInputSelectComponent, IonModal, SelectComandsComponent, CheckImgUrlPipe, CheckResultsPathPipe, IconButtonComponent]
+  imports: [PdfViewerModule, RouterModule, SharedModule, FormsModule, StandartInputComponent, HeaderModule, StandartInputSelectComponent, IonModal, SelectComandsComponent, CheckImgUrlPipe, CheckResultsPathPipe, IconButtonComponent, SelectBottomModalComponent, RegionsSelectModalComponent]
 })
 export class UserDocumentsComponent  implements OnInit {
   navController:NavController = inject(NavController)
@@ -43,7 +46,7 @@ export class UserDocumentsComponent  implements OnInit {
   oldLicensesValue?: any
   oldPolisValue?: any
   loaderService:LoadingService = inject(LoadingService)
-  
+  navBarVisibleService:NavbarVisibleService = inject(NavbarVisibleService)
   oldPasportValue?:{id:number,data:{numberAndSeria:string, fileLink:string}} 
   httpClient:HttpClient = inject(HttpClient)
   userService:UserService = inject(UserService)
@@ -434,6 +437,9 @@ submitForm(){
   }
   
   closeRegionModal(){
+    setTimeout(()=>{
+      this.navBarVisibleService.showNavBar()
+    },100)
     this.regionModalState = false
   }
   clearRegionInComandFilter(){
@@ -441,6 +447,7 @@ submitForm(){
   }
   openRegionModal(){
     this.regionModalState = true
+    this.navBarVisibleService.hideNavBar()
   }
 
   createPasport(){
@@ -769,3 +776,5 @@ submitForm(){
   }
 
 }
+
+
