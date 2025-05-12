@@ -204,7 +204,7 @@ export class RegistrationPageComponent  implements OnInit {
     }
 
     redirectInLogin() {
-      this.navController.navigateForward('/login', {animationDirection: 'forward'})
+      this.navController.navigateForward('/select-auth', {animationDirection: 'forward'})
     }
 
     redirectInUserAgreement() {

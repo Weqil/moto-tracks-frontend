@@ -22,7 +22,7 @@ export class SelectAuthPageComponent  implements OnInit {
     this.navController.back()
   }
   inLogin(){
-    this.navController.navigateForward('/login')
+    this.navController.navigateForward('/select-auth')
   }
   inRegistration(){
     this.navController.navigateForward('/registration')
