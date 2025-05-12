@@ -36,6 +36,7 @@
     position: relative;
     display: flex;
     align-items: center;
+    position: relative;
 }
 .icon-left{
     position: relative;
@@ -110,14 +111,12 @@
 .open-input{
     background: none;
     position: absolute;
-    margin-left: -2rem;
-    margin-top: 0.75rem;
+    right: 1rem;
 }
 .open-input:active{
     background: none;
     position: absolute;
-    margin-left: -2rem;
-    margin-top: 0.75rem;
+    right: 1rem;
     .open-input-icon{
         filter: brightness(0) saturate(100%) invert(20%) sepia(2%) saturate(3827%) hue-rotate(188deg) brightness(93%) contrast(92%);
     }

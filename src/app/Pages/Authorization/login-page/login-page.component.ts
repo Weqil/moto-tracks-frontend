@@ -1,8 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
 import { HeaderModule } from 'src/app/Shared/Modules/header/header.module';
-import { StandartInputComponent } from 'src/app/Shared/Components/Forms/standart-input/standart-input.component';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LoadingService } from 'src/app/Shared/Services/loading.service';
 import { LoginService } from 'src/app/Shared/Data/Services/Auth/login.service';
 import { Login } from 'src/app/Shared/Data/Interfaces/login-model';
@@ -10,22 +10,28 @@ import { catchError, EMPTY, empty, finalize, throwError } from 'rxjs';
 import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
 import { AuthService } from 'src/app/Shared/Data/Services/Auth/auth.service';
 import { ButtonsModule } from 'src/app/Shared/Modules/buttons/buttons.module';
-import { IonModal, NavController } from '@ionic/angular/standalone';
+import { IonModal, NavController, IonContent } from '@ionic/angular/standalone';
 import { MessagesErrors } from 'src/app/Shared/Enums/messages-errors';
 import { NzSegmentedModule } from 'ng-zorro-antd/segmented';
 import { serverError } from 'src/app/Shared/Data/Interfaces/errors';
 import { Router } from '@angular/router';
+
 import { ToastService } from 'src/app/Shared/Services/toast.service';
 import { AuthErrosMessages } from 'src/app/Shared/Data/Enums/erros';
 import moment from 'moment';
 import { RecoveryPasswordService } from 'src/app/Shared/Data/Services/Auth/recovery-password.service';
 import { environment } from 'src/environments/environment';
 import { NgxOtpInputComponent, NgxOtpInputComponentOptions } from 'ngx-otp-input';
+import { BackButtonComponent } from '@app/Shared/Components/UI/LinarikUI/buttons/back-button/back-button.component';
+import { IconButtonComponent } from '@app/Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component';
+import { CommonModule } from '@angular/common';
+import { StandartInputComponent } from '@app/Shared/Components/UI/LinarikUI/forms/standart-input/standart-input.component';
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.scss'],
-  imports: [SharedModule, HeaderModule, StandartInputComponent,IonModal,NzSegmentedModule,NgxOtpInputComponent],
+  imports: [IonContent, HeaderModule, IconButtonComponent,IonModal,NzSegmentedModule,BackButtonComponent,FormsModule,NgxOtpInputComponent,
+    StandartInputComponent,CommonModule],
 })
 export class LoginPageComponent  implements OnInit {
 
@@ -43,7 +49,7 @@ export class LoginPageComponent  implements OnInit {
   authService: AuthService = inject(AuthService)
   recoveryPasswordService: RecoveryPasswordService = inject(RecoveryPasswordService)
   loginTypeOptions = ['Телефон', 'Почта'];
-  selectedLoginTypeValue = 'Телефон';
+  selectedLoginTypeValue = 'Почта';
   formmatedPhone:string = ''
   codeValue:string = ''
   loginForm!: FormGroup
@@ -100,6 +106,8 @@ export class LoginPageComponent  implements OnInit {
 
   sendTokenInEmail(){
     this.recoveryPasswordService.sendRecoveryLink(this.recoveryForm.value).pipe().subscribe((res:any)=>{
+      this.toastService.showToast('Ссылка на востановление пароля отправлена вам на почту',"success")
+      this.closeEmailModal()
     })
     
   }
@@ -109,13 +117,17 @@ export class LoginPageComponent  implements OnInit {
   }
 
   submitRecovery() {
-    this.validateRecovery()
+    
    
-    if( !this.recoveryForm.invalid || this.timerReady){
+    if( !this.recoveryForm.invalid && this.timerReady){
       this.sendTokenInEmail()
+      this.validateRecovery()
+     
+    }else{
+      this.toastService.showToast('Введите корректные данные или дождитесь окончания таймера',"warning")
     }
 
-    this.toastService.showToast('Ссылка на востановление пароля отправлена вам на почту',"success")
+    
   }
 
   changeCode(code:any){
@@ -197,7 +209,7 @@ export class LoginPageComponent  implements OnInit {
     if(err.status == '422' && message ==  AuthErrosMessages.emailNotFound){
       this.loginInvalid.name.status = true
       this.loginInvalid.password.status = true
-      this.loginInvalid.password.message = 'Такого аккаунта не существует, зарегестрировать?'
+      this.loginInvalid.password.message = 'Такого аккаунта не существует'
     }
     this.loginForm.enable()
   }
@@ -278,6 +290,10 @@ export class LoginPageComponent  implements OnInit {
       this.toastService.showToast('Номер телефона введен некорректно', 'warning')
     }
    
+  }
+
+  back(){
+    this.navController.back()
   }
 
   redirectInRegistration(){

@@ -1,35 +1,23 @@
 
 
 .bottom-nav{
-    position: relative;
-    height: 3.25rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-bottom: 1rem;
-    padding-top: 1rem;
-    padding-right: 0.3rem;
-    padding-left: 0.3rem;
-    background-color: var(--white-color);
-    clip-path: polygon(3.5% 0%, 100% 0%, 96.5% 100%, 0px 100%);
-    
-
-    
+  display: flex;
+  transform: skew(-8deg);
+  -webkit-box-shadow: 4px 0px 29px 0px rgba(34, 60, 80, 0.2);
+  -moz-box-shadow: 4px 0px 29px 0px rgba(34, 60, 80, 0.2);
+  box-shadow: 4px 0px 29px 0px rgba(34, 60, 80, 0.2);
+}
+.button-container{
+    img{
+        transform: skew(8deg);
+    }
+    span{
+        transform: skew(8deg);
+    }
 }
 
 .bottom-nav__item{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    font-size: var( --font-little-size);
-    font-family: var(--font-regular);
-    align-items: center;
-    
-    
-    .icon{
-        width: 20px;
-        height: 22px;
-    };
+    margin-right: -1px;
     color: var(--font-standart-color);
 }
 

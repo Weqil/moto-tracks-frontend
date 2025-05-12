@@ -22,6 +22,52 @@
     display: flex;
     justify-content:flex-end;
 }
+.main-container{
+  max-width: 960px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: auto;
+  .auth-title{
+    font-family: var(--font-black);
+    font-size: 40px;
+  }
+}
+.auth-container{
+  width: 100%;
+}
+
+.auth-container__buttons{
+  display: flex;
+  padding-top: 30px;
+  gap:8px;
+  width: 100%;
+  app-icon-button {
+    flex: 1 0 auto;
+  
+  }
+}
+.auth-containers__form{
+  padding-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.auth-containers__form__submit-container{
+  padding-top: var(--little-padding);
+}
+.reset-password-link{
+  margin: auto;
+  font-family: var(--font-regular);
+}
+.header-wrapper{
+  max-width: 960px;
+  width: 100%;
+  margin: auto;
+}
 
 .recovery-password{
     font-family: var(--font-regular);
@@ -77,7 +123,7 @@
   .recovery-modal{
     --height: auto;
     --max-width: 386px;
-    --border-radius: 17px;
+    --border-radius: 2px;
     
   }
   .recovery-icon{
@@ -118,14 +164,13 @@
         font-family: var(--font-regular);
   }
   .verificate-phone-header{
-    font-family: var(--font-bold);
+    
     margin: auto;
     display: flex;
     align-items: center;
     padding-left: var(--standart-padding);
     padding-top: var(--standart-padding);
-    text-align: center;
-    font-size: 1.2rem;
+  
   }
   .verificate-phone-title{
     display: flex;

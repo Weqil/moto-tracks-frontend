@@ -98,12 +98,14 @@ export class  IconButtonComponent  implements OnInit {
    */
    @Input() font:'font'|'font-bold'|'none' = 'font'
 
+   @Input() fontSize:'litle-font-size'|'standart-font-size' = 'standart-font-size'
 
    /**
    * Функция собирает все классы и возвращает массив с нужными значениями
    */
   get getClasses():string[]{
-    return [ this.theme, this.buttonIconColor, this.sizeIcon, this.buttonBorderWidth, this.buttonBorderColor, this.height, this.disabled ? 'disabled':'','icon-button',this.clippy, this.elementsPosition, this.widht, this.font, this.elementsInStart ? 'elements-in-start':'']
+    return [this.theme, this.buttonIconColor, this.fontSize,
+      this.sizeIcon, this.buttonBorderWidth, this.buttonBorderColor, this.height, this.disabled ? 'disabled':'','icon-button',this.clippy, this.elementsPosition, this.widht, this.font, this.elementsInStart ? 'elements-in-start':'']
   }
 
   ngOnInit() {}

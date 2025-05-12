@@ -65,10 +65,10 @@ span{
     background: #181818;
     background: linear-gradient(180deg, rgba(24, 24, 24, 1) 0%, rgba(46, 46, 46, 1) 100%);
     transition: 0.3s all;
-    &:active{
-        transition: 0.3s all;
-        background: #363636;
-    }
+    // &:active{
+    //     transition: 0.3s all;
+    //     background: #363636;
+    // }
     span{
         color: #fff;
     }
@@ -87,22 +87,20 @@ span{
     span{
         color: #fff;
     }
-    &:active{
-        transition: 0.3s all;
-        background-color: #4e4e4e;
-    }
+    // &:active{
+    //     transition: 0.3s all;
+    //     background-color: #4e4e4e;
+    // }
 }
 .red{
     background: #FF5555;
-    background: linear-gradient(357deg, rgb(255, 85, 85) 0%, rgb(210, 49, 49) 100%);
+    background: linear-gradient(182deg, rgb(255, 85, 85) 0%, rgb(210, 49, 49));
     transition: 0.3s all;
-    &:active{
-        transition: 0.3s all;
-        background: #fc6969;
-    }
-    // .icon-filter{
-    //     filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
+    // &:active{
+    //     transition: 0.3s all;
+    //     background: #fc6969;
     // }
+ 
     span{
         text-wrap: nowrap;
         color: #fff;
@@ -111,10 +109,10 @@ span{
 .white{
     background: #FFF;
     transition: 0.3s all;
-    &:active{
-        transition: 0.3s all;
-        background: #b9b9b9;
-    }
+    // &:active{
+    //     transition: 0.3s all;
+    //     background: #b9b9b9;
+    // }
     // .icon-filter{
     //     filter: brightness(0) saturate(100%) invert(0%) sepia(96%) saturate(16%) hue-rotate(246deg) brightness(98%) contrast(105%);
     // }
@@ -217,6 +215,9 @@ span{
 .font{
     font-family: var( --font-semi-bold);
 }
+.litle-font-size{
+    font-size: 12px;
+}
 .font-bold{
     font-size: 14px;
     font-family: var( --font-bold);
@@ -242,10 +243,11 @@ span{
 }
 
 .null-border{
-    border-color: rgba(255, 0, 0, 0);
+    border-color: rgba(0, 0, 0, 0.137); 
 }
+
 .dark-border{
-    border-color: rgba(0, 0, 0, 0);
+    border-color: rgba(0, 0, 0);
 }
 .red-border{
     border-color: rgb(255, 0, 0);
@@ -297,10 +299,10 @@ span{
 .green--light{
     background: #00890996;
     transition: 0.3s all;
-    &:active{
-        transition: 0.3s all;
-        background: #008909;
-    }
+    // &:active{
+    //     transition: 0.3s all;
+    //     background: #008909;
+    // }
     // .icon-filter{
     //     filter: brightness(0) saturate(100%) invert(0%) sepia(96%) saturate(16%) hue-rotate(246deg) brightness(98%) contrast(105%);
     // }
@@ -311,10 +313,10 @@ span{
 .red--light{
     background: #700000;
     transition: 0.3s all;
-    &:active{
-        transition: 0.3s all;
-        background: #700000;
-    }
+    // &:active{
+    //     transition: 0.3s all;
+    //     background: #700000;
+    // }
     // .icon-filter{
     //     filter: brightness(0) saturate(100%) invert(0%) sepia(96%) saturate(16%) hue-rotate(246deg) brightness(98%) contrast(105%);
     // }
