@@ -1,6 +1,61 @@
 <ion-content>
-  <app-header headerTitle="Вход" [hiddenBackButton]="true"></app-header>
-  <div class="main-container--with-header">
+  <app-header [customContainer]="true">
+    <div class="header-wrapper">
+      <app-back-button (click)="back()" theme="white" fontColor="font-dark"></app-back-button>
+    </div>
+  </app-header>
+  <div style="height: 100%;" class="main-container--with-header">
+    <div class="main-container">
+        <div class="auth-title">
+          Вход
+        </div>
+        <div class="auth-container">
+          <div class="auth-container__buttons">
+            <app-icon-button buttonBorderWidth="b1" (click)="changeLoginType('Почта')"  buttonBorderColor="null-border" [theme]="selectedLoginTypeValue == 'Почта' ? 'dark' : 'white'" widht="full" buttonText="Почта"></app-icon-button>
+            <app-icon-button buttonBorderWidth="b1" (click)="changeLoginType('Телефон')"  buttonBorderColor="null-border" [theme]="selectedLoginTypeValue == 'Телефон' ? 'dark' : 'white'" widht="full" buttonText="Телефон"></app-icon-button>
+          </div>
+          <ng-container *ngIf="selectedLoginTypeValue === 'Почта'">
+            <form action="" class="auth-containers__form">
+              <app-standart-input (changeInput)="clearErrors()" [invalid]="loginInvalid.name.status" [errorMessage]="loginInvalid.name.message" [placeholder]="'E-mail'" [control] = "loginForm.get('name')" name="email"></app-standart-input>
+              <app-standart-input (changeInput)="clearErrors()" [invalid]="loginInvalid.password.status" [errorMessage]="loginInvalid.password.message" [openPassword]="true" type="password"  [placeholder]="'Пароль'" [control] = "loginForm.get('password')" password="email"></app-standart-input>
+              <div class="auth-containers__form__submit-container">
+                <app-icon-button (click)="submitLoginForm()" [shapeColumn]="true" height="long-height" widht="full" theme="red" clippy="clippy-right" buttonText="Войти"></app-icon-button>
+              </div>
+              <span (click)="openEmailModal()" class="reset-password-link">Забыл(а) пароль</span>
+            </form>
+          </ng-container>
+          <ng-container *ngIf="selectedLoginTypeValue === 'Телефон'">
+            <form action="" class="auth-containers__form">
+              <app-standart-input type="tel" placeholder="+7 (ХХХ) ХХХ-ХХ-ХХ" [control]="phoneForm.get('number')" maskType="phone"></app-standart-input>
+              <div class="auth-containers__form__submit-container">
+                <app-icon-button (click)="submitPhoneForm()" [shapeColumn]="true" height="long-height" widht="full" theme="red" clippy="clippy-right" buttonText="Далее"></app-icon-button>
+              </div>
+              <span (click)="openEmailModal()" class="reset-password-link">Забыл(а) пароль</span>
+            </form>
+            <ion-modal [isOpen]="phoneLoginModalValue">
+              <ng-template>
+                <ion-content>
+
+                    <div class="verificate-phone-header">
+                      <!-- <app-circle-button (click)="closePhoneLoginModal()" [icon]="'/assets/icons/arrow.svg'"></app-circle-button> -->
+                       <app-back-button (click)="closePhoneLoginModal()" theme="white" fontColor="font-dark"></app-back-button>
+                    </div>
+                    <div class="verificate-phone-container">
+                      <img class="phone-images" src="/assets/icons/phone-images.svg">
+                      <span class="verificate-phone-title">Вам поступит звонок-сброс для подтверждения</span>
+                      <p class="verificate-phone-description">Введите последние 4 цифры номера с которого поступит звонок</p>
+                      <ngx-otp-input (otpChange)="changeCode($event)" [options]="otpOptions"></ngx-otp-input> 
+                    </div>
+                   
+                </ion-content>
+              </ng-template>
+              
+            </ion-modal>
+          </ng-container>
+        </div>
+    </div>
+  </div>
+  <!-- <div class="main-container--with-header">
     <div class="login">
       <div class="select-auth-type">
         <nz-segmented [nzOptions]="loginTypeOptions" [(ngModel)]="selectedLoginTypeValue" (ngModelChange)="changeLoginType($event)"  nzSize="large" />
@@ -39,9 +94,6 @@
         </ion-modal>
       </ng-container>
       
-        <!-- <div class="login__logo">
-          <img class="login__logo__img" src="/assets/icons/favicon.png" alt="">
-        </div> -->
        
     </div>
     
@@ -49,9 +101,9 @@
       <span (click)="redirectInRegistration()" class="dont-have-account__registration-link">Нет аккаунта? 
       <span class="dont-have-account__registration-link__route">Создать аккаунт</span></span>
     </div>
-  </div>
+  </div> -->
 
-
+  
 </ion-content>
 
 <ion-modal class="recovery-modal" trigger="recoveryLink"  [isOpen]="emailLoginModalValue">
@@ -61,13 +113,12 @@
         На указанный вами адрес придёт ссылка для восстановления пароля
       </p>
       <div class="recovery-form">
-        <form [formGroup]="recoveryForm" action="">
+        <form  action="">
           <app-standart-input  [control]="recoveryForm.get('email')" label="E-mail"></app-standart-input>
-
         </form>
       </div>
       <div class="recovery-password-buttons">
-        <app-standart-button [disabled]="recoveryForm.invalid || !timerReady" buttonText="Восстановить пароль" theme="standart" (click)="submitRecovery(); closeEmailModal();"></app-standart-button>
+        <app-icon-button  (click)="submitRecovery();" [shapeColumn]="true" height="long-height" widht="full" theme="red" clippy="clippy-right" buttonText="Восстановить"></app-icon-button>
       </div>
      
       <div id="recoveryLink" *ngIf="!timerReady" class="password-recovery">доступно через {{seconds * 1000 | date: 'mm:ss' }} </div>

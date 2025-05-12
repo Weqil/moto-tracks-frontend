@@ -17,10 +17,11 @@
       [formControl]="control" 
       name="new_name">
       <img class="icon" *ngIf="iconLeft" src="{{iconLeft}}" alt="">
+      <button (click)="openPasword(input)" *ngIf="openPassword" type="button" class="open-input"><img class="open-input-icon" src="/assets/icons/open-input.svg" alt=""></button>
+
     </div>
    
    
-    <button (click)="openPasword(input)" *ngIf="openPassword" type="button" class="open-input"><img class="open-input-icon" src="/assets/icons/open-input.svg" alt=""></button>
     <span *ngIf="errorMessage" class="error-message">{{errorMessage}}</span>
   </ng-container>
 
