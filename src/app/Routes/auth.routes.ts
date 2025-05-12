@@ -21,9 +21,15 @@ export const authRoutes: Routes = [
           path:'recovery-password/:token',
           canActivate:[],
           loadComponent: () => import('../Pages/Authorization/recovery-password-page/recovery-password-page.component').then((m) => m.RecoveryPasswordPageComponent),
-        }
+        },
+      
       ],
     },
- 
+    
+    {
+      path:'select-auth',
+      canActivate:[],
+      loadComponent:()=> import('../Pages/Authorization/select-auth-page/select-auth-page.component').then((m)=> m.SelectAuthPageComponent)
+    }
    
   ];
