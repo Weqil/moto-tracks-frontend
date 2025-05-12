@@ -1,5 +1,5 @@
 import { CommonModule, NgClass } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, input, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-icon-button',
@@ -20,6 +20,10 @@ export class  IconButtonComponent  implements OnInit {
    */
   @Input() elementsInStart:boolean = false
 
+   /**
+   * Полоски в начале и в конце
+   */
+  @Input() shapeColumn:boolean = false
   /**
    * Кнопка будет выглядеть недоступной
    */

@@ -254,7 +254,7 @@ export class CabinetComponent  implements OnInit {
     }
  
     this.authService.logout()
-    this.navControler.navigateForward('/login',{  animated: false })
+    this.navControler.navigateForward('/select-auth',{  animated: false })
   }
   redirectInEditPersonalInfo(){
     this.navControler.navigateForward('/personal-info')
@@ -282,7 +282,7 @@ export class CabinetComponent  implements OnInit {
     }
   }
   navigateInLogin(){
-    this.navControler.navigateForward('/login',{  animated: false })
+    this.navControler.navigateForward('/select-auth',{  animated: false })
   }
   ngOnInit() {
     this.userService.user.pipe().subscribe((res)=>{

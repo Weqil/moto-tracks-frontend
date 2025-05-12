@@ -338,7 +338,7 @@ deletePhoneForUserId(){
 
   logoutInAccount() {
     this.authService.logout()
-    this.navControler.navigateForward('/login',{  animated: false })
+    this.navControler.navigateForward('/select-auth',{  animated: false })
   }
 
   setAvatar(event:any){
@@ -477,7 +477,7 @@ private confirmDeleteAccount() {
     
         setTimeout(()=>{
               // Перенаправляем на страницу авторизации
-          this.navController.navigateRoot('/login');
+          this.navController.navigateRoot('/select-auth');
         },0)
         if(this.userService.user.value){
           this.userService.deleteUserInUsersArrayInLocalStorage(this.userService.user.value)

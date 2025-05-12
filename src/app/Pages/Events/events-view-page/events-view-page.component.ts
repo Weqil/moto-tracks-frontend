@@ -718,7 +718,7 @@ export class EventsViewPageComponent  implements OnInit {
         this.navController.navigateForward('/settings')
       } else{
         this.toastService.showToast('Что бы отправить заявку авторизируйтесь','warning')
-        this.navController.navigateForward('/login')
+        this.navController.navigateForward('/select-auth')
       }
     }
     closeApplicationForm(){

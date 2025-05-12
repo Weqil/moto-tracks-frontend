@@ -1,6 +1,16 @@
-
+<div class="button-wrapper">
+    <div *ngIf="shapeColumn" class="shape-column-grid">
+        <div [ngClass]="theme" class="shape-column-right"></div>
+        <div [ngClass]="theme" class="shape-column-right"></div>
+    </div>
+  
     <button [type]="type" [ngClass]="getClasses">
         <img *ngIf="icon" class="icon" [src]="icon"  alt="">
         <span *ngIf="buttonText">{{buttonText}}</span>
     </button>
-
+    <div *ngIf="shapeColumn" class="shape-column-grid">
+        <div [ngClass]="theme" class="shape-column-right"></div>
+        <div [ngClass]="theme" class="shape-column-right"></div>
+    </div>
+  
+</div>

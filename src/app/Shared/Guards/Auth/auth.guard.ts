@@ -9,5 +9,5 @@ export const canActivateAuth = ()=>{
     if(isLoggedIn && inject(UserService).user.value){
         return true
     }
-    return navController.navigateForward('/login')
+    return navController.navigateForward('/select-auth')
 }

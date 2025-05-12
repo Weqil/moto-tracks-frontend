@@ -68,7 +68,7 @@ export class ConfirmEmailPageComponent  implements OnInit {
       this.navController.navigateForward('/cabinet')
     }else{
       this.toastService.showToast('Вы не авторизованы','warning')
-      this.navController.navigateForward('/login')
+      this.navController.navigateForward('/select-auth')
     }
   }
 
