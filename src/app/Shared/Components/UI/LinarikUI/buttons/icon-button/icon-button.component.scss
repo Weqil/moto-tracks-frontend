@@ -95,9 +95,7 @@ span{
         transition: 0.3s all;
         background: #fc6969;
     }
-    // .icon-filter{
-    //     filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
-    // }
+ 
     span{
         color: #fff;
     }
@@ -177,6 +175,9 @@ span{
 }
 .font{
     font-family: var( --font-semi-bold);
+}
+.litle-font-size{
+    font-size: 12px;
 }
 .font-bold{
     font-size: 16px;

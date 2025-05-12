@@ -2,8 +2,11 @@
 <div class="bottom-nav">
     @for (link of links; track $index) {
      <div (click)="handleLinkClick(link)" class="bottom-nav__item">
-        <app-icon-button widht="w52" buttonText={{link.name}}  clippy="clippy-right" icon={{link.icon}} height="long-height"
-         [theme]="link.active ? 'red' : 'white'"  [buttonIconColor]="link.active ? 'white-icon' : 'dark-icon'"></app-icon-button>
+        <div class="button-container">
+            <app-icon-button fontSize="litle-font-size"  widht="w52" buttonText={{link.name}} icon={{link.icon}} height="long-height"
+            [theme]="link.active ? 'red' : 'white'"  [buttonIconColor]="link.active ? 'white-icon' : 'dark-icon'"></app-icon-button>
+        </div>
+       
      </div>
     }
 </div>
