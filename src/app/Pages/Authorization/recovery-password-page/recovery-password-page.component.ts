@@ -58,7 +58,9 @@ export class RecoveryPasswordPageComponent  implements OnInit {
     },
   }
 
- 
+ back(){
+  this.navController.back()
+ }
 
   validateForm() {
     this.recoveryInvalid.localError = false

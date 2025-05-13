@@ -16,12 +16,14 @@ export class UserSectionComponent  implements OnInit {
   constructor() { }
   @Output() changeStatus = new EventEmitter();
   @Input() user !:User|null
-  @Input() showRank:boolean = true;
-  @Input() showAddress:boolean = true;
-  @Input() showRoles:boolean = true;
+  @Input() showRank:boolean = false;
+  @Input() showAddress:boolean = false;
+  @Input() showRoles:boolean = false;
   @Input() hideEmail:boolean = false;
   @Input() status ?:string
   @Input() startNumber:boolean = false;
+  @Input() name:boolean = false;
+  @Input() surname:boolean = false;
   rowContent: string = 'row'
   
 
