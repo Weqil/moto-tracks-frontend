@@ -839,8 +839,10 @@ ya-map{
     top: 0;
     .track-header__content__top{
         width: 100%;
+        
         display: flex;
         img{
+            height: 20px;
             cursor: pointer;
             filter: brightness(0) saturate(100%) invert(99%) sepia(1%) saturate(7497%) hue-rotate(212deg) brightness(131%) contrast(100%);
         }
@@ -863,6 +865,13 @@ ya-map{
     color: var(--white-color);
     font-family: var(--font-regular);
     font-style: italic;
+}
+.track-scheme{
+    cursor: pointer;
+    margin-top: var(--standart-padding);
+    object-fit: cover;
+    max-height: 400px;
+  object-fit: cover;
 }
 .track-name{
     color: var(--white-color);

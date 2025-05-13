@@ -313,6 +313,7 @@
         width: 100%;
         display: flex;
         img{
+            height: 20px;
             cursor: pointer;
             filter: brightness(0) saturate(100%) invert(99%) sepia(1%) saturate(7497%) hue-rotate(212deg) brightness(131%) contrast(100%);
         }

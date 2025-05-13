@@ -10,7 +10,7 @@
               <div class="event-header__content__top">
                 <img (click)="backNavigate()" src="/assets/icons/back-arrow.svg" alt="">
                 <span>Подробности гонки</span>
-               <img src="/assets/icons/circle_menu.svg" alt="">
+               <img (click)="sharePage()" src="/assets/icons/share.svg" alt="">
               </div>
               <ng-container  *ngIf="event">
                 <div class="content">

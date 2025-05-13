@@ -43,7 +43,7 @@ export class TrackViewPageComponent  implements OnInit {
   loadingService: LoadingService = inject(LoadingService)
   statusImagesModal: boolean = false
   allContactsIncorrect: boolean = false
-
+  platform: Platform = inject(Platform)
   imgArray: any[] = []
 
   
@@ -106,6 +106,28 @@ export class TrackViewPageComponent  implements OnInit {
       this.validateAllContacts()
     
     })
+   }
+   async sharePage() {
+    const shareData = {
+      title: document.title,
+      text: `Трасса ${this.track.name}`,
+      url: window.location.href
+    };
+
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+      } catch (err) {
+       console.log('Ошибка при попытке поделиться');
+      }
+    } else {
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+       console.log('Ссылка скопирована в буфер обмена!');
+      } catch (err) {
+       console.log('Не удалось скопировать ссылку');
+      }
+    }
    }
    goToPoint(){
     if (this.track?.latitude && this.track?.longitude) {

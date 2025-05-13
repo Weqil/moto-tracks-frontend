@@ -397,6 +397,28 @@ export class EventsViewPageComponent  implements OnInit {
       this.personalUserForm.patchValue({group: event.name, gradeId:event.id})
   
     }
+  async sharePage() {
+    const shareData = {
+      title: document.title,
+      text: `Гонка ${this.event.name}`,
+      url: window.location.href
+    };
+
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+      } catch (err) {
+       console.log('Ошибка при попытке поделиться');
+      }
+    } else {
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+       console.log('Ссылка скопирована в буфер обмена!');
+      } catch (err) {
+       console.log('Не удалось скопировать ссылку');
+      }
+    }
+   }
     
     setRank(event:any){
       this.personalUserForm.patchValue({rank: event.name})

@@ -9,7 +9,7 @@
               <div class="track-header__content__top">
                 <img (click)="back()" src="/assets/icons/back-arrow.svg" alt="">
                 <span>Подробности трассы</span>
-               <img src="/assets/icons/circle_menu.svg" alt="">
+               <img (click)="sharePage()" src="/assets/icons/share.svg" alt="">
               </div>
               <ng-container  *ngIf="track">
                 <div class="content">
@@ -67,6 +67,17 @@
       </div>
       <ng-container *ngIf="track">
         <div class="track-information">
+          <ng-container *ngIf="track.schema_img">
+            <div class="event-desc--wrapper">
+                  <div class="event-information-title">
+                    <img src="/assets/icons/red-finished.svg" alt="">
+                    Схема
+                  </div>
+                  <img (click)="openImagesModalFunction()" [src]="track.schema_img | checkImgUrl" alt="" class="track-scheme">
+                  <app-images-modal  *ngIf="track.schema_img" [openModal]="statusImagesModal" (closeModalEmit)="closeImagesModal()" [imagesPathArray]="imgArray"></app-images-modal>
+
+            </div>
+          </ng-container>
           <ng-container *ngIf="track.desc && track.desc.length">  
                 <div class="event-desc--wrapper">
                   <div class="event-information-title">
@@ -75,7 +86,16 @@
                   </div>
                   <div *ngIf="track.desc && track.desc.length" [innerHTML]="clearDescription()" class="event-desc"></div>
                 </div>
-              </ng-container>
+          </ng-container>
+            <div class="track-services">
+               <div class="event-information-title">
+                    <img src="/assets/icons/red-finished.svg" alt="">
+                    Услуги
+                </div>
+            </div>
+          <ng-container>
+
+          </ng-container>
         </div>
       </ng-container>
     </div>
