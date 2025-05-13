@@ -11,12 +11,13 @@ import { TrackModule } from 'src/app/Shared/Modules/track/track.module';
 import { RouterLink } from '@angular/router';
 import { LoadingService } from 'src/app/Shared/Services/loading.service';
 import { finalize } from 'rxjs';
+import { IconButtonComponent } from '@app/Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component';
 
 @Component({
   selector: 'app-my-tracks-page',
   templateUrl: './my-tracks-page.component.html',
   styleUrls: ['./my-tracks-page.component.scss'],
-  imports: [SharedModule, HeaderModule, RoundedButtonComponent,TrackModule,RouterLink,] 
+  imports: [SharedModule, HeaderModule, RoundedButtonComponent,TrackModule,RouterLink,IconButtonComponent] 
 })
 export class MyTracksPageComponent  implements OnInit {
 
@@ -37,6 +38,9 @@ export class MyTracksPageComponent  implements OnInit {
     ).subscribe((res:any) => {
       this.tracks = res.tracks
     })
+  }
+  back(){
+    this.navController.back()
   }
   redirectInEditPage(eventId:any){
     this.navController.navigateForward(`/track/edit/${eventId}`)
