@@ -66,7 +66,7 @@ export class  IconButtonComponent  implements OnInit {
    /**
    *Как будут расположены элементы внутри кнопки
    */
-  @Input() elementsPosition:'elements-position'|'elements-position__row' = 'elements-position'
+  @Input() elementsPosition:'elements-position'|'elements-position__row'|'row__reverse'  = 'elements-position'
 
     /**
    *Текст кнопки
@@ -92,12 +92,14 @@ export class  IconButtonComponent  implements OnInit {
 
    @Input() fontSize:'litle-font-size'|'standart-font-size' = 'standart-font-size'
 
+   @Input() fontColor:'standart-color'|'red-color' = 'standart-color'
+
    /**
    * Функция собирает все классы и возвращает массив с нужными значениями
    */
   get getClasses():string[]{
     return [this.theme, this.buttonIconColor, this.fontSize,
-      this.sizeIcon, this.buttonBorderWidth, this.buttonBorderColor, this.height, this.disabled ? 'disabled':'','icon-button',this.clippy, this.elementsPosition, this.widht, this.font, this.elementsInStart ? 'elements-in-start':'']
+      this.sizeIcon, this.buttonBorderWidth, this.buttonBorderColor, this.height, this.disabled ? 'disabled':'','icon-button',this.clippy, this.elementsPosition, this.widht, this.font, this.fontColor, this.elementsInStart ? 'elements-in-start':'']
   }
 
   ngOnInit() {}

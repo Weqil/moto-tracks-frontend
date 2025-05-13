@@ -173,8 +173,23 @@ span{
         height: 14px;
     }
 }
+.row__reverse{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    img{
+        width: 14px;
+        height: 14px;
+    }
+}
 .font{
     font-family: var( --font-semi-bold);
+}
+.red-color{
+   span{
+    color: #D53131;
+   }
 }
 .litle-font-size{
     font-size: 12px;

@@ -27,57 +27,51 @@
             <div class="info__name__item" *ngIf="user?.surname && !user?.personal" >{{user?.surname}}</div>
           </div>
           <div *ngIf="user?.email" class="email">{{user?.email}}</div>
-          <app-icon-button></app-icon-button>
+          <div class="user-statuses-grid">
+            <app-icon-button clippy="clippy-right" height="auto-height" theme="red" *ngFor="let status of userTranslitStatuses" [buttonText]="status"></app-icon-button>
+          </div>
         </div>
+        <img (click)="selectAccountValue.set(!selectAccountValue())" [class.active]="selectAccountValue()" src="/assets/icons/arrow.svg" alt="" class="open-select-account-menu">
       </div>
-      <!-- <app-user-section [showRank]="false" [showAddress]="false" (changeStatus)="setNewStatusModalOpen()" [user]="user"></app-user-section>
+  
       <div class="cabinet__user-info">
        
-        <div *ngIf="user?.personal?.start_number" class="user-info__class">
-            {{user?.personal?.start_number}}
-        </div>
-        <div (click)="selectAccountValue.set(!selectAccountValue())" [class.active]="selectAccountValue()" class="select-account-open">
-          <img src="assets/icons/arrow.svg" alt="">
-        </div>
+       
       </div>
       <div [class.active]="selectAccountValue()" class="accounts-container">
-        <div (click)="navigateInLogin()" class="accounts-container__add-account">
-          <img src="/assets/icons/plus.svg" alt="">
-          <span>Добавить аккаунт</span>
-        </div>
+        <app-icon-button (click)="navigateInLogin()" buttonIconColor="red-icon" sizeIcon="standart-size" widht="full" buttonBorderColor="red-border"  elementsPosition="row__reverse" icon="/assets/icons/plus.svg" fontColor="red-color" font="font" buttonBorderWidth="b1"  theme="white" buttonText="Добавить аккаунт"></app-icon-button>
         <ng-container *ngFor="let user of allUsers">
           <div  class="accounts-container__item">
-            <app-user-section (click)="selectUserAndRefreshAllData(user)" [user]="user"></app-user-section>
+            <app-user-section [showAddress]="false" [showRank]="false" (click)="selectUserAndRefreshAllData(user)" [user]="user"></app-user-section>
             <div *ngIf="user.id == userService.user.value?.id" class="current-account">
-                <img src="/assets/icons/accept.svg" alt="">
+                <img src="/assets/icons/red-select.svg" alt="">
             </div>
             <div *ngIf="user.id !== userService.user.value?.id" class="trash-button">
-              <app-circle-button (click)="deleteUserInLocalStorage(user)" icon="/assets/icons/trash.svg"></app-circle-button>
+              <img (click)="deleteUserInLocalStorage(user)" src="/assets/icons/trash.svg" alt="">
             </div>
           </div>
         </ng-container>
         
-      </div> -->
-      <ng-container *ngIf="usersMenuItem[this.selectedStatusItem?.name]">
-          <ng-container *ngFor="let menuItem of usersMenuItem[this.selectedStatusItem.name]">
-            <app-profile-menu-item  [routing]="menuItem.routing" [iconColor]="menuItem.iconColor" [icon]="menuItem.icon" [name]="menuItem.name"></app-profile-menu-item>
-          </ng-container>
-      </ng-container>
-     
-      <app-profile-menu-item  [routing]="'settings'" [iconColor]="'#0000'" [icon]="'/assets/icons/settings.svg'" [name]="'Настройки'"></app-profile-menu-item> 
-      <a  href="https://t.me/mototrackapp">
-        <app-profile-menu-item  [routing]="'link'" [iconColor]="'#0000'" [icon]="'/assets/icons/support-icon.svg'" [name]="'Обратная связь'"></app-profile-menu-item>
-      </a>
-      <div class="cabinet__logout">
-        <app-standart-button (click)="logoutInAccount()" theme="red" buttonText="Выход"></app-standart-button>
+      </div>
+      <div class="menu-grid">
+          <ng-container *ngIf="usersMenuItem[this.selectedStatusItem?.name]">
+            <ng-container *ngFor="let menuItem of usersMenuItem[this.selectedStatusItem.name]">
+              <app-profile-menu-item  [routing]="menuItem.routing" [iconColor]="menuItem.iconColor" [icon]="menuItem.icon" [name]="menuItem.name"></app-profile-menu-item>
+            </ng-container>
+        </ng-container>
+      
+        <app-profile-menu-item  [routing]="'settings'" [iconColor]="'#0000'" [icon]="'/assets/icons/settings.svg'" [name]="'Настройки'"></app-profile-menu-item> 
+        <a  href="https://t.me/mototrackapp">
+          <app-profile-menu-item  [routing]="'link'" [iconColor]="'#0000'" [icon]="'/assets/icons/support-icon.svg'" [name]="'Обратная связь'"></app-profile-menu-item>
+        </a>
+      </div>
+    
+      <div class="link-on-support">
+        <span class="version">Текущая версия приложеия: {{version}}</span>
       </div>
     </div>
       
-      <div class="link-on-support">
-        <span class="version">Текущая версия приложеия:{{version}}</span>
-        
-        
-      </div>
+    
   </div>
  
 </ion-content>

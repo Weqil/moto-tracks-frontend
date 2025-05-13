@@ -22,12 +22,6 @@ export const privateRoutes: Routes = [
                 loadComponent: () => import('../CommonUI/Pages/private-files/private-files.component').then((m) => m.PrivateFilesComponent)
             },
             {
-                path:'cabinet',
-                canActivate:[canActivateAuth],
-                loadComponent: () => import('../Pages/Profile/cabinet/cabinet.component').then((m) => m.CabinetComponent),
-
-            },
-            {
                 path:'my-tracks',
                 canActivate:[canActivateAuth,canActivateUserHaveRole(userRoles.organization,'организатора')],
                 loadComponent: () => import('../Pages/Profile/Tracks/my-tracks-page/my-tracks-page.component').then((m) => m.MyTracksPageComponent)
@@ -144,6 +138,12 @@ export const privateRoutes: Routes = [
         path:'verification',
         canActivate:[canActivateAuth],
         loadComponent: () => import('../Pages/Authorization/confirm-email-page/confirm-email-page.component').then((m) => m.ConfirmEmailPageComponent)
+    },
+    {
+        path:'cabinet',
+        canActivate:[canActivateAuth],
+        loadComponent: () => import('../Pages/Profile/cabinet/cabinet.component').then((m) => m.CabinetComponent),
+
     },
  
 ];
