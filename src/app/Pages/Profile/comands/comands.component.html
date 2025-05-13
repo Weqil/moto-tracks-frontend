@@ -1,17 +1,24 @@
 <ion-content>
-  <app-header headerTitle="Мои команды">
-    <app-rounded-button (click)="redirectInCreate()" icon="assets/icons/create.svg" buttonText="Создать"></app-rounded-button>
+  <app-header [customContainer]="true" [hiddenBackButton]="true">
+    <div class="my-events-header">
+      <div class="my-events-header__top">
+        <button (click)="back()" class="cabinet-header__back">
+          <img src="/assets/icons/arrow.svg"  alt="Назад">
+        </button>
+        <span class="cabinet-header__title">Мои команды</span>
+        <app-icon-button  [buttonIconColor]="'red-icon'" [buttonBorderWidth]="'b1'" [buttonBorderColor]="'red-border'" (click)="redirectInCreate()" clippy="clippy-right" icon="assets/icons/plus.svg" height="standart-height" sizeIcon="little-size" theme="white"></app-icon-button>
+      </div>
+    </div>
   </app-header>
+
   <main class="main-container--with-header">
     <article class="commands-grid">
     <ng-container *ngFor="let command of comands">
       <div class="commands-grid__item">
         <app-command-section (click)="redirectInViewPage(command.id)" [command]="command"></app-command-section>
         <div class="edit-button-container">
-          <div style="display: flex;">
-            <app-standart-button theme="orange" style="width: 100%; margin: 4px;" (click)="redirectInEditPage(command.id)" buttonText="Редактировать"></app-standart-button>
-            <!-- <app-standart-button theme="standart" style="width: 100%; margin: 4px;" (click)="redirectInViewPage(command.id)" buttonText="Просмотр"></app-standart-button> -->
-          </div>
+          <app-icon-button (click)="redirectInEditPage(command.id)" theme="red" clippy="clippy-right" height="little-height" icon="/assets/icons/pen.svg" buttonIconColor="white-icon" elementsPosition="row__reverse" sizeIcon="little-size"></app-icon-button>
+          
         </div>
       </div>
    

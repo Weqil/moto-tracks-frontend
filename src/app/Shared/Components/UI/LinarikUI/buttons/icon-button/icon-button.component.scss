@@ -177,10 +177,8 @@ span{
         height: 14px;
     }
 }
-
-.elements-position__row{
+.row__reverse{
     display: flex;
-    flex-direction: row;
     align-items: center;
     justify-content: center;
     gap: 4px;
@@ -189,31 +187,13 @@ span{
         height: 14px;
     }
 }
-
-
-.black-text{
-    span{
-        color: #000000;
-    }
-    
-}
-
-.white-text{
-    span{
-        color: #ffffff;
-    }
-    
-}
-
-.red-text{
-    span{
-        color: #ff0000;
-    }
-
-}
-
 .font{
     font-family: var( --font-semi-bold);
+}
+.red-color{
+   span{
+    color: #D53131;
+   }
 }
 .litle-font-size{
     font-size: 12px;

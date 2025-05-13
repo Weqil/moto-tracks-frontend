@@ -14,20 +14,25 @@ import { ProfileModule } from 'src/app/Shared/Modules/user/profile.module';
 import { UserModule } from 'src/app/Shared/Modules/user/user.module';
 import { LoadingService } from 'src/app/Shared/Services/loading.service';
 import { CommonModule } from '@angular/common';
+import { CheckImgUrlPipe } from "../../../Shared/Helpers/check-img-url.pipe";
+import { IconButtonComponent } from '@app/Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component';
+import { CheckUserRoleService } from '@app/Shared/Data/Services/check-user-role.service';
 
 @Component({
   selector: 'app-cabinet',
   templateUrl: './cabinet.component.html',
   styleUrls: ['./cabinet.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  imports:[
+  imports: [
     SharedModule,
     HeaderModule,
     UserModule,
     ProfileModule,
     selectedModule,
-    CommonModule
-  ]
+    CommonModule,
+    CheckImgUrlPipe,
+    IconButtonComponent
+]
 })
 export class CabinetComponent  implements OnInit {
   
@@ -35,16 +40,19 @@ export class CabinetComponent  implements OnInit {
   userService: UserService = inject(UserService)
   authService:AuthService = inject(AuthService)
   navControler:NavController = inject(NavController)
-  
+  userTranslitStatuses:string[] = []
   private readonly loading:LoadingService = inject(LoadingService)
 
   statusesSelect:boolean = false
   selectedStatusItem!:any 
   allUsers!:Array<User>
+  checkUserRole:CheckUserRoleService = inject(CheckUserRoleService)
   selectAccountValue: WritableSignal<boolean> = signal(false)
   version:string = environment.version
   
+  checkedUserRole(){
 
+  }
 
   usersMenuItem:any = {
     [UserStatuses.rider]:[
@@ -234,7 +242,13 @@ export class CabinetComponent  implements OnInit {
     let highestRole = matchedRoles.sort((a, b) => b.index - a.index)[0]; // сортируем по убыванию
 
     return this.user?.roles.find((role:any)=> role.name == highestRole.name)
-}
+  }
+
+
+  back(){
+    this.navControler.back()
+  }
+  
 
   selectStatus(event:any){
     this.searchLastRole()
@@ -279,10 +293,13 @@ export class CabinetComponent  implements OnInit {
       this.allUsers.splice(currentUserIndex,1)
       this.allUsers.unshift(currentUser)
       this.searchLastRole()
+      if (this.userService.user.value) {
+        this.userTranslitStatuses = this.checkUserRole.getUserRoleNamesInTranslit(this.userService.user.value)
+      }
     }
   }
   navigateInLogin(){
-    this.navControler.navigateForward('/select-auth',{  animated: false })
+    this.navControler.navigateForward('/select-auth')
   }
   ngOnInit() {
     this.userService.user.pipe().subscribe((res)=>{

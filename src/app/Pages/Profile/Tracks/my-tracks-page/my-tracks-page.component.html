@@ -1,15 +1,27 @@
 <ion-content>
-  <app-header [customButton]="true" headerTitle="Мои трассы" secondButtonIcon="/assets/icons/menu-pen.svg">
-    <app-rounded-button (click)="redirectInCreate()" icon="assets/icons/create.svg" buttonText="Создать"></app-rounded-button>
+  <app-header [customContainer]="true" >
+    <div class="my-events-header">
+      <div class="my-events-header__top">
+        <button (click)="back()" class="cabinet-header__back">
+          <img src="/assets/icons/arrow.svg"  alt="Назад">
+        </button>
+        <span class="cabinet-header__title">Мои трассы</span>
+        <app-icon-button  [buttonIconColor]="'red-icon'" [buttonBorderWidth]="'b1'" [buttonBorderColor]="'red-border'" (click)="redirectInCreate()" clippy="clippy-right" icon="assets/icons/plus.svg" height="standart-height" sizeIcon="little-size" theme="white"></app-icon-button>
+      </div>
+      
+    </div>
+    
   </app-header>
   <div class="main-container--with-header">
     <div class="tracks-grid">
         @for (track of tracks; track $index) {
           <div class="tracks-grid__item">
-            <app-track-section [routerLink]="['/track/', track.id]" routerLinkActive="router-link-active"  [track]="track"></app-track-section>
-            <div class="edit-button-container">
-              <app-standart-button theme="orange" style="width: 100%;" (click)="redirectInEditPage(track.id)" buttonText="Редактировать"></app-standart-button>
+            <div (click)="redirectInEditPage(track.id)" class="edit-button-wrapper">
+              <app-icon-button (click)="redirectInEditPage(track.id)" theme="red" clippy="clippy-right" height="little-height" icon="/assets/icons/pen.svg"
+              buttonIconColor="white-icon" elementsPosition="row__reverse" sizeIcon="little-size" buttonText="Редактировать"></app-icon-button>
             </div>
+           
+            <app-track-section [routerLink]="['/track/', track.id]" routerLinkActive="router-link-active"  [track]="track"></app-track-section>
           </div>
         } 
     </div>

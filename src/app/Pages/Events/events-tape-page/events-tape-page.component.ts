@@ -422,6 +422,7 @@ export class EventsTapePageComponent  implements OnInit {
  
   ngOnInit() {
     this.getRegions()
+    
     window.addEventListener('popstate', (event) => {
       this.closetTableModal()
       this.closeUploadResultModalState()

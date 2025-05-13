@@ -1,13 +1,11 @@
 <ion-content>
-  <app-header (click)="openRegionModal()" [hiddenBackButton]="true" [headerTitle]="regionFilterName" ></app-header>
+  <app-header  [customContainer]="true">
+    <form (ngSubmit)="filterTeams()" class="header-container">
+      <app-standart-input type="search" iconLeft="/assets/icons/search.svg" placeholder="Поиск команды" tyle="width: 100%;" [control]="teamsFormGroup.get('searchInput')"></app-standart-input>
+    </form>
+ 
+  </app-header>
   <main class="main-container--with-header">
-    <div class="search-container">
-      <app-standart-input-search  
-        (input)="onSearchInput($event)"
-        placeholder="Поиск по имени команды"
-        label="Поиск по имени команды"
-      ></app-standart-input-search>
-    </div>
 
     <article class="commands-grid">
       <ng-container *ngFor="let team of filteredTeams">

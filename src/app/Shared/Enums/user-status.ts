@@ -6,4 +6,13 @@ export enum UserStatuses {
     root = 'Root',
     commission = "Commission"
   }
+
+export enum translitUserStatuses {
+  Rider = 'Гонщик',
+  Organization = 'Организатор',
+  Admin = 'Администратор',
+  Couch = 'Тренер',
+  Root = 'Root',
+  Commission = 'Комиссия'
+}
   

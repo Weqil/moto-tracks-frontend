@@ -125,6 +125,11 @@ export class TrackTapePageComponent  implements OnInit {
   }
 
   ngOnInit() {
+    this.searchTapeTrackForm.get('searchInput')?.valueChanges.subscribe(value => {
+      if(!value){
+        this.getTracks()
+      }
+    });
     this.getRegions()
   }
 
