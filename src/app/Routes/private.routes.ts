@@ -43,11 +43,6 @@ export const privateRoutes: Routes = [
             },      
             
             {
-                path:'my-events',
-                canActivate:[canActivateAuth,canActivateUserHaveRole(userRoles.organization,'организатора')],
-                loadComponent: () => import('../Pages/Profile/Events/my-events-page/my-events-page.component').then((m) => m.MyEventsPageComponent)
-            },
-            {
                 path:'personal-info',
                 canActivate:[canActivateAuth,],
                 loadComponent: () => import('../Pages/Profile/personal-info/personal-info.component').then((m) => m.PersonalInfoComponent)
@@ -144,6 +139,11 @@ export const privateRoutes: Routes = [
         canActivate:[canActivateAuth],
         loadComponent: () => import('../Pages/Profile/cabinet/cabinet.component').then((m) => m.CabinetComponent),
 
+    },
+    {
+        path:'my-events',
+        canActivate:[canActivateAuth,canActivateUserHaveRole(userRoles.organization,'организатора')],
+        loadComponent: () => import('../Pages/Profile/Events/my-events-page/my-events-page.component').then((m) => m.MyEventsPageComponent)
     },
  
 ];

@@ -1,13 +1,5 @@
 
-.events-grid{
-    padding-top: var(--standart-padding);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 2rem;
-    flex-direction: column;
-    padding-bottom: 2rem;
-}
+
 .buttons-container{
     width: 100%;
     display: flex;
@@ -15,6 +7,36 @@
     justify-content: center;
     gap: 10px;
 
+}
+.my-events-header{
+    max-width: 960px;
+    width: 100%;
+    align-items: center;
+    color: #181818;
+    margin: auto;
+   
+ 
+    .cabinet-header__back{
+        background: none;
+    }
+    .cabinet-header__exite{
+        background: none;
+    }
+    .cabinet-header__title{
+        font-family: var(--font-regular);
+        font-size: 16px;
+    }
+    .my-events-header__top{
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .header__filter-grid{
+        padding-top: var(--standart-padding);
+        display: flex;
+        gap: 8px;
+    }
 }
 ion-modal{
     --max-height: 12rem;
@@ -42,25 +64,38 @@ ion-modal{
     }
     }
 }
-
+.edit-button-wrapper{
+    position: absolute;
+    right: -1rem;
+    z-index: 100;
+    top: 1.4rem;
+}
+.card-wrapper{
+    position: relative;
+}
 .events-grid{
-    padding-top: var(--standart-padding);
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: var(--standart-padding);
+    gap:2rem;
     flex-direction: column;
     padding-bottom: 2rem;
     .month{
         width: 100%;
         display: flex;
         justify-content: start;
-        padding-left: 1rem;
-        font-family: var(--font-bold);
-        font-size: var(--font-headers-size-little);
-        font-style: italic;
-        border-left:5px solid red;
+        font-family: var(--font-extra-bold);
+        font-size: var(--font-headers-size-little);  
+    }
+    .month-shape{
+        width: 100%;
+        background: #FF5555;
+        background: linear-gradient(180deg, rgba(255, 85, 85, 1) 0%, rgba(210, 49, 49, 1) 100%);
+        height: 3px;
+        transform: skew(-68deg);
+    }
+    .month-container{
+        width: 21rem;
     }
 }
-

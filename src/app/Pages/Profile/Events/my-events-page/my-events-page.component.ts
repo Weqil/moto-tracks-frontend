@@ -14,6 +14,7 @@ import { TabsComponent } from "../../../../Shared/Components/UI/tabs/tabs.compon
 import { TabsItemComponent } from "../../../../Shared/Components/UI/tabs-item/tabs-item.component";
 import moment from 'moment';
 import { IconButtonComponent } from "../../../../Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component";
+import _ from 'lodash';
 @Component({
   selector: 'app-my-events-page',
   templateUrl: './my-events-page.component.html',
@@ -28,10 +29,24 @@ export class MyEventsPageComponent  implements OnInit {
   events!:any
   finishedEvents!:any
   tableModalValue:boolean = false
+  regionFilterId:string = ''
+  allFilter:boolean = true
+  expiredFilter:boolean = false
+  currentFilter:boolean = false
+ 
   googleTabsLink:string = ''
   userService: UserService = inject(UserService)
   loadingService:LoadingService = inject(LoadingService)
-
+  formatedEvents: { groupMonth: string, events: IEvent[] }[] = [];
+  rgpFilter:boolean = false
+   eventsFilter:any = {
+      dateStart:moment().subtract(2,'days').format('YYYY-MM-DD'),
+      locationId:[this.regionFilterId], 
+      sortField:'date_start',
+      sort:'asc',
+      commissionUser:1,
+      userId: String(this.userService.user.value?.id)
+  }
   redirectInCreate(){
     this.navController.navigateRoot('/create-event')
   }
@@ -57,6 +72,79 @@ closetTableModal(){
     return this.userService.user.value?.roles.find((role:any)=>role.name == userRoles.admin || role.name == userRoles.root) !== undefined
   }
 
+  setRgpFilter(event:any){
+    this.setFilterInTape('rgp')
+    this.rgpFilter = event
+  }
+
+ setFilterInTape(filter:'all'|'current'|'expired'|'rgp'){
+    this.allFilter = filter == 'all'
+    this.currentFilter = filter == 'current'
+    this.expiredFilter = filter == 'expired'
+    this.rgpFilter = filter == 'rgp'
+
+    if(this.currentFilter){
+      this.eventsFilter =  {
+        dateStart:moment().subtract(2,'days').format('YYYY-MM-DD'),
+        locationId:[this.regionFilterId], 
+        sortField:'date_start',
+        sort:'asc',
+        commissionUser:1,
+        userId: String(this.userService.user.value?.id)
+ 
+      }
+    }
+    if(this.expiredFilter){
+      this.eventsFilter = {
+        dateEnd:moment().subtract(2, 'days').locale('ru'). format('YYYY-MM-DD'), 
+        locationId:[this.regionFilterId], sortField:'date_start',
+         sort:'desc',commissionUser:1,
+         userId: String(this.userService.user.value?.id)
+      }
+    }
+
+    if(this.allFilter){
+      this.eventsFilter =  {
+        locationId:[this.regionFilterId], 
+        sort:'asc',
+        commissionUser:1,
+        userId: String(this.userService.user.value?.id)
+      }
+    }
+
+    if(this.rgpFilter){
+      this.eventsFilter =  {
+        dateStart:moment().subtract(2,'days').format('YYYY-MM-DD'),
+        locationId:[this.regionFilterId], 
+        sortField:'date_start',
+        sort:'asc',
+        commissionUser:1,
+        userId: String(this.userService.user.value?.id)
+      }
+    }
+    this.getEvents()
+
+  }
+
+   getEvents(){
+      let loader:HTMLIonLoadingElement
+      this.loadingService.showLoading().then((res: HTMLIonLoadingElement)=>{
+          loader = res
+      })
+      this.eventService.getAllEvents(this.eventsFilter).pipe(
+        finalize(()=>{ 
+          this.loadingService.hideLoading(loader)
+        })).subscribe((res:any)=>{
+          this.startEvents = res.races
+          this.formatedEvents = Object.keys(_.groupBy(this.startEvents, (event:any) => moment(event.date_start).locale('ru').format('MMMM YYYY')))
+        .map(groupMonth => ({
+          groupMonth: groupMonth.charAt(0).toUpperCase() + groupMonth.slice(1),
+          events: _.groupBy(this.startEvents, (event:any) => moment(event.date_start).locale('ru').format('MMMM YYYY'))[groupMonth]
+        }));
+        console.log(this.formatedEvents)
+      })
+  
+    }
   startEvents(){
     let loader:HTMLIonLoadingElement
     this.loadingService.showLoading().then((res: HTMLIonLoadingElement)=>{
@@ -76,6 +164,9 @@ closetTableModal(){
     
   }
 
+  back(){
+    this.navController.back()
+  }
 
   finishEvents(){
     let loader:HTMLIonLoadingElement
@@ -92,7 +183,8 @@ closetTableModal(){
   }
 
   ionViewWillEnter(){
-    this.startEvents()
+    this.setFilterInTape('all')
+    this.getEvents()
     this.finishEvents()
   }
 

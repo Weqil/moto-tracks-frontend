@@ -1,12 +1,53 @@
 <ion-content>
-  <app-header [customButton]="true" headerTitle="Мои гонки" >
-    <!-- <app-rounded-button theme="line"  icon="assets/icons/create.svg" ></app-rounded-button> -->
-    <app-icon-button  [buttonIconColor]="'red-icon'" [buttonBorderWidth]="'b1'" [buttonBorderColor]="'red-border'" (click)="redirectInCreate()" clippy="clippy-right" icon="assets/icons/plus.svg" height="standart-height" sizeIcon="little-size" theme="white"></app-icon-button>
+  <app-header [customContainer]="true" >
+    <div class="my-events-header">
+      <div class="my-events-header__top">
+        <button (click)="back()" class="cabinet-header__back">
+          <img src="/assets/icons/arrow.svg"  alt="Назад">
+        </button>
+        <span class="cabinet-header__title">Мои гонки</span>
+        <app-icon-button  [buttonIconColor]="'red-icon'" [buttonBorderWidth]="'b1'" [buttonBorderColor]="'red-border'" (click)="redirectInCreate()" clippy="clippy-right" icon="assets/icons/plus.svg" height="standart-height" sizeIcon="little-size" theme="white"></app-icon-button>
+      </div>
+      
+      <div class="header__filter-grid">
+        <app-icon-button (click)="setFilterInTape('all')" height="little-height" clippy="clippy-right" buttonText="Все" [theme]="allFilter ? 'red':'dark'"></app-icon-button>
+        <app-icon-button (click)="setFilterInTape('current')" height="little-height" clippy="clippy-right" buttonText="Текущие"  [theme]="currentFilter ? 'red':'dark'"></app-icon-button>
+        <app-icon-button (click)="setFilterInTape('expired')" height="little-height" clippy="clippy-right" buttonText="Прошедшие"  [theme]="expiredFilter ? 'red':'dark'"></app-icon-button>
+        <button [ngClass]="{'rgp-logo': !rgpFilter, 'rgp-logo--dark':rgpFilter }" (click)="setRgpFilter(rgpFilter ? '' : 'rgp')" class="rgp-logo">
+          <img  [src]="'/assets/icons/motoRGP.svg'" alt="">
+        </button>
+      </div>
+    </div>
+    
   </app-header>
 
-  <div class="main-container--with-header">
-   
-   <div class="tabs-container">
+  <div class="main-container--with-header--strong">
+    <div class="events">
+      <ng-container *ngIf="formatedEvents">
+        <div *ngFor="let group of formatedEvents" class="events-grid">
+          <div class="month-container">
+            <span class="month">{{group.groupMonth}}</span>
+            <div class="month-shape"></div>
+          </div>
+      
+          <div  class="card-wrapper" *ngFor="let event of group.events; let i = index">
+            <div class="edit-button-wrapper">
+              <app-icon-button (click)="redirectInEditPage(event.id)" theme="red" clippy="clippy-right" height="little-height" icon="/assets/icons/pen.svg"
+              buttonIconColor="white-icon" elementsPosition="row__reverse" sizeIcon="little-size" buttonText="Редактировать"></app-icon-button>
+            </div>
+           
+            <app-event-card [event]="event" >
+              <div *ngIf="userService.userHaveRoot() && event.commissions_exists" class="button-container">
+                <app-standart-button style="width: 100%;" (click)="generateGoogleLink(event.id)" buttonText="Выгрузить список"></app-standart-button>
+                <!-- <app-standart-button style="width: 100%;" (click)="openUploadResultModal(event)" buttonText="Добавить результаты"></app-standart-button> -->
+              </div>
+            </app-event-card>
+          </div>
+        </div>
+      </ng-container>
+    
+    </div>
+   <!-- <div class="tabs-container">
     <app-tabs>
       <app-tabs-item name="Текущие">
         <app-icon-button  [buttonIconColor]="'red-icon'" [buttonBorderWidth]="'b1'" [buttonBorderColor]="'red-border'" (click)="redirectInCreate()" clippy="clippy-right" icon="assets/icons/plus.svg" height="standart-height" sizeIcon="little-size" theme="white"></app-icon-button>
@@ -22,16 +63,7 @@
           </div>}
       </div>
 
-        <!-- <div *ngFor="let group of formatedEvents" class="events-grid">
-          <span class="month">{{group.groupMonth}}</span>
-          <div  *ngFor="let event of group.events; let i = index">
-            <app-event-card [event]="event">
-              <div *ngIf="userService.userHaveRoot()" class="button-container">
-                <app-standart-button style="width: 100%;" (click)="generateGoogleLink(event.id)" buttonText="Выгрузить список"></app-standart-button>
-              </div>
-            </app-event-card>
-          </div>
-        </div> -->
+  
       </app-tabs-item>      
       
       <app-tabs-item name="Прошедшие">
@@ -47,19 +79,10 @@
               </app-event-card>
             </div>}
         </div>
-        <!-- <div *ngFor="let group of formatedExpiredEvents" class="events-grid">
-          <span class="month">{{group.groupMonth}}</span>
-            <div  *ngFor="let event of group.events; let i = index">
-              <app-event-card [event]="event">
-                <div *ngIf="userService.userHaveRoot()" class="button-container">
-                  <app-standart-button style="width: 100%;" (click)="generateGoogleLink(event.id)" buttonText="Выгрузить список"></app-standart-button>
-                </div>
-              </app-event-card>
-            </div>
-          </div> -->
+     
         </app-tabs-item>
       </app-tabs>
-  </div>
+  </div> -->
   </div>
 
 </ion-content>

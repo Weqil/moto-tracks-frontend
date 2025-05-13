@@ -77,6 +77,8 @@
 .user-images{
     width: 110px;
     height: 110px;
+    min-width: 110px;
+    min-height: 110px;
     border-radius: 50%;
     overflow-y: hidden;
     object-fit: cover;
