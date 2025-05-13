@@ -7,13 +7,15 @@ import { finalize } from 'rxjs';
 import { ICommand } from 'src/app/Shared/Data/Interfaces/command';
 import { NavController, IonicModule } from '@ionic/angular';
 import { StandartInputSearchComponent } from 'src/app/Shared/Components/Forms/standart-input-search/standart-input-search.component';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { HeaderComponent } from 'src/app/Shared/Components/UI/header/header.component';
 import { LoadingService } from 'src/app/Shared/Services/loading.service';
 import { AuthService } from '../../../Shared/Services/auth.service';
 import { MapService } from '@app/Shared/Data/Services/Map/map.service';
 import { isNull } from 'lodash';
+import { IconButtonComponent } from '@app/Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component';
+import { StandartInputComponent } from '@app/Shared/Components/UI/LinarikUI/forms/standart-input/standart-input.component';
 
 @Component({
   selector: 'app-teams-list-page',
@@ -25,7 +27,9 @@ import { isNull } from 'lodash';
     FormsModule,
     StandartInputSearchComponent,
     HeaderComponent,
-    IonicModule
+    IonicModule,
+    IconButtonComponent,
+    StandartInputComponent
   ],
   standalone: true
 })
@@ -41,6 +45,9 @@ export class TeamsListPageComponent implements OnInit {
 
   teamslocation: ICommand[] = [];
   teams: ICommand[] = [];
+  teamsFormGroup = new FormGroup({
+    searchInput: new FormControl('')
+  })
   filteredTeams: ICommand[] = [];
   searchQuery: string = '';
   currentUserId: number | null = null;
@@ -89,6 +96,11 @@ export class TeamsListPageComponent implements OnInit {
 
     this.getTeams()
     this.getRegions()
+    this.teamsFormGroup.get('searchInput')?.valueChanges.subscribe(value => {
+      if(!value){
+        this.filteredTeams = this.teams
+      }
+    });
     this.currentUserId = this.authService.getCurrentUserId();
   }
   
@@ -127,6 +139,7 @@ export class TeamsListPageComponent implements OnInit {
   }
 
   filterTeams() {
+    this.searchQuery = this.teamsFormGroup.value.searchInput ? this.teamsFormGroup.value.searchInput : '';
     if (!this.searchQuery) {
       this.filteredTeams = this.teams;
       return;

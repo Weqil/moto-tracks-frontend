@@ -21,12 +21,7 @@ export const privateRoutes: Routes = [
                 canActivate:[canActivateAuth,canActivateRoleAdmin],
                 loadComponent: () => import('../CommonUI/Pages/private-files/private-files.component').then((m) => m.PrivateFilesComponent)
             },
-         
-            {
-                path:'my-comands',
-                canActivate:[canActivateAuth],
-                loadComponent: () => import('../Pages/Profile/comands/comands.component').then((m) => m.ComandsComponent)
-            },      
+           
             {
                 path:'create-comands',
                 canActivate:[canActivateAuth,canActivateUserHaveRole([userRoles.couch,userRoles.organization, userRoles.rider],'тренера')],
@@ -146,6 +141,11 @@ export const privateRoutes: Routes = [
         canActivate:[canActivateAuth,canActivateUserHaveRole(userRoles.organization,'организатора')],
         loadComponent: () => import('../Pages/Profile/Tracks/my-tracks-page/my-tracks-page.component').then((m) => m.MyTracksPageComponent)
     },
+    {
+        path:'my-comands',
+        canActivate:[canActivateAuth],
+        loadComponent: () => import('../Pages/Profile/comands/comands.component').then((m) => m.ComandsComponent)
+    },    
     
  
 ];

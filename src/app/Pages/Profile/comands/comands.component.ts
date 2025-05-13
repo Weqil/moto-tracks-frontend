@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
+import { IconButtonComponent } from '@app/Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component';
 import { IonContent, NavController } from '@ionic/angular/standalone';
 import { finalize } from 'rxjs';
 import { CommandSectionComponent } from 'src/app/Shared/Components/Commands/command-section/command-section.component';
@@ -15,7 +16,7 @@ import { LoadingService } from 'src/app/Shared/Services/loading.service';
   selector: 'app-comands',
   templateUrl: './comands.component.html',
   styleUrls: ['./comands.component.scss'],
-  imports:[IonContent,HeaderComponent,RoundedButtonComponent,CommandSectionComponent,CommonModule,StandartButtonComponent]
+  imports:[IonContent,HeaderComponent,RoundedButtonComponent,CommandSectionComponent,CommonModule,StandartButtonComponent,IconButtonComponent]
 })
 export class ComandsComponent  implements OnInit {
 
@@ -32,6 +33,9 @@ export class ComandsComponent  implements OnInit {
   }
   redirectInEditPage(eventId:any){
     this.navController.navigateForward(`/command/edit/${eventId}`)
+  }
+  back(){
+    this.navController.back()
   }
   redirectInViewPage(eventId:any){
     this.navController.navigateForward(`/command/view/${eventId}`)
