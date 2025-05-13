@@ -28,14 +28,14 @@ export class PagesWithNavComponent  {
 
   links: Link[] = [
       {
-        icon: '/assets/navigation/tape.svg',
+        icon: '/assets/icons/gonki.svg',
         name:'Гонки',
         active:false,
         path: ['/events'],
       },
       
       {
-        icon: '/assets/icons/Repeat.svg',
+        icon: '/assets/icons/trassy.svg',
         name:'Трассы',
         active:false,
         path: ['/tracks'], 
@@ -47,7 +47,7 @@ export class PagesWithNavComponent  {
         path: ['/teams'], 
       },
       {
-        icon: '/assets/navigation/user.svg',
+        icon: '/assets/icons/user.svg',
         name:'Профиль',
         active:false,
         path: ['/cabinet'],

@@ -1,8 +1,26 @@
 <ion-content>
-  <app-header headerTitle="Подтверждение почты" [hiddenBackButton]="true"></app-header>
-  <div *ngIf="user" class="main-container--with-header">
+  <app-header [customContainer]="true">
+    <app-back-button (click)="redirectCabinet()" fontColor="font-dark" theme="white"></app-back-button>
+  </app-header>
+  <div *ngIf="user" class="main-container">
+
+    <div class="auth-title">
+      Потверждение 
+    </div>
+
     <p class="verification__title">Введите код отправленный на вашу электронную почту {{user.email}} </p>
     <ngx-otp-input  (otpChange)="changeCode($event)" [options]="otpOptions"></ngx-otp-input>
+    
+    <!-- <app-standart-button (click)="submitMessage()" [disabled]=" this.codeValue.length !== 4" buttonText="Отправить"></app-standart-button> -->
+    
+    <!-- <div class="back-button">
+      <app-standart-button theme="light" (click)="redirectCabinet()"  buttonText="Отмена"></app-standart-button>
+    </div> -->
+
+    <div class="auth-containers__form__submit-container">
+      <app-icon-button height="long-height" widht="full"  clippy="clippy-right" [shapeColumn]="true" [theme]=" this.codeValue.length !== 4 ? 'dark-gray' : 'red'"  (click)=" this.codeValue.length !== 4 ? submitMessage() : null"  buttonText="Отправить" type="submit"></app-icon-button>
+    </div>
+
     <div class="verification-timer">
 
       <span 
@@ -16,11 +34,6 @@
       </span>
 
 
-    </div>
-    <app-standart-button (click)="submitMessage()" [disabled]=" this.codeValue.length !== 4" buttonText="Отправить"></app-standart-button>
-    
-    <div class="back-button">
-      <app-standart-button theme="light" (click)="redirectCabinet()"  buttonText="Отмена"></app-standart-button>
     </div>
 
 

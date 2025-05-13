@@ -1,5 +1,4 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { StandartInputComponent } from 'src/app/Shared/Components/Forms/standart-input/standart-input.component';
 import { HeaderModule } from 'src/app/Shared/Modules/header/header.module';
 import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
 import { HeaderComponent } from "../../../Shared/Components/UI/header/header.component";
@@ -11,12 +10,14 @@ import { RecoveryPasswordService } from 'src/app/Shared/Data/Services/Auth/recov
 import { LoadingService } from 'src/app/Shared/Services/loading.service';
 import { serverError } from 'src/app/Shared/Data/Interfaces/errors';
 import { ToastService } from 'src/app/Shared/Services/toast.service';
+import { FormsModule } from "../../../Shared/Modules/forms/forms.module";
+import { IconButtonComponent } from "../../../Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component";
 
 @Component({
   selector: 'app-recovery-password-page',
   templateUrl: './recovery-password-page.component.html',
   styleUrls: ['./recovery-password-page.component.scss'],
-  imports: [SharedModule, HeaderComponent, StandartInputComponent,IonModal],
+  imports: [SharedModule, HeaderComponent, FormsModule, IonModal, FormsModule, IconButtonComponent],
 })
 export class RecoveryPasswordPageComponent  implements OnInit {
 

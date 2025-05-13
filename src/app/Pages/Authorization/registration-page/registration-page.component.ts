@@ -19,13 +19,14 @@ import { NgxOtpInputComponent, NgxOtpInputComponentOptions } from 'ngx-otp-input
 import moment from 'moment';
 import { ToastService } from 'src/app/Shared/Services/toast.service';
 import { LoginService } from 'src/app/Shared/Data/Services/Auth/login.service';
+import { IconButtonComponent } from "../../../Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component";
 
 
 @Component({
   selector: 'app-registration-page',
   templateUrl: './registration-page.component.html',
   styleUrls: ['./registration-page.component.scss'],
-  imports: [SharedModule, HeaderModule, FormsModule,IonCheckbox,NzSegmentedModule,IonModal,NgxOtpInputComponent]
+  imports: [SharedModule, HeaderModule, FormsModule, IonCheckbox, NzSegmentedModule, IonModal, NgxOtpInputComponent, IconButtonComponent]
 })
 export class RegistrationPageComponent  implements OnInit {
 
