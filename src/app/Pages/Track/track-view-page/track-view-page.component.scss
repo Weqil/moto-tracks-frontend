@@ -19,6 +19,31 @@
 
     }
 }
+.requisites{
+    min-width: 350px;
+    padding: var(--standart-padding);
+    font-family: var(--font-regular);
+    color: #ffffff;
+    strong{
+        color: #ffffff;
+    }
+    h2 {
+        color: #ffffff;
+      }
+      
+      ul {
+        list-style: none;
+        padding: 0;
+        color: #ffffff;
+      }
+      
+      li {
+        padding: 8px;
+        color: #ffffff;
+        border-bottom: 1px solid #ddd;
+      }
+      
+}
 
 .payment-button{
     padding-top: var(--standart-padding);

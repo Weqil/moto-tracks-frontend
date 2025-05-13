@@ -285,14 +285,7 @@
         
 
         <div class="requisites-and-link-container">
-          <div class="requisites">
-            <!-- <span class="req-name">Реквизиты</span>
-            <p class="req-text">Обучение мотокроссу детей и начинающих. Трассы с трамплинами и гонки по бездорожью для профессионалов</p> -->
-            <!-- <div class="req-button">
-            <app-standart-button [buttonText]="'Доступ к треку'" [theme]="'orange'">
-            </app-standart-button> -->
-          <!-- </div> -->
-          </div>
+        
           <div class="links-list" >
             <!-- *ngIf="track.contacts && track.contacts?.length" -->
             <span class="link-name" *ngIf="allContactsIncorrect">
@@ -301,8 +294,11 @@
             <div class="links" *ngIf="allContactsIncorrect"> 
               <div class="link" *ngIf="getContactValue('vk') != null">
                 <a [attr.href]="getContactValue('vk')"><img src="/assets/icons/VK2.svg" alt=""></a>
-                
               </div>
+              <div class="link" *ngIf="getContactValue('phone') != null">
+                <a [attr.href]="getContactValue('phone')"><img src="/assets/icons/phone.svg" alt=""></a>
+              </div>
+
               <div class="link" *ngIf="getContactValue('tg') != null">
                 <a [attr.href]="getContactValue('tg')"> <img src="/assets/icons/telegram.svg" alt=""></a>
               
@@ -318,7 +314,16 @@
             </div>
           </div>
         </div>
-
+        <div class="requisites" *ngIf=" track.requisites && track.requisites.length > 0;">
+          <h2>Реквизиты для оплаты</h2>
+          <ul>
+            <li *ngFor="let req of track?.requisites">
+              <strong>Имя:</strong> {{ req.name }} <br />
+              <strong>Email:</strong> {{ req.email }} <br />
+              <strong>Телефон:</strong> {{ req.phone }}
+            </li>
+          </ul>
+        </div> 
     </footer>
   </div>
   </ng-container>

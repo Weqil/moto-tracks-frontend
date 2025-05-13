@@ -6,6 +6,11 @@ export interface Track {
     address: string;
     latitude: number;
     longitude: number;
+    requisites:{
+        name: string;
+        email: string;
+        phone: string;
+    }[];
     logo?: string|null;
     is_work?:boolean;
     attendance?:[{id:number,price:string}],
