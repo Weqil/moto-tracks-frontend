@@ -1,104 +1,80 @@
 <ion-content>
-  <ng-container *ngIf="track">
-    <app-header [headerTitle]= "track.name" ></app-header>
-    <!-- <div>
-        <div class="main-container--with-header">
-          <div class="track__header">
-            <img src="{{track.images ? (track.images[0] | checkImgUrl) : '' | checkImgUrl}}" alt="" class="track-header__avatar">
-            <div class="track__status">
-              <div class="track__status__circle" style="background-color: {{track.is_work ? 'var(--green-color)' : 'var(--red-color)'}}"></div>
-              {{track.is_work ? 'Работает' : 'Закрыто'}}
-            </div>
-        </div>
-          <div *ngIf="false" class="track__params">
-            <div class="track__params__item">
-                Длина: {{track.length}}
-            </div>
-            <div class="track__params__item">
-              Повороты: {{track.turns}}
-            </div>
-            <div class="track__params__item">
-              Сложность: <span>{{track.level.name}}</span>
-            </div>
-          </div>
-          
-      </div>
-      
-        <div *ngIf="track.images" (click)="openImagesModalFunction()" class="track__files">
-            <app-horizontal-swiper [files]="track.images"> </app-horizontal-swiper>
-        </div>
-
-        <app-images-modal *ngIf="track.images" [openModal]="statusImagesModal" (closeModalEmit)="closeImagesModal()" [imagesPathArray]="track.images"></app-images-modal>
-
-
-        <div class="track__info main-container">
-          <div class="specifications">
-            <div class="standart-heading">О треке</div>
-             <div class="specifications__item">
-              <div class="specifications__item__title">Вход на трек</div>
-              <div class="specifications__item__value">{{track.free ? 'Бесплатный' : 'Платный'}}</div>
-            </div> 
-            @for (specification of track.spec; track $index) {
-              <div class="specifications__item">
-                <div class="specifications__item__title">{{specification.title}}</div>
-                <div class="specifications__item__value">{{specification.value}}</div>
+  <main>
+    <div class="track">
+      <div class="track-header">
+        <div  class="track-header__content height-header" style="background-image: url('/assets/images/track-background.png');">
+          <div class="track-header__background__dark height-header"></div>
+          <div class="header-block height-header">
+            <div class="header-content__wrapper">
+              <div class="track-header__content__top">
+                <img (click)="back()" src="/assets/icons/back-arrow.svg" alt="">
+                <span>Подробности трассы</span>
+               <img src="/assets/icons/circle_menu.svg" alt="">
               </div>
-            }
-          </div>
-          <div *ngIf="track.additionalServices" class="additional-services">
-            <div class="standart-heading">Дополнительные сервисы</div>
-            <div class="additional-services__grid">
-              
-              @for (service of track.additionalServices; track $index) {
-                <div class="additional-services__item">
-                  <img [src]="service.ico" class="additiobal-services__item__ico">
-                  <div class="additional-services__item__value">{{service.value}}</div>
+              <ng-container  *ngIf="track">
+                <div class="content">
+                  <h2 class="track-name">{{track.name}}</h2>
+                  <div *ngIf="getSpecValue('lengthTrack') || getSpecValue('elementsCount') || getSpecValue('coverage')" class="track-params-grid">
+                    <div *ngIf="getSpecValue('lengthTrack')" class="track-params-grid__item">
+                      <span class="track-params-grid__item__label">Длина</span>
+                      <span class="track-params-grid__item__value">{{getSpecValue('lengthTrack')}}М</span>
+                    </div>
+                    <div *ngIf="getSpecValue('elementsCount')" class="track-params-grid__item">
+                      <span class="track-params-grid__item__label">Кол-во элементов</span>
+                      <span class="track-params-grid__item__value">{{getSpecValue('elementsCount')}}</span>
+                    </div>
+                    <div *ngIf="getSpecValue('coverage')" class="track-params-grid__item">
+                      <span class="track-params-grid__item__label">Покрытие</span>
+                      <span class="track-params-grid__item__value">{{getSpecValue('coverage')}}</span>
+                    </div>
+                  </div>
+                  <div *ngIf="track.address" class="track-location">
+                    <span class="track-label-opacity">Местоположение</span>
+                    <span class="track-location-value">{{track.address}}</span>
+                  </div>
+                  <div *ngIf="getSpecValue('heightDifference') || getSpecValue('leftTurns') || getSpecValue('rightTurns') || getSpecValue('highSpeedSection') " class="also-params-grid">
+                    <div *ngIf="getSpecValue('heightDifference')" class="also-params-grid__item">
+                      <span class="also-params-grid__item__label">Перепад высот</span>
+                      <span class="also-params-grid__item__value">{{getSpecValue('heightDifference')}} М</span>
+                    </div>
+                    <div *ngIf="getSpecValue('leftTurns')" class="also-params-grid__item">
+                      <span class="also-params-grid__item__label">Левых поворотов</span>
+                      <span class="also-params-grid__item__value">{{getSpecValue('leftTurns')}}</span>
+                    </div>
+                    <div *ngIf="getSpecValue('rightTurns')" class="also-params-grid__item">
+                      <span class="also-params-grid__item__label">Правых поворотов</span>
+                      <span class="also-params-grid__item__value">{{getSpecValue('rightTurns')}}</span>
+                    </div>
+                    <div *ngIf="getSpecValue('highSpeedSection')" class="also-params-grid__item">
+                      <span class="also-params-grid__item__label">Длина скор. участка</span>
+                      <span class="also-params-grid__item__value">{{getSpecValue('highSpeedSection')}}м</span>
+                    </div>
+                  </div>
+                  <div class="header-button-grid">
+                    <button (click)="goToPoint()" class="header-button"> 
+                      <img src="/assets/icons/map.svg" alt="">Показать на карте
+                    </button>
+                  </div>
+                 
                 </div>
-              }
-              
-            </div>
-          
-          </div>
-          <div *ngIf="track.desc" class="description">
-            <div class="standart-heading">Описание трека</div> 
-            <div [innerHTML]="clearDescription()" class="description__text">{{track.desc}}</div>
-          </div>
 
-          <div class="map">
-             <div class="standart-heading">На карте</div> 
-            <div class="map__container">
-              <ya-map
-              [center]="[track.latitude,track.longitude,]"
-              [zoom]="12"   
-              [state]="{controls: []}"
-              [options]="{
-                yandexMapDisablePoiInteractivity: true,
-                suppressMapOpenBlock: true,
-                suppressObsoleteBrowserNotifier: true,
-                autoFitToViewport: 'always',
-              }">
-              <ya-placemark [geometry]="[track.latitude,track.longitude,]"></ya-placemark>
-              </ya-map>
-            </div>
-            <div class="map__address">
-              {{track.address}}
-            </div>
-            <div class="map__open-button">
-              <app-standart-button buttonText="Проложить маршрут" (onClick) = "goToPoint()"></app-standart-button>
+               
+    
+              </ng-container>
             </div>
           </div>
         </div>
-    </div> -->
-            <!-- <app-images-modal odal *ngIf="track.images" [openModal]="statusImagesModal" (closeModalEmit)="closeImagesModal()" [imagesPathArray]="track.images"></app-images-modal> -->
-
-    <!-- <img src="{{track.images ? (track.images[0] | checkImgUrl) : '' | checkImgUrl}}" alt="" class="track-header__avatar"> -->
-<div class="main-container-with-footer">
+      </div>
+    </div>
+  </main>
+    
+  <!-- <div class="main-container-with-footer">
     <div class="main-container--with-header">
       <div class="track__header">
         <app-show-slider standartImagesPath='/assets/icons/track-standart.png' [files]="imgArray" (click)="openImagesModalFunction()"></app-show-slider>
         <app-images-modal  *ngIf="track.schema_img" [openModal]="statusImagesModal" (closeModalEmit)="closeImagesModal()" [imagesPathArray]="imgArray"></app-images-modal>
 
-        <!-- <img src="{{track.schema_img| checkImgUrl:'/assets/icons/track-standart.png'}}" alt="" class=" "> -->
+     
         <div class="track__header__params">
           <app-circle-button *ngIf="this.track.light" icon='/assets/icons/lamp.svg'></app-circle-button>
           <app-circle-button *ngIf="this.track.season" icon='/assets/icons/snow.svg'></app-circle-button>
@@ -200,61 +176,13 @@
 
       </div>
 
-      <!-- <div class="video-container">
-        <div class="name-track-parametrs">
-          <span>Видео круга</span>
-        </div>
-
-        <div class="video">
-          <img src="/assets/images/gopro-moto.webp" alt="" class="track-gopro">
-        </div>
-      </div> -->
+    
 
       <div *ngIf="track.desc" class="description">
         <span class="name-track-parametrs">Описание трека</span> 
         <div [innerHTML]="clearDescription()" class="description__text">{{track.desc}}</div>
       </div>
 
-      <!-- <div class="sponsors-container">
-        <div class="name-track-parametrs">
-          <span>Спонсоры</span>
-        </div>
-
-        <div class="tape-sponsors">
-          <div class="tape-sponsors__item">
-
-          </div>
-          <div class="tape-sponsors__item">
-
-          </div>
-          <div class="tape-sponsors__item">
-
-          </div>
-          <div class="tape-sponsors__item">
-
-          </div>
-          <div class="tape-sponsors__item">
-
-          </div>
-        </div>
-      </div> -->
-
-      <!-- <div class="gallery-container">
-        <div class="name-track-parametrs">
-          <span>Фото архив</span>
-        </div>
-        <div class="tape-gallery">
-          <div class="tape-gallery__item"></div>
-          <div class="tape-gallery__item"></div>
-          <div class="tape-gallery__item"></div>
-          <div class="tape-gallery__item"></div>
-          <div class="tape-gallery__item"></div>
-          <div class="tape-gallery__item"></div>
-          <div class="tape-gallery__item"></div>
-        </div>
-      </div> -->
-
-      
 
     </div>
     <footer>
@@ -287,15 +215,10 @@
 
         <div class="requisites-and-link-container">
           <div class="requisites">
-            <!-- <span class="req-name">Реквизиты</span>
-            <p class="req-text">Обучение мотокроссу детей и начинающих. Трассы с трамплинами и гонки по бездорожью для профессионалов</p> -->
-            <!-- <div class="req-button">
-            <app-standart-button [buttonText]="'Доступ к треку'" [theme]="'orange'">
-            </app-standart-button> -->
-          <!-- </div> -->
+          
           </div>
           <div class="links-list" >
-            <!-- *ngIf="track.contacts && track.contacts?.length" -->
+ 
             <span class="link-name" *ngIf="allContactsIncorrect">
               Ссылки на медиа
             </span>
@@ -321,8 +244,8 @@
         </div>
 
     </footer>
-  </div>
-  </ng-container>
+  </div> -->
+
 </ion-content>
 
   

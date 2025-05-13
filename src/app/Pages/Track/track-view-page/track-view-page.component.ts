@@ -5,6 +5,7 @@ import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
 import { CheckImgUrlPipe } from "../../../Shared/Helpers/check-img-url.pipe";
 import { SlidersModule } from 'src/app/Shared/Modules/sliders/sliders.module';
 import { AngularYandexMapsModule } from 'angular8-yandex-maps';
+import { IonModal, NavController, Platform } from '@ionic/angular/standalone';
 import { ActivatedRoute } from '@angular/router';
 import { finalize, Subject, takeUntil } from 'rxjs';
 import { TrackService } from 'src/app/Shared/Data/Services/Track/track.service';
@@ -34,6 +35,7 @@ export class TrackViewPageComponent  implements OnInit {
   private readonly destroy$ = new Subject<void>()
   track!:Track 
   trackService:TrackService = inject(TrackService)
+  navController: NavController = inject(NavController)
   trackId!: string 
   sanitizer:DomSanitizer = inject(DomSanitizer)
   constructor() { }
@@ -58,6 +60,9 @@ export class TrackViewPageComponent  implements OnInit {
       
     }
    
+  }
+  back(){
+    this.navController.back()
   }
 
   getSpecValue(key: string){
