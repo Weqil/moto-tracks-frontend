@@ -19,6 +19,25 @@
 
     }
 }
+.ofer-file-link{
+    display: flex;
+    justify-content: center;
+    padding-top: var(--standart-padding);
+    cursor: pointer;
+    border-bottom: 1px solid rgba(76, 88, 97, 0.2549019608);
+    align-items: center;
+    gap: 5px;
+
+    padding-bottom: var(--little-padding);
+    font-family: var(--font-regular);
+    font-size: var(--font-regular-size);
+    color: var(--text-color);
+    color: var(--blue-primary-color);
+    text-decoration: none;
+    border-radius: 5px;
+    width: 100%;
+    height: 2rem;
+}
 .requisites{
     min-width: 350px;
     padding: var(--standart-padding);
@@ -401,6 +420,7 @@ ya-map{
  .requisites-and-link-container{
     display: flex;
     flex-direction: row;
+
     padding: var(--standart-padding);
     gap: 16px;
 

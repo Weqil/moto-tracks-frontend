@@ -196,6 +196,9 @@
         </div>
         <div *ngIf="track.store" class="payment-button">
           <app-standart-button (click)="redirectInPayment()" buttonText="Оплатить тренировку"></app-standart-button>
+          <a *ngIf="track.offer" [href]="track.offer | checkImgUrl" download>
+            <span class="ofer-file-link">Договор оферты</span>
+          </a>
         </div>
       </div>
 
@@ -296,7 +299,8 @@
                 <a [attr.href]="getContactValue('vk')"><img src="/assets/icons/VK2.svg" alt=""></a>
               </div>
               <div class="link" *ngIf="getContactValue('phone') != null">
-                <a [attr.href]="getContactValue('phone')"><img src="/assets/icons/phone.svg" alt=""></a>
+                <a [attr.href]="'tel:'+getContactValue('phone')"><img src="/assets/icons/phone.svg" alt="" ></a>
+
               </div>
 
               <div class="link" *ngIf="getContactValue('tg') != null">

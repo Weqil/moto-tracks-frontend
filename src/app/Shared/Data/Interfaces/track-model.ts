@@ -6,6 +6,7 @@ export interface Track {
     address: string;
     latitude: number;
     longitude: number;
+    offer?: string;
     requisites:{
         name: string;
         email: string;
