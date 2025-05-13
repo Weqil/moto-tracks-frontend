@@ -18,8 +18,25 @@
 
     }
 }
-
-
+.event-information-title{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    img{
+       width: 24px; 
+    }
+    font-family: var(--font-bold);
+    font-size: 18px;
+}
+.track-information{
+   background: var(--white-color);
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px 1rem;
+    max-width: 1240px;
+    width: 100%;
+}
 .track__header__params{
     display: flex;
     flex-direction: column  ;
@@ -849,7 +866,7 @@ ya-map{
 }
 .track-name{
     color: var(--white-color);
-    padding-top: 30px;
+    padding-top: var(--standart-padding);
     margin: 0;
     font-size: 24px;
     font-family: var(--font-bold);

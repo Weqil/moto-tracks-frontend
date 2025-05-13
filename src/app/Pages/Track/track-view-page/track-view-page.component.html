@@ -17,7 +17,7 @@
                   <div *ngIf="getSpecValue('lengthTrack') || getSpecValue('elementsCount') || getSpecValue('coverage')" class="track-params-grid">
                     <div *ngIf="getSpecValue('lengthTrack')" class="track-params-grid__item">
                       <span class="track-params-grid__item__label">Длина</span>
-                      <span class="track-params-grid__item__value">{{getSpecValue('lengthTrack')}}М</span>
+                      <span class="track-params-grid__item__value">{{getSpecValue('lengthTrack')}}м</span>
                     </div>
                     <div *ngIf="getSpecValue('elementsCount')" class="track-params-grid__item">
                       <span class="track-params-grid__item__label">Кол-во элементов</span>
@@ -35,7 +35,7 @@
                   <div *ngIf="getSpecValue('heightDifference') || getSpecValue('leftTurns') || getSpecValue('rightTurns') || getSpecValue('highSpeedSection') " class="also-params-grid">
                     <div *ngIf="getSpecValue('heightDifference')" class="also-params-grid__item">
                       <span class="also-params-grid__item__label">Перепад высот</span>
-                      <span class="also-params-grid__item__value">{{getSpecValue('heightDifference')}} М</span>
+                      <span class="also-params-grid__item__value">{{getSpecValue('heightDifference')}}м</span>
                     </div>
                     <div *ngIf="getSpecValue('leftTurns')" class="also-params-grid__item">
                       <span class="also-params-grid__item__label">Левых поворотов</span>
@@ -65,6 +65,21 @@
           </div>
         </div>
       </div>
+      <ng-container *ngIf="track">
+        <div class="track-information">
+          <ng-container *ngIf="track.desc && track.desc.length">  
+                <div class="event-desc--wrapper">
+                  <div class="event-information-title">
+                    <img src="/assets/icons/red-finished.svg" alt="">
+                    Описание
+                  </div>
+                  <div class="event-desc">
+                   
+                  </div>
+                </div>
+              </ng-container>
+        </div>
+      </ng-container>
     </div>
   </main>
     
