@@ -1,9 +1,10 @@
 .standart-input{
     border: 1px solid rgb(76 88 97 / 47%);
     width: 100%;
-    min-height: 2.25rem;
+    min-height: 8rem;
+    padding-top: 0.5rem;
     font-size: 14px;
-    line-height: 0;
+    min-height: 8rem;
     padding-left: 0.8rem;
     transition: 0.1s;
     margin-top: 3px;
@@ -16,12 +17,14 @@
 }
 
 .inavlid__input{
+    min-height: 8rem;
     background: #fad3d3 !important;
     color: #363d42 !important;
     border: 1px solid #ff0000;
     
 }
 .inavlid__input:focus{
+    min-height: 8rem;
     outline: 1px solid #ff0000;
 }
 .inavlid__input::placeholder{
@@ -40,10 +43,9 @@
 }
 .icon-left{
     position: relative;
-    line-height: 0;
+
     img{
         position: absolute;
-        top: 30%;
         left: 10px;
     }
     input{
@@ -66,8 +68,9 @@
 .standart-input_inavlid:focus{
     outline: none;
     width: 100%;
-    min-height: 2.25rem;
+    min-height: 8rem;
     margin-top: 3px;
+    min-height: 8rem;
     transition: 0.2s;
     background: none;
     font-size: 14px;
@@ -77,11 +80,12 @@
 }
 .standart-input:focus{
     transition: 0.2s;
+    min-height: 8rem;
     outline: 1px solid #4991d853;
     margin-top: 3px;
     width: 100%;
     background: none;
-    min-height: 2.25rem;
+    min-height: 8rem;
     font-size: 14px;
     padding-left: 0.8rem;
     color: #363d42;
@@ -137,8 +141,9 @@
     transition: 0.2s;
     outline: 1px solid #ffffffd3;
     margin-top: 3px;
+    min-height: 8rem;
     width: 100%;
-    min-height: 2.25rem;
+    min-height: 8rem;
     background-color: #373737;
     font-size: 14px;
     font-family: var(--font-regular);

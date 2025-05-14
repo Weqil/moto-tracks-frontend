@@ -54,6 +54,7 @@
   margin-top: var(--standart-padding);
   width: 200px;
   margin-left: auto;
+  cursor: pointer;
   margin-right: auto;
   background-size: cover;
   background-position: center;
@@ -67,9 +68,26 @@
     color:rgb(255, 85, 85);
   }
 }
+.track-detail-information{
+  padding-top: var(--standart-padding);
+  display: flex;
+  flex-direction: column;
+  gap: var(--standart-padding);
+}
+.popover-container{
+  z-index: 100;
+  margin-bottom: -1rem;
+}
+.detail-input-wrapper{
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  position: relative;
+}
 .upload-scheme{
   font-family: var(--font-regular);
   margin-top: var(--little-padding);
+  cursor: pointer;
   max-width: 343px;
   background-size: cover;
   background-position: center;

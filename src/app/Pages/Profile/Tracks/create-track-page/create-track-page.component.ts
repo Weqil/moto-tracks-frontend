@@ -5,9 +5,9 @@ import { ButtonsModule } from 'src/app/Shared/Modules/buttons/buttons.module';
 import { StepsModule } from 'src/app/Shared/Modules/steps/steps.module';
 import { IonCheckbox, IonLabel, IonModal, IonToggle, NavController, Platform } from '@ionic/angular/standalone';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { FormsModule } from 'src/app/Shared/Modules/forms/forms.module';
+
 import { EditSliderComponent } from 'src/app/Shared/Components/UI/edit-slider/edit-slider.component';
-import { StandartRichInputComponent } from "../../../../Shared/Components/Forms/standart-rich-input/standart-rich-input.component";
+
 import { IonRadio, IonRadioGroup } from '@ionic/angular/standalone';
 import { AddressInputComponent } from "../../../../Shared/Components/Forms/address-input/address-input.component";
 import { TrackService } from 'src/app/Shared/Data/Services/Track/track.service';
@@ -20,14 +20,15 @@ import { StandartInputSelectComponent } from 'src/app/Shared/Components/UI/Selec
 import { InfoPopoverComponent } from 'src/app/Shared/Components/UI/info-popover/info-popover.component';
 import { formdataService } from 'src/app/Shared/Helpers/formdata.service';
 import { RegionsSelectModalComponent } from '@app/Shared/Components/Modals/regions-select-modal/regions-select-modal.component';
-
+import { StandartRichInputComponent } from '@app/Shared/Components/UI/LinarikUI/forms/standart-rich-input/standart-rich-input.component';
+import { StandartInputComponent } from '@app/Shared/Components/UI/LinarikUI/forms/standart-input/standart-input.component';
 @Component({
   selector: 'app-create-track-page',
   templateUrl: './create-track-page.component.html',
   styleUrls: ['./create-track-page.component.scss'],
-  imports: [SharedModule, HeaderComponent, StepsModule, FormsModule, EditSliderComponent, StandartRichInputComponent, 
+  imports: [SharedModule, HeaderComponent, StepsModule, EditSliderComponent, 
     AddressInputComponent,IonModal,IonToggle,IonLabel,StandartInputSelectComponent,
-    InfoPopoverComponent,IonRadioGroup,IonRadio,IonCheckbox,RegionsSelectModalComponent]
+    InfoPopoverComponent,IonRadioGroup,IonRadio,IonCheckbox,RegionsSelectModalComponent,StandartRichInputComponent,StandartInputComponent]
 })
 export class CreateTrackPageComponent  implements OnInit {
 
