@@ -105,7 +105,7 @@
                     <app-standart-input label="ВК" [control]="contactsForm.get('vk')" placeholder="Введите ссылку на группу вашего трека"></app-standart-input>
                     <app-standart-input label="Telegram" [control]="contactsForm.get('tg')" placeholder="Введите ссылку на канал вашего трека"></app-standart-input>
                     <app-standart-input label="WhatsApp" [control]="contactsForm.get('whatsApp')" placeholder="Введите ссылку на группу вашего трека"></app-standart-input>
-                    <app-standart-input label="Телефон" [control]="contactsForm.get('phone')" placeholder="Введите номер телефона"></app-standart-input>
+                    <app-standart-input  label="Телефон" maskType="phone" [control]="contactsForm.get('phone')" placeholder="Введите номер телефона"></app-standart-input>
                     <app-icon-button (click)="submitForm()" [disabled]="stepInvalidate()"  clippy="clippy-right" buttonText="Создать" [theme]="stepInvalidate() ? 'dark':'red'"  widht="full"></app-icon-button>
                 </div>
             

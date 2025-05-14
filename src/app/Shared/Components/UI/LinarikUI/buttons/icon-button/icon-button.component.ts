@@ -38,7 +38,7 @@ export class  IconButtonComponent  implements OnInit {
    /**
    * Высота кнопки: стандартная или удлинённая
    */
-  @Input() height: 'auto-height'|'standart-height'|'long-height'|'little-height' = 'standart-height'
+  @Input() height: 'auto-height'|'standart-height'|'long-height'|'little-height'|'height64' = 'standart-height'
 
    /**
    * Путь картинки которая будет слева от текста

@@ -57,8 +57,6 @@
                   </div>
                  
                 </div>
-
-               
     
               </ng-container>
             </div>
@@ -87,10 +85,35 @@
                   <div *ngIf="track.desc && track.desc.length" [innerHTML]="clearDescription()" class="event-desc"></div>
                 </div>
           </ng-container>
-            <div class="track-services">
+            <div *ngIf="this.track.light || this.track.season" class="track-services">
                <div class="event-information-title">
                     <img src="/assets/icons/red-finished.svg" alt="">
                     Услуги
+                </div>
+                <div class="track-services__grid">
+                  <div *ngIf="this.track.light" class="track-services__grid__item">
+                      Освещение
+                  </div>
+                  <div *ngIf="this.track.season" class="track-services__grid__item">
+                      Всесезонность
+                  </div>
+                </div>
+            </div>
+
+            <div *ngIf="allContactsIncorrect" class="track-contacts">
+                <div class="event-information-title">
+                    <img src="/assets/icons/red-finished.svg" alt="">
+                    Контакты
+                </div>
+                <div class="track-contacts__grid">
+                  <app-icon-button *ngIf="getContactValue('vk')" widht="w20" style="height: 52px;"  buttonIconColor="white-icon" theme="red" height="height64" icon="/assets/icons/vk.svg"></app-icon-button>
+                  <app-icon-button *ngIf="getContactValue('whatsApp')" widht="w20"  buttonIconColor="white-icon" theme="red" height="height64" icon="/assets/icons/wt.svg"></app-icon-button>
+                  <app-icon-button *ngIf="getContactValue('tg')" widht="w20"  buttonIconColor="white-icon" theme="red" height="height64" icon="/assets/icons/tg.svg"></app-icon-button>
+                  <app-icon-button *ngIf="getContactValue('site')" widht="w20"  buttonIconColor="white-icon" theme="red" height="height64" icon="/assets/icons/web.svg"></app-icon-button>
+                  <app-icon-button elementsPosition="elements-position__row" *ngIf="getContactValue('phone')"  buttonIconColor="red-icon" 
+                    theme="white" buttonBorderColor="red-border" buttonBorderWidth="b1" fontColor="red-color"
+                    icon="/assets/icons/phone.svg" buttonText="{{getContactValue('phone')}}"></app-icon-button>
+                  
                 </div>
             </div>
           <ng-container>
