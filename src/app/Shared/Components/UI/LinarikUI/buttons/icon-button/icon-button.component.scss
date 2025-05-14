@@ -148,6 +148,26 @@ span{
     }
 }
 
+.none{
+    transform: skew(0deg);
+    span{
+        transform: skew(0deg);
+    }
+    img{
+        transform: skew(0deg);
+    }
+}
+
+.nav-clipy{
+    transform: skew(0deg);
+    span{
+        transform: skew(8deg);
+    }
+    img{
+        transform: skew(8deg);
+    }
+}
+
 
 .clippy-left{
     transform: skew(10deg);
