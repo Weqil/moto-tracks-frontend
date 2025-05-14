@@ -196,9 +196,7 @@
         </div>
         <div *ngIf="track.store" class="payment-button">
           <app-standart-button (click)="redirectInPayment()" buttonText="Оплатить тренировку"></app-standart-button>
-          <a *ngIf="track.offer" [href]="track.offer | checkImgUrl" download>
-            <span class="ofer-file-link">Договор оферты</span>
-          </a>
+        
         </div>
       </div>
 
@@ -319,12 +317,20 @@
           </div>
         </div>
         <div class="requisites" *ngIf=" track.requisites && track.requisites.length > 0;">
-          <h2>Реквизиты для оплаты</h2>
+        
           <ul>
             <li *ngFor="let req of track?.requisites">
-              <strong>Имя:</strong> {{ req.name }} <br />
-              <strong>Email:</strong> {{ req.email }} <br />
-              <strong>Телефон:</strong> {{ req.phone }}
+              <strong *ngIf="req.name">Имя:</strong> {{ req.name }} <br />
+              <strong *ngIf="req.email">Email:</strong> {{ req.email }} <br />
+              <strong *ngIf="req.phone">Телефон:</strong> {{ req.phone }}<br />
+              <strong *ngIf="req.inn">ИНН:</strong> {{ req.inn }} <br />
+              <strong *ngIf="req.pricePolitics">Ценовая политика:</strong> {{ req.pricePolitics }} <br />
+              <strong *ngIf="track.attendance && track.attendance.length && track.attendance[0] ">Описание платной услуги:</strong> {{track.attendance![0].desc }} <br />
+              <div>
+                <a *ngIf="track.offer" [href]="track.offer | checkImgUrl" download>
+                  <strong style="border-bottom: 1px solid white; padding-bottom: 0.5rem;" >Договор оферты</strong>
+                </a>
+              </div>
             </li>
           </ul>
         </div> 

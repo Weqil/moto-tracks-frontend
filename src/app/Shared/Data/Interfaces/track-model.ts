@@ -7,18 +7,21 @@ export interface Track {
     latitude: number;
     longitude: number;
     offer?: string;
-    requisites:{
-        name: string;
-        email: string;
-        phone: string;
+    requisites?:{
+        name?: string;
+        email?: string;
+        phone?: string;
+        inn?: string;
+        pricePolitics?: string;
     }[];
     logo?: string|null;
     is_work?:boolean;
-    attendance?:[{id:number,price:string}],
+    attendance?:[{id:number,price:string, desc:string,}],
     location:{
         id:number,
         name:string,
-        type:string
+        type:string,
+       
     }
     free?:string;
     length?:number
