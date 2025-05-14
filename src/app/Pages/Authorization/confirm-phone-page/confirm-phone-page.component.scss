@@ -1,5 +1,5 @@
 .user-personal{
-    padding-top: var(--standart-padding);
+    
     display: flex;
     width: 100%;
     gap: var(--standart-padding);
@@ -11,16 +11,16 @@
     font-size: 24px;
 }
 .phone-number__submit{
-    background-color: var(--light-blue-color);
-    padding:  0.3rem;
-    color: var(--blue-primary-color);
+    
+    
+    
     font-family: var(--font-regular);
     transition: 0.3s;
     position: absolute;
-    right: 1%;
-    transform: translateY(-50%);
+    right: 0.7%;
+    transform: translateY(-52%);
     top: 70%;
-    border-radius: 8px;
+    
 }
 .verification__title{
     margin-top: 1rem;
@@ -30,15 +30,13 @@
     font-size: 0.95rem;
 }
 .phone-number__submit:active{
-    background-color: var(--blue-primary-color);
-    padding:  0.5rem;
+    background-color: black;
+    padding:  0.1rem;
     transition: 0.3s;
-    color: var(--white-color);
-    font-family: var(--font-regular);
+    
     position: absolute;
-    right: 1%;
-    top: 42%;
-    border-radius: 8px;
+    
+    
 }
 .phone-number-container{
     position: relative;
@@ -66,11 +64,11 @@ ion-modal{
     display: flex;
     text-align: center;
     align-items: center;
-    padding-top: var(--standart-padding);
     justify-content: center;
-    font-size: 0.95rem;
+    font-size: 1.1rem;
     gap: 1rem;
     font-family: var(--font-bold);
+    margin-bottom: 2rem;
   }
   .verificate-phone-description{
     padding-top: var(--little-padding);
@@ -78,7 +76,7 @@ ion-modal{
     font-size: 12px;
   }
   .verificate-phone-container{
-    padding: var(--standart-padding);
+    
     font-family: var(--font-regular);
     display: flex;
     flex-direction: column;
@@ -90,4 +88,39 @@ ion-modal{
   
   .input-wrapper{
     position: relative;
+    margin-bottom: 1rem;
+  }
+
+  .auth-containers__form__submit-container{
+    margin-top: 1rem;
+    
+    width: 100%;
+    app-icon-button{
+      padding: 0rem 0.3rem;
+      width: 100%;
+    }
+  }
+
+  .auth-title{
+    font-family: var(--font-black);
+    font-size: 38px;
+    text-align: center;
+  }
+
+  .main-container{
+    max-width: 960px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: auto;
+   
+  }
+
+  .header{
+    width: 100%;
+    max-width: 960px;
+    margin: auto;
   }

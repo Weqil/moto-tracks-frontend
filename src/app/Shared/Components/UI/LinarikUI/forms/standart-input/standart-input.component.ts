@@ -137,6 +137,7 @@ export class StandartInputComponent  implements OnInit {
   }
 
   openDatePicker(input: HTMLInputElement) {
+    
     if (input.showPicker) {
       input.showPicker();
     } else {
