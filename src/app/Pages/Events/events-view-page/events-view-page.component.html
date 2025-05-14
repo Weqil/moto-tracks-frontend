@@ -84,9 +84,7 @@
                     <img src="/assets/icons/red-finished.svg" alt="">
                     Описание
                   </div>
-                  <div class="event-desc">
-                    {{event.desc}}
-                  </div>
+                  <div *ngIf="event.desc && event.desc.length" [innerHTML]="clearDescription()" class="event-desc"></div>
                 </div>
               </ng-container>
 

@@ -236,7 +236,12 @@
 .grades-filter-grid{
     padding-top: var(--little-padding);
     display: flex;
+    overflow-y: auto;
+    padding-left: var(--little-padding);
     gap: var(--little-padding);
+    app-icon-button{
+        flex: 1 0 auto;
+    }
 }
 
 .region-modal{

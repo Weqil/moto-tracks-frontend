@@ -6,7 +6,6 @@ import { HeaderModule } from 'src/app/Shared/Modules/header/header.module';
 import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
 import { LoadingService } from 'src/app/Shared/Services/loading.service';
 import { ToastService } from 'src/app/Shared/Services/toast.service';
-import { StandartInputComponent } from "../../../Shared/Components/Forms/standart-input/standart-input.component";
 import { ButtonsModule } from "../../../Shared/Modules/buttons/buttons.module";
 import { User } from 'src/app/Shared/Data/Interfaces/user-model';
 import { CheckImgUrlPipe } from "../../../Shared/Helpers/check-img-url.pipe";
@@ -22,6 +21,11 @@ import { serverError } from 'src/app/Shared/Data/Interfaces/errors';
 import { IonCheckbox, IonModal, IonButton } from '@ionic/angular/standalone';
 import { RouterLink } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { AuthService } from '@app/Shared/Data/Services/Auth/auth.service';
+import { UserStatuses,translitUserStatuses } from 'src/app/Shared/Enums/user-status';
+import { IconButtonComponent } from '@app/Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component';
+import { CheckUserRoleService } from '@app/Shared/Data/Services/check-user-role.service';
+import { StandartInputComponent } from '@app/Shared/Components/UI/LinarikUI/forms/standart-input/standart-input.component';
 
 
 @Component({
@@ -30,29 +34,32 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./settings.component.scss'],
   encapsulation: ViewEncapsulation.None,
   imports: [
-    SharedModule, 
-    CommonModule, 
-    HeaderModule, 
-    FormsModule, 
+    SharedModule,
+    CommonModule,
+    HeaderModule,
+    StandartInputComponent,
     UserModule,
-    ProfileModule, 
-    selectedModule, 
-    IonModal, 
-    IonCheckbox, 
-    RouterLink, 
+    ProfileModule,
+    selectedModule,
+    IonModal,
+    IonCheckbox,
+    RouterLink,
     StandartInputComponent,
     NoDataFoundComponent,
-    
-  ],
+    IconButtonComponent,
+    CheckImgUrlPipe
+],
   standalone: true
 })
 export class SettingsComponent  implements OnInit {
-  authService: any;
+  authService: AuthService = inject(AuthService);
   navControler: NavController = inject(NavController);
   checkImgUrlPipe:CheckImgUrlPipe = inject(CheckImgUrlPipe)
   private readonly loading:LoadingService = inject(LoadingService)
   userAgreedStatus:any = localStorage.getItem('userAgreedStatus')
   userAgreedModalState:boolean = false
+  checkUserRoleService:any = inject(CheckUserRoleService)
+  selectRoleModalState:boolean = false
   statusesSelect:boolean = false
   selectedStatusItem:any  = {}
    private readonly destroy$ = new Subject<void>()
@@ -60,6 +67,7 @@ export class SettingsComponent  implements OnInit {
   statuses:any[] = [];
   emailModalValue:boolean = false
   phoneModalValue:boolean = false
+  userLastRoleValue:string = ''
   emailStatus:boolean = false
   phoneStatus:boolean = false
 
@@ -95,7 +103,15 @@ export class SettingsComponent  implements OnInit {
   closeEmailModal(){
     this.emailModalValue = false
   }
-
+  openSelectRoleModal(){
+    if(!this.userService.userHaveRoot()){
+      this.selectRoleModalState = true
+    }
+  
+  }
+  closeSelectRoleModal(){
+    this.selectRoleModalState = false
+  }
   openPhoneModal(){
     this.phoneModalValue = true
   }
@@ -114,6 +130,10 @@ export class SettingsComponent  implements OnInit {
       status: false,
       message: '',
     },
+  }
+
+  back(){
+    this.navControler.back() 
   }
 
   validateForm() {
@@ -145,6 +165,16 @@ export class SettingsComponent  implements OnInit {
        errorMessage:''
     },
    
+}
+ userLastRole(user:User){
+
+  if( this.checkUserRoleService.searchLastRole(user)){
+   this.userLastRoleValue =  translitUserStatuses[this.checkUserRoleService.searchLastRole(user).name as keyof typeof translitUserStatuses]
+  } else{
+    this.userLastRoleValue = 'Болельщик'
+  }
+  
+
 }
 
 editEmail(){  
@@ -254,6 +284,12 @@ deletePhoneForUserId(){
   user!:User|null
 
   selectStatus(event:any){
+   const closeModal = new Promise((resolve)=>{
+    this.selectRoleModalState = false
+    setTimeout(()=>{
+      resolve(true)
+    },300)
+   }).then(()=>{
     if(event.value == userRoles.organization){
       if(this.userService.isPhoneVerified() && this.userService.userHaveCurrentPersonal()){
         this.loadingService.showLoading()
@@ -297,6 +333,8 @@ deletePhoneForUserId(){
         this.navControler.navigateForward('/confirm-phone')
       }
     }
+   })
+   
     
   }
   changeAgreedState(event:any){
@@ -337,10 +375,14 @@ deletePhoneForUserId(){
   }
 
   logoutInAccount() {
+    let user = this.userService.user.value
+    if(user){
+      this.userService.deleteUserInUsersArrayInLocalStorage(user)
+    }
+ 
     this.authService.logout()
     this.navControler.navigateForward('/select-auth',{  animated: false })
   }
-
   setAvatar(event:any){
     const file = event.target.files[0]
     if(file){
@@ -349,12 +391,18 @@ deletePhoneForUserId(){
       reader.onload = (e: any) => {
         this.settingsAvatar = e.target.result
         this.avatarUrl = e.target.result
+
       }
-      reader.readAsDataURL(file)
+     const readerPromise = new Promise((resolve)=>{
+      resolve(reader.readAsDataURL(file))
+     }) 
+     readerPromise.then(()=>{
+      this.submitAvatar()
+     })
     }
   }
 
-  submitEditForm(){
+  submitAvatar(){
     this.loadingService.showLoading()
     let fd : FormData = new FormData()
     fd.append('avatar', this.userSettingsForm.value.avatar)
@@ -367,9 +415,6 @@ deletePhoneForUserId(){
       return EMPTY
     })
   ).subscribe(()=>{
-      this.toastService.showToast('Изменения сохранены','success')
-      this.userService.refreshUser()
-      this.navControler.navigateForward(['/cabinet'])
     })
   }
 
@@ -452,13 +497,16 @@ deletePhoneForUserId(){
       takeUntil(this.destroy$)
     ).subscribe(()=>{
     this.user = this.userService.user.value 
-    this.personalViewForm.patchValue({phoneView: this.user?.phone?.number || 'нет телефона'});
+    if(this.user){
+      this.userLastRole(this.user)
+    }
+    this.personalViewForm.patchValue({phoneView: this.user?.phone?.number || ''});
     this.checkVerifiedPhone();
   })
-  this.personalSettingsForm.patchValue({email: this.user?.email || 'нет почты'})
-  this.personalViewForm.patchValue({emailView: this.user?.email || 'нет почты'})
-  this.personalSettingsForm.patchValue({phone: this.user?.phone?.number || 'нет телефона'})
-  this.personalViewForm.patchValue({phoneView: this.user?.phone?.number || 'нет телефона'})
+  this.personalSettingsForm.patchValue({email: this.user?.email || ''})
+  this.personalViewForm.patchValue({emailView: this.user?.email || ''})
+  this.personalSettingsForm.patchValue({phone: this.user?.phone?.number || ''})
+  this.personalViewForm.patchValue({phoneView: this.user?.phone?.number || ''})
 }
 
 async deleteAccount() {
