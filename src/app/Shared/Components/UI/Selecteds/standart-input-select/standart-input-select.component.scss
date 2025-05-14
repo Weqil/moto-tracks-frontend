@@ -1,10 +1,9 @@
 .standart-input {
-    border: 1px solid rgba(76, 88, 97, 0.1);
-    border-radius: 4px;
+    border: 1px solid rgb(76 88 97 / 47%);
     width: 100%;
-    min-height: 2.25rem;
+    min-height: 36px;
     font-size: 12px;
-    padding: 0.5rem;
+    padding-left: 0.5rem;
     color: #363d42;
     font-family: var(--font-regular);
     background: white;
@@ -13,6 +12,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    
+    margin-top: 3px;
 
     &:hover {
         border-color: rgba(76, 88, 97, 0.2);
@@ -28,9 +29,9 @@
 
 .label {
     color: #4C5861;
-    font-size: 12px;
+    font-size: 14px;
     padding-bottom: 1px;
-    font-family: var(--font-bold);
+    font-family: var(--font-regular);
 }
 
 .dropdown-wrapper {
@@ -52,13 +53,12 @@
     width: 100%;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     z-index: 1;
-    border-radius: 4px;
-    border: 1px solid rgba(76, 88, 97, 0.1);
+    border: 1px solid rgb(76 88 97 / 47%);
+
 }
 
 .dropdown-content--active {
     position: absolute;
-    border-radius: 4px;
     background-color: white;
     width: 100%;
     padding: 0.5rem;
@@ -70,12 +70,12 @@
     transition: all 0.2s ease;
     transform: translate(0, 0px);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    border: 1px solid rgba(76, 88, 97, 0.1);
+    border: 1px solid rgb(76 88 97 / 47%);
 }
 
 .dropdown-content__item {
+    border: 1px solid rgb(76 88 97 / 47%);
     padding: 0.5rem;
-    border-radius: 4px;
     cursor: pointer;
     transition: all 0.2s ease;
     color: #363d42;

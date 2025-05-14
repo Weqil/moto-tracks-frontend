@@ -127,6 +127,9 @@
               </ng-container>
             </div>
           </ng-container>
+
+
+
           <ng-container *ngIf="currentTab == 'Участники'">
             <ng-container *ngIf="usersInRace && usersInRace.length ">
               <div class="event-information-title users-title">
@@ -151,7 +154,7 @@
                       </div> 
                       <div class="users-grid">
                         <ng-container *ngFor="let user of group.users">
-                          <app-user-section [startNumber]="true" [user]="user"></app-user-section>
+                          <app-user-section [startNumber]="true" [showAddress]="true" [name]="true" [surname]="true" [showRank]="true" [user]="user"></app-user-section>
                         </ng-container>
                       </div>
                   
@@ -273,13 +276,13 @@
       
    
     </div> -->
-
+    <div class="button-commission">
+      <app-standart-button buttonText="Просмотр заявок" (click)="redirectApplicationForRace()"></app-standart-button>
+    </div>
     <!-- <div class="footer-page">
       <div *ngIf="event.status?.name !== 'Планируемая' && !checkDateStartInRace()"  class="footer">
 
-        <div class="button-commission">
-          <app-standart-button buttonText="Просмотр заявок" (click)="redirectApplicationForRace()"></app-standart-button>
-        </div>
+        
 
         @if (!this.event.appointments_exists && !checkRecordStart() && !checkRecordEnd()) {
           <app-standart-button (click)="openApplicationForm()" buttonText="Заявиться" theme="big"></app-standart-button>

@@ -4,15 +4,18 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MaskitoDirective  } from '@maskito/angular'
 import { MaskitoMask, MaskitoOptions } from '@maskito/core';
 
+
 @Component({
-  selector: 'app-standart-input',
-  templateUrl: './standart-input.component.html',
-  styleUrls: ['./standart-input.component.scss'],
-   imports: [MaskitoDirective,NgClass,ReactiveFormsModule,CommonModule]
+  selector: 'app-standart-rich-input',
+  templateUrl: './standart-rich-input.component.html',
+  styleUrls: ['./standart-rich-input.component.scss'],
+  imports: [MaskitoDirective,NgClass,ReactiveFormsModule,CommonModule]
 })
-export class StandartInputComponent  implements OnInit {
+export class StandartRichInputComponent  implements OnInit {
 
   constructor() { }
+  
+
 
   /**
      * FormControl или AbstractControl, используемый для управления элементом формы
@@ -152,7 +155,6 @@ function maskitoPhoneOptionsGenerator(arg0: {
 }): import('@maskito/core').MaskitoMask {
   throw new Error('Function not implemented.')
 }
-
 
 
 

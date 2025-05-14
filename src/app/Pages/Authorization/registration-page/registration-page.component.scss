@@ -44,9 +44,9 @@
       cursor: pointer;
     }
     .dont-have-account__registration-link__route{
-      font-size:0.75rem;
+      font-size:12px;
       font-family: var(--font-regular);
-      color: var(--blue-primary-color);
+      color: red;
       cursor: pointer;
     }
   }
@@ -61,13 +61,15 @@
   }
   .phone-images{
     width: 8rem;
-    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }  
 
   /* Кастомизация чекбокса */
 
     .fake-link{
-        color: var(--blue-primary-color);
+        color: var(--red-color);
         padding-left: 2px;
     }
     .ant-segmented {
@@ -92,21 +94,30 @@
     font-size: 1.1rem;
     gap: 1rem;
     font-family: var(--font-bold);
+    margin-bottom: 2rem;
+    margin-top: 3rem;
   }
   .verificate-phone-description{
     padding-top: var(--little-padding);
   }
   .verificate-phone-container{
-    padding: var(--standart-padding);
+    padding: 1.5rem;
     font-family: var(--font-regular);
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
   }
   ::ng-deep .ant-segmented-item-label {
     padding-left: 50px !important;
     padding-right: 50px !important;
+    
   
   }
+
+
+
   .ant-segmented-item-label{
   
   }
@@ -128,3 +139,81 @@
         --checkbox-background: white;
         margin-right: 10px; /* Отступ справа от чекбокса */
   }
+
+  .main-container{
+    max-width: 960px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: auto;
+   
+  }
+
+  .auth-title{
+    font-family: var(--font-black);
+    font-size: 40px;
+    text-align: center;
+  }
+  .auth-container{
+    width: 100%;
+  }
+
+  .auth-container__buttons{
+  display: flex;
+  padding-top: 30px;
+  gap:8px;
+  width: 100%;
+  app-icon-button {
+    flex: 1 0 auto;
+  
+  }
+}
+
+.control-container{
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.auth-containers__form__submit-container{
+  padding-top: 2rem;
+  width: 100%;
+  app-icon-button{
+    padding: 0rem 0.3rem;
+    width: 100%;
+  }
+}
+
+.user-agreement{
+  font-size: 12px;
+  padding-top: 14.5px;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  display: inline-flex;
+  gap: 0rem;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  text-wrap: nowrap;
+  width: 100%;
+  span{
+    padding-right: 0.5rem;
+  }
+}
+
+ion-modal{
+  --max-height: 100%;
+  --max-width: 100%;
+  --border-radius: 5px;
+  --overflow: hidden;
+}
+
+.phone-modal{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -18,7 +18,7 @@
 }
 
 .verification-timer__submit{
-    color: #3880ff;
+    color: #ff3838;
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -37,3 +37,31 @@
     width: 100%;
     margin-top: 1rem;
 }
+
+.auth-containers__form__submit-container{
+    padding-top: 1rem;
+    width: 100%;
+    app-icon-button{
+      padding: 0rem 0.3rem;
+      width: 100%;
+    }
+  }
+
+  .auth-title{
+    font-family: var(--font-black);
+    font-size: 40px;
+    text-align: center;
+  }
+
+  .main-container{
+    max-width: 960px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: auto;
+   
+  }
+
