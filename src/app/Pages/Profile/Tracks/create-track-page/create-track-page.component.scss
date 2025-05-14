@@ -26,6 +26,74 @@
 .decription{
 
 }
+.cabinet-header{
+  max-width: 960px;
+  width: 100%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  .cabinet-header__back{
+      background: none;
+  }
+  .cabinet-header__exite{
+      background: none;
+  }
+  .cabinet-header__title{
+      font-family: var(--font-regular);
+  }
+}
+.create-container{
+  width: 100%;
+  max-width: 960px;
+  margin: auto;
+  padding-left: var(--standart-padding);
+  padding-right:var(--standart-padding);
+}
+.create-circle-upload{
+  font-family: var(--font-regular);
+  margin-top: var(--standart-padding);
+  width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  height: 200px;
+  border: 2px dashed rgb(255, 85, 85);
+  span{
+    color:rgb(255, 85, 85);
+  }
+}
+.upload-scheme{
+  font-family: var(--font-regular);
+  margin-top: var(--little-padding);
+  max-width: 343px;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  border: 2px dashed rgb(255, 85, 85);
+  span{
+    color:rgb(255, 85, 85);
+  }
+}
+.inputs-container{
+  display: flex;
+  padding-top: var(--standart-padding);
+  flex-direction: column;
+  gap: var(--standart-padding);
+}
+.label{
+  color: #4C5861;
+    font-size: 14px;
+    padding-bottom: 1px;
+    font-family: var(--font-regular);
+}
 ion-modal{
   --max-height:50%;
   --width:90%;

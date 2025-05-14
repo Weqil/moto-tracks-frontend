@@ -1,7 +1,42 @@
 <ion-content>
-    <app-header (customBackClick)="stepPrevious()" [hiddenBackButton]="true" [customBack]="false" headerTitle="Создание трека"></app-header>
+    <app-header [customContainer]="true" [hiddenBackButton]="true">
+        <div class="cabinet-header">
+          <button (click)="back()" class="cabinet-header__back">
+            <img src="/assets/icons/arrow.svg"  alt="Назад">
+          </button>
+          <span class="cabinet-header__title">Создание трассы</span>
+          <button  class="cabinet-header__plug none">
+           
+          </button>
+        </div>
+    </app-header>
     <main class="main-container--with-header">
-        <app-step-container [maxStepsCount]="maxStepsCount" [stepCurrency]="stepCurrency">
+       <div class="create-container">
+            <div class="event-information-title">
+                <img src="/assets/icons/red-finished.svg" alt="">
+                Основная информация 
+            </div>
+            <div (click)="logoFile.click()" style="background-image: url({{logoUrl}});" class="create-circle-upload">
+                <img *ngIf="!logoUrl" src="/assets/icons/upload.svg" alt="">
+                <span *ngIf="!logoUrl" >Загрузить лого</span>
+            </div>
+            <input (change)="setLogo($event,logoFile)" #logoFile style="display: none;" accept="image/png, image/jpeg" type="file" type="file">
+            <div class="inputs-container">
+                <app-standart-input label="Название*" [control]="createTrackForm.get('name')" placeholder="Введите название вашего трека"></app-standart-input>
+                <app-standart-input (click)="openRegionModal()" [readonly]="true" label="Область/край*" [control]="createTrackForm.get('region')" placeholder="Выберите область вашего соревнования"></app-standart-input>
+                <app-address-input (addressEditEmit)="changeAddress($event)" label="Адрес"></app-address-input> 
+                <div class="scheme-track">
+                    <span class="label">Схема трека*</span>
+                    <div (click)="schemeFile.click()" style="background-image: url({{schemeUrl}});" class="upload-scheme">
+                        <img *ngIf="!schemeUrl" src="/assets/icons/upload.svg" alt="">
+                        <span *ngIf="!schemeUrl" >Загрузить схему</span>
+                    </div>
+                    <input (change)="setScheme($event,schemeFile)" #schemeFile style="display: none;" accept="image/png, image/jpeg" type="file" type="file">
+                </div>
+            </div>
+            <app-regions-select-modal (select)="setRegion($event)" [visible]="regionModalState" (onClose)="closeRegionModal()" [regions]="searchRegionItems"> </app-regions-select-modal>
+       </div>
+        <!-- <app-step-container [maxStepsCount]="maxStepsCount" [stepCurrency]="stepCurrency">
             <app-step-container-item [maxStepsCount]="maxStepsCount" [stepCurrency]="stepCurrency" stepNum="1">
                 <form [formGroup]="createTrackForm" action="">
                     <app-standart-input label="Название*" [control]="createTrackForm.get('name')" placeholder="Введите название вашего трека"></app-standart-input>
@@ -28,24 +63,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="specifications">
-                        @for (param of newParams; track param.temp_id) {
-                            <div>
-                                <div class="select-level__label">
-                                Новый параметр 
-                                <button (click)="deleteNewParameter(param.temp_id)" class="delete-button">
-                                    <img class="delete-img" src="/assets/icons/trash.svg" alt="">
-                                </button>
-                              </div>
-                                <div class="new-param-input">
-                                    <input class="new-param-input__title" placeholder="Введите название вашего параметра" type="text">
-                                    <input class="new-param-input__text" placeholder="Введите значение вашего параметра" type="text">
-                                </div>
-                            </div>
-                        }
-                   
-                        <app-standart-button (click)="addNewParameter()" buttonText="Добавить параметр"></app-standart-button>
-                    </div> -->
+                 
                     <app-standart-input (click)="openRegionModal()" [readonly]="true" label="Область/край*" [control]="createTrackForm.get('region')" placeholder="Выберите область вашего соревнования"></app-standart-input>
                     <div class="select-level__label">Адрес трека</div>
                     
@@ -77,11 +95,6 @@
                         </div>
                         <app-info-popover style="position: absolute; right: 0;" text="Скриншот области трассы со спутника"></app-info-popover>
                     </div>
-
-                    <!-- <div class="photo-slider">
-                        <app-edit-slider (filesEmit)="getImages($event)" type="create"></app-edit-slider>
-                    </div> -->
-                 
 
                     <div class="track-settings">
                         <ion-toggle formControlName="light" (ionChange)="changeLight($event)" name="light" id="light" mode="ios" class="custom-toggle">Освещение</ion-toggle>
@@ -236,6 +249,6 @@
             <div>
               <app-standart-button (click)="cancelCreate()"  buttonText="Отмена" theme="light"></app-standart-button>
             </div>
-        </div>
+        </div> -->
     </main>
 </ion-content>

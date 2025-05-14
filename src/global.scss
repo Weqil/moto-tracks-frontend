@@ -119,6 +119,23 @@
     display: none !important;
   }
 
+.none{
+  opacity: 0;
+  pointer-events: none;
+
+}
+
+.event-information-title{
+  display: flex;
+    align-items: center;
+    gap: 8px;
+    img{
+       width: 24px; 
+    }
+    font-family: var(--font-bold);
+    font-size: 18px;
+}
+  
 .full-screen-icons{
     filter: brightness(0) saturate(100%);
     width: 60%;

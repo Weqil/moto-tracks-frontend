@@ -19,6 +19,7 @@ import { MapService } from 'src/app/Shared/Data/Services/Map/map.service';
 import { StandartInputSelectComponent } from 'src/app/Shared/Components/UI/Selecteds/standart-input-select/standart-input-select.component';
 import { InfoPopoverComponent } from 'src/app/Shared/Components/UI/info-popover/info-popover.component';
 import { formdataService } from 'src/app/Shared/Helpers/formdata.service';
+import { RegionsSelectModalComponent } from '@app/Shared/Components/Modals/regions-select-modal/regions-select-modal.component';
 
 @Component({
   selector: 'app-create-track-page',
@@ -26,7 +27,7 @@ import { formdataService } from 'src/app/Shared/Helpers/formdata.service';
   styleUrls: ['./create-track-page.component.scss'],
   imports: [SharedModule, HeaderComponent, StepsModule, FormsModule, EditSliderComponent, StandartRichInputComponent, 
     AddressInputComponent,IonModal,IonToggle,IonLabel,StandartInputSelectComponent,
-    InfoPopoverComponent,IonRadioGroup,IonRadio,IonCheckbox]
+    InfoPopoverComponent,IonRadioGroup,IonRadio,IonCheckbox,RegionsSelectModalComponent]
 })
 export class CreateTrackPageComponent  implements OnInit {
 
@@ -209,6 +210,9 @@ coverageItems:any[] = [
       reader.readAsDataURL(file)
       input.value =''
     }
+  }
+  back(){
+    this.navController.back()
   }
   stepNext() {
     if (this.stepCurrency <= this.maxStepsCount && !this.stepInvalidate()) {
