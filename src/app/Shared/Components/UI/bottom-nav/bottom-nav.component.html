@@ -3,7 +3,7 @@
     @for (link of links; track $index) {
      <div (click)="handleLinkClick(link)" class="bottom-nav__item">
         <div class="button-container">
-            <app-icon-button widht="full" fontSize="litle-font-size"  widht="w52" buttonText={{link.name}} icon={{link.icon}} height="long-height"
+            <app-icon-button clippy="nav-clipy" widht="full" fontSize="litle-font-size"  widht="w52" buttonText={{link.name}} icon={{link.icon}} height="long-height"
             [theme]="link.active ? 'red' : 'white'"  [buttonIconColor]="link.active ? 'white-icon' : 'dark-icon'"></app-icon-button>
         </div>
        
