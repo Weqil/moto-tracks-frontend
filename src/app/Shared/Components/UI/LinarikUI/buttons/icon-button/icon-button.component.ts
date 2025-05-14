@@ -76,18 +76,26 @@ export class  IconButtonComponent  implements OnInit {
       /**
    *Границы кнопки
    */
-  @Input() buttonBorderWidth:'b0'|'b1'|'b2'|'b3' = 'b0'
+  @Input() buttonBorderWidth:'b0'|'b1'|'b2'|'b3'|'b05' = 'b0'
 
         /**
    *Цвет границы кнопки
    */
    @Input() buttonBorderColor:'null-border'|'dark-border'|'red-border'|'white-border' = 'null-border'
 
+           /**
+   *Цвет текста кнопки
+   */
+  //  @Input() buttonTextColor:'black-text'|'white-text'|'red-text' = 'black-text'
+
         /**
    *Размер изображения
    */
    @Input() sizeIcon:'standart-size'|'little-size'= 'standart-size'
 
+         /**
+   *Жирность текста
+   */
    @Input() font:'font'|'font-bold'|'none' = 'font'
 
    @Input() fontSize:'litle-font-size'|'standart-font-size' = 'standart-font-size'

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { StandartInputComponent } from '../../Components/Forms/standart-input/standart-input.component';
+import { StandartInputComponent } from '@app/Shared/Components/UI/LinarikUI/forms/standart-input/standart-input.component';
 import { StandartRichInputComponent } from '../../Components/Forms/standart-rich-input/standart-rich-input.component';
 import { AddressInputComponent } from '../../Components/Forms/address-input/address-input.component';
 import { FileInputComponent } from '../../Components/Forms/file-input/file-input.component';

@@ -7,6 +7,8 @@ import { catchError, EMPTY, finalize, throwError } from 'rxjs';
 import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
 import { ButtonsModule } from 'src/app/Shared/Modules/buttons/buttons.module';
 import { FormsModule } from 'src/app/Shared/Modules/forms/forms.module';
+import { StandartInputComponent } from '@app/Shared/Components/UI/LinarikUI/forms/standart-input/standart-input.component';
+
 import { HeaderModule } from 'src/app/Shared/Modules/header/header.module';
 import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
 import { LoadingService } from 'src/app/Shared/Services/loading.service';
@@ -27,12 +29,16 @@ import { CheckImgUrlPipe } from "../../../Shared/Helpers/check-img-url.pipe";
 import { RouterModule } from '@angular/router';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { CheckResultsPathPipe } from "../../../Shared/Helpers/check-results-path.pipe";
+import { IconButtonComponent } from "../../../Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component";
+import { SelectBottomModalComponent } from "../../../Shared/Components/UI/LinarikUI/select-bottom-modal/select-bottom-modal.component";
+import { RegionsSelectModalComponent } from "../../../Shared/Components/Modals/regions-select-modal/regions-select-modal.component";
+import { NavbarVisibleService } from '@app/Shared/Services/navbar-visible.service';
 
 @Component({
   selector: 'app-user-documents',
   templateUrl: './user-documents.component.html',
   styleUrls: ['./user-documents.component.scss'],
-  imports: [PdfViewerModule, RouterModule, SharedModule, HeaderModule, FormsModule, StandartInputSelectComponent, IonModal, SelectComandsComponent, CheckImgUrlPipe, CheckResultsPathPipe]
+  imports: [PdfViewerModule, RouterModule, SharedModule, FormsModule, StandartInputComponent, HeaderModule, StandartInputSelectComponent, IonModal, SelectComandsComponent, CheckImgUrlPipe, CheckResultsPathPipe, IconButtonComponent, SelectBottomModalComponent, RegionsSelectModalComponent]
 })
 export class UserDocumentsComponent  implements OnInit {
   navController:NavController = inject(NavController)
@@ -40,7 +46,7 @@ export class UserDocumentsComponent  implements OnInit {
   oldLicensesValue?: any
   oldPolisValue?: any
   loaderService:LoadingService = inject(LoadingService)
-  
+  navBarVisibleService:NavbarVisibleService = inject(NavbarVisibleService)
   oldPasportValue?:{id:number,data:{numberAndSeria:string, fileLink:string}} 
   httpClient:HttpClient = inject(HttpClient)
   userService:UserService = inject(UserService)
@@ -210,6 +216,7 @@ export class UserDocumentsComponent  implements OnInit {
     name: new FormControl('', [Validators.required]),
     surname: new FormControl('', [Validators.required]),
     patronymic: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required]),
     dateOfBirth: new FormControl('', [Validators.required]),
     city: new FormControl('', [Validators.required]),
     region: new FormControl('', [Validators.required]),
@@ -430,6 +437,9 @@ submitForm(){
   }
   
   closeRegionModal(){
+    setTimeout(()=>{
+      this.navBarVisibleService.showNavBar()
+    },100)
     this.regionModalState = false
   }
   clearRegionInComandFilter(){
@@ -437,6 +447,7 @@ submitForm(){
   }
   openRegionModal(){
     this.regionModalState = true
+    this.navBarVisibleService.hideNavBar()
   }
 
   createPasport(){
@@ -673,6 +684,8 @@ submitForm(){
     this.personalUserForm.patchValue({locationId:region.value,region:region.name})
   }
 
+  userId?:number
+
   ionViewWillEnter(){
     this.setFormValue()
     this.getRegions()
@@ -681,7 +694,7 @@ submitForm(){
     this.userService.refreshUser()
     if(this.userService.user.value?.personal){
       this.personalUserForm.patchValue(this.userService.user.value?.personal)
-    
+      this.userId = this.userService.user.value.id
       this.personalUserForm.patchValue({
         dateOfBirth: this.userService.user.value?.personal.date_of_birth,
         phoneNumber: this.userService.user.value?.personal.phone_number,
@@ -690,7 +703,8 @@ submitForm(){
         commandId: this.userService.user.value?.personal.command?.id,
         locationId: this.userService.user.value?.personal.location?.id,
         motoStamp:  this.userService.user.value?.personal.moto_stamp,
-        numberAndSeria: this.userService.user.value?.personal.number_and_seria
+        numberAndSeria: this.userService.user.value?.personal.number_and_seria,
+        email: this.userService.user.value?.email,
       })
       if(!this.userService.user.value?.personal.location?.id){
         this.personalUserForm.patchValue({
@@ -762,3 +776,5 @@ submitForm(){
   }
 
 }
+
+

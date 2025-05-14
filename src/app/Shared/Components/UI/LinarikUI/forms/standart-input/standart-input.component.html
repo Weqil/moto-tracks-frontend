@@ -5,7 +5,7 @@
     <label [ngClass]="{'label':!invalid,'label_invalid':invalid}" for="{{label}}">{{label}}</label>
     <div class="input-height-wrapper">
       <input  
-      [maskito]="optionMask" 
+      [maskito]="type !== 'date' ? optionMask : null" 
       [maxlength]="maxLength" 
       [ngClass]="allClasses" 
       (input)="emitInput($event)" 
@@ -13,11 +13,14 @@
       (blur)="TrimValue()"
       [readonly]="readonly" 
       placeholder="{{placeholder}}"  
-      type="{{type}}" name="{{label}}"  
+      type="{{type}}" 
+      name="{{label}}"  
       [formControl]="control" 
       name="new_name">
+      <img class="calendar-icon" src="/assets/icons/calendar.svg" *ngIf="type =='date'" (click)="openDatePicker(input)" alt="">
       <img class="icon" *ngIf="iconLeft" src="{{iconLeft}}" alt="">
-      <button (click)="openPasword(input)" *ngIf="openPassword" type="button" class="open-input"><img class="open-input-icon" src="/assets/icons/open-input.svg" alt=""></button>
+      <button (click)="openPasword(input)" *ngIf="openPassword" type="button" class="open-input">
+      <img class="open-input-icon" src="/assets/icons/open-input.svg" alt=""></button>
 
     </div>
    

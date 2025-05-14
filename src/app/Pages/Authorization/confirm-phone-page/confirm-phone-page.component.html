@@ -1,6 +1,10 @@
 <ion-content>
-  <app-header headerTitle="Обязательные данные" [hiddenBackButton]="true"></app-header>
-  <div *ngIf="user" class="main-container--with-header">
+  <app-header  [customContainer]="true">
+    <div class="header">
+      <app-back-button (click)="redirectCabinet()" [buttonText]="'Вернуться в кабинет'" fontColor="font-dark" theme="white"></app-back-button>
+    </div>
+  </app-header>
+  <div *ngIf="user" class="main-container">
     <ng-container *ngIf="stepCurrent == 1">
       <form class="user-personal">
         <span class="step-title">
@@ -9,47 +13,75 @@
         <app-standart-input [control]="personalUserForm.get('surname')" [errorMessage]="formErrors.surname.errorMessage" [invalid]="formErrors.surname.errorMessage.length !== 0" placeholder="Введите фамилию" label="Фамилия"></app-standart-input>
         <app-standart-input [control]="personalUserForm.get('name')" [errorMessage]="formErrors.name.errorMessage" [invalid]="formErrors.name.errorMessage.length !== 0" placeholder="Введите имя" label="Имя"></app-standart-input>
         <app-standart-input [control]="personalUserForm.get('patronymic')" [errorMessage]="formErrors.patronymic.errorMessage" [invalid]="formErrors.patronymic.errorMessage.length !== 0" placeholder="Введите отчество" label="Отчество"></app-standart-input>
-        <app-standart-input [control]="personalUserForm.get('dateOfBirth')" [errorMessage]="formErrors.dateOfBirth.errorMessage" [invalid]="formErrors.dateOfBirth.errorMessage.length !== 0" placeholder="Выберите дату" label="Дата рождения" type="date"></app-standart-input>
+        <app-standart-input 
+          [control]="personalUserForm.get('dateOfBirth')" 
+          [errorMessage]="formErrors.dateOfBirth.errorMessage" 
+          [invalid]="formErrors.dateOfBirth.errorMessage.length !== 0" 
+          placeholder="Выберите дату" 
+          label="Дата рождения" 
+          type="date">
+        </app-standart-input>
         <app-standart-input (click)="openRegionModal()" [readonly]="true" label="Область/край" [control]="personalUserForm.get('region')" [errorMessage]="formErrors.region.errorMessage" [invalid]="formErrors.region.errorMessage.length !== 0"  placeholder="Выберите область вашу область"></app-standart-input>    
         <app-standart-input [control]="personalUserForm.get('city')" placeholder="Город" label="Город" [invalid]="formErrors.city.errorMessage.length !== 0" [errorMessage]="formErrors.city.errorMessage"></app-standart-input>
-        <ion-modal  (didDismiss)="closeRegionModal()"  [isOpen]="regionModalState">
-          <ng-template>
-            <ion-content>
-              <div class="region-modal-container">
-                <app-standart-input-search label="Область/край" [searchCurrentItems]="searchRegionItems" [searchItems]="searchRegionItems" (changeSearchValue)="setRegion($event)"></app-standart-input-search>
-              </div>
-            </ion-content>
-          </ng-template>  
-        </ion-modal>
-        <app-standart-button (click)="submitPersonalInfo()" type="button" buttonText="Далее"></app-standart-button>
+        
+        <app-regions-select-modal 
+          (select)="setRegion($event)" 
+          [visibleSearch]="false"
+          [visible]="regionModalState" 
+          (onClose)="closeRegionModal()" 
+          [regions]="searchRegionItems"> 
+        </app-regions-select-modal>
+        
+
+        <div class="auth-containers__form__submit-container">
+          <app-icon-button height="long-height" widht="full"  clippy="clippy-right" [shapeColumn]="true" [theme]="'red'"  (click)="submitPersonalInfo()"  buttonText="Далее" type="button"></app-icon-button>
+        </div>
       </form>
     </ng-container>
 
     <ng-container *ngIf="stepCurrent == 2">
+
+      
+      <div class="main-container">
+      
       <form class="user-personal">
+
+        <div class="auth-title">
+          Потверждение
+        </div>
+
         <div class="verificate-phone-container">
-          <img class="phone-images" src="/assets/icons/phone-images.svg">
-          <span class="verificate-phone-title">Вам поступит звонок-сброс для подтверждения</span>
-          <p class="verificate-phone-description">Введите последние 4 цифры номера с которого поступит звонок</p>
+          <!-- <img class="phone-images" src="/assets/icons/phone-images.svg"> -->
+          <span class="verificate-phone-title">Вам поступит звонок-сброс для подтверждения, введите последние 4 цифры номера с которого поступит звонок</span>
+          <!-- <p class="verificate-phone-description">Введите последние 4 цифры номера с которого поступит звонок</p> -->
         </div>
         <div class="phone-number-container">
           <div class="input-wrapper">
             <app-standart-input label="Телефон" placeholder="Введите номер телефона" [control]="phoneForm.get('number')" maskType="phone"></app-standart-input>
-            <button *ngIf="verificationType == 'code'" (click)="getCode()" type="button" class="phone-number__submit">Отправить код</button>
-          </div>
+            <app-icon-button *ngIf="verificationType == 'code'" class="phone-number__submit" height="little-height" widht="w40"   [theme]="'dark'"  (click)="getCode()"  buttonText="Отправить код" type="button"></app-icon-button>
 
+            <!-- <button *ngIf="verificationType == 'code'" (click)="getCode()" type="button" class="phone-number__submit">Отправить код</button> -->
+          </div>
         </div>
         <ng-container *ngIf="verificationType == 'code'">
-          <p class="verification__title">Введите код</p>
+          
           <ngx-otp-input (otpChange)="changeCode($event)" [options]="otpOptions"></ngx-otp-input>
-          <app-standart-button (click)="sendCode()" type="button" buttonText="Подтвердить"></app-standart-button>
+          <div class="auth-containers__form__submit-container">
+            <app-icon-button height="long-height" widht="full"  clippy="clippy-right" [shapeColumn]="true" [theme]="'red'"  (click)="sendCode()"  buttonText="Подтвердить" type="button"></app-icon-button>
+          </div>
+          <!-- <app-standart-button (click)="sendCode()" type="button" buttonText="Подтвердить"></app-standart-button> -->
         </ng-container>
         <ng-container *ngIf="verificationType == 'callback'">
           <p class="verification__title">Позвоните на указанный номер телефона</p>
-          <app-standart-button type="button" buttonText="Я позвонил"></app-standart-button>
+          <!-- <app-standart-button type="button" buttonText="Я позвонил"></app-standart-button> -->
+          <div class="auth-containers__form__submit-container">
+            <app-icon-button height="long-height" widht="full"  clippy="clippy-right" [shapeColumn]="true" [theme]="'red'"   buttonText="Я позвонил" type="button"></app-icon-button>
+          </div>
         </ng-container>   
         <!-- <app-standart-button type="button" (click)="changeVerificationState(verificationType == 'code' ? 'callback': 'code')" type="button" buttonText="Другой способ" theme="light"></app-standart-button> -->
       </form>
+
+    </div>
     </ng-container>
     
     

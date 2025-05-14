@@ -14,12 +14,13 @@ import { LoadingService } from 'src/app/Shared/Services/loading.service';
 import { catchError, EMPTY, finalize, Subject, takeUntil } from 'rxjs';
 import { interval } from 'rxjs';
 import { map, take } from 'rxjs/operators';
+import { IconButtonComponent } from "../../../Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component";
 
 @Component({
   selector: 'app-confirm-email-page',
   templateUrl: './confirm-email-page.component.html',
   styleUrls: ['./confirm-email-page.component.scss'],
-  imports:[SharedModule,HeaderModule,NgxOtpInputComponent,ButtonsModule,NgClass]
+  imports: [SharedModule, HeaderModule, NgxOtpInputComponent, ButtonsModule, NgClass, IconButtonComponent]
 })
 export class ConfirmEmailPageComponent  implements OnInit {
 

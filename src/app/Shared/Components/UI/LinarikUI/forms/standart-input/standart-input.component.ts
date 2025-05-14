@@ -65,6 +65,11 @@ export class StandartInputComponent  implements OnInit {
 
   @Input() dark:boolean = false
 
+    /**
+    * Тёмная тема 
+  */
+
+    @Input() gradient:boolean = false
 
   /**
     * Подсветит красным весь инпут
@@ -116,6 +121,7 @@ export class StandartInputComponent  implements OnInit {
       'standart-input',
       this.invalid ? 'inavlid__input':'',
       this.dark ? 'dark':'',
+      this.gradient ? 'gradient':'',
       this.disabled ? 'standart-input_disabled' : '',
       'cursor',
     ]
@@ -129,6 +135,16 @@ export class StandartInputComponent  implements OnInit {
   ngOnInit() {
     this.renderMask()
   }
+
+  openDatePicker(input: HTMLInputElement) {
+    
+    if (input.showPicker) {
+      input.showPicker();
+    } else {
+      input.focus();
+    }
+  }
+
 }
 function maskitoPhoneOptionsGenerator(arg0: {
   countryIsoCode: string
@@ -136,5 +152,7 @@ function maskitoPhoneOptionsGenerator(arg0: {
 }): import('@maskito/core').MaskitoMask {
   throw new Error('Function not implemented.')
 }
+
+
 
 

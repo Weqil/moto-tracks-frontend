@@ -6,7 +6,6 @@ import moment from 'moment';
 import { NgxOtpInputComponent, NgxOtpInputComponentOptions } from 'ngx-otp-input';
 import { catchError, concatMap, EMPTY, finalize, from, Subject, takeUntil, tap } from 'rxjs';
 import { StandartInputSearchComponent } from 'src/app/Shared/Components/Forms/standart-input-search/standart-input-search.component';
-import { StandartInputComponent } from 'src/app/Shared/Components/Forms/standart-input/standart-input.component';
 import { StandartButtonComponent } from 'src/app/Shared/Components/UI/Buttons/standart-button/standart-button.component';
 import { HeaderComponent } from 'src/app/Shared/Components/UI/header/header.component';
 import { serverError } from 'src/app/Shared/Data/Interfaces/errors';
@@ -17,12 +16,16 @@ import { MapService } from 'src/app/Shared/Data/Services/Map/map.service';
 import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
 import { LoadingService } from 'src/app/Shared/Services/loading.service';
 import { ToastService } from 'src/app/Shared/Services/toast.service';
+import { StandartInputComponent } from "../../../Shared/Components/UI/LinarikUI/forms/standart-input/standart-input.component";
+import { IconButtonComponent } from "../../../Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component";
+import { RegionsSelectModalComponent } from "../../../Shared/Components/Modals/regions-select-modal/regions-select-modal.component";
+import { BackButtonComponent } from "../../../Shared/Components/UI/LinarikUI/buttons/back-button/back-button.component";
 
 @Component({
   selector: 'app-confirm-phone-page',
   templateUrl: './confirm-phone-page.component.html',
   styleUrls: ['./confirm-phone-page.component.scss'],
-  imports:[IonContent,HeaderComponent,CommonModule,StandartInputComponent,StandartButtonComponent,IonModal,StandartInputSearchComponent,NgxOtpInputComponent]
+  imports: [IonContent, HeaderComponent, CommonModule, StandartButtonComponent, IonModal, StandartInputSearchComponent, NgxOtpInputComponent, StandartInputComponent, IconButtonComponent, RegionsSelectModalComponent, BackButtonComponent]
 })
 export class ConfirmPhonePageComponent  implements OnInit {
 
@@ -101,6 +104,7 @@ validatePersonal(){
    }
  });
  return valid
+ 
 }
 
 async getCode(){
@@ -191,15 +195,20 @@ phoneSubmit(){
 
 }
 
+redirectCabinet(){
+  this.navController.navigateForward('/cabinet')
+}
+
 submitPersonalInfo(){
+
   if(this.validatePersonal()){
+    
     if(!this.user.personal){
+      
       let loader:HTMLIonLoadingElement
       this.loaderService.showLoading().then((res:HTMLIonLoadingElement) => {
         loader = res
       })
-      
-      
       this.userService.createPersonalInfo(this.personalUserForm.value).pipe(
         finalize(()=>{
           this.loaderService.hideLoading(loader)

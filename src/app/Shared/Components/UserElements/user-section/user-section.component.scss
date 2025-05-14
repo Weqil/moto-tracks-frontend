@@ -5,12 +5,7 @@ p{
     margin: 0;
     padding: 0;
   }
-.user-section-text{
-    display: flex;
-    align-items: center;
-    height: 10px;
-    margin-bottom: 8px;
-}
+
 .user-section{
     display: flex;
     flex-wrap: nowrap;
@@ -25,7 +20,6 @@ p{
         display: flex;
         justify-content: center;
         align-items: center;
-        
         .user-section__avatar__img{
             min-width: 3.125rem;
             min-height: 3.125rem;
@@ -40,12 +34,13 @@ p{
     }
     .user-section__info{
         display: flex;
-        justify-content: start;
+        justify-content: center;
         flex-direction: column;
-        
+        align-items: start;
         flex-grow: 1;
+        gap: 8px;
+
         .user-section__name{
-            
             display: flex;
             gap:5px;
             word-break: break-all;
@@ -55,28 +50,61 @@ p{
             font-size: 14px;
             flex-wrap: wrap;
             text-wrap: wrap;
-            
+
+            .user-section-text{
+                display: flex;
+                align-items: center;
+                height: 10px;
+                margin-bottom: 0px;
+            }
         }
+
+        .user-section__date{
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+
+            .user-section__date__info{
+                display: flex;
+                justify-content: start;
+                align-items: center;
+                height: 14px;
+                font-size: var(--font-regular-size);
+                color: var(--font-standart-color);
+                font-family: var(--font-regular);
+            }
+        }
+
+
         
-        .user-section__email{
-            height: 14px;
-            font-size: var(--font-regular-size);
-            color: var(--font-standart-color);
-            font-family: var(--font-regular);
-            margin-bottom: 6px;
-        }
-        .user-section__rank{
-            height: 14px;
-            color: var(--font-standart-color);
-            font-size: var(--font-regular-size);
-            font-family: var(--font-regular);
-            margin: 0rem;
-        }
-        .user-section-city{
-            height: 14px;
-            margin: 0px;
-            font-family: var(--font-regular);
-        }
+        // .user-section__email{
+        //     display: flex;
+        //     justify-content: start;
+        //     align-items: center;
+        //     height: 14px;
+        //     font-size: var(--font-regular-size);
+        //     color: var(--font-standart-color);
+        //     font-family: var(--font-regular);
+            
+        // }
+        // .user-section__rank{
+        //     display: flex;
+        //     justify-content: start;
+        //     align-items: center;
+        //     height: 14px;
+        //     color: var(--font-standart-color);
+        //     font-size: var(--font-regular-size);
+        //     font-family: var(--font-regular);
+        //     margin: 0rem;
+        // }
+        // .user-section-city{
+        //     display: flex;
+        //     justify-content: start;
+        //     align-items: center;
+        //     height: 14px;
+        //     margin: 0px;
+        //     font-family: var(--font-regular);
+        // }
     }
 }
 
@@ -111,6 +139,12 @@ p{
         font-size: var(--font-headers-size-little);
         font-family: var(--font-black);
     }
+}
+
+.user-section__date{
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
 }
 
 

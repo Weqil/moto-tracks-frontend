@@ -17,6 +17,12 @@ export const privateRoutes: Routes = [
         loadComponent: () => import('../CommonUI/Pages/pages-with-nav/pages-with-nav.component').then((m) => m.PagesWithNavComponent),
         children:[
             {
+                path:'cabinet',
+                canActivate:[canActivateAuth],
+                loadComponent: () => import('../Pages/Profile/cabinet/cabinet.component').then((m) => m.CabinetComponent),
+        
+            },
+            {
                 path:'document/:id',
                 canActivate:[canActivateAuth,canActivateRoleAdmin],
                 loadComponent: () => import('../CommonUI/Pages/private-files/private-files.component').then((m) => m.PrivateFilesComponent)
@@ -125,12 +131,7 @@ export const privateRoutes: Routes = [
         canActivate:[canActivateAuth],
         loadComponent: () => import('../Pages/Authorization/confirm-email-page/confirm-email-page.component').then((m) => m.ConfirmEmailPageComponent)
     },
-    {
-        path:'cabinet',
-        canActivate:[canActivateAuth],
-        loadComponent: () => import('../Pages/Profile/cabinet/cabinet.component').then((m) => m.CabinetComponent),
-
-    },
+    
     {
         path:'my-events',
         canActivate:[canActivateAuth,canActivateUserHaveRole(userRoles.organization,'организатора')],
