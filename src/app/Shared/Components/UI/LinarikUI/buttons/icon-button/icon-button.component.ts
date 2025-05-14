@@ -56,7 +56,7 @@ export class  IconButtonComponent  implements OnInit {
     /**
    *Будут ли скошены углы у кнопки
    */
-  @Input() clippy:'clippy-right'|'clippy-left'|'none'|'nav-clipy' = 'none'
+  @Input() clippy:'clippy-right'|'clippy-left'|''|'nav-clipy' = ''
 
     /**
    *Размер 

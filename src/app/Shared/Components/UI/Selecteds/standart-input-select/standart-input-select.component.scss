@@ -1,3 +1,8 @@
+.icon{
+    width: 18px;
+    height: 18px;
+    margin-right: 16px;
+}
 .standart-input {
     border: 1px solid rgb(76 88 97 / 47%);
     width: 100%;
@@ -11,7 +16,7 @@
     cursor: pointer;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    
     
     margin-top: 3px;
 

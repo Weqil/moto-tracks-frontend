@@ -22,13 +22,15 @@ import { formdataService } from 'src/app/Shared/Helpers/formdata.service';
 import { RegionsSelectModalComponent } from '@app/Shared/Components/Modals/regions-select-modal/regions-select-modal.component';
 import { StandartRichInputComponent } from '@app/Shared/Components/UI/LinarikUI/forms/standart-rich-input/standart-rich-input.component';
 import { StandartInputComponent } from '@app/Shared/Components/UI/LinarikUI/forms/standart-input/standart-input.component';
+import { CheckBoxComponent } from '@app/Shared/Components/UI/LinarikUI/forms/check-box/check-box.component';
+import { IconButtonComponent } from '@app/Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component';
 @Component({
   selector: 'app-create-track-page',
   templateUrl: './create-track-page.component.html',
   styleUrls: ['./create-track-page.component.scss'],
   imports: [SharedModule, HeaderComponent, StepsModule, EditSliderComponent, 
     AddressInputComponent,IonModal,IonToggle,IonLabel,StandartInputSelectComponent,
-    InfoPopoverComponent,IonRadioGroup,IonRadio,IonCheckbox,RegionsSelectModalComponent,StandartRichInputComponent,StandartInputComponent]
+    InfoPopoverComponent,IconButtonComponent,IonRadio,CheckBoxComponent,RegionsSelectModalComponent,StandartRichInputComponent,StandartInputComponent]
 })
 export class CreateTrackPageComponent  implements OnInit {
 
@@ -198,7 +200,7 @@ coverageItems:any[] = [
     }
   }
   changeLight(event:any){
-   
+   console.log(event)
   }
   setScheme(event:any,input:HTMLInputElement){
     const file = event.target.files[0]

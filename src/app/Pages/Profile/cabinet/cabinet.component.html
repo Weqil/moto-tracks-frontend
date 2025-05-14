@@ -37,7 +37,7 @@
   
       <div [class.active]="selectAccountValue()" class="accounts-container">
         <app-icon-button (click)="navigateInLogin()" buttonIconColor="red-icon" sizeIcon="standart-size" widht="full" buttonBorderColor="red-border"  elementsPosition="row__reverse" icon="/assets/icons/plus.svg" fontColor="red-color" font="font" buttonBorderWidth="b1"  theme="white" buttonText="Добавить аккаунт"></app-icon-button>
-        <app-icon-button buttonText="test" theme="dark"></app-icon-button>
+        
         <ng-container *ngFor="let user of allUsers">
           <div  class="accounts-container__item">
             <app-user-section [showAddress]="false" [showRank]="false" [name]="true" [surname]="true" (click)="selectUserAndRefreshAllData(user)" [user]="user"></app-user-section>

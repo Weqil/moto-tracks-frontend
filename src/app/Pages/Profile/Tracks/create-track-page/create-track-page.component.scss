@@ -69,10 +69,29 @@
   }
 }
 .track-detail-information{
-  padding-top: var(--standart-padding);
+  padding-top: 30px;
   display: flex;
   flex-direction: column;
   gap: var(--standart-padding);
+}
+.track-more-information{
+  padding-top: 30px;
+}
+.track-contacts{
+  padding-top: 30px;
+}
+.track-contacts__grid{
+  display: flex;
+  padding-top: var(--little-padding);
+  flex-direction: column;
+  gap: var(--standart-padding);
+  padding-bottom: 4rem;
+}
+.track-more-information__grid{
+  display: flex;
+  flex-direction: column;
+  gap: var(--little-padding);
+  padding-top: var(--little-padding);
 }
 .popover-container{
   z-index: 100;

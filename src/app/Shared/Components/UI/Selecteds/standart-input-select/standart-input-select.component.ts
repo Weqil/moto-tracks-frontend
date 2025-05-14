@@ -45,6 +45,7 @@ export class StandartInputSelectComponent implements OnInit, OnDestroy {
   ];
   @Input() selectedName:string = 'selectedModal'
   @Input() label: string = '';
+  @Input() iconLeft:string = ''
   @Input() invalid:boolean = false
   @Input() errorMessage:string = ''
   @Input() stateValue: boolean = false;
