@@ -14,13 +14,13 @@
     <div class="cabinet">
       <div class="cabinet__user-section">
         <div class="user-images">
-          <img [src]="user?.avatar | checkImgUrl" alt="">
+          <img class="user-avatar" [src]="user?.avatar | checkImgUrl" alt="">
         </div>
       
         <div class="cabinet__user-section__info">
           <div *ngIf="user?.id" class="uid">UID {{user?.id}}</div>
           <div class="cabinet__user-section__info__name">
-            <app-icon-button font="font-bold" widht="w20" height="auto-height" clippy="clippy-right" buttonText="{{user?.personal?.start_number}}"></app-icon-button>
+            <app-icon-button *ngIf="user?.personal?.start_number" font="font-bold" widht="w20" height="auto-height" clippy="clippy-right" buttonText="{{user?.personal?.start_number}}"></app-icon-button>
             <div class="info__name__item" *ngIf="user?.personal?.name && user?.personal?.surname" >{{user?.personal?.name}}</div>
             <div class="info__name__item" *ngIf="user?.personal?.name && user?.personal?.surname">{{user?.personal?.surname}}</div>
             <div class="info__name__item" *ngIf="user?.name && !user?.personal" >{{user?.name}}</div>

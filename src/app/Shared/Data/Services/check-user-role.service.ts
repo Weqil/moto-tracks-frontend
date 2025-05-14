@@ -23,7 +23,8 @@ export class CheckUserRoleService {
     return ['Болельщик'];
   }
 
-  searchLastRole() {
+  searchLastRole(user?: User) {
+    if(!user){
       let rolesRank = [
         { index: 1, name: [UserStatuses.rider] },
         { index: 2, name: [UserStatuses.couch] },
@@ -41,6 +42,27 @@ export class CheckUserRoleService {
   
       let highestRole = matchedRoles.sort((a, b) => b.index - a.index)[0]; // сортируем по убыванию
   
-      return this.user?.roles.find((role:any)=> role.name == highestRole.name)
+        return this.user?.roles.find((role:any)=> role.name == highestRole.name)
+      }else{
+        let rolesRank = [
+          { index: 1, name: [UserStatuses.rider] },
+          { index: 2, name: [UserStatuses.couch] },
+          { index: 3, name: [UserStatuses.organizer] },
+          { index: 4, name: [UserStatuses.administrator] },
+          { index: 5, name: [UserStatuses.root] },
+          { index: 6, name: [UserStatuses.commission] },
+        ];
+    
+        let userRoles: any[] = user?.roles.filter((role: any) => role) || [];
+    
+        let matchedRoles = rolesRank.filter(rank => 
+          userRoles.some(userRole => rank.name.includes(userRole.name))
+        );
+    
+        let highestRole = matchedRoles.sort((a, b) => b.index - a.index)[0]; // сортируем по убыванию
+    
+        return user?.roles.find((role:any)=> role.name == highestRole.name)
+      }
     }
+      
 }
