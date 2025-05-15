@@ -33,6 +33,7 @@ import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { NavController } from '@ionic/angular';
 import { finalize } from 'rxjs';
+import { IconButtonComponent } from '@app/Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component';
 
 @Component({
   selector: 'app-view-comand-page',
@@ -48,6 +49,7 @@ import { finalize } from 'rxjs';
     UserSectionComponent,
     FormsModule,
     IonContent,
+    IconButtonComponent,
     IonCard,
     IonCardHeader,
     IonCardSubtitle,
@@ -59,8 +61,9 @@ import { finalize } from 'rxjs';
     IonThumbnail,
     IonModal,
     IonIcon,
-    RouterLink
-  ],
+    RouterLink,
+    CheckImgUrlPipe
+],
   standalone: true
 })
 export class ViewComandPageComponent  implements OnInit {
@@ -78,7 +81,9 @@ export class ViewComandPageComponent  implements OnInit {
   commandId:string = ''
   command!:ICommand
   isMember: boolean = false
-
+  back(){
+    this.navController.back()
+  }
   avatarUrl:string = '/assets/icons/team-bg.png';
   searchRegionItems:any[] = []
 
