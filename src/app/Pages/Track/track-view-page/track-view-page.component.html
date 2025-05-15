@@ -325,7 +325,8 @@
               <strong *ngIf="req.phone">Телефон:</strong> {{ req.phone }}<br />
               <strong *ngIf="req.inn">ИНН:</strong> {{ req.inn }} <br />
               <strong *ngIf="req.pricePolitics">Ценовая политика:</strong> {{ req.pricePolitics }} <br />
-              <strong *ngIf="track.attendance && track.attendance.length && track.attendance[0] ">Описание платной услуги:</strong> {{track.attendance![0].desc }} <br />
+              <strong *ngIf="track.attendance && track.attendance.length && track.attendance[0] ">Описание платной услуги:</strong> {{track.attendance![0].desc }}   <br />
+              <strong  *ngIf="track.attendance && track.attendance.length && track.attendance[0] "> Стоимость: {{track.attendance![0].price}} ₽</strong>
               <div>
                 <a *ngIf="track.offer" [href]="track.offer | checkImgUrl" download>
                   <strong style="border-bottom: 1px solid white; padding-bottom: 0.5rem;" >Договор оферты</strong>

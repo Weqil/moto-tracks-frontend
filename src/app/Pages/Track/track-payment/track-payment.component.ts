@@ -2,7 +2,7 @@ import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core'
 import { TransactionsService } from '@app/Shared/Data/Services/transactions.service';
 import { LoadingService } from '@app/Shared/Services/loading.service';
 import { finalize, Subject, takeUntil } from 'rxjs';
-import { Browser } from '@capacitor/browser';
+// import { Browser } from '@capacitor/browser';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { DomSanitizer } from '@angular/platform-browser';
