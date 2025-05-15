@@ -1,3 +1,9 @@
+:host{
+    flex: 1 0;
+    max-width: 21.438rem;
+    display: flex;
+    justify-content: center;
+}
 .track-section{
     display: inline-flex;
     justify-content: space-between;
@@ -60,9 +66,11 @@
     font-size: var( --font-little-size);
 }
 .track{
-    width: 21.438rem;
+    max-width: 21.438rem;
     height: 11.25rem;
     position: relative;
+    flex: 1 0;
+    width: 100%;
 }
 .track__background{
     width: 100%;

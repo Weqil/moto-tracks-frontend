@@ -3,6 +3,13 @@
 }
 
 .tracks-grid__item{
+    display: inline-flex;
+    align-items: center;
+    max-width: 21.438rem;
+    height: 11.25rem;
+    position: relative;
+    flex: 1 0;
+    width: 100%;
     position: relative;
 }
 
@@ -19,9 +26,10 @@
 }
 .edit-button-wrapper{
     position: absolute;
-    right:14px;
-    z-index: 101;
     top: 14px;
+    right: 10px;
+    z-index: 101;
+
 
 }
 

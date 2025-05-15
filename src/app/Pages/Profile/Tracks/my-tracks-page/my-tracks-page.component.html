@@ -16,6 +16,7 @@
     <div class="tracks-grid">
         @for (track of tracks; track $index) {
           <div class="tracks-grid__item">
+        
             <div (click)="redirectInEditPage(track.id)" class="edit-button-wrapper">
               <app-icon-button (click)="redirectInEditPage(track.id)" theme="red" clippy="clippy-right" height="little-height" icon="/assets/icons/pen.svg"
               buttonIconColor="white-icon" elementsPosition="row__reverse" sizeIcon="little-size" buttonText="Редактировать"></app-icon-button>

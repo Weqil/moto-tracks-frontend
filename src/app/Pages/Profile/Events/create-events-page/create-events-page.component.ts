@@ -23,13 +23,24 @@ import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
 import moment from 'moment-timezone';
 import { IonToggle } from '@ionic/angular/standalone';
 import { User } from '@app/Shared/Data/Interfaces/user-model';
+import { RegionsSelectModalComponent } from '@app/Shared/Components/Modals/regions-select-modal/regions-select-modal.component';
+import { StandartRichInputComponent } from '@app/Shared/Components/UI/LinarikUI/forms/standart-rich-input/standart-rich-input.component';
+import { StandartInputComponent } from '@app/Shared/Components/UI/LinarikUI/forms/standart-input/standart-input.component';
+import { IconButtonComponent } from '@app/Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component';
+import { StandartInputSearchComponent } from '@app/Shared/Components/Forms/standart-input-search/standart-input-search.component';
+import { UserSectionComponent } from '@app/Shared/Components/UserElements/user-section/user-section.component';
+import { SelectBottomModalComponent } from '@app/Shared/Components/UI/LinarikUI/select-bottom-modal/select-bottom-modal.component';
+import { checkbox } from 'ionicons/icons';
+import { CheckBoxComponent } from '@app/Shared/Components/UI/LinarikUI/forms/check-box/check-box.component';
+
 
 @Component({
   selector: 'app-create-events-page',
   templateUrl: './create-events-page.component.html',
   styleUrls: ['./create-events-page.component.scss'],
-  imports: [SharedModule, HeaderModule, StepsModule, FormsModule, EditSliderComponent, TrackModule,
-     selectedModule, StandartInputSelectComponent, IonModal, IonCheckbox, IonLabel, IonToggle]
+  imports: [SharedModule, HeaderModule, StepsModule, EditSliderComponent, StandartInputComponent, TrackModule,
+     selectedModule, StandartInputSelectComponent, IonModal, IonCheckbox, StandartRichInputComponent,
+      IonToggle,RegionsSelectModalComponent,IconButtonComponent,StandartInputSearchComponent,UserSectionComponent,SelectBottomModalComponent,CheckBoxComponent]
 })
 export class CreateEventsPageComponent  implements OnInit {
 
@@ -61,9 +72,9 @@ export class CreateEventsPageComponent  implements OnInit {
   locationId:string = ''
 
   searchRegionItems:any[] = []
-
+  
   mapService:MapService = inject(MapService)
-
+  imageUrl:string = ''
   reglamentFile!:File
   positionFile!:File
 
@@ -116,8 +127,8 @@ export class CreateEventsPageComponent  implements OnInit {
     this.comissionModalState = true
   }
 
- changeAllClassesState(){
-   this.allClassesState =!this.allClassesState
+ changeAllClassesState(value:boolean){
+   this.allClassesState = value
  }
 
   trackHaveInUserSelected(event:any){
@@ -132,7 +143,9 @@ export class CreateEventsPageComponent  implements OnInit {
         this.selectedGroup.push(group)
       }
   }
-
+  back(){
+    this.navController.back()
+  }
   openModalGroupModal(){
     this.groupModal = true
   }
@@ -277,6 +290,7 @@ export class CreateEventsPageComponent  implements OnInit {
     this.groupService.getAllGroup().pipe().subscribe((res:any)=>{
      this.allUsersGroups = res.grades
     })
+    
   }
 
   createNewGroup(){
@@ -360,16 +374,29 @@ export class CreateEventsPageComponent  implements OnInit {
   }
 
 
- 
+  setImage(event:any,input:HTMLInputElement){
+   
+      const file = event.target.files[0]
+      if(file){
+        this.createEventForm.patchValue({ images: [file] })
+        const reader: FileReader = new FileReader()
+        reader.onload = (e: any) => {
+          this.imageUrl = e.target.result
+        }
+        reader.readAsDataURL(file)
+        input.value =''
+      }
+  }
 
   getCommisionUsers(){
     this.userService.getComissionUsers().pipe().subscribe((res:any)=>{
-      res.users.forEach((user:any) => {
-        this.usersInCommision.push({
-          name:user.personal.name +" " + user.personal.surname + " "  + user.personal.patronymic,
-          value:user.id
-        })
-      });
+      this.usersInCommision = res.users
+      // res.users.forEach((user:any) => {
+      //   this.usersInCommision.push({
+      //     name:user.personal.name +" " + user.personal.surname + " "  + user.personal.patronymic,
+      //     value:user.id
+      //   })
+      // });
    
     })
   }

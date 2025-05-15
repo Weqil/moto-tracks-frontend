@@ -125,6 +125,23 @@
 
 }
 
+.cabinet-header{
+  max-width: 960px;
+  width: 100%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  .cabinet-header__back{
+      background: none;
+  }
+  .cabinet-header__exite{
+      background: none;
+  }
+  .cabinet-header__title{
+      font-family: var(--font-regular);
+  }
+}
+
 .event-information-title{
   display: flex;
     align-items: center;

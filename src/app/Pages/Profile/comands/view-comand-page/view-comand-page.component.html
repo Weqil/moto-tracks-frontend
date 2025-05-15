@@ -1,8 +1,59 @@
 <ion-content>
-  <app-header headerTitle="Просмотр команды"></app-header>
+  <app-header [customContainer]="true" [hiddenBackButton]="true">
+    <div class="cabinet-header">
+      <button (click)="back()" class="cabinet-header__back">
+        <img src="/assets/icons/arrow.svg"  alt="Назад">
+      </button>
+      <span class="cabinet-header__title">О команде</span>
+      <button class="none">
+       
+      </button>
+    </div>
+  </app-header>
   
   <main class="main-container--with-header" *ngIf="command">
     <div class="command-container">
+      <div class="cabinet__user-section">
+        <div class="user-images">
+          <img class="user-avatar" [src]="command.avatar | checkImgUrl" alt="">
+        </div>
+        <div class="cabinet__user-section__info">
+          <div class="cabinet__user-section__info__name">
+            <div class="info__name__item" *ngIf="command?.name" >{{command.name}}</div>
+          </div>
+          <div *ngIf="command?.location" class="comand-info">{{command?.location?.name}} {{command?.location?.type}}</div>
+          <div *ngIf="command?.city" class="comand-info">{{command?.city}}</div>
+          <div *ngIf="command?.full_name" class="comand-info">{{command?.full_name}}</div>
+        </div>
+      </div>
+  
+      <div *ngIf="membersForCouch && membersForCouch.length" class="couch">
+        <div class="event-information-title">
+          <img src="/assets/icons/red-finished.svg" alt="">
+          Тренера команды
+          <app-icon-button font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="membersForCouch.length"></app-icon-button>
+        </div>
+        <div class="couch-grid">
+          <ng-container *ngFor="let user of membersForCouch">
+              <app-user-section borderColor="red"  [showAddress]="true" [name]="true" [surname]="true"  [hideEmail]="true" [user]="user"></app-user-section>
+          </ng-container>
+        </div>
+      </div>
+      <div *ngIf="membersForUser && membersForUser.length" class="users-in-comands">
+        <div class="event-information-title">
+          <img src="/assets/icons/red-finished.svg" alt="">
+          Участники команды
+          <app-icon-button font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="membersForUser.length"></app-icon-button>
+        </div>
+        <div class="couch-grid">
+          <ng-container *ngFor="let user of membersForUser">
+              <app-user-section borderColor="red"  [showAddress]="true" [name]="true" [surname]="true"  [hideEmail]="true" [user]="user"></app-user-section>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    
+    <!-- <div class="command-container">
       <div class="command-header">
         <div class="command-avatar">
           <img *ngIf="command?.avatar" [alt]="command?.name" [src]="getImgUrl()" />
@@ -22,51 +73,42 @@
       </div> 
 
       <div class="command-actions">
-        <!-- <app-standart-button
-          [buttonText]="isMember ? 'Покинуть команду' : 'Вступить в команду'"
-          [theme]="isMember ? 'red' : 'standart'"
-          (click)="toggleMembership()"
-          [disabled]="false"></app-standart-button> -->
-        <!-- <app-standart-button
-          buttonText="Участники"
-          (click)="openMembers()"
-          [disabled]="false"
-        ></app-standart-button> -->
+      
       </div>
     </div>
     <div class="command-id">CID:{{command.id}}</div>
-<div >
+  <div >
 
-      <div class="members-list" *ngIf="membersForUser.length">
-        <div class="users-in-comands-container">
-          <div class="users-in-comands">
-            Тренера команды: {{membersForCouch.length}}
+        <div class="members-list" *ngIf="membersForUser.length">
+          <div class="users-in-comands-container">
+            <div class="users-in-comands">
+              Тренера команды: {{membersForCouch.length}}
+            </div>
+          </div>
+          <div *ngFor="let user of membersForCouch" class="member-item" [routerLink]="['/users/', user.id]">
+            <app-user-section  [hideEmail]="true" [user]="user"></app-user-section>
           </div>
         </div>
-        <div *ngFor="let user of membersForCouch" class="member-item" [routerLink]="['/users/', user.id]">
-          <app-user-section  [hideEmail]="true" [user]="user"></app-user-section>
-        </div>
-      </div>
 
-      <div class="members-list" *ngIf="membersForUser.length">
-        <div class="users-in-comands-container">
-          <div class="users-in-comands">
-            Участники команды: {{membersForUser.length}}
+        <div class="members-list" *ngIf="membersForUser.length">
+          <div class="users-in-comands-container">
+            <div class="users-in-comands">
+              Участники команды: {{membersForUser.length}}
+            </div>
+          </div>
+          <div *ngFor="let user of membersForUser" class="member-item">
+            <app-user-section [routerLink]="['/users/', user.id]" [hideEmail]="true" [user]="user"></app-user-section>
+            <div *ngIf="user?.personal?.start_number" class="member-number">
+              {{user?.personal?.start_number}}
+            </div>
           </div>
         </div>
-        <div *ngFor="let user of membersForUser" class="member-item">
-          <app-user-section [routerLink]="['/users/', user.id]" [hideEmail]="true" [user]="user"></app-user-section>
-          <div *ngIf="user?.personal?.start_number" class="member-number">
-            {{user?.personal?.start_number}}
-          </div>
+
+        <div class="no-members" *ngIf="!membersForUser.length">
+          <h2>Список участников пуст</h2>
         </div>
-      </div>
-
-      <div class="no-members" *ngIf="!membersForUser.length">
-        <h2>Список участников пуст</h2>
-      </div>
-</div>
-
+  </div>
+ -->
 
   </main>
 </ion-content> 

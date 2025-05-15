@@ -17,7 +17,8 @@
       name="{{label}}"  
       [formControl]="control" 
       name="new_name">
-      <img class="calendar-icon" src="/assets/icons/calendar.svg" *ngIf="type =='date'" (click)="openDatePicker(input)" alt="">
+    
+      <img class="calendar-icon" src="/assets/icons/calendar.svg" *ngIf="type =='date' || type == 'datetime-local'" (click)="openDatePicker(input)" alt="">
       <img class="icon" *ngIf="iconLeft" src="{{iconLeft}}" alt="">
       <button (click)="openPasword(input)" *ngIf="openPassword" type="button" class="open-input">
       <img class="open-input-icon" src="/assets/icons/open-input.svg" alt=""></button>

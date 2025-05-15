@@ -1,5 +1,35 @@
 <ion-content>
-  <header>
+  <app-header [customContainer]="true" [hiddenBackButton]="true">
+    <div class="cabinet-header">
+      <button (click)="back()" class="cabinet-header__back">
+        <img src="/assets/icons/arrow.svg"  alt="Назад">
+      </button>
+      <span class="cabinet-header__title">Создание команды</span>
+      <button  class="cabinet-header__plug none">
+       
+      </button>
+    </div>
+  </app-header>
+  <main class="main-container--with-header">
+    <div class="create-container">
+      <div class="event-information-title">
+        <img src="/assets/icons/red-finished.svg" alt="">
+        Основная информация 
+      </div>
+      <div (click)="fileInput.click()" style="background-image: url({{avatarUrl}});" class="create-circle-upload">
+          <img *ngIf="!avatarUrl" src="/assets/icons/upload.svg" alt="">
+          <span *ngIf="!avatarUrl" >Загрузить аватар</span>
+      </div>
+      <app-standart-input [errorMessage]="formErrors.name.errorMessage" [invalid]="formErrors.name.errorMessage.length !== 0" label="Название" [control]="createCommandForm.get('name')" placeholder="Введите название вашей команды"></app-standart-input>
+      <app-standart-input [errorMessage]="formErrors.fullName.errorMessage" [invalid]="formErrors.fullName.errorMessage.length !== 0" label="Полное название" [control]="createCommandForm.get('fullName')" placeholder="Введите полное название вашей команды"></app-standart-input>
+      <app-standart-input (click)="openRegionModal()" [errorMessage]="formErrors.city.errorMessage" [invalid]="formErrors.city.errorMessage.length !== 0" [readonly]="true" label="Область/край" [control]="createCommandForm.get('region')" placeholder="Выберите область вашей команды"></app-standart-input>
+      <app-standart-input label="Город" [errorMessage]="formErrors.city.errorMessage" [invalid]="formErrors.city.errorMessage.length !== 0" label="Город" [control]="createCommandForm.get('city')" placeholder="Введите город вашей команды"></app-standart-input>
+      <app-icon-button (click)="onSubmit()"  clippy="clippy-right" buttonText="Создать" [theme]="'red'"  widht="full"></app-icon-button>
+      <input (change)="setAvatarFile($event)" #fileInput style="display: none;"  type="file">
+    
+    </div>
+  </main>
+  <!-- <header>
     <app-header headerTitle="Создание команды"></app-header>
   </header> 
   <main class="main-container--with-header">
@@ -18,10 +48,11 @@
       </section>
       <app-standart-button (click)="onSubmit()" buttonText="Сохранить"></app-standart-button>
     </div>
-  </main>
+  </main> -->
+  <app-regions-select-modal (select)="setRegion($event)" [visible]="regionModalState" (onClose)="closeRegionModal()" [regions]="searchRegionItems"> </app-regions-select-modal>
 </ion-content>
 
-<ion-modal (didDismiss)="closeRegionModal()"  [isOpen]="regionModalState">
+<!-- <ion-modal (didDismiss)="closeRegionModal()"  [isOpen]="regionModalState">
   <ng-template>
     <ion-content>
       <div class="region-modal-container">
@@ -34,4 +65,4 @@
       </div>
     </ion-content>
   </ng-template>  
-</ion-modal>  
+</ion-modal>   -->

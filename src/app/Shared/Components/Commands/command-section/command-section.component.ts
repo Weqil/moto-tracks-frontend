@@ -30,8 +30,11 @@ export class CommandSectionComponent implements OnInit {
     this.currentUserId = this.authService.getCurrentUserId();
   }
 
-  redirectInViewPage(vievComand:any){
-    this.navController.navigateForward(`/command/view/${vievComand}`)
+  redirectInViewPage(){
+    if(this.command.id){
+      this.navController.navigateForward(`/command/view/${this.command.id}`)
+    }
+
   }
 
   redirectInEditPage(editComand:any){
