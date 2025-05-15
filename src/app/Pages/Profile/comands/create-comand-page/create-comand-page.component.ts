@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { RegionsSelectModalComponent } from '@app/Shared/Components/Modals/regions-select-modal/regions-select-modal.component';
+import { IconButtonComponent } from '@app/Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component';
 import { IonContent, IonModal, NavController } from '@ionic/angular/standalone';
 import { finalize } from 'rxjs';
 import { StandartButtonComponent } from 'src/app/Shared/Components/UI/Buttons/standart-button/standart-button.component';
@@ -16,7 +18,7 @@ import { ToastService } from 'src/app/Shared/Services/toast.service';
   selector: 'app-create-comand-page',
   templateUrl: './create-comand-page.component.html',
   styleUrls: ['./create-comand-page.component.scss'],
-  imports: [IonContent,HeaderComponent,FormsModule,IonModal,CommonModule,StandartButtonComponent],
+  imports: [IonContent,HeaderComponent,FormsModule,IonModal,CommonModule,RegionsSelectModalComponent,IconButtonComponent],
 })
 export class CreateComandPageComponent  implements OnInit {
 
@@ -25,7 +27,7 @@ export class CreateComandPageComponent  implements OnInit {
   avatar!:File
   
   regionModalState: boolean = false;
-  avatarUrl:string = '/assets/icons/team-bg.png';
+  avatarUrl:string = '';
   mapService:MapService = inject(MapService)
 
   comandService:ComandsService = inject(ComandsService)
@@ -67,7 +69,9 @@ export class CreateComandPageComponent  implements OnInit {
       locationId: new FormControl('', [Validators.required, Validators.minLength(3)]),
 
    })
-
+   back(){
+    this.navController.back()
+   }
    submitValidate(){
     let valid = true
     Object.keys(this.createCommandForm.controls).forEach((key) => {
