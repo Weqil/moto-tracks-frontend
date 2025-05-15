@@ -11,7 +11,6 @@ import { TrackSectionComponent } from "../../../Shared/Components/Track/track-se
 import { SwitchTypeService } from 'src/app/Shared/Services/switch-type.service';
 import { IonModal, NavController, Platform } from '@ionic/angular/standalone';
 import { HeaderModule } from 'src/app/Shared/Modules/header/header.module';
-import { StandartInputComponent } from 'src/app/Shared/Components/Forms/standart-input/standart-input.component';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
 import { AuthService } from 'src/app/Shared/Data/Services/Auth/auth.service';
@@ -49,7 +48,7 @@ import { IconButtonComponent } from '@app/Shared/Components/UI/LinarikUI/buttons
   selector: 'app-events-view-page',
   templateUrl: './events-view-page.component.html',
   styleUrls: ['./events-view-page.component.scss'],
-  imports: [SharedModule, SlidersModule, ButtonsModule,TabElementComponent, TrackSectionComponent, IonModal, HeaderModule, StandartInputComponent, IconButtonComponent,
+  imports: [SharedModule, SlidersModule, ButtonsModule,TabElementComponent, TrackSectionComponent, IonModal, HeaderModule, IconButtonComponent,
     ConfirmModalComponent, CheckImgUrlPipe, FormsModule, StandartInputSelectComponent, RouterLink, ImagesModalComponent, SelectComandsComponent, PdfViewerModule,UserSectionComponent]
 })
 export class EventsViewPageComponent  implements OnInit {
@@ -891,6 +890,8 @@ export class EventsViewPageComponent  implements OnInit {
       const cleanedPhone = parseInt(rawPhone.replace(/\D/g, ''), 10) || 0; // Удаляем все символы, кроме цифр
 
       this.personalUserForm.patchValue({
+        name:this.userService.user.value?.personal.name,
+        surname:this.userService.user.value?.personal.surname,
         dateOfBirth: this.userService.user.value?.personal.date_of_birth,
         phoneNumber: cleanedPhone,
         startNumber: this.userService.user.value?.personal.start_number,
