@@ -101,8 +101,8 @@
             </a>
           </div>
           <div class="button-container">
-            <app-icon-button (click)="licensesFileInput.click()"  class="width-button" [widht]="'full'" height="long-height" [elementsPosition]="'elements-position__row'" buttonTextColor='red-text' [buttonIconColor]="'red-icon'" buttonText="{{licensesFile.name}}" [buttonBorderWidth]="'b05'" [buttonBorderColor]="'red-border'"  [clippy]="'none'" icon="assets/icons/upload.svg" height="standart-height" sizeIcon="standart-size" theme="white"></app-icon-button>
-            <app-icon-button    buttonText="Купить" [clippy]="'none'" theme="red" ></app-icon-button>  
+            <app-icon-button (click)="licensesFileInput.click()"  class="width-button" [widht]="'full'" height="long-height" [elementsPosition]="'elements-position__row'" buttonTextColor='red-text' [buttonIconColor]="'red-icon'" buttonText="{{licensesFile.name}}" [buttonBorderWidth]="'b05'" [buttonBorderColor]="'red-border'" icon="assets/icons/upload.svg" height="standart-height" sizeIcon="standart-size" theme="white"></app-icon-button>
+            <app-icon-button    buttonText="Купить" theme="red" ></app-icon-button>  
           </div>
           <input (change)="setLicensesFile($event)" #licensesFileInput style="display: none;"  type="file">
         </div>
@@ -133,12 +133,12 @@
             buttonText="{{polisFile.name}}" 
             [buttonBorderWidth]="'b05'" 
             [buttonBorderColor]="'red-border'"  
-            [clippy]="'none'"
+          
             icon="assets/icons/upload.svg" 
             height="standart-height" 
             sizeIcon="standart-size" 
             theme="white"></app-icon-button>
-            <app-icon-button    buttonText="Купить" [clippy]="'none'" theme="red" ></app-icon-button>  
+            <app-icon-button    buttonText="Купить" theme="red" ></app-icon-button>  
           </div>
           <input (change)="setPolisFile($event)" #polishFileInput style="display: none;"  type="file">
         </div>
@@ -155,8 +155,8 @@
               </a>
           </div>
           <div class="button-container">
-            <app-icon-button (click)="notariusFileInput.click()"  class="width-button" [widht]="'full'" height="long-height" [elementsPosition]="'elements-position__row'" buttonTextColor='red-text' [buttonIconColor]="'red-icon'" buttonText="{{notariusFile.name}}" [buttonBorderWidth]="'b05'" [buttonBorderColor]="'red-border'"  [clippy]="'none'" icon="assets/icons/upload.svg" height="standart-height" sizeIcon="standart-size" theme="white"></app-icon-button>
-            <app-icon-button    buttonText="Купить" [clippy]="'none'" theme="red" ></app-icon-button>  
+            <app-icon-button (click)="notariusFileInput.click()"  class="width-button" [widht]="'full'" height="long-height" [elementsPosition]="'elements-position__row'" buttonTextColor='red-text' [buttonIconColor]="'red-icon'" buttonText="{{notariusFile.name}}" [buttonBorderWidth]="'b05'" [buttonBorderColor]="'red-border'" icon="assets/icons/upload.svg" height="standart-height" sizeIcon="standart-size" theme="white"></app-icon-button>
+            <app-icon-button    buttonText="Купить" theme="red" ></app-icon-button>  
           </div>
           <input (change)="setNotariusFile($event)" #notariusFileInput style="display: none;"  type="file">
         </div>

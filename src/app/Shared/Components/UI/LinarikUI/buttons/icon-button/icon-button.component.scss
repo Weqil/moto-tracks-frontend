@@ -2,6 +2,7 @@
 .button-wrapper{
     display: inline-flex;
     width: 100%;
+    cursor: pointer;
     gap: 6px;
 }
 span{    
@@ -45,6 +46,9 @@ span{
     padding-left: 1rem;
     padding-right: 1rem;
     
+}
+.height64{
+    height: 64px;
 }
 .w58{
     min-width: 3.625rem;

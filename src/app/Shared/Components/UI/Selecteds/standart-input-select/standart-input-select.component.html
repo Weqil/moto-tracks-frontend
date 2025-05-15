@@ -1,5 +1,6 @@
 <label [attr.name]="selectedName"  [ngClass]="{'label':!invalid,'label_invalid':invalid}" for="{{label}}">{{label}}</label>
 <div [attr.name]="selectedName" (click)="changeState()" [ngClass]="{'standart-input':!invalid,'standart-input_inavlid':invalid}">
+     <img class="icon" *ngIf="iconLeft" src="{{iconLeft}}" alt="">
     {{selectedItem.name}}
 </div>
 <span *ngIf="errorMessage" class="error-message">{{errorMessage}}</span>

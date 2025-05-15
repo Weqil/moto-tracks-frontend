@@ -9,7 +9,7 @@
               <div class="track-header__content__top">
                 <img (click)="back()" src="/assets/icons/back-arrow.svg" alt="">
                 <span>Подробности трассы</span>
-               <img src="/assets/icons/circle_menu.svg" alt="">
+               <img (click)="sharePage()" src="/assets/icons/share.svg" alt="">
               </div>
               <ng-container  *ngIf="track">
                 <div class="content">
@@ -57,8 +57,6 @@
                   </div>
                  
                 </div>
-
-               
     
               </ng-container>
             </div>
@@ -67,6 +65,17 @@
       </div>
       <ng-container *ngIf="track">
         <div class="track-information">
+          <ng-container *ngIf="track.schema_img">
+            <div class="event-desc--wrapper">
+                  <div class="event-information-title">
+                    <img src="/assets/icons/red-finished.svg" alt="">
+                    Схема
+                  </div>
+                  <img (click)="openImagesModalFunction()" [src]="track.schema_img | checkImgUrl" alt="" class="track-scheme">
+                  <app-images-modal  *ngIf="track.schema_img" [openModal]="statusImagesModal" (closeModalEmit)="closeImagesModal()" [imagesPathArray]="imgArray"></app-images-modal>
+
+            </div>
+          </ng-container>
           <ng-container *ngIf="track.desc && track.desc.length">  
                 <div class="event-desc--wrapper">
                   <div class="event-information-title">
@@ -75,7 +84,52 @@
                   </div>
                   <div *ngIf="track.desc && track.desc.length" [innerHTML]="clearDescription()" class="event-desc"></div>
                 </div>
-              </ng-container>
+          </ng-container>
+            <div *ngIf="this.track.light || this.track.season" class="track-services">
+               <div class="event-information-title">
+                    <img src="/assets/icons/red-finished.svg" alt="">
+                    Услуги
+                </div>
+                <div class="track-services__grid">
+                  <div *ngIf="this.track.light" class="track-services__grid__item">
+                      Освещение
+                  </div>
+                  <div *ngIf="this.track.season" class="track-services__grid__item">
+                      Всесезонность
+                  </div>
+                </div>
+            </div>
+
+            <div *ngIf="allContactsIncorrect" class="track-contacts">
+                <div class="event-information-title">
+                    <img src="/assets/icons/red-finished.svg" alt="">
+                    Контакты
+                </div>
+                <div class="track-contacts__grid">
+                  <a *ngIf="getContactValue('vk')" [attr.href]="getContactValue('vk')">
+                        <app-icon-button  widht="w20" style="height: 52px;"  buttonIconColor="white-icon" theme="red" height="height64" icon="/assets/icons/vk.svg"></app-icon-button>
+                  </a>
+                  <a *ngIf="getContactValue('whatsApp')" [attr.href]="getContactValue('whatsApp')" href="">
+                      <app-icon-button  widht="w20"  buttonIconColor="white-icon" theme="red" height="height64" icon="/assets/icons/wt.svg"></app-icon-button>
+                  </a>
+                  <a *ngIf="getContactValue('tg')" [attr.href]="getContactValue('tg')">
+                      <app-icon-button  widht="w20"  buttonIconColor="white-icon" theme="red" height="height64" icon="/assets/icons/tg.svg"></app-icon-button>
+                  </a>
+                  <a *ngIf="getContactValue('site')" [attr.href]="getContactValue('site')">
+                      <app-icon-button  widht="w20"  buttonIconColor="white-icon" theme="red" height="height64" icon="/assets/icons/web.svg"></app-icon-button>
+                  </a>
+                  <a [attr.href]="'tel:'+getContactValue('phone')" *ngIf="getContactValue('phone')">
+                    <app-icon-button elementsPosition="elements-position__row" buttonIconColor="red-icon" 
+                    theme="white" buttonBorderColor="red-border" buttonBorderWidth="b1" fontColor="red-color"
+                    icon="/assets/icons/phone.svg" buttonText="{{getContactValue('phone')}}"></app-icon-button>
+                  
+                  </a>
+                  
+                </div>
+            </div>
+          <ng-container>
+
+          </ng-container>
         </div>
       </ng-container>
     </div>
