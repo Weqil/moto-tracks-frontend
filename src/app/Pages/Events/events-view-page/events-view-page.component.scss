@@ -435,11 +435,8 @@
     right: 2rem;
  
 }
-.application-main{
-    padding-bottom: 4rem;
-}
+
 .race-name{
-    padding-top: var(--standart-padding);
     font-size: var(--font-headers-size);
     font-family: var(--font-bold);
 }
@@ -452,11 +449,11 @@
     font-family: var(--font-bold);
 }
 .document-container{
-    border: 1px solid rgba(76, 88, 97, 0.2549019608);
+    border: 1px solid rgba(76, 88, 97, 0.399);
     padding: var(--little-padding);
     margin-bottom: var(--little-padding);
     display: flex;
-    border-radius: 5px;
+    
     gap: var(--little-padding);
     flex-direction: column;
 }
@@ -575,4 +572,38 @@
     gap: 2rem;
     justify-content: center;
     
+}
+
+.up-header{
+    display: flex;
+    position: relative;
+    justify-content: start;
+    align-items: center;
+    height: 50px;
+    width: 100%;
+    max-width: 960px;
+    padding:0rem 1rem;
+    padding-top:1rem;
+
+    app-back-button{
+        position: absolute;
+    }
+}
+
+.application-main{
+    padding-top: 1rem;
+    padding-bottom: 4rem;
+}
+
+.header-text{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    font-size: var(--font-headers-size-little);
+    font-family: var(--font-bold);
+}
+.footer-button{
+    width: 100%;
+    padding: 0rem 1rem;
+    padding-bottom: 1rem ;
 }

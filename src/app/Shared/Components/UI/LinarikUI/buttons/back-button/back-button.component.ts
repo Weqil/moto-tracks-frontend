@@ -29,7 +29,7 @@ export class BackButtonComponent  implements OnInit {
     /**
    *Ширина кнопки
    */
-   @Input() widht:'w80' = 'w80'
+   @Input() widht:'w80' | 'full' = 'w80'
 
   /**
   * Кнопка будет выглядеть недоступной

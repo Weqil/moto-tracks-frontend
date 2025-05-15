@@ -25,7 +25,6 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { CheckImgUrlPipe } from "../../../Shared/Helpers/check-img-url.pipe";
 import { FormsModule } from 'src/app/Shared/Modules/forms/forms.module';
 import { serverError } from 'src/app/Shared/Data/Interfaces/errors';
-import { StandartInputSelectComponent } from 'src/app/Shared/Components/UI/Selecteds/standart-input-select/standart-input-select.component';
 import { environment } from 'src/environments/environment';
 import { group } from '@angular/animations';
 import { MapService } from 'src/app/Shared/Data/Services/Map/map.service';
@@ -43,13 +42,14 @@ import { CheckResultsPathPipe } from "../../../Shared/Helpers/check-results-path
 import { TabElementComponent } from '@app/Shared/Components/UI/LinarikUI/tabs/tab-element/tab-element.component';
 import { UserSectionComponent } from '@app/Shared/Components/UserElements/user-section/user-section.component';
 import { IconButtonComponent } from '@app/Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component';
+import { StandartInputSelectComponent } from "../../../Shared/Components/UI/Selecteds/standart-input-select/standart-input-select.component";
 
 @Component({
   selector: 'app-events-view-page',
   templateUrl: './events-view-page.component.html',
   styleUrls: ['./events-view-page.component.scss'],
-  imports: [SharedModule, SlidersModule, ButtonsModule,TabElementComponent, TrackSectionComponent, IonModal, HeaderModule, IconButtonComponent,
-    ConfirmModalComponent, CheckImgUrlPipe, FormsModule, StandartInputSelectComponent, RouterLink, ImagesModalComponent, SelectComandsComponent, PdfViewerModule,UserSectionComponent]
+  imports: [SharedModule, SlidersModule, ButtonsModule, TabElementComponent, TrackSectionComponent, IonModal, HeaderModule, IconButtonComponent,
+    ConfirmModalComponent, CheckImgUrlPipe, FormsModule, RouterLink, ImagesModalComponent, SelectComandsComponent, PdfViewerModule, UserSectionComponent, StandartInputSelectComponent]
 })
 export class EventsViewPageComponent  implements OnInit {
 
