@@ -7,24 +7,27 @@ import { FormsModule } from "../../../Shared/Modules/forms/forms.module";
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { StandartButtonComponent } from "../../../Shared/Components/UI/Buttons/standart-button/standart-button.component";
 import { UserService } from '@app/Shared/Data/Services/User/user.service';
+import { IonModal, NavController, Platform } from '@ionic/angular/standalone';
 import { LoadingService } from '@app/Shared/Services/loading.service';
 import { catchError, finalize, of, throwError } from 'rxjs';
 import { User } from '@app/Shared/Data/Interfaces/user-model';
 import { CheckImgUrlPipe } from "../../../Shared/Helpers/check-img-url.pipe";
 import { ToastService } from '@app/Shared/Services/toast.service';
 import { userRoles } from '@app/Shared/Data/Enums/roles';
+import { IconButtonComponent } from '@app/Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component';
 
 
 @Component({
   selector: 'app-add-user-in-comission',
   templateUrl: './add-user-in-comission.component.html',
   styleUrls: ['./add-user-in-comission.component.scss'],
-  imports: [CommonModule, HeaderComponent, IonicModule, FormsModule, StandartButtonComponent, CheckImgUrlPipe],
+  imports: [CommonModule, HeaderComponent, IonicModule, FormsModule, StandartButtonComponent, CheckImgUrlPipe,IconButtonComponent],
 })
 export class AddUserInComissionComponent  implements OnInit {
 
   userService: UserService = inject(UserService)
   loadingService: LoadingService = inject(LoadingService)
+  navController:NavController = inject(NavController)
   loaderService:LoadingService = inject(LoadingService)
   toastService:ToastService = inject(ToastService)
 
@@ -57,7 +60,9 @@ export class AddUserInComissionComponent  implements OnInit {
     
     
   }
-
+  back(){
+    this.navController.back()
+  }
   awardRole(){
 
     if(this.userService.userHaveCurrentPersonal(this.user)){

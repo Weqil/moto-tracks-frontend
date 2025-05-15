@@ -1,13 +1,23 @@
 <ion-content>
-  <app-header [headerTitle]="'Присвоение роли'">
+    <app-header [customContainer]="true" [hiddenBackButton]="true">
+    <div class="cabinet-header">
+      <button (click)="back()" class="cabinet-header__back">
+        <img src="/assets/icons/arrow.svg"  alt="Назад">
+      </button>
+      <span class="cabinet-header__title">Добавить комиссию</span>
+      <button class="none">
+       
+      </button>
+    </div>
   </app-header>
   <main class="main-container--with-header">
-    <div class="input-id">
+    <div class="comission-container">
+        <div class="input-id">
       <div class="input-container">
           <app-standart-input type="number"[control]="UserIdForm.get('userId')"  placeholder="Введите id пользователя" label="UseId"></app-standart-input>
       </div>
       <div class="btn-view" >
-        <app-standart-button (click)="viewUser()" [buttonText]="'Показать'" theme="standart"></app-standart-button>
+        <app-icon-button (click)="viewUser()" [buttonText]="'Показать'" theme="red"></app-icon-button>
       </div>
     </div>
 
@@ -51,11 +61,14 @@
       </div>
       <div class="button-container" >
         <div class="btn" >
-          <app-standart-button (click)="awardRole()" [buttonText]="'Назначить судьей'" theme="standart"></app-standart-button>
+           <app-icon-button widht="full" (click)="awardRole()" [buttonText]="'Назначить судьей'" clippy="clippy-right" [shapeColumn]="true" theme="red"></app-icon-button>
+
         </div>
      </div>
     </div>
 
+    </div>
+  
     
   </main>
 </ion-content>
