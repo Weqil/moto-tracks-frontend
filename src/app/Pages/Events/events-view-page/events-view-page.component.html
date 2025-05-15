@@ -355,7 +355,7 @@
           <app-standart-input [errorMessage]="formErrors.dateOfBirth.errorMessage" [invalid]="formErrors.dateOfBirth.errorMessage.length !== 0" [control]="personalUserForm.get('dateOfBirth')" placeholder="Выберите дату" label="Дата рождения*" type="date"></app-standart-input>
           <app-standart-input [errorMessage]="formErrors.region.errorMessage" [invalid]="formErrors.region.errorMessage.length !== 0" (click)="openRegionModal()" [readonly]="true" label="Область/край*" [control]="personalUserForm.get('region')" placeholder="Выберите область вашу область"></app-standart-input>     
           <app-standart-input [errorMessage]="formErrors.city.errorMessage" [invalid]="formErrors.city.errorMessage.length !== 0" [control]="personalUserForm.get('city')" [errorMessage]="formErrors.city.errorMessage" [invalid]="formErrors.city.errorMessage.length !== 0" placeholder="Введите город" label="Город*"></app-standart-input>     
-          <ion-modal class="region-modal" (didDismiss)="closeRegionModal()"  [isOpen]="regionModalState">
+          <!-- <ion-modal class="region-modal" (didDismiss)="closeRegionModal()"  [isOpen]="regionModalState">
             <ng-template>
               <ion-content>
                 <div class="region-modal-container">
@@ -363,7 +363,16 @@
                 </div>
               </ion-content>
             </ng-template>  
-          </ion-modal>        
+          </ion-modal>         -->
+
+          <app-regions-select-modal 
+            (select)="setRegion($event)" 
+            [visible]="regionModalState" 
+            (onClose)="closeRegionModal()" 
+            [regions]="searchRegionItems"> 
+          </app-regions-select-modal>
+
+
           
           <app-standart-input [errorMessage]="formErrors.numberAndSeria.errorMessage" [invalid]="formErrors.numberAndSeria.errorMessage.length !== 0" [control]="personalUserForm.get('numberAndSeria')" placeholder="Серия, номер" label="Паспорт/Свидетельство о рождении*"></app-standart-input>
 

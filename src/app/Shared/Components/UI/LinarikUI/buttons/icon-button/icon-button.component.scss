@@ -201,6 +201,18 @@ span{
         height: 14px;
     }
 }
+
+.elements-position__row{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    img{
+        width: 14px;
+        height: 14px;
+    }
+}
 .row__reverse{
     display: flex;
     align-items: center;

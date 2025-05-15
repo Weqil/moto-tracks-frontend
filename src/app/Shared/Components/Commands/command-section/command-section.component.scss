@@ -152,7 +152,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: start;
-        gap: 10px;
+        
         height: 46px;
         .name{
             line-height: 14px;
@@ -163,6 +163,7 @@
             align-items: center;
             margin: 0px;
             padding: 0px;
+            
         }
         .address{
             line-height: 14px;

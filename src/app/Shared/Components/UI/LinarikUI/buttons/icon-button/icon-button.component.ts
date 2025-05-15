@@ -66,7 +66,7 @@ export class  IconButtonComponent  implements OnInit {
    /**
    *Как будут расположены элементы внутри кнопки
    */
-  @Input() elementsPosition:'elements-position'|'elements-position__row'|'row__reverse'  = 'elements-position'
+  @Input() elementsPosition:'elements-position'|'elements-position__row_reverse'|'elements-position__row'|'row__reverse'  = 'elements-position'
 
     /**
    *Текст кнопки

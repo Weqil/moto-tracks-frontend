@@ -1,4 +1,5 @@
-
+  <div class="header">
+  <div class="header-wrapper">
     <ng-content *ngIf="customContainer">
 
     </ng-content>
@@ -26,4 +27,5 @@
     <ng-content *ngIf="!hiddenBackButton">
     <app-circle-button (click)="secondButtonClickFunction()" *ngIf="!customButton" [ngClass]="{'invisible': !secondButtonIcon}"  [icon]="secondButtonIcon"></app-circle-button>
     </ng-content> -->
-
+  </div>
+</div>

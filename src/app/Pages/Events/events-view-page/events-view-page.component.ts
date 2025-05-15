@@ -43,13 +43,14 @@ import { TabElementComponent } from '@app/Shared/Components/UI/LinarikUI/tabs/ta
 import { UserSectionComponent } from '@app/Shared/Components/UserElements/user-section/user-section.component';
 import { IconButtonComponent } from '@app/Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component';
 import { StandartInputSelectComponent } from "../../../Shared/Components/UI/Selecteds/standart-input-select/standart-input-select.component";
+import { RegionsSelectModalComponent } from "../../../Shared/Components/Modals/regions-select-modal/regions-select-modal.component";
 
 @Component({
   selector: 'app-events-view-page',
   templateUrl: './events-view-page.component.html',
   styleUrls: ['./events-view-page.component.scss'],
   imports: [SharedModule, SlidersModule, ButtonsModule, TabElementComponent, TrackSectionComponent, IonModal, HeaderModule, IconButtonComponent,
-    ConfirmModalComponent, CheckImgUrlPipe, FormsModule, RouterLink, ImagesModalComponent, SelectComandsComponent, PdfViewerModule, UserSectionComponent, StandartInputSelectComponent]
+    ConfirmModalComponent, CheckImgUrlPipe, FormsModule, RouterLink, ImagesModalComponent, SelectComandsComponent, PdfViewerModule, UserSectionComponent, StandartInputSelectComponent, RegionsSelectModalComponent]
 })
 export class EventsViewPageComponent  implements OnInit {
 

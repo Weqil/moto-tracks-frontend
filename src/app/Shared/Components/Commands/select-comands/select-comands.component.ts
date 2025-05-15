@@ -11,12 +11,15 @@ import { RoundedButtonComponent } from "../../UI/Buttons/rounded-button/rounded-
 import { StandartInputComponent } from "../../Forms/standart-input/standart-input.component";
 import { CircleButtonComponent } from "../../UI/Buttons/circle-button/circle-button.component";
 import { HeaderComponent } from "../../UI/header/header.component";
+import { BackButtonComponent } from "../../UI/LinarikUI/buttons/back-button/back-button.component";
+import { RegionsSelectModalComponent } from "../../Modals/regions-select-modal/regions-select-modal.component";
+import { IconButtonComponent } from "../../UI/LinarikUI/buttons/icon-button/icon-button.component";
 
 @Component({
   selector: 'app-select-comands',
   templateUrl: './select-comands.component.html',
   styleUrls: ['./select-comands.component.scss'],
-  imports: [IonToggle, IonCheckbox, IonLabel, IonModal, IonContent, CommonModule, CommandSectionComponent, FormsModule, StandartButtonComponent, StandartInputSearchComponent, RoundedButtonComponent, StandartInputComponent, CircleButtonComponent, HeaderComponent]
+  imports: [IonToggle, IonCheckbox, IonLabel, IonModal, IonContent, CommonModule, CommandSectionComponent, FormsModule, StandartButtonComponent, StandartInputSearchComponent, RoundedButtonComponent, StandartInputComponent, CircleButtonComponent, HeaderComponent, BackButtonComponent, RegionsSelectModalComponent, IconButtonComponent]
 })
 export class SelectComandsComponent  implements OnInit {
 
@@ -86,6 +89,7 @@ export class SelectComandsComponent  implements OnInit {
   }
 
   setCreateRegion(region:any){
+    console.log('click')
     this.closeCreateRegionModal()
     this.locationId = region.value
     this.createComandForm.patchValue({region:region.name})

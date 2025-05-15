@@ -2,7 +2,7 @@
   <app-header [customContainer]="true">
     <div class="header-container">
       <div class="back-button">
-        <app-back-button fontColor="font-dark" theme="white"></app-back-button>
+        <app-back-button (click)="cancelEdit()" fontColor="font-dark" theme="white"></app-back-button>
       </div>
 
       <div class="text-container">
@@ -228,11 +228,13 @@
   </ng-template>
 </ion-modal>
 
+<!-- comandSelectModalStateValue -->
+
 <app-select-comands 
   (createNewComand)="createNewComand($event)" 
   (openComandSelectModal)="openComandSelectModalStateValue()" 
   (closeComandSelectModal)="closeComandSelectModalStateValue()" 
-  [comandSelectModalStateValue]="comandSelectModalStateValue" 
+  [comandSelectModalStateValue]="true" 
   (selectComand)="setComand($event)"  
   [selectedRegion]="selectRegionInCommandModal"
   (setSelectedRegion)="selectRegionInCommandModalFunction($event)"
