@@ -1,7 +1,8 @@
 <div (click)="openModal()" class="track-selected-container">
     
   <ng-container *ngIf="!selectedTrack">
-      Трек не выбран
+    <app-icon-button (click)="openModal()" theme="white" fontColor="red-color" widht="full" buttonIconColor="red-icon"
+     buttonBorderColor="red-border" elementsPosition="row__reverse" buttonBorderWidth="b1" icon="assets/icons/plus.svg" buttonText="Выбрать трек"></app-icon-button>
     </ng-container>
 
     <ng-container *ngIf="selectedTrack">
@@ -9,26 +10,34 @@
     </ng-container>
     
 </div>
-
-<ion-modal (didDismiss)="closeModal()"  [isOpen]="trackSelectModalStateValue">
-  <ng-template>
-    <ion-content>
-      <div class="tracks-grid">
-    
-        <div class="redirect-create-track">
-            <app-rounded-button (click)="redirectInCreate()" icon="assets/icons/create.svg" buttonText="Создать"></app-rounded-button>
+<div class="modal-wrapper">
+  <ion-modal (didDismiss)="closeModal()"  [isOpen]="trackSelectModalStateValue">
+    <ng-template>
+      <ion-content>
+        <app-header [customContainer]="true" >
+          <div class="my-events-header">
+            <div class="my-events-header__top">
+              <button (click)="back()" class="cabinet-header__back">
+                <img src="/assets/icons/arrow.svg"  alt="Назад">
+              </button>
+              <span class="cabinet-header__title">Выбор трассы</span>
+              <app-icon-button [buttonIconColor]="'red-icon'" [buttonBorderWidth]="'b1'" [buttonBorderColor]="'red-border'" (click)="redirectInCreate()" clippy="clippy-right" icon="assets/icons/plus.svg" height="standart-height" sizeIcon="little-size" theme="white"></app-icon-button>
+            </div>
+            
           </div>
-        <ng-container *ngFor="let track of tracks">
-
           
-
-          <div (click)="select(track)" class="tracks-grid__item">
-            <app-track-section [hidhtStatus]="true" [track]="track"></app-track-section>
+        </app-header>
+        <div class="main-container--with-header">
+          <div class="tracks-grid">
+            <ng-container *ngFor="let track of tracks">
+              <div (click)="select(track)" class="tracks-grid__item">
+                <app-track-section [hidhtStatus]="true" [track]="track"></app-track-section>
+              </div>
+            </ng-container>
           </div>
-        </ng-container>
-        
-        
-      </div>
-    </ion-content>
-  </ng-template>
-</ion-modal>
+        </div>
+     
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</div>

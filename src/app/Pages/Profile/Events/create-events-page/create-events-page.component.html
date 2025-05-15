@@ -1,6 +1,96 @@
 <ion-content>
-  <app-header (customBackClick)="stepPrevious()" headerTitle="Создание гонки"></app-header>
-  <main class="main-container--with-header">
+  <app-header [customContainer]="true" [hiddenBackButton]="true">
+    <div class="cabinet-header">
+      <button (click)="back()" class="cabinet-header__back">
+        <img src="/assets/icons/arrow.svg"  alt="Назад">
+      </button>
+      <span class="cabinet-header__title">Создание гонки</span>
+      <button  class="cabinet-header__plug none">
+       
+      </button>
+    </div>
+</app-header>
+<main class="main-container--with-header">
+  <div class="create-container">
+    <div class="event-information-title">
+      <img src="/assets/icons/red-finished.svg" alt="">
+      Основная информация 
+    </div>
+    <div class="inputs-container">
+      <app-standart-input-select label="Тип гонки" [selectedItem]="raceTypeSelectedItem" (onChange)="setRaceType($event)" selectedName="groupSelect" [items]="raceTypes"></app-standart-input-select>
+      <ng-container *ngIf="raceTypeSelectedItem.name.length">
+        <app-standart-input label="Название" [control]="createEventForm.get('name')" placeholder="Введите название вашего соревнования"></app-standart-input>
+        <app-standart-input (click)="openRegionModal()" [readonly]="true" label="Область/край" [control]="createEventForm.get('region')" placeholder="Выберите область вашего соревнования"></app-standart-input>  
+      </ng-container>
+
+      <ng-container *ngIf="raceTypeSelectedItem.name == 'Согласована (обычная)'">
+        <div class="select-track-wrapper">
+          <div class="label">Трасса гонки</div>
+          <app-track-select-modal 
+            [selectedTrack]="trackSelected" 
+            (selectTrack)="selectTrack($event)" 
+            [trackSelectModalStateValue]="trackSelectedModalState" 
+            [tracks]="tracks" 
+            (closeTrackSelectModal)="closeTrackSelectModalFunction()" 
+            (openTrackSelectModal)="openTrackSelectModalFunction()">
+          </app-track-select-modal>
+        </div>
+        <div class="image-in-race">
+          <div class="label">Афиша</div>
+          <div (click)="imageFile.click()"  class="upload-image">
+            <img [src]="imageUrl" alt="">
+            <img *ngIf="!imageUrl" src="/assets/icons/upload.svg" alt="">
+            <span *ngIf="!imageUrl"> Загрузить фото</span>
+          </div>
+        </div>
+        <input (change)="setImage($event,imageFile)" #imageFile style="display: none;" accept="image/png, image/jpeg" type="file" type="file">
+        <app-standart-rich-input  [control]="createEventForm.get('desc')" label="Описание" placeholder="Введите описание вашей гонки"></app-standart-rich-input>
+        <app-standart-input  class="date-start" type="datetime-local" label="Дата начала" [control]="createEventForm.get('dateStart')"></app-standart-input>
+        <app-standart-input type="datetime-local" label="Дата открытия регистрации" [control]="createEventForm.get('recordStart')"></app-standart-input>
+        <app-standart-input type="datetime-local" label="Дата закрытия регистрации" [control]="createEventForm.get('recordEnd')"></app-standart-input>
+      </ng-container>
+
+    </div>
+    <ng-container *ngIf="raceTypeSelectedItem.name == 'Согласована (обычная)'">
+      <div class="comission-event">
+        <div class="event-information-title">
+          <img src="/assets/icons/red-finished.svg" alt="">
+          Комисcия гонки
+        </div>
+        <div class="comission-event__wrapper">
+          <div class="commission-name-container" *ngFor="let user of currentComission"> 
+            <app-user-section  [name]="true" [surname]="true" [showAddress]="true" style="width: 100%;" [name]="true" [user]="user"></app-user-section>
+            <app-circle-button style="position: absolute; right: 0.4rem; top:-0.2rem;" (click)="deleteComission(user)" icon="/assets/icons/trash.svg"></app-circle-button>
+          </div>
+          <app-icon-button (click)="openComissionModal()" theme="white" fontColor="red-color" widht="full" buttonIconColor="red-icon"
+          buttonBorderColor="red-border" elementsPosition="row__reverse" buttonBorderWidth="b1" icon="assets/icons/plus.svg" buttonText="Добавить судью"></app-icon-button>
+          
+        </div>
+      </div>
+    </ng-container>
+    
+  </div>
+</main>
+<app-select-bottom-modal (onClose)="closeComissionModal()" headerText="Добавить судью"  [visible]="comissionModalState">
+  <div class="comisson-grid">
+    <ng-container *ngFor="let user of usersInCommision">
+      <app-user-section (click)="setComission(user)" them="dark-them" [showAddress]="true" [cardLeftBorderWidth]="'b1'" [name]="true" [surname]="true" [user]="user"></app-user-section>
+    </ng-container>
+  
+  </div>
+</app-select-bottom-modal>
+<!-- <ion-modal (didDismiss)="closeComissionModal()"  [isOpen]="comissionModalState" >
+  <ng-template>
+    <ion-content>
+      <div class="region-modal-container">
+        <app-standart-input-search label="Почта пользователя" [searchCurrentItems]="usersInCommision" [searchItems]="usersInCommision" (changeSearchValue)="setComission($event)"></app-standart-input-search>
+      </div>
+    </ion-content>
+  </ng-template>  
+</ion-modal> -->
+<app-regions-select-modal (select)="setRegion($event)" [visible]="regionModalState" (onClose)="closeRegionModal()" [regions]="searchRegionItems"> </app-regions-select-modal>
+
+  <!-- <main class="main-container--with-header">
     <div class="select-type-create">
       <span class="label">Тип гонки</span>
       <app-standart-input-select [selectedItem]="raceTypeSelectedItem" (onChange)="setRaceType($event)" selectedName="groupSelect" [items]="raceTypes" label=""></app-standart-input-select>
@@ -185,5 +275,5 @@
         <app-standart-button [disabled]="true" (click)="cancelCreate()"  buttonText="Отмена" theme="light"></app-standart-button>
       </div>
   </div>
-  </main>
+  </main> -->
 </ion-content>

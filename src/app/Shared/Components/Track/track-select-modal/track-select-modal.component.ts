@@ -5,13 +5,15 @@ import { Track } from 'src/app/Shared/Data/Interfaces/track-model';
 import { TrackModule } from 'src/app/Shared/Modules/track/track.module';
 import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
 import { NavController } from '@ionic/angular/standalone';
+import { IconButtonComponent } from '../../UI/LinarikUI/buttons/icon-button/icon-button.component';
+import { HeaderComponent } from '../../UI/header/header.component';
 
 
 @Component({
   selector: 'app-track-select-modal',
   templateUrl: './track-select-modal.component.html',
   styleUrls: ['./track-select-modal.component.scss'],
-  imports:[CommonModule, TrackModule, IonModal,SharedModule]
+  imports:[CommonModule, TrackModule, IonModal,SharedModule,IconButtonComponent,HeaderComponent]
 })
 
 export class TrackSelectModalComponent  implements OnInit {
@@ -39,6 +41,9 @@ export class TrackSelectModalComponent  implements OnInit {
   }
   ngOnChanges(){
   
+  }
+  back(){
+    this.closeTrackSelectModal.emit();
   }
  
   select(event:Track){

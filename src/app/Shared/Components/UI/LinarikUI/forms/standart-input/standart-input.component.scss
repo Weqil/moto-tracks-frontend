@@ -169,7 +169,7 @@ input[type="date"]{
     cursor: pointer;
     pointer-events: auto;
 }
-input[type="date"]::-webkit-calendar-picker-indicator {
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
     opacity: 0;
     position: absolute;
     right: 10px;

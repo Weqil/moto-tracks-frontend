@@ -39,8 +39,17 @@
 .tracks-grid__item{
     display: flex;
     justify-content: center;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+    width: 100%;
 }
 .tracks-grid{
+    max-width: 960px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: auto;
     display: flex;
     padding-bottom: 6rem;
     flex-direction: column;

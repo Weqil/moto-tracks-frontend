@@ -6,6 +6,10 @@ p{
     padding: 0;
   }
 
+.dark-theme{
+
+}
+
 .user-section{
     display: flex;
     flex-wrap: nowrap;
@@ -193,6 +197,28 @@ p{
     .user-section{
         background: #EDEDED;
         background: linear-gradient(340deg, rgb(233 233 233 / 44%) 11%, rgb(255, 255, 255) 50%, rgb(241 241 241 / 74%) 92%);
+    }
+}
+.dark-them{
+    .user-section{
+        background: #373737;
+        color:  #ffffff !important;
+        span{
+            color: #ffffff;
+        }
+        .user-section-text{
+            color: #ffffff !important;
+        }
+        .user-section__date__info{
+            color: #ffffff !important;
+        }
+        .user-section__info{
+            color: #ffffff !important;
+            .user-section__name{
+                color: #ffffff !important;
+            }
+        }
+       
     }
 }
 
