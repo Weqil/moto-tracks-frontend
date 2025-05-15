@@ -50,7 +50,50 @@
 .records-end{
     padding-top: var(--standart-padding);
 }
-
+.event-grades{
+    padding-top: 30px;
+}
+.event-grades__wrapper{
+    padding-top: var(--standart-padding);
+}
+.grade-grid{
+    padding: var(--standart-padding);
+    display: flex;
+    flex-direction: column;
+    gap: var(--little-padding);
+    .grade-grid__butons{
+        display: flex;
+        width: 100%;
+        gap: 10px;
+        padding-bottom: var(--standart-padding);
+    }
+}
+.buttons-container{
+    position: sticky;
+    display: flex;
+    transform: translateZ(0);
+    will-change:transform;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background: #181818;
+    bottom: 0;
+    transform: translate3d(0,0,0);
+    gap: 1rem;
+    z-index: 11000;
+}
+.event-grades__wrapper__grid{
+    display: flex;
+    flex-wrap: wrap;
+    padding-bottom: var(--standart-padding);
+    gap: var(--little-padding);
+}
+.event-files{
+    padding-top: 30px;
+}
+.buttons-container__item{
+    width: 50%;
+}
 .name-wrapper{
     padding-top: var(--standart-padding);
     display:flex;
@@ -93,16 +136,25 @@
 .document-container{
     margin-top: var(--standart-padding);
     display: flex;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
     flex-direction: row;
     gap: 10px;
     flex-wrap: wrap;
-    background-color: #ccdcf7;
+    border: 2px dashed rgb(255, 85, 85);
+    span{
+      color:rgb(255, 85, 85);
+    }
     padding: 10px;
     font-size: 14px;
     font-family: var(--font-semi-bold);
 }
-
+.submit-button-wrapper{
+    padding-top: var(--standart-padding);
+    padding-bottom: var(--standart-padding);
+}
 .race-groups{
     padding: var(--standart-padding);
     border: 1px #c5c5c5 solid;
@@ -320,23 +372,12 @@ ion-toggle {
     padding-top: 10px;
 }
 
-.standart-input{
-    border: 1px solid rgba(76, 88, 97, 0.2549019608);
-    border-radius: 5px;
-    width: 100%;
-    min-height: 2.25rem;
-    font-size: 12px;
-    padding-left: 0.8rem;
-    transition: 0.1s;
-    margin-top: 3px;
-    color: #363d42;
-    font-family: var(--font-regular);
-    background: none;
-}
+
 
 .document-container__item{
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 5px ;
 }
 .document-icon{
@@ -348,7 +389,7 @@ ion-toggle {
 }
 
 .standart-input{
-    border: 1px solid #4c586141;
+    border: 1px solid #ffffffda;
     border-radius: 5px;
     width: 100%;
     min-height: 2.25rem;
@@ -356,9 +397,14 @@ ion-toggle {
     padding-left: 0.8rem;
     padding-right: 3rem;
     transition: 0.1s;
-    color: #363d42;
+    color: #ffffff;
     font-family: var(--font-regular);
     background: none;
+}
+.standart-input::placeholder{
+    color: #ffffff;
+    font-family: var(--font-regular);
+    font-size: 12px;
 }
 .standart-input:focus{
     transition: 0.2s;
@@ -370,7 +416,7 @@ ion-toggle {
     min-height: 2.25rem;
     font-size: 12px;
     padding-left: 0.8rem;
-    color: #363d42;
+    color: #ffffff;
 }
 .select-track-wrapper{
   display: flex;

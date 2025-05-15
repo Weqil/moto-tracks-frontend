@@ -30,6 +30,8 @@ import { IconButtonComponent } from '@app/Shared/Components/UI/LinarikUI/buttons
 import { StandartInputSearchComponent } from '@app/Shared/Components/Forms/standart-input-search/standart-input-search.component';
 import { UserSectionComponent } from '@app/Shared/Components/UserElements/user-section/user-section.component';
 import { SelectBottomModalComponent } from '@app/Shared/Components/UI/LinarikUI/select-bottom-modal/select-bottom-modal.component';
+import { checkbox } from 'ionicons/icons';
+import { CheckBoxComponent } from '@app/Shared/Components/UI/LinarikUI/forms/check-box/check-box.component';
 
 
 @Component({
@@ -38,7 +40,7 @@ import { SelectBottomModalComponent } from '@app/Shared/Components/UI/LinarikUI/
   styleUrls: ['./create-events-page.component.scss'],
   imports: [SharedModule, HeaderModule, StepsModule, EditSliderComponent, StandartInputComponent, TrackModule,
      selectedModule, StandartInputSelectComponent, IonModal, IonCheckbox, StandartRichInputComponent,
-      IonToggle,RegionsSelectModalComponent,IconButtonComponent,StandartInputSearchComponent,UserSectionComponent,SelectBottomModalComponent]
+      IonToggle,RegionsSelectModalComponent,IconButtonComponent,StandartInputSearchComponent,UserSectionComponent,SelectBottomModalComponent,CheckBoxComponent]
 })
 export class CreateEventsPageComponent  implements OnInit {
 
@@ -125,8 +127,8 @@ export class CreateEventsPageComponent  implements OnInit {
     this.comissionModalState = true
   }
 
- changeAllClassesState(){
-   this.allClassesState =!this.allClassesState
+ changeAllClassesState(value:boolean){
+   this.allClassesState = value
  }
 
   trackHaveInUserSelected(event:any){
@@ -288,6 +290,7 @@ export class CreateEventsPageComponent  implements OnInit {
     this.groupService.getAllGroup().pipe().subscribe((res:any)=>{
      this.allUsersGroups = res.grades
     })
+    
   }
 
   createNewGroup(){
@@ -375,7 +378,7 @@ export class CreateEventsPageComponent  implements OnInit {
    
       const file = event.target.files[0]
       if(file){
-        this.createEventForm.patchValue({ images: file })
+        this.createEventForm.patchValue({ images: [file] })
         const reader: FileReader = new FileReader()
         reader.onload = (e: any) => {
           this.imageUrl = e.target.result

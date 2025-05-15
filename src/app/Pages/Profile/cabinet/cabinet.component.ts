@@ -223,26 +223,7 @@ export class CabinetComponent  implements OnInit {
   setNewStatusModalOpen(){
   }
 
-  searchLastRole() {
-    let rolesRank = [
-      { index: 1, name: [UserStatuses.rider] },
-      { index: 2, name: [UserStatuses.couch] },
-      { index: 3, name: [UserStatuses.organizer] },
-      { index: 4, name: [UserStatuses.administrator] },
-      { index: 5, name: [UserStatuses.root] },
-      { index: 6, name: [UserStatuses.commission] },
-    ];
-
-    let userRoles: any[] = this.user?.roles.filter((role: any) => role) || [];
-
-    let matchedRoles = rolesRank.filter(rank => 
-      userRoles.some(userRole => rank.name.includes(userRole.name))
-    );
-
-    let highestRole = matchedRoles.sort((a, b) => b.index - a.index)[0]; // сортируем по убыванию
-
-    return this.user?.roles.find((role:any)=> role.name == highestRole.name)
-  }
+  
 
 
   back(){
@@ -250,10 +231,10 @@ export class CabinetComponent  implements OnInit {
   }
   
 
-  selectStatus(event:any){
-    this.searchLastRole()
-    this.selectedStatusItem = this.searchLastRole()
-  }
+  // selectStatus(event:any){
+  //   this.searchLastRole()
+  //   this.selectedStatusItem = this.searchLastRole()
+  // }
   openSelectedStatus(){
     this.statusesSelect = true;
   }
@@ -277,6 +258,7 @@ export class CabinetComponent  implements OnInit {
   selectUserAndRefreshAllData(user:User){
     if(user.access_token){
       this.authService.setAuthToken(user.access_token)
+   
     }
     this.selectAccountValue.set(false)
   }
@@ -292,8 +274,9 @@ export class CabinetComponent  implements OnInit {
       let currentUser = this.allUsers[currentUserIndex]
       this.allUsers.splice(currentUserIndex,1)
       this.allUsers.unshift(currentUser)
-      this.searchLastRole()
+      this.checkUserRole.searchLastRole()
       if (this.userService.user.value) {
+        this.selectedStatusItem = this.checkUserRole.searchLastRole()
         this.userTranslitStatuses = this.checkUserRole.getUserRoleNamesInTranslit(this.userService.user.value)
       }
     }
@@ -302,9 +285,11 @@ export class CabinetComponent  implements OnInit {
     this.navControler.navigateForward('/select-auth')
   }
   ngOnInit() {
-    this.userService.user.pipe().subscribe((res)=>{
+    this.userService.user.pipe().subscribe((res:any)=>{
       this.user = res
-      this.selectedStatusItem = this.searchLastRole()
+      this.selectedStatusItem = this.checkUserRole.searchLastRole(res)
+      this.userTranslitStatuses = this.checkUserRole.getUserRoleNamesInTranslit(res)
+      console.log( this.checkUserRole.searchLastRole(res))
       if(this.allUsers && this.allUsers.length){
         let currentUserIndex = this.allUsers.findIndex((user:User)=> user?.id === this.userService.user.value?.id)
         let currentUser = this.allUsers[currentUserIndex]
