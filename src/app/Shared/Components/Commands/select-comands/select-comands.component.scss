@@ -20,16 +20,16 @@
 
 .commands-grid{
     position: relative;
-    max-height: 35rem;
+    max-height: 40rem;
     overflow-y: auto;
     
-    padding-left: var(--standart-padding);
+    margin-left: var(--standart-padding);
     display: flex;
     flex-direction: column;
     gap: var(--standart-padding);
-    padding-right: var(--standart-padding);
+    
     background-color: white;
-    border-radius: 0.5rem;
+    
     padding-bottom: 0.5rem;
     app-standart-input-search {
         --padding-top: 1rem;
@@ -168,7 +168,7 @@
     gap: 1rem;
     z-index: 200;
     padding: var(--standart-padding);
-    padding-top: var( --standart-header-padding);
+    padding-top: 3rem;
     margin-top: 0.7rem;
 }
 
@@ -179,8 +179,9 @@
     padding-left: 1rem;
     min-height: 3rem;
     display: flex;
-    justify-content: start;
-    align-items: center;
+    justify-content: center;
+    align-items: start;
+    flex-direction: column;
     gap: 0.5rem;
     .label{
         display: inline;
@@ -191,12 +192,18 @@
     .filter-line-container{
         width: 100%;
         display: flex;
+        justify-content: space-between;
+        border: 1px solid black;
+        padding: 0rem 1rem;
+        .icon{
+            width: 100%;
+        }
     }
 
     .filter-line{
-        width: 100%;
+        
         display: flex;
-        justify-content: center;
+        justify-content: start;
         padding: 0.2rem;
         
 
@@ -204,8 +211,7 @@
 }
 
 .add-comand-button{
-    margin-left: 1rem;
-    margin-right: 1rem;
+
     background-color: var(--white-color);
     border-radius: 0.5rem;
     padding-right: 0.3rem;
@@ -293,18 +299,23 @@
 
 
 .region-modal{
-    --max-height:50%;
-    --width:95%;
-    --border-radius: 12px;
-    --overflow-y: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    --height: 66%;
+    --width:100%;
+    --background: none;
     
     &::part(content) {
         box-shadow: 0px 0px 100px 250px rgba(0, 0, 0, 0.2);
     }
 
     ion-content{
-    --background: rgb(251 251 251);
-    
+    --height: 100%;
+    --background: none;
+    position: fixed;
+    bottom: 0;
+
         .region-modal-container{
             padding: var(--standart-padding);
             padding-top: 0px;
@@ -361,6 +372,44 @@
     }
 }
 
+.up-header{
+    display: flex;
+    position: relative;
+    justify-content: start;
+    align-items: center;
+    height: 30px;
+    width: 100%;
+    max-width: 960px;
+    
+    
+
+    app-back-button{
+       
+        position: absolute;
+    }
+
+    .text-container{
+        font-size: 16px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-grow: 1;
+        
+    }
+}
+
+.line-container{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid black;
+    padding: 0rem 1rem;
+   img{
+    height: 1.5rem;
+    width: 1.5rem;
+   }
+}
 
 
 

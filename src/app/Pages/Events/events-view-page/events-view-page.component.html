@@ -276,30 +276,44 @@
       
    
     </div> -->
-    <div class="button-commission">
+    <!-- <div class="button-commission">
       <app-standart-button buttonText="Просмотр заявок" (click)="redirectApplicationForRace()"></app-standart-button>
-    </div>
-    <!-- <div class="footer-page">
+    </div> -->
+    <div class="footer-page">
       <div *ngIf="event.status?.name !== 'Планируемая' && !checkDateStartInRace()"  class="footer">
 
         
 
         @if (!this.event.appointments_exists && !checkRecordStart() && !checkRecordEnd()) {
-          <app-standart-button (click)="openApplicationForm()" buttonText="Заявиться" theme="big"></app-standart-button>
+          <div class="red-button">
+            <app-icon-button (click)="openApplicationForm()" [widht]="'full'" [clippy]="'clippy-right'" [shapeColumn]="true"  buttonText="Заявиться" [theme]="'red'"></app-icon-button>
+          </div>
         }
         @else if(checkRecordStart()){
-          <app-standart-button [disabled]="true"  buttonText="Дата начала регистрации: {{event.record_start}}"></app-standart-button>
+          <div class="dark-gray-button">
+            <app-icon-button  theme="dark-gray" [widht]="'full'"  buttonText="Дата начала регистрации: {{event.record_start}}"></app-icon-button>
+          </div>
         }
         @else {
-          <app-standart-button [disabled]="true"  buttonText="Заявка отправлена"></app-standart-button>
+          <div class="dark-gray-button">
+            <app-icon-button  theme="dark-gray" [clippy]="'clippy-right'" [shapeColumn]="true" [widht]="'full'" buttonText="Заявка отправлена"></app-icon-button>
+          </div>
         }
 
         <div class="group-button" *ngIf="!checkRecordStart()">
           @if(checkUserRoleService.userHaveRole(confirmUsersRolesInGroupAplication) && !checkRecordStart()){
-          <app-standart-button (click)="redirectTrenerInEditAplication()" buttonText="Заявиться командой" theme="big"></app-standart-button>
-          }
+        
+          <div class="red-button">
+            <app-icon-button (click)="redirectTrenerInEditAplication()" [widht]="'full'" buttonText="Заявиться командой" [clippy]="'clippy-right'" [shapeColumn]="true" [theme]="'red'"></app-icon-button>
+          </div>
+          
+        }
           @else if(checkRecordStart() && checkRecordEnd()){
-            <app-standart-button [disabled]="true"  buttonText="Дата начала регистрации: {{event.record_start}}"></app-standart-button>
+          
+            <div class="dark-gray-button">
+              <app-icon-button [clippy]="'clippy-right'" [widht]="'full'" [shapeColumn]="true" [theme]="'dark-gray'" buttonText="Дата начала регистрации: {{event.record_start}}"></app-icon-button>
+            </div>
+          
           }
           @else {
             
@@ -308,7 +322,7 @@
         
        
       </div>
-    </div> -->
+    </div>
      
 
     }
@@ -318,12 +332,22 @@
 
 @if (this.event) {
 <ion-modal [isOpen]="applicationFormValueState" (didDismiss)="closeApplicationForm()">
+  <!-- applicationFormValueState -->
   <ng-template>
     <ion-content >
-      <app-header (customBackClick)="closeApplicationForm()" [customBack]="true" headerTitle="Отправить заявку"></app-header>
-      <div class="main-container--with-header application-main">
+      <app-header [customContainer]="true" >
+        <div class="up-header">
+          <app-back-button [theme]="'white'" [widht]="'full'" [buttonText]="''" [fontColor]="'font-dark'" (click)="closeApplicationForm()" ></app-back-button>
+          <div class="header-text">
+            <span>Заявка на гонку</span>
+          </div>
+        </div>
+      </app-header>
+      <div class="main-container application-main">
         <div class="race-name">{{event.name}}</div>
         <div class="race-date-start">{{event.date_start |date}}</div>
+        
+
         <form class="personal-form">
           <app-standart-input [control]="personalUserForm.get('surname')" placeholder="Введите фамилию" [errorMessage]="formErrors.surname.errorMessage" [invalid]="formErrors.surname.errorMessage.length !== 0" label="Фамилия*"></app-standart-input>
           <app-standart-input [control]="personalUserForm.get('name')" [errorMessage]="formErrors.name.errorMessage" [invalid]="formErrors.name.errorMessage.length !== 0" placeholder="Введите имя" label="Имя*"></app-standart-input>
@@ -331,7 +355,7 @@
           <app-standart-input [errorMessage]="formErrors.dateOfBirth.errorMessage" [invalid]="formErrors.dateOfBirth.errorMessage.length !== 0" [control]="personalUserForm.get('dateOfBirth')" placeholder="Выберите дату" label="Дата рождения*" type="date"></app-standart-input>
           <app-standart-input [errorMessage]="formErrors.region.errorMessage" [invalid]="formErrors.region.errorMessage.length !== 0" (click)="openRegionModal()" [readonly]="true" label="Область/край*" [control]="personalUserForm.get('region')" placeholder="Выберите область вашу область"></app-standart-input>     
           <app-standart-input [errorMessage]="formErrors.city.errorMessage" [invalid]="formErrors.city.errorMessage.length !== 0" [control]="personalUserForm.get('city')" [errorMessage]="formErrors.city.errorMessage" [invalid]="formErrors.city.errorMessage.length !== 0" placeholder="Введите город" label="Город*"></app-standart-input>     
-          <ion-modal class="region-modal" (didDismiss)="closeRegionModal()"  [isOpen]="regionModalState">
+          <!-- <ion-modal class="region-modal" (didDismiss)="closeRegionModal()"  [isOpen]="regionModalState">
             <ng-template>
               <ion-content>
                 <div class="region-modal-container">
@@ -339,7 +363,16 @@
                 </div>
               </ion-content>
             </ng-template>  
-          </ion-modal>        
+          </ion-modal>         -->
+
+          <app-regions-select-modal 
+            (select)="setRegion($event)" 
+            [visible]="regionModalState" 
+            (onClose)="closeRegionModal()" 
+            [regions]="searchRegionItems"> 
+          </app-regions-select-modal>
+
+
           
           <app-standart-input [errorMessage]="formErrors.numberAndSeria.errorMessage" [invalid]="formErrors.numberAndSeria.errorMessage.length !== 0" [control]="personalUserForm.get('numberAndSeria')" placeholder="Серия, номер" label="Паспорт/Свидетельство о рождении*"></app-standart-input>
 
@@ -398,15 +431,31 @@
           <app-standart-input [control]="personalUserForm.get('coach')" placeholder="Тренер" label="ФИО тренера"></app-standart-input>
           <app-standart-input-select [errorMessage]="formErrors.motoStamp.errorMessage" [invalid]="formErrors.motoStamp.errorMessage.length !== 0" selectedName="motoStampSelect" [items]="motoStampItems" (onChange)="setMotoStamp($event)" [selectedItem]="{name:personalUserForm.value.motoStamp, value:personalUserForm.value.motoStamp}" label="Марка мотоцикла*"></app-standart-input-select>
           <app-standart-input-select [errorMessage]="formErrors.engine.errorMessage" [invalid]="formErrors.engine.errorMessage.length !== 0" selectedName="engineSelect" [items]="engineItems" (onChange)="setEngine($event)" [selectedItem]="{name:personalUserForm.value.engine, value:personalUserForm.value.engine}" label="Тип двигателя*"></app-standart-input-select>
-          <app-standart-rich-input [inputStatus]="true" [control]="personalUserForm.get('comment')" label="Комментарий" placeholder="Оставьте комментарий"></app-standart-rich-input>
+          <app-standart-rich-input  [control]="personalUserForm.get('comment')" label="Комментарий" placeholder="Оставьте комментарий"></app-standart-rich-input>
         </form>
         
-        <div class="documents">
+          <div class="documents">
             <div class="document-header">Лицензия</div>
             <div class="licenses document-container">
               <app-standart-input [control]="licensesForm.get('number')" placeholder="Лицензия МФР" label="Лицензия МФР (тип, №)*"></app-standart-input>
               <span class="scan-header">Скан или фотография Лицензии</span>
-              <app-file-input (click)="!licensesFile ? licensesFileInput.click(): showToastInfoFileUpload()" [fileName]="licensesFile.name"></app-file-input>
+              <app-icon-button 
+                (click)="!licensesFile ? licensesFileInput.click(): showToastInfoFileUpload()"
+                class="width-button" 
+                [widht]="'full'" 
+                height="long-height" 
+                [elementsPosition]="'elements-position__row'" 
+                buttonTextColor='red-text' 
+                [buttonIconColor]="'red-icon'" 
+                [buttonText]="licensesFile.name" 
+                [buttonBorderWidth]="'b05'" 
+                [buttonBorderColor]="'red-border'" 
+                icon="assets/icons/upload.svg" 
+                height="standart-height" 
+                sizeIcon="standart-size" 
+                theme="white">
+              </app-icon-button>  
+              <!-- <app-file-input (click)="!licensesFile ? licensesFileInput.click(): showToastInfoFileUpload()" [fileName]="licensesFile.name"></app-file-input> -->
               <input (change)="setLicensesFile($event)" #licensesFileInput style="display: none;"  type="file">
             </div>
 
@@ -416,21 +465,56 @@
               <app-standart-input [errorMessage]="documentsError.issuedWhom.errorMessage" [invalid]="documentsError.issuedWhom.errorMessage.length !== 0" [control]="polisForm.get('issuedWhom')" placeholder="Кем выдан" label="Кем выдан*"></app-standart-input>
               <app-standart-input [errorMessage]="documentsError.itWorksDate.errorMessage" [invalid]="documentsError.itWorksDate.errorMessage.length !== 0" [control]="polisForm.get('itWorksDate')" placeholder="Срок действия" type="date" label="Срок действия*"></app-standart-input>
               <span class="scan-header">Скан или фотография Полиса</span>
-              <app-file-input [fileName]="polisFile.name" (click)="!polisFile ? polisFileInput.click(): showToastInfoFileUpload()"></app-file-input>
+              <app-icon-button 
+                (click)="!polisFile ? polisFileInput.click(): showToastInfoFileUpload()"  
+                class="width-button" 
+                [widht]="'full'" 
+                height="long-height" 
+                [elementsPosition]="'elements-position__row'" 
+                buttonTextColor='red-text' 
+                [buttonIconColor]="'red-icon'" 
+                [buttonText]="polisFile.name" 
+                [buttonBorderWidth]="'b05'" 
+                [buttonBorderColor]="'red-border'" 
+                icon="assets/icons/upload.svg" 
+                height="standart-height" 
+                sizeIcon="standart-size" 
+                theme="white">
+              </app-icon-button>
+              <!-- <app-file-input [fileName]="polisFile.name" (click)="!polisFile ? polisFileInput.click(): showToastInfoFileUpload()"></app-file-input> -->
               <input (change)="setPolisFile($event)" #polisFileInput style="display: none;"  type="file">
             </div>
 
             <div class="document-header">Нотариальное согласие родителей</div>
             <div class="polis document-container">
               <span class="scan-header">Скан или фотография Нотариального согласия</span>
-              <app-file-input [fileName]="notariusFile.name" (click)="!notariusFile ? notariusFileInput.click(): showToastInfoFileUpload()"></app-file-input>
+              <app-icon-button 
+                (click)="!notariusFile ? notariusFileInput.click(): showToastInfoFileUpload()"  
+                class="width-button" 
+                [widht]="'full'" 
+                height="long-height" 
+                [elementsPosition]="'elements-position__row'" 
+                buttonTextColor='red-text' 
+                [buttonIconColor]="'red-icon'" 
+                [buttonText]="notariusFile.name" 
+                [buttonBorderWidth]="'b05'" 
+                [buttonBorderColor]="'red-border'" 
+                icon="assets/icons/upload.svg" 
+                height="standart-height" 
+                sizeIcon="standart-size" 
+                theme="white">
+              </app-icon-button>
+
+              <!-- <app-icon-button [icon]="''" [theme]="'white'" [buttonText]="notariusFile.name" (click)="!notariusFile ? notariusFileInput.click(): showToastInfoFileUpload()"></app-icon-button> -->
               <input (change)="setNotariusFile($event)" #notariusFileInput style="display: none;"  type="file">
             </div>
         </div>
       </div>
       
-      <div class="footer">
-        <app-standart-button theme="big" (click)="toggleAplicationInRace()" buttonText="Заявиться"></app-standart-button>
+      <div class="footer-button">
+        <div class="red-button">
+          <app-icon-button  (click)="toggleAplicationInRace()" [clippy]="'clippy-right'" [widht]="'full'" [shapeColumn]="true" [theme]="'red'" buttonText="Заявиться"></app-icon-button>
+        </div>
       </div>
     </ion-content>
   </ng-template>
@@ -452,6 +536,7 @@
 [createRegions]="createRegionItems"
 (clearFilterRegion)="clearRegionInComandFilter()"
 ></app-select-comands>}
+
 <ng-container *ngIf="event">
   <app-images-modal  *ngIf="event.images && event.images.length " [openModal]="statusImagesModal" (closeModalEmit)="closeImagesModal()" [imagesPathArray]="event.images"></app-images-modal>
 </ng-container>

@@ -2,7 +2,7 @@
   <app-header [customContainer]="true">
     <div class="header-container">
       <div class="back-button">
-        <app-back-button fontColor="font-dark" theme="white"></app-back-button>
+        <app-back-button (click)="cancelEdit()" fontColor="font-dark" theme="white"></app-back-button>
       </div>
 
       <div class="text-container">
@@ -18,7 +18,7 @@
   </app-header>
 
 
-<main class="main-container--with-header">
+<main class="main-container">
   <div class="footer-bottom-padding">
     <div class="personal-info-container">
       <div class="event-information-title">
@@ -39,7 +39,6 @@
 
       <app-regions-select-modal 
         (select)="setRegion($event)" 
-        [visibleSearch]="false"
         [visible]="regionModalState" 
         (onClose)="closeRegionModal()" 
         [regions]="searchRegionItems"> 
@@ -228,6 +227,8 @@
     </ion-content>
   </ng-template>
 </ion-modal>
+
+<!-- comandSelectModalStateValue -->
 
 <app-select-comands 
   (createNewComand)="createNewComand($event)" 

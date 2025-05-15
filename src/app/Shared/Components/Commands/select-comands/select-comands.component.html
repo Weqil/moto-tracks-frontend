@@ -12,20 +12,73 @@
   <!-- comandSelectModalStateValue -->
   <ng-template>
     <ion-content> 
-      <div class="header">
-        <app-header (customBackClick)="close()" [customBack]="true"  headerTitle="Выбор команды"></app-header>
+
+
+
+      <app-regions-select-modal 
+      style="z-index: 100000000;"
+      (select)="setRegion($event)" 
+      [visible]="regionModalState" 
+      (onClose)="closeRegionModal()" 
+      [regions]="regions"> 
+      </app-regions-select-modal>
+
+      <app-regions-select-modal 
+      (select)="setCreateRegion($event)" 
+      [visible]="createRegionModalState" 
+      (onClose)="closeCreateRegionModal()" 
+      [regions]="createRegions"> 
+      </app-regions-select-modal>
+
+
+        <app-header  [customContainer]="true">
+          <div class="up-header">
+            <app-back-button fontColor="font-dark" theme="white" (click)="close()"></app-back-button>
+            <div class="text-container">
+              <span>Выбор команды</span>
+            </div>
+          </div>
+        </app-header>
       
-      </div>
+      
       
 
         <div class="group-modal-header">
-         <div class="filter">
-            <span class="label">Фильтр по областям:</span>
-            <div class="filter-line-container">
-              <app-rounded-button [theme]="'line'" class="filter-line" *ngIf="regions" (click)="openRegionModal()" [buttonText]="selectedRegion && selectedRegion.name ? selectedRegion.name : 'Россия'"></app-rounded-button>
+
+          <div class="add-comand-button" *ngIf="!visibleCreateCommandContainerValue" (click)="visible()">
+         
+            <div class="line-container">
+              <app-icon-button class="icon" widht="full" [buttonText]="'Добавить команду:'" [elementsPosition]="'elements-position__row_reverse'" theme="white" ></app-icon-button>
+              <img src="/assets/icons/plus.svg" alt="">
             </div>
           </div> 
+  
+          <div class="race-groups__add-container"  *ngIf="visibleCreateCommandContainerValue">
+            <div class="header-text">
+              <h2>Создание команды</h2>
+              <div class="close-button">
+                <app-circle-button icon="/assets/icons/close.svg" (click)="nonVisible()"></app-circle-button>
+              </div>
+            </div>
+            <app-standart-input label="Название" [control]="createComandForm.get('name')" placeholder="Введите название вашей команды"></app-standart-input>
+            <!-- <app-standart-input label="Регион" [control]="createComandForm.get('region')" placeholder="Введите регион вашей команды "></app-standart-input> -->
+            <app-standart-input (click)="openCreateRegionModal()" [readonly]="true" label="Область/край" [control]="createComandForm.get('region')" placeholder="Выберите область вашу область"></app-standart-input>          
+            <app-standart-input label="Город" [control]="createComandForm.get('city')" placeholder="Введите город вашей команды"></app-standart-input>
+  
+            <!-- <input placeholder = "Название команды" class="standart-input" type="text" [(ngModel)]="createComandName"> -->
+            <app-standart-button theme="light" style="width: 100%;" buttonText="Добавить команду" (click)="createComandFunction()"></app-standart-button>
+          </div>
+         <div class="filter">
+            
+            <div class="filter-line-container" (click)="openRegionModal()" >
+              <app-icon-button [theme]="'white'" height="little-height" [elementsPosition]="'elements-position__row'"  [widht]="'full'"  class="filter-line" *ngIf="regions" [buttonText]="selectedRegion && selectedRegion.name ? selectedRegion.name : 'Россия'"></app-icon-button>
+              <img src="/assets/icons/arrow_down.svg" alt="">
+            </div>
+
+          </div> 
         </div>
+
+
         
       <div class="group-modal-container">
         <div class="race-groups__add-container__wrapper">
@@ -46,34 +99,13 @@
           </div>
         </div>
       
-        <div class="add-comand-button" *ngIf="!visibleCreateCommandContainerValue" (click)="visible()">
-          <span class="label">Добавить команду:</span>
-          <div class="filter-line-container">
-            <app-circle-button icon="/assets/icons/plus.svg" ></app-circle-button>
-          </div>
-        </div> 
 
-        <div class="race-groups__add-container"  *ngIf="visibleCreateCommandContainerValue">
-          <div class="header-text">
-            <h2>Создание команды</h2>
-            <div class="close-button">
-              <app-circle-button icon="/assets/icons/close.svg" (click)="nonVisible()"></app-circle-button>
-            </div>
-          </div>
-          <app-standart-input label="Название" [control]="createComandForm.get('name')" placeholder="Введите название вашей команды"></app-standart-input>
-          <!-- <app-standart-input label="Регион" [control]="createComandForm.get('region')" placeholder="Введите регион вашей команды "></app-standart-input> -->
-          <app-standart-input (click)="openCreateRegionModal()" [readonly]="true" label="Область/край" [control]="createComandForm.get('region')" placeholder="Выберите область вашу область"></app-standart-input>          
-          <app-standart-input label="Город" [control]="createComandForm.get('city')" placeholder="Введите город вашей команды"></app-standart-input>
-
-          <!-- <input placeholder = "Название команды" class="standart-input" type="text" [(ngModel)]="createComandName"> -->
-          <app-standart-button theme="light" style="width: 100%;" buttonText="Добавить команду" (click)="createComandFunction()"></app-standart-button>
-        </div>
 
     </ion-content>
   </ng-template>
 </ion-modal>   
 
-<ion-modal  (didDismiss)="closeRegionModal()" class="region-modal" [isOpen]="regionModalState">
+<!-- <ion-modal  (didDismiss)="closeRegionModal()" class="region-modal" [isOpen]="regionModalState">
   <ng-template>
     <ion-content>
       <div class="region-modal-container">
@@ -86,9 +118,20 @@
       </div>
     </ion-content>
   </ng-template>  
-</ion-modal>
+</ion-modal> -->
 
-<ion-modal class="create-comand-region-modal" (didDismiss)="closeCreateRegionModal()"  [isOpen]="createRegionModalState">
+<!-- <ion-modal  (didDismiss)="closeRegionModal()" class="region-modal" [isOpen]="regionModalState">
+  <ng-template>
+     <ion-content>
+     
+    </ion-content>
+  </ng-template>
+</ion-modal>  -->
+
+
+
+
+<!-- <ion-modal class="create-comand-region-modal" (didDismiss)="closeCreateRegionModal()"  [isOpen]="createRegionModalState">
   <ng-template>
     <ion-content>
       <div class="region-modal-container">
@@ -101,7 +144,9 @@
       </div>
     </ion-content>
   </ng-template>  
-</ion-modal>
+</ion-modal> -->
+
+
 
 <!-- <ion-modal [isOpen]="createComandsModalState" (didDismiss)="closeCreateComandsModalState()" class="create-comand-modal">
   <ng-template>

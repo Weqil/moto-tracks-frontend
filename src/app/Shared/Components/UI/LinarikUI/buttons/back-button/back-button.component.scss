@@ -2,6 +2,11 @@
     min-width: 5.313rem;
     height: 2.5rem;
 }
+.full{
+    min-width: 2rem;
+    min-height: 2rem;
+    width: 100%;
+}
 .dark{
     background: #181818;
     transition: 0.3s all;

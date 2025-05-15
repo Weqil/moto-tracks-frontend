@@ -1,6 +1,6 @@
 .standart-input{
-    border: 1px solid #4c586141;
-    border-radius: 5px;
+    border: 1px solid #000000;
+    
     width: 100%;
     min-height: 2.25rem;
     font-size: 12px;
@@ -14,10 +14,10 @@
     background: none;
 }
 .label{
-    color: #4C5861;
-    font-size: 12px;
+    color: #2f2f2f;
+    font-size: 14px;
     padding-bottom: 1px;
-    font-family: var(--font-bold);
+    font-family: var(--font-semi-bold);
 }
 .standart-input:focus{
     transition: 0.2s;
@@ -102,7 +102,7 @@
     flex-direction: column;
     width: 100%;
     margin: 1px;
-   
+   margin-bottom: 1rem;
     
 }
 

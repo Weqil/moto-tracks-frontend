@@ -18,7 +18,7 @@
     </div> -->
 
     <div class="auth-containers__form__submit-container">
-      <app-icon-button height="long-height" widht="full"  clippy="clippy-right" [shapeColumn]="true" [theme]=" this.codeValue.length !== 4 ? 'dark-gray' : 'red'"  (click)=" this.codeValue.length !== 4 ? null : submitMessage()"  buttonText="Отправить" type="submit"></app-icon-button>
+      <app-icon-button height="long-height" widht="full"  clippy="clippy-right" [shapeColumn]="true" [theme]=" this.codeValue.length !== 4 ? 'dark-gray' : 'red'"  (click)=" this.codeValue.length !== 4 ? null : submitMessage()  "  buttonText="Отправить" type="submit"></app-icon-button>
     </div>
 
     <div class="verification-timer">
