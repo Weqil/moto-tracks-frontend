@@ -275,10 +275,7 @@ export class CabinetComponent  implements OnInit {
       this.allUsers.splice(currentUserIndex,1)
       this.allUsers.unshift(currentUser)
       this.checkUserRole.searchLastRole()
-      if (this.userService.user.value) {
-        this.selectedStatusItem = this.checkUserRole.searchLastRole()
-        this.userTranslitStatuses = this.checkUserRole.getUserRoleNamesInTranslit(this.userService.user.value)
-      }
+
     }
   }
   navigateInLogin(){
@@ -289,7 +286,6 @@ export class CabinetComponent  implements OnInit {
       this.user = res
       this.selectedStatusItem = this.checkUserRole.searchLastRole(res)
       this.userTranslitStatuses = this.checkUserRole.getUserRoleNamesInTranslit(res)
-
       if(this.allUsers && this.allUsers.length){
         let currentUserIndex = this.allUsers.findIndex((user:User)=> user?.id === this.userService.user.value?.id)
         let currentUser = this.allUsers[currentUserIndex]
