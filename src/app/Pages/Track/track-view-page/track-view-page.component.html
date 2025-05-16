@@ -130,12 +130,35 @@
           <ng-container>
 
           </ng-container>
+           <div class="track-footer">
+           <div class="requisites" *ngIf=" track.requisites && track.requisites.length > 0;">
+        
+          <ul>
+            <div class="requisites" *ngFor="let req of track?.requisites">
+              <div *ngIf="req.name"><strong >Наименование организации:</strong> {{ req.name }} </div>
+              <div *ngIf="req.email"><strong >Email:</strong> {{ req.email }}</div>
+              <div *ngIf="req.phone"><strong >Телефон:</strong> {{ req.phone }}</div>
+              <div *ngIf="req.inn"><strong >ИНН:</strong> {{ req.inn }}</div>
+              <div *ngIf="req.pricePolitics"><strong >Ценовая политика:</strong> {{ req.pricePolitics }}</div>
+              <div *ngIf="track.attendance && track.attendance.length && track.attendance[0] "><strong >Описание платной услуги:</strong> {{track.attendance![0].desc }}</div>
+              <div *ngIf="track.attendance && track.attendance.length && track.attendance[0] "><strong >Стоимость:</strong> {{track.attendance![0].price}} ₽</div>
+
+              <div style="margin-top: var(--standart-padding);">
+                <a *ngIf="track.offer" [href]="track.offer | checkImgUrl" download>
+                  <app-icon-button clippy="clippy-right" buttonText="Договор оферты"></app-icon-button>
+                </a>
+              </div>
+            </div>
+          </ul>
+        </div> 
+        </div>
         </div>
         <div *ngIf="track.store" class="payment-button">
           <div class="payment-button-wrapper">
             <app-icon-button style="width: 100%;" (click)="redirectInPayment()" [widht]="'full'" [clippy]="'clippy-right'" [shapeColumn]="true"  buttonText="Оплатить тренировку" [theme]="'red'"></app-icon-button>
           </div>
         </div>
+       
       </ng-container>
     </div>
   </main>
@@ -314,25 +337,7 @@
             </div>
           </div>
         </div>
-        <div class="requisites" *ngIf=" track.requisites && track.requisites.length > 0;">
-        
-          <ul>
-            <li *ngFor="let req of track?.requisites">
-              <strong *ngIf="req.name">Имя:</strong> {{ req.name }} <br />
-              <strong *ngIf="req.email">Email:</strong> {{ req.email }} <br />
-              <strong *ngIf="req.phone">Телефон:</strong> {{ req.phone }}<br />
-              <strong *ngIf="req.inn">ИНН:</strong> {{ req.inn }} <br />
-              <strong *ngIf="req.pricePolitics">Ценовая политика:</strong> {{ req.pricePolitics }} <br />
-              <strong *ngIf="track.attendance && track.attendance.length && track.attendance[0] ">Описание платной услуги:</strong> {{track.attendance![0].desc }}   <br />
-              <strong  *ngIf="track.attendance && track.attendance.length && track.attendance[0] "> Стоимость: {{track.attendance![0].price}} ₽</strong>
-              <div>
-                <a *ngIf="track.offer" [href]="track.offer | checkImgUrl" download>
-                  <strong style="border-bottom: 1px solid white; padding-bottom: 0.5rem;" >Договор оферты</strong>
-                </a>
-              </div>
-            </li>
-          </ul>
-        </div> 
+       
     </footer>
   </div> -->
 

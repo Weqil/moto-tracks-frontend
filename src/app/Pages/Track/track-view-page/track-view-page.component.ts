@@ -16,6 +16,7 @@ import { ImagesModalComponent } from "../../../Shared/Components/UI/images-modal
 import { AddressInputComponent } from "../../../Shared/Components/Forms/address-input/address-input.component";
 import { InfoPopoverComponent } from "../../../Shared/Components/UI/info-popover/info-popover.component";
 import { IconButtonComponent } from '@app/Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component';
+import { isArray } from 'lodash';
 @Component({
   selector: 'app-track-view-page',
   templateUrl: './track-view-page.component.html',
@@ -85,7 +86,7 @@ export class TrackViewPageComponent  implements OnInit {
   }
 
   validateAllContacts(){
-    if (this.track.contacts && Array(this.track.contacts).length){
+    if (this.track.contacts && isArray(this.track.contacts) && this.track.contacts.length > 0) {
       this.track.contacts.map((contact:{title: string, value: string}
       )=>this.allContactsIncorrect = this.validateContact(contact))
     }
@@ -104,8 +105,7 @@ export class TrackViewPageComponent  implements OnInit {
     ).subscribe((res:any) => {
       this.track = res.track
       this.imgArray = [res.track.schema_img]
-      this.validateAllContacts()
-    
+          this.validateAllContacts()
     })
    }
 
@@ -126,14 +126,14 @@ export class TrackViewPageComponent  implements OnInit {
       try {
         await navigator.share(shareData);
       } catch (err) {
-       console.log('Ошибка при попытке поделиться');
+
       }
     } else {
       try {
         await navigator.clipboard.writeText(window.location.href);
-       console.log('Ссылка скопирована в буфер обмена!');
+   
       } catch (err) {
-       console.log('Не удалось скопировать ссылку');
+
       }
     }
    }
