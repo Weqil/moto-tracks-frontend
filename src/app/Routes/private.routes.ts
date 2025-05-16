@@ -29,11 +29,7 @@ export const privateRoutes: Routes = [
             },
            
                
-            {
-                path:'edit-comands',
-                canActivate:[canActivateAuth,canActivateUserHaveRole([userRoles.couch,userRoles.organization],'тренера')],
-                loadComponent: () => import('../Pages/Profile/comands/edit-comand-page/edit-comand-page.component').then((m) => m.EditComandPageComponent)
-            },      
+               
             
             {
                 path:'personal-info',
@@ -52,21 +48,7 @@ export const privateRoutes: Routes = [
             },
             
             
-            {
-                path:'race/edit/:id',
-                canActivate:[canActivateAuth,canActivateUserHaveRole(userRoles.organization,'организатора')],
-                loadComponent: () => import('../Pages/Profile/Events/edit-event/edit-event.component').then((m) => m.EditEventComponent)
-            },
-            {
-                path:'track/edit/:id',
-                canActivate:[canActivateAuth,canActivateUserHaveRole(userRoles.organization,'организатора')],
-                loadComponent: () => import('../Pages/Profile/Tracks/edit-track-page/edit-track-page.component').then((m) => m.EditTrackPageComponent)
-            },
-            {
-                path:'command/edit/:id',
-                canActivate:[canActivateAuth,canActivateUserHaveRole([userRoles.couch,userRoles.organization],'тренера')],
-                loadComponent: () => import('../Pages/Profile/comands/edit-comand-page/edit-comand-page.component').then((m) => m.EditComandPageComponent)
-            },
+          
             {
                 path:'aplication/:id',
                 canActivate:[canActivateAuth],
@@ -148,6 +130,25 @@ export const privateRoutes: Routes = [
         canActivate:[canActivateAuth,canActivateUserHaveRole([userRoles.couch,userRoles.organization, userRoles.rider],'тренера')],
         loadComponent: () => import('../Pages/Profile/comands/create-comand-page/create-comand-page.component').then((m) => m.CreateComandPageComponent)
     }, 
-    
+    {
+        path:'edit-comands',
+        canActivate:[canActivateAuth,canActivateUserHaveRole([userRoles.couch,userRoles.organization],'тренера')],
+        loadComponent: () => import('../Pages/Profile/comands/edit-comand-page/edit-comand-page.component').then((m) => m.EditComandPageComponent)
+    },  
+    {
+        path:'race/edit/:id',
+        canActivate:[canActivateAuth,canActivateUserHaveRole(userRoles.organization,'организатора')],
+        loadComponent: () => import('../Pages/Profile/Events/edit-event/edit-event.component').then((m) => m.EditEventComponent)
+    },
+    {
+        path:'track/edit/:id',
+        canActivate:[canActivateAuth,canActivateUserHaveRole(userRoles.organization,'организатора')],
+        loadComponent: () => import('../Pages/Profile/Tracks/edit-track-page/edit-track-page.component').then((m) => m.EditTrackPageComponent)
+    },
+    {
+        path:'command/edit/:id',
+        canActivate:[canActivateAuth,canActivateUserHaveRole([userRoles.couch,userRoles.organization],'тренера')],
+        loadComponent: () => import('../Pages/Profile/comands/edit-comand-page/edit-comand-page.component').then((m) => m.EditComandPageComponent)
+    },
  
 ];
