@@ -204,8 +204,8 @@
             </div>
           </div>
           <div class="preview-actions">
-            <app-standart-button (click)="closePreviewModal()" buttonText="Отмена" buttonStyle="secondary"></app-standart-button>
-            <app-standart-button (click)="confirmApplication()" buttonText="Подтвердить"></app-standart-button>
+            <app-icon-button (click)="closePreviewModal()" widht="full" theme="dark-gray" buttonText="Отмена" buttonStyle="secondary"></app-icon-button>
+            <app-icon-button (click)="confirmApplication()" widht="full" [theme]="'red'" buttonText="Подтвердить"></app-icon-button>
           </div>
         </div>
       </div>
