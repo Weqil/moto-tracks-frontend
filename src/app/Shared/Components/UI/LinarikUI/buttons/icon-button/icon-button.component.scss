@@ -86,6 +86,11 @@ span{
     padding-left: 1rem;
     padding-right: 1rem;
     align-items: start !important;
+    span{
+        width: 100%;
+        display: flex;
+        justify-content: start;
+    }
 }
 .dark-gray{
     background-color: #373737;
