@@ -1,3 +1,84 @@
-<p>
-  not-found-pages works!
-</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Такой страницы не существует</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #ffffff;
+            color: #333333;
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 600px;
+            font-family: var(--font-regular);
+            width: 100%;
+            margin: auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .header {
+            font-size: 72px;
+            color: #ff0000;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .message {
+            font-size: 24px;
+            color: #333333;
+            margin-bottom: 20px;
+        }
+
+        .submessage {
+            font-size: 16px;
+            color: #666666;
+            margin-bottom: 30px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #ff0000;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #cc0000;
+        }
+
+        .footer {
+            margin-top: 40px;
+            font-size: 14px;
+            color: #999999;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">404</div>
+        <div class="message">Такой страницы не существует</div>
+        <div class="submessage">К сожалению, страница, которую вы ищете, не существует или была перемещена</div>
+        <app-icon-button widht="full" theme="red" buttonText="На главную" (click)="back()" [shapeColumn]="true"></app-icon-button>
+
+    </div>
+</body>
+</html>
