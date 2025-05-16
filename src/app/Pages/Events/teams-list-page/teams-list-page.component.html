@@ -11,6 +11,7 @@
       <ng-container *ngFor="let team of filteredTeams">
         <div class="commands-grid__item" (click)="viewTeam(team.id)">
           <app-command-section 
+            
             [command]="team"
             (toggleMembership)="toggleTeamMembership($event)"
           ></app-command-section>
