@@ -5,6 +5,7 @@ import { IonApp, IonRouterOutlet, NavController } from '@ionic/angular/standalon
 import { UserService } from './Shared/Data/Services/User/user.service';
 import { MetrikaModule } from 'ng-yandex-metrika';
 import  moment, { Moment, MomentInput } from 'moment'
+import { CupService } from './Shared/Data/Services/cup.service';
 
 @Component({
   selector: 'app-root',
@@ -40,12 +41,15 @@ export class AppComponent {
   }
   
   userService:UserService = inject(UserService)
+  cupService:CupService = inject(CupService)
   ngOnInit() {
     this.userService.getChangeRoles().pipe().subscribe((res:any)=>{
       this.userService.allRoles = res.role
     })
     this.userService.refreshUser();
-    
+    this.cupService.getAllDegree().subscribe((res:any)=>{
+      this.cupService.allDegree = res.degree
+    })
   }
 }
         // let diff = moment().diff(moment(this.lastBackgroundTime), 'seconds');
