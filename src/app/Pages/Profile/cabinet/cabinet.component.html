@@ -40,7 +40,7 @@
         
         <ng-container *ngFor="let user of allUsers">
           <div  class="accounts-container__item">
-            <app-user-section [showAddress]="false" [showRank]="false" [name]="true" [surname]="true" (click)="selectUserAndRefreshAllData(user)" [user]="user"></app-user-section>
+            <app-user-section style="cursor: pointer;" [showAddress]="false" [showRank]="false" [name]="true" [surname]="true" (click)="selectUserAndRefreshAllData(user)" [user]="user"></app-user-section>
             <div *ngIf="user.id == userService.user.value?.id" class="current-account">
                 <img src="/assets/icons/red-select.svg" alt="">
             </div>

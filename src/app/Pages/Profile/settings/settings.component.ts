@@ -105,6 +105,7 @@ export class SettingsComponent  implements OnInit {
   }
   openSelectRoleModal(){
     if(!this.userService.userHaveRoot()){
+      this.openSelectedStatus()
       this.selectRoleModalState = true
     }
   
@@ -238,7 +239,7 @@ confirmPhone(){
 
 deletePhoneForUserId(){
   return new Promise((resolve, reject)=>{
-    console.log('i load request')
+  
     if(this.user?.phone){
       let loader:HTMLIonLoadingElement
           this.loadingService.showLoading().then((res:HTMLIonLoadingElement)=>{
@@ -253,7 +254,7 @@ deletePhoneForUserId(){
               return throwError(()=> error)
             }),
             finalize(() => {
-              console.log('i finished request')
+         
               this.loadingService.hideLoading(loader);
               resolve(true)
             })
@@ -285,6 +286,7 @@ deletePhoneForUserId(){
 
   selectStatus(event:any){
    const closeModal = new Promise((resolve)=>{
+
     this.selectRoleModalState = false
     setTimeout(()=>{
       resolve(true)
