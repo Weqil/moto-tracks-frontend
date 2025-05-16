@@ -32,19 +32,27 @@
               </div>
               <span (click)="openEmailModal()" class="reset-password-link">Забыл(а) пароль</span>
             </form>
+            
+            
+            
             <ion-modal [isOpen]="phoneLoginModalValue">
               <ng-template>
-                <ion-content>
+                <ion-content class="phone-modal">
 
                     <div class="verificate-phone-header">
                       <!-- <app-circle-button (click)="closePhoneLoginModal()" [icon]="'/assets/icons/arrow.svg'"></app-circle-button> -->
                        <app-back-button (click)="closePhoneLoginModal()" theme="white" fontColor="font-dark"></app-back-button>
                     </div>
                     <div class="verificate-phone-container">
-                      <img class="phone-images" src="/assets/icons/phone-images.svg">
-                      <span class="verificate-phone-title">Вам поступит звонок-сброс для подтверждения</span>
-                      <p class="verificate-phone-description">Введите последние 4 цифры номера с которого поступит звонок</p>
-                      <ngx-otp-input (otpChange)="changeCode($event)" [options]="otpOptions"></ngx-otp-input> 
+                      <div class="auth-title">
+                        Потверждение 
+                      </div>
+                      <div class="verification-content">
+                        <span class="verificate-phone-title">Вам поступит звонок-сброс для подтверждения, введите последние 4 цифры номера с которого поступит звонок</span>
+                        <ngx-otp-input (otpChange)="changeCode($event)" [options]="otpOptions"></ngx-otp-input> 
+
+                      </div>
+                                          
                     </div>
                    
                 </ion-content>

@@ -165,22 +165,25 @@
   }
   .verificate-phone-header{
     
+    font-family: var(--font-bold);
     margin: auto;
     display: flex;
     align-items: center;
     padding-left: var(--standart-padding);
     padding-top: var(--standart-padding);
-  
+    text-align: center;
+    font-size: 1.2rem;
   }
   .verificate-phone-title{
     display: flex;
     text-align: center;
     align-items: center;
-    padding-top: var(--standart-padding);
     justify-content: center;
-    font-size: 0.95rem;
+    font-size: 1.1rem;
     gap: 1rem;
     font-family: var(--font-bold);
+    margin-bottom: 2rem;
+    margin-top: 3rem;
   }
   .verificate-phone-description{
     padding-top: var(--little-padding);
@@ -188,8 +191,23 @@
     font-size: 12px;
   }
   .verificate-phone-container{
-    padding: var(--standart-padding);
+    padding: 1.5rem;
     font-family: var(--font-regular);
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+
+  .auth-title{
+    font-family: var(--font-black);
+    font-size: 40px;
+    text-align: center;
+  }
+
+  .phone-modal{
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
