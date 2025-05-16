@@ -4,6 +4,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { finalize, Subject, takeUntil } from 'rxjs';
 import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
 import { LoadingService } from 'src/app/Shared/Services/loading.service';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-view-document',
@@ -22,7 +23,7 @@ export class ViewDocumentComponent  implements OnInit {
   private readonly destroy$ = new Subject<void>()
   documentUrl: string = ''
   loadingService: LoadingService = inject(LoadingService)
-
+  navControler: NavController = inject(NavController);
   hidePdfLoader(){
     this.loadingService.hideLoading()
   }
@@ -48,5 +49,9 @@ export class ViewDocumentComponent  implements OnInit {
   resetZoom() {
     this.zoomLevel = 1.0; }
   ngOnInit() {}
+
+  close(){
+    this.navControler.back()
+  }
 
 }

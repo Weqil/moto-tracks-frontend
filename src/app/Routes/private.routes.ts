@@ -81,6 +81,21 @@ export const privateRoutes: Routes = [
                 canActivate:[canActivateAuth],
                 loadComponent: () => import('../Pages/application-for-race/application-for-race.component').then((m) => m.ApplicationForRaceComponent)
             },
+            {
+                path:'my-events',
+                canActivate:[canActivateAuth,canActivateUserHaveRole(userRoles.organization,'организатора')],
+                loadComponent: () => import('../Pages/Profile/Events/my-events-page/my-events-page.component').then((m) => m.MyEventsPageComponent)
+            },
+            {
+                path:'my-tracks',
+                canActivate:[canActivateAuth,canActivateUserHaveRole(userRoles.organization,'организатора')],
+                loadComponent: () => import('../Pages/Profile/Tracks/my-tracks-page/my-tracks-page.component').then((m) => m.MyTracksPageComponent)
+            },
+            {
+                path:'my-comands',
+                canActivate:[canActivateAuth],
+                loadComponent: () => import('../Pages/Profile/comands/comands.component').then((m) => m.ComandsComponent)
+            },
         ]
     },
     {
@@ -111,21 +126,7 @@ export const privateRoutes: Routes = [
         loadComponent: () => import('../Pages/Authorization/confirm-email-page/confirm-email-page.component').then((m) => m.ConfirmEmailPageComponent)
     },
     
-    {
-        path:'my-events',
-        canActivate:[canActivateAuth,canActivateUserHaveRole(userRoles.organization,'организатора')],
-        loadComponent: () => import('../Pages/Profile/Events/my-events-page/my-events-page.component').then((m) => m.MyEventsPageComponent)
-    },
-    {
-        path:'my-tracks',
-        canActivate:[canActivateAuth,canActivateUserHaveRole(userRoles.organization,'организатора')],
-        loadComponent: () => import('../Pages/Profile/Tracks/my-tracks-page/my-tracks-page.component').then((m) => m.MyTracksPageComponent)
-    },
-    {
-        path:'my-comands',
-        canActivate:[canActivateAuth],
-        loadComponent: () => import('../Pages/Profile/comands/comands.component').then((m) => m.ComandsComponent)
-    },
+
     {
         path:'create-comands',
         canActivate:[canActivateAuth,canActivateUserHaveRole([userRoles.couch,userRoles.organization, userRoles.rider],'тренера')],

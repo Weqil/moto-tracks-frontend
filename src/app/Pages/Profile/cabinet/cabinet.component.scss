@@ -14,7 +14,8 @@
         background: none;
     }
     .cabinet-header__title{
-        font-family: var(--font-regular);
+        font-size: 16px;
+        font-family: var(--font-semi-bold);
     }
 }
 .open-select-account-menu {
@@ -61,7 +62,7 @@
     gap: 6px;
 }
 .email{
-    font-size: 14px;
+    font-size: 13px;
     font-family: var(--font-regular);
 }
 .user-statuses-grid{
@@ -72,7 +73,7 @@
 }
 .info__name__item{
     word-break: break-word;
-    font-size: 16px;
+    font-size: 15px;
     font-family: var(--font-black);
 }
 .user-images{
