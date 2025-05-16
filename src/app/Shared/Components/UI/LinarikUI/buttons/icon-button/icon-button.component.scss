@@ -9,6 +9,11 @@ span{
     overflow: hidden;         
     text-overflow: ellipsis;   
     max-width: 100%; 
+    width: 100%;
+
+    white-space: nowrap;         /* Запрещает перенос текста */
+    overflow: hidden;            /* Скрывает выходящий за границы текст */
+    text-overflow: ellipsis;     /* Добавляет троеточие (…) в конце */
 }
 .standart-height{
     height: 2.5rem;
