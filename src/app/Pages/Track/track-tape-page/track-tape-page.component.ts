@@ -50,9 +50,10 @@ export class TrackTapePageComponent  implements OnInit {
   @ViewChild(IonContent) ionContent!: IonContent
 
   getTracks(){
-    this.loadingService.showLoading()
+    let loader:HTMLIonLoadingElement
+    this.loadingService.showLoading().then((loading:HTMLIonLoadingElement)=>loader = loading)
     this.trackService.getTracks({locationId:[this.regionFilterId], name:this.searchTapeTrackForm.value.searchInput}).pipe(
-      finalize(()=>this.loadingService.hideLoading())
+      finalize(()=>this.loadingService.hideLoading(loader))
     ).subscribe((res:any)=>{
       this.trackTapeService.tracks = res.tracks
     })

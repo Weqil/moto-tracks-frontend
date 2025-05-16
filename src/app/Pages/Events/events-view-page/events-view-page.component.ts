@@ -83,6 +83,7 @@ export class EventsViewPageComponent  implements OnInit {
   checkUserRoleService:CheckUserRoleService = inject(CheckUserRoleService)
   searchRegionItems:any[] = []
   createCommandTemp!: ICommand
+  registrationStatus:boolean = false
   licensesFile:any =''
   polisFile:any = ''
   notariusFile:any = ''
@@ -382,7 +383,9 @@ export class EventsViewPageComponent  implements OnInit {
 
     checkRecordStart(){
       let now = moment().format('YYYY-MM-DD HH:mm')
+      console.log(this.event?.record_start)
       if(this.event?.record_start){
+        console.log(now < moment(this.event?.record_start).format('YYYY-MM-DD HH:mm'))
         return now < moment(this.event?.record_start).format('YYYY-MM-DD HH:mm')
       }else{
         return false
@@ -397,6 +400,13 @@ export class EventsViewPageComponent  implements OnInit {
       this.personalUserForm.patchValue({group: event.name, gradeId:event.id})
   
     }
+     registrate() {
+        const recordStart = moment(this.event.record_start);
+        const recordEnd = moment(this.event.record_end);
+        const now = moment();
+        this.registrationStatus = now <= recordEnd && now >= recordStart
+      }
+    
   async sharePage() {
     const shareData = {
       title: document.title,
@@ -484,12 +494,15 @@ export class EventsViewPageComponent  implements OnInit {
   }
   formatingZoomValuesInResults(){
     this.formattedResultsDocument = []
-    this.event.pdf_files.forEach((file:any)=>{
-      this.formattedResultsDocument.push({
-        path:file,
-        zoomLevel:1,
+    if(this.event.pdf_files && this.event.pdf_files.length){
+      this.event.pdf_files.forEach((file:any)=>{
+        this.formattedResultsDocument.push({
+          path:file,
+          zoomLevel:1,
+        })
       })
-    })
+    }
+   
   }
 
    clearDescription(){
@@ -622,6 +635,25 @@ export class EventsViewPageComponent  implements OnInit {
   redirectTrenerInEditAplication(){
     window.location.assign(`/aplication/${this.event.id}`);
   }
+
+   get checkRecord():string{
+      
+      const recordStart = moment(this.event.record_start);
+      const recordEnd = moment(this.event.record_end);
+      const now = moment();
+      if(!this.event.record_start){
+        return 'Регистрация закрыта'
+      }
+      if(!this.registrationStatus){
+        if(now > recordEnd){
+          return 'Регистрация закрыта'
+        }
+        if(now < recordStart){
+          return `Регистрация с ${recordStart.format('DD.MM HH:mm')}`
+        }
+      }
+      return `Регистрация до ${recordEnd.format('D MMMM HH:mm')}`
+    }
 
   checkDateStartInRace(){
     if(this.event){
@@ -840,7 +872,7 @@ export class EventsViewPageComponent  implements OnInit {
       
       this.groupItems = this.event.grades
     
-      
+      this.registrate()
       this.formatingZoomValuesInResults()
       this.checkRecordEnd()
     })
