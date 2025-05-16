@@ -355,7 +355,7 @@ export class CreateEventsPageComponent  implements OnInit {
       let race:any = res.race
       let loader:HTMLIonLoadingElement
       this.loadingService.showLoading().then((res:HTMLIonLoadingElement)=>loader = res)
-       this.userService.addComission(race.id,this.currentComission.map(user => user.value)).pipe(
+       this.userService.addComission(race.id,this.currentComission.map(user => user.id)).pipe(
 
         catchError(error => {
 
@@ -404,12 +404,9 @@ export class CreateEventsPageComponent  implements OnInit {
   setComission(event:any){
     if(this.currentComission.find((user:any)=>user == event)){
 
-
       
     }else {
       this.currentComission.push(event)
-
-
     }
     this.closeComissionModal()
   }

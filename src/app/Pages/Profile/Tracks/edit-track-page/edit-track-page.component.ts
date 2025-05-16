@@ -226,6 +226,10 @@ setCoverage(event:any){
     })
   }
 
+  back(){
+    this.navController.back()
+  }
+
   submitForm(){
     if(!this.stepInvalidate()){
       this.loadingService.showLoading()

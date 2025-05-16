@@ -30,6 +30,8 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { RegionsSelectModalComponent } from '@app/Shared/Components/Modals/regions-select-modal/regions-select-modal.component';
 import { NavbarVisibleService } from '@app/Shared/Services/navbar-visible.service';
 import { IconButtonComponent } from "../../../Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component";
+import { Degree } from '@app/Shared/Data/Interfaces/degree-model';
+import { CupService } from '@app/Shared/Data/Services/cup.service';
 
 type Item = { title: string; createdAt: string; };
 @Component({
@@ -54,6 +56,8 @@ export class EventsTapePageComponent  implements OnInit {
   navController: NavController = inject(NavController)
   eventService: EventService = inject(EventService)
   loadingService:LoadingService = inject(LoadingService)
+  cupService:CupService = inject(CupService)
+  canRgp :boolean = true
   eventTapeService: EventTapeService = inject(EventTapeService)
   rgpFilter:boolean = false
 
@@ -150,7 +154,7 @@ export class EventsTapePageComponent  implements OnInit {
         sort:'asc',
         commissionUser:1,
         userIdExists: this.userService.user.value?.id ? this.userService.user.value?.id: '',
-
+        'degreeIds[]':Array([this.cupService.allDegree.value.find((degree:Degree)=>degree.name == 'rgp')?.id|| '']).join(',')
       }
     }
     this.getEvents()
@@ -422,7 +426,9 @@ export class EventsTapePageComponent  implements OnInit {
  
   ngOnInit() {
     this.getRegions()
-    
+    this.cupService.allDegree.subscribe((res:Degree[])=>{
+      this.canRgp = res.some((degree:Degree)=> degree.name == 'rgp')
+    })
     window.addEventListener('popstate', (event) => {
       this.closetTableModal()
       this.closeUploadResultModalState()

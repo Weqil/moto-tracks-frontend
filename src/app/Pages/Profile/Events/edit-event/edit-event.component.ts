@@ -536,6 +536,11 @@ export class EditEventComponent  implements OnInit {
       })
     }
     } 
+
+    back(){
+      this.navController.back()
+    }
+
     setRaceType(event:any){
       this.raceTypeSelectedItem = event
       this.createEventForm.patchValue({

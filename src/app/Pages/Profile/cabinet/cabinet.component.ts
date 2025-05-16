@@ -289,7 +289,7 @@ export class CabinetComponent  implements OnInit {
       this.user = res
       this.selectedStatusItem = this.checkUserRole.searchLastRole(res)
       this.userTranslitStatuses = this.checkUserRole.getUserRoleNamesInTranslit(res)
-      console.log( this.checkUserRole.searchLastRole(res))
+
       if(this.allUsers && this.allUsers.length){
         let currentUserIndex = this.allUsers.findIndex((user:User)=> user?.id === this.userService.user.value?.id)
         let currentUser = this.allUsers[currentUserIndex]

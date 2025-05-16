@@ -92,7 +92,9 @@ export class EditComandPageComponent  implements OnInit {
    openRegionModal(){
     this.regionModalState = true
    }
-
+   back(){
+    this.navController.back()
+   }
    setRegion(region:any){
     this.closeRegionModal()
     this.createCommandForm.patchValue({region:region.name})

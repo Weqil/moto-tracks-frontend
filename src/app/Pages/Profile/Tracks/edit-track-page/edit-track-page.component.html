@@ -1,5 +1,15 @@
 <ion-content>
-  <app-header  [hiddenBackButton]="true" [customBack]="false" headerTitle="Редактирование трека"></app-header>
+    <app-header [customContainer]="true" [hiddenBackButton]="true">
+        <div class="cabinet-header">
+          <button (click)="back()" class="cabinet-header__back">
+            <img src="/assets/icons/arrow.svg"  alt="Назад">
+          </button>
+          <span class="cabinet-header__title">Редактирование трека</span>
+          <button  class="cabinet-header__plug none">
+           
+          </button>
+        </div>
+      </app-header>
     <main *ngIf="track" class="main-container--with-header">
         <section>
             <form [formGroup]="editTrackForm" class="edit-form">

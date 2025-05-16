@@ -280,51 +280,31 @@
       <app-standart-button buttonText="Просмотр заявок" (click)="redirectApplicationForRace()"></app-standart-button>
     </div> -->
     <div class="footer-page">
-      <div *ngIf="event.status?.name !== 'Планируемая' && !checkDateStartInRace()"  class="footer">
-
-        
-
-        @if (!this.event.appointments_exists && !checkRecordStart() && !checkRecordEnd()) {
-          <div class="red-button">
-            <app-icon-button (click)="openApplicationForm()" [widht]="'full'" [clippy]="'clippy-right'" [shapeColumn]="true"  buttonText="Заявиться" [theme]="'red'"></app-icon-button>
-          </div>
-        }
-        @else if(checkRecordStart()){
-          <div class="dark-gray-button">
-            <app-icon-button  theme="dark-gray" [widht]="'full'"  buttonText="Дата начала регистрации: {{event.record_start}}"></app-icon-button>
-          </div>
-        }
-        @else {
-          <div class="dark-gray-button">
+      <div *ngIf="event.status?.name !== 'Планируемая'"  class="footer">
+        <div class="status-events">
+          <ng-container *ngIf="!this.event.appointments_exists">
+            <app-icon-button (click)="openApplicationForm()" [widht]="'full'" [clippy]="'clippy-right'" [shapeColumn]="true" *ngIf="registrationStatus; else registrationClosed"  buttonText="Заявиться" [theme]="'red'"></app-icon-button>
+            <ng-template #registrationClosed>
+              <app-icon-button clippy="clippy-right" [shapeColumn]="true" [buttonText]="checkRecord" theme="dark-gray" [widht]="'full'"></app-icon-button>
+            </ng-template>
+          </ng-container>
+          <ng-container *ngIf="this.event.appointments_exists">
             <app-icon-button  theme="dark-gray" [clippy]="'clippy-right'" [shapeColumn]="true" [widht]="'full'" buttonText="Заявка отправлена"></app-icon-button>
-          </div>
-        }
-
-        <div class="group-button" *ngIf="!checkRecordStart()">
+          </ng-container>
+        </div>
+  
+        <div class="group-button" *ngIf="!checkRecordStart() && !checkRecordEnd()">
           @if(checkUserRoleService.userHaveRole(confirmUsersRolesInGroupAplication) && !checkRecordStart()){
-        
           <div class="red-button">
             <app-icon-button (click)="redirectTrenerInEditAplication()" [widht]="'full'" buttonText="Заявиться командой" [clippy]="'clippy-right'" [shapeColumn]="true" [theme]="'red'"></app-icon-button>
-          </div>
-          
+          </div>        
         }
-          @else if(checkRecordStart() && checkRecordEnd()){
-          
-            <div class="dark-gray-button">
-              <app-icon-button [clippy]="'clippy-right'" [widht]="'full'" [shapeColumn]="true" [theme]="'dark-gray'" buttonText="Дата начала регистрации: {{event.record_start}}"></app-icon-button>
-            </div>
-          
-          }
-          @else {
-            
-          }
+       
         </div>
         
-       
       </div>
     </div>
-     
-
+    
     }
   </main>
 
@@ -343,7 +323,7 @@
           </div>
         </div>
       </app-header>
-      <div class="main-container application-main">
+      <div class="main-container--with-header application-main">
         <div class="race-name">{{event.name}}</div>
         <div class="race-date-start">{{event.date_start |date}}</div>
         
@@ -383,7 +363,7 @@
           
           
           
-          <app-standart-input [control]="personalUserForm.get('phoneNumber')" [errorMessage]="formErrors.phoneNumber.errorMessage" [invalid]="formErrors.phoneNumber.errorMessage.length !== 0" placeholder="Номер телефона" label="Телефон*"></app-standart-input>
+          <app-standart-input [control]="personalUserForm.get('phoneNumber')" [errorMessage]="formErrors.phoneNumber.errorMessage" [invalid]="formErrors.phoneNumber.errorMessage.length !== 0" maskType="phone" placeholder="Номер телефона" label="Телефон*"></app-standart-input>
           
           
           

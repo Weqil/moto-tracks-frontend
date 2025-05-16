@@ -71,6 +71,7 @@
     gap: 8px 4px;
 }
 .info__name__item{
+    word-break: break-word;
     font-size: 16px;
     font-family: var(--font-black);
 }
@@ -119,7 +120,8 @@
 }
 
 .link-on-support{
-   padding-top: 100px;
+   padding-top: 20px;
+   padding-bottom: 5rem;
     color: #6A6A6A;
    font-family: var(--font-regular);
     text-align: center;

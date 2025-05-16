@@ -14,6 +14,7 @@
   </app-header>
   <div class="main-container--with-header">
     <div class="tracks-grid">
+      <div  *ngIf="!tracks || !tracks.length " class="not-found-users">Трасс пока что нет...</div>
         @for (track of tracks; track $index) {
           <div class="tracks-grid__item">
         

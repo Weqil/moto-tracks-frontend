@@ -13,6 +13,7 @@
 
   <main class="main-container--with-header">
     <article class="commands-grid">
+      <div *ngIf="!comands || !comands.length" class="not-found-users">Команд пока что нет...</div>
     <ng-container *ngFor="let command of comands">
       <div class="commands-grid__item">
         <app-command-section [editfFunction]="true" [vievComand]="command.id" [editComand]="command.id" [command]="command" ></app-command-section>
