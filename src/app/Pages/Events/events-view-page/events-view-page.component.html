@@ -281,7 +281,7 @@
     </div> -->
     <div class="footer-page">
       <div *ngIf="event.status?.name !== 'Планируемая'"  class="footer">
-        <div class="status-events">
+        <div class="red-button">
           <ng-container *ngIf="!this.event.appointments_exists">
             <app-icon-button (click)="openApplicationForm()" [widht]="'full'" [clippy]="'clippy-right'" [shapeColumn]="true" *ngIf="registrationStatus; else registrationClosed"  buttonText="Заявиться" [theme]="'red'"></app-icon-button>
             <ng-template #registrationClosed>
@@ -493,7 +493,7 @@
       
       <div class="footer-button">
         <div class="red-button">
-          <app-icon-button  (click)="toggleAplicationInRace()" [clippy]="'clippy-right'" [widht]="'full'" [shapeColumn]="true" [theme]="'red'" buttonText="Заявиться"></app-icon-button>
+          <app-icon-button (click)="toggleAplicationInRace()" [clippy]="'clippy-right'" [widht]="'full'" [shapeColumn]="true" [theme]="'red'" buttonText="Заявиться"></app-icon-button>
         </div>
       </div>
     </ion-content>
