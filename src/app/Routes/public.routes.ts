@@ -43,10 +43,7 @@ export const publicRoutes: Routes = [
         path:'linarikUI',
         loadComponent: () => import('../Pages/linarik-ui/linarik-ui.component').then((m) => m.LinarikUiComponent)
       },
-      {
-        path:'view-document/:url',
-        loadComponent: () => import('../CommonUI/Pages/view-document/view-document.component').then((m) => m.ViewDocumentComponent)
-      },
+
       {
         path:'user-agreement',
         loadComponent: () => import('../Pages/Authorization/user-agreement/user-agreement.component').then((m) => m.UserAgreementComponent)
@@ -62,6 +59,11 @@ export const publicRoutes: Routes = [
 
       
     ]
+  },
+
+  {
+    path:'view-document/:url',
+    loadComponent: () => import('../CommonUI/Pages/view-document/view-document.component').then((m) => m.ViewDocumentComponent)
   },
   
     {

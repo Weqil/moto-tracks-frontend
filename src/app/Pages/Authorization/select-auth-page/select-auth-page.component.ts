@@ -19,7 +19,7 @@ export class SelectAuthPageComponent  implements OnInit {
   navController: NavController = inject(NavController) 
 
   back(){
-    this.navController.back()
+    this.navController.navigateForward('/events')
   }
   inLogin(){
     this.navController.navigateForward('/login')

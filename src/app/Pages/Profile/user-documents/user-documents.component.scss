@@ -258,10 +258,20 @@ ion-modal{
     padding: 0.4rem;
     padding-left: 0.8rem;
     border: 1px solid gray;
+    width: 100%;
+    
     img{
        opacity: 0.8;
         max-width: 20px;
         max-height: 20px;
+    }
+
+    .name{
+        width: 100%;
+        max-width: 300px;
+        white-space: nowrap;         /* Запрещает перенос текста */
+        overflow: hidden;            /* Скрывает выходящий за границы текст */
+        text-overflow: ellipsis;     /* Добавляет троеточие (…) в конце */
     }
 }
 
@@ -288,6 +298,10 @@ ion-modal{
     flex-direction: column;
     margin: auto;
    
+  }
+  
+  .notarius-name{
+    opacity: 0.7;
   }
 
 

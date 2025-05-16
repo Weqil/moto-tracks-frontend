@@ -2,7 +2,7 @@
   <app-header [customContainer]="true">
     <div class="header-container">
       <div class="back-button">
-        <app-back-button (click)="cancelEdit()" fontColor="font-dark" theme="white"></app-back-button>
+        <app-back-button (click)="cancelEdit()" [widht]="'full'" fontColor="font-dark" theme="white"></app-back-button>
       </div>
 
       <div class="text-container">
@@ -92,12 +92,14 @@
         <div class="document-container">
           <app-standart-input [control]="licensesForm.get('number')" placeholder="Лицензия МФР" label="Лицензия МФР (тип, №):"></app-standart-input>
           <div class="document" *ngIf="licensed">
-            <a href="{{licensed.url_view}}">
+            
               <div class="file-name">
                 <img src="/assets/icons/documents.svg" alt="">
-                {{licensed.name}}
+                <div class="name">
+                  {{licensed.name}}
+                </div>
                </div>
-            </a>
+            
           </div>
           <div class="button-container">
             <app-icon-button (click)="licensesFileInput.click()"  class="width-button" [widht]="'full'" height="long-height" [elementsPosition]="'elements-position__row'" buttonTextColor='red-text' [buttonIconColor]="'red-icon'" buttonText="{{licensesFile.name}}" [buttonBorderWidth]="'b05'" [buttonBorderColor]="'red-border'" icon="assets/icons/upload.svg" height="standart-height" sizeIcon="standart-size" theme="white"></app-icon-button>
@@ -110,15 +112,18 @@
       <div class="polish">
         <div class="document-container">
           <app-standart-input [control]="polisForm.get('number')" placeholder="Серия, номер" label="Страховой полис"></app-standart-input>
-          <app-standart-input [control]="polisForm.get('issuedWhom')" placeholder="Кем выдан" label=""></app-standart-input>
-          <app-standart-input [control]="polisForm.get('itWorksDate')" placeholder="Срок действия" type="date" label=""></app-standart-input>
+          <app-standart-input [control]="polisForm.get('issuedWhom')" placeholder="Кем выдан" label="Кем выдан"></app-standart-input>
+          <app-standart-input [control]="polisForm.get('itWorksDate')" placeholder="Срок действия" type="date" label="Срок действия"></app-standart-input>
           <div class="document" *ngIf="polish">
-            <a href="{{polish.url_view}}">
+            
              <div class="file-name">
               <img src="/assets/icons/documents.svg" alt="">
-              {{polish.name}}
+              <div class="name">
+                {{polish.name}}
+              </div>
+              
              </div>
-            </a>
+            
           </div>
           <div class="button-container">
             <app-icon-button 
@@ -145,13 +150,19 @@
 
       <div class="notarius">
         <div class="document-container">
+          <div class="notarius-name">
+            Нотариальное согласие
+          </div>
           <div class="document" *ngIf="notarius">
-            <a href="{{notarius.url_view}}">
+            
               <div class="file-name">
                 <img src="/assets/icons/documents.svg" alt="">
-                {{notarius.name}}
+                <div class="name">
+                  {{notarius.name}}
+                </div>
+                
                </div>            
-              </a>
+             
           </div>
           <div class="button-container">
             <app-icon-button (click)="notariusFileInput.click()"  class="width-button" [widht]="'full'" height="long-height" [elementsPosition]="'elements-position__row'" buttonTextColor='red-text' [buttonIconColor]="'red-icon'" buttonText="{{notariusFile.name}}" [buttonBorderWidth]="'b05'" [buttonBorderColor]="'red-border'" icon="assets/icons/upload.svg" height="standart-height" sizeIcon="standart-size" theme="white"></app-icon-button>

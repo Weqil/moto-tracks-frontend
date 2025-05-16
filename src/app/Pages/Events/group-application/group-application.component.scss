@@ -394,8 +394,9 @@
   justify-content: flex-end;
   margin-top: var(--standart-padding);
 
-  app-standart-button {
-    min-width: 160px;
+  app-icon-button {
+    width: 100%;
+    max-width: 660px;
   }
 }
 

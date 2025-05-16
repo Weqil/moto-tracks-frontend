@@ -134,7 +134,7 @@ export class SettingsComponent  implements OnInit {
   }
 
   back(){
-    this.navControler.back() 
+    this.navControler.navigateRoot('/cabinet') 
   }
 
   validateForm() {
