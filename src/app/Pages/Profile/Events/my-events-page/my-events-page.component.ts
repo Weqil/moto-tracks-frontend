@@ -141,7 +141,6 @@ closetTableModal(){
           groupMonth: groupMonth.charAt(0).toUpperCase() + groupMonth.slice(1),
           events: _.groupBy(this.startEvents, (event:any) => moment(event.date_start).locale('ru').format('MMMM YYYY'))[groupMonth]
         }));
-        console.log(this.formatedEvents)
       })
   
     }

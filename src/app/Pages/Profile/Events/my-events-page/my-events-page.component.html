@@ -23,13 +23,14 @@
 
   <div class="main-container--with-header--strong">
     <div class="events">
+      <div  *ngIf="!formatedEvents || !formatedEvents.length" class="not-found-users">Гонок пока что нет...</div>
       <ng-container *ngIf="formatedEvents">
         <div *ngFor="let group of formatedEvents" class="events-grid">
           <div class="month-container">
             <span class="month">{{group.groupMonth}}</span>
             <div class="month-shape"></div>
           </div>
-      
+       
           <div  class="card-wrapper" *ngFor="let event of group.events; let i = index">
             <div class="edit-button-wrapper">
               <app-icon-button (click)="redirectInEditPage(event.id)" theme="red" clippy="clippy-right" height="little-height" icon="/assets/icons/pen.svg"
