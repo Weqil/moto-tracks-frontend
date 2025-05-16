@@ -910,7 +910,7 @@ export class EventsViewPageComponent  implements OnInit {
       this.personalUserForm.patchValue(this.userService.user.value?.personal)
 
       const rawPhone = this.userService.user.value?.personal?.phone_number || '';
-      const cleanedPhone = parseInt(rawPhone.replace(/\D/g, ''), 10) || 0; // Удаляем все символы, кроме цифр
+      const cleanedPhone = parseInt(rawPhone.replace(/\D/g, ''), 10) || ''; // Удаляем все символы, кроме цифр
 
       this.personalUserForm.patchValue({
         name:this.userService.user.value?.personal.name,
