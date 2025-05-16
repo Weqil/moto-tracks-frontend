@@ -219,7 +219,6 @@ p{
                 color: #ffffff !important;
             }
         }
-       
     }
 }
 
@@ -240,6 +239,13 @@ p{
 .yellow-them{
     .user-section{
         background-color: #FFECD0;
+    }
+}
+
+.white-them{
+    .user-section{
+        background-color: #ffffff;
+        box-shadow: none;
     }
 }
 

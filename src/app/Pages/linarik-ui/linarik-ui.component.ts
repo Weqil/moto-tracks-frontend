@@ -13,6 +13,7 @@ import { User } from '@app/Shared/Data/Interfaces/user-model';
 import { NavbarVisibleService } from '@app/Shared/Services/navbar-visible.service';
 import { IonContent } from "@ionic/angular/standalone";
 import { UserSectionComponent } from "../../Shared/Components/UserElements/user-section/user-section.component";
+import { StandartRichInputComponent } from "../../Shared/Components/UI/LinarikUI/forms/standart-rich-input/standart-rich-input.component";
 
 @Component({
   selector: 'app-linarik-ui',
@@ -28,7 +29,8 @@ import { UserSectionComponent } from "../../Shared/Components/UserElements/user-
     TabElementComponent,
     SelectBottomModalComponent,
     StandartInputComponent,
-    UserSectionComponent
+    UserSectionComponent,
+    StandartRichInputComponent
 ]
 })
 export class LinarikUiComponent  implements OnInit {

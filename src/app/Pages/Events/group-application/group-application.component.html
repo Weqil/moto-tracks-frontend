@@ -1,27 +1,37 @@
 <ion-content>
-  <app-header headerTitle="Групповая заявка">
+  <app-header [customContainer]="true">
+    <div class="up-header">
+      <div class="back-btn">
+        <app-back-button (click)="close()" [theme]="'white'" [buttonText]="''" widht="full" ></app-back-button>
+      </div>
+      <div class="header-text">
+        <span>Выбор команды</span>
+      </div>
+    </div>
   </app-header>
-  <div class="main-container--with-header">
+  <div class="main-container">
     <div class="team-selector">
       <app-standart-input-select
         [selectedItem]="{name: selectedTeam?.name || 'Все команды', value: selectedTeam?.id?.toString() || ''}"
         [items]="teamsForSelect"
         (onChange)="onTeamSelect($event.value)"
-        label="Выберите команду"
+        label="Выберите вашу команду"
         selectedName="teamSelect"
       ></app-standart-input-select>
     </div>
 
     <div class="users-list">
-      <div *ngFor="let user of getFilteredUsers()" 
-           class="user-section"
-           [class.disabled]="hasIncompleteData(user)">
+      <div *ngFor="let user of getFilteredUsers()" class="user-section" [class.disabled]="hasIncompleteData(user)">
+
         <div class="user-item"
-             (click)="!hasIncompleteData(user) && onUserSelect(user, !isUserSelected(user), $event)">
+          (click)="!hasIncompleteData(user) && onUserSelect(user, !isUserSelected(user), $event)">
         
           <div class="user-info">
             <app-user-section 
+              [them]="'white-them'"
               [user]="user"
+              [name]="true"
+              [surname]="true"
               [showRank]="true"
               [showAddress]="true"
               [hideEmail]="true">
@@ -55,6 +65,7 @@
             (click)="$event.stopPropagation()">
           </ion-checkbox>
         </div>
+
         <div *ngIf="user.personal" class="class-selector-wrapper" (click)="$event.stopPropagation()">
           <div  class="class-selector">
             <app-standart-input-select
@@ -77,11 +88,15 @@
     </div>
 
     <div class="submit-button">
-      <app-standart-button 
-        (click)="submitApplication()" 
+      <app-icon-button 
+        (click)="!hasSelectedUsers() ? null : submitApplication()" 
         buttonText="Отправить заявку"
-        [disabled]="!hasSelectedUsers()">
-      </app-standart-button>
+        widht="full"
+        [theme]="!hasSelectedUsers() ? 'dark-gray' : 'red'"
+        [clippy]="'clippy-right'"
+        [shapeColumn]="true">
+      </app-icon-button>
+      <!-- [disabled]="!hasSelectedUsers()" -->
     </div>
   </div>
 </ion-content>
@@ -89,9 +104,25 @@
 <ion-modal [isOpen]="isUserModalOpen" (didDismiss)="closeUserModal()">
   <ng-template>
     <ion-content>
-      <app-header (customBackClick)="closeUserModal()" [customBack]="true" headerTitle="Анкета участника"></app-header>
-      <div class="main-container--with-header">
+      <div class="up-header-modal">
+        <div class="back-btn">
+          <app-back-button (click)="closeUserModal()" [theme]="'white'" [buttonText]="''" widht="full" ></app-back-button>
+        </div>
+        <div class="header-text">
+          <span>Заявка участника</span>
+        </div>
+      </div>
+      <!-- <app-header (customBackClick)="closeUserModal()" [customBack]="true" headerTitle="Анкета участника"></app-header> -->
+      <div class="main-container">
+        <app-regions-select-modal 
+        (select)="setRegion($event)" 
+        [visible]="regionModalState" 
+        (onClose)="closeRegionModal()" 
+        [regions]="searchRegionItems"> 
+        </app-regions-select-modal>
+        
         <form class="personal-form">
+         
           <app-standart-input [control]="personalUserForm.get('surname')" [errorMessage]="formErrors.surname.errorMessage" [invalid]="formErrors.surname.errorMessage.length !== 0" placeholder="Введите фамилию" label="Фамилия*"></app-standart-input>
           <app-standart-input [control]="personalUserForm.get('name')" [errorMessage]="formErrors.name.errorMessage" [invalid]="formErrors.name.errorMessage.length !== 0" placeholder="Введите имя" label="Имя*"></app-standart-input>
           <app-standart-input [control]="personalUserForm.get('patronymic')" [errorMessage]="formErrors.patronymic.errorMessage" [invalid]="formErrors.patronymic.errorMessage.length !== 0" placeholder="Введите отчество" label="Отчество*"></app-standart-input>
@@ -128,8 +159,8 @@
           <app-standart-input [errorMessage]="formErrors.numberAndSeria.errorMessage" [invalid]="formErrors.numberAndSeria.errorMessage.length !== 0" [control]="personalUserForm.get('numberAndSeria')" placeholder="Серия, номер" label="Паспорт/Свидетельство о рождении*"></app-standart-input>
           <app-standart-rich-input [inputStatus]="true" [control]="personalUserForm.get('comment')" label="Комментарий" placeholder="Оставьте комментарий"></app-standart-rich-input>
           <div class="modal-buttons">
-            <app-standart-button (click)="closeUserModal()" buttonText="Отмена" theme="light" buttonStyle="secondary"></app-standart-button>
-            <app-standart-button (click)="saveUserData()" buttonText="Сохранить"></app-standart-button>
+            <app-icon-button widht="full" (click)="closeUserModal()" buttonText="Отмена" theme="dark-gray" buttonStyle="secondary"></app-icon-button>
+            <app-icon-button widht="full" theme="red" (click)="saveUserData()" buttonText="Сохранить"></app-icon-button>
           </div>
         
         </form>
@@ -141,22 +172,35 @@
 <ion-modal [isOpen]="isPreviewModalOpen" (didDismiss)="closePreviewModal()">
   <ng-template>
     <ion-content>
-      <app-header (customBackClick)="closePreviewModal()" [customBack]="true" headerTitle="Предпросмотр заявки"></app-header>
-      <div class="main-container--with-header">
+      
+      <!-- <app-header (customBackClick)="closePreviewModal()" [customBack]="true" headerTitle="Предпросмотр заявки"></app-header> -->
+      <div class="main-container-modal">
+        <div class="up-header-modal">
+          <div class="back-btn">
+            <app-back-button (click)="closePreviewModal()" [theme]="'white'" [buttonText]="''" widht="full" ></app-back-button>
+          </div>
+          <div class="header-text">
+            <span>Предпросмотр заявки</span>
+          </div>
+        </div>
         <div class="preview-content">
           <h2>Выбранные участники:</h2>
           <div class="preview-users-list">
             <div *ngFor="let user of selectedUsers" class="preview-user-item">
-              <app-user-section 
-                [user]="user"
-                [showRank]="true"
-                [showAddress]="true"
-                [hideEmail]="true">
-              </app-user-section>
               <div class="user-class">
                 <span class="class-label">Класс:</span>
                 <span class="class-value">{{user.personal?.race_class || 'Не выбран'}}</span>
               </div>
+              <app-user-section 
+                [user]="user"
+                [name]="true"
+                [surname]="true"
+                [them]="'white-them'"
+                [showRank]="true"
+                [showAddress]="true"
+                [hideEmail]="true">
+              </app-user-section>
+              
             </div>
           </div>
           <div class="preview-actions">
@@ -169,10 +213,13 @@
   </ng-template>
 </ion-modal>
 
-<ion-modal class="region-modal" (didDismiss)="closeRegionModal()" [isOpen]="regionModalState">
+
+<!-- <ion-modal class="region-modal" (didDismiss)="closeRegionModal()" [isOpen]="regionModalState">
   <ng-template>
     <ion-content>
-      <div class="region-modal-container">
+ -->
+
+      <!-- <div class="region-modal-container">
         <div class="region-modal-header">
           <h3>Выберите регион</h3>
           <ion-icon name="close-circle" (click)="closeRegionModal()"></ion-icon>
@@ -189,10 +236,10 @@
             {{ item.name }}
           </div>
         </div>
-      </div>
-    </ion-content>
+      </div> -->
+    <!-- </ion-content>
   </ng-template>
-</ion-modal>
+</ion-modal> -->
 
 
 
