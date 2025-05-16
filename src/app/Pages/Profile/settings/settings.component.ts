@@ -417,6 +417,7 @@ deletePhoneForUserId(){
       return EMPTY
     })
   ).subscribe(()=>{
+    this.userService.refreshUser().then(()=>{})
     })
   }
 
