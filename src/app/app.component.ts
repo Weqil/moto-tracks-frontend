@@ -48,7 +48,7 @@ export class AppComponent {
     })
     this.userService.refreshUser();
     this.cupService.getAllDegree().subscribe((res:any)=>{
-      this.cupService.allDegree = res.degree
+      this.cupService.allDegree.next(res.degree) 
     })
   }
 }

@@ -57,6 +57,7 @@ export class EventsTapePageComponent  implements OnInit {
   eventService: EventService = inject(EventService)
   loadingService:LoadingService = inject(LoadingService)
   cupService:CupService = inject(CupService)
+  canRgp :boolean = true
   eventTapeService: EventTapeService = inject(EventTapeService)
   rgpFilter:boolean = false
 
@@ -153,7 +154,7 @@ export class EventsTapePageComponent  implements OnInit {
         sort:'asc',
         commissionUser:1,
         userIdExists: this.userService.user.value?.id ? this.userService.user.value?.id: '',
-        'degreeIds[]':Array([this.cupService.allDegree.find((degree:Degree)=>degree.name == 'rgp')?.id|| '']).join(',')
+        'degreeIds[]':Array([this.cupService.allDegree.value.find((degree:Degree)=>degree.name == 'rgp')?.id|| '']).join(',')
       }
     }
     this.getEvents()
@@ -425,7 +426,9 @@ export class EventsTapePageComponent  implements OnInit {
  
   ngOnInit() {
     this.getRegions()
-    
+    this.cupService.allDegree.subscribe((res:Degree[])=>{
+      this.canRgp = res.some((degree:Degree)=> degree.name == 'rgp')
+    })
     window.addEventListener('popstate', (event) => {
       this.closetTableModal()
       this.closeUploadResultModalState()
