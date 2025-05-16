@@ -22,6 +22,12 @@ export const privateRoutes: Routes = [
                 loadComponent: () => import('../Pages/Profile/cabinet/cabinet.component').then((m) => m.CabinetComponent),
         
             },
+             {
+                path:'track-payment/:id/:price',
+                canActivate:[canActivateAuth],
+                 loadComponent: () => import('../Pages/Track/track-payment/track-payment.component').then((m)=> m.TrackPaymentComponent)
+
+            },
             {
                 path:'document/:id',
                 canActivate:[canActivateAuth,canActivateRoleAdmin],
