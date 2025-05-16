@@ -131,6 +131,11 @@
 
           </ng-container>
         </div>
+        <div *ngIf="track.store" class="payment-button">
+          <div class="payment-button-wrapper">
+            <app-icon-button style="width: 100%;" (click)="redirectInPayment()" [widht]="'full'" [clippy]="'clippy-right'" [shapeColumn]="true"  buttonText="Оплатить тренировку" [theme]="'red'"></app-icon-button>
+          </div>
+        </div>
       </ng-container>
     </div>
   </main>

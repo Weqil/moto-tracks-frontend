@@ -108,6 +108,13 @@ export class TrackViewPageComponent  implements OnInit {
     
     })
    }
+
+   redirectInPayment(){
+    if(this.track.attendance?.length){
+       this.navController.navigateRoot(['/track-payment',this.track.attendance[0].id,this.track.attendance[0].price])
+    }
+  }
+   
    async sharePage() {
     const shareData = {
       title: document.title,

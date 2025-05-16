@@ -833,6 +833,25 @@ ya-map{
     font-family: var(--font-regular);
     padding-top: var(--standart-padding);
 }
+.payment-button{
+    padding: var(--standart-padding);
+    position: fixed;
+    bottom: 0;
+    right: 0;
+
+    width: 100%;
+    display: flex;
+    background: #ffffff;
+    align-items: center;
+    justify-content: center;
+    .payment-button-wrapper{
+        max-width: 960px;
+        padding-left: var(--standart-padding);
+        padding-right: var(--standart-padding);
+        width: 100%;
+
+    }
+}
 .track-contacts{
     padding-top: var(--standart-padding);
 }
