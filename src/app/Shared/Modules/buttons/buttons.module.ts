@@ -6,6 +6,7 @@ import { SwitcherComponent } from '../../Components/UI/Buttons/switcher/switcher
 import { RoundedButtonComponent } from '../../Components/UI/Buttons/rounded-button/rounded-button.component';
 import { TypeSwitherComponent } from '../../Components/UI/type-swither/type-swither.component';
 import { BackButtonComponent } from '@app/Shared/Components/UI/LinarikUI/buttons/back-button/back-button.component';
+import { IconButtonComponent } from '@app/Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component';
 @NgModule({
   declarations: [],
   imports: [
@@ -15,7 +16,8 @@ import { BackButtonComponent } from '@app/Shared/Components/UI/LinarikUI/buttons
     StandartButtonComponent,
     SwitcherComponent,
     RoundedButtonComponent,
-    TypeSwitherComponent
+    TypeSwitherComponent,
+    IconButtonComponent,
 
   ],
   exports: [
@@ -24,7 +26,8 @@ import { BackButtonComponent } from '@app/Shared/Components/UI/LinarikUI/buttons
     StandartButtonComponent,
     SwitcherComponent,
     RoundedButtonComponent,
-    TypeSwitherComponent
+    TypeSwitherComponent,
+    IconButtonComponent,
   ]
 })
 export class ButtonsModule { }

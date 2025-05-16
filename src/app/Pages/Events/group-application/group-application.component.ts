@@ -1,15 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA, inject } from '@angular/core';
-import { IonContent, IonCheckbox, IonButton, IonList, IonItem, IonLabel, IonIcon, IonModal, NavController,IonSelect, IonItemOption, IonSelectOption } from "@ionic/angular/standalone";
+import { IonContent, IonCheckbox,  IonList, IonItem, IonLabel, IonIcon, IonModal, NavController,IonSelect, IonItemOption, IonSelectOption } from "@ionic/angular/standalone";
 import { HeaderModule } from 'src/app/Shared/Modules/header/header.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserSectionComponent } from 'src/app/Shared/Components/UserElements/user-section/user-section.component';
 import { User } from 'src/app/Shared/Data/Interfaces/user-model';
 import { addIcons } from 'ionicons';
 import { closeCircle, warning, pencil } from 'ionicons/icons';
-import { ButtonsModule } from 'src/app/Shared/Modules/buttons/buttons.module';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { StandartInputComponent } from 'src/app/Shared/Components/Forms/standart-input/standart-input.component';
 import { LoadingService } from 'src/app/Shared/Services/loading.service';
 import { ToastService } from 'src/app/Shared/Services/toast.service';
 import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
@@ -17,7 +15,6 @@ import { finalize } from 'rxjs';
 import { ICommand } from 'src/app/Shared/Data/Interfaces/command';
 import { userRoles } from 'src/app/Shared/Data/Enums/roles';
 import { MapService } from 'src/app/Shared/Data/Services/Map/map.service';
-import { StandartRichInputComponent } from 'src/app/Shared/Components/Forms/standart-rich-input/standart-rich-input.component';
 import { IonicModule, } from '@ionic/angular';
 import { StandartInputSelectComponent } from 'src/app/Shared/Components/UI/Selecteds/standart-input-select/standart-input-select.component';
 import { ComandsService } from 'src/app/Shared/Data/Services/Comands/comands.service';
@@ -26,6 +23,12 @@ import { ActivatedRoute } from '@angular/router';
 import { StandartInputSearchComponent } from 'src/app/Shared/Components/Forms/standart-input-search/standart-input-search.component';
 import { concat } from 'rxjs';
 import { map, catchError, of } from 'rxjs';
+import { IconButtonComponent } from '@app/Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component';
+import { RegionsSelectModalComponent } from "../../../Shared/Components/Modals/regions-select-modal/regions-select-modal.component";
+import { BackButtonComponent } from '@app/Shared/Components/UI/LinarikUI/buttons/back-button/back-button.component';
+import { StandartInputComponent } from '@app/Shared/Components/UI/LinarikUI/forms/standart-input/standart-input.component';
+import { StandartRichInputComponent } from "@app/Shared/Components/UI/LinarikUI/forms/standart-rich-input/standart-rich-input.component";
+
 
 // Добавляем интерфейс для документа
 interface Document {
@@ -55,23 +58,21 @@ interface UserWithTeam extends User {
     HeaderModule,
     FormsModule,
     UserSectionComponent,
-    IonButton,
+    RegionsSelectModalComponent,
     IonList,
     IonItem,
     IonLabel,
     IonIcon,
-    ButtonsModule,
+    BackButtonComponent,
     ReactiveFormsModule,
-    StandartInputComponent,
     IonModal,
     StandartRichInputComponent,
     StandartInputSelectComponent,
     StandartInputSearchComponent,
     IonContent,
-    IonSelect,
-    IonCheckbox,
-    IonItemOption,
-    IonSelectOption
+    IconButtonComponent,
+    StandartInputComponent
+
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
@@ -230,6 +231,7 @@ export class GroupApplicationComponent implements OnInit {
 
   // Добавляем методы для работы с модальным окном региона
   openRegionModal() {
+    console.log(this.regionModalState)
     this.regionModalState = true;
   }
 
@@ -609,6 +611,10 @@ export class GroupApplicationComponent implements OnInit {
         }
       }
     }
+  }
+
+  close(){
+    this.navController.back()
   }
 
   submitValidate(): boolean {

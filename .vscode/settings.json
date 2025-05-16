@@ -1,3 +1,4 @@
 {
+  "angular.languageService.tsconfig": "tsconfig.app.json",
   "typescript.preferences.autoImportFileExcludePatterns": ["@ionic/angular/common", "@ionic/angular"]
 }
