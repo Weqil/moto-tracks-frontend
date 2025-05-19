@@ -376,7 +376,6 @@ export class EventsViewPageComponent  implements OnInit {
       // console.log(now > moment(this.event?.record_end) )
       // return now > moment(this.event?.record_end).format('YYYY-MM-DD HH:mm')
       if(this.event?.record_end || this.event?.record_end !== null){
-        console.log(now < moment(this.event?.record_end).format('YYYY-MM-DD HH:mm'))
         return now < moment(this.event?.record_end).format('YYYY-MM-DD HH:mm')
       }else{
         return false
@@ -390,9 +389,7 @@ export class EventsViewPageComponent  implements OnInit {
 
     checkRecordStart(){
       let now = moment().format('YYYY-MM-DD HH:mm')
-      console.log(this.event?.record_start )
       if(this.event?.record_start || this.event?.record_start !== null){
-        console.log(now < moment(this.event?.record_start).format('YYYY-MM-DD HH:mm'))
         return now > moment(this.event?.record_start).format('YYYY-MM-DD HH:mm')
       }else{
         return false
