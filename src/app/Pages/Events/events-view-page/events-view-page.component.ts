@@ -49,8 +49,9 @@ import { RegionsSelectModalComponent } from "../../../Shared/Components/Modals/r
   selector: 'app-events-view-page',
   templateUrl: './events-view-page.component.html',
   styleUrls: ['./events-view-page.component.scss'],
-  imports: [SharedModule, SlidersModule, ButtonsModule, TabElementComponent, TrackSectionComponent, IonModal, HeaderModule, IconButtonComponent,
-    ConfirmModalComponent, CheckImgUrlPipe, FormsModule, RouterLink, ImagesModalComponent, SelectComandsComponent, PdfViewerModule, UserSectionComponent, StandartInputSelectComponent, RegionsSelectModalComponent]
+  imports: [SharedModule, SlidersModule, ButtonsModule, TabElementComponent,
+    TrackSectionComponent, IonModal, HeaderModule, IconButtonComponent,
+    ConfirmModalComponent, CheckImgUrlPipe, FormsModule, RouterLink, ImagesModalComponent, SelectComandsComponent, PdfViewerModule, UserSectionComponent, StandartInputSelectComponent, RegionsSelectModalComponent, CheckResultsPathPipe]
 })
 export class EventsViewPageComponent  implements OnInit {
 
