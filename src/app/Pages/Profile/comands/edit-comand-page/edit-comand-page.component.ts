@@ -6,7 +6,6 @@ import { IonContent, IonModal, NavController } from '@ionic/angular/standalone';
 import { finalize, Subject, takeUntil } from 'rxjs';
 import { FileInputComponent } from 'src/app/Shared/Components/Forms/file-input/file-input.component';
 import { StandartInputSearchComponent } from 'src/app/Shared/Components/Forms/standart-input-search/standart-input-search.component';
-import { StandartInputComponent } from 'src/app/Shared/Components/Forms/standart-input/standart-input.component';
 import { StandartButtonComponent } from 'src/app/Shared/Components/UI/Buttons/standart-button/standart-button.component';
 import { HeaderComponent } from 'src/app/Shared/Components/UI/header/header.component';
 import { ICommand } from 'src/app/Shared/Data/Interfaces/command';
@@ -16,12 +15,15 @@ import { CheckImgUrlPipe } from 'src/app/Shared/Helpers/check-img-url.pipe';
 import { formdataService } from 'src/app/Shared/Helpers/formdata.service';
 import { LoadingService } from 'src/app/Shared/Services/loading.service';
 import { ToastService } from 'src/app/Shared/Services/toast.service';
+import { StandartInputComponent } from "../../../../Shared/Components/UI/LinarikUI/forms/standart-input/standart-input.component";
+import { IconButtonComponent } from "../../../../Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component";
+import { RegionsSelectModalComponent } from "../../../../Shared/Components/Modals/regions-select-modal/regions-select-modal.component";
 
 @Component({
   selector: 'app-edit-comand-page',
   templateUrl: './edit-comand-page.component.html',
   styleUrls: ['./edit-comand-page.component.scss'],
-  imports:[IonContent,HeaderComponent,StandartInputComponent,FileInputComponent,StandartButtonComponent,CommonModule,IonModal,StandartInputSearchComponent,CheckImgUrlPipe]
+  imports: [IonContent, HeaderComponent, FileInputComponent, StandartButtonComponent, CommonModule, IonModal, StandartInputSearchComponent, CheckImgUrlPipe, StandartInputComponent, IconButtonComponent, RegionsSelectModalComponent]
 })
 export class EditComandPageComponent  implements OnInit {
 
@@ -54,8 +56,10 @@ export class EditComandPageComponent  implements OnInit {
    formErrors:any = {
       name: {
         errorMessage:''
-
         },
+      fullName: {
+          errorMessage:''
+          },
       surname: {
         errorMessage:''
         },
@@ -69,6 +73,7 @@ export class EditComandPageComponent  implements OnInit {
 
    createCommandForm: FormGroup = new FormGroup({
          name: new FormControl('', [Validators.required, Validators.minLength(3)]),
+         fullName: new FormControl(),
          city: new FormControl('', [Validators.required, Validators.minLength(3)]),
          region: new FormControl('', [Validators.required, Validators.minLength(3)]),
          locationId: new FormControl('', [Validators.required, Validators.minLength(3)]),
@@ -155,7 +160,9 @@ export class EditComandPageComponent  implements OnInit {
             })
           ).subscribe((res:any)=>{
             this.toastService.showToast('Команда успешно изменена','success')
-            this.navController.back()
+            setTimeout(()=>{
+              this.navController.back()
+            },500)
           })
     
         } else {

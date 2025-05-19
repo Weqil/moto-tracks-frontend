@@ -1,9 +1,26 @@
+.cabinet-header{
+    height: 40px;
+
+    .cabinet-header__title{
+       
+            margin: auto;
+        
+    }
+}
+
 .create-command-main{
     padding-top:var(--standart-padding);
     display: flex;
     gap:var(--standart-padding);
     width: 100%;
     flex-direction: column;
+    max-width: 960px;
+    margin: auto;
+}
+
+.btn-container{
+    width: 100%;
+    max-width: 960px;
 }
 
 ion-modal{
@@ -47,3 +64,40 @@ ion-modal{
     flex-direction: column;
     gap: var(--little-padding);
 }
+
+.create-command-main{
+    padding-top:var(--standart-padding);
+    display: flex;
+    gap:var(--standart-padding);
+    width: 100%;
+    flex-direction: column;
+}
+// .create-container{
+//     width: 100%;
+//     max-width: 960px;
+//     margin: auto;
+//     display: flex;
+//     flex-direction: column;
+//     gap: var(--standart-padding);
+//     padding-left: var(--standart-padding);
+//     padding-right:var(--standart-padding);
+//   }
+  .create-circle-upload{
+    font-family: var(--font-regular);
+    margin-top: var(--standart-padding);
+    width: 200px;
+    margin-left: auto;
+    cursor: pointer;
+    margin-right: auto;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    height: 200px;
+    border: 2px dashed rgb(255, 85, 85);
+    span{
+      color:rgb(255, 85, 85);
+    }
+  }

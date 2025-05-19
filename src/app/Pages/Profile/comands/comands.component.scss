@@ -5,6 +5,8 @@
     flex-direction: column;
     gap: var(--standart-padding);
     padding-bottom: 5rem;
+    max-width: 960px;
+    margin: auto;
 }
 .commands-grid__item{
     // border-bottom: 1px solid rgba(76, 88, 97, .1568627451);

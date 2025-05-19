@@ -107,16 +107,16 @@
                 </div>
                 <div class="track-contacts__grid">
                   <a *ngIf="getContactValue('vk')" [attr.href]="getContactValue('vk')">
-                        <app-icon-button  widht="w20" style="height: 52px;"  buttonIconColor="white-icon" theme="red" height="height64" icon="/assets/icons/vk.svg"></app-icon-button>
+                        <app-icon-button  widht="w20"  buttonIconColor="white-icon" theme="red" height="standart-height" icon="/assets/icons/vk.svg"></app-icon-button>
                   </a>
                   <a *ngIf="getContactValue('whatsApp')" [attr.href]="getContactValue('whatsApp')" href="">
-                      <app-icon-button  widht="w20"  buttonIconColor="white-icon" theme="red" height="height64" icon="/assets/icons/wt.svg"></app-icon-button>
+                      <app-icon-button  widht="w20"  buttonIconColor="white-icon" theme="red" height="standart-height" icon="/assets/icons/wt.svg"></app-icon-button>
                   </a>
                   <a *ngIf="getContactValue('tg')" [attr.href]="getContactValue('tg')">
-                      <app-icon-button  widht="w20"  buttonIconColor="white-icon" theme="red" height="height64" icon="/assets/icons/tg.svg"></app-icon-button>
+                      <app-icon-button  widht="w20"  buttonIconColor="white-icon" theme="red" height="standart-height" icon="/assets/icons/tg.svg"></app-icon-button>
                   </a>
                   <a *ngIf="getContactValue('site')" [attr.href]="getContactValue('site')">
-                      <app-icon-button  widht="w20"  buttonIconColor="white-icon" theme="red" height="height64" icon="/assets/icons/web.svg"></app-icon-button>
+                      <app-icon-button  widht="w20"  buttonIconColor="white-icon" theme="red" height="standart-height" icon="/assets/icons/web.svg"></app-icon-button>
                   </a>
                   <a [attr.href]="'tel:'+getContactValue('phone')" *ngIf="getContactValue('phone')">
                     <app-icon-button elementsPosition="elements-position__row" buttonIconColor="red-icon" 

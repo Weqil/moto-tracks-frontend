@@ -13,8 +13,16 @@
     <main *ngIf="track" class="main-container--with-header">
         <section>
             <form [formGroup]="editTrackForm" class="edit-form">
-                <app-standart-input label="Название" [control]="editTrackForm.get('name')" placeholder="Введите название вашего трека"></app-standart-input>
-                <div style="padding-top: var(--standart-padding); padding-bottom: var(--standart-padding);">
+                <div class="event-information-title">
+                    <img src="/assets/icons/red-finished.svg" alt="">
+                    Основная информация 
+                </div>
+                <div (click)="logoFile.click()" style="background-image: url({{logoUrl}});" class="create-circle-upload">
+                    <img *ngIf="!logoUrl" src="/assets/icons/upload.svg" alt="">
+                    <span *ngIf="!logoUrl" >Загрузить лого</span>
+                </div>
+                <input (change)="setLogo($event,logoFile)" #logoFile style="display: none;" accept="image/png, image/jpeg" type="file" type="file">
+                <!-- <div style="padding-top: var(--standart-padding); padding-bottom: var(--standart-padding);">
                   <span class="label">Логотип трека</span>
                   <div class="logo-track">
                 
@@ -31,13 +39,25 @@
                           <input (change)="setLogo($event,logoFile)" #logoFile style="display: none;" accept="image/png, image/jpeg" type="file" type="file">
                       </div>
                   </div>
-                </div>
+                </div> -->
+                <app-standart-input label="Название" [control]="editTrackForm.get('name')" placeholder="Введите название вашего трека"></app-standart-input>
                 <app-standart-input (click)="openRegionModal()" [readonly]="true" label="Область/край" [control]="editTrackForm.get('region')" placeholder="Выберите область вашего соревнования"></app-standart-input>
                 <div class="address-container">
-                    <label class="label">Адрес трассы</label>
-                    <app-address-input *ngIf="track.latitude &&  track.longitude" [coords]="[track.latitude, track.longitude]" (addressEditEmit)="changeAddress($event)"></app-address-input>                        
+                    <app-address-input *ngIf="track.latitude &&  track.longitude" [coords]="[track.latitude, track.longitude]" (addressEditEmit)="changeAddress($event)" label="Адрес"></app-address-input>
+                    <!-- <label class="label">Адрес трассы</label>
+                    <app-address-input *ngIf="track.latitude &&  track.longitude" [coords]="[track.latitude, track.longitude]" (addressEditEmit)="changeAddress($event)"></app-address-input>                         -->
                 </div>
-                <span style="padding-top: var(--standart-padding);" class="label">Cхема трека</span>
+
+                <div class="scheme-track">
+                    <span class="label">Схема трека*</span>
+                    <div (click)="schemeFile.click()" style="background-image: url({{schemeUrl}});" class="upload-scheme">
+                        <img *ngIf="!schemeUrl" src="/assets/icons/upload.svg" alt="">
+                        <span *ngIf="!schemeUrl" >Загрузить схему</span>
+                    </div>
+                    <input (change)="setScheme($event,schemeFile)" #schemeFile style="display: none;" accept="image/png, image/jpeg" type="file" type="file">
+                </div>
+
+                <!-- <span style="padding-top: var(--standart-padding);" class="label">Cхема трека</span>
                 <div class="logo-track">
                   <button (click)="schemeFile.click()" class="upload-logo">
                     <img src="/assets/icons/addPhoto.svg" alt="">
@@ -53,13 +73,75 @@
                             
                   </div>
                   <app-info-popover style="position: absolute; right: 0;" text="Скриншот области трассы со спутника"></app-info-popover>
-                </div>
+                </div> -->
+
+               
         
-                <div class="track-settings">
+                <!-- <div class="track-settings">
                   <ion-toggle  formControlName="light" name="light" id="light" mode="ios" class="custom-toggle">Освещение</ion-toggle>
                   <ion-toggle formControlName="season" name="light" id="light" mode="ios" class="custom-toggle">Всесезонность</ion-toggle>
-               </div>
-               <form [formGroup]="specForm" class="track-settings__spec">
+               </div> -->
+
+
+               <div class="track-detail-information">
+                <div class="event-information-title">
+                    <img src="/assets/icons/red-finished.svg" alt="">
+                    Детальная информация
+                </div>
+               
+                <div class="detail-input-wrapper">
+                    <app-info-popover class="popover-container" text="Замерьте полную длину летнего круга трассы. Можете воспользоваться линейкой яндекс карт."></app-info-popover>
+                    <app-standart-input type="number" style="width: 100%;" label="Протяжённость круга" iconLeft="/assets/icons/length.svg" [control]="specForm.get('lengthTrack')" placeholder="Введите в метрах"></app-standart-input>
+                </div>
+                <div class="detail-input-wrapper">
+                    <app-info-popover class="popover-container" text="Какое покрытие большую часть времени, летом, имеет трасса"></app-info-popover>
+                    <app-standart-input-select iconLeft="/assets/icons/coverage.svg" [selectedItem]="coverageSelectedItem" (onChange)="setCoverage($event)" selectedName="groupSelect" [items]="coverageItems" style="width: 100%;" label="Покрытие трека"></app-standart-input-select>
+                </div>
+                <div class="detail-input-wrapper">
+                    <app-info-popover class="popover-container" text="от самой низкой точки до самой высокой точке на трассе"></app-info-popover>
+                    <app-standart-input type="number" style="width: 100%;" label="Перепад высот" iconLeft="/assets/icons/heigth.svg" [control]="specForm.get('heightDifference')" placeholder="Введите в метрах"></app-standart-input>
+                </div>
+                <div class="detail-input-wrapper">
+                    <app-info-popover class="popover-container" text="Количество левых поворотов на трассе"></app-info-popover>
+                    <app-standart-input type="number" style="width: 100%;" label="Левых поворотов" iconLeft="/assets/icons/left-arr.svg" [control]="specForm.get('leftTurns')" placeholder="Введите количество"></app-standart-input>
+                </div>
+                <div class="detail-input-wrapper">
+                    <app-info-popover class="popover-container" text="Количество правых поворотов на трассе"></app-info-popover>
+                    <app-standart-input type="number" style="width: 100%;" label="Правых поворотов" iconLeft="/assets/icons/right-arr.svg" [control]="specForm.get('rightTurns')" placeholder="Введите количество"></app-standart-input>
+                </div>
+                <div class="detail-input-wrapper">
+                    <app-info-popover class="popover-container" text="Количество элементов на трассе"></app-info-popover>
+                    <app-standart-input type="number" style="width: 100%;" label="Количество элементов" iconLeft="/assets/icons/elements-list.svg" [control]="specForm.get('elementsCount')" placeholder="Введите количество"></app-standart-input>
+                </div>
+                <div class="detail-input-wrapper">
+                    <app-info-popover class="popover-container" text="Длина самого скоростного участка на трассе"></app-info-popover>
+                    <app-standart-input type="number" style="width: 100%;" label="Длина самого скоростного участка" iconLeft="/assets/icons/speed.svg" [control]="specForm.get('highSpeedSection')" placeholder="Введите в метрах"></app-standart-input>
+                </div>
+            </div>
+
+
+            <div class="track-more-information">
+                <div class="event-information-title">
+                  <img src="/assets/icons/red-finished.svg" alt="">
+                  Услуги
+                </div>
+              <div class="track-more-information__grid">
+                  <div class="label">Основные услуги</div>
+                  <app-check-box (change)="editTrackForm.patchValue({'light':!$event.state})" value="light" [checked]="!!editTrackForm.get('light')?.value" labelText="Освещение" [theme]="!!editTrackForm.get('light')?.value ? 'red':'white'"  ></app-check-box>
+                  <app-check-box (change)="editTrackForm.patchValue({'season':!$event.state})" value="season" [checked]="!!editTrackForm.get('season')?.value" labelText="Всесезонность" [theme]="!!editTrackForm.get('season')?.value ? 'red':'white'" ></app-check-box>
+                  <app-check-box (change)="editTrackForm.patchValue({'apayment':!$event.state})" value="apayment" [checked]="!!editTrackForm.get('apayment')?.value" labelText="Трек платный" [theme]="!!editTrackForm.get('apayment')?.value ? 'red':'white'" ></app-check-box>
+                  <ng-container *ngIf="editTrackForm.value.apayment">
+                          <span class="apayment-text">для того, чтобы подключить платные услуги к своему треку, после создания напишите нам на почту:  admin&#64;vokrug.city</span>
+                          <div class="apayment-buttons">
+                                  <app-icon-button widht="full" theme="white" [buttonBorderColor]="'red-border'" buttonBorderWidth="b1" (click)="penMail()" buttonText="Почта"></app-icon-button>
+                          </div>
+                  </ng-container>
+                
+              </div>
+          </div>
+
+
+               <!-- <form [formGroup]="specForm" class="track-settings__spec">
                  <div class="track-settings__spec__item">
                     <div class="track-settings__spec__item__text">
                         <img style="opacity: 0.4;" src="/assets/icons/length.png" alt="" class="track-settings__spec__item__icon">
@@ -165,12 +247,34 @@
                         <app-info-popover style="position: absolute; right: 0;" text="длина прямого участка, где не требуется сброс скорости. Например от конца приемника до начала поворота. Или от конца поворота до начала любого элемента"></app-info-popover>
                     </div>
                 </div>
-            </form>
+            </form> -->
 
             <div class="description">
                 <app-standart-rich-input [control]="editTrackForm.get('desc')" label="Описание" placeholder="Введите описание вашего трека"></app-standart-rich-input>
             </div>
-            <div class="contacts-form">
+
+            <div class="track-contacts">
+                <div class="event-information-title">
+                    <img src="/assets/icons/red-finished.svg" alt="">
+                    Контакты
+                </div>
+                <div class="track-contacts__grid">
+                    <app-standart-input label="ВК" [control]="contactsForm.get('vk')" placeholder="Введите ссылку на группу вашего трека"></app-standart-input>
+                    <app-standart-input label="Telegram" [control]="contactsForm.get('tg')" placeholder="Введите ссылку на канал вашего трека"></app-standart-input>
+                    <app-standart-input label="WhatsApp" [control]="contactsForm.get('whatsApp')" placeholder="Введите ссылку на группу вашего трека"></app-standart-input>
+                    <app-standart-input  label="Телефон" maskType="phone" [control]="contactsForm.get('phone')" placeholder="Введите номер телефона"></app-standart-input>
+                    <!-- <app-icon-button (click)="submitForm()" [disabled]="stepInvalidate()"  clippy="clippy-right" buttonText="Создать" [theme]="stepInvalidate() ? 'dark':'red'"  widht="full"></app-icon-button> -->
+                    <div class="navigate-buttons-container">
+                        <app-icon-button widht="full" clippy="clippy-right" [disabled]="stepInvalidate()" (click)="!stepInvalidate() ? submitForm() : null" buttonText="Сохранить" [theme]="stepInvalidate() ? 'dark-gray' : 'red'"></app-icon-button>
+                      
+                   </div>
+                </div>
+            
+            </div>
+           
+            <app-regions-select-modal (select)="setRegion($event)" [visible]="regionModalState" (onClose)="closeRegionModal()" [regions]="searchRegionItems"> </app-regions-select-modal>
+
+            <!-- <div class="contacts-form">
               <app-standart-input label="Сайт" [control]="contactsForm.get('site')" placeholder="Введите ссылку на сайт вашего трека"></app-standart-input>
               <div style="position: relative;">
                   <app-standart-input label="Видео трека" [control]="contactsForm.get('trackVideo')" placeholder="Введите ссылку на видео вашего трека"></app-standart-input> <app-info-popover style="position: absolute; right: 0.5rem; top: 1.6rem;" text="Видео с экшн камеры быстрого гонщика"></app-info-popover>
@@ -179,20 +283,16 @@
               <app-standart-input label="Telegram" [control]="contactsForm.get('tg')" placeholder="Введите ссылку на канал вашего трека"></app-standart-input>
               <app-standart-input label="WhatsApp" [control]="contactsForm.get('whatsApp')" placeholder="Введите ссылку на группу вашего трека"></app-standart-input>
               <app-standart-input label="Телефон" [control]="contactsForm.get('phone')" placeholder="Введите номер телефона"></app-standart-input>
-            </div>
+            </div> -->
 
             </form>
-            <div class="navigate-buttons-container">
-                <app-standart-button [disabled]="stepInvalidate()" (click)="submitForm()" buttonText="Сохранить" theme="standart"></app-standart-button>
-              <div>
-                <app-standart-button [disabled]="true" (click)="cancelCreate()"  buttonText="Отмена" theme="light"></app-standart-button>
-              </div>
-           </div>
+            
         </section>
+
     </main>
 </ion-content>
 
-<ion-modal (didDismiss)="closeRegionModal()"  [isOpen]="regionModalState">
+<!-- <ion-modal (didDismiss)="closeRegionModal()"  [isOpen]="regionModalState">
     <ng-template>
       <ion-content>
         <div class="region-modal-container">
@@ -200,4 +300,4 @@
         </div>
       </ion-content>
     </ng-template>  
-</ion-modal>  
+</ion-modal>   -->

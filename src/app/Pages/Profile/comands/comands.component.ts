@@ -29,7 +29,7 @@ export class ComandsComponent  implements OnInit {
   comands:ICommand[] = []
 
   redirectInCreate(){
-    this.navController.navigateForward('/create-comands')
+    this.navController.navigateRoot('/create-comands')
   }
   redirectInEditPage(eventId:any){
     this.navController.navigateForward(`/command/edit/${eventId}`)
@@ -37,11 +37,10 @@ export class ComandsComponent  implements OnInit {
   back(){
     this.navController.back()
   }
-  redirectInViewPage(eventId:any){
-    this.navController.navigateForward(`/command/view/${eventId}`)
-  }
+
   getMyComands(){
     let loader:HTMLIonLoadingElement
+    console.log('get new comands')
     this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
       loader = res
     })
@@ -61,6 +60,11 @@ export class ComandsComponent  implements OnInit {
   ionViewWillEnter(){
     this.getMyComands()
   }
-  ngOnInit() {}
+  ionViewDidLeave(){
+    console.log('get new comands')
+  }
+  ngOnInit() {
+    console.log('get new comands')
+  }
 
 }

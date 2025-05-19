@@ -6,8 +6,6 @@ import { EMPTY, Subject } from 'rxjs';
 import { catchError, finalize, takeUntil } from 'rxjs/operators';
 import { AddressInputComponent } from 'src/app/Shared/Components/Forms/address-input/address-input.component';
 import { StandartInputSearchComponent } from 'src/app/Shared/Components/Forms/standart-input-search/standart-input-search.component';
-import { StandartInputComponent } from 'src/app/Shared/Components/Forms/standart-input/standart-input.component';
-import { StandartRichInputComponent } from 'src/app/Shared/Components/Forms/standart-rich-input/standart-rich-input.component';
 import { StandartButtonComponent } from 'src/app/Shared/Components/UI/Buttons/standart-button/standart-button.component';
 import { EditSliderComponent } from 'src/app/Shared/Components/UI/edit-slider/edit-slider.component';
 import { HeaderComponent } from 'src/app/Shared/Components/UI/header/header.component';
@@ -22,14 +20,18 @@ import { environment } from 'src/environments/environment';
 import { ToastService } from 'src/app/Shared/Services/toast.service';
 import { InfoPopoverComponent } from 'src/app/Shared/Components/UI/info-popover/info-popover.component';
 import { StandartInputSelectComponent } from 'src/app/Shared/Components/UI/Selecteds/standart-input-select/standart-input-select.component';
+import { StandartInputComponent } from "../../../../Shared/Components/UI/LinarikUI/forms/standart-input/standart-input.component";
+import { StandartRichInputComponent } from "../../../../Shared/Components/UI/LinarikUI/forms/standart-rich-input/standart-rich-input.component";
+import { RegionsSelectModalComponent } from "../../../../Shared/Components/Modals/regions-select-modal/regions-select-modal.component";
+import { CheckBoxComponent } from "../../../../Shared/Components/UI/LinarikUI/forms/check-box/check-box.component";
 
 @Component({
   selector: 'app-edit-track-page',
   templateUrl: './edit-track-page.component.html',
   styleUrls: ['./edit-track-page.component.scss'],
-  imports:[SharedModule,StandartInputComponent,
-     HeaderComponent, StandartRichInputComponent,IonModal,StandartInputSearchComponent,AddressInputComponent,EditSliderComponent,
-    StandartButtonComponent,InfoPopoverComponent,IonToggle,StandartInputSelectComponent]
+  imports: [SharedModule,
+    HeaderComponent, IonModal, StandartInputSearchComponent, AddressInputComponent, EditSliderComponent,
+    StandartButtonComponent, InfoPopoverComponent, IonToggle, StandartInputSelectComponent, StandartInputComponent, StandartRichInputComponent, RegionsSelectModalComponent, CheckBoxComponent]
 })
 export class EditTrackPageComponent  implements OnInit {
 
@@ -109,6 +111,10 @@ coverageItems:any[] = [
 
 setCoverage(event:any){
   this.coverageSelectedItem = event
+}
+
+penMail() {
+  window.location.href = "mailto:admin@vokrug.city";
 }
 
 
