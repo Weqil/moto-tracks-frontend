@@ -81,6 +81,7 @@
     transform: translate3d(0,0,0);
     gap: 1rem;
     z-index: 11000;
+    padding: 1rem 1rem;
 }
 .event-grades__wrapper__grid{
     display: flex;
@@ -92,7 +93,7 @@
     padding-top: 30px;
 }
 .buttons-container__item{
-    width: 50%;
+    width: 100%;
 }
 .name-wrapper{
     padding-top: var(--standart-padding);

@@ -123,32 +123,39 @@
 <app-select-bottom-modal headerText="Добавить класс" (onClose)="closeGroupModal()" [visible]="groupModal">
   <div class="grade-grid">
     
-    <div class="grade-grid__butons">
-      <app-icon-button (click)="changeAllClassesState(true)"  clippy="clippy-right" widht="w52"  [theme]="allClassesState ? 'red':'dark-gray'" buttonText="Все"></app-icon-button>
-      <app-icon-button (click)="changeAllClassesState(false)" clippy="clippy-right" widht="w52" [theme]="!allClassesState ? 'red':'dark-gray'" buttonText="Мои"></app-icon-button>
-    </div>
+    <!-- <div class="grade-grid__butons"> -->
+      <!-- <app-icon-button (click)="changeAllClassesState(true)"  clippy="clippy-right" widht="w52"  [theme]="allClassesState ? 'red':'dark-gray'" buttonText="Все"></app-icon-button> -->
+        <!-- <app-icon-button (click)="changeAllClassesState(false)" clippy="clippy-right" widht="w52" [theme]="!allClassesState ? 'red':'dark-gray'" buttonText="Мои"></app-icon-button> -->
+    <!-- </div> -->
     <ng-container *ngIf="allClassesState">
       <ng-container *ngFor="let group of allUsersGroups">
-        <app-check-box (change)="changeGroup($event,group)" [value]="group.id" [checked]="trackHaveInUserSelected(group)"  [labelText]="group.name" height="long-height" [theme]="'white'"  ></app-check-box>
+        <app-check-box [clippy]="'clippy-right'" (change)="changeGroup($event,group)" [value]="group.id" [checked]="trackHaveInUserSelected(group)"  [labelText]="group.name" height="long-height" [theme]="trackHaveInUserSelected(group) ? 'white' :  'gray'"  ></app-check-box>
         <!-- <app-checkbox (click)="changeGroup($event,group)" [checked]="trackHaveInUserSelected(group)" [value]="group.id" label="{{ group.name }}"></app-checkbox> -->
       </ng-container>
     </ng-container>
-    <ng-container *ngIf="!allClassesState">
+    <!-- <ng-container *ngIf="!allClassesState">
       <ng-container *ngFor="let group of userGroups">
         <app-check-box (change)="changeGroup($event,group)" [value]="group.id" [checked]="trackHaveInUserSelected(group)"  [labelText]="group.name" height="long-height" [theme]="'white'"></app-check-box>
-
       </ng-container>
-    </ng-container>
+    </ng-container> -->
      
   </div>
   <div class="buttons-container">
-    <div class="race-groups__add-container">
+      <div class="buttons-container__item">
+          <app-icon-button (click)="closeComissionModal()" widht="full" buttonText="Выбрать" clippy="clippy-right" theme="red"></app-icon-button>
+      </div>
+      <!-- <div class="buttons-container__item">
+          <app-icon-button (click)="null"  widht="full" buttonText="Закрыть" clippy="clippy-right" theme="dark-gray"></app-icon-button>
+      </div>
+      -->
+
+    <!-- <div class="race-groups__add-container">
       <input (input)="setNewGroupInputValue($event)" placeholder = "Название класса" class="standart-input" type="text">
     </div>
 
     <div class="race-groups__buttons">
       <app-icon-button style="width: 100%;" (click)="createNewGroup()" theme="red" widht="w71" buttonText="Добавить класс"></app-icon-button>
-    </div>
+    </div> -->
   </div>
 </app-select-bottom-modal>
 <!-- <ion-modal (didDismiss)="closeComissionModal()"  [isOpen]="comissionModalState" >
