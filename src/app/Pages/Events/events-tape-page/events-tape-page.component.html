@@ -67,13 +67,22 @@
 <ion-modal class="upload-result-modal" (didDismiss)="closeUploadResultModalState()" [isOpen]="uploadResultModalState">
   <ng-template>
     <ion-content>
-      <app-header headerTitle="Результаты гонки" [customBack]="true" (customBackClick)="closeUploadResultModalState()">
+        <app-header [customContainer]="true" [hiddenBackButton]="true">
+        <div class="cabinet-header">
+          <button (click)="back()" class="cabinet-header__back">
+            <img src="/assets/icons/arrow.svg"  alt="Назад">
+          </button>
+          <span class="cabinet-header__title">Загрузка результатов</span>
+          <button  class="cabinet-header__plug none">
+          
+          </button>
+        </div>
       </app-header>
         <div class="main-container--with-header">
             <article class="add-result">
               <app-upload-file-input [resultsFilesUpload]="resultsFilesUploadArrayClear" [clearUploadFiles]="clearUploadFiles" [allowedTypes]="['application/pdf']" (resultsFilesUploadEmit)="getUploadResultsFiles($event)"></app-upload-file-input>
               <div class="save-result-button-wrapper">
-                <app-standart-button style="width: 100%;" (click)="submitResultInRace()" buttonText="Сохранить"></app-standart-button>
+                <app-icon-button style="width: 100%;" widht="full" theme="red" clippy="clippy-right"  (click)="submitResultInRace()" buttonText="Сохранить"></app-icon-button>
               </div>
               <app-no-data-found [show]="!currentRace.pdf_files" message="Результаты гонки не добавлены"></app-no-data-found>
               <ng-container *ngIf="currentRace.pdf_files">
