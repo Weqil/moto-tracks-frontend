@@ -64,7 +64,7 @@ export class ComandsComponent  implements OnInit {
     this.getMyComands()
   }
   ionViewDidLeave(){
-    console.log('died')
+
   }
   ngOnInit() {}
 
