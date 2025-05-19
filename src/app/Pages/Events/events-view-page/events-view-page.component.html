@@ -292,8 +292,8 @@
           </ng-container>
         </div>
   
-        <div class="group-button" *ngIf="checkRecordStart() && checkRecordEnd()">
-          @if(checkUserRoleService.userHaveRole(confirmUsersRolesInGroupAplication) && checkRecordStart()){
+        <div class="group-button" *ngIf="registrationStatus">
+          @if(checkUserRoleService.userHaveRole(confirmUsersRolesInGroupAplication) && !checkRecordStart()){
           <div class="red-button">
             <app-icon-button  (click)="redirectTrenerInEditAplication()" [widht]="'full'" buttonText="Заявиться командой" [clippy]="'clippy-right'" [shapeColumn]="true" [theme]="'red'"></app-icon-button>
           </div>        

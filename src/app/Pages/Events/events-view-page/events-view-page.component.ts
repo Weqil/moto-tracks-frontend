@@ -1023,7 +1023,8 @@ export class EventsViewPageComponent  implements OnInit {
   }
 
   getUsersInRace(){
-   
+    this.usersInRace = []
+    this.allUsers = []
     this.eventService.getUsersInRace(this.eventId).pipe().subscribe((res:any)=>{
       if(res.users){
         Object.keys(res.users).forEach((group:string)=>{
