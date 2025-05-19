@@ -7,7 +7,7 @@
          <img src="/assets/icons/arrow_down.svg" alt="">
       </button>
       <div class="header__filter-grid">
-        <app-icon-button (click)="setFilterInTape('all')" height="little-height" clippy="clippy-right" buttonText="Все" [theme]="allFilter ? 'red':'dark'"></app-icon-button>
+        <!-- <app-icon-button (click)="setFilterInTape('all')" height="little-height" clippy="clippy-right" buttonText="Все" [theme]="allFilter ? 'red':'dark'"></app-icon-button> -->
         <app-icon-button (click)="setFilterInTape('current')" height="little-height" clippy="clippy-right" buttonText="Текущие"  [theme]="currentFilter ? 'red':'dark'"></app-icon-button>
         <app-icon-button (click)="setFilterInTape('expired')" height="little-height" clippy="clippy-right" buttonText="Прошедшие"  [theme]="expiredFilter ? 'red':'dark'"></app-icon-button>
         <button *ngIf="canRgp" [ngClass]="{'rgp-logo': !rgpFilter, 'rgp-logo--dark':rgpFilter }" (click)="setRgpFilter('rgp')" class="rgp-logo">
