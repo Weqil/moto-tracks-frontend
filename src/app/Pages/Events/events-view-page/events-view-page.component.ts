@@ -720,6 +720,7 @@ export class EventsViewPageComponent  implements OnInit {
     this.changePersonalDateModalValue = false
   }
 
+
   setComand(event:any){
     this.personalUserForm.patchValue({community:event.name})
     this.personalUserForm.patchValue({commandId:event.id})

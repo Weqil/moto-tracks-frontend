@@ -62,7 +62,7 @@ export class MyEventsPageComponent  implements OnInit {
   }
 
   redirectInEditPage(eventId:any){
-    this.navController.navigateForward(`/race/edit/${eventId}`,{ animationDirection: 'forward' })
+    this.navController.navigateRoot(`/race/edit/${eventId}`,{ animationDirection: 'forward' })
   }
 
 closetTableModal(){
