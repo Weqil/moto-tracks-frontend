@@ -373,7 +373,13 @@ export class EventsViewPageComponent  implements OnInit {
     checkRecordEnd(){
       let now = moment().format('YYYY-MM-DD HH:mm')
       // console.log(now > moment(this.event?.record_end) )
-      return now > moment(this.event?.record_end).format('YYYY-MM-DD HH:mm')
+      // return now > moment(this.event?.record_end).format('YYYY-MM-DD HH:mm')
+      if(this.event?.record_end || this.event?.record_end !== null){
+        console.log(now < moment(this.event?.record_end).format('YYYY-MM-DD HH:mm'))
+        return now < moment(this.event?.record_end).format('YYYY-MM-DD HH:mm')
+      }else{
+        return false
+      }
     }
 
     checkDateStart(){
@@ -383,10 +389,10 @@ export class EventsViewPageComponent  implements OnInit {
 
     checkRecordStart(){
       let now = moment().format('YYYY-MM-DD HH:mm')
-      console.log(this.event?.record_start)
-      if(this.event?.record_start){
+      console.log(this.event?.record_start )
+      if(this.event?.record_start || this.event?.record_start !== null){
         console.log(now < moment(this.event?.record_start).format('YYYY-MM-DD HH:mm'))
-        return now < moment(this.event?.record_start).format('YYYY-MM-DD HH:mm')
+        return now > moment(this.event?.record_start).format('YYYY-MM-DD HH:mm')
       }else{
         return false
       }
@@ -660,7 +666,7 @@ export class EventsViewPageComponent  implements OnInit {
       let now = moment().format()
       return moment(this.event.date_start).format() < now
     }else{
-      return
+      return 
     }
   }
   closeUploadResultModalState(){
