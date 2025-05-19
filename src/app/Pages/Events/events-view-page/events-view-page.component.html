@@ -88,7 +88,7 @@
                 </div>
               </ng-container>
 
-              <ng-container *ngIf="event.position_file || event.results_file">  
+              <ng-container *ngIf="event.position_file || event.results_file || formattedResultsDocument && formattedResultsDocument.length ">  
                 <div class="event-desc--wrapper">
                   <div class="event-information-title">
                     <img src="/assets/icons/red-finished.svg" alt="">
@@ -107,6 +107,15 @@
                       </div>
                       Расписание
                     </div>
+                    <ng-container *ngFor="let document of formattedResultsDocument">
+                      <div class="event-documents-grid__item">
+                          <div class="document-preview">
+                            <img src="/assets/icons/documents.svg" alt="">
+                          </div>
+                        {{document.path | checkResultsPath}}
+                      </div>
+              
+                    </ng-container>
                   </div>
                 </div>
               </ng-container>
