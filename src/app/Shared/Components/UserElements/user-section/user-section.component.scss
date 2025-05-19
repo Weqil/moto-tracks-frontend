@@ -18,6 +18,8 @@ p{
     align-items: center;
     height: 70px;
     width: 100%;
+    max-width: 100%;
+    
     padding: 10px;
     box-shadow: 5px 3px 10px 2px rgba(34, 60, 80, 0.117);
     // box-shadow: 0 0 20px #0000001A; 
@@ -42,19 +44,21 @@ p{
         justify-content: center;
         flex-direction: column;
         align-items: start;
-        flex-grow: 1;
+        width: 100%;
         gap: 8px;
+        overflow: hidden;
 
+        
         .user-section__name{
-            display: flex;
+            display: inline-flex;
             gap:5px;
             word-break: break-all;
             margin: 0;
             color: var(--font-standart-color);
             font-family: var(--font-black);
             font-size: 14px;
-            flex-wrap: wrap;
-            text-wrap: wrap;
+            flex-wrap: nowrap;
+            text-wrap: nowrap;
 
             .user-section-text{
                 display: flex;
@@ -64,21 +68,27 @@ p{
             }
         }
 
+
+        }
+
         .user-section__date{
             display: flex;
             flex-direction: column;
             gap: 6px;
+            width: 100%;
+            overflow-x: scroll;
+            
 
             .user-section__date__info{
-                display: flex;
-                justify-content: start;
-                align-items: center;
+                
                 height: 14px;
                 font-size: var(--font-regular-size);
                 color: var(--font-standart-color);
                 font-family: var(--font-regular);
+                text-wrap: nowrap;         /* Запрещает перенос текста */
+                
+                
             }
-        }
 
 
         
@@ -135,6 +145,8 @@ p{
     background: linear-gradient(344deg, rgba(46, 46, 46, 1) 11%, rgba(24, 24, 24, 1) 88%);
     height: 50px;
     width: 45px;
+    min-height: 50px;
+    min-width: 45px;
     .start_number{
         transform: skew(10deg);
         display: flex;

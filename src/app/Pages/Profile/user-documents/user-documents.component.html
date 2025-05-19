@@ -102,8 +102,8 @@
             
           </div>
           <div class="button-container">
-            <app-icon-button (click)="licensesFileInput.click()"  class="width-button" [widht]="'full'" height="long-height" [elementsPosition]="'elements-position__row'" buttonTextColor='red-text' [buttonIconColor]="'red-icon'" buttonText="{{licensesFile.name}}" [buttonBorderWidth]="'b05'" [buttonBorderColor]="'red-border'" icon="assets/icons/upload.svg" height="standart-height" sizeIcon="standart-size" theme="white"></app-icon-button>
-            <app-icon-button    buttonText="Купить" theme="red" ></app-icon-button>  
+            <app-icon-button [trimButtonText]="'trim'" (click)="licensesFileInput.click()"  class="width-button" [widht]="'full'" height="long-height" [elementsPosition]="'elements-position__row'" buttonTextColor='red-text' [buttonIconColor]="'red-icon'" buttonText="{{licensesFile.name}}" [buttonBorderWidth]="'b05'" [buttonBorderColor]="'red-border'" icon="assets/icons/upload.svg" height="standart-height" sizeIcon="standart-size" theme="white"></app-icon-button>
+            <app-icon-button buttonText="Купить" theme="red" ></app-icon-button>  
           </div>
           <input (change)="setLicensesFile($event)" #licensesFileInput style="display: none;"  type="file">
         </div>
@@ -131,6 +131,7 @@
             class="width-button" 
             [widht]="'full'" 
             height="long-height" 
+            [trimButtonText]="'trim'"
             [elementsPosition]="'elements-position__row'" 
             buttonTextColor='red-text' 
             [buttonIconColor]="'red-icon'" 
@@ -165,7 +166,7 @@
              
           </div>
           <div class="button-container">
-            <app-icon-button (click)="notariusFileInput.click()"  class="width-button" [widht]="'full'" height="long-height" [elementsPosition]="'elements-position__row'" buttonTextColor='red-text' [buttonIconColor]="'red-icon'" buttonText="{{notariusFile.name}}" [buttonBorderWidth]="'b05'" [buttonBorderColor]="'red-border'" icon="assets/icons/upload.svg" height="standart-height" sizeIcon="standart-size" theme="white"></app-icon-button>
+            <app-icon-button (click)="notariusFileInput.click()" [trimButtonText]="'trim'"  class="width-button" [widht]="'full'" height="long-height" [elementsPosition]="'elements-position__row'" buttonTextColor='red-text' [buttonIconColor]="'red-icon'" buttonText="{{notariusFile.name}}" [buttonBorderWidth]="'b05'" [buttonBorderColor]="'red-border'" icon="assets/icons/upload.svg" height="standart-height" sizeIcon="standart-size" theme="white"></app-icon-button>
             <app-icon-button    buttonText="Купить" theme="red" ></app-icon-button>  
           </div>
           <input (change)="setNotariusFile($event)" #notariusFileInput style="display: none;"  type="file">

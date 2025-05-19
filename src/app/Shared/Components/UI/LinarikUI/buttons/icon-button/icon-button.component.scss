@@ -5,16 +5,31 @@
     cursor: pointer;
     gap: 6px;
 }
-span{    
-    overflow: hidden;         
-    text-overflow: ellipsis;   
-    max-width: 200px; 
-    width: 100%;
-    
-    white-space: nowrap;         /* Запрещает перенос текста */
-    overflow: hidden;            /* Скрывает выходящий за границы текст */
-    text-overflow: ellipsis;     /* Добавляет троеточие (…) в конце */
+
+
+.trim{
+
+    span{    
+
+        max-width: 200px; 
+        width: 100%;
+        white-space: nowrap;         /* Запрещает перенос текста */
+        overflow: hidden;            /* Скрывает выходящий за границы текст */
+        text-overflow: ellipsis;     /* Добавляет троеточие (…) в конце */
+    }
+
 }
+
+.no-trim{
+
+    span{   
+        text-wrap: wrap;
+        width: 100%;
+        max-width: 100%;
+    }
+
+}
+
 .standart-height{
     height: 2.5rem;
 }

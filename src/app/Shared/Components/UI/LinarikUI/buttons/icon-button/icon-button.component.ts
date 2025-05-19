@@ -102,11 +102,17 @@ export class  IconButtonComponent  implements OnInit {
 
    @Input() fontColor:'standart-color'|'red-color' = 'standart-color'
 
+            /**
+   *Выход текста за границы и замещение троеточием
+   */
+
+   @Input() trimButtonText:'trim'|'no-trim' = 'no-trim'
+
    /**
    * Функция собирает все классы и возвращает массив с нужными значениями
    */
   get getClasses():string[]{
-    return [this.theme, this.buttonIconColor, this.fontSize,
+    return [this.theme, this.buttonIconColor, this.fontSize, this.trimButtonText,
       this.sizeIcon, this.buttonBorderWidth, this.buttonBorderColor, this.height, this.disabled ? 'disabled':'','icon-button',this.clippy, this.elementsPosition, this.widht, this.font, this.fontColor, this.elementsInStart ? 'elements-in-start':'']
   }
 
