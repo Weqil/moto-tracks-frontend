@@ -29,6 +29,8 @@ import { UserSectionComponent } from "../../../../Shared/Components/UserElements
 import { CheckBoxComponent } from "../../../../Shared/Components/UI/LinarikUI/forms/check-box/check-box.component";
 import { SelectBottomModalComponent } from "../../../../Shared/Components/UI/LinarikUI/select-bottom-modal/select-bottom-modal.component";
 import { RegionsSelectModalComponent } from "../../../../Shared/Components/Modals/regions-select-modal/regions-select-modal.component";
+import { animation } from '@angular/animations';
+import { options } from 'ionicons/icons';
 
 
 @Component({
@@ -539,25 +541,37 @@ export class EditEventComponent  implements OnInit {
           {
             this.userService.addComission(race.id,this.currentComission.map(user => user.value || user.id)).pipe(
         catchError(error => {
-          this.navController.navigateForward('/my-events')
+          this.navController.navigateRoot('/my-events', {
+  animated: true,
+  animationDirection: 'forward'
+})
           return throwError(()=> error)
         }),
         finalize(()=>this.loadingService.hideLoading(loader))
         ).subscribe((res:any)=>{
-        this.navController.navigateForward('/my-events')
+        this.navController.navigateRoot('/my-events', {
+  animated: true,
+  animationDirection: 'forward'
+})
         }
       )}else{
         this.userService.addComission(race.id,this.currentComission.map(user => user.value || user.id)).pipe(
           catchError(error => {
   
-            this.navController.navigateForward('/my-events')
+            this.navController.navigateRoot('/my-events', {
+  animated: true,
+  animationDirection: 'forward'
+})
             this.loadingService.hideLoading(loader)
             return throwError(()=> error)
             
           }),
           finalize(()=>this.loadingService.hideLoading(loader))
           ).subscribe((res:any)=>{
-          this.navController.navigateForward('/my-events')
+          this.navController.navigateRoot('/my-events', {
+  animated: true,
+  animationDirection: 'forward'
+})
           }
         )
       }
