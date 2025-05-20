@@ -1,9 +1,43 @@
 <ion-content>
   <ng-container >
-    <app-header [headerTitle]= "'Просмотр пользователя'" >
-    </app-header>
-    <main class="main-container--with-header">
-      <div class="up-container">
+    <app-header [customContainer]="true" [hiddenBackButton]="true">
+      <div class="cabinet-header">
+        <button (click)="back()" class="cabinet-header__back">
+          <img src="/assets/icons/arrow.svg"  alt="Назад">
+        </button>
+        <span class="cabinet-header__title">Просмотр пользователя</span>
+        <button  class="cabinet-header__plug none">
+         
+        </button>
+      </div>
+  </app-header>
+    <main class="main-container">
+
+
+      <div class="cabinet__user-section">
+        <div class="user-images">
+          <img class="user-avatar" [src]="user?.avatar | checkImgUrl" alt="">
+        </div>
+      
+        <div class="cabinet__user-section__info">
+          <div *ngIf="user?.id" class="uid">UID {{user?.id}}</div>
+          <div class="cabinet__user-section__info__name">
+            <app-icon-button *ngIf="user?.personal?.start_number" font="font-bold" widht="w20" height="auto-height" clippy="clippy-right" buttonText="{{user?.personal?.start_number}}"></app-icon-button>
+            <div class="info__name__item" *ngIf="user?.personal?.name && user?.personal?.surname" >{{user?.personal?.name}}</div>
+            <div class="info__name__item" *ngIf="user?.personal?.name && user?.personal?.surname">{{user?.personal?.surname}}</div>
+            <div class="info__name__item" *ngIf="user?.name && !user?.personal" >{{user?.name}}</div>
+            <div class="info__name__item" *ngIf="user?.surname && !user?.personal" >{{user?.surname}}</div>
+          </div>
+          <div *ngIf="user?.email" class="email">{{user?.email}}</div>
+          <div class="user-statuses-grid">
+            <app-icon-button clippy="clippy-right" height="auto-height" theme="red" *ngFor="let status of userTranslitStatuses" [buttonText]="status"></app-icon-button>
+          </div>
+        </div>
+        
+      </div>
+
+
+      <!-- <div class="up-container">
         <div class="user-section__avatar">
           <img  class="user-section__avatar__img" [src]="user?.avatar|checkImgUrl" alt="" alt="">
         </div>
@@ -28,7 +62,7 @@
           
         </div>
 
-      </div>
+      </div> -->
       
     </main>
     
