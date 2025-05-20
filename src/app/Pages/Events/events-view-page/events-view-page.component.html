@@ -77,7 +77,27 @@
         </div>
         <ng-container *ngIf="event">
           <ng-container *ngIf="currentTab == 'Информация'">
-            <div class="event-information">
+            <div *ngIf="formattedResultsDocument && formattedResultsDocument.length" class="event-information">
+                <ng-container *ngIf="formattedResultsDocument && formattedResultsDocument.length">  
+                <div class="event-desc--wrapper">
+                  <div class="event-information-title">
+                    <img src="/assets/icons/red-finished.svg" alt="">
+                    Результаты
+                  </div>
+                  <div class="event-documents-grid">
+                    
+                    <ng-container *ngFor="let document of formattedResultsDocument">
+                      <div class="event-documents-grid__item">
+                          <div class="document-preview">
+                            <img src="/assets/icons/documents.svg" alt="">
+                          </div>
+                        {{document.path | checkResultsPath}}
+                      </div>
+              
+                    </ng-container>
+                  </div>
+                </div>
+              </ng-container>
               <ng-container *ngIf="event.desc && event.desc.length">  
                 <div class="event-desc--wrapper">
                   <div class="event-information-title">
@@ -88,7 +108,7 @@
                 </div>
               </ng-container>
 
-              <ng-container *ngIf="event.position_file || event.results_file || formattedResultsDocument && formattedResultsDocument.length ">  
+              <ng-container *ngIf="event.position_file || event.results_file">  
                 <div class="event-desc--wrapper">
                   <div class="event-information-title">
                     <img src="/assets/icons/red-finished.svg" alt="">
@@ -107,15 +127,6 @@
                       </div>
                       Расписание
                     </div>
-                    <ng-container *ngFor="let document of formattedResultsDocument">
-                      <div class="event-documents-grid__item">
-                          <div class="document-preview">
-                            <img src="/assets/icons/documents.svg" alt="">
-                          </div>
-                        {{document.path | checkResultsPath}}
-                      </div>
-              
-                    </ng-container>
                   </div>
                 </div>
               </ng-container>
