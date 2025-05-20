@@ -338,9 +338,7 @@ export class EventsViewPageComponent  implements OnInit {
   }
   getAllComands(){
     let loader:HTMLIonLoadingElement
-    this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
-      loader = res
-     })
+    this.loadingService.showLoading().then((res:HTMLIonLoadingElement)=>loader = res)
     this.commandService.getComands().pipe(
       finalize(()=>{
         this.loaderService.hideLoading(loader)

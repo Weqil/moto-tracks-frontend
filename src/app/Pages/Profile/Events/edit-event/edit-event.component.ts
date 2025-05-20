@@ -25,13 +25,17 @@ import { MapService } from 'src/app/Shared/Data/Services/Map/map.service';
 import { GroupService } from 'src/app/Shared/Data/Services/Race/group.service';
 import { StandartInputSelectComponent } from 'src/app/Shared/Components/UI/Selecteds/standart-input-select/standart-input-select.component';
 import { InfoPopoverComponent } from "../../../../Shared/Components/UI/info-popover/info-popover.component";
+import { UserSectionComponent } from "../../../../Shared/Components/UserElements/user-section/user-section.component";
+import { CheckBoxComponent } from "../../../../Shared/Components/UI/LinarikUI/forms/check-box/check-box.component";
+import { SelectBottomModalComponent } from "../../../../Shared/Components/UI/LinarikUI/select-bottom-modal/select-bottom-modal.component";
+import { RegionsSelectModalComponent } from "../../../../Shared/Components/Modals/regions-select-modal/regions-select-modal.component";
 
 
 @Component({
   selector: 'app-edit-event',
   templateUrl: './edit-event.component.html',
   styleUrls: ['./edit-event.component.scss'],
-  imports: [IonLabel, SharedModule, HeaderModule, StepsModule, FormsModule, EditSliderComponent, TrackModule, IonModal, IonCheckbox, StandartInputSelectComponent, InfoPopoverComponent, CheckImgUrlPipe]
+  imports: [IonLabel, SharedModule, HeaderModule, StepsModule, FormsModule, EditSliderComponent, TrackModule, IonModal, IonCheckbox, StandartInputSelectComponent, InfoPopoverComponent, CheckImgUrlPipe, UserSectionComponent, CheckBoxComponent, SelectBottomModalComponent, RegionsSelectModalComponent]
 })
 export class EditEventComponent  implements OnInit {
 
@@ -57,6 +61,8 @@ export class EditEventComponent  implements OnInit {
 
     eventService:EventService = inject(EventService)
     trackService:TrackService = inject(TrackService)
+    FirstImageUrl:string = ''
+    imageUrl:string = ''
 
     event!:IEvent
     backendUrl: string = `${environment.BACKEND_URL}:${environment.BACKEND_PORT}`
@@ -364,15 +370,18 @@ export class EditEventComponent  implements OnInit {
       }
 
       getImages(event:any){
-        if(event.length < this.sliderImages.length ){
-          if(this.sliderImages.find((image:any) => !event.includes(image)).link){
-            let link = this.sliderImages.find((image:any) => !event.includes(image)).link
-            if (this.deletesImages.indexOf(link) === -1) {
-              this.deletesImages.push(link)
-            }
-          }
+        // if(event.length < this.sliderImages.length ){
+        //   if(this.sliderImages.find((image:any) => !event.includes(image)).link){
+        //     let link = this.sliderImages.find((image:any) => !event.includes(image)).link
+        //     if (this.deletesImages.indexOf(link) === -1) {
+        //       this.deletesImages.push(link)
+        //     }
+        //   }
+        // }
+        if(this.sliderImages[0]){
+          this.deletesImages.push(this.sliderImages[0].link)
         }
-      
+       
         this.createEventForm.patchValue({
           images: event
         })
@@ -440,10 +449,27 @@ export class EditEventComponent  implements OnInit {
             })
           }
           this.sliderImages = this.createEventForm.value.images
+          this.imageUrl = this.createEventForm.value.images[0].link
           this.selectedGroup = this.event.grades
         })
         
       }
+
+      setImage(event:any,input:HTMLInputElement){
+        if(this.sliderImages[0]){
+          this.deletesImages.push(this.sliderImages[0].link)
+        }
+        const file = event.target.files[0]
+        if(file){
+          this.createEventForm.patchValue({ images: [file] })
+          const reader: FileReader = new FileReader()
+          reader.onload = (e: any) => {
+            this.imageUrl = e.target.result
+          }
+          reader.readAsDataURL(file)
+          input.value =''
+        }
+    }
 
      
 
@@ -451,7 +477,10 @@ export class EditEventComponent  implements OnInit {
     submitForm(){
       if(!this.stepInvalidate()){
 
-      this.loadingService.showLoading()
+        let loader:HTMLIonLoadingElement
+        this.loadingService.showLoading().then((res:HTMLIonLoadingElement)=>{
+          loader = res
+        })
       this.createEventForm.value.images = this.createEventForm.value.images.filter((image:any)=>!image.link)
       let editForm = {
         ...this.createEventForm.value,
@@ -498,7 +527,7 @@ export class EditEventComponent  implements OnInit {
       
       this.eventService.updateEvent(editEventFormData,this.eventId).pipe(
         finalize(()=>{
-          this.loadingService.hideLoading()
+          this.loadingService.hideLoading(loader)
         })
       ).subscribe((res:any)=>{
         let loader:HTMLIonLoadingElement

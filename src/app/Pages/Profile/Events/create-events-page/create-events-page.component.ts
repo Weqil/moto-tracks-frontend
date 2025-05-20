@@ -263,7 +263,7 @@ export class CreateEventsPageComponent  implements OnInit {
     }
   }
   cancelCreate(){
-    this.navController.navigateForward('/my-events')
+    this.navController.navigateRoot('/my-events')
     
   }
   getImages(event:any){
@@ -342,7 +342,8 @@ export class CreateEventsPageComponent  implements OnInit {
     if(this.trackSelected?.id){
       createEventFormData.append('trackId', String(this.trackSelected?.id))
     }
-    this.eventService.createEvent(createEventFormData).pipe(finalize(()=>{
+    this.eventService.createEvent(createEventFormData).pipe(
+      finalize(()=>{
       this.loadingService.hideLoading()
     }),
     catchError((err:serverError)=>{
