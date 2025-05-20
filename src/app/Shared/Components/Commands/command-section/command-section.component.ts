@@ -32,14 +32,13 @@ export class CommandSectionComponent implements OnInit {
 
   redirectInViewPage(){
     if(this.command.id){
-      this.navController.navigateForward(`/command/view/${this.command.id}`)
+      this.navController.navigateRoot(`/command/view/${this.command.id}`)
     }
 
   }
 
   redirectInEditPage(editComand:any){
-    console.log('типа перешел на редактирование')
-    this.navController.navigateForward(`/command/edit/${editComand}`)
+    this.navController.navigateRoot(`/command/edit/${editComand}`)
   }
 
   onToggleMembership(event: Event) {

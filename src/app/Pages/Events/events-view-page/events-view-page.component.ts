@@ -49,8 +49,9 @@ import { RegionsSelectModalComponent } from "../../../Shared/Components/Modals/r
   selector: 'app-events-view-page',
   templateUrl: './events-view-page.component.html',
   styleUrls: ['./events-view-page.component.scss'],
-  imports: [SharedModule, SlidersModule, ButtonsModule, TabElementComponent, TrackSectionComponent, IonModal, HeaderModule, IconButtonComponent,
-    ConfirmModalComponent, CheckImgUrlPipe, FormsModule, RouterLink, ImagesModalComponent, SelectComandsComponent, PdfViewerModule, UserSectionComponent, StandartInputSelectComponent, RegionsSelectModalComponent]
+  imports: [SharedModule, SlidersModule, ButtonsModule, TabElementComponent,
+    TrackSectionComponent, IonModal, HeaderModule, IconButtonComponent,
+    ConfirmModalComponent, CheckImgUrlPipe, FormsModule, RouterLink, ImagesModalComponent, SelectComandsComponent, PdfViewerModule, UserSectionComponent, StandartInputSelectComponent, RegionsSelectModalComponent, CheckResultsPathPipe]
 })
 export class EventsViewPageComponent  implements OnInit {
 
@@ -373,7 +374,6 @@ export class EventsViewPageComponent  implements OnInit {
       // console.log(now > moment(this.event?.record_end) )
       // return now > moment(this.event?.record_end).format('YYYY-MM-DD HH:mm')
       if(this.event?.record_end || this.event?.record_end !== null){
-        console.log(now < moment(this.event?.record_end).format('YYYY-MM-DD HH:mm'))
         return now < moment(this.event?.record_end).format('YYYY-MM-DD HH:mm')
       }else{
         return false
@@ -387,9 +387,7 @@ export class EventsViewPageComponent  implements OnInit {
 
     checkRecordStart(){
       let now = moment().format('YYYY-MM-DD HH:mm')
-      console.log(this.event?.record_start )
       if(this.event?.record_start || this.event?.record_start !== null){
-        console.log(now < moment(this.event?.record_start).format('YYYY-MM-DD HH:mm'))
         return now > moment(this.event?.record_start).format('YYYY-MM-DD HH:mm')
       }else{
         return false
@@ -716,6 +714,7 @@ export class EventsViewPageComponent  implements OnInit {
   closePersonalNewModal(){
     this.changePersonalDateModalValue = false
   }
+
 
   setComand(event:any){
     this.personalUserForm.patchValue({community:event.name})

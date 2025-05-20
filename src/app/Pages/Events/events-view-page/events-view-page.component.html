@@ -60,7 +60,7 @@
                </div>
                <div class="header-buttons__grid">
                   <button (click)="goToPoint()" class="header-button"> 
-                    <img src="/assets/icons/map.svg" alt="">Показать на карте
+                    <img src="/assets/icons/map.svg" alt="">Построить маршрут
                   </button>
                </div>
   
@@ -77,7 +77,27 @@
         </div>
         <ng-container *ngIf="event">
           <ng-container *ngIf="currentTab == 'Информация'">
-            <div class="event-information">
+            <div *ngIf="formattedResultsDocument && formattedResultsDocument.length" class="event-information">
+                <ng-container *ngIf="formattedResultsDocument && formattedResultsDocument.length">  
+                <div class="event-desc--wrapper">
+                  <div class="event-information-title">
+                    <img src="/assets/icons/red-finished.svg" alt="">
+                    Результаты
+                  </div>
+                  <div class="event-documents-grid">
+                    
+                    <ng-container *ngFor="let document of formattedResultsDocument">
+                      <div class="event-documents-grid__item">
+                          <div class="document-preview">
+                            <img src="/assets/icons/documents.svg" alt="">
+                          </div>
+                        {{document.path | checkResultsPath}}
+                      </div>
+              
+                    </ng-container>
+                  </div>
+                </div>
+              </ng-container>
               <ng-container *ngIf="event.desc && event.desc.length">  
                 <div class="event-desc--wrapper">
                   <div class="event-information-title">

@@ -200,12 +200,17 @@ export class EventsTapePageComponent  implements OnInit {
   formatingZoomValuesInResults(){
     this.formattedResultsDocument = []
     this.clearUploadFiles = false
-    this.currentRace.pdf_files.forEach((file:any)=>{
+    if(this.currentRace.pdf_files){
+       this.currentRace.pdf_files.forEach((file:any)=>{
       this.formattedResultsDocument.push({
         path:file,
         zoomLevel:1,
       })
     })
+    }
+  }
+  back(){
+    this.closeUploadResultModalState()
   }
   submitResultInRace(){
     let loader:HTMLIonLoadingElement

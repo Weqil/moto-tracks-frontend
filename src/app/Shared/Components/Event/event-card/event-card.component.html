@@ -8,7 +8,7 @@
             {{ formatDate(event.date_start) }}
         </div>
         <div (click)="redirectInEvent()" class="card__content">
-            <img src="{{event.images ? (event.images[0] | checkImgUrl) : ''}}" alt="">
+            <img src="{{event.images ? (event.images[0] | checkImgUrl:'/assets/icons/moto-background.png') : ''}}" alt="">
         </div>
         <div (click)="redirectInEvent()" class="card__footer"> 
             <h3 class="card__name">
