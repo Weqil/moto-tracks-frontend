@@ -38,10 +38,15 @@
             </div>
 
             <div class="status-events">
-                <app-icon-button height="little-height" widht="full" theme="red" [buttonText]="checkRecord" *ngIf="registrationStatus; else registrationClosed"></app-icon-button>
-                <ng-template #registrationClosed>
-                  <app-icon-button [disabled]="true" [buttonText]="checkRecord" widht="full" height="little-height"></app-icon-button>
-                </ng-template>
+                <ng-container *ngIf="event.status?.name == 'Подтверждённая'">
+                       <app-icon-button height="little-height" widht="full" theme="red" [buttonText]="checkRecord" *ngIf="registrationStatus; else registrationClosed"></app-icon-button>
+                        <ng-template #registrationClosed>
+                        <app-icon-button [disabled]="true" [buttonText]="checkRecord" widht="full" height="little-height"></app-icon-button>
+                        </ng-template>
+                </ng-container>
+                <ng-container *ngIf="event.status?.name !== 'Подтверждённая'">
+                    <app-icon-button [disabled]="true" buttonText="Предварительная гонка" widht="full" height="little-height"></app-icon-button>
+                </ng-container>
             </div>
             
 
