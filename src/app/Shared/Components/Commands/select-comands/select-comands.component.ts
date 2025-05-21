@@ -89,7 +89,7 @@ export class SelectComandsComponent  implements OnInit {
   }
 
   setCreateRegion(region:any){
-    console.log('click')
+    
     this.closeCreateRegionModal()
     this.locationId = region.value
     this.createComandForm.patchValue({region:region.name})

@@ -98,7 +98,7 @@ export class UserDocumentsComponent  implements OnInit {
   openUploadResultModalState(document:any){
     this.currentResultFile.path = document.url_view
     this.resultModalState = true
-    console.log(this.currentResultFile.path)
+  
   }
 
   zoomIn(document:{path:string,zoomLevel:number}) {
@@ -642,13 +642,13 @@ submitForm(){
       if(res.documents){
         this.documentStatus = true
         this.arrayDocument = res.documents
-        console.log(this.arrayDocument)
+       
         if(res.documents.find((doc:any)=> doc.type === 'licenses')){
           let licensesDocument = res.documents.find((doc:any)=> doc.type === 'licenses')
           this.licensesForm.patchValue((res.documents.find((doc:any)=> doc.type === 'licenses')))
           this.licensesFile = {name:'Лицензия загружена', dontFile:true} 
           this.licensed = licensesDocument
-          console.log(this.licensed)
+        
         }
         if((res.documents.find((doc:any)=> doc.type === 'polis'))){
           let polis = (res.documents.find((doc:any)=> doc.type === 'polis'))
