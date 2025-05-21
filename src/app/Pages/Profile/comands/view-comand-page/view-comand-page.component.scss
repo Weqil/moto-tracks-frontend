@@ -80,7 +80,14 @@ ion-card {
   color: var(--ion-color-primary);
   margin-left: 1rem;
 }
-
+.event-id{
+ 
+    padding-right: 1rem;
+    opacity: 0.5;
+    font-size: smaller;
+     font-family: var(--font-regular);
+     color: #000000;
+}
 .command-container {
   max-width: 960px;
   width: 100%;
