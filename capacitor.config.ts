@@ -4,7 +4,7 @@ const config: CapacitorConfig = {
   appId: 'com.policam.motokros',
   appName: 'Мотокросс',
   webDir: 'www/browser',
-  bundledWebRuntime: false,
+
   
   plugins:{
       SplashScreen: {
