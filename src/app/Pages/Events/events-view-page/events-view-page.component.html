@@ -313,7 +313,7 @@
         </div>
   
         <div class="group-button" *ngIf="registrationStatus">
-          @if(checkUserRoleService.userHaveRole(confirmUsersRolesInGroupAplication) && !checkRecordStart()){
+          @if(checkUserRoleService.userHaveRole(confirmUsersRolesInGroupAplication)){
           <div class="red-button">
             <app-icon-button  (click)="redirectTrenerInEditAplication()" [widht]="'full'" buttonText="Заявиться командой" [clippy]="'clippy-right'" [shapeColumn]="true" [theme]="'red'"></app-icon-button>
           </div>        
