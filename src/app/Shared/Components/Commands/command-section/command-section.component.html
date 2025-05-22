@@ -14,6 +14,9 @@
         <div class="address">
           {{command.location?.name}} {{command.location?.type}}
         </div>
+        <div class="city" *ngIf="city">
+          {{command?.city}} 
+        </div>
       </div>
       
     </div>

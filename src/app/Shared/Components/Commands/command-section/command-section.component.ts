@@ -18,6 +18,7 @@ export class CommandSectionComponent implements OnInit {
   @Input() editfFunction: boolean = false;
   @Input() editComand!: number;
   @Input() vievComand!: number;
+  @Input() city: boolean = false;
   @Output() toggleMembership = new EventEmitter<number>();
 
   navController: NavController = inject(NavController)

@@ -1125,6 +1125,12 @@ export class EventsViewPageComponent  implements OnInit {
     this.navController.back()
   }
 
+  navigateToUser(userId:any){
+
+    this.navController.navigateRoot(`users/${userId}`)
+
+  }
+
   ionViewWillEnter(){
     this.getRegions()
     this.getCreateRegions()
