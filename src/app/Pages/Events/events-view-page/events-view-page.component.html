@@ -87,7 +87,7 @@
                   <div class="event-documents-grid">
                     
                     <ng-container *ngFor="let document of formattedResultsDocument">
-                      <div class="event-documents-grid__item">
+                      <div [routerLink]="['/view-document', document.path | checkImgUrl]" class="event-documents-grid__item">
                           <div class="document-preview">
                             <img src="/assets/icons/documents.svg" alt="">
                           </div>
