@@ -19,13 +19,13 @@ const config: CapacitorConfig = {
         splashImmersive: true    // Скрывает системные панели
       },
       Browser: {
-      clearSessionCache: true, // Очищает сессию WebView
-      clearCache: true, // Очищает весь кеш WebView
+      clearSessionCache: false, // Очищает сессию WebView
+      clearCache: false, // Очищает весь кеш WebView
   },
     },
-  server: {
-    url: 'https://moto.vokrug.city',
-  },
+  // server: {
+  //   url: 'https://moto.vokrug.city',
+  // },
 };
 
 export default config;

@@ -15,15 +15,13 @@
 			"splashImmersive": true
 		},
 		"Browser": {
-			"clearSessionCache": true,
-			"clearCache": true
+			"clearSessionCache": false,
+			"clearCache": false
 		}
-	},
-	"server": {
-		"url": "https://moto.vokrug.city"
 	},
 	"packageClassList": [
 		"AppPlugin",
+		"CAPBrowserPlugin",
 		"HapticsPlugin",
 		"KeyboardPlugin",
 		"SplashScreenPlugin",

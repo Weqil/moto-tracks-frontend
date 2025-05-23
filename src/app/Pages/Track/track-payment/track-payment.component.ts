@@ -1,6 +1,7 @@
 import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { LoadingService } from '@app/Shared/Services/loading.service';
 import { TransactionsService } from '@app/Shared/Data/Services/transactions.service';
+import { Browser } from '@capacitor/browser';
 import { finalize, Subject, takeUntil } from 'rxjs';
 // import { Browser } from '@capacitor/browser';
 import { ActivatedRoute } from '@angular/router';
@@ -25,7 +26,7 @@ export class TrackPaymentComponent  implements OnInit {
   @ViewChild('frame') iframe!: ElementRef<HTMLIFrameElement>;
   
   activeRoute:ActivatedRoute = inject(ActivatedRoute)
-  createTransaction(){
+  async createTransaction(){
     let loader:HTMLIonLoadingElement
     this.loadingService.showLoading().then((res:HTMLIonLoadingElement)=>{
       loader = res
@@ -34,9 +35,13 @@ export class TrackPaymentComponent  implements OnInit {
       finalize(()=>{
         this.loadingService.hideLoading(loader)
       })
-    ).subscribe((res:any)=>{
-      this.paymentLink = this.sanitizer.bypassSecurityTrustResourceUrl(res.payment_link)
-  
+    ).subscribe(async (res:any)=>{
+      console.log(res.payment_link)
+      this.paymentLink = res.payment_link
+      const openCapacitorSite = async () => {
+        await Browser.open({ url: res.payment_link });
+      };
+      openCapacitorSite()
     })
   }
   ionViewWillEnter(){
