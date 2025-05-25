@@ -14,8 +14,10 @@
       <div class="user-section__name"> 
         <div class="user-section-text" *ngIf="user?.personal?.name && user?.personal?.surname && name" >{{user.personal?.name}}</div>
         <div class="user-section-text" *ngIf="user?.personal?.name && user?.personal?.surname && surname">{{user.personal?.surname}}</div>
+        <div class="user-section-text" *ngIf="user?.personal?.name && user?.personal?.patronymic && patronymic">{{user.personal?.surname}}</div>
         <div class="user-section-text" *ngIf="user?.name && !user?.personal && name" >{{user.name}}</div>
         <div class="user-section-text" *ngIf="user?.surname && !user?.personal && surname" >{{user.surname}}</div>
+        <div class="user-section-text" *ngIf="user?.patronymic && !user?.personal && patronymic">{{user.personal?.surname}}</div>
       </div>
       <!-- <h2 class="user-section__name">{{ (user?.personal?.name && user?.personal?.surname) ? (user.personal.name +  ' ' +  user.personal.surname) : user.name}}</h2> -->
       <!-- <h2 class="user-section__name">{{ (user?.personal?.name && user?.personal?.surname) ? (user.personal.name +  ' ' +  user.personal.surname) : user.name}}</h2> -->

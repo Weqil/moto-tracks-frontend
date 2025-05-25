@@ -24,6 +24,8 @@ export class UserSectionComponent  implements OnInit {
   @Input() startNumber:boolean = false;
   @Input() name:boolean = false;
   @Input() surname:boolean = false;
+  @Input() patronymic:boolean = false;
+
   rowContent: string = 'row'
   
 

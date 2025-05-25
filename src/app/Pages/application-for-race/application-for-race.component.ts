@@ -14,16 +14,21 @@ import { UserModule } from "../../Shared/Modules/user/user.module";
 import { CommonModule } from '@angular/common';
 import { User } from '@app/Shared/Data/Interfaces/user-model';
 import { UserViewPageComponent } from "../Users/user-view-page/user-view-page.component";
-import { UserInApplicationComponent } from "../../Shared/Components/UserElements/user-in-application/user-in-application.component";
 import { Documents } from '@app/Shared/Data/Interfaces/document-models';
 import { IconButtonComponent } from "../../Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component";
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { StandartInputComponent } from "../../Shared/Components/UI/LinarikUI/forms/standart-input/standart-input.component";
+import { StandartInputSelectComponent } from "../../Shared/Components/UI/Selecteds/standart-input-select/standart-input-select.component";
+import { StandartRichInputComponent } from "../../Shared/Components/UI/LinarikUI/forms/standart-rich-input/standart-rich-input.component";
+import { RegionsSelectModalComponent } from "../../Shared/Components/Modals/regions-select-modal/regions-select-modal.component";
+import moment from 'moment';
 
 
 @Component({
   selector: 'app-application-for-race',
   templateUrl: './application-for-race.component.html',
   styleUrls: ['./application-for-race.component.scss'],
-  imports: [CommonModule, IonContent, HeaderModule, UserModule, UserViewPageComponent, UserInApplicationComponent, IconButtonComponent],
+  imports: [CommonModule, IonContent, HeaderModule, UserModule, UserViewPageComponent, IconButtonComponent, StandartInputComponent, StandartInputSelectComponent, StandartRichInputComponent, RegionsSelectModalComponent],
 })
 export class ApplicationForRaceComponent  implements OnInit {
 
@@ -51,6 +56,13 @@ export class ApplicationForRaceComponent  implements OnInit {
   userGetId!: string
   userGet!:User
   arrayDocument:Documents[]=[]
+  licensed:any
+  notarius:any
+  polish:any
+
+  licensesFile:any =''
+  polisFile:any = ''
+  notariusFile:any = ''
 
   usersPreviewConfig:{usersCount:number}={
     usersCount:0
@@ -93,6 +105,10 @@ export class ApplicationForRaceComponent  implements OnInit {
       })
     }
 
+    back(){
+      this.navController.back()
+    }
+
     getUsersInRace(){
       this.eventService.getUsersInRace(this.eventId).pipe().subscribe((res:any)=>{
         
@@ -122,14 +138,33 @@ export class ApplicationForRaceComponent  implements OnInit {
     }
 
     
-  
+    licensesForm: FormGroup = new FormGroup(
+    {
+      number: new FormControl('',[Validators.required, Validators.minLength(1), ]), //номер лицензии
+    }
+  )
+
+  polisForm: FormGroup = new FormGroup(
+    {
+      number: new FormControl('',[Validators.required]), //Серия и номер полиса
+      issuedWhom: new FormControl('',[Validators.required]), //Кем выдан
+      itWorksDate: new FormControl('',[Validators.required]), //Срок действия
+    }
+  )
+
+  notariusForm:FormGroup = new FormGroup (
+    {
+      notariusFile: new FormControl('',[Validators.required,]), // путь до файла
+    }
+  )
 
     navigateToUser(userId: string, userGet: User) {
-      console.log('Типа передл id:' )
+      console.log('Типа передaл id:' )
       console.log(userId)
       this.getDocumentUserById(Number(userId))
       this.userGetId = userId
       this.userGet= userGet
+      this.setUserInForm()
       
     }
 
@@ -147,6 +182,30 @@ export class ApplicationForRaceComponent  implements OnInit {
           this.arrayDocument = res.documents 
           console.log('Загрузил документы:', this.arrayDocument)
 
+          if(res.documents.find((doc:any)=> doc.type === 'licenses')){
+            let licensesDocument = res.documents.find((doc:any)=> doc.type === 'licenses')
+            this.licensesForm.patchValue((res.documents.find((doc:any)=> doc.type === 'licenses')))
+            this.licensesFile = {name:'Лицензия загружена', dontFile:true} 
+            this.licensed = licensesDocument
+            console.log(this.licensed)
+          }
+          if((res.documents.find((doc:any)=> doc.type === 'polis'))){
+            let polis = (res.documents.find((doc:any)=> doc.type === 'polis'))
+            this.polisForm.patchValue({
+              number: polis.number,
+              issuedWhom: polis.issued_whom,
+              itWorksDate: polis.it_works_date
+            })
+            this.polisFile = {name:'Полис загружен', dontFile:true}
+            this.polish = polis
+            console.log(this.polish)
+          }
+          if(res.documents.find((doc:any)=> doc.type === 'notarius')){
+            let notarius = (res.documents.find((doc:any)=> doc.type === 'notarius'))
+            this.notariusFile = {name:'Согласие загружено', dontFile:true}
+            this.notarius = notarius
+            console.log(this.notarius)
+          } 
           // Только теперь открываем компонент
           this.viewUser = true
         })
@@ -171,7 +230,134 @@ export class ApplicationForRaceComponent  implements OnInit {
     }
 
     
+    personalUserForm: FormGroup = new FormGroup({
+      name: new FormControl('', [Validators.required]),
+      surname: new FormControl('', [Validators.required]),
+      patronymic: new FormControl('', [Validators.required]),
+      dateOfBirth: new FormControl('', [Validators.required]),
+      region: new FormControl('', [Validators.required]),
+      city: new FormControl('', [Validators.required]),
+      inn: new FormControl('', [Validators.required]),
+      snils: new FormControl('', [Validators.required]),
+      commandId:new FormControl('', [Validators.required]),
+      phoneNumber: new FormControl('', [Validators.required]),
+      startNumber: new FormControl('', [Validators.required]),
+      group:new FormControl('', [Validators.required]),
+      rank:new FormControl('', [Validators.required]),
+      grade:new FormControl('', [Validators.required]),
+      rankNumber:new FormControl('', [Validators.required]),
       
+      community:new FormControl('Лично', [Validators.required]),
+      locationId: new FormControl('', [Validators.required]),
+      coach:new FormControl('', [Validators.required]),
+      motoStamp:new FormControl('', [Validators.required]),
+      engine:new FormControl('', [Validators.required]),
+      numberAndSeria:new FormControl('', [Validators.required]),
+      comment:new FormControl('', [Validators.required])
+    })
+  
+  
+
+  
+    formErrors:any = {
+      name: {
+        errorMessage:''
+      },
+      patronymic:{
+         errorMessage:''
+      },
+      dateOfBirth:{
+         errorMessage:''
+      },
+      inn:{
+        errorMessage:''
+      },
+      snils:{
+        errorMessage:''
+      },
+      phoneNumber:{
+        errorMessage:''
+      },
+      startNumber:{
+        errorMessage:''
+      },
+      group:{
+        errorMessage:''
+      },
+      rank:{
+        errorMessage:''
+      },
+  
+      surname: {
+         errorMessage:''
+      },
+      region: {
+         errorMessage:''
+      },
+      city: {
+         errorMessage:''
+      },
+      community:{
+        errorMessage:''
+      },
+      motoStamp:{
+        errorMessage:''
+      },
+      engine:{
+        errorMessage:''
+      },
+      numberAndSeria:{
+        errorMessage:''
+      }
+    }
+  
+    documentsError:any = {
+      polisNumber:{
+        errorMessage:''
+      },
+      issuedWhom:{
+        errorMessage:''
+      },
+      itWorksDate:{
+        errorMessage:''
+      },
+      polisFile:{
+        errorMessage:''
+      },
+  
+    }
+  
+    setUserInForm(){
+     
+      if(this.userGet){
+        this.personalUserForm.patchValue(this.userGet)
+  
+        const rawPhone = this.userGet?.phone_number || '';
+        const cleanedPhone = parseInt(rawPhone.replace(/\D/g, ''), 10) || ''; // Удаляем все символы, кроме цифр
+  
+        this.personalUserForm.patchValue({
+          name:this.userGet?.name,
+          surname:this.userGet?.surname,
+          dateOfBirth: this.userGet?.date_of_birth,
+          phoneNumber: cleanedPhone,
+          startNumber: this.userGet?.start_number,
+          locationId: this.userGet?.location?.id,
+          commandId: this.userGet?.community, 
+          region: this.userGet?.location.name + ' ' + this.userGet?.location.type,
+          community: this.userGet?.community,
+          rank: this.userGet?.rank,
+          engine:this.userGet?.engine,
+          motoStamp:  this.userGet?.moto_stamp,
+          numberAndSeria: this.userGet?.number_and_seria,
+          grade: this.userGet?.grade?.name,
+          group:''
+        })
+      }else{
+        this.personalUserForm.reset()
+      }
+  
+      console.log(this.personalUserForm.value)
+    }
   
       
     
