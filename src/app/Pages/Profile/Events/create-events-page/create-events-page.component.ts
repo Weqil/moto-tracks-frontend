@@ -32,6 +32,9 @@ import { UserSectionComponent } from '@app/Shared/Components/UserElements/user-s
 import { SelectBottomModalComponent } from '@app/Shared/Components/UI/LinarikUI/select-bottom-modal/select-bottom-modal.component';
 import { checkbox } from 'ionicons/icons';
 import { CheckBoxComponent } from '@app/Shared/Components/UI/LinarikUI/forms/check-box/check-box.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { animate, style, transition, trigger } from '@angular/animations';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
@@ -40,7 +43,20 @@ import { CheckBoxComponent } from '@app/Shared/Components/UI/LinarikUI/forms/che
   styleUrls: ['./create-events-page.component.scss'],
   imports: [SharedModule, HeaderModule, StepsModule, EditSliderComponent, StandartInputComponent, TrackModule,
      selectedModule, StandartInputSelectComponent, IonModal, IonCheckbox, StandartRichInputComponent,
-      IonToggle,RegionsSelectModalComponent,IconButtonComponent,StandartInputSearchComponent,UserSectionComponent,SelectBottomModalComponent,CheckBoxComponent]
+      IonToggle,RegionsSelectModalComponent,IconButtonComponent,
+      StandartInputSearchComponent,UserSectionComponent,SelectBottomModalComponent,CheckBoxComponent,CommonModule],
+  animations:[
+    trigger('fadeInOut', [
+      transition(':enter', [ // элемент появляется
+        style({ opacity: 0 }),
+        animate('100ms ease-out', style({ opacity: 1 }))
+      ]),
+      transition(':leave', [ // элемент исчезает
+        animate('100ms ease-in', style({ opacity: 0 }))
+      ])
+    ])
+  ]
+  
 })
 export class CreateEventsPageComponent  implements OnInit {
 
@@ -54,6 +70,7 @@ export class CreateEventsPageComponent  implements OnInit {
   trackService:TrackService = inject(TrackService)
   comissionModalState:boolean = false
   allClassesState:boolean = true
+  createClassesModalState:boolean = false
 
  userService:UserService = inject(UserService)
 
@@ -105,6 +122,11 @@ export class CreateEventsPageComponent  implements OnInit {
     recordEnd: new FormControl( '',  [Validators.required, Validators.minLength(1)]),
     statusId: new FormControl( '',  [Validators.required, Validators.minLength(1)]),
   })
+
+  createClassesForm: FormGroup = new FormGroup({
+    
+   })
+
   navController: NavController = inject(NavController)
 
   stepPrevious() {
@@ -129,6 +151,10 @@ export class CreateEventsPageComponent  implements OnInit {
 
  changeAllClassesState(value:boolean){
    this.allClassesState = value
+ }
+
+ setCreateClassesModalState(value:boolean){
+    this.createClassesModalState = value
  }
 
   trackHaveInUserSelected(event:any){
