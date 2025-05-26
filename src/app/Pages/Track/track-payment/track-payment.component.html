@@ -1,6 +1,40 @@
-<div *ngIf="!paymentLink" class="container">
+<!-- <div *ngIf="!paymentLink" class="container">
   <h1 class="title">Оплата тренировки на гонке</h1>
   <div class="price">{{transactionPrice}} ₽</div>
   <button (click)="createTransaction()" class="btn">Оплатить</button>
-</div>
+  <app-payment-status [status]="paymentStatus"></app-payment-status>
+</div> -->
+
+
+
 <!-- <iframe  #frame width="100%" height="100%" (load)="onIframeLoad()" *ngIf="paymentLink" [src]="paymentLink" frameborder="0"></iframe> -->
+<!-- <iframe  #frame width="100%" height="100%" (load)="onIframeLoad()" *ngIf="paymentLink" [src]="paymentLink" frameborder="0"></iframe> -->
+ <ion-content>
+   <app-header [customContainer]="true" [hiddenBackButton]="true">
+    <div class="cabinet-header">
+      <button (click)="back()" class="cabinet-header__back">
+        <img src="/assets/icons/arrow.svg"  alt="Назад">
+      </button>
+      <span class="cabinet-header__title">Оплата тренировки</span>
+      <button  class="cabinet-header__plug none">
+       
+      </button>
+    </div>
+  </app-header>
+ </ion-content>
+
+ 
+ <div class="container">
+  <div *ngIf="!paymentLink">
+    <h1 class="title">Оплата тренировки на гонке</h1>
+    <div class="price">{{transactionPrice}} ₽</div>
+    <button (click)="createTransaction()" class="btn">Оплатить</button>
+ 
+  </div>
+   <ng-container *ngIf="paymentLink">
+    <app-payment-status [status]="paymentStatus"></app-payment-status>
+    <app-icon-button *ngIf="paymentStatus !== 'load' && paymentStatus !== 'sleep'" clippy="clippy-right" widht="full" theme="red" buttonText="Готово" (click)="back()" [shapeColumn]="true"></app-icon-button>
+  </ng-container>
+ 
+
+ </div>
