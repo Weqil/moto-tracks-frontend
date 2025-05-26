@@ -4,7 +4,7 @@ const config: CapacitorConfig = {
   appId: 'com.policam.motokros',
   appName: 'Мотокросс',
   webDir: 'www/browser',
-  bundledWebRuntime: false,
+
   
   plugins:{
       SplashScreen: {
@@ -19,13 +19,13 @@ const config: CapacitorConfig = {
         splashImmersive: true    // Скрывает системные панели
       },
       Browser: {
-      clearSessionCache: true, // Очищает сессию WebView
-      clearCache: true, // Очищает весь кеш WebView
+      clearSessionCache: false, // Очищает сессию WebView
+      clearCache: false, // Очищает весь кеш WebView
   },
     },
-  // server: {
-  //   url: 'https://moto.vokrug.city',
-  // },
+  server: {
+    url: 'https://dev-moto.vokrug.city',
+  },
 };
 
 export default config;
