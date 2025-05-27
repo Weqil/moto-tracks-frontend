@@ -124,8 +124,8 @@
   <div *ngIf="!createClassesModalState" class="grade-grid">
     <ng-container *ngIf="!createClassesModalState">
           <div class="grade-grid__butons"> 
-            <app-icon-button (click)="changeAllClassesState(true)"  clippy="clippy-right" widht="w52"  [theme]="allClassesState ? 'red':'dark-gray'" buttonText="Все"></app-icon-button> -->
-            <app-icon-button (click)="changeAllClassesState(false)" clippy="clippy-right" widht="w52" [theme]="!allClassesState ? 'red':'dark-gray'" buttonText="Мои"></app-icon-button> -->
+            <app-icon-button (click)="changeAllClassesState(true)"  clippy="clippy-right" widht="w52"  [theme]="allClassesState ? 'red':'dark-gray'" buttonText="Все"></app-icon-button> 
+            <app-icon-button (click)="changeAllClassesState(false)" clippy="clippy-right" widht="w52" [theme]="!allClassesState ? 'red':'dark-gray'" buttonText="Мои"></app-icon-button> 
           </div> 
       <ng-container *ngIf="allClassesState">
         <ng-container *ngFor="let group of allUsersGroups">
@@ -134,13 +134,14 @@
           <!-- <app-checkbox (click)="changeGroup($event,group)" [checked]="trackHaveInUserSelected(group)" [value]="group.id" label="{{ group.name }}"></app-checkbox> -->
          </ng-container>
        </ng-container>
-      <ng-container *ngIf="!allClassesState">
-        <ng-container *ngFor="let group of userGroups">
+      <ng-container *ngIf="allClassesState">
+        <ng-container *ngFor="let group of allUsersGroups">
           <app-check-box [clippy]="'clippy-right'" (change)="changeGroup($event,group)" [value]="group.id" 
           [checked]="trackHaveInUserSelected(group)"  [labelText]="group.name" height="long-height" [theme]="trackHaveInUserSelected(group) ? 'white':'gray'"></app-check-box>
           <!-- <app-checkbox (click)="changeGroup($event,group)" [checked]="trackHaveInUserSelected(group)" [value]="group.id" label="{{ group.name }}"></app-checkbox> -->
          </ng-container>
        </ng-container>
+      
     </ng-container>
    
     <!-- <div class="grade-grid__butons"> -->
@@ -154,6 +155,17 @@
       </ng-container>
     </ng-container> -->
      
+  </div>
+  <div  class="grade-grid" *ngIf="createClassesModalState">
+    <app-standart-input-select  [labelLight]="true" style="z-index: 11001;" label="Базовый класс" (onChange)="setBaseClassInCreateNewGrade($event)" selectedName="groupSelect" [items]="allUsersGroups"></app-standart-input-select>
+    <app-standart-input [labelLight]="true" label="Название класса" placeholder="Введите имя вашего класса" [white]="true" [control]="createClassesForm.get('name')"></app-standart-input>
+    
+  </div>
+  <div *ngIf="createClassesModalState" class="buttons-container">
+      <div class="buttons-container__item">          
+        <app-icon-button [disabled]="createClassesForm.invalid" (click)="createNewGroup()" widht="full" buttonText="Сохранить и добавить"  theme="red"></app-icon-button>
+        <app-icon-button (click)="setCreateClassesModalState(false)" widht="full" buttonText="Назад" theme="white"></app-icon-button>
+      </div>
   </div>
   <div *ngIf="!createClassesModalState" class="buttons-container">
       <div class="buttons-container__item">
@@ -175,17 +187,8 @@
       <app-icon-button style="width: 100%;" (click)="createNewGroup()" theme="red" widht="w71" buttonText="Добавить класс"></app-icon-button>
     </div> -->
   </div>
-  <div  class="grade-grid" *ngIf="createClassesModalState">
-    <app-standart-input-select  [labelLight]="true" style="z-index: 11001;" label="Базовый класс" (onChange)="setBaseClassInCreateNewGrade($event)" selectedName="groupSelect" [items]="allUsersGroups"></app-standart-input-select>
-    <app-standart-input [labelLight]="true" label="Название класса" placeholder="Введите имя вашего класса" [white]="true" [control]="createClassesForm.get('name')"></app-standart-input>
-    
-  </div>
-  <div *ngIf="createClassesModalState" class="buttons-container">
-      <div class="buttons-container__item">          
-        <app-icon-button [disabled]="createClassesForm.invalid" (click)="createNewGroup()" widht="full" buttonText="Сохранить и добавить"  theme="red"></app-icon-button>
-        <app-icon-button (click)="setCreateClassesModalState(false)" widht="full" buttonText="Назад" theme="white"></app-icon-button>
-      </div>
-  </div>
+  
+
 </app-select-bottom-modal>
 <!-- <ion-modal (didDismiss)="closeComissionModal()"  [isOpen]="comissionModalState" >
   <ng-template>

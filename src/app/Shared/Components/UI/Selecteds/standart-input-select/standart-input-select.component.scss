@@ -53,6 +53,7 @@
     background-color: white;
     display: flex;
     flex-direction: column;
+    overflow: none;
     pointer-events: none;
     gap: 0.25rem;
     transform: translate(0, -40px);

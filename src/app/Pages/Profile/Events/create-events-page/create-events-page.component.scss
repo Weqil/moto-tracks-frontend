@@ -60,6 +60,7 @@
     padding: var(--standart-padding);
     display: flex;
     flex-direction: column;
+    overflow-y: none;
     gap: var(--little-padding);
     .grade-grid__butons{
         display: flex;
@@ -189,7 +190,7 @@
     }
 }
 .grade-grid{
-   
+   position: relative;
 }
 .race-groups__add-container{
     padding-top: var(--little-padding);
