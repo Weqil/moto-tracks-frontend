@@ -494,6 +494,7 @@ export class EventsViewPageComponent  implements OnInit {
     let file = event.target.files[0]
     this.polisFile = file
   }
+  
   formatingZoomValuesInResults(){
     this.formattedResultsDocument = []
     if(this.event.pdf_files && this.event.pdf_files.length){

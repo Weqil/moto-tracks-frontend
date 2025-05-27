@@ -35,6 +35,7 @@ import { CheckBoxComponent } from '@app/Shared/Components/UI/LinarikUI/forms/che
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
+import { event } from 'yandex-maps';
 
 
 @Component({
@@ -48,7 +49,6 @@ import { CommonModule } from '@angular/common';
   animations:[
     trigger('fadeInOut', [
       transition(':enter', [ // элемент появляется
-        style({ opacity: 0 }),
         animate('100ms ease-out', style({ opacity: 1 }))
       ]),
       transition(':leave', [ // элемент исчезает
@@ -124,8 +124,9 @@ export class CreateEventsPageComponent  implements OnInit {
   })
 
   createClassesForm: FormGroup = new FormGroup({
-    
-   })
+    gradeId: new FormControl( '',  [Validators.required, Validators.minLength(1)]),
+    name:new FormControl( '',  [Validators.required, Validators.minLength(1)]),
+  })
 
   navController: NavController = inject(NavController)
 
@@ -140,6 +141,12 @@ export class CreateEventsPageComponent  implements OnInit {
   getDefaultDateTime(): string {
     const userTimezone = moment.tz.guess(); // Определяет текущий часовой пояс пользователя
     return moment().tz(userTimezone).set({ hour: 9, minute: 0, second: 0 }).format('YYYY-MM-DDTHH:mm');
+  }
+
+  setBaseClassInCreateNewGrade(event:any){
+    if(event.id){
+      this.createClassesForm.patchValue({gradeId:event.id})
+    }
   }
 
   closeComissionModal(){
@@ -174,8 +181,10 @@ export class CreateEventsPageComponent  implements OnInit {
   }
   openModalGroupModal(){
     this.groupModal = true
+    this.setCreateClassesModalState(false)
   }
   closeGroupModal(){
+    this.setCreateClassesModalState(false)
     this.groupModal = false
   }
   setRaceType(event:any){
@@ -320,16 +329,18 @@ export class CreateEventsPageComponent  implements OnInit {
   }
 
   createNewGroup(){
-    if(this.newGroupInputValue.length){
+    if(!this.createClassesForm.invalid){
       this.loadingService.showLoading()
-      this.groupService.createGroup({name:this.newGroupInputValue}).pipe(
+      this.groupService.createGroup(this.createClassesForm.value).pipe(
         finalize(()=>{
           this.loadingService.hideLoading()
         })
       ).subscribe((res:any)=>{
         this.getAllGroups()
+
         this.toastService.showToast('Новый класс гонки создан успешно','success')
-        this.newGroupInputValue = ''
+        this.changeGroup('',res.grade)
+        this.setCreateClassesModalState(false)
       })
     }
   }

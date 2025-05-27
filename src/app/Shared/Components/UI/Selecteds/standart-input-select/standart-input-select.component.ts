@@ -49,6 +49,7 @@ export class StandartInputSelectComponent implements OnInit, OnDestroy {
   @Input() invalid:boolean = false
   @Input() errorMessage:string = ''
   @Input() stateValue: boolean = false;
+  @Input() labelLight: boolean = false;
 
   changeState(){
     if (!this.stateValue) {
