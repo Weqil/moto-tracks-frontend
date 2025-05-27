@@ -44,7 +44,6 @@ export class ComandsComponent  implements OnInit {
   }
   getMyComands(){
     let loader:HTMLIonLoadingElement
-    console.log('get new comands')
     this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
       loader = res
     })

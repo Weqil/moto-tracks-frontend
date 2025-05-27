@@ -229,9 +229,9 @@ export class GroupApplicationComponent implements OnInit {
     );
   }
 
-  // Добавляем методы для работы с модальным окном региона
+  // Добавляем методы для работы с модальным окном региона btcb rws
   openRegionModal() {
-    console.log(this.regionModalState)
+
     this.regionModalState = true;
   }
 

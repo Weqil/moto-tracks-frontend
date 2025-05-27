@@ -221,7 +221,7 @@ export class EventsTapePageComponent  implements OnInit {
         fd.append(`pdfFiles[${index}]`,fileElement.file)
     });
     fd.forEach((value, key) => {
-      console.log(key, value);
+     
     });
 
     this.eventService.addResultInRace(String(this.currentRace.id),fd).pipe(
@@ -255,7 +255,7 @@ export class EventsTapePageComponent  implements OnInit {
   }
  
   getUploadResultsFiles(files:any){
-    console.log(files)
+   
     this.resultsFilesUpload = files
   }
   getResultFile(event:any){
@@ -406,7 +406,7 @@ export class EventsTapePageComponent  implements OnInit {
     this.loadingService.showLoading().then((res: HTMLIonLoadingElement)=>{
         loader = res
     })
-    console.log(this.eventsFilter)
+   
     this.eventService.getAllEvents(this.eventsFilter).pipe(
       finalize(()=>{ 
         this.loadingService.hideLoading(loader)

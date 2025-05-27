@@ -420,14 +420,14 @@ export class EventsViewPageComponent  implements OnInit {
       try {
         await navigator.share(shareData);
       } catch (err) {
-       console.log('Ошибка при попытке поделиться');
+
       }
     } else {
       try {
         await navigator.clipboard.writeText(window.location.href);
-       console.log('Ссылка скопирована в буфер обмена!');
+    
       } catch (err) {
-       console.log('Не удалось скопировать ссылку');
+    
       }
     }
    }

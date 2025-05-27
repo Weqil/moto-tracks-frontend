@@ -97,7 +97,7 @@ export class ApplicationForRaceComponent  implements OnInit {
       this.eventService.getUsersInRace(this.eventId).pipe().subscribe((res:any)=>{
         
         this.usersInRace = res.users
-        console.log(this.usersInRace)
+      
         this.formattedUsers = [];
 
         Object.keys(this.usersInRace).forEach((key: string) => {
@@ -125,8 +125,7 @@ export class ApplicationForRaceComponent  implements OnInit {
   
 
     navigateToUser(userId: string, userGet: User) {
-      console.log('Типа передл id:' )
-      console.log(userId)
+     
       this.getDocumentUserById(Number(userId))
       this.userGetId = userId
       this.userGet= userGet
@@ -145,7 +144,7 @@ export class ApplicationForRaceComponent  implements OnInit {
           })
         ).subscribe((res:any)=>{
           this.arrayDocument = res.documents 
-          console.log('Загрузил документы:', this.arrayDocument)
+        
 
           // Только теперь открываем компонент
           this.viewUser = true

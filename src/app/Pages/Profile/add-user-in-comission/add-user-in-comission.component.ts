@@ -66,7 +66,7 @@ export class AddUserInComissionComponent  implements OnInit {
   awardRole(){
 
     if(this.userService.userHaveCurrentPersonal(this.user)){
-      console.log(this.user)
+
       let loader:HTMLIonLoadingElement
     this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
       loader = res
@@ -89,8 +89,7 @@ export class AddUserInComissionComponent  implements OnInit {
 
     }
     else{
-      console.log('Вывели пользователя если false на проверку заполнения данных:')
-      console.log(this.user)
+      
       // console.log(this.userService.userHaveCurrentPersonal(this.user))
       this.toastService.showToast('Пожалуйста попросите пользователя стать организатором и заполнить анкету!','warning')
     }
@@ -157,8 +156,7 @@ export class AddUserInComissionComponent  implements OnInit {
     ).subscribe((res:any) => {
       this.user = res.user
       this.viewUserInfo = false
-      console.log('Получили юзера вот инфа о нем:')
-      console.log(this.user)
+
     })
    }
 }

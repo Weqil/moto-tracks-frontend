@@ -16,7 +16,7 @@
       <div *ngIf="!comands || !comands.length" class="not-found-users">Команд пока что нет...</div>
     <ng-container *ngFor="let command of comands">
       <div class="commands-grid__item" >
-        <app-command-section [editfFunction]="true" [vievComand]="command.id" [editComand]="command.id" [command]="command" ></app-command-section>
+        <app-command-section (click)="redirectInViewPage(command.id)"  [editfFunction]="true" [vievComand]="command.id" [editComand]="command.id" [command]="command" ></app-command-section>
         <!-- <div class="edit-button-container">
           <app-icon-button (click)="redirectInEditPage(command.id)" theme="red" clippy="clippy-right" height="little-height" icon="/assets/icons/pen.svg" buttonIconColor="white-icon" elementsPosition="row__reverse" sizeIcon="little-size"></app-icon-button>
           

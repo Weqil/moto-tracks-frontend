@@ -210,9 +210,6 @@ export class EditEventComponent  implements OnInit {
             name:user.personal?.surname +" " + user.personal?.name + " "  + user.personal?.patronymic,
           })
         });
-
-        console.log("Комиссия выбранная при получении:")
-        console.log(this.currentComission)
         
       })
       
@@ -232,15 +229,10 @@ export class EditEventComponent  implements OnInit {
 
     setComission(event:any){
       if(this.currentComission.find((user:any)=>user.value == event.value)){
-        console.log('такой юзер уже есть')
-        console.log(this.currentComission)
+      
       }else {
         this.currentComission.push(event)
-        console.log('В комиссию записали event')
-        // console.log('Выбранная комиссия')
-        // console.log(this.currentComission)
-        console.log('Event это:')
-        console.log(event)
+        
   
       }
       this.closeComissionModal()
