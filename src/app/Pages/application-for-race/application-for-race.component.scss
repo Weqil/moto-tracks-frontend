@@ -6,6 +6,8 @@
     justify-content: center;
     margin-top: 3rem;
     margin-bottom: 4rem;
+    gap: 2rem;
+    padding: 1rem;
 
     .main-content{
         max-height: 82vh; /* или height: 300px; */
@@ -27,14 +29,13 @@
 
             .user-card{
                 
-                
-                border-radius: 0.5rem;
             }
         }
     }
 
     .view-user{
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
         border-radius: 0.5rem;
@@ -56,12 +57,16 @@
         .document{
             width: 100%;
             background-color: white;
-            
-            
             display: flex;
             justify-content: space-between;
-            align-items: center;
-
+            align-items: start;
+            flex-direction: column;
+            span{
+                color: #4C5861;
+                font-size: 14px;
+                padding-bottom: 4px;
+                font-family: var(--font-regular);
+            }
         }
 
         .file-name{
@@ -94,9 +99,9 @@
         
 
         .document-container{
-            border: 1px solid rgba(76, 88, 97, 0.473);
-            padding: var(--little-padding);
-            margin-bottom: var(--little-padding);
+            // border: 1px solid rgba(76, 88, 97, 0.473);
+            // padding: var(--little-padding);
+            // margin-bottom: var(--little-padding);
             display: flex;
             
             gap: var(--little-padding);
@@ -127,6 +132,15 @@
             display: flex;
             flex-direction: column;
             gap: 1rem;
+            .input-container{
+                width: 100%;
+                display: flex;
+                gap: 1rem;
+                
+                app-standart-input{
+                    flex-grow: 1;
+                }
+            }
         }
 
         .input-container{
@@ -145,7 +159,8 @@
         display: flex;
         align-items: center;
         gap: 8px;
-        padding-top: 1rem;
+        padding-top: 1.5rem;
+        padding-bottom: 0.5rem;
         img{
            width: 24px; 
         }
@@ -168,5 +183,33 @@
     }
     .cabinet-header__title{
         font-family: var(--font-regular);
+    }
+}
+
+.button-container{
+    display: flex;
+    width: 100%;
+    max-width: 960px;
+    gap: 1rem;
+    margin-top: 1rem;
+    app-icon-button{
+        width: 100%;
+    }
+}
+
+.check-box{
+    display: flex;
+    flex-grow: 1;
+    justify-content: end;
+}
+
+.input-rich-container{
+    width: 100%;
+    display: flex;
+    gap: 1rem;
+    padding-top: 1rem;
+
+    app-standart-rich-input{
+        flex-grow: 1;
     }
 }

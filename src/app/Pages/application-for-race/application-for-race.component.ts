@@ -22,13 +22,14 @@ import { StandartInputSelectComponent } from "../../Shared/Components/UI/Selecte
 import { StandartRichInputComponent } from "../../Shared/Components/UI/LinarikUI/forms/standart-rich-input/standart-rich-input.component";
 import { RegionsSelectModalComponent } from "../../Shared/Components/Modals/regions-select-modal/regions-select-modal.component";
 import moment from 'moment';
+import { CheckBoxComponent } from "../../Shared/Components/UI/LinarikUI/forms/check-box/check-box.component";
 
 
 @Component({
   selector: 'app-application-for-race',
   templateUrl: './application-for-race.component.html',
   styleUrls: ['./application-for-race.component.scss'],
-  imports: [CommonModule, IonContent, HeaderModule, UserModule, UserViewPageComponent, IconButtonComponent, StandartInputComponent, StandartInputSelectComponent, StandartRichInputComponent, RegionsSelectModalComponent],
+  imports: [CommonModule, IonContent, HeaderModule, UserModule, UserViewPageComponent, IconButtonComponent, StandartInputComponent, StandartInputSelectComponent, StandartRichInputComponent, RegionsSelectModalComponent, CheckBoxComponent],
 })
 export class ApplicationForRaceComponent  implements OnInit {
 
@@ -42,7 +43,7 @@ export class ApplicationForRaceComponent  implements OnInit {
   userService:UserService = inject(UserService)
   loaderService:LoadingService = inject(LoadingService)
   authService: AuthService = inject(AuthService)
-  
+  activeAppId:any
   constructor(private router: Router) {}
   raceUser!:User
   eventId: string = ''
@@ -59,10 +60,16 @@ export class ApplicationForRaceComponent  implements OnInit {
   licensed:any
   notarius:any
   polish:any
-
+  activeUserId:any
   licensesFile:any =''
   polisFile:any = ''
   notariusFile:any = ''
+  userInfo:boolean = false
+  raceInfo:boolean = false
+  docInfo:boolean = false
+  licensedInfo:boolean = false
+  polishInfo:boolean = false
+  notariusInfo:boolean = false
 
   usersPreviewConfig:{usersCount:number}={
     usersCount:0
@@ -158,14 +165,15 @@ export class ApplicationForRaceComponent  implements OnInit {
     }
   )
 
-    navigateToUser(userId: string, userGet: User) {
+    navigateToUser(userId: string, userGet: User, appId:any) {
       console.log('Типа передaл id:' )
       console.log(userId)
       this.getDocumentUserById(Number(userId))
       this.userGetId = userId
       this.userGet= userGet
       this.setUserInForm()
-      
+      this.activeUserId = userId
+      this.activeAppId = appId
     }
 
     getDocumentUserById(userId:number){
@@ -212,17 +220,7 @@ export class ApplicationForRaceComponent  implements OnInit {
     
       }
 
-    createUserInAplication(aplication:any){
-      let userInAplication:any = {
-        name:aplication.name,
-        rank:aplication.rank,
-        surname:aplication.surname,
-        city:aplication.city,
-        avatar:aplication.user.avatar,
-        start_number:aplication.start_number
-      }
-      return userInAplication
-    }
+
 
     ngOnChanges(changes: SimpleChanges) {
       
@@ -246,8 +244,8 @@ export class ApplicationForRaceComponent  implements OnInit {
       rank:new FormControl('', [Validators.required]),
       grade:new FormControl('', [Validators.required]),
       rankNumber:new FormControl('', [Validators.required]),
-      
-      community:new FormControl('Лично', [Validators.required]),
+      email:new FormControl('', [Validators.required]),
+      community:new FormControl('', [Validators.required]),
       locationId: new FormControl('', [Validators.required]),
       coach:new FormControl('', [Validators.required]),
       motoStamp:new FormControl('', [Validators.required]),
@@ -308,6 +306,9 @@ export class ApplicationForRaceComponent  implements OnInit {
       },
       numberAndSeria:{
         errorMessage:''
+      },
+      email:{
+        errorMessage:''
       }
     }
   
@@ -340,6 +341,7 @@ export class ApplicationForRaceComponent  implements OnInit {
           surname:this.userGet?.surname,
           dateOfBirth: this.userGet?.date_of_birth,
           phoneNumber: cleanedPhone,
+          email:this.userGet?.user.email,
           startNumber: this.userGet?.start_number,
           locationId: this.userGet?.location?.id,
           commandId: this.userGet?.community, 
@@ -350,7 +352,8 @@ export class ApplicationForRaceComponent  implements OnInit {
           motoStamp:  this.userGet?.moto_stamp,
           numberAndSeria: this.userGet?.number_and_seria,
           grade: this.userGet?.grade?.name,
-          group:''
+          group:'',
+          comment: this.userGet?.comment
         })
       }else{
         this.personalUserForm.reset()
@@ -359,10 +362,90 @@ export class ApplicationForRaceComponent  implements OnInit {
       console.log(this.personalUserForm.value)
     }
   
-      
+    checkBoxArray:any = [
+      {
+        value:1,
+        state:false,
+        labelText:'',
+        theme:'white',
+        clippy:''
+      },     
+      {
+        value:2,
+        state:false,
+        labelText:'',
+        theme:'white',
+        clippy:''
+      },
+      {
+        value:3,
+        state:false,
+        labelText:'',
+        theme:'white',
+        clippy:''
+      },
+      {
+        value:4,
+        state:false,
+        labelText:'',
+        theme:'white',
+        clippy:''
+      },
+      {
+        value:5,
+        state:false,
+        labelText:'',
+        theme:'white',
+        clippy:''
+      },
+      {
+        value:6,
+        state:false,
+        labelText:'',
+        theme:'white',
+        clippy:''
+      },
+  
+    ]
     
 
-    
+    CheckBoxValue(value:boolean){
+      this.userInfo = !value
+    }
+
+    agreedApp(id: any){
+      const comment = this.personalUserForm.get('comment')?.value;
+      this.eventService.checkApplication(id, true, comment)
+      .pipe(finalize(()=>{
+        console.log('Запрос завершился')
+      })).subscribe((res:any)=>
+        {
+
+          this.getUsersInRace()
+          console.log('Запрос завершился успешно')
+          
+          }
+        )
+        
+
+    }
+
+    disagreedApp(id: any){
+      const comment = this.personalUserForm.get('comment')?.value;
+      this.eventService.checkApplication(id, false, comment)
+      .pipe(finalize(()=>{
+        console.log('Запрос завершился')
+      })).subscribe((res:any)=>
+        {
+
+          this.getUsersInRace()
+          console.log('Запрос завершился успешно')
+          
+          }
+        )
+        
+
+    }
 
   ngOnInit() {
    
