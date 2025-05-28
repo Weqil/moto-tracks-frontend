@@ -100,7 +100,14 @@ export class CreateEventsPageComponent  implements OnInit {
   newGroupInputValue:string = ''
   userGroups:any[] = []
   allUsersGroups:any[] = []
+  baseUsersGroups:any[] = []
   selectedGroup:any[] = []
+
+  classesFilter = {
+    base:true,
+    user:false,
+    all:false,
+  }
 
   regionModalState:boolean = false
 
@@ -144,8 +151,10 @@ export class CreateEventsPageComponent  implements OnInit {
   }
 
   setBaseClassInCreateNewGrade(event:any){
+    console.log(event)
     if(event.id){
-      this.createClassesForm.patchValue({gradeId:event.id})
+      this.createClassesForm.patchValue({gradeId:event.id,name:`${event.name} - `})
+
     }
   }
 
@@ -156,8 +165,12 @@ export class CreateEventsPageComponent  implements OnInit {
     this.comissionModalState = true
   }
 
- changeAllClassesState(value:boolean){
-   this.allClassesState = value
+ changeAllClassesState(value:'all'|'user'|'bases'){
+  this.classesFilter = {
+    base: value == 'bases',
+    user: value == 'user',
+    all: value == 'all'
+  }
  }
 
  setCreateClassesModalState(value:boolean){
@@ -322,9 +335,13 @@ export class CreateEventsPageComponent  implements OnInit {
     this.groupService.getAllGroup({userId:this.userService.user.value?.id}).pipe().subscribe((res:any)=>{
      this.userGroups = res.grades
     })
+    this.groupService.getAllGroup({gradeNotParent:1}).pipe().subscribe((res:any)=>{
+     this.baseUsersGroups = res.grades
+    })
     this.groupService.getAllGroup().pipe().subscribe((res:any)=>{
      this.allUsersGroups = res.grades
     })
+
     
   }
 
@@ -334,6 +351,12 @@ export class CreateEventsPageComponent  implements OnInit {
       this.groupService.createGroup(this.createClassesForm.value).pipe(
         finalize(()=>{
           this.loadingService.hideLoading()
+        }),
+        catchError((err:serverError)=>{
+          if(err.status = 422){
+            this.toastService.showToast('Такой класс уже существует','danger')
+          }
+          return EMPTY
         })
       ).subscribe((res:any)=>{
         this.getAllGroups()
@@ -341,6 +364,7 @@ export class CreateEventsPageComponent  implements OnInit {
         this.toastService.showToast('Новый класс гонки создан успешно','success')
         this.changeGroup('',res.grade)
         this.setCreateClassesModalState(false)
+        this.createClassesForm.reset()
       })
     }
   }

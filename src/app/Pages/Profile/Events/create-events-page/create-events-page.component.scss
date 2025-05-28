@@ -64,6 +64,7 @@
     gap: var(--little-padding);
     .grade-grid__butons{
         display: flex;
+        gap: 5px;
         width: 100%;
         padding-bottom: var(--standart-padding);
     }

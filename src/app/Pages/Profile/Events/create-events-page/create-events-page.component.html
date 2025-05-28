@@ -124,23 +124,31 @@
   <div *ngIf="!createClassesModalState" class="grade-grid">
     <ng-container *ngIf="!createClassesModalState">
           <div class="grade-grid__butons"> 
-            <app-icon-button (click)="changeAllClassesState(true)"  clippy="clippy-right" widht="w52"  [theme]="allClassesState ? 'red':'dark-gray'" buttonText="Все"></app-icon-button> 
-            <app-icon-button (click)="changeAllClassesState(false)" clippy="clippy-right" widht="w52" [theme]="!allClassesState ? 'red':'dark-gray'" buttonText="Мои"></app-icon-button> 
+            <app-icon-button (click)="changeAllClassesState('bases')"  clippy="clippy-right" widht="w52"  [theme]="classesFilter.base ? 'red':'dark-gray'" buttonText="Базовые"></app-icon-button> 
+            <app-icon-button (click)="changeAllClassesState('user')" clippy="clippy-right" widht="w52" [theme]="classesFilter.user ? 'red':'dark-gray'" buttonText="Мои"></app-icon-button> 
+            <app-icon-button (click)="changeAllClassesState('all')"  clippy="clippy-right" widht="w52"  [theme]="classesFilter.all ? 'red':'dark-gray'" buttonText="Пользовательские"></app-icon-button> 
           </div> 
-      <ng-container *ngIf="allClassesState">
-        <ng-container *ngFor="let group of allUsersGroups">
+      <ng-container *ngIf="classesFilter.base">
+        <ng-container *ngFor="let group of baseUsersGroups">
           <app-check-box [clippy]="'clippy-right'" (change)="changeGroup($event,group)" [value]="group.id" 
           [checked]="trackHaveInUserSelected(group)"  [labelText]="group.name" height="long-height" [theme]="trackHaveInUserSelected(group) ? 'white':'gray'"></app-check-box>
           <!-- <app-checkbox (click)="changeGroup($event,group)" [checked]="trackHaveInUserSelected(group)" [value]="group.id" label="{{ group.name }}"></app-checkbox> -->
          </ng-container>
        </ng-container>
-      <ng-container *ngIf="allClassesState">
-        <ng-container *ngFor="let group of allUsersGroups">
+      <ng-container *ngIf="classesFilter.user">
+        <ng-container *ngFor="let group of userGroups">
           <app-check-box [clippy]="'clippy-right'" (change)="changeGroup($event,group)" [value]="group.id" 
           [checked]="trackHaveInUserSelected(group)"  [labelText]="group.name" height="long-height" [theme]="trackHaveInUserSelected(group) ? 'white':'gray'"></app-check-box>
           <!-- <app-checkbox (click)="changeGroup($event,group)" [checked]="trackHaveInUserSelected(group)" [value]="group.id" label="{{ group.name }}"></app-checkbox> -->
          </ng-container>
-       </ng-container>
+      </ng-container>
+      <ng-container *ngIf="classesFilter.all">
+        <ng-container *ngFor="let group of userGroups">
+          <app-check-box [clippy]="'clippy-right'" (change)="changeGroup($event,group)" [value]="group.id" 
+          [checked]="trackHaveInUserSelected(group)"  [labelText]="group.name" height="long-height" [theme]="trackHaveInUserSelected(group) ? 'white':'gray'"></app-check-box>
+          <!-- <app-checkbox (click)="changeGroup($event,group)" [checked]="trackHaveInUserSelected(group)" [value]="group.id" label="{{ group.name }}"></app-checkbox> -->
+         </ng-container>
+      </ng-container>
       
     </ng-container>
    
