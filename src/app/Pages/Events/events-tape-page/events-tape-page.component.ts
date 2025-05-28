@@ -422,11 +422,8 @@ export class EventsTapePageComponent  implements OnInit {
   }
 
   ionViewWillEnter(){
-
     this.getEvents()
     this.getExpiredEvents()
-    this.switchTypeService.setTypeInLocalSorage('events')
-
   }
  
   ngOnInit() {

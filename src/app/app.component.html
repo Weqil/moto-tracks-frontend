@@ -1,6 +1,27 @@
 
 <ion-app >
+  <ion-modal [isOpen]="!this.userHaveCurrentVersion">
+    <ng-content>
+      <ion-header translucent>
+      <ion-toolbar color="light">
+        <ion-title class="ion-text-center">Обновление</ion-title>
+      </ion-toolbar>
+    </ion-header>
 
+    <ion-content class="ion-padding" fullscreen>
+      <div class="modal-body">
+        <h2>Версия устарела</h2>
+        <p>Чтобы продолжить работу, обновите приложение до последней версии.</p>
+      </div>
+    </ion-content>
+
+    <ion-footer class="ion-padding">
+      <app-icon-button widht="full" theme="red" buttonText="Обновить" (click)="onUpdate()" [shapeColumn]="true" clippy="clippy-right" ></app-icon-button>
+    </ion-footer>
+
+    </ng-content>
+    
+  </ion-modal>
   <ion-router-outlet>
   </ion-router-outlet>
 </ion-app>

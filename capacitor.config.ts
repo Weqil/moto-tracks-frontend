@@ -23,9 +23,9 @@ const config: CapacitorConfig = {
       clearCache: false, // Очищает весь кеш WebView
   },
     },
-  server: {
-    url: 'https://moto.vokrug.city',
-  },
+  // server: {
+  //   url: 'https://moto.vokrug.city',
+  // },
 };
 
 export default config;

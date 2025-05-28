@@ -19,9 +19,6 @@
 			"clearCache": false
 		}
 	},
-	"server": {
-		"url": "https://moto.vokrug.city"
-	},
 	"packageClassList": [
 		"AppPlugin",
 		"CAPBrowserPlugin",
