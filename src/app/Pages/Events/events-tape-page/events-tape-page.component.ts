@@ -423,7 +423,7 @@ export class EventsTapePageComponent  implements OnInit {
 
   ionViewWillEnter(){
     this.getEvents()
-    this.getExpiredEvents()
+    // this.getExpiredEvents()
   }
  
   ngOnInit() {
