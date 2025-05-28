@@ -7,7 +7,7 @@
     border: 1px solid rgb(76 88 97 / 47%);
     width: 100%;
     min-height: 36px;
-   
+    overflow: hidden;
     padding-left: 0.5rem;
     color: #363d42;
     font-family: var(--font-regular);
@@ -53,7 +53,8 @@
     background-color: white;
     display: flex;
     flex-direction: column;
-    overflow: none;
+    overflow: hidden;
+    max-height:0px;
     pointer-events: none;
     gap: 0.25rem;
     transform: translate(0, -40px);

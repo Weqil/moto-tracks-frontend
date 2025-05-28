@@ -57,9 +57,9 @@ export class AppComponent {
     const platform = Capacitor.getPlatform();
 
     if (platform === 'ios') {
-      window.open('https://apps.apple.com/app/your-app-id', '_system'); // ссылка на App Store
+      window.open('https://apps.apple.com/us/app/%D0%BC%D0%BE%D1%82%D0%BE%D0%BA%D1%80%D0%BE%D1%81c/id6741205282', '_system'); // ссылка на App Store
     } else if (platform === 'android') {
-      window.open('https://play.google.com/store/apps/details?id=your.package.name', '_system'); // ссылка на Google Play
+      window.open('https://www.rustore.ru/catalog/app/com.policam.motokros', '_system'); // ссылка на Google Play
     } else {
       location.reload(); // для PWA/web
     }
