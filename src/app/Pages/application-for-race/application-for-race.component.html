@@ -154,10 +154,13 @@
               <!-- <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
             </div>
             <div class="document-container">
-              <app-standart-input [readonly]="true" [control]="polisForm.get('number')" placeholder="Серия, номер" label="Серия, номер"></app-standart-input>
-              <app-standart-input [readonly]="true" [control]="polisForm.get('issuedWhom')" placeholder="Кем выдан" label="Кем выдан"></app-standart-input>
-              <app-standart-input [readonly]="true" [control]="polisForm.get('itWorksDate')" placeholder="Срок действия" label="Срок действия"></app-standart-input>
-              <div class="document" *ngIf="polish">
+              <div class="input-container">
+                <app-standart-input [readonly]="true" [control]="polisForm.get('number')" placeholder="Серия, номер" label="Серия, номер"></app-standart-input>
+                <app-standart-input [readonly]="true" [control]="polisForm.get('issuedWhom')" placeholder="Кем выдан" label="Кем выдан"></app-standart-input>
+                <app-standart-input [readonly]="true" [control]="polisForm.get('itWorksDate')" placeholder="Срок действия" label="Срок действия"></app-standart-input>
+  
+              </div>
+                  <div class="document" *ngIf="polish">
                 <span>Файл документа</span>
                  <div class="file-name">
                   <img src="/assets/icons/documents.svg" alt="">
