@@ -296,7 +296,7 @@
    
     </div> -->
     <div class="button-commission">
-      <app-standart-button buttonText="Просмотр заявок" (click)="redirectApplicationForRace()"></app-standart-button>
+      <app-icon-button [clippy]="'clippy-right'" [widht]="'full'"  buttonText="Просмотр заявок" [shapeColumn]="true" [theme]="'red'" (click)="redirectApplicationForRace()"></app-icon-button>
     </div>
     <div class="footer-page">
       <div *ngIf="event.status?.name !== 'Планируемая'"  class="footer">
