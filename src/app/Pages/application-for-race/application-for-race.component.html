@@ -248,6 +248,26 @@
         <app-icon-button (click)="disagreedApp(activeAppId)" [widht]="'full'" clippy="clippy-right" [buttonText]="'Отклонить заявку'"></app-icon-button>
       </div>
     </div>
+
+    <div  class="document-view-container">
+      <div class="event-information-title users-title">
+        <img src="/assets/icons/red-finished.svg" alt="">
+        Просмотр докумета
+        <!-- <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
+      </div>
+      <div class="document-view">
+
+        <iframe 
+          [src]="'https://dev-moto.vokrug.city//document/205' | safeUrl" 
+          width="100%" 
+          height="600px"
+          style="border: none;">
+        </iframe>
+        
+      </div>
+    </div>
+
+    
     
   </main>
 </ng-container>

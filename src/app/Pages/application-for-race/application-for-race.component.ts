@@ -23,13 +23,23 @@ import { StandartRichInputComponent } from "../../Shared/Components/UI/LinarikUI
 import { RegionsSelectModalComponent } from "../../Shared/Components/Modals/regions-select-modal/regions-select-modal.component";
 import moment from 'moment';
 import { CheckBoxComponent } from "../../Shared/Components/UI/LinarikUI/forms/check-box/check-box.component";
+import { Pipe, PipeTransform } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
+@Pipe({ name: 'safeUrl' })
+export class SafeUrlPipe implements PipeTransform {
+  constructor(private sanitizer: DomSanitizer) {}
+
+  transform(url: string): SafeResourceUrl {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
+}
 
 @Component({
   selector: 'app-application-for-race',
   templateUrl: './application-for-race.component.html',
   styleUrls: ['./application-for-race.component.scss'],
-  imports: [CommonModule, IonContent, HeaderModule, UserModule, UserViewPageComponent, IconButtonComponent, StandartInputComponent, StandartInputSelectComponent, StandartRichInputComponent, RegionsSelectModalComponent, CheckBoxComponent],
+  imports: [CommonModule, IonContent, HeaderModule, UserModule, UserViewPageComponent, IconButtonComponent, StandartInputComponent, StandartInputSelectComponent, StandartRichInputComponent, RegionsSelectModalComponent, CheckBoxComponent, SafeUrlPipe],
 })
 export class ApplicationForRaceComponent  implements OnInit {
 
