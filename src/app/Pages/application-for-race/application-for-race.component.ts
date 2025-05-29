@@ -25,6 +25,7 @@ import moment from 'moment';
 import { CheckBoxComponent } from "../../Shared/Components/UI/LinarikUI/forms/check-box/check-box.component";
 import { Pipe, PipeTransform } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { PrivateFilesComponent } from "../../CommonUI/Pages/private-files/private-files.component";
 
 @Pipe({ name: 'safeUrl' })
 export class SafeUrlPipe implements PipeTransform {
@@ -39,7 +40,7 @@ export class SafeUrlPipe implements PipeTransform {
   selector: 'app-application-for-race',
   templateUrl: './application-for-race.component.html',
   styleUrls: ['./application-for-race.component.scss'],
-  imports: [CommonModule, IonContent, HeaderModule, UserModule, UserViewPageComponent, IconButtonComponent, StandartInputComponent, StandartInputSelectComponent, StandartRichInputComponent, RegionsSelectModalComponent, CheckBoxComponent, SafeUrlPipe],
+  imports: [CommonModule, IonContent, HeaderModule, UserModule, UserViewPageComponent, IconButtonComponent, StandartInputComponent, StandartInputSelectComponent, StandartRichInputComponent, RegionsSelectModalComponent, CheckBoxComponent, SafeUrlPipe, PrivateFilesComponent],
 })
 export class ApplicationForRaceComponent  implements OnInit {
 
@@ -80,12 +81,20 @@ export class ApplicationForRaceComponent  implements OnInit {
   licensedInfo:boolean = false
   polishInfo:boolean = false
   notariusInfo:boolean = false
+  activeDocument?:number
+  viewDocumentValue:boolean = false
 
   usersPreviewConfig:{usersCount:number}={
     usersCount:0
   }
   users: any
   formattedUsers: {group:any,users:User[]}[] = []
+
+
+  checkDocument(documentId:number){
+    this.activeDocument = documentId
+    this.viewDocumentValue = true
+  }
 
   ionViewWillEnter(){
 
@@ -184,6 +193,7 @@ export class ApplicationForRaceComponent  implements OnInit {
       this.setUserInForm()
       this.activeUserId = userId
       this.activeAppId = appId
+      this.viewDocumentValue = false
     }
 
     getDocumentUserById(userId:number){
