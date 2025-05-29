@@ -24,7 +24,7 @@ const config: CapacitorConfig = {
   },
     },
   server: {
-    url: 'https://dev-moto.vokrug.city',
+    url: 'https://moto.vokrug.city',
   },
 };
 
