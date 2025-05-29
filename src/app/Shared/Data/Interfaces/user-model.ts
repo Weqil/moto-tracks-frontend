@@ -10,6 +10,7 @@ export interface User{
     city?:string,
     rank?:string,
     access_token?:string,
+    is_checked?:string
     user?:any
     start_number?:number|null,
     user_id?:any,
@@ -64,7 +65,7 @@ export interface User{
     moto_stamp:string,
     inn:string,
     snils:number,
-
+    comment:string
 
     roles:{
         id:number,

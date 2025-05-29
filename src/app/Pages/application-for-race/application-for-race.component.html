@@ -33,8 +33,9 @@
         
         <div class="application-list">
           <div *ngFor="let user of group.users" >
-            <div class="user-card" (click)=" navigateToUser(user.user_id, user)">
+            <div class="user-card" (click)=" navigateToUser(user.user_id, user, user.id)">
               <app-user-section 
+                [them]="activeAppId === user.id ? 'selected-them' :(user.is_checked ? 'green-them' : 'standart-them')"
                 [name]="true"
                 [surname]="true"
                 [patronymic]="true"
@@ -57,7 +58,9 @@
         <div class="event-information-title users-title">
           <img src="/assets/icons/red-finished.svg" alt="">
           Личная информация
-          <!-- <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
+          <!-- <div class="check-box">
+            <app-check-box (click)="CheckBoxValue(userInfo)"  [height]="'long-height'" [value]="2" [checked]="userInfo" [labelText]="''" [theme]="'white'" [clippy]="''"></app-check-box>
+          </div> -->
         </div>
 
         <div class="user-information">
@@ -68,7 +71,7 @@
           </div>
   
           <div class="input-container">
-            <app-standart-input [readonly]="true" [control]="personalUserForm.get('phoneNumber')" [errorMessage]="formErrors.phoneNumber.errorMessage" [invalid]="formErrors.phoneNumber.errorMessage.length !== 0" maskType="phone" placeholder="Номер телефона" label="Почта"></app-standart-input>
+            <app-standart-input [readonly]="true" [control]="personalUserForm.get('email')" [errorMessage]="formErrors.email.errorMessage" [invalid]="formErrors.email.errorMessage.length !== 0" maskType="email" placeholder="Почта" label="Почта"></app-standart-input>
             <app-standart-input [readonly]="true" [control]="personalUserForm.get('phoneNumber')" [errorMessage]="formErrors.phoneNumber.errorMessage" [invalid]="formErrors.phoneNumber.errorMessage.length !== 0" maskType="phone" placeholder="Номер телефона" label="Телефон"></app-standart-input>
   
           </div>
@@ -140,67 +143,84 @@
           </div>
 
 
-            <div class="polish">
-              <div class="document-container">
-                <app-standart-input [readonly]="true" [control]="polisForm.get('number')" placeholder="Серия, номер" label="Страховой полис"></app-standart-input>
+            
+          </div>
+
+          <div class="polish">
+
+            <div class="event-information-title users-title">
+              <img src="/assets/icons/red-finished.svg" alt="">
+              Страховой полис
+              <!-- <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
+            </div>
+            <div class="document-container">
+              <div class="input-container">
+                <app-standart-input [readonly]="true" [control]="polisForm.get('number')" placeholder="Серия, номер" label="Серия, номер"></app-standart-input>
                 <app-standart-input [readonly]="true" [control]="polisForm.get('issuedWhom')" placeholder="Кем выдан" label="Кем выдан"></app-standart-input>
                 <app-standart-input [readonly]="true" [control]="polisForm.get('itWorksDate')" placeholder="Срок действия" label="Срок действия"></app-standart-input>
-                <div class="document" *ngIf="polish">
+  
+              </div>
+                  <div class="document" *ngIf="polish">
+                <span>Файл документа</span>
+                 <div class="file-name">
+                  <img src="/assets/icons/documents.svg" alt="">
+                  <div class="name">
+                    {{polish.name}}
+                  </div>
                   
-                   <div class="file-name">
-                    <img src="/assets/icons/documents.svg" alt="">
-                    <div class="name">
-                      {{polish.name}}
-                    </div>
-                    
-                   </div>
-                  
-                </div>
+                 </div>
                 
               </div>
-            </div>
-
-
-
-            <div class="licensed">
-              <div class="document-container">
-                <app-standart-input [readonly]="true" [control]="licensesForm.get('number')" placeholder="Лицензия МФР" label="Лицензия МФР (тип, №):"></app-standart-input>
-                <div class="document" *ngIf="licensed">
-                  
-                    <div class="file-name">
-                      <img src="/assets/icons/documents.svg" alt="">
-                      <div class="name">
-                        {{licensed.name}}
-                      </div>
-                     </div>
-                  
-                </div>
-              </div>
-            </div>
-      
-
-
-            <div class="notarius">
-              <div class="document-container">
-                <div class="notarius-name">
-                  Нотариальное согласие
-                </div>
-                <div class="document" *ngIf="notarius">
-                  
-                    <div class="file-name">
-                      <img src="/assets/icons/documents.svg" alt="">
-                      <div class="name">
-                        {{notarius.name}}
-                      </div>
-                      
-                     </div>            
-                   
-                </div>
-              </div>
+              
             </div>
           </div>
 
 
+
+          <div class="licensed">
+            <div class="event-information-title users-title">
+              <img src="/assets/icons/red-finished.svg" alt="">
+              Лицензия
+              <!-- <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
+            </div>
+            <div class="document-container">
+              <app-standart-input [readonly]="true" [control]="licensesForm.get('number')" placeholder="Лицензия МФР" label="Лицензия МФР (тип, №):"></app-standart-input>
+              <div class="document" *ngIf="licensed">
+                <span>Файл документа</span>
+                  <div class="file-name">
+                    <img src="/assets/icons/documents.svg" alt="">
+                    <div class="name">
+                      {{licensed.name}}
+                    </div>
+                   </div>
+                
+              </div>
+            </div>
+          </div>
+    
+
+
+          <div class="notarius">
+            <div class="event-information-title users-title">
+              <img src="/assets/icons/red-finished.svg" alt="">
+              Нотариальное согласие
+              <!-- <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
+            </div>
+            <div class="document-container">
+             
+              <div class="document" *ngIf="notarius">
+                <span>Файл документа</span>
+                  <div class="file-name">
+                    <img src="/assets/icons/documents.svg" alt="">
+                    <div class="name">
+                      {{notarius.name}}
+                    </div>
+                    
+                   </div>            
+                 
+              </div>
+            </div>
+          </div>
         
 
 
@@ -214,13 +234,19 @@
         
 
         
-        
+          <div class="input-rich-container">
+            <app-standart-rich-input  [control]="personalUserForm.get('comment')" placeholder="Комментарий к заявке..." label="Комметарий"></app-standart-rich-input>
+          </div>
         
         
         
         
         <!-- <app-standart-rich-input  [control]="personalUserForm.get('comment')" label="Комментарий" placeholder="Оставьте комментарий"></app-standart-rich-input> -->
       </form>
+      <div class="button-container">
+        <app-icon-button (click)="agreedApp(activeAppId)"  [widht]="'full'" [theme]="'red'" clippy="clippy-right" [buttonText]="'Подтвердить заявку'"></app-icon-button>
+        <app-icon-button (click)="disagreedApp(activeAppId)" [widht]="'full'" clippy="clippy-right" [buttonText]="'Отклонить заявку'"></app-icon-button>
+      </div>
     </div>
     
   </main>

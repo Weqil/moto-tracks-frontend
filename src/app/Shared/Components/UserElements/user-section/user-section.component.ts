@@ -76,7 +76,7 @@ export class UserSectionComponent  implements OnInit {
   /**
    * Параметр отвечает за тему карточки пользователя стандартная, красная, желтая, зеленая. 
    */
-  @Input() them:'standart-them'|'red-them'|'green-them'|'yellow-them'|'dark-them'|'white-them' = 'standart-them'
+  @Input() them:'standart-them'|'red-them'|'green-them'|'yellow-them'|'dark-them'|'white-them'| 'selected-them' = 'standart-them'
 
    /**
    * Параметр отвечает за ширину бокового контейнера

@@ -6,9 +6,6 @@ p{
     padding: 0;
   }
 
-.dark-theme{
-
-}
 
 .user-section{
     display: flex;
@@ -77,7 +74,7 @@ p{
             gap: 6px;
             width: 100%;
             overflow-x: scroll;
-            
+            overflow-y: hidden;
 
             .user-section__date__info{
                 
@@ -212,6 +209,30 @@ p{
         background: linear-gradient(340deg, rgb(233 233 233 / 44%) 11%, rgb(255, 255, 255) 50%, rgb(241 241 241 / 74%) 92%);
     }
 }
+
+.selected-them{
+    .user-section{
+        background: #FF5555;
+        background: linear-gradient(180deg, rgba(255, 85, 85, 1) 23%, rgba(213, 49, 49, 1) 76%);
+        color:  #ffffff !important;
+        span{
+            color: #ffffff;
+        }
+        .user-section-text{
+            color: #ffffff !important;
+        }
+        .user-section__date__info{
+            color: #ffffff !important;
+        }
+        .user-section__info{
+            color: #ffffff !important;
+            .user-section__name{
+                color: #ffffff !important;
+            }
+        }
+    }
+}
+
 .dark-them{
     .user-section{
         background: #373737;
