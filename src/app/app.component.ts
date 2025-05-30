@@ -67,6 +67,11 @@ export class AppComponent {
       location.reload(); // для PWA/web
     }
   }
+
+  cleanNumberInPoint(number:string){
+    return Number(number.split('.').join(''))
+  }
+
   getLastVersion(){
      let version:any = false
     getAppVersion().then((res)=>{
@@ -77,7 +82,8 @@ export class AppComponent {
          if(!!version){
           this.versionService.getLastVersion().pipe().subscribe((res:any)=>{
             if(res.version && res.version.version_number){
-              this.userHaveCurrentVersion = version == res.version.version_number
+              this.userHaveCurrentVersion = this.cleanNumberInPoint(version) >= this.cleanNumberInPoint(res.version.version_number)
+              console.log('result' + (Number(version) >= this.cleanNumberInPoint(res.version.version_number) ? 'current ' +  this.cleanNumberInPoint(version) : 'server ' + this.cleanNumberInPoint(res.version.version_number)) )
              }
            })
         }else{
