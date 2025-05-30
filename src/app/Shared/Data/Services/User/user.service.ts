@@ -25,6 +25,8 @@ export class UserService {
     return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/users/${id}`)
   }
 
+
+
   getAllUsersInLocalStorage(){
     let usersArray:any = localStorage.getItem('allUsers')
     if(usersArray){

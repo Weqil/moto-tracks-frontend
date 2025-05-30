@@ -48,6 +48,9 @@ export class EventService {
       pdfFilesDel:pdfFilesDel
     })
   }
+    getApplicationsForCommisson(raceId:string){
+    return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races/${raceId}/appointment-race/appointments`)
+  }
 
   createEvent(event:FormData){
     return this.http.post(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races`, event)

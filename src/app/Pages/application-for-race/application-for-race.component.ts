@@ -83,6 +83,7 @@ export class ApplicationForRaceComponent  implements OnInit {
   notariusInfo:boolean = false
   activeDocument?:number
   viewDocumentValue:boolean = false
+  appForComission:any = []
 
   usersPreviewConfig:{usersCount:number}={
     usersCount:0
@@ -202,38 +203,82 @@ export class ApplicationForRaceComponent  implements OnInit {
           loader = res
       })
 
-        this.userService.getUserDocumentsForUserId(userId).pipe(
+        this.eventService.getApplicationsForCommisson(this.eventId).pipe(
           finalize(()=>{
             this.loadingService.hideLoading(loader)
           })
         ).subscribe((res:any)=>{
-          this.arrayDocument = res.documents 
-          console.log('Загрузил документы:', this.arrayDocument)
+          this.appForComission = res.users
+          // console.log('Загрузил документы:', this.appForComission)
+          this.licensed = null;
+          this.licensesFile = null;
 
-          if(res.documents.find((doc:any)=> doc.type === 'licenses')){
-            let licensesDocument = res.documents.find((doc:any)=> doc.type === 'licenses')
-            this.licensesForm.patchValue((res.documents.find((doc:any)=> doc.type === 'licenses')))
-            this.licensesFile = {name:'Лицензия загружена', dontFile:true} 
-            this.licensed = licensesDocument
-            console.log(this.licensed)
+          this.polish = null;
+          this.polisFile = null;
+
+          this.notarius = null;
+          this.notariusFile = null;
+          const selectedUser = this.appForComission.find((user: any) => user.user_id === userId);
+          if (selectedUser) {
+          console.log('Выбранный пользователь', selectedUser)
+            const documents = selectedUser.documents;
+            const license = documents.find((doc: any) => doc.type === 'licenses');
+            const polis = documents.find((doc: any) => doc.type === 'polis');
+            const notarius = documents.find((doc: any) => doc.type === 'notarius');
+
+            // патчим формы и сохраняем файлы
+            if (license) {
+              this.licensesForm.patchValue(license);
+              this.licensesFile = { name: 'Лицензия загружена', dontFile: true };
+              
+              this.licensed = license;
+              console.log(this.licensed)
+            }
+
+            if (polis) {
+              this.polisForm.patchValue({
+                number: polis.number,
+                issuedWhom: polis.issued_whom,
+                itWorksDate: polis.it_works_date
+              });
+              this.polisFile = { name: 'Полис загружен', dontFile: true };
+              
+              this.polish = polis;
+              console.log(this.polish)
+            }
+
+            if (notarius) {
+              this.notariusFile = { name: 'Согласие загружено', dontFile: true };
+              
+              this.notarius = notarius;
+              console.log(this.notarius)
+            }
           }
-          if((res.documents.find((doc:any)=> doc.type === 'polis'))){
-            let polis = (res.documents.find((doc:any)=> doc.type === 'polis'))
-            this.polisForm.patchValue({
-              number: polis.number,
-              issuedWhom: polis.issued_whom,
-              itWorksDate: polis.it_works_date
-            })
-            this.polisFile = {name:'Полис загружен', dontFile:true}
-            this.polish = polis
-            console.log(this.polish)
-          }
-          if(res.documents.find((doc:any)=> doc.type === 'notarius')){
-            let notarius = (res.documents.find((doc:any)=> doc.type === 'notarius'))
-            this.notariusFile = {name:'Согласие загружено', dontFile:true}
-            this.notarius = notarius
-            console.log(this.notarius)
-          } 
+
+            // if(res.documents.find((doc:any)=> doc.type === 'licenses')){
+            //   let licensesDocument = res.documents.find((doc:any)=> doc.type === 'licenses')
+            //   this.licensesForm.patchValue((res.documents.find((doc:any)=> doc.type === 'licenses')))
+            //   this.licensesFile = {name:'Лицензия загружена', dontFile:true} 
+            //   this.licensed = licensesDocument
+            //   console.log(this.licensed)
+            // }
+            // if((res.documents.find((doc:any)=> doc.type === 'polis'))){
+            //   let polis = (res.documents.find((doc:any)=> doc.type === 'polis'))
+            //   this.polisForm.patchValue({
+            //     number: polis.number,
+            //     issuedWhom: polis.issued_whom,
+            //     itWorksDate: polis.it_works_date
+            //   })
+            //   this.polisFile = {name:'Полис загружен', dontFile:true}
+            //   this.polish = polis
+            //   console.log(this.polish)
+            // }
+            // if(res.documents.find((doc:any)=> doc.type === 'notarius')){
+            //   let notarius = (res.documents.find((doc:any)=> doc.type === 'notarius'))
+            //   this.notariusFile = {name:'Согласие загружено', dontFile:true}
+            //   this.notarius = notarius
+            //   console.log(this.notarius)
+            // } 
           // Только теперь открываем компонент
           this.viewUser = true
         })
