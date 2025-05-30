@@ -162,7 +162,7 @@
               </div>
                   <div class="document" *ngIf="polish">
                 <span>Файл документа</span>
-                 <div class="file-name">
+                 <div class="file-name" (click)="checkDocument(polish.id)">
                   <img src="/assets/icons/documents.svg" alt="">
                   <div class="name">
                     {{polish.name}}
@@ -187,7 +187,7 @@
               <app-standart-input [readonly]="true" [control]="licensesForm.get('number')" placeholder="Лицензия МФР" label="Лицензия МФР (тип, №):"></app-standart-input>
               <div class="document" *ngIf="licensed">
                 <span>Файл документа</span>
-                  <div class="file-name">
+                  <div class="file-name" (click)="checkDocument(licensed.id)">
                     <img src="/assets/icons/documents.svg" alt="">
                     <div class="name">
                       {{licensed.name}}
@@ -210,7 +210,7 @@
              
               <div class="document" *ngIf="notarius">
                 <span>Файл документа</span>
-                  <div class="file-name">
+                  <div class="file-name" (click)="checkDocument(notarius.id)">
                     <img src="/assets/icons/documents.svg" alt="">
                     <div class="name">
                       {{notarius.name}}
@@ -248,6 +248,23 @@
         <app-icon-button (click)="disagreedApp(activeAppId)" [widht]="'full'" clippy="clippy-right" [buttonText]="'Отклонить заявку'"></app-icon-button>
       </div>
     </div>
+
+    <div  class="document-view-container" *ngIf="viewDocumentValue">
+      <div class="event-information-title users-title">
+        <img src="/assets/icons/red-finished.svg" alt="">
+        Просмотр докумета
+        <!-- <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
+      </div>
+      <div class="document-view" >
+
+        <app-private-files [postDocumentId]="activeDocument">
+
+        </app-private-files>
+        
+      </div>
+    </div>
+
+    
     
   </main>
 </ng-container>
