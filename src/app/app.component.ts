@@ -10,6 +10,8 @@ import { Capacitor } from '@capacitor/core';
 import { VersionService } from './Shared/Data/Services/version.service';
 import { IconButtonComponent } from "./Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component";
 async function getAppVersion() {
+  console.log('test get version')
+  console.log(Capacitor.isNativePlatform())
   if (Capacitor.isNativePlatform()) {
     const info = await App.getInfo();
     return info.version;
