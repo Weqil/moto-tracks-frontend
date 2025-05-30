@@ -19,7 +19,16 @@ import { IconButtonComponent } from '@app/Shared/Components/UI/LinarikUI/buttons
 import { CheckUserRoleService } from '@app/Shared/Data/Services/check-user-role.service';
 import { Capacitor } from '@capacitor/core';
 import { App } from '@capacitor/app';
-
+async function getAppVersion() {
+  console.log('test get version')
+  console.log(Capacitor.isNativePlatform())
+  const platform = Capacitor.getPlatform();
+  if (Capacitor.isNativePlatform() || platform == 'ios' || platform == 'android') {
+    const info = await App.getInfo();
+    return info.version;
+  } 
+  return false
+}
 @Component({
   selector: 'app-cabinet',
   templateUrl: './cabinet.component.html',
@@ -272,7 +281,11 @@ export class CabinetComponent  implements OnInit {
   }
 
   ionViewWillEnter(){
-
+    getAppVersion().then((res)=>{
+      if(!!res){
+        this.version = res
+      }
+    })
     this.allUsers = this.userService.getAllUsersInLocalStorage()
     if(this.allUsers.length){
       let currentUserIndex = this.allUsers.findIndex((user:User)=> user.id === this.userService.user.value?.id)
