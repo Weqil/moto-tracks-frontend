@@ -12,7 +12,8 @@ import { IconButtonComponent } from "./Shared/Components/UI/LinarikUI/buttons/ic
 async function getAppVersion() {
   console.log('test get version')
   console.log(Capacitor.isNativePlatform())
-  if (Capacitor.isNativePlatform()) {
+  const platform = Capacitor.getPlatform();
+  if (Capacitor.isNativePlatform() || platform == 'ios' || platform == 'android') {
     const info = await App.getInfo();
     return info.version;
   } 
