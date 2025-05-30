@@ -70,6 +70,9 @@ export class AppComponent {
      let version:any = false
     getAppVersion().then((res)=>{
         version = res
+        const platform = Capacitor.getPlatform();
+        console.log('check platform')
+        console.log(platform)
          if(!!version){
           this.versionService.getLastVersion().pipe().subscribe((res:any)=>{
             if(res.version && res.version.version_number){
