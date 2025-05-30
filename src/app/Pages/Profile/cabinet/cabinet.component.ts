@@ -17,6 +17,7 @@ import { CommonModule } from '@angular/common';
 import { CheckImgUrlPipe } from "../../../Shared/Helpers/check-img-url.pipe";
 import { IconButtonComponent } from '@app/Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component';
 import { CheckUserRoleService } from '@app/Shared/Data/Services/check-user-role.service';
+import { Capacitor } from '@capacitor/core';
 
 @Component({
   selector: 'app-cabinet',
@@ -39,6 +40,7 @@ export class CabinetComponent  implements OnInit {
   user!: User|null 
   userService: UserService = inject(UserService)
   authService:AuthService = inject(AuthService)
+  platform = Capacitor.getPlatform();
   navControler:NavController = inject(NavController)
   userTranslitStatuses:string[] = []
   private readonly loading:LoadingService = inject(LoadingService)
