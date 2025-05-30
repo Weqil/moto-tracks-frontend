@@ -18,6 +18,7 @@ import { CheckImgUrlPipe } from "../../../Shared/Helpers/check-img-url.pipe";
 import { IconButtonComponent } from '@app/Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component';
 import { CheckUserRoleService } from '@app/Shared/Data/Services/check-user-role.service';
 import { Capacitor } from '@capacitor/core';
+import { App } from '@capacitor/app';
 
 @Component({
   selector: 'app-cabinet',
@@ -41,6 +42,7 @@ export class CabinetComponent  implements OnInit {
   userService: UserService = inject(UserService)
   authService:AuthService = inject(AuthService)
   platform = Capacitor.getPlatform();
+  info = ''
   navControler:NavController = inject(NavController)
   userTranslitStatuses:string[] = []
   private readonly loading:LoadingService = inject(LoadingService)
@@ -270,6 +272,7 @@ export class CabinetComponent  implements OnInit {
   }
 
   ionViewWillEnter(){
+
     this.allUsers = this.userService.getAllUsersInLocalStorage()
     if(this.allUsers.length){
       let currentUserIndex = this.allUsers.findIndex((user:User)=> user.id === this.userService.user.value?.id)
@@ -284,6 +287,7 @@ export class CabinetComponent  implements OnInit {
     this.navControler.navigateForward('/select-auth')
   }
   ngOnInit() {
+    
     this.userService.user.pipe().subscribe((res:any)=>{
       this.user = res
       this.selectedStatusItem = this.checkUserRole.searchLastRole(res)
