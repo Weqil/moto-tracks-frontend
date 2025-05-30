@@ -78,6 +78,7 @@
         <ng-container *ngIf="event">
           <ng-container *ngIf="currentTab == 'Информация'">
             <div class="event-information">
+                  <app-payment-status [status]="paymentStatus"></app-payment-status>
                 <ng-container *ngIf="formattedResultsDocument && formattedResultsDocument.length">  
                 <div class="event-desc--wrapper">
                   <div class="event-information-title">
@@ -298,6 +299,7 @@
     <!-- <div class="button-commission">
       <app-standart-button buttonText="Просмотр заявок" (click)="redirectApplicationForRace()"></app-standart-button>
     </div> -->
+
     <div class="footer-page">
       <div *ngIf="event.status?.name !== 'Планируемая'"  class="footer">
         <div class="red-button">

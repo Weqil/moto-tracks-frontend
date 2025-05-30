@@ -10,7 +10,10 @@ export interface IEvent {
     date_start?: string,
     commissions_exists?:boolean,
     record_start?:string,
-    pdf_files:string[]
+    pdf_files:string[],
+    store?:{
+        id:number,
+    },
     record_end?:string,
     location:{
         name:string,

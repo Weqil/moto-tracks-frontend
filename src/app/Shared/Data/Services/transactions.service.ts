@@ -24,6 +24,7 @@ export class TransactionsService {
   private checkLoop(tranasctionId:number) {
     if (this.status !== 'load') return;
     this.getTransactionForId(tranasctionId).pipe().subscribe((res:any)=>{
+      console.log(res)
       if(res.transaction.status !== null){
         this.status = res.transaction.status ? 'success':'error'
          const closeCapacitorSite = async () => {
@@ -50,9 +51,9 @@ export class TransactionsService {
      return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/transactions/${id}`)
   }
 
-  createTransactions(id?:number){
+  createTransactions(id?:number,paramas?:any){
     return this.http.post(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/transactions`, {attendanceIds:[
       id
-    ]})
+    ],...paramas})
   }
 }

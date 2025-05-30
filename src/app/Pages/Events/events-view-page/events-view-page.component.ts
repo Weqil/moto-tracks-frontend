@@ -44,6 +44,11 @@ import { UserSectionComponent } from '@app/Shared/Components/UserElements/user-s
 import { IconButtonComponent } from '@app/Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component';
 import { StandartInputSelectComponent } from "../../../Shared/Components/UI/Selecteds/standart-input-select/standart-input-select.component";
 import { RegionsSelectModalComponent } from "../../../Shared/Components/Modals/regions-select-modal/regions-select-modal.component";
+import { AttendanceService } from '@app/Shared/Data/Services/attendance.service';
+import { IAttenden } from '@app/Shared/Data/Interfaces/attenden';
+import { TransactionsService } from '@app/Shared/Data/Services/transactions.service';
+import { Browser } from '@capacitor/browser';
+import { PaymentStatusComponent } from '@app/Shared/Components/Payment/payment-status/payment-status.component';
 
 @Component({
   selector: 'app-events-view-page',
@@ -51,7 +56,7 @@ import { RegionsSelectModalComponent } from "../../../Shared/Components/Modals/r
   styleUrls: ['./events-view-page.component.scss'],
   imports: [SharedModule, SlidersModule, ButtonsModule, TabElementComponent,
     TrackSectionComponent, IonModal, HeaderModule, IconButtonComponent,
-    ConfirmModalComponent, CheckImgUrlPipe, FormsModule, RouterLink, ImagesModalComponent, SelectComandsComponent, PdfViewerModule, UserSectionComponent, StandartInputSelectComponent, RegionsSelectModalComponent, CheckResultsPathPipe]
+    ConfirmModalComponent, CheckImgUrlPipe, FormsModule, RouterLink,PaymentStatusComponent, ImagesModalComponent, SelectComandsComponent, PdfViewerModule, UserSectionComponent, StandartInputSelectComponent, RegionsSelectModalComponent, CheckResultsPathPipe]
 })
 export class EventsViewPageComponent  implements OnInit {
 
@@ -62,17 +67,20 @@ export class EventsViewPageComponent  implements OnInit {
   route: ActivatedRoute = inject(ActivatedRoute)
   eventService: EventService = inject(EventService)
   authService: AuthService = inject(AuthService)
-  resizeSubscription!: Subscription;
+  resizeSubscription!: Subscription
+  transactionService:TransactionsService = inject(TransactionsService)
   navController: NavController = inject(NavController)
   loadingService: LoadingService = inject(LoadingService)
   switchTypeService:SwitchTypeService = inject(SwitchTypeService)
+  attendanceService:AttendanceService = inject(AttendanceService)
   mapService:MapService = inject(MapService)
-
+  paymentLink:string = ''
   comandSelectModalStateValue:boolean = false
   backgroundImages:string = ''
   changePersonalDateModalValue:boolean = false
   createRegionItems:any[] = []
   usersInRace:any[] = []
+  attendances:IAttenden[] = []
   event!:IEvent
   currentGradeName:string = ''
   openUserModalValue:boolean = false
@@ -89,7 +97,7 @@ export class EventsViewPageComponent  implements OnInit {
   polisFile:any = ''
   notariusFile:any = ''
   confirmUsersRolesInGroupAplication:string[] = [userRoles.admin,userRoles.couch,userRoles.organization,userRoles.commission]
-
+  createTransactionId:any = ''
   licensesId:string = ''
   polisId:string = ''
   notariusId:string = ''
@@ -302,6 +310,7 @@ export class EventsViewPageComponent  implements OnInit {
     pasport:any
     sanitizer:DomSanitizer = inject(DomSanitizer)
     licenses:any
+    paymentStatus: 'load'|'success'|'error'|'sleep' = 'sleep'
     polis:any
     toastService:ToastService = inject(ToastService)
 
@@ -877,6 +886,7 @@ export class EventsViewPageComponent  implements OnInit {
       this.groupItems = this.event.grades
     
       this.registrate()
+      this.getAttendanceInRace()
       this.formatingZoomValuesInResults()
       this.checkRecordEnd()
     })
@@ -889,12 +899,40 @@ export class EventsViewPageComponent  implements OnInit {
       return false
     }
   }
-  
+   setPaymentStatus(value:'load'|'success'|'error'|'sleep'){
+    this.paymentStatus = value
+  }
 
+  async createTransaction(){
+      if(this.event.store){
+        let currentAttendance:IAttenden|undefined = this.attendances.find((att:IAttenden)=>att.name.includes(this.personalUserForm.value.group))
+        if(currentAttendance){
+          this.transactionService.createTransactions(currentAttendance.id,{isRace:1}).pipe().subscribe((res:any)=>{
+            this.paymentLink = res.payment_link
+            console.log(res)
+            this.createTransactionId = res.transaction.id
+          })
+        }
+      }
+  }
+
+  async openPaymentBrowser(){
+     this.toastService.showToast('Необходимо оплатить стартовый взнос','warning')
+     console.log(this.createTransactionId)
+    this.transactionService.startCheckTimer(this.createTransactionId)
+     const openCapacitorSite = async () => {
+       if(this.paymentLink){
+        await Browser.open({ url: this.paymentLink });
+       }
+      };
+      openCapacitorSite()
+  }
 
   async toggleAplicationInRace(){
+    
     if(this.submitValidate()){
-      await this.setFirstDocuments().pipe().subscribe(()=>{
+       await this.createTransaction()
+       await this.setFirstDocuments().pipe().subscribe(()=>{
         this.setDocuments().pipe().subscribe(()=>{
            // Форматируем номер телефона перед отправкой
         let rawPhone = this.personalUserForm.value.phoneNumber || '';
@@ -931,10 +969,15 @@ export class EventsViewPageComponent  implements OnInit {
              //Если пользователь не имел персональных данных
              this.setFirstUserPersonal()
              this.checkChangeInPersonalform()
-             this.toastService.showToast('Заявка успешно отправленна','success')
+             this.openPaymentBrowser()
+             if(!this.attendances.length){
+                this.toastService.showToast('Заявка успешно отправленна','success')
+             }
+       
          })
         })
-     })
+       })
+
     }else{
       this.toastService.showToast('Заполните обязательные поля - Фамилия, имя, область, класс, спортивное звание, телефон','danger')
     }
@@ -1042,6 +1085,7 @@ export class EventsViewPageComponent  implements OnInit {
       return false
     }
   }
+
   goToPoint(){
     if(this.event.track){
       if (this.event.track?.latitude && this.event.track?.longitude) {
@@ -1082,8 +1126,6 @@ export class EventsViewPageComponent  implements OnInit {
       }
     })
 
-  
-
     return valid
   }
 
@@ -1122,16 +1164,35 @@ export class EventsViewPageComponent  implements OnInit {
     })
   }
   
-  backNavigate(){
-    this.navController.back()
+  getAttendanceInRace(){
+    if(this.event.store){
+      this.attendanceService.getAttendanceForId(this.event.id).pipe().subscribe((res)=>{
+        this.attendances = res.attendance
+      })
+    }
   }
 
+
+  backNavigate(){
+    this.navController.back()
+     this.transactionService.stopCheckTimer()
+  }
+  ionViewDidLeave(){
+    if(this.paymentStatus == 'success' || this.paymentStatus == 'error' ){
+      this.transactionService.stopCheckTimer()
+      this.paymentStatus = 'sleep'
+      this.paymentLink = ''
+    }
+  }
   ionViewWillEnter(){
     this.getRegions()
+    this.paymentLink = ''
+    this.transactionService.stopCheckTimer()
+    this.attendances = []
     this.getCreateRegions()
     this.route.params.pipe(takeUntil(this.destroy$)).pipe(
       finalize(()=>{
-})
+  })
     ).subscribe((params) => {
         this.eventId = params['id']
         this.getEvent()
@@ -1142,11 +1203,21 @@ export class EventsViewPageComponent  implements OnInit {
           this.getAllComands()
         }
       })
-    }
+  }
 
-  
+
   ngOnInit() {
     this.checkInImagesBackGround()
+     this.transactionService.currentStatus.subscribe((res:any)=>{
+      console.log(res)
+      this.paymentStatus = res
+      if(this.paymentStatus == 'success'){
+        const closeCapacitorSite = async () => {
+          await Browser.close()
+        };
+        closeCapacitorSite()
+      }
+   })
     //Необходимо что бы не ломалась модалка
     window.addEventListener('popstate', (event) => {
       this.closeStateUsersModal()
