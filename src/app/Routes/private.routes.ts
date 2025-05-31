@@ -152,11 +152,11 @@ export const privateRoutes: Routes = [
         canActivate:[canActivateAuth,canActivateUserHaveRole([userRoles.couch,userRoles.organization],'тренера')],
         loadComponent: () => import('../Pages/Profile/comands/edit-comand-page/edit-comand-page.component').then((m) => m.EditComandPageComponent)
     },
-        {
+    {
                 path:'application-for-race/:id',
                 canActivate:[canActivateAuth],
                 loadComponent: () => import('../Pages/application-for-race/application-for-race.component').then((m) => m.ApplicationForRaceComponent)
-            },
+    },
             {
                 path:'my-events',
                 canActivate:[canActivateAuth,canActivateUserHaveRole(userRoles.organization,'организатора')],
@@ -172,5 +172,10 @@ export const privateRoutes: Routes = [
                 canActivate:[canActivateAuth],
                 loadComponent: () => import('../Pages/Profile/comands/comands.component').then((m) => m.ComandsComponent)
             },
+    {
+        path:'aplication/:id',
+        canActivate:[canActivateAuth],
+        loadComponent: () => import('../Pages/Events/group-application/group-application.component').then((m) => m.GroupApplicationComponent)
+    },
  
 ];
