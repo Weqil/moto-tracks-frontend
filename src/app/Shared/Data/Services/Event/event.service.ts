@@ -19,7 +19,7 @@ export class EventService {
     return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races/${id}/appointment-race/users-table`)
   }
 
-  getEventById(eventId:string,params?:{userId?:string,appointmentUser?:number, dateStart?:string}){
+  getEventById(eventId:string,params?:{userId?:string,appointmentUser?:number, dateStart?:string,transactionUser?:number}){
     return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races/${eventId}`,{
       params:{...params}
     })

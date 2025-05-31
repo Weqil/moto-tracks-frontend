@@ -10,7 +10,7 @@ import { App } from '@capacitor/app';
   imports:[CommonModule]
 })
 export class PaymentStatusComponent  implements OnInit {
- @Input() status: 'load'|'success'|'error'|'sleep' = 'sleep'
+ @Input() status: 'load'|'success'|'error'|'sleep'|'warning' = 'sleep'
  load:boolean = false
  @Output() checkPaymentEmit:EventEmitter<any> = new EventEmitter()
  ngOnChanges(changes: SimpleChanges): void {

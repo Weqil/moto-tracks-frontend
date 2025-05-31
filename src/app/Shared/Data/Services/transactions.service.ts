@@ -24,7 +24,6 @@ export class TransactionsService {
   private checkLoop(tranasctionId:number) {
     if (this.status !== 'load') return;
     this.getTransactionForId(tranasctionId).pipe().subscribe((res:any)=>{
-      console.log(res)
       if(res.transaction.status !== null){
         this.status = res.transaction.status ? 'success':'error'
          const closeCapacitorSite = async () => {
@@ -44,7 +43,6 @@ export class TransactionsService {
   stopCheckTimer() {
     this.status = 'sleep';
     if (this.timer) clearTimeout(this.timer);
-    console.log('Остановлена проверка');
   }
 
   getTransactionForId(id:number){

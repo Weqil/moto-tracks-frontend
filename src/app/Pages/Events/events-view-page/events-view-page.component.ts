@@ -637,7 +637,7 @@ export class EventsViewPageComponent  implements OnInit {
         }
       })
       //Если обьекты различаются
-      if(!personalFormChange){
+      if(!personalFormChange && !this.attendances.length){
         this.changePersonalDateModalValue = true
       }
     }
@@ -870,6 +870,7 @@ export class EventsViewPageComponent  implements OnInit {
     this.eventService.getEventById(this.eventId,{
       userId:String(this.userService.user.value?.id ? this.userService.user.value?.id : '' ),
       appointmentUser:1,
+      transactionUser:1,
     }).pipe(
       catchError(err => {
         // console.error('Ошибка при загрузке:', err);
@@ -917,12 +918,10 @@ export class EventsViewPageComponent  implements OnInit {
   }
 
   async openPaymentBrowser(){
-     this.toastService.showToast('Необходимо оплатить стартовый взнос','warning')
-     console.log(this.createTransactionId)
-    this.transactionService.startCheckTimer(this.createTransactionId)
      const openCapacitorSite = async () => {
        if(this.paymentLink){
-        await Browser.open({ url: this.paymentLink });
+          this.toastService.showToast('Необходимо оплатить стартовый взнос','warning')
+          await Browser.open({ url: this.paymentLink });
        }
       };
       openCapacitorSite()
@@ -964,16 +963,22 @@ export class EventsViewPageComponent  implements OnInit {
          ).subscribe((res:any)=>{
           
              this.getUsersInRace()
-             this.closeApplicationForm()
+              this.closeFormPromise().then(()=>{
+              if(this.createTransactionId){
+                  this.navController.navigateRoot(`/event-payment/${this.createTransactionId}`)
+                }
+              })
+         
+           
              this.getEvent()
              //Если пользователь не имел персональных данных
              this.setFirstUserPersonal()
              this.checkChangeInPersonalform()
+
              this.openPaymentBrowser()
              if(!this.attendances.length){
                 this.toastService.showToast('Заявка успешно отправленна','success')
              }
-       
          })
         })
        })
@@ -981,6 +986,10 @@ export class EventsViewPageComponent  implements OnInit {
     }else{
       this.toastService.showToast('Заполните обязательные поля - Фамилия, имя, область, класс, спортивное звание, телефон','danger')
     }
+  }
+
+  async closeFormPromise(){
+    this.closeApplicationForm()
   }
 
   setUserInForm(){
@@ -1175,19 +1184,15 @@ export class EventsViewPageComponent  implements OnInit {
 
   backNavigate(){
     this.navController.back()
-     this.transactionService.stopCheckTimer()
   }
   ionViewDidLeave(){
-    if(this.paymentStatus == 'success' || this.paymentStatus == 'error' ){
-      this.transactionService.stopCheckTimer()
       this.paymentStatus = 'sleep'
       this.paymentLink = ''
-    }
   }
   ionViewWillEnter(){
     this.getRegions()
     this.paymentLink = ''
-    this.transactionService.stopCheckTimer()
+    this.paymentStatus = 'sleep'
     this.attendances = []
     this.getCreateRegions()
     this.route.params.pipe(takeUntil(this.destroy$)).pipe(

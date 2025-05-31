@@ -20,10 +20,16 @@ export const privateRoutes: Routes = [
                 loadComponent: () => import('../Pages/Profile/cabinet/cabinet.component').then((m) => m.CabinetComponent),
         
             },
-             {
+            {
                 path:'track-payment/:id/:price',
                 canActivate:[canActivateAuth],
                  loadComponent: () => import('../Pages/Track/track-payment/track-payment.component').then((m)=> m.TrackPaymentComponent)
+
+            },
+            {
+                path:'event-payment/:id',
+                canActivate:[canActivateAuth],
+                 loadComponent: () => import('../Pages/Events/event-payment/event-payment.component').then((m)=> m.EventPaymentComponent)
 
             },
             {

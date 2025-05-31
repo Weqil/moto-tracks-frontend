@@ -78,7 +78,10 @@
         <ng-container *ngIf="event">
           <ng-container *ngIf="currentTab == 'Информация'">
             <div class="event-information">
-                  <app-payment-status [status]="paymentStatus"></app-payment-status>
+                <ng-container *ngIf="this.event.appointments_exists && this.event.store">
+                      <app-payment-status [status]="this.event.attendance_exists ? 'success': 'warning' "></app-payment-status>
+                </ng-container>
+            
                 <ng-container *ngIf="formattedResultsDocument && formattedResultsDocument.length">  
                 <div class="event-desc--wrapper">
                   <div class="event-information-title">
@@ -309,8 +312,12 @@
               <app-icon-button clippy="clippy-right" [shapeColumn]="true" [buttonText]="checkRecord" theme="dark-gray" [widht]="'full'"></app-icon-button>
             </ng-template>
           </ng-container>
-          <ng-container *ngIf="this.event.appointments_exists">
-            <app-icon-button  theme="dark-gray" [clippy]="'clippy-right'" [shapeColumn]="true" [widht]="'full'" buttonText="Заявка отправлена"></app-icon-button>
+          <ng-container *ngIf="this.event.appointments_exists && !this.event.store">
+            <app-icon-button theme="dark-gray" [clippy]="'clippy-right'" [shapeColumn]="true" [widht]="'full'" buttonText="Заявка отправлена"></app-icon-button>
+          </ng-container>
+          <ng-container *ngIf="this.event.appointments_exists && this.event.store">
+            <app-icon-button *ngIf="this.event.attendance_exists" theme="dark-gray" [clippy]="'clippy-right'" [shapeColumn]="true" [widht]="'full'" buttonText="Заявка отправлена"></app-icon-button>
+            <app-icon-button *ngIf="!this.event.attendance_exists" theme="red" [clippy]="'clippy-right'" [shapeColumn]="true" [widht]="'full'" buttonText="Оплатить"></app-icon-button>
           </ng-container>
         </div>
   
