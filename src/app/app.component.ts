@@ -10,7 +10,10 @@ import { Capacitor } from '@capacitor/core';
 import { VersionService } from './Shared/Data/Services/version.service';
 import { IconButtonComponent } from "./Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component";
 async function getAppVersion() {
-  if (Capacitor.isNativePlatform()) {
+  console.log('test get version')
+  console.log(Capacitor.isNativePlatform())
+  const platform = Capacitor.getPlatform();
+  if (Capacitor.isNativePlatform() || platform == 'ios' || platform == 'android') {
     const info = await App.getInfo();
     return info.version;
   } 
@@ -64,14 +67,23 @@ export class AppComponent {
       location.reload(); // для PWA/web
     }
   }
+
+  cleanNumberInPoint(number:string){
+    return Number(number.split('.').join(''))
+  }
+
   getLastVersion(){
      let version:any = false
     getAppVersion().then((res)=>{
         version = res
+        const platform = Capacitor.getPlatform();
+        console.log('check platform')
+        console.log(platform)
          if(!!version){
           this.versionService.getLastVersion().pipe().subscribe((res:any)=>{
             if(res.version && res.version.version_number){
-              this.userHaveCurrentVersion = version == res.version.version_number
+              this.userHaveCurrentVersion = this.cleanNumberInPoint(version) >= this.cleanNumberInPoint(res.version.version_number)
+              console.log('result' + (Number(version) >= this.cleanNumberInPoint(res.version.version_number) ? 'current ' +  this.cleanNumberInPoint(version) : 'server ' + this.cleanNumberInPoint(res.version.version_number)) )
              }
            })
         }else{
