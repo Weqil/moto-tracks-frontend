@@ -59,7 +59,7 @@ export class TrackPaymentComponent  implements OnInit {
     this.loadingService.showLoading().then((res:HTMLIonLoadingElement)=>{
       loader = res
     })
-    this.transactionService.createTransactions(this.transactionId).pipe(
+    this.transactionService.createTransactions({attendanceIds:[this.transactionId]}).pipe(
       finalize(()=>{
         this.loadingService.hideLoading(loader)
       })

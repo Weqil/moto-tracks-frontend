@@ -48,10 +48,16 @@ export class TransactionsService {
   getTransactionForId(id:number){
      return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/transactions/${id}`)
   }
+// attendanceIds
+  createTransactions(paramas?:any){
+    return this.http.post(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/transactions`, {...paramas})
+  }
 
-  createTransactions(id?:number,paramas?:any){
-    return this.http.post(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/transactions`, {attendanceIds:[
-      id
-    ],...paramas})
+  getLastTransactionUserInRace(raceId:number){
+    return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races/${raceId}/transactions`,)
+  }
+
+  regenerateLinkInTransactionForId(transactionId:number){
+     return this.http.post(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/transactions/${transactionId}/regenerate-url`,{isRace:1})
   }
 }

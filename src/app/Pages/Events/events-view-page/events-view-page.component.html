@@ -317,7 +317,7 @@
           </ng-container>
           <ng-container *ngIf="this.event.appointments_exists && this.event.store">
             <app-icon-button *ngIf="this.event.attendance_exists" theme="dark-gray" [clippy]="'clippy-right'" [shapeColumn]="true" [widht]="'full'" buttonText="Заявка отправлена"></app-icon-button>
-            <app-icon-button *ngIf="!this.event.attendance_exists" theme="red" [clippy]="'clippy-right'" [shapeColumn]="true" [widht]="'full'" buttonText="Оплатить"></app-icon-button>
+            <app-icon-button (click)="regenerateLinkInPayment()" *ngIf="!this.event.attendance_exists" theme="red" [clippy]="'clippy-right'" [shapeColumn]="true" [widht]="'full'" buttonText="Оплатить"></app-icon-button>
           </ng-container>
         </div>
   

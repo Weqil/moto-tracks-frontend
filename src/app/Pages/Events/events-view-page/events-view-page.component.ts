@@ -597,7 +597,9 @@ export class EventsViewPageComponent  implements OnInit {
   
       let oldPersonal: any = { ...this.userService.user.value.personal };
       // Переименовываем поля
-      oldPersonal.commandId = oldPersonal.command.id
+      if(oldPersonal.command){
+          oldPersonal.commandId = oldPersonal.command.id
+      }
       delete oldPersonal['command']
       oldPersonal.locationId = oldPersonal.location.id
       delete oldPersonal['location']
@@ -864,9 +866,9 @@ export class EventsViewPageComponent  implements OnInit {
     //здесь лоадер
   getEvent(){
     let loader:HTMLIonLoadingElement
-         this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
-               loader = res
-         })
+        //  this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+        //        loader = res
+        //  })
     this.eventService.getEventById(this.eventId,{
       userId:String(this.userService.user.value?.id ? this.userService.user.value?.id : '' ),
       appointmentUser:1,
@@ -878,18 +880,35 @@ export class EventsViewPageComponent  implements OnInit {
         return err; // или [] — в зависимости от ожидаемой структуры
       }),
       finalize(()=>{
-        this.loadingService.hideLoading(loader)
+        this.loadingService.hideLoading()
       })
     ).subscribe((res:any)=>{
       this.raceUser = res.race.user
       this.event = res.race
-      
+      this.loaderService.checkAndCloseLoader().then((res)=>console.log(res))
       this.groupItems = this.event.grades
-    
       this.registrate()
       this.getAttendanceInRace()
       this.formatingZoomValuesInResults()
       this.checkRecordEnd()
+      
+    })
+  }
+
+  regenerateLinkInPayment(){
+    this.transactionService.getLastTransactionUserInRace(Number(this.eventId)).pipe().subscribe((res:any)=>{
+      if(res.transactions && res.transactions.length){
+        let transactionId = res.transactions[res.transactions.length - 1] ? res.transactions[res.transactions.length - 1].id : null
+        if(transactionId){
+          this.transactionService.regenerateLinkInTransactionForId(transactionId).pipe().subscribe((res:any)=>{
+            this.paymentLink = res.payment_link
+             setTimeout(()=>{
+                   this.navController.navigateRoot(`/event-payment/${transactionId}`)
+              },100)
+            this.openPaymentBrowser()
+          })
+        }
+      }
     })
   }
 
@@ -908,17 +927,18 @@ export class EventsViewPageComponent  implements OnInit {
       if(this.event.store){
         let currentAttendance:IAttenden|undefined = this.attendances.find((att:IAttenden)=>att.name.includes(this.personalUserForm.value.group))
         if(currentAttendance){
-          this.transactionService.createTransactions(currentAttendance.id,{isRace:1}).pipe().subscribe((res:any)=>{
+          this.transactionService.createTransactions({attendanceIds:[currentAttendance.id],isRace:1}).pipe().subscribe((res:any)=>{
             this.paymentLink = res.payment_link
             console.log(res)
             this.createTransactionId = res.transaction.id
           })
         }
       }
-  }
+   }
 
   async openPaymentBrowser(){
      const openCapacitorSite = async () => {
+      console.log(this.paymentLink)
        if(this.paymentLink){
           this.toastService.showToast('Необходимо оплатить стартовый взнос','warning')
           await Browser.open({ url: this.paymentLink });
@@ -965,7 +985,10 @@ export class EventsViewPageComponent  implements OnInit {
              this.getUsersInRace()
               this.closeFormPromise().then(()=>{
               if(this.createTransactionId){
-                  this.navController.navigateRoot(`/event-payment/${this.createTransactionId}`)
+                setTimeout(()=>{
+                   this.navController.navigateRoot(`/event-payment/${this.createTransactionId}`)
+                },100)
+                 
                 }
               })
          
