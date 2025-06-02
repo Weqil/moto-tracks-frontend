@@ -35,6 +35,10 @@ export class EventService {
     return this.http.post(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races/${eventId}/update`, editForm)
   }
 
+  checkApplication(id:number, checkedValue:number, comment:string){
+    return this.http.post(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races/appointment-race/${id}/checked`,  {checked: checkedValue, comment: comment})
+  }
+
   addResultInRace(raceId:string, pdfFiles:File[]|FormData){
     return this.http.post(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races/${raceId}/add-document`, pdfFiles)
   }
@@ -43,6 +47,10 @@ export class EventService {
     return this.http.post(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races/${raceId}/add-document`, {
       pdfFilesDel:pdfFilesDel
     })
+  }
+
+  getApplicationsForCommisson(eventId:string){
+     return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races/${eventId}/appointment-race/appointments`)
   }
 
   createEvent(event:FormData){

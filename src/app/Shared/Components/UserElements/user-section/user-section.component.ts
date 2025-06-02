@@ -24,6 +24,7 @@ export class UserSectionComponent  implements OnInit {
   @Input() startNumber:boolean = false;
   @Input() name:boolean = false;
   @Input() surname:boolean = false;
+  @Input() patronymic:boolean = false;
   rowContent: string = 'row'
   
 
@@ -84,13 +85,18 @@ export class UserSectionComponent  implements OnInit {
    /**
    * Параметр отвечает за цвет бокового контейнера
    */
-  @Input() borderColor: 'red'|'green'|'yellow' = 'red'
+  @Input() borderColor: 'red'|'green'|'yellow' = 'red'   
+  
+  /**
+   * Параметр отвечает за цвет бокового контейнера
+   */
+  @Input() border: 'red'|'null' = 'null'
 
    /**
    * Функция собирает все классы и возвращает массив с нужными значениями
    */
    get getClasses():string[]{
-    return [this.rowContent, this.borderColor, this.cardLeftBorderWidth, this.them]
+    return [this.rowContent, this.borderColor, this.cardLeftBorderWidth, this.them, this.border]
   }
 
   ngOnInit() {

@@ -10,9 +10,11 @@ export interface User{
     city?:string,
     rank?:string,
     access_token?:string,
+    is_checked?:boolean
     user?:any
     start_number?:number|null,
     user_id?:any,
+    comment:string,
     grade?:{
         name?:string
     }

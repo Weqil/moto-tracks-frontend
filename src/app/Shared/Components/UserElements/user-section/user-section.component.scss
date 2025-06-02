@@ -212,6 +212,9 @@ p{
         background: linear-gradient(340deg, rgb(233 233 233 / 44%) 11%, rgb(255, 255, 255) 50%, rgb(241 241 241 / 74%) 92%);
     }
 }
+
+
+
 .dark-them{
     .user-section{
         background: #373737;
@@ -233,6 +236,21 @@ p{
         }
     }
 }
+
+.red{
+    .user-section{
+        border: 2px solid red
+
+    }
+}
+
+.null{
+    .user-section{
+        border: 2px solid rgba(255, 0, 0, 0)
+
+    }
+}
+
 
 .red-them{
     .user-section{
