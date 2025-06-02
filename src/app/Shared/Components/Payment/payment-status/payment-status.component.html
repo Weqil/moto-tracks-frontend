@@ -1,0 +1,21 @@
+
+<div *ngIf="status == 'success'" class="payment-card success">
+      <div class="icon">✅</div>
+      <div class="text">Оплата прошла успешно</div>
+</div>
+
+<div *ngIf="status == 'warning'" class="payment-card warning">
+  <div class="icon">⚠️</div>
+  <div class="text">Не оплачено</div>
+</div>
+
+
+<div *ngIf="status == 'error'" class="payment-card error">
+      <div class="icon">❌</div>
+      <div class="text">Ошибка при оплате</div>
+</div>
+
+<div *ngIf="status == 'load'" class="payment-card loading">
+      <div class="spinner"></div>
+      <div class="text">Ожидание оплаты...</div>
+</div>
