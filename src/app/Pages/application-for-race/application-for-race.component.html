@@ -1,11 +1,18 @@
 
 
-<ion-content scroll-y="false">
+<ion-content>
   <ng-container *ngIf="event">
   <!-- <app-header [headerTitle]="usersPreviewConfig.usersCount ? 'Участники: ' + usersPreviewConfig.usersCount : ' '"> -->
-    <app-header [customContainer]="true">
-      <div class="header-container"></div>
-    </app-header>
+<app-header [customContainer]="true" [hiddenBackButton]="true">
+  <div class="cabinet-header">
+    <button (click)="back()" class="cabinet-header__back">
+    <img src="/assets/icons/arrow.svg"  alt="Назад">
+    </button>
+    <span class="cabinet-header__title">{{event.name}}</span>
+    <button  class="cabinet-header__plug none">
+    </button>
+  </div>
+</app-header>
   <main class="main">
     <div class="main-content">
 
@@ -240,6 +247,22 @@
         <app-icon-button (click)="disagreedApp(activeAppId)" [widht]="'full'" clippy="clippy-right" [buttonText]="'Отклонить заявку'"></app-icon-button>
       </div>
     </div>
+
+<div  class="document-view-container" *ngIf="viewDocumentValue">
+  <div class="event-information-title users-title">
+    <img src="/assets/icons/red-finished.svg" alt="">
+    Просмотр докумета
+    <!--<app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
+    </div>
+    <div class="document-view" >
+
+    <app-private-files [postDocumentId]="activeDocument">
+
+    </app-private-files>
+
+  </div>
+</div>
+
     
   </main>
 </ng-container>
