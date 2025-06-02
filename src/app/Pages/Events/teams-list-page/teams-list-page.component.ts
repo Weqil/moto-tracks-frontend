@@ -159,7 +159,7 @@ export class TeamsListPageComponent implements OnInit {
   }
 
   viewTeam(teamId: number) {
-    console.log('viewTeam', teamId);
+   
     this.navController.navigateForward(`/command/view/${teamId}`);
   }
 

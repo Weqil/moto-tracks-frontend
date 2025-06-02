@@ -43,17 +43,17 @@ export class UserInApplicationComponent  implements OnInit {
       switch(doc.type){
         
       case "licenses":
-      console.log("Это лицензия:", doc);
+     
       this.licensed = doc
       break;
 
       case "notarius":
-      console.log("Это нотариус:", doc);
+   
       this.notarius = doc
       break;
 
       case "polis":
-      console.log("Это полис:", doc);
+     
       this.polish = doc
       break;
 

@@ -250,7 +250,6 @@ deletePhoneForUserId(){
             catchError(error => {
         
               this.toastService.showToast('Ошибка удаления номера телефона', 'warning')
-              console.log(error)
               return throwError(()=> error)
             }),
             finalize(() => {

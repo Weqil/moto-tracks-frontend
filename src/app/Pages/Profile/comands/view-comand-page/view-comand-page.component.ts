@@ -131,7 +131,7 @@ export class ViewComandPageComponent  implements OnInit {
   }
 
   getMembersCouch() {
-    this.comandService.getCouchesForUsers(Number(this.commandId)).pipe(finalize(()=>{console.log('запрос прошел')})).subscribe((res:any)=>{
+    this.comandService.getCouchesForUsers(Number(this.commandId)).pipe(finalize(()=>{})).subscribe((res:any)=>{
       this.membersForCouch = res.coaches;
     })
   }

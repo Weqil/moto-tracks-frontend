@@ -7,13 +7,15 @@ import { LoadingService } from '@app/Shared/Services/loading.service';
 import { finalize, Subject, takeUntil } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { CheckImgUrlPipe } from "../../../Shared/Helpers/check-img-url.pipe";
+import { IonCheckbox, IonModal, NavController, IonLabel } from '@ionic/angular/standalone';
+import { IconButtonComponent } from "../../../Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component";
 
 
 @Component({
   selector: 'app-user-view-page',
   templateUrl: './user-view-page.component.html',
   styleUrls: ['./user-view-page.component.scss'],
-  imports: [HeaderModule, IonContent, CheckImgUrlPipe],
+  imports: [HeaderModule, IonContent, CheckImgUrlPipe, IconButtonComponent],
 })
 export class UserViewPageComponent  implements OnInit {
 
@@ -24,8 +26,12 @@ export class UserViewPageComponent  implements OnInit {
   route: ActivatedRoute = inject(ActivatedRoute)
   private readonly destroy$ = new Subject<void>()
   loaderService:LoadingService = inject(LoadingService)
+  navController: NavController = inject(NavController)
   @Input() userIdGet!: string
 
+  back(){
+    this.navController.back()
+  }
 
   constructor() { }
 

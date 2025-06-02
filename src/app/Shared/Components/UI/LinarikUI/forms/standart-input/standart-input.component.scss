@@ -3,7 +3,7 @@
     width: 100%;
     min-height: 2.25rem;
     font-size: 14px;
- 
+    font-family: var(--font-regular);
     padding-left: 0.8rem;
     transition: 0.1s;
     margin-top: 3px;
@@ -100,6 +100,12 @@
     padding-bottom: 1px;
     font-family: var(--font-regular);
 }
+.label__light{
+    color: #ffffff;
+    font-size: 14px;
+    padding-bottom: 1px;
+    font-family: var(--font-regular);
+}
 .error-message{
     color: #ff0000;
     display: flex;
@@ -149,6 +155,26 @@
 .dark::placeholder {
     color: #d5d5d5;
 }
+.white{
+    background-color: #ffffff;
+    color: #373737;
+}
+.white:focus{
+    transition: 0.2s;
+    outline: 1px solid #ffffffd3;
+    margin-top: 3px;
+    width: 100%;
+    min-height: 2.25rem;
+    background-color: #373737;
+    font-size: 14px;
+    font-family: var(--font-regular);
+    padding-left: 0.8rem;
+    color: #ffffff;
+}
+.white::placeholder {
+    color: #373737;
+}
+
 
 .gradient{
     background: #a8a8a8;
