@@ -11,7 +11,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoadingService } from 'src/app/Shared/Services/loading.service';
 import { ToastService } from 'src/app/Shared/Services/toast.service';
 import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
-import { finalize } from 'rxjs';
+import { finalize, firstValueFrom } from 'rxjs';
 import { ICommand } from 'src/app/Shared/Data/Interfaces/command';
 import { userRoles } from 'src/app/Shared/Data/Enums/roles';
 import { MapService } from 'src/app/Shared/Data/Services/Map/map.service';
@@ -28,6 +28,10 @@ import { RegionsSelectModalComponent } from "../../../Shared/Components/Modals/r
 import { BackButtonComponent } from '@app/Shared/Components/UI/LinarikUI/buttons/back-button/back-button.component';
 import { StandartInputComponent } from '@app/Shared/Components/UI/LinarikUI/forms/standart-input/standart-input.component';
 import { StandartRichInputComponent } from "@app/Shared/Components/UI/LinarikUI/forms/standart-rich-input/standart-rich-input.component";
+import { AttendanceService } from '@app/Shared/Data/Services/attendance.service';
+import { IAttenden } from '@app/Shared/Data/Interfaces/attenden';
+import { TransactionsService } from '@app/Shared/Data/Services/transactions.service';
+import { Browser } from '@capacitor/browser';
 
 
 // Добавляем интерфейс для документа
@@ -88,8 +92,13 @@ export class GroupApplicationComponent implements OnInit {
   selectedUser: UserWithTeam | null = null;
   currentUser: UserWithTeam | null = null;
   teamsForSelect:any = []
+  paymentLink:string = ''
+  createTransactionId:any = ''
+  attendanceService:AttendanceService = inject(AttendanceService)
+  transactionService:TransactionsService = inject(TransactionsService)
   navController:NavController = inject(NavController)
   regionModalState = false;
+  attendances:IAttenden[] = []
   raceClassesForSelect:any = []
   searchRegionItems: any[] = [];
   
@@ -229,9 +238,9 @@ export class GroupApplicationComponent implements OnInit {
     );
   }
 
-  // Добавляем методы для работы с модальным окном региона
+  // Добавляем методы для работы с модальным окном региона btcb rws
   openRegionModal() {
-    console.log(this.regionModalState)
+
     this.regionModalState = true;
   }
 
@@ -376,6 +385,7 @@ export class GroupApplicationComponent implements OnInit {
   ionViewWillEnter() {
     // Получаем ID гонки из параметров маршрута
     const eventId = this.route.snapshot.params['id'];
+    this.attendances = []
     if (eventId) {
       this.loadingService.showLoading().then(loader => {
         this.eventService.getEventById(eventId).pipe(
@@ -385,6 +395,7 @@ export class GroupApplicationComponent implements OnInit {
             this.currentEvent = response.race;
             this.eventGrades = response.race.grades || [];
             this.filteRraceClassesForSelect();
+            this.getAttendanceInRace()
             // Получаем команды пользователя
             this.getUserTeams();
           },
@@ -890,11 +901,68 @@ export class GroupApplicationComponent implements OnInit {
     this.isPreviewModalOpen = false;
   }
 
+  getSelectedGradesId(){
+    return this.selectedUsers.map((user => this.eventGrades.find(grade => grade.name === user.personal?.race_class).name))
+  }
+   getAttendanceInRace(){
+    if(this.currentEvent.store){
+      this.attendanceService.getAttendanceForId(this.currentEvent.id).pipe().subscribe((res)=>{
+        this.attendances = res.attendance
+      })
+    }
+  }
+
+ async createTransaction(): Promise<void> {
+  if (this.currentEvent.store) {
+    const attArray: any = this.getSelectedGradesId()
+      .map((gradeName: string) =>
+        this.attendances.find((att: IAttenden) => att.name.includes(gradeName))?.id
+      );
+
+    if (attArray && attArray.length) {
+      try {
+        const res: any = await firstValueFrom(
+          this.transactionService.createTransactions({ attendanceIds: attArray, isRace: 1 })
+        );
+
+        console.log(res);
+        this.paymentLink = res.payment_link;
+        this.createTransactionId = res.transaction.id;
+      } catch (error) {
+        console.error('Ошибка при создании транзакции:', error);
+      }
+    }
+  }
+}
+
+  async openPaymentBrowser(){
+     const openCapacitorSite = async () => {
+      console.log(this.paymentLink)
+       if(this.paymentLink){
+          this.toastService.showToast('Необходимо оплатить стартовый взнос','warning')
+          await Browser.open({ url: this.paymentLink });
+       }
+      };
+      openCapacitorSite()
+  }
+  
   confirmApplication() {
     if (!this.currentEvent?.id) {
       this.toastService.showToast('Ошибка: ID гонки не найден', 'danger');
       return;
     }
+  
+    this.createTransaction().then(()=>{
+      console.log(this.paymentLink)
+      console.log(this.createTransactionId)
+      if(this.paymentLink && this.createTransactionId){
+        this.closePreviewModal()
+         setTimeout(()=>{
+                   this.navController.navigateRoot(`/event-payment/${this.createTransactionId}`)
+        },100)
+        this.openPaymentBrowser()
+      }
+    })
 
     this.loadingService.showLoading().then(loader => {
       // Создаем массив FormData для каждого пользователя
@@ -975,7 +1043,9 @@ export class GroupApplicationComponent implements OnInit {
         },
         complete: () => {
           this.toastService.showToast('Отправка заявок завершена', 'success');
-          this.navController.navigateForward(`/event/${this.currentEvent.id}`)
+          if(!this.currentEvent.store){
+              this.navController.navigateForward(`/event/${this.currentEvent.id}`)
+          }
           this.closePreviewModal();
         }
       });

@@ -25,8 +25,6 @@ export class UserService {
     return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/users/${id}`)
   }
 
-
-
   getAllUsersInLocalStorage(){
     let usersArray:any = localStorage.getItem('allUsers')
     if(usersArray){
@@ -120,15 +118,15 @@ export class UserService {
         ...user.personal,
         dateOfBirth: user.personal?.date_of_birth
     })
-    console.log('Переданный пользователь валидность:')
-    console.log(userPersonalForm.valid)
+ 
+
     }else{
      userPersonalForm.patchValue({
         ...this.user.value?.personal,
         dateOfBirth: this.user.value?.personal?.date_of_birth
         
     })
-    console.log('Пользователь из локал сторадж')
+   
     }
 
     // console.log('Валидность которую возвращает функция:')

@@ -1,0 +1,85 @@
+.transactions-container {
+  padding: 16px;
+}
+
+.no-transactions {
+  text-align: center;
+  color: #666;
+  padding: 32px 0;
+}
+
+.transaction-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 16px;
+  background: #fff;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  gap: 16px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.transaction-info {
+  flex: 1;
+  
+  .transaction-title {
+    font-weight: 500;
+    margin-bottom: 8px;
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .transaction-date {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 8px;
+  }
+
+  .transaction-status {
+    font-size: 13px;
+    font-weight: 500;
+    
+    &.status-success {
+      color: #2ecc71;
+    }
+    
+    &.status-failed {
+      color: #e74c3c;
+    }
+  }
+}
+
+.transaction-details {
+  text-align: right;
+  
+  .transaction-count {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 8px;
+  }
+  
+  .transaction-user {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 8px;
+  }
+
+  .transaction-total {
+    font-size: 16px;
+    font-weight: 600;
+    color: #2ecc71;
+  }
+}

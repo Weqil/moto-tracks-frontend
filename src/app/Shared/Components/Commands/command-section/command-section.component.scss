@@ -152,7 +152,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: start;
-        gap: 3px;
+        
         height: 46px;
         .name{
             line-height: 14px;
@@ -176,18 +176,6 @@
             margin: 0px;
             padding: 0px;
 
-        }
-        .city{
-            
-            line-height: 14px;
-            color: var(--font-standart-color);
-            font-family: var(--font-regular);
-            font-size: var( --font-standart-size);
-            display: flex;
-            justify-content: start;
-            align-items: center;
-            margin: 0px;
-            padding: 0px;
         }
     }
 

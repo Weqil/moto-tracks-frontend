@@ -32,6 +32,10 @@ import { UserSectionComponent } from '@app/Shared/Components/UserElements/user-s
 import { SelectBottomModalComponent } from '@app/Shared/Components/UI/LinarikUI/select-bottom-modal/select-bottom-modal.component';
 import { checkbox } from 'ionicons/icons';
 import { CheckBoxComponent } from '@app/Shared/Components/UI/LinarikUI/forms/check-box/check-box.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { animate, style, transition, trigger } from '@angular/animations';
+import { CommonModule } from '@angular/common';
+import { event } from 'yandex-maps';
 
 
 @Component({
@@ -40,7 +44,19 @@ import { CheckBoxComponent } from '@app/Shared/Components/UI/LinarikUI/forms/che
   styleUrls: ['./create-events-page.component.scss'],
   imports: [SharedModule, HeaderModule, StepsModule, EditSliderComponent, StandartInputComponent, TrackModule,
      selectedModule, StandartInputSelectComponent, IonModal, IonCheckbox, StandartRichInputComponent,
-      IonToggle,RegionsSelectModalComponent,IconButtonComponent,StandartInputSearchComponent,UserSectionComponent,SelectBottomModalComponent,CheckBoxComponent]
+      IonToggle,RegionsSelectModalComponent,IconButtonComponent,
+      StandartInputSearchComponent,UserSectionComponent,SelectBottomModalComponent,CheckBoxComponent,CommonModule],
+  animations:[
+    trigger('fadeInOut', [
+      transition(':enter', [ // элемент появляется
+        animate('100ms ease-out', style({ opacity: 1 }))
+      ]),
+      transition(':leave', [ // элемент исчезает
+        animate('100ms ease-in', style({ opacity: 0 }))
+      ])
+    ])
+  ]
+  
 })
 export class CreateEventsPageComponent  implements OnInit {
 
@@ -54,6 +70,7 @@ export class CreateEventsPageComponent  implements OnInit {
   trackService:TrackService = inject(TrackService)
   comissionModalState:boolean = false
   allClassesState:boolean = true
+  createClassesModalState:boolean = false
 
  userService:UserService = inject(UserService)
 
@@ -83,7 +100,14 @@ export class CreateEventsPageComponent  implements OnInit {
   newGroupInputValue:string = ''
   userGroups:any[] = []
   allUsersGroups:any[] = []
+  baseUsersGroups:any[] = []
   selectedGroup:any[] = []
+
+  classesFilter = {
+    base:true,
+    user:false,
+    all:false,
+  }
 
   regionModalState:boolean = false
 
@@ -105,6 +129,12 @@ export class CreateEventsPageComponent  implements OnInit {
     recordEnd: new FormControl( '',  [Validators.required, Validators.minLength(1)]),
     statusId: new FormControl( '',  [Validators.required, Validators.minLength(1)]),
   })
+
+  createClassesForm: FormGroup = new FormGroup({
+    gradeId: new FormControl( '',  [Validators.required, Validators.minLength(1)]),
+    name:new FormControl( '',  [Validators.required, Validators.minLength(1)]),
+  })
+
   navController: NavController = inject(NavController)
 
   stepPrevious() {
@@ -120,6 +150,14 @@ export class CreateEventsPageComponent  implements OnInit {
     return moment().tz(userTimezone).set({ hour: 9, minute: 0, second: 0 }).format('YYYY-MM-DDTHH:mm');
   }
 
+  setBaseClassInCreateNewGrade(event:any){
+    console.log(event)
+    if(event.id){
+      this.createClassesForm.patchValue({gradeId:event.id,name:`${event.name} - `})
+
+    }
+  }
+
   closeComissionModal(){
     this.comissionModalState = false
   }
@@ -127,8 +165,16 @@ export class CreateEventsPageComponent  implements OnInit {
     this.comissionModalState = true
   }
 
- changeAllClassesState(value:boolean){
-   this.allClassesState = value
+ changeAllClassesState(value:'all'|'user'|'bases'){
+  this.classesFilter = {
+    base: value == 'bases',
+    user: value == 'user',
+    all: value == 'all'
+  }
+ }
+
+ setCreateClassesModalState(value:boolean){
+    this.createClassesModalState = value
  }
 
   trackHaveInUserSelected(event:any){
@@ -148,8 +194,10 @@ export class CreateEventsPageComponent  implements OnInit {
   }
   openModalGroupModal(){
     this.groupModal = true
+    this.setCreateClassesModalState(false)
   }
   closeGroupModal(){
+    this.setCreateClassesModalState(false)
     this.groupModal = false
   }
   setRaceType(event:any){
@@ -287,23 +335,36 @@ export class CreateEventsPageComponent  implements OnInit {
     this.groupService.getAllGroup({userId:this.userService.user.value?.id}).pipe().subscribe((res:any)=>{
      this.userGroups = res.grades
     })
+    this.groupService.getAllGroup({gradeNotParent:1}).pipe().subscribe((res:any)=>{
+     this.baseUsersGroups = res.grades
+    })
     this.groupService.getAllGroup().pipe().subscribe((res:any)=>{
      this.allUsersGroups = res.grades
     })
+
     
   }
 
   createNewGroup(){
-    if(this.newGroupInputValue.length){
+    if(!this.createClassesForm.invalid){
       this.loadingService.showLoading()
-      this.groupService.createGroup({name:this.newGroupInputValue}).pipe(
+      this.groupService.createGroup(this.createClassesForm.value).pipe(
         finalize(()=>{
           this.loadingService.hideLoading()
+        }),
+        catchError((err:serverError)=>{
+          if(err.status = 422){
+            this.toastService.showToast('Такой класс уже существует','danger')
+          }
+          return EMPTY
         })
       ).subscribe((res:any)=>{
         this.getAllGroups()
+
         this.toastService.showToast('Новый класс гонки создан успешно','success')
-        this.newGroupInputValue = ''
+        this.changeGroup('',res.grade)
+        this.setCreateClassesModalState(false)
+        this.createClassesForm.reset()
       })
     }
   }

@@ -237,7 +237,6 @@ submitPersonalInfo(){
   setRegion(region:any){
     this.closeRegionModal()
     this.personalUserForm.patchValue({locationId:region.value,region:region.name})
-    console.log(this.personalUserForm.value)
   }
   getRegions(){
     this.mapService.getAllRegions().pipe().subscribe((res:any)=>{
@@ -247,7 +246,7 @@ submitPersonalInfo(){
           value:region.id
         })
       });
-      console.log(this.searchRegionItems)
+    
     })
  
   }
@@ -275,11 +274,11 @@ submitPersonalInfo(){
           locationId: this.user.personal?.location ? this.user.personal?.location.id:''
         })
         if(this.userService.userHaveCurrentPersonal() && this.userService.isPhoneVerified()){
-          console.log(this.userService.user.value)
+         
           this.toastService.showToast('Информация успешно сохранена','success')
           this.navController.navigateRoot('/settings')
         }
-        console.log(this.userService.user.value)
+ 
       
         this.personalUserForm.invalid ? this.stepCurrent = 1 : this.stepCurrent = 2
       })

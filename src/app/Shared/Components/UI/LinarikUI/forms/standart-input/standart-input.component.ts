@@ -1,5 +1,5 @@
 import { CommonModule, NgClass } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, input, Input, OnInit, Output } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MaskitoDirective  } from '@maskito/angular'
 import { MaskitoMask, MaskitoOptions } from '@maskito/core';
@@ -28,6 +28,7 @@ export class StandartInputComponent  implements OnInit {
     * Метка (label), отображаемая рядом с элементом ввода
     */
   @Input() label: string = '';
+  @Input() labelLight:boolean = false
 
   /**
     * Текст-подсказка внутри элемента ввода
@@ -64,6 +65,7 @@ export class StandartInputComponent  implements OnInit {
   */
 
   @Input() dark:boolean = false
+  @Input() white:boolean = false
 
     /**
     * Тёмная тема 
@@ -121,6 +123,7 @@ export class StandartInputComponent  implements OnInit {
       'standart-input',
       this.invalid ? 'inavlid__input':'',
       this.dark ? 'dark':'',
+      this.white ? 'white':'',
       this.gradient ? 'gradient':'',
       this.disabled ? 'standart-input_disabled' : '',
       'cursor',

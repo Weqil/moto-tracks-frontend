@@ -200,7 +200,7 @@ coverageItems:any[] = [
     }
   }
   changeLight(event:any){
-   console.log(event)
+  
   }
   setScheme(event:any,input:HTMLInputElement){
     const file = event.target.files[0]

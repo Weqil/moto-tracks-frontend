@@ -7,7 +7,7 @@
     border: 1px solid rgb(76 88 97 / 47%);
     width: 100%;
     min-height: 36px;
-    font-size: 12px;
+    overflow: hidden;
     padding-left: 0.5rem;
     color: #363d42;
     font-family: var(--font-regular);
@@ -20,10 +20,6 @@
     
     margin-top: 3px;
 
-    &:hover {
-        border-color: rgba(76, 88, 97, 0.2);
-        background: rgba(76, 88, 97, 0.02);
-    }
 
     &:focus {
         outline: none;
@@ -38,17 +34,27 @@
     padding-bottom: 1px;
     font-family: var(--font-regular);
 }
+.label__light{
+    color: #ffffff;
+    font-size: 14px;
+    padding-bottom: 1px;
+    font-family: var(--font-regular);
+}
 
 .dropdown-wrapper {
     position: relative;
     width: 100%;
 }
 
+
+
 .dropdown-content {
     position: absolute;
     background-color: white;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
+    max-height:0px;
     pointer-events: none;
     gap: 0.25rem;
     transform: translate(0, -40px);
@@ -84,7 +90,7 @@
     cursor: pointer;
     transition: all 0.2s ease;
     color: #363d42;
-    font-size: 12px;
+   
     font-family: var(--font-regular);
 
     &:hover {
@@ -98,7 +104,7 @@
 
 .label_invalid {
     color: #ff0000;
-    font-size: 12px;
+   
     padding-bottom: 1px;
 }
 
@@ -106,7 +112,7 @@
     color: #ff0000;
     display: flex;
     font-family: var(--font-regular);
-    font-size: 12px;
+   
     padding-top: 6px;
 }
 
@@ -115,7 +121,7 @@
     border-radius: 4px;
     width: 100%;
     min-height: 2.25rem;
-    font-size: 12px;
+   
     padding: 0.5rem;
     margin-top: 3px;
     background: white;

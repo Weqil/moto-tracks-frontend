@@ -1,6 +1,6 @@
 .main{
     width: 100%;
-    overflow-x: auto;
+    height: 100%;
     display: flex;
     flex-wrap: nowrap;
     justify-content: start;
@@ -12,15 +12,17 @@
     .main-content{
         max-height: 82vh; /* или height: 300px; */
         overflow-y: auto;
-        width: 100%;
-        max-width: 460px;
+        margin-top: 2rem;
+        margin-bottom: 4rem;
+        min-width: 30%;
+        max-width: 50%;
         background-color: white;
-        
+        border-radius: 0.5rem;
+        border: 20px solid white;
         
        
         .application-list{
-            width: 100%;
-            max-width: 960px;
+            
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
@@ -29,139 +31,30 @@
 
             .user-card{
                 
+                
+                border-radius: 0.5rem;
             }
         }
     }
 
     .view-user{
         display: flex;
-        flex-direction: column;
         justify-content: center;
         align-items: center;
         border-radius: 0.5rem;
         width: 40%;
-        width: 100%;
-        max-width: 560px;
-        
-
-        .licensed{
+        max-height: 90%;
+        margin: 2rem;
+        app-user-view-page{
             width: 100%;
+            height: 100%;
         }
-        .polish{
-            width: 100%;
-        }
-        .notarius{
-            width: 100%;
-        }
-
-        .document{
-            width: 100%;
-            background-color: white;
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
-            flex-direction: column;
-            span{
-                color: #4C5861;
-                font-size: 14px;
-                padding-bottom: 4px;
-                font-family: var(--font-regular);
-            }
-        }
-
-        .file-name{
-            cursor: pointer;
-            height: 39px;
-            opacity: 0.6;
-            display: flex;
-            gap: 0.5rem;
-            justify-content: start;
-            align-items: center;
-            color: black;
-            padding: 0.4rem;
-            padding-left: 0.8rem;
-            border: 1px solid gray;
-            width: 100%;
-            
-            img{
-               opacity: 0.8;
-                max-width: 20px;
-                max-height: 20px;
-            }
-        
-            .name{
-                width: 100%;
-                max-width: 300px;
-                white-space: nowrap;         /* Запрещает перенос текста */
-                overflow: hidden;            /* Скрывает выходящий за границы текст */
-                text-overflow: ellipsis;     /* Добавляет троеточие (…) в конце */
-            }
-        }
-        
-
-        .document-container{
-            // border: 1px solid rgba(76, 88, 97, 0.473);
-            // padding: var(--little-padding);
-            // margin-bottom: var(--little-padding);
-            display: flex;
-            
-            gap: var(--little-padding);
-            flex-direction: column;
-            width: 100%;
-        }
-        .name{
-            opacity: 0.7;
-          }
-
-        .personal-form{
-            width: 100%;
-        }
-
-        .user-information{
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .race-information{
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .doc-information{
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            .input-container{
-                width: 100%;
-                display: flex;
-                gap: 1rem;
-                
-                app-standart-input{
-                    flex-grow: 1;
-                }
-            }
-        }
-
-        .input-container{
-            width: 100%;
-            display: flex;
-            gap: 1rem;
-            
-            app-standart-input{
-                flex-grow: 1;
-            }
-        }
-
     }
 
     .event-information-title{
         display: flex;
         align-items: center;
         gap: 8px;
-        padding-top: 1.5rem;
-        padding-bottom: 0.5rem;
         img{
            width: 24px; 
         }

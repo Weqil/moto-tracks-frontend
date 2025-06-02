@@ -2,7 +2,6 @@
 	"appId": "com.policam.motokros",
 	"appName": "Мотокросс",
 	"webDir": "www/browser",
-	"bundledWebRuntime": false,
 	"plugins": {
 		"SplashScreen": {
 			"launchShowDuration": 1000,
@@ -16,12 +15,13 @@
 			"splashImmersive": true
 		},
 		"Browser": {
-			"clearSessionCache": true,
-			"clearCache": true
+			"clearSessionCache": false,
+			"clearCache": false
 		}
 	},
 	"packageClassList": [
 		"AppPlugin",
+		"CAPBrowserPlugin",
 		"HapticsPlugin",
 		"KeyboardPlugin",
 		"SplashScreenPlugin",

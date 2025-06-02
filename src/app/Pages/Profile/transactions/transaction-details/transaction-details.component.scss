@@ -1,0 +1,162 @@
+.transaction-details-container {
+  padding: 16px;
+}
+
+.transaction-card {
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.transaction-header {
+  padding: 20px;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .transaction-title {
+    font-size: 18px;
+    font-weight: 500;
+    color: #333;
+  }
+
+  .transaction-status {
+    font-size: 14px;
+    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: 20px;
+    
+    &.status-success {
+      color: #2ecc71;
+      background: rgba(46, 204, 113, 0.1);
+    }
+    
+    &.status-failed {
+      color: #e74c3c;
+      background: rgba(231, 76, 60, 0.1);
+    }
+  }
+}
+
+.transaction-info {
+  padding: 20px;
+
+  .info-row {
+    display: flex;
+    margin-bottom: 16px;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    .label {
+      width: 120px;
+      color: #666;
+      font-size: 14px;
+    }
+
+    .value {
+      flex: 1;
+      color: #333;
+      font-size: 14px;
+    }
+  }
+
+  .services-section {
+    margin: 20px 0;
+    padding: 20px 0;
+    border-top: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+
+    .section-title {
+      font-size: 16px;
+      font-weight: 500;
+      color: #333;
+      margin-bottom: 16px;
+    }
+
+    .services-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .service-item {
+      background: #f8f9fa;
+      border-radius: 8px;
+      padding: 16px;
+
+      .service-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+
+        .service-name {
+          font-weight: 500;
+          color: #333;
+          font-size: 15px;
+        }
+
+        .service-price {
+          font-weight: 600;
+          color: #2ecc71;
+          font-size: 15px;
+        }
+      }
+
+      .service-description {
+        color: #666;
+        font-size: 14px;
+        margin-bottom: 12px;
+      }
+
+      .service-track {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        cursor: pointer;
+        padding: 8px;
+        border-radius: 8px;
+        transition: background-color 0.2s ease;
+        background: #fff;
+
+        &:hover {
+          background-color: #f0f0f0;
+        }
+
+        .track-avatar {
+          width: 32px;
+          height: 32px;
+          border-radius: 6px;
+          object-fit: cover;
+        }
+
+        .track-name {
+          font-weight: 500;
+          color: #333;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+
+  .total-cost {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #e0e0e0;
+
+    .label {
+      font-weight: 500;
+      color: #333;
+    }
+
+    .value {
+      font-weight: 600;
+      color: #2ecc71;
+    }
+  }
+} 

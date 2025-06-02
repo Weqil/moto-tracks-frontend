@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { catchError, EMPTY, finalize, of, Subject, takeUntil } from 'rxjs';
 import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
@@ -32,7 +32,6 @@ export class PrivateFilesComponent  implements OnInit {
   fileUrl: string = ''
   loadingService: LoadingService = inject(LoadingService)
   documentId!: number 
-  @Input() postDocumentId?: number
 
   getDocument(): void {
     this.userService.getUserDocumentFileBiId(this.documentId)
@@ -91,32 +90,17 @@ export class PrivateFilesComponent  implements OnInit {
     this.loadingService.hideLoading()
   }
   ionViewWillEnter(){
-    if(!this.postDocumentId){
-        this.route.params.pipe(takeUntil(this.destroy$)).pipe(
+    this.route.params.pipe(takeUntil(this.destroy$)).pipe(
           finalize(()=>{
         })
       ).subscribe((params) => {
           this.documentId = params['id']
           this.getDocument()
       })
-    }else{
-      this.documentId = this.postDocumentId
-      this.getDocument()
-    }
-    
   }
 
   ngOnInit() {
 
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['postDocumentId'] && changes['postDocumentId'].currentValue) {
-      this.images = [];
-      this.fileUrl = '';
-      this.documentId = changes['postDocumentId'].currentValue;
-      this.getDocument();
-    }
-  }
 }
-

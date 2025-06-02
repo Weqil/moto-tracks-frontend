@@ -65,7 +65,7 @@ export interface User{
     moto_stamp:string,
     inn:string,
     snils:number,
-    comment:string
+
 
     roles:{
         id:number,

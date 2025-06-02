@@ -4,13 +4,17 @@ export interface IEvent {
     id: number;
     name: string;
     is_work?:boolean;
+    attendance_exists?:boolean;
     desc?: string,
     position_file?: string,
     results_file?: string,
     date_start?: string,
     commissions_exists?:boolean,
     record_start?:string,
-    pdf_files:string[]
+    pdf_files:string[],
+    store?:{
+        id:number,
+    },
     record_end?:string,
     location:{
         name:string,

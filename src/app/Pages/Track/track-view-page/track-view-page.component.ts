@@ -91,6 +91,10 @@ export class TrackViewPageComponent  implements OnInit {
       )=>this.allContactsIncorrect = this.validateContact(contact))
     }
   }
+
+  getAtendensInRace(){
+    
+  }
   
   validateContact(contact: {title: string, value: string}):boolean {
     return !!contact.title && !!contact.value && contact.value != "null"

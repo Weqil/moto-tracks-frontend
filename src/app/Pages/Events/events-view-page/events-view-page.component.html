@@ -63,7 +63,7 @@
                     <img src="/assets/icons/map.svg" alt="">Построить маршрут
                   </button>
                </div>
-  
+               <div class="event-id">EID {{eventId}}</div>
               </ng-container>
             </div>
           </div>
@@ -78,6 +78,10 @@
         <ng-container *ngIf="event">
           <ng-container *ngIf="currentTab == 'Информация'">
             <div class="event-information">
+                <ng-container *ngIf="this.event.appointments_exists && this.event.store">
+                      <app-payment-status [status]="this.event.attendance_exists ? 'success': 'warning' "></app-payment-status>
+                </ng-container>
+            
                 <ng-container *ngIf="formattedResultsDocument && formattedResultsDocument.length">  
                 <div class="event-desc--wrapper">
                   <div class="event-information-title">
@@ -87,7 +91,7 @@
                   <div class="event-documents-grid">
                     
                     <ng-container *ngFor="let document of formattedResultsDocument">
-                      <div class="event-documents-grid__item">
+                      <div [routerLink]="['/view-document', document.path | checkImgUrl]" class="event-documents-grid__item">
                           <div class="document-preview">
                             <img src="/assets/icons/documents.svg" alt="">
                           </div>
@@ -174,7 +178,7 @@
                       </div> 
                       <div class="users-grid">
                         <ng-container *ngFor="let user of group.users">
-                          <app-user-section (click)="navigateToUser(user.user.id)" [startNumber]="true" [showAddress]="true" [name]="true" [surname]="true" [showRank]="true" [user]="user"></app-user-section>
+                          <app-user-section [startNumber]="true" [showAddress]="true" [name]="true" [surname]="true" [showRank]="true" [user]="user"></app-user-section>
                         </ng-container>
                       </div>
         
@@ -305,13 +309,17 @@
               <app-icon-button clippy="clippy-right" [shapeColumn]="true" [buttonText]="checkRecord" theme="dark-gray" [widht]="'full'"></app-icon-button>
             </ng-template>
           </ng-container>
-          <ng-container *ngIf="this.event.appointments_exists">
-            <app-icon-button  theme="dark-gray" [clippy]="'clippy-right'" [shapeColumn]="true" [widht]="'full'" buttonText="Заявка отправлена"></app-icon-button>
+          <ng-container *ngIf="this.event.appointments_exists && !this.event.store">
+            <app-icon-button theme="dark-gray" [clippy]="'clippy-right'" [shapeColumn]="true" [widht]="'full'" buttonText="Заявка отправлена"></app-icon-button>
+          </ng-container>
+          <ng-container *ngIf="this.event.appointments_exists && this.event.store">
+            <app-icon-button *ngIf="this.event.attendance_exists" theme="dark-gray" [clippy]="'clippy-right'" [shapeColumn]="true" [widht]="'full'" buttonText="Заявка отправлена"></app-icon-button>
+            <app-icon-button (click)="regenerateLinkInPayment()" *ngIf="!this.event.attendance_exists" theme="red" [clippy]="'clippy-right'" [shapeColumn]="true" [widht]="'full'" buttonText="Оплатить"></app-icon-button>
           </ng-container>
         </div>
   
         <div class="group-button" *ngIf="registrationStatus">
-          @if(checkUserRoleService.userHaveRole(confirmUsersRolesInGroupAplication) && !checkRecordStart()){
+          @if(checkUserRoleService.userHaveRole(confirmUsersRolesInGroupAplication)){
           <div class="red-button">
             <app-icon-button  (click)="redirectTrenerInEditAplication()" [widht]="'full'" buttonText="Заявиться командой" [clippy]="'clippy-right'" [shapeColumn]="true" [theme]="'red'"></app-icon-button>
           </div>        
@@ -431,6 +439,7 @@
           <app-standart-input [control]="personalUserForm.get('coach')" placeholder="Тренер" label="ФИО тренера"></app-standart-input>
           <app-standart-input-select [errorMessage]="formErrors.motoStamp.errorMessage" [invalid]="formErrors.motoStamp.errorMessage.length !== 0" selectedName="motoStampSelect" [items]="motoStampItems" (onChange)="setMotoStamp($event)" [selectedItem]="{name:personalUserForm.value.motoStamp, value:personalUserForm.value.motoStamp}" label="Марка мотоцикла*"></app-standart-input-select>
           <app-standart-input-select [errorMessage]="formErrors.engine.errorMessage" [invalid]="formErrors.engine.errorMessage.length !== 0" selectedName="engineSelect" [items]="engineItems" (onChange)="setEngine($event)" [selectedItem]="{name:personalUserForm.value.engine, value:personalUserForm.value.engine}" label="Тип двигателя*"></app-standart-input-select>
+          <app-standart-rich-input  [control]="personalUserForm.get('comment')" label="Комментарий" placeholder="Оставьте комментарий"></app-standart-rich-input>
         </form>
         
           <div class="documents">
@@ -508,11 +517,7 @@
               <input (change)="setNotariusFile($event)" #notariusFileInput style="display: none;"  type="file">
             </div>
         </div>
-        <app-standart-rich-input  [control]="personalUserForm.get('comment')" label="Комментарий" placeholder="Оставьте комментарий"></app-standart-rich-input>
-
       </div>
-
-
       
       <div class="footer-button">
         <div class="red-button">

@@ -1,0 +1,55 @@
+<ion-content>
+  <app-header headerTitle="Детали покупки"></app-header>
+  
+  <main class="main-container--with-header">
+    <div class="transaction-details-container" *ngIf="transaction">
+      <div class="transaction-card">
+        <div class="transaction-header">
+          <div class="transaction-title">{{transaction.desc || 'Транзакция'}}</div>
+          <div class="transaction-status" [ngClass]="{'status-success': transaction.status, 'status-failed': !transaction.status}">
+            {{transaction.status ? 'Успешно' : 'Оплата не прошла'}}
+          </div>
+        </div>
+
+        <div class="transaction-info">
+          <div class="info-row">
+            <span class="label">Дата:</span>
+            <span class="value">{{transaction.date | date:'dd.MM.yyyy HH:mm'}}</span>
+          </div>
+          
+          <div class="info-row" *ngIf="transaction.count">
+            <span class="label">Количество:</span>
+            <span class="value">{{transaction.count}}</span>
+          </div>
+
+          <div class="info-row">
+            <span class="label">Пользователь:</span>
+            <span class="value">{{transaction.user?.name}}</span>
+          </div>
+
+          <div class="services-section" *ngIf="transaction.attendances?.length">
+            <div class="section-title">Услуги</div>
+            <div class="services-list">
+              <div class="service-item" *ngFor="let service of transaction.attendances">
+                <div class="service-header">
+                  <div class="service-name">{{service.name}}</div>
+                  <div class="service-price">{{service.price | currency:'RUB':'symbol-narrow':'1.0-0'}}</div>
+                </div>
+                <div class="service-description" *ngIf="service.desc">{{service.desc}}</div>
+                <div class="service-track" *ngIf="service.track" [routerLink]="['/track', service.track.id]">
+                  <img [src]="getBackUrlForImg(service.track.images[0])" alt="Трек" class="track-avatar">
+                  <span class="track-name">{{service.track.name}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-row total-cost">
+            <span class="label">Общая стоимость:</span>
+            <span class="value">{{calculateTotalCost() | currency:'RUB':'symbol-narrow':'1.0-0'}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</ion-content> 
