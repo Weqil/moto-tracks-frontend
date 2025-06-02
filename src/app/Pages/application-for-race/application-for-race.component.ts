@@ -89,7 +89,7 @@ export class ApplicationForRaceComponent  implements OnInit {
     usersCount:0
   }
   users: any
-  formattedUsers: {group:any,users:User[]}[] = []
+  formattedUsers: {users:User[]}[] = []
 
 
   checkDocument(documentId:number){
@@ -137,26 +137,25 @@ export class ApplicationForRaceComponent  implements OnInit {
     }
 
     getUsersInRace(){
-      this.eventService.getUsersInRace(this.eventId).pipe().subscribe((res:any)=>{
+      this.eventService.getApplicationsForCommisson(this.eventId).pipe().subscribe((res:any)=>{
         
         this.usersInRace = res.users
         console.log(this.usersInRace)
         this.formattedUsers = [];
 
-        Object.keys(this.usersInRace).forEach((key: string) => {
-          this.formattedUsers.push({
-            group: key,
-            users: this.usersInRace[key]
-          });
-        });       
+        // Object.keys(this.usersInRace).forEach((key: string) => {
+        //   this.formattedUsers.push({
+        //     users: this.usersInRace[key]
+        //   });
+        // });       
 
-        if(this.usersInRace){
-          Object.keys(this.usersInRace).forEach((res:any)=>{
-          let tempArray:any = Array(this.usersInRace[res])[0]
-           this.usersPreviewConfig.usersCount += tempArray.length
+        // if(this.usersInRace){
+        //   Object.keys(this.usersInRace).forEach((res:any)=>{
+        //   let tempArray:any = Array(this.usersInRace[res])[0]
+        //    this.usersPreviewConfig.usersCount += tempArray.length
            
-          })
-        }
+        //   })
+        // }
 
         
         
@@ -406,10 +405,10 @@ export class ApplicationForRaceComponent  implements OnInit {
           surname:this.userGet?.surname,
           dateOfBirth: this.userGet?.date_of_birth,
           phoneNumber: cleanedPhone,
-          email:this.userGet?.user.email,
+          // email:this.userGet?.user.email,
           startNumber: this.userGet?.start_number,
           locationId: this.userGet?.location?.id,
-          commandId: this.userGet?.community, 
+          
           region: this.userGet?.location.name + ' ' + this.userGet?.location.type,
           community: this.userGet?.community,
           rank: this.userGet?.rank,
@@ -423,7 +422,7 @@ export class ApplicationForRaceComponent  implements OnInit {
       }else{
         this.personalUserForm.reset()
       }
-  
+      console.log('e mae') 
       console.log(this.personalUserForm.value)
     }
   
@@ -480,7 +479,7 @@ export class ApplicationForRaceComponent  implements OnInit {
 
     agreedApp(id: any){
       const comment = this.personalUserForm.get('comment')?.value;
-      this.eventService.checkApplication(id, true, comment)
+      this.eventService.checkApplication(id, 1, comment)
       .pipe(finalize(()=>{
         console.log('Запрос завершился')
       })).subscribe((res:any)=>
@@ -497,7 +496,7 @@ export class ApplicationForRaceComponent  implements OnInit {
 
     disagreedApp(id: any){
       const comment = this.personalUserForm.get('comment')?.value;
-      this.eventService.checkApplication(id, false, comment)
+      this.eventService.checkApplication(id, 0, comment)
       .pipe(finalize(()=>{
         console.log('Запрос завершился')
       })).subscribe((res:any)=>

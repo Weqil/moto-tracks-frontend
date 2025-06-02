@@ -76,7 +76,7 @@ export class UserSectionComponent  implements OnInit {
   /**
    * Параметр отвечает за тему карточки пользователя стандартная, красная, желтая, зеленая. 
    */
-  @Input() them:'standart-them'|'red-them'|'green-them'|'yellow-them'|'dark-them'|'white-them'| 'selected-them' = 'standart-them'
+  @Input() them:'standart-them'|'red-them'|'green-them'|'yellow-them'|'dark-them'|'white-them' = 'standart-them'
 
    /**
    * Параметр отвечает за ширину бокового контейнера
@@ -86,13 +86,18 @@ export class UserSectionComponent  implements OnInit {
    /**
    * Параметр отвечает за цвет бокового контейнера
    */
-  @Input() borderColor: 'red'|'green'|'yellow' = 'red'
+  @Input() borderColor: 'red'|'green'|'yellow' = 'red'   
+  
+  /**
+   * Параметр отвечает за цвет бокового контейнера
+   */
+  @Input() border: 'red'|'null' = 'null'
 
    /**
    * Функция собирает все классы и возвращает массив с нужными значениями
    */
    get getClasses():string[]{
-    return [this.rowContent, this.borderColor, this.cardLeftBorderWidth, this.them]
+    return [this.rowContent, this.borderColor, this.cardLeftBorderWidth, this.them, this.border]
   }
 
   ngOnInit() {

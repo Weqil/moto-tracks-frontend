@@ -22,20 +22,21 @@
         Список участников
         <!-- <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
       </div>
-      <div *ngFor="let group of formattedUsers">
+      <!-- <div *ngFor="let group of formattedUsers">
         <div class="class-name">
           <div class="event-information-title users-title">
             <img src="/assets/icons/red-finished.svg" alt="">
             {{group.group}}
-            <!-- <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
+            ##<app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button>
           </div>
-        </div>
+        </div> -->
         
         <div class="application-list">
-          <div *ngFor="let user of group.users" >
+          <div *ngFor="let user of usersInRace" >
             <div class="user-card" (click)=" navigateToUser(user.user_id, user, user.id)">
-              <app-user-section 
-                [them]="activeAppId === user.id ? 'selected-them' :(user.is_checked ? 'green-them' : 'standart-them')"
+              <app-user-section  
+                [them]="user.is_checked == null ? 'standart-them' : (user.is_checked == true ? 'green-them' : 'red-them')"
+                [border]="activeAppId === user.id ? 'red' : 'null'"
                 [name]="true"
                 [surname]="true"
                 [patronymic]="true"
@@ -49,7 +50,7 @@
             
           </div>
         </div>
-      </div>
+      <!-- </div> -->
         
     </div>
 
@@ -138,7 +139,7 @@
           </div>
   
           <div class="input-container">
-            <app-standart-input [readonly]="true" [control]="personalUserForm.get('rankNumber')" placeholder="№ удостоверения (МСМК, МС, КМС)" label="№ удостоверения"></app-standart-input>
+            <!-- <app-standart-input [readonly]="true" [control]="personalUserForm.get('rankNumber')" placeholder="№ удостоверения (МСМК, МС, КМС)" label="№ удостоверения"></app-standart-input> -->
             <app-standart-input [readonly]="true" [errorMessage]="formErrors.rank.errorMessage" [invalid]="formErrors.rank.errorMessage.length !== 0" [control]="personalUserForm.get('rank')" label="Спортивное звание, разряд"></app-standart-input>
           </div>
 
@@ -146,7 +147,7 @@
             
           </div>
 
-          <div class="polish">
+          <div class="polish" *ngIf="polish">
 
             <div class="event-information-title users-title">
               <img src="/assets/icons/red-finished.svg" alt="">
@@ -177,7 +178,7 @@
 
 
 
-          <div class="licensed">
+          <div class="licensed" *ngIf="licensed">
             <div class="event-information-title users-title">
               <img src="/assets/icons/red-finished.svg" alt="">
               Лицензия
@@ -200,7 +201,7 @@
     
 
 
-          <div class="notarius">
+          <div class="notarius" *ngIf="notarius">
             <div class="event-information-title users-title">
               <img src="/assets/icons/red-finished.svg" alt="">
               Нотариальное согласие

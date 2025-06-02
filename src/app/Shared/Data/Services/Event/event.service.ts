@@ -35,7 +35,7 @@ export class EventService {
     return this.http.post(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races/${eventId}/update`, editForm)
   }
 
-  checkApplication(id:number, checkedValue:boolean, comment:string){
+  checkApplication(id:number, checkedValue:number, comment:string){
     return this.http.post(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races/appointment-race/${id}/checked`,  {checked: checkedValue, comment: comment})
   }
 

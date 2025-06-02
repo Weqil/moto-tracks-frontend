@@ -210,28 +210,7 @@ p{
     }
 }
 
-.selected-them{
-    .user-section{
-        background: #FF5555;
-        background: linear-gradient(180deg, rgba(255, 85, 85, 1) 23%, rgba(213, 49, 49, 1) 76%);
-        color:  #ffffff !important;
-        span{
-            color: #ffffff;
-        }
-        .user-section-text{
-            color: #ffffff !important;
-        }
-        .user-section__date__info{
-            color: #ffffff !important;
-        }
-        .user-section__info{
-            color: #ffffff !important;
-            .user-section__name{
-                color: #ffffff !important;
-            }
-        }
-    }
-}
+
 
 .dark-them{
     .user-section{
@@ -254,6 +233,21 @@ p{
         }
     }
 }
+
+.red{
+    .user-section{
+        border: 2px solid red
+
+    }
+}
+
+.null{
+    .user-section{
+        border: 2px solid rgba(255, 0, 0, 0)
+
+    }
+}
+
 
 .red-them{
     .user-section{

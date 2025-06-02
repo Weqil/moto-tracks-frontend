@@ -21,10 +21,15 @@
 }
 
 .button-commission{
-    margin-bottom: 5rem;
-    padding: 0rem 1rem;
+    
+    
+    padding: 0rem 0rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     app-icon-button{
-        width: 100%;
+        
+        width: 600px;
     }
 }
 

@@ -2,8 +2,8 @@
     width: 100%;
     overflow-x: auto;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-wrap: nowrap;
+    justify-content: start;
     margin-top: 3rem;
     margin-bottom: 4rem;
     gap: 2rem;
@@ -220,10 +220,10 @@
     flex-direction: column;
     width: 100%;
     height: 100%;
-    max-width: 660px;
+    max-width: 560px;
     
     .document-view{
-        padding: 1rem;
+        
         width: 100%;
         height: 900px;
         max-height: 900px;
