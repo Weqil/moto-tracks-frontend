@@ -866,9 +866,9 @@ export class EventsViewPageComponent  implements OnInit {
     //здесь лоадер
   getEvent(){
     let loader:HTMLIonLoadingElement
-         this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
-               loader = res
-         })
+        //  this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+        //        loader = res
+        //  })
     this.eventService.getEventById(this.eventId,{
       userId:String(this.userService.user.value?.id ? this.userService.user.value?.id : '' ),
       appointmentUser:1,
