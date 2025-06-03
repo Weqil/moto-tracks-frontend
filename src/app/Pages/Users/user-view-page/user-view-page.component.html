@@ -11,58 +11,65 @@
         </button>
       </div>
   </app-header>
-    <main class="main-container">
+<main class="main-container--with-header">
+
+      <div class="user-page">
 
 
-      <div class="cabinet__user-section">
-        <div class="user-images">
-          <img class="user-avatar" [src]="user?.avatar | checkImgUrl" alt="">
-        </div>
-      
-        <div class="cabinet__user-section__info">
-          <div *ngIf="user?.id" class="uid">UID {{user?.id}}</div>
-          <div class="cabinet__user-section__info__name">
-            <app-icon-button *ngIf="user?.personal?.start_number" font="font-bold" widht="w20" height="auto-height" clippy="clippy-right" buttonText="{{user?.personal?.start_number}}"></app-icon-button>
-            <div class="info__name__item" *ngIf="user?.personal?.name && user?.personal?.surname" >{{user?.personal?.name}}</div>
-            <div class="info__name__item" *ngIf="user?.personal?.name && user?.personal?.surname">{{user?.personal?.surname}}</div>
-            <div class="info__name__item" *ngIf="user?.name && !user?.personal" >{{user?.name}}</div>
-            <div class="info__name__item" *ngIf="user?.surname && !user?.personal" >{{user?.surname}}</div>
+        <div class="cabinet__user-section">
+          <div class="user-images">
+            <img class="user-avatar" [src]="user?.avatar | checkImgUrl" alt="">
           </div>
-          <div *ngIf="user?.email" class="email">{{user?.email}}</div>
-          <div class="user-statuses-grid">
-            <app-icon-button clippy="clippy-right" height="auto-height" theme="red" *ngFor="let status of userTranslitStatuses" [buttonText]="status"></app-icon-button>
-          </div>
-        </div>
         
-      </div>
-
-
-      <!-- <div class="up-container">
-        <div class="user-section__avatar">
-          <img  class="user-section__avatar__img" [src]="user?.avatar|checkImgUrl" alt="" alt="">
-        </div>
-
-        <div class="user-name-container">
-          <div class="user_name">{{user?.personal?.surname}} {{user?.personal?.name}} {{user?.personal?.patronymic}} </div>
-        </div>
-
-        <div class="info-container">
-          <div class="user-parametr">
-            <span>{{user?.personal?.city}}</span>
+          <div class="cabinet__user-section__info">
+            <div class="cabinet__user-section__info__name">
+              <div class="info__name__item" *ngIf="user?.personal?.name && user?.personal?.surname" >{{user?.personal?.name}}</div>
+              <div class="info__name__item" *ngIf="user?.personal?.name && user?.personal?.surname">{{user?.personal?.surname}}</div>
+              <div class="info__name__item" *ngIf="user?.personal?.name && user?.personal?.patronymic">{{user?.personal?.patronymic}}</div>
+  
+              
+              <div class="info__name__item" *ngIf="user?.name && !user?.personal" >{{user?.name}}</div>
+              <div class="info__name__item" *ngIf="user?.surname && !user?.personal" >{{user?.surname}}</div>
+              <div class="info__name__item" *ngIf="user?.patronymic && !user?.personal" >{{user?.patronymic}}</div>
+            </div>
+            <div class="city-rank">
+              <div *ngIf="user?.personal?.city" class="email">{{user?.personal?.city}}</div>
+              <div class="dash"></div>
+              <div class="rank">{{user?.personal?.rank}}</div>
+            </div>
+            <div class="user-statuses-grid">
+              <app-icon-button *ngIf="user?.personal?.start_number" font="font-bold" widht="w20" height="auto-height" clippy="clippy-right" buttonText="{{user?.personal?.start_number}}"></app-icon-button>
+  
+              <app-icon-button clippy="clippy-right" height="auto-height" theme="red" *ngFor="let status of userTranslitStatuses" [buttonText]="status"></app-icon-button>
+            </div>
           </div>
-          <div class="user-parametr">
-            <span>Гоночный номер: {{user?.personal?.start_number}}</span>
-          </div>
-          <div class="user-parametr">
-            <span>Звание: {{user?.personal?.rank}}</span>
-          </div>
-          <div class="user-parametr">
-            <span>Команда: {{user?.personal?.command?.name}}</span>
-          </div>
+  
+  
           
         </div>
+  
+        <div class="event-information-title">
+          <img src="/assets/icons/red-finished.svg" alt="">
+          Команда
+          <!-- <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
+        </div>
+  
+        <article class="commands-grid">
+          <div *ngIf="!user?.personal?.command" class="not-found-users">Команд пока что нет...</div>
+  
+        <div class="commands-grid__item" >
+          <ng-container *ngIf="user?.personal && user?.personal?.command" >
+            <app-command-section [command]="user.personal!.command!"
+            
+          ></app-command-section>
+          </ng-container>
+          
+        </div>
+        </article>
 
-      </div> -->
+
+      </div>
+
       
     </main>
     
