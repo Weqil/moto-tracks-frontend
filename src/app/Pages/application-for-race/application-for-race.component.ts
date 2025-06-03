@@ -133,7 +133,7 @@ export class ApplicationForRaceComponent  implements OnInit {
     }
 
     back(){
-      this.navController.back()
+      this.navController.navigateRoot('/events')
     }
 
     getUsersInRace(){
@@ -405,7 +405,7 @@ export class ApplicationForRaceComponent  implements OnInit {
           surname:this.userGet?.surname,
           dateOfBirth: this.userGet?.date_of_birth,
           phoneNumber: cleanedPhone,
-          // email:this.userGet?.user.email,
+          email:this.userGet?.user.email,
           startNumber: this.userGet?.start_number,
           locationId: this.userGet?.location?.id,
           

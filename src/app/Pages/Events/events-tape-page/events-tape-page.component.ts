@@ -111,7 +111,10 @@ export class EventsTapePageComponent  implements OnInit {
     }
   ]|any[] = []
 
- 
+   redirectApplicationForRace(eventId:any){
+    this.navController.navigateForward(`application-for-race/${eventId}`)
+  }
+
   setFilterInTape(filter:'all'|'current'|'expired'|'rgp'){
     this.allFilter = filter == 'all'
     this.currentFilter = filter == 'current'

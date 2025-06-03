@@ -73,7 +73,6 @@
           <div class="input-container">
             <app-standart-input [readonly]="true" [control]="personalUserForm.get('email')" [errorMessage]="formErrors.email.errorMessage" [invalid]="formErrors.email.errorMessage.length !== 0" maskType="email" placeholder="Почта" label="Почта"></app-standart-input>
             <app-standart-input [readonly]="true" [control]="personalUserForm.get('phoneNumber')" [errorMessage]="formErrors.phoneNumber.errorMessage" [invalid]="formErrors.phoneNumber.errorMessage.length !== 0" maskType="phone" placeholder="Номер телефона" label="Телефон"></app-standart-input>
-  
           </div>
           
           <div class="input-container">
@@ -91,13 +90,13 @@
 
         <div class="race-information">
           <div class="input-container">
-            <app-standart-input [errorMessage]="formErrors.motoStamp.errorMessage" [invalid]="formErrors.motoStamp.errorMessage.length !== 0" selectedName="motoStampSelect" [control]="personalUserForm.get('motoStamp')"  label="Марка мотоцикла"></app-standart-input>
-            <app-standart-input [errorMessage]="formErrors.engine.errorMessage" [invalid]="formErrors.engine.errorMessage.length !== 0" selectedName="engineSelect"  [control]="personalUserForm.get('engine')"  label="Тип двигателя"></app-standart-input>
+            <app-standart-input [readonly]="true" [errorMessage]="formErrors.motoStamp.errorMessage" [invalid]="formErrors.motoStamp.errorMessage.length !== 0" selectedName="motoStampSelect" [control]="personalUserForm.get('motoStamp')"  label="Марка мотоцикла"></app-standart-input>
+            <app-standart-input [readonly]="true" [errorMessage]="formErrors.engine.errorMessage" [invalid]="formErrors.engine.errorMessage.length !== 0" selectedName="engineSelect"  [control]="personalUserForm.get('engine')"  label="Тип двигателя"></app-standart-input>
           </div>
   
           <div class="input-container">
-            <app-standart-input [errorMessage]="formErrors.community.errorMessage" [invalid]="formErrors.community.errorMessage.length !== 0"  [readonly]="true" [control]="personalUserForm.get('community')" placeholder="Команда" label="Название команды"></app-standart-input>
-            <app-standart-input [control]="personalUserForm.get('coach')" placeholder="Тренер" label="ФИО тренера"></app-standart-input>  
+            <app-standart-input [readonly]="true" [errorMessage]="formErrors.community.errorMessage" [invalid]="formErrors.community.errorMessage.length !== 0"  [readonly]="true" [control]="personalUserForm.get('community')" placeholder="Команда" label="Название команды"></app-standart-input>
+            <app-standart-input [readonly]="true" [control]="personalUserForm.get('coach')" placeholder="Тренер" label="ФИО тренера"></app-standart-input>  
           </div>
   
           <div class="input-container">

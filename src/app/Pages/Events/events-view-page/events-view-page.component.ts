@@ -1264,7 +1264,5 @@ export class EventsViewPageComponent  implements OnInit {
     });
   }
 
-  redirectApplicationForRace(){
-    this.navController.navigateForward(`application-for-race/${this.event.id}`)
-  }
+
 }

@@ -5,6 +5,7 @@
     font-size: 14px;
     font-family: var(--font-regular);
     padding-left: 0.8rem;
+    padding-right: 0.8rem;
     transition: 0.1s;
     margin-top: 3px;
     color: #363d42;
@@ -19,7 +20,6 @@
     background: #fad3d3 !important;
     color: #363d42 !important;
     border: 1px solid #ff0000;
-    
 }
 .inavlid__input:focus{
     outline: 1px solid #ff0000;

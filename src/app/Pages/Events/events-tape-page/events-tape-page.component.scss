@@ -293,3 +293,17 @@ ion-modal{
         --page-bg: #ffffff
     }
 }
+
+.button-commission{
+    
+    gap: 0.5rem;
+    padding: 0rem 0rem;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: start;
+    align-items: center;
+
+    .button-commission-first{
+        width: 100%;
+    }
+}
