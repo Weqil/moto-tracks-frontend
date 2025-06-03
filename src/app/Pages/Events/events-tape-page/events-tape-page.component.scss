@@ -302,7 +302,10 @@ ion-modal{
     flex-wrap: nowrap;
     justify-content: start;
     align-items: center;
-
+    app-icon-button{
+        width: 100%;
+    }
+    
     .button-commission-first{
         width: 100%;
     }
