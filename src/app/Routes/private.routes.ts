@@ -46,11 +46,7 @@ export const privateRoutes: Routes = [
                 canActivate:[canActivateAuth,],
                 loadComponent: () => import('../Pages/Profile/personal-info/personal-info.component').then((m) => m.PersonalInfoComponent)
             },
-            {
-                path:'documents',
-                canActivate:[canActivateAuth,],
-                loadComponent: () => import('../Pages/Profile/user-documents/user-documents.component').then((m) => m.UserDocumentsComponent)
-            },
+
             {
                 path:'settings',
                 canActivate:[canActivateAuth,],
@@ -121,7 +117,11 @@ export const privateRoutes: Routes = [
         loadComponent: () => import('../Pages/Authorization/confirm-email-page/confirm-email-page.component').then((m) => m.ConfirmEmailPageComponent)
     },
     
-
+    {
+        path:'documents',
+        canActivate:[canActivateAuth,],
+        loadComponent: () => import('../Pages/Profile/user-documents/user-documents.component').then((m) => m.UserDocumentsComponent)
+    },
     {
         path:'create-comands',
         canActivate:[canActivateAuth,canActivateUserHaveRole([userRoles.couch,userRoles.organization, userRoles.rider],'тренера')],
