@@ -481,6 +481,10 @@ export class EventsViewPageComponent  implements OnInit {
      this.navController.navigateForward(`/track/${this.event.track.id}`)
    }
 
+  redirectInUser(userId:any){
+     this.navController.navigateForward(`/users/${userId}`)
+   }
+
    //Если у пользователя не было данных создаём их
    setFirstUserPersonal(){
     if(!this.userService.user.value?.personal){
