@@ -37,6 +37,7 @@
               <app-user-section  
                 [them]="user.is_checked == null ? 'standart-them' : (user.is_checked == true ? 'green-them' : 'red-them')"
                 [border]="activeAppId === user.id ? 'red' : 'null'"
+                [showAddress]="true"
                 [name]="true"
                 [surname]="true"
                 [patronymic]="true"
