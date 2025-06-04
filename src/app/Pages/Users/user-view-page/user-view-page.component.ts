@@ -15,7 +15,6 @@ import { ComandsService } from '@app/Shared/Data/Services/Comands/comands.servic
 import { CheckUserRoleService } from '@app/Shared/Data/Services/check-user-role.service';
 import { CommonModule } from '@angular/common';
 
-
 @Component({
   selector: 'app-user-view-page',
   templateUrl: './user-view-page.component.html',
