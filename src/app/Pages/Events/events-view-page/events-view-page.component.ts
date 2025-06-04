@@ -482,7 +482,7 @@ export class EventsViewPageComponent  implements OnInit {
    }
 
   redirectInUser(userId:any){
-     this.navController.navigateForward(`/users/${userId}`)
+     this.navController.navigateRoot(`/users/${userId}`)
    }
 
    //Если у пользователя не было данных создаём их
