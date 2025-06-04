@@ -51,6 +51,14 @@
 //     z-index: 100;
     
 // }
+
+.comissons-grid{
+    display: flex;
+    gap: var(--standart-padding);
+    flex-direction: column;
+    padding-top: var(--little-padding);
+}
+
 .footer-page{
  
 

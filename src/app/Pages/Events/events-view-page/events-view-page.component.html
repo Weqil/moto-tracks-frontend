@@ -111,6 +111,7 @@
                   <div *ngIf="event.desc && event.desc.length" [innerHTML]="clearDescription()" class="event-desc"></div>
                 </div>
               </ng-container>
+            
 
               <ng-container *ngIf="event.position_file || event.results_file">  
                 <div class="event-desc--wrapper">
@@ -132,6 +133,21 @@
                       Расписание
                     </div>
                   </div>
+                </div>
+              </ng-container>
+
+              <ng-container *ngIf="event.desc && event.desc.length">  
+                <div class="event-desc--wrapper">
+                  <div class="event-information-title">
+                    <img src="/assets/icons/red-finished.svg" alt="">
+                    Комиссия
+                  </div>
+                  <div *ngIf="event.commissions && event.commissions.length" class="comissons-grid">
+                      <ng-container *ngFor="let user of event.commissions">
+                          <app-user-section cardLeftBorderWidth="b1" [startNumber]="true" [showAddress]="true" [name]="true" [surname]="true" [showRank]="true" [user]="user"></app-user-section>
+                      </ng-container>
+                  </div>
+                
                 </div>
               </ng-container>
 
