@@ -81,6 +81,16 @@
     margin-top: 40px;
   }
 
+  
+.select-category-grid{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    gap: var(--standart-padding);
+    align-items: center;
+}
+
   .zoom-icons{
     filter: brightness(0) saturate(100%);
     width: 100%;

@@ -19,6 +19,7 @@ import { IconButtonComponent } from '@app/Shared/Components/UI/LinarikUI/buttons
 import { CheckUserRoleService } from '@app/Shared/Data/Services/check-user-role.service';
 import { Capacitor } from '@capacitor/core';
 import { App } from '@capacitor/app';
+import { SportTypesService } from '@app/Shared/Data/Services/sport-types.service';
 async function getAppVersion() {
   console.log('test get version')
   console.log(Capacitor.isNativePlatform())
@@ -50,6 +51,8 @@ export class CabinetComponent  implements OnInit {
   user!: User|null 
   userService: UserService = inject(UserService)
   authService:AuthService = inject(AuthService)
+  selectedSportName:string|null = localStorage.getItem('contentTypeName')
+  sportTypesService: SportTypesService = inject(SportTypesService)
   platform = Capacitor.getPlatform();
   info = ''
   navControler:NavController = inject(NavController)
@@ -298,6 +301,9 @@ export class CabinetComponent  implements OnInit {
   }
   navigateInLogin(){
     this.navControler.navigateForward('/select-auth')
+  }
+  openSelectSportTypesModal(){
+      this.sportTypesService.selectSportCategory.next(true)
   }
   ngOnInit() {
     
