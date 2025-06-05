@@ -346,6 +346,9 @@ export class EventsViewPageComponent  implements OnInit {
       });
     })
   }
+  redirectInUser(userId:any){
+     this.navController.navigateRoot(`/users/${userId}`)
+  }
   getAllComands(){
     let loader:HTMLIonLoadingElement
     this.loadingService.showLoading().then((res:HTMLIonLoadingElement)=>loader = res)

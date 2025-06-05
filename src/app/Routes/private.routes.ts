@@ -47,11 +47,6 @@ export const privateRoutes: Routes = [
                 loadComponent: () => import('../Pages/Profile/personal-info/personal-info.component').then((m) => m.PersonalInfoComponent)
             },
             {
-                path:'documents',
-                canActivate:[canActivateAuth,],
-                loadComponent: () => import('../Pages/Profile/user-documents/user-documents.component').then((m) => m.UserDocumentsComponent)
-            },
-            {
                 path:'settings',
                 canActivate:[canActivateAuth,],
                 loadComponent: () => import('../Pages/Profile/settings/settings.component').then((m) => m.SettingsComponent)
@@ -141,6 +136,11 @@ export const privateRoutes: Routes = [
         path:'track/edit/:id',
         canActivate:[canActivateAuth,canActivateUserHaveRole(userRoles.organization,'организатора')],
         loadComponent: () => import('../Pages/Profile/Tracks/edit-track-page/edit-track-page.component').then((m) => m.EditTrackPageComponent)
+    },
+    {
+        path:'documents',
+        canActivate:[canActivateAuth,],
+        loadComponent: () => import('../Pages/Profile/user-documents/user-documents.component').then((m) => m.UserDocumentsComponent)
     },
     {
         path:'command/edit/:id',

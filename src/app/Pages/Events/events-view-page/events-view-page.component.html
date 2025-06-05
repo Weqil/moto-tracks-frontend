@@ -178,7 +178,7 @@
                       </div> 
                       <div class="users-grid">
                         <ng-container *ngFor="let user of group.users">
-                          <app-user-section [startNumber]="true" [showAddress]="true" [name]="true" [surname]="true" [showRank]="true" [user]="user"></app-user-section>
+                          <app-user-section (click)="redirectInUser(user.user.id)" [startNumber]="true" [showAddress]="true" [name]="true" [surname]="true" [showRank]="true" [user]="user"></app-user-section>
                         </ng-container>
                       </div>
         

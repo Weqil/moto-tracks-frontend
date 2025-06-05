@@ -1,5 +1,3 @@
-
-
 .up-container{
     display: flex;
     flex-direction: column;
@@ -82,3 +80,116 @@
     
 }
 
+.user-page{
+    max-width: 960px;
+    width: 100%;
+    margin: auto;
+}
+
+.up-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: auto;
+    padding-top: 1rem;
+    padding-left: 1rem;
+    background-color: var(--white-color);
+    padding: 1rem;
+    margin-top: 1rem;
+    margin-right: 0rem;
+    border-radius: 0.5rem;
+}
+
+.cabinet__user-section{
+    position: relative;
+    padding: 14px;
+    display: flex;
+    -webkit-box-shadow: 0px 0px 8px 0px rgba(34, 60, 80, 0.2);
+    -moz-box-shadow: 0px 0px 8px 0px rgba(34, 60, 80, 0.2);
+    box-shadow: 0px 0px 8px 0px rgba(34, 60, 80, 0.2);
+    align-items: center;
+    gap: 15px;
+    background: #EDEDED;
+    background: linear-gradient(165deg, rgb(246 246 246 / 49%) 0%, rgb(255, 255, 255) 50%, rgb(243 243 243) 100%);
+}
+
+.cabinet__user-section__info__name{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+}
+
+.info__name__item{
+    word-break: break-word;
+    font-size: 15px;
+    font-family: var(--font-black);
+    padding-right: 6px;
+}
+
+.email{
+    font-size: 13px;
+    font-family: var(--font-regular);
+}
+
+.user-statuses-grid{
+    display: flex;
+    padding-top: var(--little-padding);
+    flex-wrap: wrap;
+    gap: 8px 4px;
+}   
+.city-rank{
+    display: flex;
+    align-items: center;
+
+    .rank{
+        font-size: 13px;
+        font-family: var(--font-regular);
+        min-width: 3rem;
+    }
+    .dash{
+        
+        height: 3px;
+        min-width: 10px;
+        max-width: 10px;
+        transform: skew(-20deg);
+        margin: 0px 5px;
+        background: #FF5555;
+        background: linear-gradient(182deg, rgb(255, 85, 85) 0%, rgb(210, 49, 49));
+    }
+}
+
+.event-information-title{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-top: 1rem;
+    img{
+       width: 28px; 
+    }
+    font-family: var(--font-bold);
+    font-size: 18px;
+}
+
+
+.user-images{
+    width: 110px;
+    height: 110px;
+    position: relative;
+    min-width: 110px;
+    min-height: 110px;
+    border-radius: 50%;
+    overflow-y: hidden;
+    object-fit: cover;
+    .user-avatar{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+}
+.commands-grid{
+    padding-top: var(--little-padding);
+}
