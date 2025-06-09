@@ -159,7 +159,7 @@ export const privateRoutes: Routes = [
     },
             {
                 path:'my-events',
-                canActivate:[canActivateAuth,canActivateUserHaveRole(userRoles.organization,'организатора')],
+                canActivate:[canActivateAuth,canActivateUserHaveRole([userRoles.organization,userRoles.rider,userRoles.couch],'организатора')],
                 loadComponent: () => import('../Pages/Profile/Events/my-events-page/my-events-page.component').then((m) => m.MyEventsPageComponent)
             },
             {

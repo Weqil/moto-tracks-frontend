@@ -1219,6 +1219,7 @@ export class EventsViewPageComponent  implements OnInit {
   ionViewWillEnter(){
     this.getRegions()
     this.paymentLink = ''
+
     this.paymentStatus = 'sleep'
     this.attendances = []
     this.getCreateRegions()

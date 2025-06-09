@@ -15,6 +15,8 @@ import { TabsItemComponent } from "../../../../Shared/Components/UI/tabs-item/ta
 import moment from 'moment';
 import { IconButtonComponent } from "../../../../Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component";
 import _ from 'lodash';
+import { CheckUserRoleService } from '@app/Shared/Data/Services/check-user-role.service';
+import { UserStatuses,translitUserStatuses } from 'src/app/Shared/Enums/user-status';
 @Component({
   selector: 'app-my-events-page',
   templateUrl: './my-events-page.component.html',
@@ -26,6 +28,7 @@ export class MyEventsPageComponent  implements OnInit {
   constructor() { }
   navController: NavController = inject(NavController)
   eventService: EventService = inject(EventService)
+  checkUserRoleService:CheckUserRoleService = inject(CheckUserRoleService)
   events!:any
   finishedEvents!:any
   tableModalValue:boolean = false
@@ -33,19 +36,17 @@ export class MyEventsPageComponent  implements OnInit {
   allFilter:boolean = true
   expiredFilter:boolean = false
   currentFilter:boolean = false
- 
+  userRider:boolean = false
   googleTabsLink:string = ''
   userService: UserService = inject(UserService)
   loadingService:LoadingService = inject(LoadingService)
   formatedEvents: { groupMonth: string, events: IEvent[] }[] = [];
   rgpFilter:boolean = false
    eventsFilter:any = {
-      dateStart:moment().subtract(2,'days').format('YYYY-MM-DD'),
-      locationId:[this.regionFilterId], 
-      sortField:'date_start',
-      sort:'asc',
-      commissionUser:1,
-      userId: String(this.userService.user.value?.id)
+    locationId:[this.regionFilterId], 
+    sort:'asc',
+    commissionUser:1,
+    userId: String(this.userService.user.value?.id)
   }
   redirectInCreate(){
     this.navController.navigateRoot('/create-event')
@@ -131,7 +132,11 @@ closetTableModal(){
       this.loadingService.showLoading().then((res: HTMLIonLoadingElement)=>{
           loader = res
       })
-      this.eventService.getAllEvents(this.eventsFilter).pipe(
+      if(this.userRider){
+        delete this.eventsFilter['userId']
+        this.eventsFilter.userIdExists = this.userRider ? String(this.userService.user.value?.id):''
+      }
+      this.eventService.getAllEvents({...this.eventsFilter,userOnlyAppointment:Number(this.userRider),} ).pipe(
         finalize(()=>{ 
           this.loadingService.hideLoading(loader)
         })).subscribe((res:any)=>{
@@ -182,6 +187,8 @@ closetTableModal(){
   }
 
   ionViewWillEnter(){
+    this.userRider = this.checkUserRoleService.searchLastRole()?.name == UserStatuses.rider
+
     this.setFilterInTape('all')
     this.getEvents()
     this.finishEvents()

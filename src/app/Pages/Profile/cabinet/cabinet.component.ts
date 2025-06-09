@@ -79,6 +79,13 @@ export class CabinetComponent  implements OnInit {
         iconFilter:'',
         name:'Анкета участника'
       },
+       {
+        routing:'my-events',
+        iconColor:'#0000',
+        icon:'/assets/icons/FlagStrong.svg',
+        iconFilter:'',
+        name:'Мои гонки'
+      },
       
     ],
     [UserStatuses.couch]:[
@@ -95,7 +102,14 @@ export class CabinetComponent  implements OnInit {
         icon:'/assets/icons/team.svg',
         iconFilter:'',
         name:'Мои команды'
-      }
+      },
+       {
+        routing:'my-events',
+        iconColor:'#0000',
+        icon:'/assets/icons/FlagStrong.svg',
+        iconFilter:'',
+        name:'Мои гонки'
+      },
       
     ],
     [UserStatuses.organizer]:[
