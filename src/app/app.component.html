@@ -32,7 +32,7 @@
 
     <ion-content class="ion-padding" fullscreen>
       <div class="select-category-grid">
-            <app-icon-button clippy="clippy-right" *ngFor="let contentType of contentTypes " (click)="setContentTypeInLocalStorage(contentType)" [buttonText]="contentType.name"></app-icon-button>
+            <app-icon-button clippy="clippy-right" [theme]="getSportTypeColor(contentType.name)" *ngFor="let contentType of contentTypes " (click)="setContentTypeInLocalStorage(contentType)" [buttonText]="contentType.name"></app-icon-button>
       </div>
     </ion-content>
 

@@ -96,6 +96,18 @@
         color: #fff;
     }
 }
+.green{
+    background: #008428;
+    background: linear-gradient(180deg,rgba(0, 132, 40, 1) 0%, rgba(0, 194, 58, 1) 100%);
+    transition: 0.3s all;
+    // &:active{
+    //     transition: 0.3s all;
+    //     background: #363636;
+    // }
+    span{
+        color: #fff;
+    }
+}
 .elements-in-start{
     padding-left: 1rem;
     padding-right: 1rem;

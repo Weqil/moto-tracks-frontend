@@ -37,6 +37,10 @@ export class AppComponent {
   versionService:VersionService = inject(VersionService)
   sportCategoryModalState:boolean = false
   contentTypes:any = []
+  sportCategoryColorObject:any = {
+    Мотокросс:'red',
+    Эндуро:'green'
+  }
   sportTypesService: SportTypesService = inject(SportTypesService)
   userHaveCurrentVersion:boolean = true
   constructor(private navCtrl: NavController, private router: Router) {
@@ -71,6 +75,10 @@ export class AppComponent {
     } else {
       location.reload(); // для PWA/web
     }
+  }
+
+  getSportTypeColor(sportTypeName:string){
+    return this.sportCategoryColorObject[sportTypeName] || 'dark'
   }
 
   cleanNumberInPoint(number:string){
