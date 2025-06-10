@@ -12,14 +12,19 @@ import { IconButtonComponent } from "../../../Shared/Components/UI/LinarikUI/but
 import { CommandSectionComponent } from "../../../Shared/Components/Commands/command-section/command-section.component";
 import { ICommand } from '@app/Shared/Data/Interfaces/command';
 import { ComandsService } from '@app/Shared/Data/Services/Comands/comands.service';
+import { IEvent } from 'src/app/Shared/Data/Interfaces/event';
 import { CheckUserRoleService } from '@app/Shared/Data/Services/check-user-role.service';
 import { CommonModule } from '@angular/common';
+import { EventCardComponent } from '@app/Shared/Components/Event/event-card/event-card.component';
+import moment from 'moment';
+import { EventService } from '@app/Shared/Data/Services/Event/event.service';
+import _ from 'lodash';
 
 @Component({
   selector: 'app-user-view-page',
   templateUrl: './user-view-page.component.html',
   styleUrls: ['./user-view-page.component.scss'],
-  imports: [HeaderModule, IonContent, CheckImgUrlPipe, CommonModule, IconButtonComponent, CommandSectionComponent],
+  imports: [HeaderModule, IonContent, CheckImgUrlPipe, CommonModule, IconButtonComponent, CommandSectionComponent,EventCardComponent],
 })
 export class UserViewPageComponent  implements OnInit {
 
@@ -29,12 +34,21 @@ export class UserViewPageComponent  implements OnInit {
   comandService: ComandsService = inject(ComandsService)
   userService: UserService = inject(UserService)
   loadingService: LoadingService = inject(LoadingService)
+  eventService: EventService = inject(EventService)
   route: ActivatedRoute = inject(ActivatedRoute)
+  userRider:boolean = false
   private readonly destroy$ = new Subject<void>()
   loaderService:LoadingService = inject(LoadingService)
+  events!:any
   navController: NavController = inject(NavController)
   @Input() userIdGet!: string
   userTranslitStatuses:string[] = []
+  formatedEvents: { groupMonth: string, events: IEvent[] }[] = [];
+   eventsFilter:any = {
+    sort:'asc',
+    locationId:'',
+    commissionUser: 1,
+  }
   selectedStatusItem!:any 
   checkUserRole:CheckUserRoleService = inject(CheckUserRoleService)
 
@@ -75,6 +89,41 @@ getUser(){
       // console.log(this.user)
     })
   }
+     getEvents(){
+        let loader:HTMLIonLoadingElement
+        this.loadingService.showLoading().then((res: HTMLIonLoadingElement)=>{
+            loader = res
+        })
+    
+        this.eventsFilter.userIdExists = String(this.userService.user.value?.id)
+     
+        this.eventService.getAllEvents({...this.eventsFilter,userOnlyAppointment:1} ).pipe(
+          finalize(()=>{ 
+            this.loadingService.hideLoading(loader)
+          })).subscribe((res:any)=>{
+            this.startEvents = res.races
+            this.formatedEvents = Object.keys(_.groupBy(this.startEvents, (event:any) => moment(event.date_start).locale('ru').format('MMMM YYYY')))
+          .map(groupMonth => ({
+            groupMonth: groupMonth.charAt(0).toUpperCase() + groupMonth.slice(1),
+            events: _.groupBy(this.startEvents, (event:any) => moment(event.date_start).locale('ru').format('MMMM YYYY'))[groupMonth]
+          }));
+        })
+    
+      }
+  
+      startEvents(){
+          let loader:HTMLIonLoadingElement
+          this.loadingService.showLoading().then((res: HTMLIonLoadingElement)=>{
+              loader = res
+          })
+          this.eventService.getAllEvents({userId: String(this.userService.user.value?.id), dateStart:moment().subtract(7,'days').format('YYYY-MM-DD'), sortField:'date_start', sort:'asc'}).pipe(
+            finalize(()=>{
+              this.loadingService.hideLoading(loader)
+            })
+          ).subscribe((res:any)=>{
+            this.events = res.races
+          })
+      }
 
   navigateToUser(userId:any){
 
@@ -83,7 +132,7 @@ getUser(){
   }
 
   ionViewWillEnter(){
-   
+   this.getEvents()
   }
   ngOnChanges(changes: SimpleChanges) {
     if (changes['userIdGet'] && changes['userIdGet'].currentValue) {

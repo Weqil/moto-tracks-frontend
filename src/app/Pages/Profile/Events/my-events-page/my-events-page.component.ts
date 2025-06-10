@@ -42,7 +42,7 @@ export class MyEventsPageComponent  implements OnInit {
   loadingService:LoadingService = inject(LoadingService)
   formatedEvents: { groupMonth: string, events: IEvent[] }[] = [];
   rgpFilter:boolean = false
-   eventsFilter:any = {
+  eventsFilter:any = {
     locationId:[this.regionFilterId], 
     sort:'asc',
     commissionUser:1,
