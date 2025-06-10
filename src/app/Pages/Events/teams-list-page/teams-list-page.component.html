@@ -2,10 +2,14 @@
   <app-header  [customContainer]="true">
     <form (ngSubmit)="filterTeams()" class="header-container">
       <app-standart-input type="search" iconLeft="/assets/icons/search.svg" placeholder="Поиск команды" tyle="width: 100%;" [control]="teamsFormGroup.get('searchInput')"></app-standart-input>
+        <div class="header__filter-grid">
+        <app-icon-button (click)="clearAllFilters()" [theme]="!this.regionFilterId ? 'red':'dark'" height="little-height" clippy="clippy-right" buttonText="Все"></app-icon-button>
+        <app-icon-button (click)="openRegionModal()" [theme]="this.regionFilterId ? 'red':'dark'" height="little-height" clippy="clippy-right" [buttonText]="regionFilterName ? regionFilterName : 'По области'"></app-icon-button>
+       </div>
     </form>
- 
+   
   </app-header>
-  <main class="main-container--with-header">
+  <main class="main-container--with-header--strong">
 
     <article class="commands-grid">
       <ng-container *ngFor="let team of filteredTeams">
@@ -24,8 +28,9 @@
     </div>
   </main>
 </ion-content> 
+  <app-regions-select-modal (select)="filterEventsInLocation($event)" [selectedRegion]="regionFilterName" [visible]="regionModalState" (onClose)="closeRegionModal()" [regions]="searchRegionItems"> </app-regions-select-modal>
 
-<ion-modal class="region-modal" (didDismiss)="closeRegionModal()"  [isOpen]="regionModalState">
+<!-- <ion-modal class="region-modal" (didDismiss)="closeRegionModal()"  [isOpen]="regionModalState">
   <ng-template>
     <ion-content>
       <div class="region-modal-container">
@@ -39,4 +44,4 @@
       </div>
     </ion-content>
   </ng-template>  
-</ion-modal>      
+</ion-modal>       -->

@@ -16,6 +16,8 @@ import { MapService } from '@app/Shared/Data/Services/Map/map.service';
 import { isNull } from 'lodash';
 import { IconButtonComponent } from '@app/Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component';
 import { StandartInputComponent } from '@app/Shared/Components/UI/LinarikUI/forms/standart-input/standart-input.component';
+import { RegionsSelectModalComponent } from '@app/Shared/Components/Modals/regions-select-modal/regions-select-modal.component';
+import { NavbarVisibleService } from '@app/Shared/Services/navbar-visible.service';
 
 @Component({
   selector: 'app-teams-list-page',
@@ -29,7 +31,8 @@ import { StandartInputComponent } from '@app/Shared/Components/UI/LinarikUI/form
     HeaderComponent,
     IonicModule,
     IconButtonComponent,
-    StandartInputComponent
+    StandartInputComponent,
+    RegionsSelectModalComponent
   ],
   standalone: true
 })
@@ -38,9 +41,11 @@ export class TeamsListPageComponent implements OnInit {
 
   navController: NavController = inject(NavController);
   comandService: ComandsService = inject(ComandsService);
+  navBarVisibleService:NavbarVisibleService = inject(NavbarVisibleService)
   loaderService: LoadingService = inject(LoadingService);
   authService: AuthService = inject(AuthService);
   mapService:MapService = inject(MapService)
+  regionFilterId:string = ''
   loadingService:LoadingService = inject(LoadingService)
 
   teamslocation: ICommand[] = [];
@@ -59,9 +64,13 @@ export class TeamsListPageComponent implements OnInit {
 
   openRegionModal(){
     this.regionModalState = true
+     this.navBarVisibleService.hideNavBar()
   }
   closeRegionModal(){
-    this.regionModalState = false
+    setTimeout(()=>{
+        this.navBarVisibleService.showNavBar()
+      },100)
+      this.regionModalState = false
   }
 
   filterEventsInLocation(event:any){
@@ -131,6 +140,8 @@ export class TeamsListPageComponent implements OnInit {
     this.comandService.getComands({
       userId: this.currentUserId || undefined,
       checkMember: true,
+      locationId:[this.regionFilterId], 
+      name:this.teamsFormGroup.value.searchInput ? this.teamsFormGroup.value.searchInput : ''
     }).pipe(
       finalize(() => this.loaderService.hideLoading(loader))
     ).subscribe((res: any) => {
@@ -161,6 +172,14 @@ export class TeamsListPageComponent implements OnInit {
   viewTeam(teamId: number) {
    
     this.navController.navigateForward(`/command/view/${teamId}`);
+  }
+  
+  clearAllFilters(){
+    this.regionFilterId = ''
+    this.teamsFormGroup.patchValue({
+      searchInput:''
+    })
+    this.getTeams()
   }
 
   toggleTeamMembership(teamId: number) {
