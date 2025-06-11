@@ -1,5 +1,15 @@
 <ion-content>
-  <app-header headerTitle="Мои покупки"></app-header>
+ <app-header [customContainer]="true" [hiddenBackButton]="true">
+        <div class="cabinet-header">
+          <button (click)="back()" class="cabinet-header__back">
+            <img src="/assets/icons/arrow.svg"  alt="Назад">
+          </button>
+          <span class="cabinet-header__title">Оплаты</span>
+          <button  class="cabinet-header__plug none">
+           
+          </button>
+        </div>
+      </app-header>
   
   <main class="main-container--with-header">
     <div class="transactions-container">

@@ -14,7 +14,7 @@ export class TransactionService {
   }
 
   getTransactionsForTrack(id:number, params: any = {} ){
-     return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/track/${id}transactions`, { params });
+     return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/track/${id}/transactions`, { params });
   }
 
   getTransactionsForId(id: number): Observable<any> {

@@ -4,6 +4,7 @@ import { LoadingService } from 'src/app/Shared/Services/loading.service';
 import { finalize } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { HeaderModule } from 'src/app/Shared/Modules/header/header.module';
+import { NavController } from '@ionic/angular/standalone';
 import { IonicModule } from '@ionic/angular';
 import { ITransaction } from 'src/app/Shared/Data/Interfaces/transaction';
 import { ActivatedRoute, RouterModule } from '@angular/router';
@@ -18,21 +19,27 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 export class TransactionsComponent implements OnInit {
   private transactionsService = inject(TransactionService);
   private loadingService = inject(LoadingService);
+  navController: NavController = inject(NavController)
   private route: ActivatedRoute = inject(ActivatedRoute)
   transactions: ITransaction[] = [];
   trackId:string = ''
   constructor() { }
 
   ngOnInit() {
+    
     // this.loadTransactions();
-    this.route.queryParamMap.pipe().subscribe((params:any)=>{
-      this.trackId = params.get('trackId')
+    this.route.params.pipe().subscribe((params:any)=>{
+      this.trackId = params['id']
+      console.log(this.trackId)
       if(this.trackId){
         this.loadTrackTransactions()
       }else{
         this.loadTransactions()
       }
     })
+  }
+  back(){
+    this.navController.back( )
   }
 
   loadTrackTransactions(){
