@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 import { HeaderModule } from 'src/app/Shared/Modules/header/header.module';
 import { IonicModule } from '@ionic/angular';
 import { ITransaction } from 'src/app/Shared/Data/Interfaces/transaction';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-transactions',
@@ -18,13 +18,38 @@ import { RouterModule } from '@angular/router';
 export class TransactionsComponent implements OnInit {
   private transactionsService = inject(TransactionService);
   private loadingService = inject(LoadingService);
-  
+  private route: ActivatedRoute = inject(ActivatedRoute)
   transactions: ITransaction[] = [];
-
+  trackId:string = ''
   constructor() { }
 
   ngOnInit() {
-    this.loadTransactions();
+    // this.loadTransactions();
+    this.route.queryParamMap.pipe().subscribe((params:any)=>{
+      this.trackId = params.get('trackId')
+      if(this.trackId){
+        this.loadTrackTransactions()
+      }else{
+        this.loadTransactions()
+      }
+    })
+  }
+
+  loadTrackTransactions(){
+    this.loadingService.showLoading();
+    this.transactionsService.getTransactionsForTrack(Number(this.trackId))
+      .pipe(
+        finalize(() => this.loadingService.hideLoading())
+      )
+      .subscribe({
+        next: (response: any) => {
+          console.log(response)
+          this.transactions = response.transactions;
+        },
+        error: (error) => {
+          console.error('Ошибка при загрузке транзакций:', error);
+        }
+      });
   }
 
   loadTransactions() {

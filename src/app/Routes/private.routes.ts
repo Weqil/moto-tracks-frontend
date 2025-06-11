@@ -168,6 +168,11 @@ export const privateRoutes: Routes = [
                 loadComponent: () => import('../Pages/Profile/Tracks/my-tracks-page/my-tracks-page.component').then((m) => m.MyTracksPageComponent)
             },
             {
+                path:'track-payment-list/:id',
+                canActivate:[canActivateAuth,canActivateUserHaveRole(userRoles.organization,'организатора')],
+                loadComponent: () => import('../Pages/Profile/transactions/transactions.component').then((m) => m.TransactionsComponent)
+            },
+            {
                 path:'my-comands',
                 canActivate:[canActivateAuth],
                 loadComponent: () => import('../Pages/Profile/comands/comands.component').then((m) => m.ComandsComponent)
