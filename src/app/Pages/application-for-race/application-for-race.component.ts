@@ -185,8 +185,6 @@ export class ApplicationForRaceComponent  implements OnInit {
   )
 
     navigateToUser(userId: string, userGet: User, appId:any) {
-      console.log('Типа передaл id:' )
-      console.log(userId)
       this.getDocumentUserById(Number(userId))
       this.userGetId = userId
       this.userGet= userGet

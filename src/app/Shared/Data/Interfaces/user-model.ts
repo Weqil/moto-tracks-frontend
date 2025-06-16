@@ -15,6 +15,7 @@ export interface User{
     start_number?:number|null,
     user_id?:any,
     comment:string,
+    commission?:User,
     grade?:{
         name?:string
     }

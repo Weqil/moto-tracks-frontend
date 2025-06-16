@@ -55,6 +55,24 @@
     </div>
 
     <div class="view-user" *ngIf="viewUser">
+      <div class="payment-and-comission">
+          <div class="payment-and-comission__user">
+            <ng-container *ngIf="userGet.commission">
+              <div class="comission__wrapper">
+                 <span class="comission-header users-title">
+                  Проверил:
+                </span>
+                <app-user-section 
+                  [name]="true" [surname]="true"
+                  [patronymic]="true" [user]="userGet.commission!">
+                </app-user-section>
+              </div>
+             
+            </ng-container>
+         
+
+          </div>
+      </div>
       <form class="personal-form">
         <div class="event-information-title users-title">
           <img src="/assets/icons/red-finished.svg" alt="">
