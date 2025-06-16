@@ -27,6 +27,14 @@
     font-size: 20px;
     color: #1c2226;
 }
+.requisites{
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 6px;
+ }
+
 .scan-header{
     margin-top: 0.5rem;
     font-family: var(--font-regular);

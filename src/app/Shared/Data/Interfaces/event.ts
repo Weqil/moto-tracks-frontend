@@ -14,6 +14,13 @@ export interface IEvent {
     pdf_files:string[],
     store?:{
         id:number,
+        email:string,
+        inn:string,
+        name:string,
+        offer_file:string,
+        phone:number,
+        politic:string,
+
     },
     record_end?:string,
     location:{
@@ -29,3 +36,25 @@ export interface IEvent {
     // location?:{name: string}
     
 }
+
+// email
+// : 
+// "bolshe.kivi@gmail.com"
+// id
+// : 
+// 2
+// inn
+// : 
+// "6667776767"
+// name
+// : 
+// "Магазин Баженово"
+// offer_file
+// : 
+// "store/K6bwFeIograR748t16oNyPT06dox9efljwbQI2il.pdf"
+// phone
+// : 
+// "88005553535"
+// politic
+// : 
+// "прочие расходы"
