@@ -165,6 +165,21 @@
                   </div>
                 </div>
               </ng-container>
+              <ng-container *ngIf="event.store">
+                  <div class="requisites">
+                    <div *ngIf="event.store.name"><strong >Наименование организации:</strong> {{ event.store.name }} </div>
+                    <div *ngIf="event.store.email"><strong >Email:</strong> {{ event.store.email }}</div>
+                    <div *ngIf="event.store.phone"><strong >Телефон:</strong> {{ event.store.phone }}</div>
+                    <div *ngIf="event.store.inn"><strong >ИНН:</strong> {{ event.store.inn }}</div>
+                    <div *ngIf="event.store.politic"><strong >Ценовая политика:</strong> {{ event.store.politic }}</div>
+                    <div style="margin-top: var(--standart-padding);">
+                      <a *ngIf="event.store.offer_file" [href]="event.store.offer_file | checkImgUrl" download>
+                        <app-icon-button clippy="clippy-right" buttonText="Договор оферты"></app-icon-button>
+                      </a>
+                    </div>
+                  </div>
+                    
+              </ng-container>
             </div>
           </ng-container>
 
