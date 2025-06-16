@@ -67,9 +67,28 @@
                   [patronymic]="true" [user]="userGet.commission!">
                 </app-user-section>
               </div>
-             
+              
             </ng-container>
-         
+            
+            <div *ngIf="userGet.transaction" class="transaction-in-race">
+             
+                  <ng-container *ngIf="userGet.transaction.status">
+                    <span class="payment-status-green">
+                        Взнос оплачен
+                    </span>
+                  </ng-container>
+                  <ng-container *ngIf="userGet.transaction.status === false">
+                    <span class="payment-status-red">
+                        Взнос не оплачен
+                    </span>
+                  </ng-container>
+                  <ng-container *ngIf="userGet.transaction.status == null">
+                    <span class="payment-status-blue">
+                        Ожидание оплаты взноса
+                    </span>
+                  </ng-container>
+           
+            </div>
 
           </div>
       </div>

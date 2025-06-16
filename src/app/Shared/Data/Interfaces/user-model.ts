@@ -18,6 +18,9 @@ export interface User{
     commission?:User,
     grade?:{
         name?:string
+    },
+    transaction?:{
+        status:null|true|false
     }
     personal?:{
         name: string,

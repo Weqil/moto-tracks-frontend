@@ -244,6 +244,8 @@ img{
 .payment-and-comission__user{
     min-width: 100%;
     flex-shrink: 1;
+    justify-content: space-between;
+    align-items: center;
     display: flex;
 }
 .comission-header{
@@ -254,4 +256,27 @@ img{
 .comission__wrapper{
     display: flex;
     flex-direction: column;
+}
+.payment-status{
+   
+    &-red{
+        background-color: red;
+         padding: 0.3rem;
+         color: #ffffff;
+         font-family: var(--font-bold);
+         display: flex;
+    }
+    &-green{
+        background-color: green;
+        padding: 0.3rem;
+        color: #ffffff;
+        font-family: var(--font-bold);
+
+    }
+    &-blue{
+        background-color: blue;
+        padding: 0.3rem;
+        font-family: var(--font-bold);
+        color: #ffffff;
+    }
 }
