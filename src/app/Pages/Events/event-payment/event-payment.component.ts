@@ -42,7 +42,7 @@ export class EventPaymentComponent  implements OnInit {
       };
       closeCapacitorSite()
     }
-
+    this.transactionService.stopCheckTimer()
     if(this.paymentStatus == 'success' || this.paymentStatus == 'error' ){
       this.transactionService.stopCheckTimer()
       this.paymentStatus = 'sleep'
