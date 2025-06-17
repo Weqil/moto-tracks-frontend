@@ -9,6 +9,8 @@ import { CupService } from './Shared/Data/Services/cup.service';
 import { Capacitor } from '@capacitor/core';
 import { VersionService } from './Shared/Data/Services/version.service';
 import { IconButtonComponent } from "./Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component";
+import { SportTypesService } from './Shared/Data/Services/sport-types.service';
+import { CommonModule } from '@angular/common';
 async function getAppVersion() {
   console.log('test get version')
   console.log(Capacitor.isNativePlatform())
@@ -25,7 +27,7 @@ async function getAppVersion() {
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
-  imports: [IonHeader, IonButton, IonFooter, IonTitle, IonToolbar, IonContent, IonModal, IonApp, IonRouterOutlet, IconButtonComponent],
+  imports: [IonHeader, IonButton, IonFooter, IonTitle, IonToolbar, IonContent, IonModal, IonApp, IonRouterOutlet, IconButtonComponent,CommonModule],
 })
 
 export class AppComponent {
@@ -33,6 +35,13 @@ export class AppComponent {
   private finishTimeInBackground?: Moment;
   navController: NavController = inject(NavController)
   versionService:VersionService = inject(VersionService)
+  sportCategoryModalState:boolean = false
+  contentTypes:any = []
+  sportCategoryColorObject:any = {
+    Мотокросс:'red',
+    Эндуро:'green'
+  }
+  sportTypesService: SportTypesService = inject(SportTypesService)
   userHaveCurrentVersion:boolean = true
   constructor(private navCtrl: NavController, private router: Router) {
     
@@ -68,8 +77,35 @@ export class AppComponent {
     }
   }
 
+  getSportTypeColor(sportTypeName:string){
+    return this.sportCategoryColorObject[sportTypeName] || 'dark'
+  }
+
   cleanNumberInPoint(number:string){
     return Number(number.split('.').join(''))
+  }
+
+
+  setContentTypeInLocalStorage(contentType:{id:number, name:string}){
+    this.sportTypesService.setContentType(contentType)
+    window.location.reload()
+  }
+
+  
+  
+  getAllSportCategory(){
+    console.log( this.sportTypesService.getContentTypeInLocalStorage())
+    if(!this.sportTypesService.getContentTypeInLocalStorage()){
+      this.sportTypesService.getAllSportCategory().pipe().subscribe((res:any)=>{
+       this.sportTypesService.selectSportCategory.next(true)
+        this.contentTypes = res.content_types
+      })
+    }
+    else{
+      this.sportTypesService.getAllSportCategory().pipe().subscribe((res:any)=>{
+             this.contentTypes = res.content_types
+      })
+    }
   }
 
   getLastVersion(){
@@ -98,8 +134,11 @@ export class AppComponent {
   ngOnInit() {
    
     this.getLastVersion()
-
- 
+    this.sportTypesService.selectSportCategory.subscribe((res)=>{
+      this.sportCategoryModalState = res
+    })
+    this.getAllSportCategory()
+    
     this.userService.getChangeRoles().pipe().subscribe((res:any)=>{
       this.userService.allRoles = res.role
     })

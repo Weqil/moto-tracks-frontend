@@ -12,6 +12,7 @@ import { RouterLink } from '@angular/router';
 import { LoadingService } from 'src/app/Shared/Services/loading.service';
 import { finalize } from 'rxjs';
 import { IconButtonComponent } from '@app/Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component';
+import { event } from 'yandex-maps';
 
 @Component({
   selector: 'app-my-tracks-page',
@@ -45,6 +46,10 @@ export class MyTracksPageComponent  implements OnInit {
   redirectInEditPage(eventId:any){
     this.navController.navigateForward(`/track/edit/${eventId}`)
   }
+  redirectInPayment(eventId:any){
+    this.navController.navigateForward(`/track-payment-list/${eventId}`)
+  }
+  
 
   ionViewDidLeave(){
   
@@ -54,6 +59,7 @@ export class MyTracksPageComponent  implements OnInit {
 
     this.getMyTracks()
   }
+  
   ngOnInit() {}
   
   ngOnDestroy() {

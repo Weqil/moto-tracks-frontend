@@ -95,7 +95,7 @@ export class TrackPaymentComponent  implements OnInit {
     this.paymentLink = ''
   }
 
-  ionViewDidLeave(){
+ionViewDidLeave(){
     if(this.paymentStatus == 'success'){
        const closeCapacitorSite = async () => {
         await Browser.close()

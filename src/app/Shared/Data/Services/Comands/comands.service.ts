@@ -31,7 +31,7 @@ export class ComandsService {
     return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/commands`, {params:{...params}})
   }
 
-  getComands(params?: { userId?: number, checkMember?: boolean, ownerId?: number}) {
+  getComands(params?: { userId?: number, checkMember?: boolean, ownerId?: number,locationId?:string[], name?:string}) {
     const queryParams: { [key: string]: number } = {};
     const userId = this.userService.user.value?.id;
     

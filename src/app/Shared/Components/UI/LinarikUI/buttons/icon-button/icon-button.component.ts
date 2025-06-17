@@ -13,7 +13,7 @@ export class  IconButtonComponent  implements OnInit {
    /**
    * Тема кнопки: `dark` — тёмная по умолчанию, `red` — красная,`white` - белая,`gray`
    */
-  @Input() theme: 'dark'|'red'|'white'|'dark-gray'|'green--light'|'red--light' = 'dark'
+  @Input() theme: 'dark'|'red'|'white'|'dark-gray'|'green--light'|'red--light'| 'green' = 'dark'
 
     /**
    * Расположить элементы сначала

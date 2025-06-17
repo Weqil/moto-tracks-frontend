@@ -5,6 +5,7 @@ import { BackButtonComponent } from '@app/Shared/Components/UI/LinarikUI/buttons
 import { IonModal, NavController, Platform } from '@ionic/angular/standalone';
 import { IconButtonComponent } from '@app/Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component';
 import { IonContent } from "@ionic/angular/standalone";
+import { SportTypesService } from '@app/Shared/Data/Services/sport-types.service';
 
 @Component({
   selector: 'app-select-auth-page',
@@ -17,7 +18,8 @@ export class SelectAuthPageComponent  implements OnInit {
   constructor() { }
 
   navController: NavController = inject(NavController) 
-
+  selectedSportName:string|null = localStorage.getItem('contentTypeName')
+  sportTypesService: SportTypesService = inject(SportTypesService)
   back(){
     this.navController.navigateForward('/events')
   }
@@ -26,6 +28,9 @@ export class SelectAuthPageComponent  implements OnInit {
   }
   inRegistration(){
     this.navController.navigateForward('/registration')
+  }
+  openSelectSportTypesModal(){
+      this.sportTypesService.selectSportCategory.next(true)
   }
   ngOnInit() {}
 

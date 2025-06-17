@@ -151,6 +151,7 @@ export class UserService {
   getUserFromServerWithToken(){
        return this.http.get<User>(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/users`)
   }
+  
   getAuthToken(){
     if(localStorage.getItem('authToken')){
       return String(localStorage.getItem('authToken'))

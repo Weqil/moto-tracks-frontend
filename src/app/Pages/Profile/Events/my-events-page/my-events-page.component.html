@@ -5,8 +5,9 @@
         <button (click)="back()" class="cabinet-header__back">
           <img src="/assets/icons/arrow.svg"  alt="Назад">
         </button>
-        <span class="cabinet-header__title">Мои гонки</span>
-        <app-icon-button  [buttonIconColor]="'red-icon'" [buttonBorderWidth]="'b1'" [buttonBorderColor]="'red-border'" (click)="redirectInCreate()" clippy="clippy-right" icon="assets/icons/plus.svg" height="standart-height" sizeIcon="little-size" theme="white"></app-icon-button>
+        <span class="cabinet-header__title">{{userRider ? 'История гонок': 'Мои гонки'}}</span>
+        <app-icon-button *ngIf="!userRider"  [buttonIconColor]="'red-icon'" [buttonBorderWidth]="'b1'" [buttonBorderColor]="'red-border'" (click)="redirectInCreate()" clippy="clippy-right" icon="assets/icons/plus.svg" height="standart-height" sizeIcon="little-size" theme="white"></app-icon-button>
+        <button *ngIf="userRider"></button>
       </div>
       
       <div class="header__filter-grid">
@@ -33,7 +34,7 @@
        
           <div  class="card-wrapper" *ngFor="let event of group.events; let i = index">
             <div class="edit-button-wrapper">
-              <app-icon-button (click)="redirectInEditPage(event.id)" theme="red" clippy="clippy-right" height="little-height" icon="/assets/icons/pen.svg"
+              <app-icon-button *ngIf="!userRider" (click)="redirectInEditPage(event.id)" theme="red" clippy="clippy-right" height="little-height" icon="/assets/icons/pen.svg"
               buttonIconColor="white-icon" elementsPosition="row__reverse" sizeIcon="little-size" buttonText="Редактировать"></app-icon-button>
             </div>
            

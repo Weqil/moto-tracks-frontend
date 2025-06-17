@@ -8,8 +8,15 @@
     margin-right: auto;
     max-width: 960px;
 }
+.select-sport-category{
+    display: flex;
+    flex-direction: column;
+}
 .select-auth-container{
     height: 100%;
+}
+.select-sport-category{
+    padding-top: var(--standart-padding);
 }
 .select-auth-content{
     width: 100%;

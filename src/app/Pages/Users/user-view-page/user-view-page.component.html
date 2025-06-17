@@ -55,7 +55,7 @@
         </div>
   
         <article class="commands-grid">
-          <div *ngIf="!user?.personal?.command" class="not-found-users">Команд пока что нет...</div>
+          <div *ngIf="!user?.personal?.command" class="not-found-users">Команды пока что нет...</div>
   
         <div class="commands-grid__item" >
           <ng-container *ngIf="user?.personal && user?.personal?.command" >
@@ -67,6 +67,27 @@
         </div>
         </article>
 
+        <div class="event-information-title">
+            <img src="/assets/icons/red-finished.svg" alt="">
+            Гонки в которых учавствовал
+          <!-- <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
+        </div>
+         <div class="events">
+      <div  *ngIf="!formatedEvents || !formatedEvents.length" class="not-found-users">Гонок пока что нет...</div>
+        <ng-container *ngIf="formatedEvents">
+          <div *ngFor="let group of formatedEvents" class="events-grid">
+            <div class="month-container">
+              <span class="month">{{group.groupMonth}}</span>
+              <div class="month-shape"></div>
+            </div>
+        
+            <div  class="card-wrapper" *ngFor="let event of group.events; let i = index">
+              <app-event-card [event]="event"></app-event-card>
+            </div>
+          </div>
+        </ng-container>
+    
+       </div>
 
       </div>
 

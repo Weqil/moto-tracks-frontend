@@ -7,6 +7,7 @@ export interface IEvent {
     attendance_exists?:boolean;
     desc?: string,
     position_file?: string,
+    commissions:any,
     results_file?: string,
     date_start?: string,
     commissions_exists?:boolean,

@@ -17,16 +17,16 @@
       <div  *ngIf="!tracks || !tracks.length " class="not-found-users">Трасс пока что нет...</div>
         @for (track of tracks; track $index) {
           <div class="tracks-grid__item">
-        
-            <div (click)="redirectInEditPage(track.id)" class="edit-button-wrapper">
-              <app-icon-button (click)="redirectInEditPage(track.id)" theme="red" clippy="clippy-right" height="little-height" icon="/assets/icons/pen.svg"
-              buttonIconColor="white-icon" elementsPosition="row__reverse" sizeIcon="little-size" buttonText="Редактировать"></app-icon-button>
+            <div class="edit-button-wrapper">
+              <app-icon-button (click)="redirectInEditPage(track.id)" theme="red" clippy="clippy-right" height="little-height" icon="/assets/icons/pen.svg" buttonIconColor="white-icon" elementsPosition="row__reverse" sizeIcon="little-size" buttonText="Редактировать"></app-icon-button>
             </div>
-           
+            <div *ngIf="track.store" class="payment-button-wrapper">
+                <app-icon-button (click)="redirectInPayment(track.id)" clippy="clippy-right" theme="green" height="little-height"  widht="w49" buttonText="Оплаты"></app-icon-button>
+            </div>
             <app-track-section [routerLink]="['/track/', track.id]" routerLinkActive="router-link-active"  [track]="track"></app-track-section>
           </div>
         } 
-    </div>
+      </div>
   
   </div>
 </ion-content>

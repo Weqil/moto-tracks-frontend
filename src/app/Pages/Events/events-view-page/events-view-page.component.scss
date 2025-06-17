@@ -19,6 +19,9 @@
     color: var(--gray);
     line-height: 1.5;
 }
+
+
+
 .event-track__title{
     padding-top: var(--standart-padding);
     padding-bottom: var(--standart-padding);
@@ -56,6 +59,14 @@
 //     z-index: 100;
     
 // }
+
+.comissons-grid{
+    display: flex;
+    gap: var(--standart-padding);
+    flex-direction: column;
+    padding-top: var(--little-padding);
+}
+
 .footer-page{
  
 

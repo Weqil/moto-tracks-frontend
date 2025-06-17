@@ -10,11 +10,17 @@ export interface User{
     city?:string,
     rank?:string,
     access_token?:string,
+    is_checked?:boolean
     user?:any
     start_number?:number|null,
     user_id?:any,
+    comment:string,
+    commission?:User,
     grade?:{
         name?:string
+    },
+    transaction?:{
+        status:null|true|false
     }
     personal?:{
         name: string,

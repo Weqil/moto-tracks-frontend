@@ -32,8 +32,19 @@
           
           <app-event-card [event]="event" >
             <div *ngIf="userService.userHaveRoot() && event.commissions_exists" class="button-container">
-              <app-standart-button style="width: 100%;" (click)="generateGoogleLink(event.id)" buttonText="Выгрузить список"></app-standart-button>
-              <app-standart-button style="width: 100%;" (click)="openUploadResultModal(event)" buttonText="Добавить результаты"></app-standart-button>
+              <div class="button-commission">
+                <!-- <app-icon-button [widht]="'full'"  buttonText="Выгрузить участников"  (click)="generateGoogleLink(event.id)"></app-icon-button> -->
+
+                <div class="button-commission-first">
+                  <app-icon-button [widht]="'full'"  buttonText="Заявки"  (click)="redirectApplicationForRace(event.id)"></app-icon-button>
+                  </div>
+                <div class="button-commission-two">
+                  <app-icon-button (click)="generateGoogleLink(event.id)" class="width-button" [widht]="'w40'" height="long-height" [elementsPosition]="'elements-position__row'" [buttonIconColor]="'white-icon'" [buttonBorderWidth]="'b05'" [buttonBorderColor]="'dark-border'"  icon="assets/icons/upload.svg" height="standart-height" sizeIcon="standart-size" theme="dark"></app-icon-button>
+                </div>
+              </div>
+              
+              
+              <app-icon-button style="width: 100%;" [widht]="'full'" (click)="openUploadResultModal(event)" buttonText="Добавить результаты"></app-icon-button>
             </div>
           </app-event-card>
         </div>

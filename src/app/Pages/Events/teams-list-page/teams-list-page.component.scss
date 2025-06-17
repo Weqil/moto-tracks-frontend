@@ -20,7 +20,12 @@ app-standart-input-search {
   margin: auto;
   width: 100%;
 }
-
+.header__filter-grid{
+    display: flex;
+    padding-top: 1rem;
+    padding-left: 0.5rem;
+    gap: 0.5rem;
+}
 .commands-grid {
   padding-top: 1rem;
   padding-bottom: 5rem;

@@ -346,9 +346,6 @@ export class EventsViewPageComponent  implements OnInit {
       });
     })
   }
-  redirectInUser(userId:any){
-     this.navController.navigateRoot(`/users/${userId}`)
-  }
   getAllComands(){
     let loader:HTMLIonLoadingElement
     this.loadingService.showLoading().then((res:HTMLIonLoadingElement)=>loader = res)
@@ -482,6 +479,10 @@ export class EventsViewPageComponent  implements OnInit {
 
    redirectInRace(){
      this.navController.navigateForward(`/track/${this.event.track.id}`)
+   }
+
+  redirectInUser(userId:any){
+     this.navController.navigateRoot(`/users/${userId}`)
    }
 
    //Если у пользователя не было данных создаём их
@@ -1218,6 +1219,7 @@ export class EventsViewPageComponent  implements OnInit {
   ionViewWillEnter(){
     this.getRegions()
     this.paymentLink = ''
+
     this.paymentStatus = 'sleep'
     this.attendances = []
     this.getCreateRegions()
@@ -1267,7 +1269,5 @@ export class EventsViewPageComponent  implements OnInit {
     });
   }
 
-  redirectApplicationForRace(){
-    this.navController.navigateForward(`application-for-race/${this.event.id}`)
-  }
+
 }

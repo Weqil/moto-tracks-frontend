@@ -20,6 +20,8 @@ import { MetrikaModule } from "ng-yandex-metrika";
 import { YandexMetrikaModule } from "./app/Shared/Modules/yandex-metrika/yandex-metrika.module";
 import { registerLocaleData } from "@angular/common";
 import localeRu from '@angular/common/locales/ru';
+import { contentTypeInterceptorFn } from "@app/Shared/Data/Interceptors/contentType.interceptor";
+
 const yandexMapConfig: YaConfig = {
   apikey: environment.apiKeyYandex + '&' + `suggest_apikey=${environment.apiKeyYandexSubject}`,
 };
@@ -40,7 +42,7 @@ bootstrapApplication(AppComponent, {
         ),
         provideRouter(errorsRoutes),
         importProvidersFrom(AngularYandexMapsModule.forRoot(yandexMapConfig)),
-        provideHttpClient(withInterceptors([authTokenInterceptor])),
+        provideHttpClient(withInterceptors([authTokenInterceptor,contentTypeInterceptorFn])),
         { provide: LOCALE_ID, useValue: 'ru' },
     ],
 });

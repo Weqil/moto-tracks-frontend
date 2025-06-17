@@ -46,6 +46,7 @@ export const privateRoutes: Routes = [
                 canActivate:[canActivateAuth,],
                 loadComponent: () => import('../Pages/Profile/personal-info/personal-info.component').then((m) => m.PersonalInfoComponent)
             },
+
             {
                 path:'settings',
                 canActivate:[canActivateAuth,],
@@ -116,7 +117,11 @@ export const privateRoutes: Routes = [
         loadComponent: () => import('../Pages/Authorization/confirm-email-page/confirm-email-page.component').then((m) => m.ConfirmEmailPageComponent)
     },
     
-
+    {
+        path:'documents',
+        canActivate:[canActivateAuth,],
+        loadComponent: () => import('../Pages/Profile/user-documents/user-documents.component').then((m) => m.UserDocumentsComponent)
+    },
     {
         path:'create-comands',
         canActivate:[canActivateAuth,canActivateUserHaveRole([userRoles.couch,userRoles.organization, userRoles.rider],'тренера')],
@@ -138,11 +143,6 @@ export const privateRoutes: Routes = [
         loadComponent: () => import('../Pages/Profile/Tracks/edit-track-page/edit-track-page.component').then((m) => m.EditTrackPageComponent)
     },
     {
-        path:'documents',
-        canActivate:[canActivateAuth,],
-        loadComponent: () => import('../Pages/Profile/user-documents/user-documents.component').then((m) => m.UserDocumentsComponent)
-    },
-    {
         path:'command/edit/:id',
         canActivate:[canActivateAuth,canActivateUserHaveRole([userRoles.couch,userRoles.organization],'тренера')],
         loadComponent: () => import('../Pages/Profile/comands/edit-comand-page/edit-comand-page.component').then((m) => m.EditComandPageComponent)
@@ -159,13 +159,18 @@ export const privateRoutes: Routes = [
     },
             {
                 path:'my-events',
-                canActivate:[canActivateAuth,canActivateUserHaveRole(userRoles.organization,'организатора')],
+                canActivate:[canActivateAuth,canActivateUserHaveRole([userRoles.organization,userRoles.rider,userRoles.couch],'организатора')],
                 loadComponent: () => import('../Pages/Profile/Events/my-events-page/my-events-page.component').then((m) => m.MyEventsPageComponent)
             },
             {
                 path:'my-tracks',
                 canActivate:[canActivateAuth,canActivateUserHaveRole(userRoles.organization,'организатора')],
                 loadComponent: () => import('../Pages/Profile/Tracks/my-tracks-page/my-tracks-page.component').then((m) => m.MyTracksPageComponent)
+            },
+            {
+                path:'track-payment-list/:id',
+                canActivate:[canActivateAuth,canActivateUserHaveRole(userRoles.organization,'организатора')],
+                loadComponent: () => import('../Pages/Profile/transactions/transactions.component').then((m) => m.TransactionsComponent)
             },
             {
                 path:'my-comands',

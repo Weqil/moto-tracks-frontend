@@ -64,8 +64,9 @@
           <app-profile-menu-item  [routing]="'link'" [iconColor]="'#0000'" [icon]="'/assets/icons/support-icon.svg'" [name]="'Обратная связь'"></app-profile-menu-item>
         </a>
       </div>
-    
-      <div class="link-on-support">
+      
+      <div class="link-on-support"> 
+           <!-- <app-icon-button *ngIf="selectedSportName" widht="full" (click)="openSelectSportTypesModal()"  buttonText="{{selectedSportName}}"></app-icon-button> -->
         <span class="version">Текущая версия приложеия - {{version}} {{platform}}</span>
       </div>
     </div>

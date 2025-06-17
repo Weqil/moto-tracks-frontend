@@ -1,12 +1,20 @@
 
 
-<ion-content scroll-y="false">
+<ion-content >
   <ng-container *ngIf="event">
   <!-- <app-header [headerTitle]="usersPreviewConfig.usersCount ? 'Участники: ' + usersPreviewConfig.usersCount : ' '"> -->
-    <app-header [customContainer]="true">
-      <div class="header-container"></div>
-    </app-header>
+<app-header [customContainer]="true" [hiddenBackButton]="true">
+  <div class="cabinet-header">
+    <button (click)="back()" class="cabinet-header__back">
+    <img src="/assets/icons/arrow.svg"  alt="Назад">
+    </button>
+    <span class="cabinet-header__title">{{event.name}}</span>
+    <button  class="cabinet-header__plug none">
+    </button>
+  </div>
+</app-header>
   <main class="main">
+    
     <div class="main-content">
 
       <div class="event-information-title users-title">
@@ -14,19 +22,25 @@
         Список участников
         <!-- <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
       </div>
-      <div *ngFor="let group of formattedUsers">
+      <!-- <div *ngFor="let group of formattedUsers">
         <div class="class-name">
           <div class="event-information-title users-title">
             <img src="/assets/icons/red-finished.svg" alt="">
             {{group.group}}
-            <!-- <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
+            ##<app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button>
           </div>
-        </div>
+        </div> -->
         
         <div class="application-list">
-          <div *ngFor="let user of group.users" >
-            <div class="user-card" (click)=" navigateToUser(user.user_id, user)">
-              <app-user-section 
+          <div *ngFor="let user of usersInRace" >
+            <div class="user-card" (click)=" navigateToUser(user.user_id, user, user.id)">
+              <app-user-section  
+                [them]="user.is_checked == null ? 'standart-them' : (user.is_checked == true ? 'green-them' : 'red-them')"
+                [border]="activeAppId === user.id ? 'red' : 'null'"
+                [showAddress]="true"
+                [name]="true"
+                [surname]="true"
+                [patronymic]="true"
                 [startNumber]="true"   
                 [showRank]="true"  
                 [hideEmail]= "true"  
@@ -36,13 +50,257 @@
             
           </div>
         </div>
-      </div>
+      <!-- </div> -->
         
     </div>
 
     <div class="view-user" *ngIf="viewUser">
-      <app-user-in-application [arrayDocument]="arrayDocument" [user]="userGet"></app-user-in-application>
+      <div class="payment-and-comission">
+          <div class="payment-and-comission__user">
+            <ng-container *ngIf="userGet.commission">
+              <div class="comission__wrapper">
+                 <span class="comission-header users-title">
+                  Проверил:
+                </span>
+                <app-user-section 
+                  [name]="true" [surname]="true"
+                  [patronymic]="true" [user]="userGet.commission!">
+                </app-user-section>
+              </div>
+              
+            </ng-container>
+            
+            <div *ngIf="userGet.transaction" class="transaction-in-race">
+             
+                  <ng-container *ngIf="userGet.transaction.status">
+                    <span class="payment-status-green">
+                        Взнос оплачен
+                    </span>
+                  </ng-container>
+                  <ng-container *ngIf="userGet.transaction.status === false">
+                    <span class="payment-status-red">
+                        Взнос не оплачен
+                    </span>
+                  </ng-container>
+                  <ng-container *ngIf="userGet.transaction.status == null">
+                    <span class="payment-status-blue">
+                        Ожидание оплаты взноса
+                    </span>
+                  </ng-container>
+           
+            </div>
+
+          </div>
+      </div>
+      <form class="personal-form">
+        <div class="event-information-title users-title">
+          <img src="/assets/icons/red-finished.svg" alt="">
+          Личная информация
+          <!-- <div class="check-box">
+            <app-check-box (click)="CheckBoxValue(userInfo)"  [height]="'long-height'" [value]="2" [checked]="userInfo" [labelText]="''" [theme]="'white'" [clippy]="''"></app-check-box>
+          </div> -->
+        </div>
+
+        <div class="user-information">
+          <div class="input-container">
+            <app-standart-input [readonly]="true" [control]="personalUserForm.get('surname')" placeholder="Введите фамилию" [errorMessage]="formErrors.surname.errorMessage" [invalid]="formErrors.surname.errorMessage.length !== 0" label="Фамилия"></app-standart-input>
+            <app-standart-input [readonly]="true" [control]="personalUserForm.get('name')" [errorMessage]="formErrors.name.errorMessage" [invalid]="formErrors.name.errorMessage.length !== 0" placeholder="Введите имя" label="Имя"></app-standart-input>
+            <app-standart-input [readonly]="true" [errorMessage]="formErrors.patronymic.errorMessage" [invalid]="formErrors.patronymic.errorMessage.length !== 0" [control]="personalUserForm.get('patronymic')" placeholder="Введите отчество" label="Отчество"></app-standart-input>
+          </div>
+  
+          <div class="input-container">
+            <app-standart-input [readonly]="true" [control]="personalUserForm.get('email')" [errorMessage]="formErrors.email.errorMessage" [invalid]="formErrors.email.errorMessage.length !== 0" maskType="email" placeholder="Почта" label="Почта"></app-standart-input>
+            <app-standart-input [readonly]="true" [control]="personalUserForm.get('phoneNumber')" [errorMessage]="formErrors.phoneNumber.errorMessage" [invalid]="formErrors.phoneNumber.errorMessage.length !== 0" maskType="phone" placeholder="Номер телефона" label="Телефон"></app-standart-input>
+          </div>
+          
+          <div class="input-container">
+            <app-standart-input [readonly]="true" [errorMessage]="formErrors.region.errorMessage" [invalid]="formErrors.region.errorMessage.length !== 0"  [readonly]="true" label="Область/край" [control]="personalUserForm.get('region')" placeholder="Выберите область вашу область"></app-standart-input>     
+            <app-standart-input [readonly]="true" [errorMessage]="formErrors.city.errorMessage" [invalid]="formErrors.city.errorMessage.length !== 0" [control]="personalUserForm.get('city')" [errorMessage]="formErrors.city.errorMessage" [invalid]="formErrors.city.errorMessage.length !== 0" placeholder="Введите город" label="Город"></app-standart-input>       
+          </div>
+  
+        </div>
+
+        <div class="event-information-title users-title">
+          <img src="/assets/icons/red-finished.svg" alt="">
+          Гонка
+          <!-- <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
+        </div>
+
+        <div class="race-information">
+          <div class="input-container">
+            <app-standart-input [readonly]="true" [errorMessage]="formErrors.motoStamp.errorMessage" [invalid]="formErrors.motoStamp.errorMessage.length !== 0" selectedName="motoStampSelect" [control]="personalUserForm.get('motoStamp')"  label="Марка мотоцикла"></app-standart-input>
+            <app-standart-input [readonly]="true" [errorMessage]="formErrors.engine.errorMessage" [invalid]="formErrors.engine.errorMessage.length !== 0" selectedName="engineSelect"  [control]="personalUserForm.get('engine')"  label="Тип двигателя"></app-standart-input>
+          </div>
+  
+          <div class="input-container">
+            <app-standart-input [readonly]="true" [errorMessage]="formErrors.community.errorMessage" [invalid]="formErrors.community.errorMessage.length !== 0"  [readonly]="true" [control]="personalUserForm.get('community')" placeholder="Команда" label="Название команды"></app-standart-input>
+            <app-standart-input [readonly]="true" [control]="personalUserForm.get('coach')" placeholder="Тренер" label="ФИО тренера"></app-standart-input>  
+          </div>
+  
+          <div class="input-container">
+            <app-standart-input  [readonly]="true" [errorMessage]="formErrors.group.errorMessage" [invalid]="formErrors.group.errorMessage.length !== 0"  selectedName="groupSelect" [control]="personalUserForm.get('grade')" label="Класс, группа"></app-standart-input>
+            <app-standart-input  [readonly]="true" [errorMessage]="formErrors.startNumber.errorMessage" [invalid]="formErrors.startNumber.errorMessage.length !== 0" [control]="personalUserForm.get('startNumber')" [maxLength]="3" type="number" [invalid]="formErrors.startNumber.errorMessage.length !== 0" [errorMessage]="formErrors.startNumber.errorMessage" placeholder="Стартовый номер" label="Стартовый номер"></app-standart-input>
+          </div>
+  
+        </div>
+
+
+
+        <div class="event-information-title users-title">
+          <img src="/assets/icons/red-finished.svg" alt="">
+          Документы
+          <!-- <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
+        </div>
+
+        <div class="doc-information">
+          <div class="input-container">
+            <app-standart-input [readonly]="true" [errorMessage]="formErrors.dateOfBirth.errorMessage" [invalid]="formErrors.dateOfBirth.errorMessage.length !== 0" [control]="personalUserForm.get('dateOfBirth')" placeholder="Выберите дату" label="Дата рождения" ></app-standart-input>
+            <app-standart-input [readonly]="true" [errorMessage]="formErrors.numberAndSeria.errorMessage" [invalid]="formErrors.numberAndSeria.errorMessage.length !== 0" [control]="personalUserForm.get('numberAndSeria')" placeholder="Серия, номер" label="Паспорт/Свидетельство о рождении"></app-standart-input>
+          </div>
+  
+          <!-- <ion-modal class="region-modal" (didDismiss)="closeRegionModal()"  [isOpen]="regionModalState">
+            <ng-template>
+              <ion-content>
+                <div class="region-modal-container">
+                  <app-standart-input-search label="Область/край" [searchCurrentItems]="searchRegionItems" [searchItems]="searchRegionItems" (changeSearchValue)="setRegion($event)"></app-standart-input-search>
+                </div>
+              </ion-content>
+            </ng-template>  
+          </ion-modal>         -->
+  
+  
+          <div class="input-container">
+            <app-standart-input [readonly]="true" [errorMessage]="formErrors.inn.errorMessage" [invalid]="formErrors.inn.errorMessage.length !== 0" [control]="personalUserForm.get('inn')" placeholder="ИНН" label="ИНН"></app-standart-input>
+            <app-standart-input [readonly]="true" [errorMessage]="formErrors.snils.errorMessage" [invalid]="formErrors.snils.errorMessage.length !== 0" [control]="personalUserForm.get('snils')" placeholder="СНИЛС" label="СНИЛС"></app-standart-input>
+          </div>
+  
+          <div class="input-container">
+            <!-- <app-standart-input [readonly]="true" [control]="personalUserForm.get('rankNumber')" placeholder="№ удостоверения (МСМК, МС, КМС)" label="№ удостоверения"></app-standart-input> -->
+            <app-standart-input [readonly]="true" [errorMessage]="formErrors.rank.errorMessage" [invalid]="formErrors.rank.errorMessage.length !== 0" [control]="personalUserForm.get('rank')" label="Спортивное звание, разряд"></app-standart-input>
+          </div>
+
+
+            
+          </div>
+
+          <div class="polish" *ngIf="polish">
+
+            <div class="event-information-title users-title">
+              <img src="/assets/icons/red-finished.svg" alt="">
+              Страховой полис
+              <!-- <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
+            </div>
+            <div class="document-container">
+              <div class="input-container">
+                <app-standart-input [readonly]="true" [control]="polisForm.get('number')" placeholder="Серия, номер" label="Серия, номер"></app-standart-input>
+                <app-standart-input [readonly]="true" [control]="polisForm.get('issuedWhom')" placeholder="Кем выдан" label="Кем выдан"></app-standart-input>
+                <app-standart-input [readonly]="true" [control]="polisForm.get('itWorksDate')" placeholder="Срок действия" label="Срок действия"></app-standart-input>
+  
+              </div>
+                  <div class="document" *ngIf="polish">
+                <span>Файл документа</span>
+                 <div class="file-name" (click)="checkDocument(polish.id)">
+                  <img src="/assets/icons/documents.svg" alt="">
+                  <div class="name">
+                    {{polish.name}}
+                  </div>
+                  
+                 </div>
+                
+              </div>
+              
+            </div>
+          </div>
+
+
+
+          <div class="licensed" *ngIf="licensed">
+            <div class="event-information-title users-title">
+              <img src="/assets/icons/red-finished.svg" alt="">
+              Лицензия
+              <!-- <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
+            </div>
+            <div class="document-container">
+              <app-standart-input [readonly]="true" [control]="licensesForm.get('number')" placeholder="Лицензия МФР" label="Лицензия МФР (тип, №):"></app-standart-input>
+              <div class="document" *ngIf="licensed">
+                <span>Файл документа</span>
+                  <div class="file-name" (click)="checkDocument(licensed.id)">
+                    <img src="/assets/icons/documents.svg" alt="">
+                    <div class="name">
+                      {{licensed.name}}
+                    </div>
+                   </div>
+                
+              </div>
+            </div>
+          </div>
+    
+
+
+          <div class="notarius" *ngIf="notarius">
+            <div class="event-information-title users-title">
+              <img src="/assets/icons/red-finished.svg" alt="">
+              Нотариальное согласие
+              <!-- <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
+            </div>
+            <div class="document-container">
+             
+              <div class="document" *ngIf="notarius">
+                <span>Файл документа</span>
+                  <div class="file-name" (click)="checkDocument(notarius.id)">
+                    <img src="/assets/icons/documents.svg" alt="">
+                    <div class="name">
+                      {{notarius.name}}
+                    </div>
+                    
+                   </div>            
+                 
+              </div>
+            </div>
+          </div>
+        
+
+
+        
+        
+        
+        
+        
+        
+
+        
+
+        
+          <div class="input-rich-container">
+            <app-standart-rich-input  [control]="personalUserForm.get('comment')" placeholder="Комментарий к заявке..." label="Комметарий"></app-standart-rich-input>
+          </div>
+        
+        
+        
+        
+        <!-- <app-standart-rich-input  [control]="personalUserForm.get('comment')" label="Комментарий" placeholder="Оставьте комментарий"></app-standart-rich-input> -->
+      </form>
+      <div class="button-container">
+        <app-icon-button (click)="agreedApp(activeAppId)"  [widht]="'full'" [theme]="'red'" clippy="clippy-right" [buttonText]="'Подтвердить заявку'"></app-icon-button>
+        <app-icon-button (click)="disagreedApp(activeAppId)" [widht]="'full'" clippy="clippy-right" [buttonText]="'Отклонить заявку'"></app-icon-button>
+      </div>
     </div>
+
+    <div  class="document-view-container" *ngIf="viewDocumentValue">
+      <div class="event-information-title users-title">
+        <img src="/assets/icons/red-finished.svg" alt="">
+        Просмотр докумета
+        <!--<app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
+        </div>
+        <div class="document-view" >
+
+        <app-private-files [postDocumentId]="activeDocument">
+
+        </app-private-files>
+
+      </div>
+    </div>
+
     
   </main>
 </ng-container>

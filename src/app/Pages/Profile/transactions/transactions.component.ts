@@ -4,9 +4,10 @@ import { LoadingService } from 'src/app/Shared/Services/loading.service';
 import { finalize } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { HeaderModule } from 'src/app/Shared/Modules/header/header.module';
+import { NavController } from '@ionic/angular/standalone';
 import { IonicModule } from '@ionic/angular';
 import { ITransaction } from 'src/app/Shared/Data/Interfaces/transaction';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-transactions',
@@ -18,13 +19,44 @@ import { RouterModule } from '@angular/router';
 export class TransactionsComponent implements OnInit {
   private transactionsService = inject(TransactionService);
   private loadingService = inject(LoadingService);
-  
+  navController: NavController = inject(NavController)
+  private route: ActivatedRoute = inject(ActivatedRoute)
   transactions: ITransaction[] = [];
-
+  trackId:string = ''
   constructor() { }
 
   ngOnInit() {
-    this.loadTransactions();
+    
+    // this.loadTransactions();
+    this.route.params.pipe().subscribe((params:any)=>{
+      this.trackId = params['id']
+      console.log(this.trackId)
+      if(this.trackId){
+        this.loadTrackTransactions()
+      }else{
+        this.loadTransactions()
+      }
+    })
+  }
+  back(){
+    this.navController.back( )
+  }
+
+  loadTrackTransactions(){
+    this.loadingService.showLoading();
+    this.transactionsService.getTransactionsForTrack(Number(this.trackId))
+      .pipe(
+        finalize(() => this.loadingService.hideLoading())
+      )
+      .subscribe({
+        next: (response: any) => {
+          console.log(response)
+          this.transactions = response.transactions;
+        },
+        error: (error) => {
+          console.error('Ошибка при загрузке транзакций:', error);
+        }
+      });
   }
 
   loadTransactions() {
