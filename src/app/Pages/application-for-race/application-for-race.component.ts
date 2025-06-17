@@ -140,7 +140,6 @@ export class ApplicationForRaceComponent  implements OnInit {
       this.eventService.getApplicationsForCommisson(this.eventId).pipe().subscribe((res:any)=>{
         
         this.usersInRace = res.users
-        console.log(this.usersInRace)
         this.formattedUsers = [];
 
         // Object.keys(this.usersInRace).forEach((key: string) => {
@@ -217,7 +216,6 @@ export class ApplicationForRaceComponent  implements OnInit {
           this.notariusFile = null;
           const selectedUser = this.appForComission.find((user: any) => user.user_id === userId);
           if (selectedUser) {
-          console.log('Выбранный пользователь', selectedUser)
             const documents = selectedUser.documents;
             const license = documents.find((doc: any) => doc.type === 'licenses');
             const polis = documents.find((doc: any) => doc.type === 'polis');
@@ -229,7 +227,6 @@ export class ApplicationForRaceComponent  implements OnInit {
               this.licensesFile = { name: 'Лицензия загружена', dontFile: true };
               
               this.licensed = license;
-              console.log(this.licensed)
             }
 
             if (polis) {
@@ -241,14 +238,12 @@ export class ApplicationForRaceComponent  implements OnInit {
               this.polisFile = { name: 'Полис загружен', dontFile: true };
               
               this.polish = polis;
-              console.log(this.polish)
             }
 
             if (notarius) {
               this.notariusFile = { name: 'Согласие загружено', dontFile: true };
               
               this.notarius = notarius;
-              console.log(this.notarius)
             }
           }
 
@@ -420,8 +415,6 @@ export class ApplicationForRaceComponent  implements OnInit {
       }else{
         this.personalUserForm.reset()
       }
-      console.log('e mae') 
-      console.log(this.personalUserForm.value)
     }
   
     checkBoxArray:any = [
@@ -479,12 +472,10 @@ export class ApplicationForRaceComponent  implements OnInit {
       const comment = this.personalUserForm.get('comment')?.value;
       this.eventService.checkApplication(id, 1, comment)
       .pipe(finalize(()=>{
-        console.log('Запрос завершился')
       })).subscribe((res:any)=>
         {
 
           this.getUsersInRace()
-          console.log('Запрос завершился успешно')
           
           }
         )
@@ -496,12 +487,12 @@ export class ApplicationForRaceComponent  implements OnInit {
       const comment = this.personalUserForm.get('comment')?.value;
       this.eventService.checkApplication(id, 0, comment)
       .pipe(finalize(()=>{
-        console.log('Запрос завершился')
+
       })).subscribe((res:any)=>
         {
 
           this.getUsersInRace()
-          console.log('Запрос завершился успешно')
+
           
           }
         )
