@@ -144,7 +144,7 @@
                   </div>
                   <div *ngIf="event.commissions && event.commissions.length" class="comissons-grid">
                       <ng-container *ngFor="let user of event.commissions">
-                          <app-user-section cardLeftBorderWidth="b1" [startNumber]="true" [showAddress]="true" [name]="true" [surname]="true" [showRank]="true" [user]="user"></app-user-section>
+                          <app-user-section cardLeftBorderWidth="b1" [startNumber]="false" [showAddress]="true" [name]="true" [surname]="true" [showRank]="true" [user]="user"></app-user-section>
                       </ng-container>
                   </div>
                 
