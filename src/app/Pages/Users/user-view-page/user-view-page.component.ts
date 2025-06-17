@@ -45,7 +45,7 @@ export class UserViewPageComponent  implements OnInit {
   constructor() { }
 
   ngOnInit() {
-
+    console.log('')
     if(this.userIdGet){
       this.userId = this.userIdGet
       this.getUser()
