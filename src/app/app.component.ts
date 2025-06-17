@@ -12,8 +12,6 @@ import { IconButtonComponent } from "./Shared/Components/UI/LinarikUI/buttons/ic
 import { SportTypesService } from './Shared/Data/Services/sport-types.service';
 import { CommonModule } from '@angular/common';
 async function getAppVersion() {
-  console.log('test get version')
-  console.log(Capacitor.isNativePlatform())
   const platform = Capacitor.getPlatform();
   if (Capacitor.isNativePlatform() || platform == 'ios' || platform == 'android') {
     const info = await App.getInfo();
@@ -94,7 +92,6 @@ export class AppComponent {
   
   
   getAllSportCategory(){
-    console.log( this.sportTypesService.getContentTypeInLocalStorage())
     if(!this.sportTypesService.getContentTypeInLocalStorage()){
       this.sportTypesService.getAllSportCategory().pipe().subscribe((res:any)=>{
        this.sportTypesService.selectSportCategory.next(true)
@@ -113,18 +110,14 @@ export class AppComponent {
     getAppVersion().then((res)=>{
         version = res
         const platform = Capacitor.getPlatform();
-        console.log('check platform')
-        console.log(platform)
          if(!!version){
           this.versionService.getLastVersion().pipe().subscribe((res:any)=>{
             if(res.version && res.version.version_number){
               this.userHaveCurrentVersion = this.cleanNumberInPoint(version) >= this.cleanNumberInPoint(res.version.version_number)
-              console.log('result' + (Number(version) >= this.cleanNumberInPoint(res.version.version_number) ? 'current ' +  this.cleanNumberInPoint(version) : 'server ' + this.cleanNumberInPoint(res.version.version_number)) )
              }
            })
         }else{
-          console.log('web')
-          console.log(version)
+       
         }
     })
     

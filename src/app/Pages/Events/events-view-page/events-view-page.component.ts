@@ -930,19 +930,19 @@ export class EventsViewPageComponent  implements OnInit {
   async createTransaction(){
       if(this.event.store){
         let currentAttendance:IAttenden|undefined = this.attendances.find((att:IAttenden)=>att.name.includes(this.personalUserForm.value.group))
-        if(currentAttendance){
+        if(currentAttendance && currentAttendance.price != 0){
           this.transactionService.createTransactions({attendanceIds:[currentAttendance.id],isRace:1}).pipe().subscribe((res:any)=>{
             this.paymentLink = res.payment_link
-            console.log(res)
             this.createTransactionId = res.transaction.id
           })
+        }else{
+          this.paymentLink = ''
         }
       }
    }
 
   async openPaymentBrowser(){
      const openCapacitorSite = async () => {
-      console.log(this.paymentLink)
        if(this.paymentLink){
           this.toastService.showToast('Необходимо оплатить стартовый взнос','warning')
           await Browser.open({ url: this.paymentLink });
@@ -1242,7 +1242,6 @@ export class EventsViewPageComponent  implements OnInit {
   ngOnInit() {
     this.checkInImagesBackGround()
      this.transactionService.currentStatus.subscribe((res:any)=>{
-      console.log(res)
       this.paymentStatus = res
       if(this.paymentStatus == 'success'){
         const closeCapacitorSite = async () => {
