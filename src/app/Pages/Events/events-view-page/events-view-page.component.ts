@@ -916,6 +916,16 @@ export class EventsViewPageComponent  implements OnInit {
     })
   }
 
+  stringHaveCurrentWords(sourceString:string, incomingString:string){
+      let sourceStringArray:string[] = sourceString.split(' ')
+      let incomingStringArray = incomingString.split(' ')
+      let currentWordCount = 0
+      sourceStringArray.forEach((word:string)=>{
+      incomingStringArray.find((incomingWord) => word == incomingWord) ? currentWordCount++ : null
+      })
+    return sourceStringArray.length == currentWordCount
+  }
+
   checkUser(){
     if(this.userService.user.value){
       return this.userService.user.value?.id == this.raceUser.id
@@ -930,7 +940,11 @@ export class EventsViewPageComponent  implements OnInit {
 createTransaction(): Observable<any> { // Возвращаем Observable
   if (this.event.store) {
     let currentAttendance: IAttenden | undefined = this.attendances.find((att: IAttenden) => att.name.includes(this.personalUserForm.value.group));
-
+    this.attendances.map((att)=>{
+      if( this.stringHaveCurrentWords(this.personalUserForm.value.group, att.name)){
+        currentAttendance = att
+      }
+    })
     if (currentAttendance && currentAttendance.price !== 0) {
       return this.transactionService.createTransactions({ attendanceIds: [currentAttendance.id], isRace: 1 }).pipe(
         tap((res: any) => {
