@@ -78,8 +78,8 @@
         <ng-container *ngIf="event">
           <ng-container *ngIf="currentTab == 'Информация'">
             <div class="event-information">
-                <ng-container *ngIf="this.event.appointments_exists && this.event.store">
-                      <app-payment-status [status]="this.event.attendance_exists ? 'success': 'warning' "></app-payment-status>
+                <ng-container *ngIf="this.event.appointments_exists && this.event.store && event.attendance_without_status_exists">
+                      <app-payment-status [status]="this.event.attendance_with_status_exists ? 'success': 'warning' "></app-payment-status>
                 </ng-container>
             
                 <ng-container *ngIf="formattedResultsDocument && formattedResultsDocument.length">  
@@ -344,8 +344,8 @@
             <app-icon-button theme="dark-gray" [clippy]="'clippy-right'" [shapeColumn]="true" [widht]="'full'" buttonText="Заявка отправлена"></app-icon-button>
           </ng-container>
           <ng-container *ngIf="this.event.appointments_exists && this.event.store">
-            <app-icon-button *ngIf="this.event.attendance_exists" theme="dark-gray" [clippy]="'clippy-right'" [shapeColumn]="true" [widht]="'full'" buttonText="Заявка отправлена"></app-icon-button>
-            <app-icon-button (click)="regenerateLinkInPayment()" *ngIf="!this.event.attendance_exists" theme="red" [clippy]="'clippy-right'" [shapeColumn]="true" [widht]="'full'" buttonText="Оплатить"></app-icon-button>
+            <app-icon-button *ngIf="this.event.attendance_with_status_exists || !event.attendance_without_status_exists" theme="dark-gray" [clippy]="'clippy-right'" [shapeColumn]="true" [widht]="'full'" buttonText="Заявка отправлена"></app-icon-button>
+            <app-icon-button (click)="regenerateLinkInPayment()" *ngIf="!this.event.attendance_with_status_exists && event.attendance_without_status_exists" theme="red" [clippy]="'clippy-right'" [shapeColumn]="true" [widht]="'full'" buttonText="Оплатить"></app-icon-button>
           </ng-container>
         </div>
   
