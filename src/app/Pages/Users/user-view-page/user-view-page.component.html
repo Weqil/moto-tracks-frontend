@@ -59,7 +59,7 @@
   
         <div class="commands-grid__item" >
           <ng-container *ngIf="user?.personal && user?.personal?.command" >
-            <app-command-section [command]="user.personal!.command!"
+            <app-command-section (click)="redirectInComand(user.personal!.command)" [command]="user.personal!.command!"
             
           ></app-command-section>
           </ng-container>
@@ -69,7 +69,7 @@
 
         <div class="event-information-title">
             <img src="/assets/icons/red-finished.svg" alt="">
-            Гонки в которых учавствовал
+            Гонки в которых участвовал
           <!-- <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
         </div>
          <div class="events">

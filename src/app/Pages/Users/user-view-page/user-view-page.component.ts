@@ -71,6 +71,9 @@ export class UserViewPageComponent  implements OnInit {
   
   }
   
+redirectInComand(team:any){
+  this.navController.navigateForward(`/command/view/${team.id}`)
+}
 getUser(){
     let loader:HTMLIonLoadingElement
     this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
