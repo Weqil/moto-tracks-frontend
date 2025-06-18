@@ -936,11 +936,9 @@ createTransaction(): Observable<any> { // Возвращаем Observable
         tap((res: any) => {
           this.paymentLink = res.payment_link;
           this.createTransactionId = res.transaction.id;
-          console.log('получил транзакцию');
         }),
         catchError(error => {
           // Обработка ошибок, если вызов API не удался
-          console.error('Ошибка при создании транзакции:', error);
           this.paymentLink = ''; // Очищаем ссылку при ошибке, если нужно
           throw error; // Повторно выбрасываем ошибку для дальнейшей обработки
         })
@@ -952,7 +950,6 @@ createTransaction(): Observable<any> { // Возвращаем Observable
       return of({ type: 'noTransactionNeeded' }); // Или of(null), of(undefined)
     }
   } else {
-    // Если this.event.store равно false, возвращаем Observable, который немедленно завершается.
     this.paymentLink = '';
     return of({ type: 'noStoreEvent' }); // Или of(null), of(undefined)
   }
