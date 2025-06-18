@@ -95,7 +95,7 @@ getUser(){
             loader = res
         })
     
-        this.eventsFilter.userIdExists = String(this.userService.user.value?.id)
+        this.eventsFilter.userIdExists = String(this.userId)
      
         this.eventService.getAllEvents({...this.eventsFilter,userOnlyAppointment:1} ).pipe(
           finalize(()=>{ 
