@@ -4,7 +4,8 @@ export interface IEvent {
     id: number;
     name: string;
     is_work?:boolean;
-    attendance_exists?:boolean;
+    attendance_with_status_exists?:boolean;
+    attendance_without_status_exists?:boolean;
     desc?: string,
     position_file?: string,
     commissions:any,

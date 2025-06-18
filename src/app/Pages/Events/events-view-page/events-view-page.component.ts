@@ -927,19 +927,33 @@ export class EventsViewPageComponent  implements OnInit {
     this.paymentStatus = value
   }
 
-  async createTransaction(){
-      if(this.event.store){
-        let currentAttendance:IAttenden|undefined = this.attendances.find((att:IAttenden)=>att.name.includes(this.personalUserForm.value.group))
-        if(currentAttendance && currentAttendance.price != 0){
-          this.transactionService.createTransactions({attendanceIds:[currentAttendance.id],isRace:1}).pipe().subscribe((res:any)=>{
-            this.paymentLink = res.payment_link
-            this.createTransactionId = res.transaction.id
-          })
-        }else{
-          this.paymentLink = ''
-        }
-      }
-   }
+createTransaction(): Observable<any> { // Возвращаем Observable
+  if (this.event.store) {
+    let currentAttendance: IAttenden | undefined = this.attendances.find((att: IAttenden) => att.name.includes(this.personalUserForm.value.group));
+
+    if (currentAttendance && currentAttendance.price !== 0) {
+      return this.transactionService.createTransactions({ attendanceIds: [currentAttendance.id], isRace: 1 }).pipe(
+        tap((res: any) => {
+          this.paymentLink = res.payment_link;
+          this.createTransactionId = res.transaction.id;
+        }),
+        catchError(error => {
+          // Обработка ошибок, если вызов API не удался
+          this.paymentLink = ''; // Очищаем ссылку при ошибке, если нужно
+          throw error; // Повторно выбрасываем ошибку для дальнейшей обработки
+        })
+      );
+    } else {
+      // Если условия не выполнены, возвращаем Observable, который немедленно завершается
+      // или испускает определенное значение.
+      this.paymentLink = '';
+      return of({ type: 'noTransactionNeeded' }); // Или of(null), of(undefined)
+    }
+  } else {
+    this.paymentLink = '';
+    return of({ type: 'noStoreEvent' }); // Или of(null), of(undefined)
+  }
+}
 
   async openPaymentBrowser(){
      const openCapacitorSite = async () => {
@@ -951,12 +965,8 @@ export class EventsViewPageComponent  implements OnInit {
       openCapacitorSite()
   }
 
-  async toggleAplicationInRace(){
-    
-    if(this.submitValidate()){
-       await this.createTransaction()
-       await this.setFirstDocuments().pipe().subscribe(()=>{
-        this.setDocuments().pipe().subscribe(()=>{
+  async formatedDataAndToggleAplication(){
+     this.setDocuments().pipe().subscribe(()=>{
            // Форматируем номер телефона перед отправкой
         let rawPhone = this.personalUserForm.value.phoneNumber || '';
         let cleanedPhone = String(rawPhone).replace(/\D/g, '') || '';
@@ -965,6 +975,10 @@ export class EventsViewPageComponent  implements OnInit {
          let currentForm = {
            ...this.personalUserForm.value,
            documentIds:[this.polisId, this.licensesId,this.notariusId]   
+         }
+         console.log(this.createTransactionId)
+         if(this.createTransactionId){
+          currentForm.transactionId = this.createTransactionId
          }
          let fd: FormData = new FormData();
          fd = this.formdataService.formdataAppendJson(fd, currentForm)
@@ -1008,8 +1022,17 @@ export class EventsViewPageComponent  implements OnInit {
              }
          })
         })
-       })
+  }
 
+  async toggleAplicationInRace(){
+    
+    if(this.submitValidate()){
+       await this.createTransaction().pipe().subscribe(async ()=>{
+         await this.setFirstDocuments().pipe().subscribe(async ()=>{
+         await this.formatedDataAndToggleAplication()
+          })
+       })
+      
     }else{
       this.toastService.showToast('Заполните обязательные поля - Фамилия, имя, область, класс, спортивное звание, телефон','danger')
     }
