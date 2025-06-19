@@ -124,8 +124,9 @@ export class AppComponent {
   }
   userService:UserService = inject(UserService)
   cupService:CupService = inject(CupService)
+
   ngOnInit() {
-   
+    // console.log(this.stringHaveCurrentWords('50 см3','Коляски 7 50 см3'))
     this.getLastVersion()
     this.sportTypesService.selectSportCategory.subscribe((res)=>{
       this.sportCategoryModalState = res
