@@ -121,6 +121,10 @@ export class PrivateFilesComponent  implements OnInit {
   resetZoom(){
     this.zoom = 1.0
   }
+  redirectInPdfBrowser(){
+    // window.nav(fileUrl,)
+    window.open(this.fileUrl,'_blank')
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['postDocumentId'] && changes['postDocumentId'].currentValue) {
