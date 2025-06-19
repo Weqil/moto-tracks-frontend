@@ -280,7 +280,12 @@ img{
         color: #ffffff;
     }
 }
-
+ion-modal{
+    --max-height: 12rem;
+    --max-width: 22rem;
+    --border-radius: 5px;
+    --overflow: hidden;
+}
 .google-tabs{
     display: flex;
     height: 100%;
