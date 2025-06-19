@@ -23,9 +23,14 @@
       [render-text]="true"
       [original-size]="false"
       (pages-initialized)="hidePdfLoader()"
-      
       class="file__img"
+      [zoom]="zoom"
       ></pdf-viewer>
+       <div class="button-container--pdf">
+          <app-circle-button class="circle-button" [icon]="'assets/icons/plus.svg'" (click)="zoomIn()"></app-circle-button>
+          <app-circle-button class="circle-button" [icon]="'assets/icons/minus.svg'" (click)="zoomOut()"></app-circle-button>
+          <app-circle-button class="circle-button" [icon]="'assets/icons/close.svg'" (click)="resetZoom()"></app-circle-button>
+      </div>
     </ng-container>
     
   

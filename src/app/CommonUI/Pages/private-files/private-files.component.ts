@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { LoadingService } from 'src/app/Shared/Services/loading.service';
 import { AngularImageViewerModule } from "@clarivate/angular-image-viewer";
+import { CircleButtonComponent } from '@app/Shared/Components/UI/Buttons/circle-button/circle-button.component';
 
 
 
@@ -15,7 +16,7 @@ import { AngularImageViewerModule } from "@clarivate/angular-image-viewer";
   selector: 'app-private-files',
   templateUrl: './private-files.component.html',
   styleUrls: ['./private-files.component.scss'],
-  imports:[IonRouterOutlet, IonContent, CommonModule, PdfViewerModule,AngularImageViewerModule ]
+  imports:[IonRouterOutlet, IonContent, CommonModule, PdfViewerModule,AngularImageViewerModule,CircleButtonComponent ]
   
 })
 export class PrivateFilesComponent  implements OnInit {
@@ -30,6 +31,7 @@ export class PrivateFilesComponent  implements OnInit {
   userService: UserService = inject(UserService)
   fileType: string = ''
   fileUrl: string = ''
+  zoom:number = 1.0
   loadingService: LoadingService = inject(LoadingService)
   documentId!: number 
   @Input() postDocumentId?: number
@@ -108,6 +110,16 @@ export class PrivateFilesComponent  implements OnInit {
 
   ngOnInit() {
 
+  }
+
+  zoomIn() {
+    this.zoom += 0.1; 
+  }
+  zoomOut(){
+    this.zoom -= 0.1; 
+  }
+  resetZoom(){
+    this.zoom = 1.0
   }
 
   ngOnChanges(changes: SimpleChanges): void {
