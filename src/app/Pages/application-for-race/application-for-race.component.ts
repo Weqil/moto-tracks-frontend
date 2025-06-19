@@ -26,6 +26,7 @@ import { CheckBoxComponent } from "../../Shared/Components/UI/LinarikUI/forms/ch
 import { Pipe, PipeTransform } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { PrivateFilesComponent } from "../../CommonUI/Pages/private-files/private-files.component";
+import { StandartButtonComponent } from '@app/Shared/Components/UI/Buttons/standart-button/standart-button.component';
 
 @Pipe({ name: 'safeUrl' })
 export class SafeUrlPipe implements PipeTransform {
@@ -40,7 +41,9 @@ export class SafeUrlPipe implements PipeTransform {
   selector: 'app-application-for-race',
   templateUrl: './application-for-race.component.html',
   styleUrls: ['./application-for-race.component.scss'],
-  imports: [CommonModule, IonContent, HeaderModule, UserModule, UserViewPageComponent, IconButtonComponent, StandartInputComponent, StandartInputSelectComponent, StandartRichInputComponent, RegionsSelectModalComponent, CheckBoxComponent, SafeUrlPipe, PrivateFilesComponent],
+  imports: [CommonModule, IonContent, HeaderModule, UserModule, 
+    UserViewPageComponent, IconButtonComponent, StandartInputComponent, StandartInputSelectComponent,
+     StandartRichInputComponent, RegionsSelectModalComponent, CheckBoxComponent, SafeUrlPipe, PrivateFilesComponent, IonModal,StandartButtonComponent],
 })
 export class ApplicationForRaceComponent  implements OnInit {
 
@@ -67,6 +70,8 @@ export class ApplicationForRaceComponent  implements OnInit {
   viewUser: boolean = false
   userGetId!: string
   userGet!:User
+  tableModalValue:boolean = false
+  googleTabsLink:string = ''
   arrayDocument:Documents[]=[]
   licensed:any
   notarius:any
@@ -136,6 +141,10 @@ export class ApplicationForRaceComponent  implements OnInit {
       this.navController.navigateRoot('/events')
     }
 
+  closetTableModal(){
+    this.tableModalValue = false
+  }
+
     getUsersInRace(){
       this.eventService.getApplicationsForCommisson(this.eventId).pipe().subscribe((res:any)=>{
         
@@ -191,6 +200,27 @@ export class ApplicationForRaceComponent  implements OnInit {
       this.activeUserId = userId
       this.activeAppId = appId
       this.viewDocumentValue = false
+    }
+
+     generateGoogleLink(eventId:any){
+      this.loadingService.showLoading()
+      this.eventService.generateGoogleLink(eventId).pipe(
+        finalize(()=>
+          this.loadingService.hideLoading())
+      ).subscribe((res:any)=>{
+        this.tableModalValue = true
+        this.googleTabsLink = res.table_url
+        })
+    }
+
+    generatePdfInAplication(){
+      let loader:HTMLIonLoadingElement
+      this.loaderService.showLoading().then((load)=> loader = load)
+      this.eventService.generatePdfForAplication(this.userGet.id).pipe(
+        finalize(()=>this.loaderService.hideLoading(loader))
+      ).subscribe((res:any)=>{
+        console.log(res)
+      })
     }
 
     getDocumentUserById(userId:number){
