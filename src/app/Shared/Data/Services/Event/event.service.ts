@@ -21,7 +21,7 @@ export class EventService {
   }
 
   generatePdfForAplication(aplicationId:number){
-    return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races/appointment-race/${aplicationId}/pdf`)
+    return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races/appointment-race/${aplicationId}/pdf`, {responseType: 'blob'})
   }
 
   getEventById(eventId:string,params?:{userId?:string,appointmentUser?:number, dateStart?:string,transactionUser?:number}){
