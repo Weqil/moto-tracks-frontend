@@ -916,7 +916,7 @@ export class EventsViewPageComponent  implements OnInit {
     })
   }
 
-  stringHaveCurrentWords(sourceString:string, incomingString:string){
+stringHaveCurrentWords(sourceString:string, incomingString:string){
       let sourceStringArray:string[] = sourceString.split(' ')
       let incomingStringArray = incomingString.split(' ')
       let currentWordCount = 0
@@ -924,7 +924,7 @@ export class EventsViewPageComponent  implements OnInit {
       incomingStringArray.find((incomingWord) => word == incomingWord) ? currentWordCount++ : null
       })
     return sourceStringArray.length == currentWordCount
-  }
+}
 
   checkUser(){
     if(this.userService.user.value){
