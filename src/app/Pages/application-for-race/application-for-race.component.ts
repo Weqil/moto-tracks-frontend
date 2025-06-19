@@ -6,7 +6,7 @@ import { EventService } from '@app/Shared/Data/Services/Event/event.service';
 import { UserService } from '@app/Shared/Data/Services/User/user.service';
 
 import { LoadingService } from '@app/Shared/Services/loading.service';
-import { finalize, Subject, takeUntil } from 'rxjs';
+import { catchError, EMPTY, finalize, map, Subject, takeUntil, tap } from 'rxjs';
 import { HeaderModule } from "../../Shared/Modules/header/header.module";
 import { IonModal, NavController, Platform, IonContent } from '@ionic/angular/standalone';
 import { isNull } from 'lodash';
@@ -27,6 +27,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { PrivateFilesComponent } from "../../CommonUI/Pages/private-files/private-files.component";
 import { StandartButtonComponent } from '@app/Shared/Components/UI/Buttons/standart-button/standart-button.component';
+import { serverError } from '@app/Shared/Data/Interfaces/errors';
 
 @Pipe({ name: 'safeUrl' })
 export class SafeUrlPipe implements PipeTransform {
@@ -217,7 +218,29 @@ export class ApplicationForRaceComponent  implements OnInit {
       let loader:HTMLIonLoadingElement
       this.loaderService.showLoading().then((load)=> loader = load)
       this.eventService.generatePdfForAplication(this.userGet.id).pipe(
-        finalize(()=>this.loaderService.hideLoading(loader))
+        tap((res:Blob)=>{
+          if (res.size === 0) {
+            console.error('Получен пустой Blob!');
+          }else{
+            const blobUrl = URL.createObjectURL(res);
+            const newWindow = window.open(blobUrl, '_blank');
+            newWindow?.addEventListener('load', () => {
+              newWindow.print();
+            });
+            URL.revokeObjectURL(blobUrl);
+          }
+         
+        }),
+        map((res:any)=>{
+        console.log(res.text())
+        }),
+        finalize(()=>this.loaderService.hideLoading(loader)),
+        catchError((err:any)=>{
+          if(err.status == 200){
+            console.log(err.text())
+          }
+          return EMPTY;
+        })
       ).subscribe((res:any)=>{
         console.log(res)
       })
