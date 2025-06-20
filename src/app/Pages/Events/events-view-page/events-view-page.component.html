@@ -386,12 +386,12 @@
         
 
         <form class="personal-form">
-          <app-standart-input [readonly]="true" [control]="personalUserForm.get('surname')" placeholder="Введите фамилию" [errorMessage]="formErrors.surname.errorMessage" [invalid]="formErrors.surname.errorMessage.length !== 0" label="Фамилия*"></app-standart-input>
-          <app-standart-input [readonly]="true" [control]="personalUserForm.get('name')" [errorMessage]="formErrors.name.errorMessage" [invalid]="formErrors.name.errorMessage.length !== 0" placeholder="Введите имя" label="Имя*"></app-standart-input>
-          <app-standart-input [readonly]="true" [errorMessage]="formErrors.patronymic.errorMessage" [invalid]="formErrors.patronymic.errorMessage.length !== 0" [control]="personalUserForm.get('patronymic')" placeholder="Введите отчество" label="Отчество*"></app-standart-input>
-          <app-standart-input [readonly]="true" [errorMessage]="formErrors.dateOfBirth.errorMessage" [invalid]="formErrors.dateOfBirth.errorMessage.length !== 0" [control]="personalUserForm.get('dateOfBirth')" placeholder="Выберите дату" label="Дата рождения*" type="date"></app-standart-input>
-          <app-standart-input [readonly]="true" [errorMessage]="formErrors.region.errorMessage" [invalid]="formErrors.region.errorMessage.length !== 0" [readonly]="true" label="Область/край*" [control]="personalUserForm.get('region')" placeholder="Выберите область вашу область"></app-standart-input>     
-          <app-standart-input [readonly]="true" [errorMessage]="formErrors.city.errorMessage" [invalid]="formErrors.city.errorMessage.length !== 0" [control]="personalUserForm.get('city')" [errorMessage]="formErrors.city.errorMessage" [invalid]="formErrors.city.errorMessage.length !== 0" placeholder="Введите город" label="Город*"></app-standart-input>     
+          <app-standart-input [readonly]="true" (click)="showReadonlyInfo()" [control]="personalUserForm.get('surname')" placeholder="Введите фамилию" [errorMessage]="formErrors.surname.errorMessage" [invalid]="formErrors.surname.errorMessage.length !== 0" label="Фамилия*"></app-standart-input>
+          <app-standart-input [readonly]="true" (click)="showReadonlyInfo()" [control]="personalUserForm.get('name')" [errorMessage]="formErrors.name.errorMessage" [invalid]="formErrors.name.errorMessage.length !== 0" placeholder="Введите имя" label="Имя*"></app-standart-input>
+          <app-standart-input [readonly]="true" (click)="showReadonlyInfo()" [errorMessage]="formErrors.patronymic.errorMessage" [invalid]="formErrors.patronymic.errorMessage.length !== 0" [control]="personalUserForm.get('patronymic')" placeholder="Введите отчество" label="Отчество*"></app-standart-input>
+          <app-standart-input [readonly]="true" (click)="showReadonlyInfo()" [errorMessage]="formErrors.dateOfBirth.errorMessage" [invalid]="formErrors.dateOfBirth.errorMessage.length !== 0" [control]="personalUserForm.get('dateOfBirth')" placeholder="Выберите дату" label="Дата рождения*" type="date"></app-standart-input>
+          <app-standart-input [readonly]="true" (click)="showReadonlyInfo()" [errorMessage]="formErrors.region.errorMessage" [invalid]="formErrors.region.errorMessage.length !== 0" [readonly]="true" label="Область/край*" [control]="personalUserForm.get('region')" placeholder="Выберите область вашу область"></app-standart-input>     
+          <app-standart-input [readonly]="true" (click)="showReadonlyInfo()" [errorMessage]="formErrors.city.errorMessage" [invalid]="formErrors.city.errorMessage.length !== 0" [control]="personalUserForm.get('city')" [errorMessage]="formErrors.city.errorMessage" [invalid]="formErrors.city.errorMessage.length !== 0" placeholder="Введите город" label="Город*"></app-standart-input>     
           <!-- <ion-modal class="region-modal" (didDismiss)="closeRegionModal()"  [isOpen]="regionModalState">
             <ng-template>
               <ion-content>
@@ -411,16 +411,16 @@
 
 
           
-          <app-standart-input [readonly]="true" [errorMessage]="formErrors.numberAndSeria.errorMessage" [invalid]="formErrors.numberAndSeria.errorMessage.length !== 0" [control]="personalUserForm.get('numberAndSeria')" placeholder="Серия, номер" label="Паспорт/Свидетельство о рождении*"></app-standart-input>
+          <app-standart-input [readonly]="true" (click)="showReadonlyInfo()" [errorMessage]="formErrors.numberAndSeria.errorMessage" [invalid]="formErrors.numberAndSeria.errorMessage.length !== 0" [control]="personalUserForm.get('numberAndSeria')" placeholder="Серия, номер" label="Паспорт/Свидетельство о рождении*"></app-standart-input>
 
           <div class="start-number-container">
-            <app-standart-input [readonly]="true" [errorMessage]="formErrors.inn.errorMessage" [invalid]="formErrors.inn.errorMessage.length !== 0" [control]="personalUserForm.get('inn')" placeholder="ИНН" label="ИНН*"></app-standart-input>
-            <app-standart-input [readonly]="true" [errorMessage]="formErrors.snils.errorMessage" [invalid]="formErrors.snils.errorMessage.length !== 0" [control]="personalUserForm.get('snils')" placeholder="СНИЛС" label="СНИЛС*"></app-standart-input>
+            <app-standart-input [readonly]="true" (click)="showReadonlyInfo()" [errorMessage]="formErrors.inn.errorMessage" [invalid]="formErrors.inn.errorMessage.length !== 0" [control]="personalUserForm.get('inn')" placeholder="ИНН" label="ИНН*"></app-standart-input>
+            <app-standart-input [readonly]="true" (click)="showReadonlyInfo()" [errorMessage]="formErrors.snils.errorMessage" [invalid]="formErrors.snils.errorMessage.length !== 0" [control]="personalUserForm.get('snils')" placeholder="СНИЛС" label="СНИЛС*"></app-standart-input>
           </div>
           
           
           
-          <app-standart-input [readonly]="true" [control]="personalUserForm.get('phoneNumber')" [errorMessage]="formErrors.phoneNumber.errorMessage" [invalid]="formErrors.phoneNumber.errorMessage.length !== 0" maskType="phone" placeholder="Номер телефона" label="Телефон*"></app-standart-input>
+          <app-standart-input [readonly]="true" (click)="showReadonlyInfo()" [control]="personalUserForm.get('phoneNumber')" [errorMessage]="formErrors.phoneNumber.errorMessage" [invalid]="formErrors.phoneNumber.errorMessage.length !== 0" maskType="phone" placeholder="Номер телефона" label="Телефон*"></app-standart-input>
           
           
           
@@ -466,17 +466,17 @@
           
           
           
-          <app-standart-input [readonly]="true" [errorMessage]="formErrors.community.errorMessage" [invalid]="formErrors.community.errorMessage.length !== 0" [readonly]="true" [control]="personalUserForm.get('community')" placeholder="Команда" label="Название команды*"></app-standart-input>
-          <app-standart-input [readonly]="true" [control]="personalUserForm.get('coach')" placeholder="Тренер" label="ФИО тренера"></app-standart-input>
-          <app-standart-input-select [readonly]="true" [errorMessage]="formErrors.motoStamp.errorMessage" [invalid]="formErrors.motoStamp.errorMessage.length !== 0" selectedName="motoStampSelect" [items]="motoStampItems" (onChange)="setMotoStamp($event)" [selectedItem]="{name:personalUserForm.value.motoStamp, value:personalUserForm.value.motoStamp}" label="Марка мотоцикла*"></app-standart-input-select>
-          <app-standart-input-select [readonly]="true" [errorMessage]="formErrors.engine.errorMessage" [invalid]="formErrors.engine.errorMessage.length !== 0" selectedName="engineSelect" [items]="engineItems" (onChange)="setEngine($event)" [selectedItem]="{name:personalUserForm.value.engine, value:personalUserForm.value.engine}" label="Тип двигателя*"></app-standart-input-select>
+          <app-standart-input [readonly]="true" (click)="showReadonlyInfo()" [errorMessage]="formErrors.community.errorMessage" [invalid]="formErrors.community.errorMessage.length !== 0" [readonly]="true" [control]="personalUserForm.get('community')" placeholder="Команда" label="Название команды*"></app-standart-input>
+          <app-standart-input [readonly]="true" (click)="showReadonlyInfo()" [control]="personalUserForm.get('coach')" placeholder="Тренер" label="ФИО тренера"></app-standart-input>
+          <app-standart-input-select [readonly]="true" (click)="showReadonlyInfo()" [errorMessage]="formErrors.motoStamp.errorMessage" [invalid]="formErrors.motoStamp.errorMessage.length !== 0" selectedName="motoStampSelect" [items]="motoStampItems" (onChange)="setMotoStamp($event)" [selectedItem]="{name:personalUserForm.value.motoStamp, value:personalUserForm.value.motoStamp}" label="Марка мотоцикла*"></app-standart-input-select>
+          <app-standart-input-select [readonly]="true" (click)="showReadonlyInfo()" [errorMessage]="formErrors.engine.errorMessage" [invalid]="formErrors.engine.errorMessage.length !== 0" selectedName="engineSelect" [items]="engineItems" (onChange)="setEngine($event)" [selectedItem]="{name:personalUserForm.value.engine, value:personalUserForm.value.engine}" label="Тип двигателя*"></app-standart-input-select>
           <app-standart-rich-input  [control]="personalUserForm.get('comment')" label="Комментарий" placeholder="Оставьте комментарий"></app-standart-rich-input>
         </form>
         
           <div class="documents">
             <div class="document-header">Лицензия</div>
             <div class="licenses document-container">
-              <app-standart-input [control]="licensesForm.get('number')" placeholder="Лицензия МФР" label="Лицензия МФР (тип, №)*"></app-standart-input>
+              <app-standart-input [readonly]="true" (click)="showReadonlyInfo()" [control]="licensesForm.get('number')" placeholder="Лицензия МФР" label="Лицензия МФР (тип, №)*"></app-standart-input>
               <span class="scan-header">Скан или фотография Лицензии</span>
               <app-icon-button 
                 (click)="!licensesFile ? licensesFileInput.click(): showToastInfoFileUpload()"
@@ -500,9 +500,9 @@
 
             <div class="document-header">Страховой полис</div>
             <div class="polis document-container">
-              <app-standart-input [errorMessage]="documentsError.polisNumber.errorMessage" [invalid]="documentsError.polisNumber.errorMessage.length !== 0"  [control]="polisForm.get('number')" placeholder="Серия, номер" label="Серия и номер*"></app-standart-input>
-              <app-standart-input [errorMessage]="documentsError.issuedWhom.errorMessage" [invalid]="documentsError.issuedWhom.errorMessage.length !== 0" [control]="polisForm.get('issuedWhom')" placeholder="Кем выдан" label="Кем выдан*"></app-standart-input>
-              <app-standart-input [errorMessage]="documentsError.itWorksDate.errorMessage" [invalid]="documentsError.itWorksDate.errorMessage.length !== 0" [control]="polisForm.get('itWorksDate')" placeholder="Срок действия" type="date" label="Срок действия*"></app-standart-input>
+              <app-standart-input [readonly]="true" (click)="showReadonlyInfo()" [errorMessage]="documentsError.polisNumber.errorMessage" [invalid]="documentsError.polisNumber.errorMessage.length !== 0"  [control]="polisForm.get('number')" placeholder="Серия, номер" label="Серия и номер*"></app-standart-input>
+              <app-standart-input [readonly]="true" (click)="showReadonlyInfo()" [errorMessage]="documentsError.issuedWhom.errorMessage" [invalid]="documentsError.issuedWhom.errorMessage.length !== 0" [control]="polisForm.get('issuedWhom')" placeholder="Кем выдан" label="Кем выдан*"></app-standart-input>
+              <app-standart-input [readonly]="true" (click)="showReadonlyInfo()" [errorMessage]="documentsError.itWorksDate.errorMessage" [invalid]="documentsError.itWorksDate.errorMessage.length !== 0" [control]="polisForm.get('itWorksDate')" placeholder="Срок действия" type="date" label="Срок действия*"></app-standart-input>
               <span class="scan-header">Скан или фотография Полиса</span>
               <app-icon-button 
                 (click)="!polisFile ? polisFileInput.click(): showToastInfoFileUpload()"  
@@ -574,9 +574,10 @@
 [regions]="searchRegionItems"
 [createRegions]="createRegionItems"
 (clearFilterRegion)="clearRegionInComandFilter()"
-></app-select-comands>}
+></app-select-comands>
 
 <ng-container *ngIf="event">
   <app-images-modal  *ngIf="event.images && event.images.length " [openModal]="statusImagesModal" (closeModalEmit)="closeImagesModal()" [imagesPathArray]="event.images"></app-images-modal>
 </ng-container>
 
+}

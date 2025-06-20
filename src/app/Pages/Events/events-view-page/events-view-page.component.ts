@@ -1305,5 +1305,8 @@ createTransaction(): Observable<any> { // Возвращаем Observable
     });
   }
 
+  showReadonlyInfo() {
+    this.toastService.showToast('Данные можно изменить только в анкете участника', 'primary');
+  }
 
 }

@@ -148,7 +148,6 @@ export class ApplicationForRaceComponent  implements OnInit {
 
     getUsersInRace(){
       this.eventService.getApplicationsForCommisson(this.eventId).pipe().subscribe((res:any)=>{
-        
         this.usersInRace = res.users
         this.formattedUsers = [];
 
@@ -215,6 +214,7 @@ export class ApplicationForRaceComponent  implements OnInit {
     }
 
     generatePdfInAplication(){
+      console.log(this.userGet)
       let loader:HTMLIonLoadingElement
       this.loaderService.showLoading().then((load)=> loader = load)
       this.eventService.generatePdfForAplication(this.userGet.id).pipe(
