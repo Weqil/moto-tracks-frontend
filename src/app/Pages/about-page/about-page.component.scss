@@ -163,4 +163,27 @@ main{
     min-width: unset;
     max-width: 100%;
   }
+  
 }
+.links-block__item{
+    padding: 0.2rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    justify-content: center;
+    border: 2px solid #f3f2f2;
+    border-radius: 10px;
+    width: 3rem;
+    height: 3rem;
+    img{
+      width: 3rem;
+      height: 3rem;
+    }
+    background-color: #FFFFFF;
+  }
+  .links-block{
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+  }

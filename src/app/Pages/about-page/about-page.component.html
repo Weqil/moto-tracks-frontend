@@ -5,7 +5,7 @@
           <div class="flag-image-wrapper">
             <img class="flag-image" src="/assets/icons/race-flag.svg" alt="">
           </div>
-        <h1 class="main-about__heading">МотоКросс</h1>
+        <h1 class="main-about__heading">МотоТрек</h1>
         <span class="main-about__description">Приложение для записи на соревнования по
         мотоспорту и поиска трасс для тренировок</span>
       </div>
@@ -55,6 +55,20 @@
       </div>
       <div class="auth-button-wrapper">
           <app-icon-button clippy="clippy-right" [shapeColumn]="true" (click)="redirectInSelectAuth()" style="width: 40rem" widht="full" theme="red"  buttonText="Начать пользоваться"></app-icon-button>
+      </div>
+      <div class="links-block">
+          <div (click)="redirectInLink('google')" class="links-block__item">
+              <img src="/assets/icons/google-play.svg" alt="">
+          </div>
+          <div (click)="redirectInLink('ruStore')" class="links-block__item">
+              <img src="/assets/icons/rustore.svg" alt="">
+          </div>
+          <div (click)="redirectInLink('appStore')" class="links-block__item">
+              <img src="/assets/icons/app-store.svg" alt="">
+          </div>
+          <div (click)="redirectInLink('tg')" class="links-block__item">
+              <img src="/assets/icons/telegram.svg" alt="">
+          </div>
       </div>
     </section>
   </main>
