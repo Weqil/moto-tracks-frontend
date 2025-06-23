@@ -98,7 +98,7 @@ export class  IconButtonComponent  implements OnInit {
    */
    @Input() font:'font'|'font-bold'|'none' = 'font'
 
-   @Input() fontSize:'litle-font-size'|'standart-font-size' = 'standart-font-size'
+   @Input() fontSize:'litle-font-size'|'standart-font-size'|'big-font-size' = 'standart-font-size'
 
    @Input() fontColor:'standart-color'|'red-color' = 'standart-color'
 

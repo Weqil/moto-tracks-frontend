@@ -77,6 +77,10 @@ export const publicRoutes: Routes = [
     {
       path:'test-payment',
       loadComponent: () => import('../Pages/test-payment/test-payment.component').then((m)=> m.TestPaymentComponent)
-    }
+    },
+      {
+        path:'about',
+        loadComponent: () => import('../Pages/about-page/about-page.component').then((m) => m.AboutPageComponent)
+      },
    
   ];

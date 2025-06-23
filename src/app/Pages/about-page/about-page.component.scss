@@ -1,0 +1,166 @@
+main{
+    width: 1200px;
+    margin: 0 auto;
+    padding: var(--standart-padding);
+}
+.flag-image{
+    margin-left: -3rem;
+    width: 100%;
+    margin-top: 4rem;
+    rotate: 22deg;
+    height: auto;
+}
+.flag-image-wrapper{
+    width: 400px;
+    overflow: hidden;
+}
+.main-about{
+    display: flex;
+    gap: 6rem;
+}
+.main-about__heading{
+    margin: 0;
+    font-family: var(--font-bold);
+    font-size: 40px;
+}
+.main-about__description{
+    font-family: var(--font-regular);
+    font-size: var(--font-regular-size);
+    font-style: italic;
+    color: var(--font-standart-color);
+    margin-top: 1rem;
+    font-size: 20px;
+    line-height: 1.5;
+}
+.main-about-images-block{
+    background: url('/assets/images/back-auth.jpg');
+    width: 100%;
+    background-size: cover;
+    padding: var(--standart-padding);
+    margin-left: auto;
+    min-height: 600px;
+    margin-right: auto;
+    max-width: 960px;
+}
+
+.advantages-about{
+    padding-top: 4rem;
+}
+.advantages-about__heading-wrapper{
+    max-width: 40rem;
+}
+.info-check-list{
+    padding-top: 1rem;
+}
+.info-check-list__item__icon{
+    width: 4rem;
+    filter: brightness(0) saturate(100%) invert(49%) sepia(98%) saturate(1241%) hue-rotate(324deg) brightness(97%) contrast(109%);
+}
+.info-check-list__item__info__name{
+    font-family: var(--font-bold);
+    font-size: 20px;
+    color: var(--font-standart-color);
+}
+.info-check-list__item__info__description{
+    font-family: var(--font-regular);
+    font-size: var(--font-regular-size);
+    color: var(--font-standart-color);
+    margin-top: 0.5rem;
+}
+.info-check-list__item{
+    display: flex;
+    max-width: 40rem;
+    gap: 2rem;
+    align-items: center;
+    margin-bottom: 4rem;
+}
+.info-check-list__item__info{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.auth-button-wrapper{
+    display: flex;
+    justify-content: center;
+}
+
+@media screen and (max-width: 768px) {
+  main {
+    width: 100%;
+    padding: var( --standart-padding) var( --standart-padding) 2rem var( --standart-padding) ;
+    
+  }
+  .main-about {
+    flex-direction: column-reverse;
+    gap: 2rem;
+    align-items: center;
+  }
+  .main-about__info {
+    align-items: center;
+    gap: 0.7rem;
+    width: 100%;
+    justify-content: flex-start;
+  }
+  .flag-image-wrapper {
+       display: none;
+  }
+  .flag-image {
+    display: none;
+    margin-left: 0;
+    width: 10%;
+    margin-top: 1rem;
+    rotate: 22deg;
+    display: block;
+  }
+  .main-about__heading {
+    font-size: 1.8rem;
+    text-align: left;
+    margin-bottom: 0.5rem;
+    line-height: 1.1;
+  }
+  .main-about__description {
+    font-size: 0.9rem;
+    text-align: left;
+    margin-top: 0.1rem;
+    line-height: 1.2;
+  }
+  .main-about-images-block {
+    width: 100%;
+    background-size: cover;
+    padding: var(--little-padding);
+    margin-left: auto;
+    min-height: 400px;
+    margin-right: auto;
+    max-width: 100%;
+  }
+  .advantages-about {
+    padding-top: 1rem;
+  }
+  .info-check-list__item {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    max-width: 100%;
+    margin-bottom: 2rem;
+  }
+
+  .info-check-list__item__icon {
+    width: 2rem;
+  }
+  .info-check-list__item__info__name {
+    font-size: 0.95rem;
+  }
+  .info-check-list__item__info__description {
+    font-size: 0.8rem;
+  }
+  .auth-button-wrapper {
+    width: 100%;
+    padding: 0 0.5rem;
+  }
+  .auth-button-wrapper app-icon-button {
+    width: 100% !important;
+    min-width: unset;
+    max-width: 100%;
+  }
+}
