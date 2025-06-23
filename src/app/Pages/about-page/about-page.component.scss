@@ -87,7 +87,8 @@ main{
 @media screen and (max-width: 768px) {
   main {
     width: 100%;
-    padding: var(--little-padding);
+    padding: var( --standart-padding) var( --standart-padding) 2rem var( --standart-padding) ;
+    
   }
   .main-about {
     flex-direction: column-reverse;
