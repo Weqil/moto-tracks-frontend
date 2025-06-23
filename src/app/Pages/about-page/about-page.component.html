@@ -14,8 +14,47 @@
     </section>
 
     <section class="advantages-about">
-      <div class="advantages-about__heading-wrapper">
-          <app-icon-button [shapeColumn]="true" fontSize="standart-font-size" clippy="clippy-right" height="long-height"  widht="full" theme="red" buttonText="Плюсы приложения МотоКросс"></app-icon-button>
+      <div class="advantages-about__info">
+         <!-- <div class="advantages-about__heading-wrapper">
+            <app-icon-button [shapeColumn]="true" fontSize="big-font-size" clippy="clippy-right" height="long-height"  widht="full" theme="red" buttonText="Плюсы приложения МотоКросс"></app-icon-button>
+          </div> -->
+          <div class="info-check-list">
+            <div class="info-check-list__item">
+              <img src="/assets/icons/select.svg" alt="" class="info-check-list__item__icon">
+              <div class="info-check-list__item__info">
+                <span class="info-check-list__item__info__name">Удобство и простота</span>
+                <span class="info-check-list__item__info__description">
+                  Предварительная регистрация в одно нажатие. Вся
+                  информация о зарегистрированных спортсменах в
+                  режиме реального времени.
+                </span>
+              </div>
+            </div>
+            <div class="info-check-list__item">
+              <img src="/assets/icons/select.svg" alt="" class="info-check-list__item__icon">
+              <div class="info-check-list__item__info">
+                <span class="info-check-list__item__info__name">Максимальная автоматизация</span>
+                <span class="info-check-list__item__info__description">
+                 Все данные о вашей трассе загружаются в приложение и
+                  любой спортсмен одним кликом проложит маршрут до
+                  вашей трассы.
+                </span>
+              </div>
+            </div>
+            <div class="info-check-list__item">
+              <img src="/assets/icons/select.svg" alt="" class="info-check-list__item__icon">
+              <div class="info-check-list__item__info">
+                <span class="info-check-list__item__info__name">Испытано на Чемпионате России</span>
+                <span class="info-check-list__item__info__description">
+                  Наше приложение уже успешно работает на масштабных
+                  соревнованиях, включая Чемпионат России по мотокроссу.
+                </span>
+              </div>
+            </div>
+          </div>
+      </div>
+      <div class="auth-button-wrapper">
+          <app-icon-button clippy="clippy-right" [shapeColumn]="true" (click)="redirectInSelectAuth()" style="width: 40rem" widht="full" theme="red"  buttonText="Начать пользоваться"></app-icon-button>
       </div>
     </section>
   </main>

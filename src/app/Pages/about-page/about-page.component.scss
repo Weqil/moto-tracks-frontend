@@ -46,3 +46,40 @@ main{
 .advantages-about{
     padding-top: 4rem;
 }
+.advantages-about__heading-wrapper{
+    max-width: 40rem;
+}
+.info-check-list{
+    padding-top: 1rem;
+}
+.info-check-list__item__icon{
+    width: 4rem;
+    filter: brightness(0) saturate(100%) invert(49%) sepia(98%) saturate(1241%) hue-rotate(324deg) brightness(97%) contrast(109%);
+}
+.info-check-list__item__info__name{
+    font-family: var(--font-bold);
+    font-size: 20px;
+    color: var(--font-standart-color);
+}
+.info-check-list__item__info__description{
+    font-family: var(--font-regular);
+    font-size: var(--font-regular-size);
+    color: var(--font-standart-color);
+    margin-top: 0.5rem;
+}
+.info-check-list__item{
+    display: flex;
+    max-width: 40rem;
+    gap: 2rem;
+    align-items: center;
+    margin-bottom: 4rem;
+}
+.info-check-list__item__info{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.auth-button-wrapper{
+    display: flex;
+    justify-content: center;
+}

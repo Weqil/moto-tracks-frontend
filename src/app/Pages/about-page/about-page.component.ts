@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { IconButtonComponent } from '@app/Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component';
-
+import { IonModal, NavController } from '@ionic/angular/standalone';
 
 import { IonContent } from "@ionic/angular/standalone";
 @Component({
@@ -15,7 +15,11 @@ import { IonContent } from "@ionic/angular/standalone";
 export class AboutPageComponent  implements OnInit {
 
   constructor() { }
-
+  navController = inject(NavController);
+  
+  redirectInSelectAuth(){
+    this.navController.navigateForward('/select-auth');
+  }
   ngOnInit() {}
 
 }
