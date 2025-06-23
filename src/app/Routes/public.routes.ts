@@ -40,6 +40,10 @@ export const publicRoutes: Routes = [
         loadComponent: () => import('../Pages/rating/rating.component').then((m) => m.RatingComponent)
       },
       {
+        path:'about',
+        loadComponent: () => import('../Pages/about-page/about-page.component').then((m) => m.AboutPageComponent)
+      },
+      {
         path:'linarikUI',
         loadComponent: () => import('../Pages/linarik-ui/linarik-ui.component').then((m) => m.LinarikUiComponent)
       },

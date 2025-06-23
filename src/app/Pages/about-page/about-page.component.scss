@@ -1,0 +1,43 @@
+main{
+    width: 1200px;
+    margin: 0 auto;
+    padding: var(--standart-padding);
+}
+.flag-image{
+    margin-left: -3rem;
+    width: 100%;
+    margin-top: 4rem;
+    rotate: 22deg;
+    height: auto;
+}
+.flag-image-wrapper{
+    width: 400px;
+    overflow: hidden;
+}
+.main-about{
+    display: flex;
+    gap: 6rem;
+}
+.main-about__heading{
+    margin: 0;
+    font-family: var(--font-bold);
+    font-size: 40px;
+}
+.main-about__description{
+    font-family: var(--font-regular);
+    font-size: var(--font-regular-size);
+    font-style: italic;
+    color: var(--font-standart-color);
+    margin-top: 1rem;
+    font-size: 20px;
+    line-height: 1.5;
+}
+.main-about-images-block{
+    background: url('/assets/images/back-auth.jpg');
+    width: 100%;
+    background-size: cover;
+    padding: var(--standart-padding);
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 960px;
+}
