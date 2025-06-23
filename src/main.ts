@@ -21,6 +21,11 @@ import { YandexMetrikaModule } from "./app/Shared/Modules/yandex-metrika/yandex-
 import { registerLocaleData } from "@angular/common";
 import localeRu from '@angular/common/locales/ru';
 import { contentTypeInterceptorFn } from "@app/Shared/Data/Interceptors/contentType.interceptor";
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { provideMessaging, getMessaging } from '@angular/fire/messaging';
+
+
+
 
 const yandexMapConfig: YaConfig = {
   apikey: environment.apiKeyYandex + '&' + `suggest_apikey=${environment.apiKeyYandexSubject}`,
@@ -28,6 +33,8 @@ const yandexMapConfig: YaConfig = {
 registerLocaleData(localeRu, 'ru');
 bootstrapApplication(AppComponent, {
   providers: [
+        provideFirebaseApp(() => initializeApp(environment.firebase)),
+        provideMessaging(() => getMessaging()),
         provideAnimations(),
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
         provideIonicAngular(),
@@ -46,3 +53,5 @@ bootstrapApplication(AppComponent, {
         { provide: LOCALE_ID, useValue: 'ru' },
     ],
 });
+
+

@@ -6,11 +6,15 @@ import { UserService } from './Shared/Data/Services/User/user.service';
 import { MetrikaModule } from 'ng-yandex-metrika';
 import  moment, { Moment, MomentInput, version } from 'moment'
 import { CupService } from './Shared/Data/Services/cup.service';
-import { Capacitor } from '@capacitor/core';
+import { Capacitor, Plugins } from '@capacitor/core';
 import { VersionService } from './Shared/Data/Services/version.service';
 import { IconButtonComponent } from "./Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component";
 import { SportTypesService } from './Shared/Data/Services/sport-types.service';
 import { CommonModule } from '@angular/common';
+import { FcmService } from './Shared/Services/fcm.service';
+
+
+
 async function getAppVersion() {
   const platform = Capacitor.getPlatform();
   if (Capacitor.isNativePlatform() || platform == 'ios' || platform == 'android') {
@@ -19,9 +23,6 @@ async function getAppVersion() {
   } 
   return false
 }
-
-
-
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -33,35 +34,46 @@ export class AppComponent {
   private finishTimeInBackground?: Moment;
   navController: NavController = inject(NavController)
   versionService:VersionService = inject(VersionService)
+  fcmService: FcmService = inject(FcmService)
   sportCategoryModalState:boolean = false
-  contentTypes:any = []
+  contentTypes:any = Plugins
   sportCategoryColorObject:any = {
     Мотокросс:'red',
     Эндуро:'green'
   }
   sportTypesService: SportTypesService = inject(SportTypesService)
   userHaveCurrentVersion:boolean = true
+  PushNotifications: any;
   constructor(private navCtrl: NavController, private router: Router) {
-    
-    // App.addListener('resume', () => { 
-    //   this.finishTimeInBackground = moment()
-    //     // console.log(`Приложение снова активно`);
-    //     // console.log(this.finishTimeInBackground.format('HH:mm:ss'))
-    //     if (this.startTimeInBackground) {
-    //       const diffInSeconds = this.finishTimeInBackground.diff(this.startTimeInBackground, 'seconds');
-    //       // console.log(`Приложение было в фоновом режиме ${diffInSeconds} секунд`);
-    //       if(diffInSeconds>20){
-    //         window.location.reload();
-    //         // console.log(`Отправили на ту же страницу`);
-    //       }
-    //     }
-    // });
+     this.initPushNotifications();
+  }
+  async initPushNotifications() {
+    // Запрос разрешения
+    await this.PushNotifications.requestPermissions();
 
-  //   App.addListener('pause', () => { 
-  //     this.startTimeInBackground = moment()
-  //     // console.log(`Приложение ушло в фон`);
-  //     // console.log(this.startTimeInBackground.format('HH:mm:ss'))
-  // });
+    // Регистрация устройства
+    await this.PushNotifications.register();
+
+    // Получение токена
+    this.PushNotifications.addListener('registration', (token: any) => {
+      console.log('Push registration token:', token.value);
+      // Отправь token.value на сервер (Laravel)
+    });
+
+    // Обработка ошибок
+    this.PushNotifications.addListener('registrationError', (err: any) => {
+      console.error('Ошибка регистрации:', err);
+    });
+
+    // Приходящие уведомления
+    this.PushNotifications.addListener('pushNotificationReceived', (notification: any) => {
+      console.log('Уведомление получено:', notification);
+    });
+
+    // Клик по уведомлению
+    this.PushNotifications.addListener('pushNotificationActionPerformed', (action: any) => {
+      console.log('Клик по уведомлению:', action);
+    });
   }
    onUpdate() {
     const platform = Capacitor.getPlatform();
@@ -125,6 +137,9 @@ export class AppComponent {
   userService:UserService = inject(UserService)
   cupService:CupService = inject(CupService)
 
+  askForNotifications() {
+  this.fcmService.requestPermission();
+}
   ngOnInit() {
     // console.log(this.stringHaveCurrentWords('50 см3','Коляски 7 50 см3'))
     this.getLastVersion()
@@ -140,19 +155,7 @@ export class AppComponent {
     this.cupService.getAllDegree().subscribe((res:any)=>{
       this.cupService.allDegree.next(res.degree) 
     })
+    // инициализация  push для web
+    this.fcmService.requestPermission();
   }
 }
-        // let diff = moment().diff(moment(this.lastBackgroundTime), 'seconds');
-        // console.log(`Active - diff ${diff}`);
-        // if(diff>=20){
-          // console.log(diff)
-          // window.location.reload()
-          // console.log('Приложение обновилось')
-        // }
-        
-      // }
-      // else if(state.) {
-      //   this.lastBackgroundTime = moment().format('HH:mm:ss');
-      //   console.log(`Приложение свернуто`);
-      //   console.log(this.lastBackgroundTime);
-      // }

@@ -1,5 +1,7 @@
 
 <ion-app >
+              <button style="position:absolute; margin-top: 100px; z-index: 100;" (click)="askForNotifications()">Включить уведомления</button>
+
   <ion-modal [isOpen]="!this.userHaveCurrentVersion">
     <ng-content>
       <ion-header translucent>
@@ -22,6 +24,7 @@
     </ng-content>
     
   </ion-modal>
+
   <!-- <ion-modal [canDismiss]="false" class="select-sport-category"  [isOpen]="this.sportCategoryModalState">
     <ng-content>
       <ion-header translucent>

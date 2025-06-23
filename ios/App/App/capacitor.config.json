@@ -24,6 +24,7 @@
 		"CAPBrowserPlugin",
 		"HapticsPlugin",
 		"KeyboardPlugin",
+		"PushNotificationsPlugin",
 		"SplashScreenPlugin",
 		"StatusBarPlugin"
 	]
