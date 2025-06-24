@@ -3,15 +3,21 @@ import { Router } from '@angular/router';
 import { Component, inject } from '@angular/core';
 import { IonApp, IonRouterOutlet, NavController, IonModal, IonContent, IonToolbar, IonTitle, IonFooter, IonButton, IonHeader } from '@ionic/angular/standalone';
 import { UserService } from './Shared/Data/Services/User/user.service';
-import { MetrikaModule } from 'ng-yandex-metrika';
-import  moment, { Moment, MomentInput, version } from 'moment'
+import { Moment } from 'moment'
 import { CupService } from './Shared/Data/Services/cup.service';
-import { Capacitor, Plugins } from '@capacitor/core';
+import { Capacitor } from '@capacitor/core';
 import { VersionService } from './Shared/Data/Services/version.service';
 import { IconButtonComponent } from "./Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component";
 import { SportTypesService } from './Shared/Data/Services/sport-types.service';
 import { CommonModule } from '@angular/common';
 import { FcmService } from './Shared/Services/fcm.service';
+import { ToastService } from './Shared/Services/toast.service';
+import {
+  ActionPerformed,
+  PushNotificationSchema,
+  PushNotifications,
+  Token,
+} from '@capacitor/push-notifications';
 
 
 
@@ -35,8 +41,9 @@ export class AppComponent {
   navController: NavController = inject(NavController)
   versionService:VersionService = inject(VersionService)
   fcmService: FcmService = inject(FcmService)
+  toastService: ToastService = inject(ToastService)
   sportCategoryModalState:boolean = false
-  contentTypes:any = Plugins
+  contentTypes:any = [];
   sportCategoryColorObject:any = {
     Мотокросс:'red',
     Эндуро:'green'
@@ -45,35 +52,55 @@ export class AppComponent {
   userHaveCurrentVersion:boolean = true
   PushNotifications: any;
   constructor(private navCtrl: NavController, private router: Router) {
-     this.initPushNotifications();
   }
-  async initPushNotifications() {
-    // Запрос разрешения
-    await this.PushNotifications.requestPermissions();
+  initPushNotifications() {
+    console.log('Initializing HomePage');
 
-    // Регистрация устройства
-    await this.PushNotifications.register();
-
-    // Получение токена
-    this.PushNotifications.addListener('registration', (token: any) => {
-      console.log('Push registration token:', token.value);
-      // Отправь token.value на сервер (Laravel)
+    // Request permission to use push notifications
+    // iOS will prompt user and return if they granted permission or not
+    // Android will just grant without prompting
+    PushNotifications.requestPermissions().then(result => {
+      if (result.receive === 'granted') {
+        // Register with Apple / Google to receive push via APNS/FCM
+        PushNotifications.register();
+      } else {
+        // Show some error
+      }
     });
 
-    // Обработка ошибок
-    this.PushNotifications.addListener('registrationError', (err: any) => {
-      console.error('Ошибка регистрации:', err);
-    });
+    // On success, we should be able to receive notifications
+    PushNotifications.addListener('registration',
+      (token: Token) => {
+        this.toastService.showToast(token.value, 'success')
+        console.log(token.value)
+        // alert('Push registration success, token: ' + token.value);
+      }
+    );
 
-    // Приходящие уведомления
-    this.PushNotifications.addListener('pushNotificationReceived', (notification: any) => {
-      console.log('Уведомление получено:', notification);
-    });
+    // Some issue with our setup and push will not work
+    PushNotifications.addListener('registrationError',
+      (error: any) => {
+        this.toastService.showToast(error, 'error')
+        // alert('Error on registration: ' + JSON.stringify(error));
+      }
+    );
 
-    // Клик по уведомлению
-    this.PushNotifications.addListener('pushNotificationActionPerformed', (action: any) => {
-      console.log('Клик по уведомлению:', action);
-    });
+    // Show us the notification payload if the app is open on our device
+    PushNotifications.addListener('pushNotificationReceived',
+      (notification: PushNotificationSchema) => {
+        this.toastService.showToast(JSON.stringify(notification), 'primary')
+
+        // alert('Push received: ' + JSON.stringify(notification));
+      }
+    );
+
+    // Method called when tapping on a notification
+    PushNotifications.addListener('pushNotificationActionPerformed',
+      (notification: ActionPerformed) => {
+        this.toastService.showToast(JSON.stringify(notification), 'primary')
+        // alert('Push action performed: ' + JSON.stringify(notification));
+      }
+    );
   }
    onUpdate() {
     const platform = Capacitor.getPlatform();
@@ -138,8 +165,12 @@ export class AppComponent {
   cupService:CupService = inject(CupService)
 
   askForNotifications() {
-  this.fcmService.requestPermission();
-}
+    if (Capacitor.getPlatform() === 'web') {
+      this.fcmService.requestPermission();
+    } else if (Capacitor.getPlatform() === 'android') {
+      this.initPushNotifications();
+    }
+  }
   ngOnInit() {
     // console.log(this.stringHaveCurrentWords('50 см3','Коляски 7 50 см3'))
     this.getLastVersion()
@@ -156,6 +187,10 @@ export class AppComponent {
       this.cupService.allDegree.next(res.degree) 
     })
     // инициализация  push для web
-    this.fcmService.requestPermission();
+    if (Capacitor.getPlatform() === 'web') {
+      this.fcmService.requestPermission();
+    } else if (Capacitor.getPlatform() === 'android') {
+      this.initPushNotifications();
+    }
   }
 }
