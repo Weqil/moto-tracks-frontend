@@ -148,7 +148,6 @@ export class ApplicationForRaceComponent  implements OnInit {
 
     getUsersInRace(){
       this.eventService.getApplicationsForCommisson(this.eventId).pipe().subscribe((res:any)=>{
-        
         this.usersInRace = res.users
         this.formattedUsers = [];
 
@@ -215,6 +214,7 @@ export class ApplicationForRaceComponent  implements OnInit {
     }
 
     generatePdfInAplication(){
+      console.log(this.userGet)
       let loader:HTMLIonLoadingElement
       this.loaderService.showLoading().then((load)=> loader = load)
       this.eventService.generatePdfForAplication(this.userGet.id).pipe(
@@ -439,33 +439,29 @@ export class ApplicationForRaceComponent  implements OnInit {
     }
   
     setUserInForm(){
-     
-      if(this.userGet){
-        this.personalUserForm.patchValue(this.userGet)
-  
-        const rawPhone = this.userGet?.phone_number || '';
-        const cleanedPhone = parseInt(rawPhone.replace(/\D/g, ''), 10) || ''; // Удаляем все символы, кроме цифр
-  
+      if(this.userGet && this.userGet.user.personal){
+        this.personalUserForm.patchValue(this.userGet.user.personal)
+        const personal = this.userGet.user.personal
+
+        const rawPhone = personal.phone_number || '';
+        const cleanedPhone = parseInt(rawPhone.replace(/\D/g, ''), 10) || '';
         this.personalUserForm.patchValue({
-          name:this.userGet?.name,
-          surname:this.userGet?.surname,
-          dateOfBirth: this.userGet?.date_of_birth,
+          name: personal.name || '',
+          surname: personal.surname || '',
+          grade: this.userGet.grade?.name || '',
+          dateOfBirth: personal.date_of_birth || '',
           phoneNumber: cleanedPhone,
-          email:this.userGet?.user.email,
-          startNumber: this.userGet?.start_number,
-          locationId: this.userGet?.location?.id,
-          
-          region: this.userGet?.location.name + ' ' + this.userGet?.location.type,
-          community: this.userGet?.community,
-          rank: this.userGet?.rank,
-          engine:this.userGet?.engine,
-          motoStamp:  this.userGet?.moto_stamp,
-          numberAndSeria: this.userGet?.number_and_seria,
-          grade: this.userGet?.grade?.name,
-          group:'',
-          comment: this.userGet?.comment
+          startNumber: personal.start_number || '',
+          locationId: personal.location?.id || '',
+          region: personal.location?.name ? personal.location.name : '',
+          community: personal.community || '',
+          rank: personal.rank || '',
+          engine: personal.engine || '',
+          motoStamp: personal.moto_stamp || '',
+          numberAndSeria: personal.number_and_seria || '',
+          group: ''
         })
-      }else{
+      } else {
         this.personalUserForm.reset()
       }
     }

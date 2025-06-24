@@ -34,7 +34,8 @@
         <div class="application-list">
           <div *ngFor="let user of usersInRace" >
             <div class="user-card" (click)=" navigateToUser(user.user_id, user, user.id)">
-              <app-user-section  
+              <app-user-section 
+              *ngIf="user.user.personal"
                 [them]="user.is_checked == null ? 'standart-them' : (user.is_checked == true ? 'green-them' : 'red-them')"
                 [border]="activeAppId === user.id ? 'red' : 'null'"
                 [showAddress]="true"
@@ -44,7 +45,7 @@
                 [startNumber]="true"   
                 [showRank]="true"  
                 [hideEmail]= "true"  
-                [user]="user">
+                [user]="user.user.personal">
               </app-user-section>
             </div>
             
