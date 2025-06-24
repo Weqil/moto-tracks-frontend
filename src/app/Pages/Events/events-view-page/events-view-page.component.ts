@@ -952,7 +952,6 @@ createTransaction(): Observable<any> { // Возвращаем Observable
           this.createTransactionId = res.transaction.id;
         }),
         catchError(error => {
-          // Обработка ошибок, если вызов API не удался
           this.paymentLink = ''; // Очищаем ссылку при ошибке, если нужно
           throw error; // Повторно выбрасываем ошибку для дальнейшей обработки
         })

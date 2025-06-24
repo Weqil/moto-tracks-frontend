@@ -912,12 +912,29 @@ export class GroupApplicationComponent implements OnInit {
     }
   }
 
+  stringHaveCurrentWords(sourceString:string, incomingString:string){
+      let sourceStringArray:string[] = sourceString.split(' ')
+      let incomingStringArray = incomingString.split(' ')
+      let currentWordCount = 0
+      sourceStringArray.forEach((word:string)=>{
+      incomingStringArray.find((incomingWord) => word == incomingWord) ? currentWordCount++ : null
+      })
+    return sourceStringArray.length == currentWordCount
+}
+
  async createTransaction(): Promise<void> {
   if (this.currentEvent.store) {
+    console.log(this.attendances)
     const attArray: any = this.getSelectedGradesId()
       .map((gradeName: string) =>
-        this.attendances.find((att: IAttenden) => att.name.includes(gradeName))?.id
-      );
+         this.attendances.find((att:IAttenden): any =>{
+          if(this.stringHaveCurrentWords(gradeName,att.name)){
+            return att.id
+          }
+        })?.id 
+      
+
+      ).filter((item:any)=> item !== undefined);
 
     if (attArray && attArray.length) {
       try {
