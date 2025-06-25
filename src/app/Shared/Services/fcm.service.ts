@@ -31,7 +31,7 @@ export class FcmService {
           const firebaseApp = firebaseInitService.initFirebase(environment.firebase);
 
           // Проверяем поддержку FCM
-          isSupported().then(supported => {
+          isSupported().then((supported:any) => {
             if (supported) {
               try {
                 this.messaging = getMessaging(firebaseApp);
@@ -47,8 +47,10 @@ export class FcmService {
       }
   }
     requestPermission() {
+      console.log(Capacitor.getPlatform())
       switch(Capacitor.getPlatform()) {
         case('ios'):
+          this.initForAndroid()
           console.log('not permitted')
           break
         case('android'):
@@ -67,8 +69,9 @@ export class FcmService {
       if (permission === 'granted') {
         getToken(this.messaging, {
               vapidKey: environment.firebase.vapidKey
-            }).then(token => {
+            }).then((token:string) => {
               if (token) {
+                console.log('FCM Token:', token);
                 this.pushTokenToServer(token).pipe(
                   catchError((err: any) => {
                     return of(EMPTY) // Ошибка создания токена на сервере, скорее всего токен уже существет, ничего не надо делать.
@@ -79,7 +82,7 @@ export class FcmService {
               } else {
                 this.toastService.showToast('Не удалось получить токен для уведомлений', 'warning')
               }
-            }).catch(err => {
+            }).catch(() => {
               this.toastService.showToast('Ошибка получения токена уведомлений', 'error')
             });
           } else {
@@ -89,19 +92,11 @@ export class FcmService {
   }
 
    initForAndroid() {  
-
-      PushNotifications.requestPermissions().then(result => {
-        if (result.receive === 'granted') {
-          // Register with Apple / Google to receive push via APNS/FCM
-          PushNotifications.register();
-        } else {
-          this.toastService.showToast('Разрешение на уведомления отклонено', 'primary')
-        }
-      });
-  
       // On success, we should be able to receive notifications
       PushNotifications.addListener('registration',
         (token: Token) => {
+          this.toastService.showToast(String(token), 'primary')
+          console.log('FCM Token:', token.value);
           this.pushTokenToServer(token.value).pipe(
                   catchError((err: any) => {
                     console.log(err.message)
@@ -109,7 +104,6 @@ export class FcmService {
                   })).subscribe((response: any) => {
                     console.log(response) // Токен отправлен и сохранён на сервере
                   })
-          console.log('FCM Token:', token.value);
           // alert('Push registration success, token: ' + token.value);
         }
       );
@@ -117,6 +111,7 @@ export class FcmService {
       // Some issue with our setup and push will not work
       PushNotifications.addListener('registrationError',
         (error: any) => {
+          console.log('FCM Token register error:', error);
           this.toastService.showToast(error, 'error')
           // alert('Error on registration: ' + JSON.stringify(error));
         }
@@ -138,6 +133,14 @@ export class FcmService {
           // alert('Push action performed: ' + JSON.stringify(notification));
         }
       );
+      PushNotifications.requestPermissions().then((result: any) => {
+        if (result.receive === 'granted') {
+          // Register with Apple / Google to receive push via APNS/FCM
+          PushNotifications.register();
+        } else {
+          this.toastService.showToast('Разрешение на уведомления отклонено', 'primary')
+        }
+      });
     }
   /**
    * Слушаем входящие сообщения (Foreground)
