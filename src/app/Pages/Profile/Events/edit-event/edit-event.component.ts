@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { catchError, finalize, Subject, takeUntil, throwError } from 'rxjs';
+import { catchError, EMPTY, finalize, Subject, takeUntil, throwError } from 'rxjs';
 import moment from 'moment';
 import { EditSliderComponent } from 'src/app/Shared/Components/UI/edit-slider/edit-slider.component';
 import { Track } from 'src/app/Shared/Data/Interfaces/track-model';
@@ -31,6 +31,7 @@ import { SelectBottomModalComponent } from "../../../../Shared/Components/UI/Lin
 import { RegionsSelectModalComponent } from "../../../../Shared/Components/Modals/regions-select-modal/regions-select-modal.component";
 import { animation } from '@angular/animations';
 import { options } from 'ionicons/icons';
+import { serverError } from '@app/Shared/Data/Interfaces/errors';
 
 
 @Component({
@@ -50,6 +51,13 @@ export class EditEventComponent  implements OnInit {
     trackSelected: Track | undefined
     currentComission:any[] = []
     eventId: string = ''
+    allClassesState:boolean = true
+    createClassesModalState:boolean = false
+    baseUsersGroups:any[] = []
+    createClassesForm: FormGroup = new FormGroup({
+      gradeId: new FormControl( '',  [Validators.required, Validators.minLength(1)]),
+      name:new FormControl( '',  [Validators.required, Validators.minLength(1)]),
+    })
     raceTypeSelectedItem: any = {name:'', value:''}
     raceTypes:any[] = [
       {name:'Предварительная', value:2},
@@ -82,7 +90,12 @@ export class EditEventComponent  implements OnInit {
 
     maxStepsCount: number = 1
     stepCurrency: number = 1
-    allClassesState:boolean = true
+    classesFilter = {
+      base:true,
+      user:false,
+      all:false,
+    }
+
 
     locationId:string = ''
     usersInCommision:any[] = []
@@ -143,6 +156,16 @@ export class EditEventComponent  implements OnInit {
         }
      }
 
+    setCreateClassesModalState(value:boolean){
+      this.createClassesModalState = value
+    }
+    setBaseClassInCreateNewGrade(event:any){
+    if(event.id){
+      this.createClassesForm.patchValue({gradeId:event.id,name:`${event.name} - `})
+
+    }
+  }
+
     trackHaveInUserSelected(event:any){
       return !!this.selectedGroup.find((item:any) => item.id === event.id)
     }
@@ -156,33 +179,46 @@ export class EditEventComponent  implements OnInit {
       }
      }
      
-     setNewGroupInputValue(event:any){
-      this.newGroupInputValue = event.target.value
-     }
 
-     getAllGroups(){
-      this.groupService.getAllGroup({userId:this.userService.user.value?.id}).pipe().subscribe((res:any)=>{
-       this.userGroups = res.grades
-      })
-      this.groupService.getAllGroup().pipe().subscribe((res:any)=>{
-       this.allUsersGroups = res.grades
-      })
-     }
 
-     createNewGroup(){
-      if(this.newGroupInputValue.length){
-        this.loadingService.showLoading()
-        this.groupService.createGroup({name:this.newGroupInputValue}).pipe(
-          finalize(()=>{
-            this.loadingService.hideLoading()
-          })
-        ).subscribe((res:any)=>{
-          this.getAllGroups()
-          this.toastService.showToast('Новый класс гонки создан успешно','success')
-          this.newGroupInputValue = ''
+  getAllGroups(){
+    this.groupService.getAllGroup({userId:this.userService.user.value?.id}).pipe().subscribe((res:any)=>{
+     this.userGroups = res.grades
+    })
+    this.groupService.getAllGroup({gradeNotParent:1}).pipe().subscribe((res:any)=>{
+     this.baseUsersGroups = res.grades
+    })
+    this.groupService.getAllGroup().pipe().subscribe((res:any)=>{
+     this.allUsersGroups = res.grades
+    })
+
+    
+  }
+
+
+  createNewGroup(){
+    if(!this.createClassesForm.invalid){
+      this.loadingService.showLoading()
+      this.groupService.createGroup(this.createClassesForm.value).pipe(
+        finalize(()=>{
+          this.loadingService.hideLoading()
+        }),
+        catchError((err:serverError)=>{
+          if(err.status = 422){
+            this.toastService.showToast('Такой класс уже существует','danger')
+          }
+          return EMPTY
         })
-      }
+      ).subscribe((res:any)=>{
+        this.getAllGroups()
+
+        this.toastService.showToast('Новый класс гонки создан успешно','success')
+        this.changeGroup('',res.grade)
+        this.setCreateClassesModalState(false)
+        this.createClassesForm.reset()
+      })
     }
+  }
 
     setRegion(region:any){
       this.closeRegionModal()
@@ -250,9 +286,13 @@ export class EditEventComponent  implements OnInit {
         })
       }
 
-      changeAllClassesState(){
-        this.allClassesState =!this.allClassesState
+  changeAllClassesState(value:'all'|'user'|'bases'){
+      this.classesFilter = {
+        base: value == 'bases',
+        user: value == 'user',
+        all: value == 'all'
       }
+  }
 
       openModalGroupModal(){
         this.groupModal = true

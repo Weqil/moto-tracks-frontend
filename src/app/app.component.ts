@@ -10,7 +10,8 @@ import { Capacitor } from '@capacitor/core';
 import { VersionService } from './Shared/Data/Services/version.service';
 import { IconButtonComponent } from "./Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component";
 import { SportTypesService } from './Shared/Data/Services/sport-types.service';
-import { CommonModule } from '@angular/common';
+import localeRu from '@angular/common/locales/ru';
+import { CommonModule, registerLocaleData } from '@angular/common';
 async function getAppVersion() {
   const platform = Capacitor.getPlatform();
   if (Capacitor.isNativePlatform() || platform == 'ios' || platform == 'android') {
@@ -21,7 +22,7 @@ async function getAppVersion() {
 }
 
 
-
+registerLocaleData(localeRu, 'ru');
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
