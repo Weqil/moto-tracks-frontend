@@ -147,7 +147,7 @@ export class ApplicationForRaceComponent  implements OnInit {
   }
 
     getUsersInRace(){
-      this.eventService.getApplicationsForCommisson(this.eventId).pipe().subscribe((res:any)=>{
+     this.eventService.getApplicationsForCommisson(this.eventId).pipe().subscribe((res:any)=>{
         this.usersInRace = res.users
         this.formattedUsers = [];
 
@@ -164,8 +164,12 @@ export class ApplicationForRaceComponent  implements OnInit {
            
         //   })
         // }
+        if(this.userGet){
+          let currentUser = this.usersInRace.find((user:any)=> user.user_id == this.userGet.user_id )
+          this.navigateToUser(currentUser.user_id,currentUser, currentUser.user.id)
+        }
+       
 
-        
         
       })
      
@@ -193,9 +197,10 @@ export class ApplicationForRaceComponent  implements OnInit {
   )
 
     navigateToUser(userId: string, userGet: User, appId:any) {
-      this.getDocumentUserById(Number(userId))
+ 
       this.userGetId = userId
       this.userGet= userGet
+      this.getDocumentUserById(Number(userId))
       this.setUserInForm()
       this.activeUserId = userId
       this.activeAppId = appId
@@ -247,18 +252,8 @@ export class ApplicationForRaceComponent  implements OnInit {
     }
 
     getDocumentUserById(userId:number){
-      let loader:HTMLIonLoadingElement
-      this.loadingService.showLoading().then((res: HTMLIonLoadingElement)=>{
-          loader = res
-      })
-
-        this.eventService.getApplicationsForCommisson(this.eventId).pipe(
-          finalize(()=>{
-            this.loadingService.hideLoading(loader)
-          })
-        ).subscribe((res:any)=>{
-          this.appForComission = res.users
-          // console.log('Загрузил документы:', this.appForComission)
+      console.log('получил документы')
+          console.log('Загрузил документы:', this.usersInRace)
           this.licensed = null;
           this.licensesFile = null;
 
@@ -267,9 +262,11 @@ export class ApplicationForRaceComponent  implements OnInit {
 
           this.notarius = null;
           this.notariusFile = null;
-          const selectedUser = this.appForComission.find((user: any) => user.user_id === userId);
+          console.log( this.userGet)
+          const selectedUser = this.usersInRace.find((user: any) => user.user_id == this.userGet.user_id);
           if (selectedUser) {
             const documents = selectedUser.documents;
+            console.log(selectedUser.documents)
             const license = documents.find((doc: any) => doc.type === 'licenses');
             const polis = documents.find((doc: any) => doc.type === 'polis');
             const notarius = documents.find((doc: any) => doc.type === 'notarius');
@@ -326,7 +323,7 @@ export class ApplicationForRaceComponent  implements OnInit {
             // } 
           // Только теперь открываем компонент
           this.viewUser = true
-        })
+        
     
       }
 
@@ -518,6 +515,7 @@ export class ApplicationForRaceComponent  implements OnInit {
     }
 
     agreedApp(id: any){
+    
       const comment = this.personalUserForm.get('comment')?.value;
       this.eventService.checkApplication(id, 1, comment)
       .pipe(finalize(()=>{

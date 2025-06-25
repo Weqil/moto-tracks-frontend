@@ -155,11 +155,11 @@
           </app-standart-input-select>
           <app-standart-input [readonly]="true" (click)="showReadonlyInfo( )" [errorMessage]="formErrors.numberAndSeria.errorMessage" [invalid]="formErrors.numberAndSeria.errorMessage.length !== 0" [control]="personalUserForm.get('numberAndSeria')" placeholder="Серия, номер" label="Паспорт/Свидетельство о рождении*"></app-standart-input>
           <!-- <app-standart-rich-input  [inputStatus]="true" [control]="personalUserForm.get('comment')" label="Комментарий" placeholder="Оставьте комментарий"></app-standart-rich-input> -->
-          <div class="modal-buttons">
+          <!-- <div class="modal-buttons">
             <app-icon-button widht="full" (click)="closeUserModal()" buttonText="Отмена" theme="dark-gray" buttonStyle="secondary"></app-icon-button>
             <app-icon-button widht="full" theme="red" (click)="saveUserData()" buttonText="Сохранить"></app-icon-button>
           </div>
-        
+         -->
         </form>
       </div>
     </ion-content>

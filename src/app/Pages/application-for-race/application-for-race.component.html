@@ -36,7 +36,7 @@
             <div class="user-card" (click)=" navigateToUser(user.user_id, user, user.id)">
               <app-user-section 
               *ngIf="user.user.personal"
-                [them]="user.is_checked == null ? 'standart-them' : (user.is_checked == true ? 'green-them' : 'red-them')"
+                [them]="user.is_checked == null ? 'standart-them' : (user.user.is_checked == true ? 'green-them' : 'red-them')"
                 [border]="activeAppId === user.id ? 'red' : 'null'"
                 [showAddress]="true"
                 [name]="true"
