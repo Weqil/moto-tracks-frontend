@@ -224,6 +224,9 @@ export class UserService {
   checkedPersonalInfo(userId:number,data:any){
     return this.http.post<any>(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/users/${userId}/cabinet/personal-info/check`, data)
   }
+  checkedDocument(documentId:number,data:any){
+    return this.http.post<any>(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/documents/${documentId}/commission-checked`, data)
+  }
   addUserCommissionRole(userId: string){
     return this.http.post(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/roles-change/${userId}/commission`, userId)
   }

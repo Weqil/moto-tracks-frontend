@@ -33,7 +33,7 @@
         
         <div class="application-list">
           <div *ngFor="let user of usersInRace" >
-            <div class="user-card" (click)=" navigateToUser(user.user_id, user, user.id)">
+            <div class="user-card" (click)=" navigateToUser(user.user.id, user, user.id)">
               <app-user-section 
               *ngIf="user.user.personal"
                 [them]="user.is_checked == null ? 'standart-them' : (user.is_checked == true ? 'green-them' : 'red-them')"
@@ -210,12 +210,15 @@
           </div>
 
           <div class="polish" *ngIf="polish">
-
-            <div class="event-information-title users-title">
+            <div class="title-wrapper">
+               <div class="event-information-title users-title">
               <img src="/assets/icons/red-finished.svg" alt="">
               Страховой полис
               <!-- <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
             </div>
+              <app-check-box (change)="doumentCheck($event,polish)" [checked]="!!polish.is_checked" theme="white" labelText="Проверено"></app-check-box>
+            </div>
+           
             <div class="document-container">
               <div class="input-container">
                 <app-standart-input [readonly]="true" [control]="polisForm.get('number')" placeholder="Серия, номер" label="Серия, номер"></app-standart-input>
@@ -241,10 +244,13 @@
 
 
           <div class="licensed" *ngIf="licensed">
-            <div class="event-information-title users-title">
+           <div class="title-wrapper">
+               <div class="event-information-title users-title">
               <img src="/assets/icons/red-finished.svg" alt="">
               Лицензия
               <!-- <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
+            </div>
+              <app-check-box (change)="doumentCheck($event,licensed)" [checked]="!!licensed.is_checked" theme="white" labelText="Проверено"></app-check-box>
             </div>
             <div class="document-container">
               <app-standart-input [readonly]="true" [control]="licensesForm.get('number')" placeholder="Лицензия МФР" label="Лицензия МФР (тип, №):"></app-standart-input>
@@ -264,10 +270,13 @@
 
 
           <div class="notarius" *ngIf="notarius">
-            <div class="event-information-title users-title">
+           <div class="title-wrapper">
+               <div class="event-information-title users-title">
               <img src="/assets/icons/red-finished.svg" alt="">
               Нотариальное согласие
               <!-- <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
+            </div>
+              <app-check-box (change)="doumentCheck($event,notarius)" [checked]="!!notarius.is_checked" theme="white" labelText="Проверено"></app-check-box>
             </div>
             <div class="document-container">
              

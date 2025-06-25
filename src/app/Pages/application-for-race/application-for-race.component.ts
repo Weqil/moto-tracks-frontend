@@ -166,7 +166,11 @@ export class ApplicationForRaceComponent  implements OnInit {
   }
 
     getUsersInRace(){
-     this.eventService.getApplicationsForCommisson(this.eventId).pipe().subscribe((res:any)=>{
+      let loader:HTMLIonLoadingElement
+      this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=> loader = res)
+     this.eventService.getApplicationsForCommisson(this.eventId).pipe(
+      finalize(()=>this.loaderService.hideLoading(loader))
+     ).subscribe((res:any)=>{
         this.usersInRace = res.users
         this.usersInRace.map((user:any)=>{
           if(user.user.personal.comment){
@@ -197,7 +201,6 @@ export class ApplicationForRaceComponent  implements OnInit {
         //   })
         // }
         if(this.userGet){
-          console.log(this.userGet)
           let currentUser = this.usersInRace.find((user:any)=> user.id == this.userGet.id )
           this.navigateToUser(currentUser.user_id,currentUser, currentUser.id)
         }
@@ -223,6 +226,16 @@ export class ApplicationForRaceComponent  implements OnInit {
     }
   )
 
+  doumentCheck(value:any, document:any){
+    let loader:HTMLIonLoadingElement
+    this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{loader = res})
+    this.userService.checkedDocument(document.id,{checked:!value.state}).pipe(
+      finalize(()=> this.loaderService.hideLoading(loader))
+    ).subscribe((res:any)=>{
+      this.getUsersInRace()
+    })
+  }
+
   notariusForm:FormGroup = new FormGroup (
     {
       notariusFile: new FormControl('',[Validators.required,]), // путь до файла
@@ -232,7 +245,7 @@ export class ApplicationForRaceComponent  implements OnInit {
     navigateToUser(userId: string, userGet: User, appId:any) {
       this.userGetId = userId
       this.userGet= userGet
-      this.getDocumentUserById(Number(userId))
+      this.getDocumentUserById()
       this.setUserInForm()
       this.activeUserId = userId
       this.activeAppId = appId
@@ -279,8 +292,8 @@ export class ApplicationForRaceComponent  implements OnInit {
       })
     }
 
-    getDocumentUserById(userId:number){
-
+    getDocumentUserById(){
+ 
           this.licensed = null;
           this.licensesFile = null;
 
@@ -289,64 +302,35 @@ export class ApplicationForRaceComponent  implements OnInit {
 
           this.notarius = null;
           this.notariusFile = null;
-
-          const selectedUser = this.usersInRace.find((user: any) => user.user_id == this.userGet.user_id);
-          if (selectedUser) {
-            const documents = selectedUser.documents;
-            const license = documents.find((doc: any) => doc.type === 'licenses');
-            const polis = documents.find((doc: any) => doc.type === 'polis');
-            const notarius = documents.find((doc: any) => doc.type === 'notarius');
-
-            // патчим формы и сохраняем файлы
-            if (license) {
-              this.licensesForm.patchValue(license);
-              this.licensesFile = { name: 'Лицензия загружена', dontFile: true };
-              
-              this.licensed = license;
+          let res
+          try{
+            res = this.userGet.documents
+          }catch(err){
+            res = []
+          }
+          
+          if(res.length)
+            if(res.find((doc:any)=> doc.type === 'licenses')){
+              let licensesDocument = res.find((doc:any)=> doc.type === 'licenses')
+              this.licensesForm.patchValue((res.find((doc:any)=> doc.type === 'licenses')))
+              this.licensesFile = {name:'Лицензия загружена', dontFile:true} 
+              this.licensed = licensesDocument
             }
-
-            if (polis) {
+            if((res.find((doc:any)=> doc.type === 'polis'))){
+              let polis = (res.find((doc:any)=> doc.type === 'polis'))
               this.polisForm.patchValue({
                 number: polis.number,
                 issuedWhom: polis.issued_whom,
                 itWorksDate: polis.it_works_date
-              });
-              this.polisFile = { name: 'Полис загружен', dontFile: true };
-              
-              this.polish = polis;
+              })
+              this.polisFile = {name:'Полис загружен', dontFile:true}
+              this.polish = polis
             }
-
-            if (notarius) {
-              this.notariusFile = { name: 'Согласие загружено', dontFile: true };
-              
-              this.notarius = notarius;
-            }
-          }
-
-            // if(res.documents.find((doc:any)=> doc.type === 'licenses')){
-            //   let licensesDocument = res.documents.find((doc:any)=> doc.type === 'licenses')
-            //   this.licensesForm.patchValue((res.documents.find((doc:any)=> doc.type === 'licenses')))
-            //   this.licensesFile = {name:'Лицензия загружена', dontFile:true} 
-            //   this.licensed = licensesDocument
-            //   console.log(this.licensed)
-            // }
-            // if((res.documents.find((doc:any)=> doc.type === 'polis'))){
-            //   let polis = (res.documents.find((doc:any)=> doc.type === 'polis'))
-            //   this.polisForm.patchValue({
-            //     number: polis.number,
-            //     issuedWhom: polis.issued_whom,
-            //     itWorksDate: polis.it_works_date
-            //   })
-            //   this.polisFile = {name:'Полис загружен', dontFile:true}
-            //   this.polish = polis
-            //   console.log(this.polish)
-            // }
-            // if(res.documents.find((doc:any)=> doc.type === 'notarius')){
-            //   let notarius = (res.documents.find((doc:any)=> doc.type === 'notarius'))
-            //   this.notariusFile = {name:'Согласие загружено', dontFile:true}
-            //   this.notarius = notarius
-            //   console.log(this.notarius)
-            // } 
+            if(res.find((doc:any)=> doc.type === 'notarius')){
+              let notarius = (res.find((doc:any)=> doc.type === 'notarius'))
+              this.notariusFile = {name:'Согласие загружено', dontFile:true}
+              this.notarius = notarius
+            } 
           // Только теперь открываем компонент
           this.viewUser = true
         

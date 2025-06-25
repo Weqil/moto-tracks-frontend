@@ -157,6 +157,15 @@ span{
         }
 
 }
+.title-wrapper{
+    display: flex;
+    align-items: end;
+    gap: 1rem;
+    app-check-box{
+        display:flex ;
+        margin-bottom: 0.5rem;
+    }
+}
 
 .event-information-title{
         display: flex;
