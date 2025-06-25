@@ -171,8 +171,13 @@
 
         <div class="doc-information">
           <div class="input-container">
-            <app-standart-input [readonly]="true" [errorMessage]="formErrors.dateOfBirth.errorMessage" [invalid]="formErrors.dateOfBirth.errorMessage.length !== 0" [control]="personalUserForm.get('dateOfBirth')" placeholder="Выберите дату" label="Дата рождения" ></app-standart-input>
-            <app-standart-input [readonly]="true" [errorMessage]="formErrors.numberAndSeria.errorMessage" [invalid]="formErrors.numberAndSeria.errorMessage.length !== 0" [control]="personalUserForm.get('numberAndSeria')" placeholder="Серия, номер" label="Паспорт/Свидетельство о рождении"></app-standart-input>
+             <div class="input-checked-wrapper">
+                <app-check-box (change)="checkInput($event,'dateOfBirth')" [checked]="checkStateInInput('dateOfBirth')" theme="white" labelText="Проверено"></app-check-box>
+                <app-standart-input type="date" [readonly]="true" [errorMessage]="formErrors.dateOfBirth.errorMessage" [invalid]="formErrors.dateOfBirth.errorMessage.length !== 0" [control]="personalUserForm.get('dateOfBirth')" placeholder="Выберите дату" label="Дата рождения" ></app-standart-input>
+            </div>
+             <div class="input-checked-wrapper">
+                <app-standart-input style="width: 100%;" [readonly]="true" [errorMessage]="formErrors.numberAndSeria.errorMessage" [invalid]="formErrors.numberAndSeria.errorMessage.length !== 0" [control]="personalUserForm.get('numberAndSeria')" placeholder="Серия, номер" label="Паспорт/Свидетельство о рождении"></app-standart-input>
+            </div>
           </div>
   
           <!-- <ion-modal class="region-modal" (didDismiss)="closeRegionModal()"  [isOpen]="regionModalState">
@@ -187,8 +192,12 @@
   
   
           <div class="input-container">
-            <app-standart-input [readonly]="true" [errorMessage]="formErrors.inn.errorMessage" [invalid]="formErrors.inn.errorMessage.length !== 0" [control]="personalUserForm.get('inn')" placeholder="ИНН" label="ИНН"></app-standart-input>
-            <app-standart-input [readonly]="true" [errorMessage]="formErrors.snils.errorMessage" [invalid]="formErrors.snils.errorMessage.length !== 0" [control]="personalUserForm.get('snils')" placeholder="СНИЛС" label="СНИЛС"></app-standart-input>
+                <div class="input-checked-wrapper">
+                  <app-standart-input [readonly]="true" [errorMessage]="formErrors.inn.errorMessage" [invalid]="formErrors.inn.errorMessage.length !== 0" [control]="personalUserForm.get('inn')" placeholder="ИНН" label="ИНН"></app-standart-input>
+               </div>
+                <div class="input-checked-wrapper">
+                  <app-standart-input [readonly]="true" [errorMessage]="formErrors.snils.errorMessage" [invalid]="formErrors.snils.errorMessage.length !== 0" [control]="personalUserForm.get('snils')" placeholder="СНИЛС" label="СНИЛС"></app-standart-input>
+               </div>
           </div>
   
           <div class="input-container">

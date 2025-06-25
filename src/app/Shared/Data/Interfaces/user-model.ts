@@ -1,3 +1,4 @@
+import { inputCheckedState } from "./application-check";
 import { ICommand } from "./command";
 
 export interface User{
@@ -14,7 +15,7 @@ export interface User{
     user?:any
     start_number?:number|null,
     user_id?:any,
-    comment:string,
+    comment:inputCheckedState,
     commission?:User,
     grade?:{
         name?:string

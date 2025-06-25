@@ -70,7 +70,7 @@ export class ApplicationForRaceComponent  implements OnInit {
   sortUsers: any = {}
   viewUser: boolean = false
   userGetId!: string
-  userGet!:User
+  userGet!:any
   tableModalValue:boolean = false
   googleTabsLink:string = ''
   arrayDocument:Documents[]=[]
@@ -146,9 +146,35 @@ export class ApplicationForRaceComponent  implements OnInit {
     this.tableModalValue = false
   }
 
+  checkStateInInput(labelName:string):boolean{
+   if(this.userGet.user.personal.comment && this.userGet.user.personal.comment[labelName] ){
+    return !!this.userGet.user.personal.comment[labelName]
+   }
+    return false
+  }
+
+  checkInput(event:any,labelName:string,){
+    if(this.userGet.user.personal.comment && typeof this.userGet.user.personal.comment == 'object'){
+      this.userGet.user.personal.comment[labelName] = !event.state
+    }else{
+      this.userGet.user.personal.comment = {
+        [labelName]:!event.state
+      }
+    }
+    this.personalUserForm.patchValue({comment:JSON.stringify(this.userGet.user.personal.comment)})
+  }
+
     getUsersInRace(){
      this.eventService.getApplicationsForCommisson(this.eventId).pipe().subscribe((res:any)=>{
         this.usersInRace = res.users
+        this.usersInRace.map((user:any)=>{
+          // user.user.personal.comment = {
+          //     dateOfBirth:null,
+          //     numberAndSeria:null,
+          //     inn:null,
+          //     snils:null,
+          // }
+        })
         this.formattedUsers = [];
 
         // Object.keys(this.usersInRace).forEach((key: string) => {
@@ -219,7 +245,6 @@ export class ApplicationForRaceComponent  implements OnInit {
     }
 
     generatePdfInAplication(){
-      console.log(this.userGet)
       let loader:HTMLIonLoadingElement
       this.loaderService.showLoading().then((load)=> loader = load)
       this.eventService.generatePdfForAplication(this.userGet.id).pipe(
@@ -237,23 +262,19 @@ export class ApplicationForRaceComponent  implements OnInit {
          
         }),
         map((res:any)=>{
-        console.log(res.text())
         }),
         finalize(()=>this.loaderService.hideLoading(loader)),
         catchError((err:any)=>{
           if(err.status == 200){
-            console.log(err.text())
           }
           return EMPTY;
         })
       ).subscribe((res:any)=>{
-        console.log(res)
       })
     }
 
     getDocumentUserById(userId:number){
-      console.log('получил документы')
-          console.log('Загрузил документы:', this.usersInRace)
+
           this.licensed = null;
           this.licensesFile = null;
 
@@ -262,11 +283,10 @@ export class ApplicationForRaceComponent  implements OnInit {
 
           this.notarius = null;
           this.notariusFile = null;
-          console.log( this.userGet)
+
           const selectedUser = this.usersInRace.find((user: any) => user.user_id == this.userGet.user_id);
           if (selectedUser) {
             const documents = selectedUser.documents;
-            console.log(selectedUser.documents)
             const license = documents.find((doc: any) => doc.type === 'licenses');
             const polis = documents.find((doc: any) => doc.type === 'polis');
             const notarius = documents.find((doc: any) => doc.type === 'notarius');
