@@ -529,7 +529,6 @@ export class GroupApplicationComponent implements OnInit {
 
   onUserSelect(user: UserWithTeam, isSelected: boolean, event: Event) {
     event.stopPropagation();
-    console.log(user)
     if (!user.personal) {
       this.toastService.showToast(
         'Пользователь должен сначала заполнить свою анкету самостоятельно',
@@ -923,7 +922,6 @@ export class GroupApplicationComponent implements OnInit {
 
  async createTransaction(): Promise<void> {
   if (this.currentEvent.store) {
-    console.log(this.attendances)
     const attArray: any = this.getSelectedGradesId()
       .map((gradeName: string) =>
          this.attendances.find((att:IAttenden): any =>{
@@ -940,8 +938,6 @@ export class GroupApplicationComponent implements OnInit {
         const res: any = await firstValueFrom(
           this.transactionService.createTransactions({ attendanceIds: attArray, isRace: 1 })
         );
-
-        console.log(res);
         this.paymentLink = res.payment_link;
         this.createTransactionId = res.transaction.id;
       } catch (error) {
@@ -953,7 +949,6 @@ export class GroupApplicationComponent implements OnInit {
 
   async openPaymentBrowser(){
      const openCapacitorSite = async () => {
-      console.log(this.paymentLink)
        if(this.paymentLink){
           this.toastService.showToast('Необходимо оплатить стартовый взнос','warning')
           await Browser.open({ url: this.paymentLink });
@@ -969,18 +964,7 @@ export class GroupApplicationComponent implements OnInit {
     }
   
     this.createTransaction().then(()=>{
-      console.log(this.paymentLink)
-      console.log(this.createTransactionId)
-      if(this.paymentLink && this.createTransactionId){
-        this.closePreviewModal()
-         setTimeout(()=>{
-                   this.navController.navigateRoot(`/event-payment/${this.createTransactionId}`)
-        },100)
-        this.openPaymentBrowser()
-      }
-    })
-
-    this.loadingService.showLoading().then(loader => {
+       this.loadingService.showLoading().then(loader => {
       // Создаем массив FormData для каждого пользователя
       const formDataArray = this.selectedUsers.map(user => {
         const fd = new FormData();
@@ -1056,6 +1040,16 @@ export class GroupApplicationComponent implements OnInit {
         }
       });
     });
+      if(this.paymentLink && this.createTransactionId){
+        this.closePreviewModal()
+         setTimeout(()=>{
+            this.navController.navigateRoot(`/event-payment/${this.createTransactionId}`)
+        },100)
+        this.openPaymentBrowser()
+      }
+    })
+
+   
   }
 
   // Добавляем метод для выбора команды
