@@ -221,7 +221,9 @@ export class UserService {
     }
     return this.user.value?.phone?.number_verified_at !== null;
   }
-
+  checkedPersonalInfo(userId:number,data:any){
+    return this.http.post<any>(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/users/${userId}/cabinet/personal-info/check`, data)
+  }
   addUserCommissionRole(userId: string){
     return this.http.post(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/roles-change/${userId}/commission`, userId)
   }

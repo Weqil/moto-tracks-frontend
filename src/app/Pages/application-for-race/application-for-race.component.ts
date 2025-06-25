@@ -28,6 +28,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { PrivateFilesComponent } from "../../CommonUI/Pages/private-files/private-files.component";
 import { StandartButtonComponent } from '@app/Shared/Components/UI/Buttons/standart-button/standart-button.component';
 import { serverError } from '@app/Shared/Data/Interfaces/errors';
+import { ALL_CHECK_LABELS } from '@app/Shared/Data/Interfaces/application-check';
 
 @Pipe({ name: 'safeUrl' })
 export class SafeUrlPipe implements PipeTransform {
@@ -168,12 +169,17 @@ export class ApplicationForRaceComponent  implements OnInit {
      this.eventService.getApplicationsForCommisson(this.eventId).pipe().subscribe((res:any)=>{
         this.usersInRace = res.users
         this.usersInRace.map((user:any)=>{
-          // user.user.personal.comment = {
-          //     dateOfBirth:null,
-          //     numberAndSeria:null,
-          //     inn:null,
-          //     snils:null,
-          // }
+          if(user.user.personal.comment){
+            let parceComment = {}
+             try {
+               parceComment = JSON.parse(user.user.personal.comment)
+               user.user.personal.comment = parceComment
+              } catch (err) {
+                user.user.personal.comment= {}
+              }              
+          }else{
+            user.user.personal.comment = {}
+          }
         })
         this.formattedUsers = [];
 
@@ -191,8 +197,9 @@ export class ApplicationForRaceComponent  implements OnInit {
         //   })
         // }
         if(this.userGet){
-          let currentUser = this.usersInRace.find((user:any)=> user.user_id == this.userGet.user_id )
-          this.navigateToUser(currentUser.user_id,currentUser, currentUser.user.id)
+          console.log(this.userGet)
+          let currentUser = this.usersInRace.find((user:any)=> user.id == this.userGet.id )
+          this.navigateToUser(currentUser.user_id,currentUser, currentUser.id)
         }
        
 
@@ -223,7 +230,6 @@ export class ApplicationForRaceComponent  implements OnInit {
   )
 
     navigateToUser(userId: string, userGet: User, appId:any) {
- 
       this.userGetId = userId
       this.userGet= userGet
       this.getDocumentUserById(Number(userId))
@@ -534,10 +540,21 @@ export class ApplicationForRaceComponent  implements OnInit {
       this.userInfo = !value
     }
 
+    sendValidateStateUser(){
+    
+      if(this.userGet.user.personal.comment && typeof this.userGet.user.personal.comment   == 'object'){
+        let truehLength = Object.keys(this.userGet.user.personal.comment).filter((key)=> this.userGet.user.personal.comment[key] == true).length
+       
+        this.userService.checkedPersonalInfo(this.userGet.user.id, {check:truehLength == ALL_CHECK_LABELS.length, comment:JSON.stringify(this.userGet.user.personal.comment )}).pipe().subscribe((res:any)=>{
+        })
+      }
+
+    }
     agreedApp(id: any){
     
-      const comment = this.personalUserForm.get('comment')?.value;
-      this.eventService.checkApplication(id, 1, comment)
+
+      this.sendValidateStateUser()
+      this.eventService.checkApplication(id, 1, '')
       .pipe(finalize(()=>{
       })).subscribe((res:any)=>
         {
@@ -551,16 +568,13 @@ export class ApplicationForRaceComponent  implements OnInit {
     }
 
     disagreedApp(id: any){
-      const comment = this.personalUserForm.get('comment')?.value;
-      this.eventService.checkApplication(id, 0, comment)
+      this.sendValidateStateUser()
+      this.eventService.checkApplication(id, 0, '')
       .pipe(finalize(()=>{
 
       })).subscribe((res:any)=>
         {
-
-          this.getUsersInRace()
-
-          
+          this.getUsersInRace()    
           }
         )
         
