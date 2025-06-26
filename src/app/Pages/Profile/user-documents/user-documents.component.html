@@ -68,15 +68,23 @@
         Документы
         <!-- <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
       </div>
-      <app-standart-input 
-        [control]="personalUserForm.get('dateOfBirth')" 
-        [errorMessage]="formErrors.dateOfBirth.errorMessage" 
-        [invalid]="formErrors.dateOfBirth.errorMessage.length !== 0"  
-        placeholder="Выберите дату" 
-        label="Дата рождения*" 
-        type="date"
-        
-        ></app-standart-input>
+      <div class="input-container">
+          <app-icon-button *ngIf="personalUserForm.get('dateOfBirth')" [theme]="!checkInputLabelForInputs('dateOfBirth') ? 'white':'green'"
+           [fontColor]="!checkInputLabelForInputs('dateOfBirth') ? 'red-color':'standart-color'" 
+           height="little-height" [buttonBorderColor]="!checkInputLabelForInputs('dateOfBirth') ? 'red-border':'null-border'"
+            buttonBorderWidth="b1" [buttonText]="!checkInputLabelForInputs('dateOfBirth') ? 'Непроверено':'Проверено'"></app-icon-button>
+        <!-- <span class="checked-value">Непроверено</span> -->
+        <app-standart-input 
+          [control]="personalUserForm.get('dateOfBirth')" 
+          [errorMessage]="formErrors.dateOfBirth.errorMessage" 
+          [invalid]="formErrors.dateOfBirth.errorMessage.length !== 0"  
+          placeholder="Выберите дату" 
+          label="Дата рождения*" 
+          type="date"
+          
+          ></app-standart-input>
+      </div>
+      
       <app-standart-input [control]="personalUserForm.get('numberAndSeria')" placeholder="Серия, номер" label="Паспорт/Свидетельство о рождении"></app-standart-input>
       <div class="snils-inn">
         <app-standart-input  selectedName="engineSelect"  [control]="personalUserForm.get('inn')" placeholder="ИНН" label="ИНН"></app-standart-input>
@@ -90,6 +98,7 @@
 
       <div class="licensed">
         <div class="document-container">
+          
           <app-standart-input [control]="licensesForm.get('number')" placeholder="Лицензия МФР" label="Лицензия МФР (тип, №):"></app-standart-input>
           <div class="document" *ngIf="licensed">
             
@@ -97,6 +106,7 @@
                 <img src="/assets/icons/documents.svg" alt="">
                 <div class="name">
                   {{licensed.name}}
+                  
                 </div>
                </div>
             
@@ -106,20 +116,24 @@
             <!-- <app-icon-button buttonText="Купить" theme="red" ></app-icon-button>   -->
           </div>
           <input (change)="setLicensesFile($event)" #licensesFileInput style="display: none;"  type="file">
+          <app-icon-button *ngIf="licensed" [theme]="!licensed.is_checked ? 'white':'green'"
+           [fontColor]="!licensed.is_checked ? 'red-color':'standart-color'" 
+           height="little-height" [buttonBorderColor]="!licensed.is_checked ? 'red-border':'null-border'"
+            buttonBorderWidth="b1" [buttonText]="!licensed.is_checked ? 'Непроверено':'Проверено'"></app-icon-button>
         </div>
       </div>
 
-      <div class="polish">
+      <div class="polis">
         <div class="document-container">
           <app-standart-input [control]="polisForm.get('number')" placeholder="Серия, номер" label="Страховой полис"></app-standart-input>
           <app-standart-input [control]="polisForm.get('issuedWhom')" placeholder="Кем выдан" label="Кем выдан"></app-standart-input>
           <app-standart-input [control]="polisForm.get('itWorksDate')" placeholder="Срок действия" type="date" label="Срок действия"></app-standart-input>
-          <div class="document" *ngIf="polish">
+          <div class="document" *ngIf="polis">
             
              <div class="file-name">
               <img src="/assets/icons/documents.svg" alt="">
               <div class="name">
-                {{polish.name}}
+                {{polis.name}}
               </div>
               
              </div>
@@ -127,7 +141,7 @@
           </div>
           <div class="button-container">
             <app-icon-button 
-            (click)="polishFileInput.click()" 
+            (click)="polisFileInput.click()" 
             class="width-button" 
             [widht]="'full'" 
             height="long-height" 
@@ -145,7 +159,11 @@
             theme="white"></app-icon-button>
             <!-- <app-icon-button    buttonText="Купить" theme="red" ></app-icon-button>   -->
           </div>
-          <input (change)="setPolisFile($event)" #polishFileInput style="display: none;"  type="file">
+          <app-icon-button *ngIf="polis" [theme]="!polis.is_checked ? 'white':'green'"
+           [fontColor]="!polis.is_checked ? 'red-color':'standart-color'" 
+           height="little-height" [buttonBorderColor]="!polis.is_checked ? 'red-border':'null-border'"
+            buttonBorderWidth="b1" [buttonText]="!polis.is_checked ? 'Непроверено':'Проверено'"></app-icon-button>
+          <input (change)="setPolisFile($event)" #polisFileInput style="display: none;"  type="file">
         </div>
       </div>
 
@@ -155,7 +173,6 @@
             Нотариальное согласие
           </div>
           <div class="document" *ngIf="notarius">
-            
               <div class="file-name">
                 <img src="/assets/icons/documents.svg" alt="">
                 <div class="name">
@@ -163,13 +180,16 @@
                 </div>
                 
                </div>            
-             
           </div>
           <div class="button-container">
             <app-icon-button (click)="notariusFileInput.click()" [trimButtonText]="'trim'"  class="width-button" [widht]="'full'" height="long-height" [elementsPosition]="'elements-position__row'" buttonTextColor='red-text' [buttonIconColor]="'red-icon'" buttonText="{{notariusFile.name}}" [buttonBorderWidth]="'b05'" [buttonBorderColor]="'red-border'" icon="assets/icons/upload.svg" height="standart-height" sizeIcon="standart-size" theme="white"></app-icon-button>
             <!-- <app-icon-button    buttonText="Купить" theme="red" ></app-icon-button>   -->
           </div>
           <input (change)="setNotariusFile($event)" #notariusFileInput style="display: none;"  type="file">
+          <app-icon-button *ngIf="notarius" [theme]="!notarius.is_checked ? 'white':'green'"
+           [fontColor]="!notarius.is_checked ? 'red-color':'standart-color'" 
+           height="little-height" [buttonBorderColor]="!notarius.is_checked ? 'red-border':'null-border'"
+            buttonBorderWidth="b1" [buttonText]="!notarius.is_checked ? 'Непроверено':'Проверено'"></app-icon-button>
         </div>
       </div>
 
@@ -356,10 +376,10 @@
             <app-standart-input [control]="polisForm.get('issuedWhom')" placeholder="Кем выдан" label="Кем выдан"></app-standart-input>
             <app-standart-input [control]="polisForm.get('itWorksDate')" placeholder="Срок действия" type="date" label="Срок действия"></app-standart-input>
             
-            <div class="document" *ngIf="polish">
-              <a href="{{polish.url_view}}">
+            <div class="document" *ngIf="polis">
+              <a href="{{polis.url_view}}">
                 <span class="view-pdf-btn"  >
-                  {{polish.name}}
+                  {{polis.name}}
                   
                 </span>
               </a>

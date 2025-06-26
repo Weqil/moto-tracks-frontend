@@ -15,7 +15,7 @@ export interface User{
     user?:any
     start_number?:number|null,
     user_id?:any,
-    comment:inputCheckedState,
+    comment:string,
     commission?:User,
     grade?:{
         name?:string
@@ -31,6 +31,7 @@ export interface User{
         city:string,
         inn:string,
         command_id:string,
+        comment?:string,
         region?:string,
         snils:number,
         phone_number:string,
