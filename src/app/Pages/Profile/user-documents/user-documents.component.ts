@@ -624,6 +624,11 @@ submitForm(){
     }
    
   }
+    isDateBeforeCurrent(dateInPolis: any): boolean {
+      const givenMoment = moment(dateInPolis.value);
+      const currentMoment = moment(); // Получаем текущую дату и время
+      return givenMoment >= currentMoment
+    }
 
  checkInputLabelForInputs(name:string){
 

@@ -146,6 +146,12 @@ export class ApplicationForRaceComponent  implements OnInit {
   closetTableModal(){
     this.tableModalValue = false
   }
+  isDateBeforeCurrent(date: any): boolean {
+      const givenMoment = moment(date.value);
+      const currentMoment = moment(); // Получаем текущую дату и время
+      return givenMoment >= currentMoment
+
+  }
 
   checkStateInInput(labelName:string):boolean{
    if(this.userGet.user.personal.comment && this.userGet.user.personal.comment[labelName] ){

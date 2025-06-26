@@ -234,6 +234,14 @@ img{
         flex-grow: 1;
     }
 }
+.validate-indicator__item{
+    display: flex;
+    gap: 0.5rem;
+    font-family: var(--font-regular);
+    span{
+        font-family: var(--font-regular);
+    }
+}
 
 .document-view-container{
     display: flex;
