@@ -1,7 +1,6 @@
 
 <ion-app >
-              <button style="position:absolute; margin-top: 100px; z-index: 100;" (click)="askForNotifications()">Включить уведомления</button>
-
+  <app-notification></app-notification>
   <ion-modal [isOpen]="!this.userHaveCurrentVersion">
     <ng-content>
       <ion-header translucent>

@@ -9,7 +9,7 @@ import { Capacitor } from '@capacitor/core';
 import { VersionService } from './Shared/Data/Services/version.service';
 import { IconButtonComponent } from "./Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component";
 import { SportTypesService } from './Shared/Data/Services/sport-types.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgIf } from '@angular/common';
 import { FcmService } from './Shared/Services/fcm.service';
 import { ToastService } from './Shared/Services/toast.service';
 import {
@@ -18,6 +18,9 @@ import {
   PushNotifications,
   Token,
 } from '@capacitor/push-notifications';
+import { InAppNotification, NotificationComponent } from './Shared/Components/Notification/notification.component';
+import { i } from '@angular/cdk/data-source.d-Bblv7Zvh';
+import { InAppNotificationService } from './Shared/Data/Services/in-app-notification.service';
 
 
 
@@ -32,16 +35,20 @@ async function getAppVersion() {
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
-  imports: [IonHeader, IonButton, IonFooter, IonTitle, IonToolbar, IonContent, IonModal, IonApp, IonRouterOutlet, IconButtonComponent,CommonModule],
+  imports: [NotificationComponent, IonHeader, IonFooter, IonTitle, IonToolbar, IonContent, IonModal, IonApp, IonRouterOutlet, IconButtonComponent,CommonModule],
 })
 
 export class AppComponent {
   private startTimeInBackground?: Moment;
   private finishTimeInBackground?: Moment;
+
   navController: NavController = inject(NavController)
   versionService:VersionService = inject(VersionService)
   fcmService: FcmService = inject(FcmService)
   toastService: ToastService = inject(ToastService)
+  userService: UserService = inject(UserService)
+  cupService:CupService = inject(CupService)
+
   sportCategoryModalState:boolean = false
   contentTypes:any = [];
   sportCategoryColorObject:any = {
@@ -51,7 +58,7 @@ export class AppComponent {
   sportTypesService: SportTypesService = inject(SportTypesService)
   userHaveCurrentVersion:boolean = true
   PushNotifications: any;
-  constructor(private navCtrl: NavController, private router: Router) {
+  constructor(private navCtrl: NavController, private router: Router, private inAppNotificationService: InAppNotificationService) {
   }
    onUpdate() {
     const platform = Capacitor.getPlatform();
@@ -110,10 +117,7 @@ export class AppComponent {
        
         }
     })
-    
   }
-  userService:UserService = inject(UserService)
-  cupService:CupService = inject(CupService)
 
   askForNotifications() {
       this.fcmService.requestPermission();
@@ -133,13 +137,16 @@ export class AppComponent {
     this.cupService.getAllDegree().subscribe((res:any)=>{
       this.cupService.allDegree.next(res.degree) 
     })
+    this.userService.user.pipe().subscribe(() => {
+      this.fcmService.requestPermission();
+    })
     // инициализация  push для web
-    this.askForNotifications();
-    document.addEventListener('click', this.onFirstUserInteraction, { once: true });
+    this.fcmService.requestPermission();;
+    document.addEventListener('click', this.onFirstUserInteraction, { once: true })
   }
 
   onFirstUserInteraction = () => {
-    
-      this.askForNotifications();
+      if (Capacitor.getPlatform() === 'web')
+        this.fcmService.requestPermission()
   };
 }

@@ -11,6 +11,7 @@ import { ToastService } from './toast.service';
 import { AuthService } from './auth.service';
 import { catchError, EMPTY, of } from 'rxjs';
 import { FCM } from '@capacitor-community/fcm';
+import { InAppNotification, InAppNotificationService } from '../Data/Services/in-app-notification.service';
 
 
 @Injectable({
@@ -21,6 +22,7 @@ export class FcmService {
   toastService: ToastService = inject(ToastService);
   http: HttpClient = inject(HttpClient)
   authService: AuthService = inject(AuthService) 
+  inAppNotificationService: InAppNotificationService = inject(InAppNotificationService)
   constructor(
     private firebaseInitService: FirebaseInitService
   ) {
@@ -75,9 +77,8 @@ export class FcmService {
                 catchError((err: any) => {
                   return of(EMPTY) // Ошибка создания токена на сервере, скорее всего токен уже существет, ничего не надо делать.
                 })).subscribe((response: any) => {
-                  console.log(response) // Токен отправлен и сохранён на сервере
+                  // console.log(response) // Токен отправлен и сохранён на сервере
                 })
-              console.log('FCM Token:', token);
             } else {
               this.toastService.showToast('Не удалось получить токен для уведомлений', 'warning')
             }
@@ -85,7 +86,7 @@ export class FcmService {
             this.toastService.showToast('Ошибка получения токена уведомлений', 'error')
           });
       } else {
-        this.toastService.showToast('Разрешение на уведомления отклонено', 'primary')
+        // this.toastService.showToast('Разрешение на уведомления отклонено', 'primary')
       }
     })
   }
@@ -115,7 +116,7 @@ export class FcmService {
     // Show us the notification payload if the app is open on our device
     PushNotifications.addListener('pushNotificationReceived',
       (notification: PushNotificationSchema) => {
-        this.toastService.showToast(JSON.stringify(notification), 'primary')
+        this.toastService.showToast(JSON.stringify(notification), 'light')
 
         // alert('Push received: ' + JSON.stringify(notification));
       }
@@ -142,7 +143,7 @@ export class FcmService {
                   console.log(err.message)
                   return of(EMPTY) // Ошибка создания токена на сервере, скорее всего токен уже существет, ничего не надо делать.
                 })).subscribe((response: any) => {
-                  console.log(response) // Токен отправлен и сохранён на сервере
+                  // console.log(response) // Токен отправлен и сохранён на сервере
                 })
               })
             .catch(err => console.log(err));
@@ -156,7 +157,7 @@ export class FcmService {
                 console.log(err.message)
                 return of(EMPTY) // Ошибка создания токена на сервере, скорее всего токен уже существет, ничего не надо делать.
               })).subscribe((response: any) => {
-                console.log(response) // Токен отправлен и сохранён на сервере
+                // console.log(response) // Токен отправлен и сохранён на сервере
               })
           }
       );
@@ -169,8 +170,11 @@ export class FcmService {
   private listenToMessages() {
     if (!this.messaging) return;
     onMessage(this.messaging, (payload) => {
-      console.log('Сообщение получено в foreground:', payload);
-
+      let data: InAppNotification = {
+        title: String(payload.notification?.title),
+        message: String(payload.notification?.body)
+      }
+      this.inAppNotificationService.show(data);
       if (payload.notification) {
         const { title, body, icon } = payload.notification;
 
