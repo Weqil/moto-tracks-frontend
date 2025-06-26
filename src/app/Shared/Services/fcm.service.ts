@@ -10,6 +10,8 @@ import { ActionPerformed, PushNotifications, PushNotificationSchema, Token } fro
 import { ToastService } from './toast.service';
 import { AuthService } from './auth.service';
 import { catchError, EMPTY, of } from 'rxjs';
+import { FCM } from '@capacitor-community/fcm';
+
 
 @Injectable({
   providedIn: 'root'
@@ -47,14 +49,12 @@ export class FcmService {
       }
   }
     requestPermission() {
-      console.log(Capacitor.getPlatform())
       switch(Capacitor.getPlatform()) {
         case('ios'):
-          this.initForAndroid()
-          console.log('not permitted')
+          this.initForMobile()
           break
         case('android'):
-          this.initForAndroid()
+          this.initForMobile()
           break
         case('web'):
           this.initForWeb()
@@ -64,84 +64,105 @@ export class FcmService {
 
   initForWeb() {
     if (!this.messaging) return;
-
     Notification.requestPermission().then(permission => {
       if (permission === 'granted') {
         getToken(this.messaging, {
-              vapidKey: environment.firebase.vapidKey
-            }).then((token:string) => {
-              if (token) {
-                console.log('FCM Token:', token);
-                this.pushTokenToServer(token).pipe(
-                  catchError((err: any) => {
-                    return of(EMPTY) // Ошибка создания токена на сервере, скорее всего токен уже существет, ничего не надо делать.
-                  })).subscribe((response: any) => {
-                    console.log(response) // Токен отправлен и сохранён на сервере
-                  })
-                console.log('FCM Token:', token);
-              } else {
-                this.toastService.showToast('Не удалось получить токен для уведомлений', 'warning')
-              }
-            }).catch(() => {
-              this.toastService.showToast('Ошибка получения токена уведомлений', 'error')
-            });
-          } else {
-            this.toastService.showToast('Разрешение на уведомления отклонено', 'primary')
-          }
-        })
+            vapidKey: environment.firebase.vapidKey
+          }).then((token:string) => {
+            if (token) {
+              console.log('FCM Token:', token);
+              this.pushTokenToServer(token).pipe(
+                catchError((err: any) => {
+                  return of(EMPTY) // Ошибка создания токена на сервере, скорее всего токен уже существет, ничего не надо делать.
+                })).subscribe((response: any) => {
+                  console.log(response) // Токен отправлен и сохранён на сервере
+                })
+              console.log('FCM Token:', token);
+            } else {
+              this.toastService.showToast('Не удалось получить токен для уведомлений', 'warning')
+            }
+          }).catch(() => {
+            this.toastService.showToast('Ошибка получения токена уведомлений', 'error')
+          });
+      } else {
+        this.toastService.showToast('Разрешение на уведомления отклонено', 'primary')
+      }
+    })
   }
 
-   initForAndroid() {  
-      // On success, we should be able to receive notifications
-      PushNotifications.addListener('registration',
-        (token: Token) => {
-          this.toastService.showToast(String(token), 'primary')
-          console.log('FCM Token:', token.value);
-          this.pushTokenToServer(token.value).pipe(
-                  catchError((err: any) => {
-                    console.log(err.message)
-                    return of(EMPTY) // Ошибка создания токена на сервере, скорее всего токен уже существет, ничего не надо делать.
-                  })).subscribe((response: any) => {
-                    console.log(response) // Токен отправлен и сохранён на сервере
-                  })
-          // alert('Push registration success, token: ' + token.value);
-        }
+  async initForMobile() {
+    PushNotifications.requestPermissions().then((result: any) => {
+      if (result.receive === 'granted') {
+        // Register with Apple / Google to receive push via APNS/FCM
+        PushNotifications.register();
+      } else {
+        this.toastService.showToast('Разрешение на уведомления отклонено', 'primary')
+      }
+    });
+
+    // Get FCM token instead of the APN one returned by Capacitor (получение токена)
+    this.getToken()
+
+    // Some issue with our setup and push will not work
+    PushNotifications.addListener('registrationError',
+      (error: any) => {
+        console.log('FCM Token register error:', error);
+        this.toastService.showToast(error, 'error')
+        // alert('Error on registration: ' + JSON.stringify(error));
+      }
+    );
+
+    // Show us the notification payload if the app is open on our device
+    PushNotifications.addListener('pushNotificationReceived',
+      (notification: PushNotificationSchema) => {
+        this.toastService.showToast(JSON.stringify(notification), 'primary')
+
+        // alert('Push received: ' + JSON.stringify(notification));
+      }
+    );
+
+    // Method called when tapping on a notification
+    PushNotifications.addListener('pushNotificationActionPerformed',
+      (notification: ActionPerformed) => {
+        this.toastService.showToast(JSON.stringify(notification), 'primary')
+        // alert('Push action performed: ' + JSON.stringify(notification));
+      }
+    );
+  }
+
+  getToken() {
+    switch(Capacitor.getPlatform()) {
+        case('ios'):
+          FCM.getToken()
+            .then(r => {
+              this.toastService.showToast(String(r.token), 'primary')
+              console.log('FCM Token:', r.token);
+              this.pushTokenToServer(r.token).pipe(
+                catchError((err: any) => {
+                  console.log(err.message)
+                  return of(EMPTY) // Ошибка создания токена на сервере, скорее всего токен уже существет, ничего не надо делать.
+                })).subscribe((response: any) => {
+                  console.log(response) // Токен отправлен и сохранён на сервере
+                })
+              })
+            .catch(err => console.log(err));
+          break
+        case('android'):
+          PushNotifications.addListener('registration', (token: Token) => {
+            this.toastService.showToast(String(token), 'primary')
+            console.log('FCM Token:', token.value);
+            this.pushTokenToServer(token.value).pipe(
+              catchError((err: any) => {
+                console.log(err.message)
+                return of(EMPTY) // Ошибка создания токена на сервере, скорее всего токен уже существет, ничего не надо делать.
+              })).subscribe((response: any) => {
+                console.log(response) // Токен отправлен и сохранён на сервере
+              })
+          }
       );
-  
-      // Some issue with our setup and push will not work
-      PushNotifications.addListener('registrationError',
-        (error: any) => {
-          console.log('FCM Token register error:', error);
-          this.toastService.showToast(error, 'error')
-          // alert('Error on registration: ' + JSON.stringify(error));
-        }
-      );
-  
-      // Show us the notification payload if the app is open on our device
-      PushNotifications.addListener('pushNotificationReceived',
-        (notification: PushNotificationSchema) => {
-          this.toastService.showToast(JSON.stringify(notification), 'primary')
-  
-          // alert('Push received: ' + JSON.stringify(notification));
-        }
-      );
-  
-      // Method called when tapping on a notification
-      PushNotifications.addListener('pushNotificationActionPerformed',
-        (notification: ActionPerformed) => {
-          this.toastService.showToast(JSON.stringify(notification), 'primary')
-          // alert('Push action performed: ' + JSON.stringify(notification));
-        }
-      );
-      PushNotifications.requestPermissions().then((result: any) => {
-        if (result.receive === 'granted') {
-          // Register with Apple / Google to receive push via APNS/FCM
-          PushNotifications.register();
-        } else {
-          this.toastService.showToast('Разрешение на уведомления отклонено', 'primary')
-        }
-      });
-    }
+          break
+      }
+  }
   /**
    * Слушаем входящие сообщения (Foreground)
    */

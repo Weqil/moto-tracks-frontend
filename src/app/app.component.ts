@@ -134,6 +134,12 @@ export class AppComponent {
       this.cupService.allDegree.next(res.degree) 
     })
     // инициализация  push для web
-      this.fcmService.requestPermission();
+    this.askForNotifications();
+    document.addEventListener('click', this.onFirstUserInteraction, { once: true });
   }
+
+  onFirstUserInteraction = () => {
+    
+      this.askForNotifications();
+  };
 }

@@ -24,6 +24,7 @@
     "@angular/platform-browser-dynamic": "^19.0.0",
     "@angular/router": "^19.0.0",
     "@ant-design/icons-angular": "^19.0.0",
+    "@capacitor-community/fcm": "^7.1.1",
     "@capacitor/android": "^6.2.1",
     "@capacitor/app": "^6.0.2",
     "@capacitor/browser": "^7.0.1",
