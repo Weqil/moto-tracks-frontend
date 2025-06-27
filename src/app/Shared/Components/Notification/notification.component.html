@@ -1,4 +1,4 @@
-<div *ngIf="notification$ | async as notif" [class.hide]="hidden" class="notification-wrapper">
+<div *ngIf="notification$ | async as notif" [class.hide]="hidden" class="notification-wrapper" (click)="hide()">
   <div class="notification">
     <h4>{{ notif.title }}</h4>
     <p>{{ notif.message }}</p>
