@@ -83,12 +83,10 @@
                   [name]="true" [surname]="true"
                   [patronymic]="true" [user]="userGet.commission!">
                 </app-user-section>
-              </div>
-              
+              </div> 
             </ng-container>
             
             <div *ngIf="userGet.transaction" class="transaction-in-race">
-             
                   <ng-container *ngIf="userGet.transaction.status">
                     <span class="payment-status-green">
                         Взнос оплачен
@@ -106,7 +104,27 @@
                   </ng-container>
            
             </div>
-
+            <div class="validate-indicator">
+              <div class="validate-indicator__item">
+                 <span>C. - </span>
+                  <div *ngIf="polish.is_checked" class="validate-indicator__item__value">
+                    ✅
+                  </div>
+              </div>
+              <div class="validate-indicator__item">
+                 <span>Л. - </span>
+                  <div *ngIf="licensed.is_checked" class="validate-indicator__item__value">
+                    ✅
+                  </div>
+              </div>
+              <div class="validate-indicator__item">
+                 <span>Н. - </span>
+                  <div *ngIf="notarius.is_checked" class="validate-indicator__item__value">
+                    ✅
+                  </div>
+              </div>
+            </div>
+           
           </div>
       </div>
       <form class="personal-form">
@@ -166,13 +184,13 @@
         <div class="event-information-title users-title">
           <img src="/assets/icons/red-finished.svg" alt="">
           Документы
+          <app-check-box style="font-size: 14px;" (change)="checkInput($event,'dateOfBirth')" [checked]="checkStateInInput('dateOfBirth')" theme="white" labelText="Проверено"></app-check-box>
           <!-- <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
         </div>
 
         <div class="doc-information">
           <div class="input-container">
              <div class="input-checked-wrapper">
-                <app-check-box (change)="checkInput($event,'dateOfBirth')" [checked]="checkStateInInput('dateOfBirth')" theme="white" labelText="Проверено"></app-check-box>
                 <app-standart-input type="date" [readonly]="true" [errorMessage]="formErrors.dateOfBirth.errorMessage" [invalid]="formErrors.dateOfBirth.errorMessage.length !== 0" [control]="personalUserForm.get('dateOfBirth')" placeholder="Выберите дату" label="Дата рождения" ></app-standart-input>
             </div>
              <div class="input-checked-wrapper">
@@ -223,7 +241,9 @@
               <div class="input-container">
                 <app-standart-input [readonly]="true" [control]="polisForm.get('number')" placeholder="Серия, номер" label="Серия, номер"></app-standart-input>
                 <app-standart-input [readonly]="true" [control]="polisForm.get('issuedWhom')" placeholder="Кем выдан" label="Кем выдан"></app-standart-input>
-                <app-standart-input [readonly]="true" [control]="polisForm.get('itWorksDate')" placeholder="Срок действия" label="Срок действия"></app-standart-input>
+                <app-standart-input 
+                  [invalid]="!isDateBeforeCurrent(polisForm.get('itWorksDate'))"
+                 [errorMessage]="!isDateBeforeCurrent(polisForm.get('itWorksDate')) ? 'Срок действия просрочен': '' " [readonly]="true" [control]="polisForm.get('itWorksDate')" placeholder="Срок действия до" label="Срок действия до"></app-standart-input>
   
               </div>
                   <div class="document" *ngIf="polish">
