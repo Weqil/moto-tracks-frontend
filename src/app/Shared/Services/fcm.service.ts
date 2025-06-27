@@ -169,10 +169,11 @@ export class FcmService {
    */
   private listenToMessages() {
     if (!this.messaging) return;
-    onMessage(this.messaging, (payload) => {
+    onMessage(this.messaging, (payload: any) => {
       let data: InAppNotification = {
         title: String(payload.notification?.title),
-        message: String(payload.notification?.body)
+        message: String(payload.notification?.body),
+        // data: JSON.parse(payload.data)
       }
       this.inAppNotificationService.show(data);
       if (payload.notification) {

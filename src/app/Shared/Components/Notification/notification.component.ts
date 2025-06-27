@@ -5,6 +5,7 @@ import { InAppNotificationService } from '@app/Shared/Data/Services/in-app-notif
 export interface InAppNotification {
   title: string;
   message: string;
+  data?: any;
 }
 
 @Component({
@@ -19,15 +20,14 @@ export class NotificationComponent  implements OnInit {
   notification$ = this.notificationService.notification$;
   constructor(private notificationService: InAppNotificationService) {}
 
+  hide() {
+    this.notificationService.hide()
+  }
 
   ngOnInit() {
   this.notification$.subscribe(notification => {
     if (notification) {
       this.hidden = false;
-      // ставим флаг "скрыть" ближе к таймауту
-      setTimeout(() => {
-        this.hidden = true;
-      }, 350);
     }
   });
 }

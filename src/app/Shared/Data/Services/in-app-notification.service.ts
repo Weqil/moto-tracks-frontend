@@ -5,6 +5,7 @@ import { BehaviorSubject } from 'rxjs';
 export interface InAppNotification {
   title: string;
   message: string;
+  data?: any;
 }
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ export class InAppNotificationService {
   notification$ = this.notificationSubject.asObservable();
 
   show(notification: InAppNotification, duration = 4000) {
+    console.log(notification)
     this.notificationSubject.next(notification);
     setTimeout(() => this.hide(), duration);
   }
