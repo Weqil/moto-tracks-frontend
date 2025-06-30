@@ -21,8 +21,6 @@ import { Capacitor } from '@capacitor/core';
 import { App } from '@capacitor/app';
 import { SportTypesService } from '@app/Shared/Data/Services/sport-types.service';
 async function getAppVersion() {
-  console.log('test get version')
-  console.log(Capacitor.isNativePlatform())
   const platform = Capacitor.getPlatform();
   if (Capacitor.isNativePlatform() || platform == 'ios' || platform == 'android') {
     const info = await App.getInfo();

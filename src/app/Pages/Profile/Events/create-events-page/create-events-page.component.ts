@@ -151,7 +151,6 @@ export class CreateEventsPageComponent  implements OnInit {
   }
 
   setBaseClassInCreateNewGrade(event:any){
-    console.log(event)
     if(event.id){
       this.createClassesForm.patchValue({gradeId:event.id,name:`${event.name} - `})
 

@@ -28,11 +28,9 @@ export class PaymentListComponent  implements OnInit {
           )
           .subscribe({
             next: (response: any) => {
-              console.log(response)
               this.transactions = response.transactions;
             },
             error: (error) => {
-              console.error('Ошибка при загрузке транзакций:', error);
             }
           });
   }

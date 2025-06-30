@@ -657,7 +657,6 @@ submitForm(){
             issuedWhom: polis.issued_whom,
             itWorksDate: moment(polis.it_works_date, 'DD.MM.YY').format('YYYY-MM-DD')
           })
-          console.log(polis.it_works_date)
           this.polisFile = {name:'Полис загружен', dontFile:true}
           this.polish = polis
         }

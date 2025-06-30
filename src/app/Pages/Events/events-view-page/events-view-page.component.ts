@@ -889,7 +889,7 @@ export class EventsViewPageComponent  implements OnInit {
     ).subscribe((res:any)=>{
       this.raceUser = res.race.user
       this.event = res.race
-      this.loaderService.checkAndCloseLoader().then((res)=>console.log(res))
+      this.loaderService.checkAndCloseLoader().then((res))
       this.groupItems = this.event.grades
       this.registrate()
       this.getAttendanceInRace()
@@ -990,7 +990,6 @@ createTransaction(): Observable<any> { // Возвращаем Observable
            ...this.personalUserForm.value,
            documentIds:[this.polisId, this.licensesId,this.notariusId]   
          }
-         console.log(this.createTransactionId)
          if(this.createTransactionId){
           currentForm.transactionId = this.createTransactionId
          }

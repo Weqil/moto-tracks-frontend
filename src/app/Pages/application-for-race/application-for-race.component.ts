@@ -232,17 +232,14 @@ export class ApplicationForRaceComponent  implements OnInit {
          
         }),
         map((res:any)=>{
-        console.log(res.text())
         }),
         finalize(()=>this.loaderService.hideLoading(loader)),
         catchError((err:any)=>{
           if(err.status == 200){
-            console.log(err.text())
           }
           return EMPTY;
         })
       ).subscribe((res:any)=>{
-        console.log(res)
       })
     }
 

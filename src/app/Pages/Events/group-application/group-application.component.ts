@@ -925,11 +925,9 @@ export class GroupApplicationComponent implements OnInit {
           this.transactionService.createTransactions({ attendanceIds: attArray, isRace: 1 })
         );
 
-        console.log(res);
         this.paymentLink = res.payment_link;
         this.createTransactionId = res.transaction.id;
       } catch (error) {
-        console.error('Ошибка при создании транзакции:', error);
       }
     }
   }
@@ -937,7 +935,6 @@ export class GroupApplicationComponent implements OnInit {
 
   async openPaymentBrowser(){
      const openCapacitorSite = async () => {
-      console.log(this.paymentLink)
        if(this.paymentLink){
           this.toastService.showToast('Необходимо оплатить стартовый взнос','warning')
           await Browser.open({ url: this.paymentLink });
@@ -953,8 +950,6 @@ export class GroupApplicationComponent implements OnInit {
     }
   
     this.createTransaction().then(()=>{
-      console.log(this.paymentLink)
-      console.log(this.createTransactionId)
       if(this.paymentLink && this.createTransactionId){
         this.closePreviewModal()
          setTimeout(()=>{
