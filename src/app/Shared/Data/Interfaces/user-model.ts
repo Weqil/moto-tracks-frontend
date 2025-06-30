@@ -1,3 +1,4 @@
+import { inputCheckedState } from "./application-check";
 import { ICommand } from "./command";
 
 export interface User{
@@ -30,6 +31,7 @@ export interface User{
         city:string,
         inn:string,
         command_id:string,
+        comment?:string,
         region?:string,
         snils:number,
         phone_number:string,

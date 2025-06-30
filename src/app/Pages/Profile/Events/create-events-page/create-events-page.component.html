@@ -143,7 +143,7 @@
          </ng-container>
       </ng-container>
       <ng-container *ngIf="classesFilter.all">
-        <ng-container *ngFor="let group of userGroups">
+        <ng-container *ngFor="let group of allUsersGroups">
           <app-check-box [clippy]="'clippy-right'" (change)="changeGroup($event,group)" [value]="group.id" 
           [checked]="trackHaveInUserSelected(group)"  [labelText]="group.name" height="long-height" [theme]="trackHaveInUserSelected(group) ? 'white':'gray'"></app-check-box>
           <!-- <app-checkbox (click)="changeGroup($event,group)" [checked]="trackHaveInUserSelected(group)" [value]="group.id" label="{{ group.name }}"></app-checkbox> -->

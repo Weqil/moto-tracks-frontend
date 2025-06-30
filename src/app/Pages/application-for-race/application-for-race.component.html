@@ -33,8 +33,9 @@
         
         <div class="application-list">
           <div *ngFor="let user of usersInRace" >
-            <div class="user-card" (click)=" navigateToUser(user.user_id, user, user.id)">
-              <app-user-section  
+            <div class="user-card" (click)=" navigateToUser(user.user.id, user, user.id)">
+              <app-user-section 
+              *ngIf="user.user.personal"
                 [them]="user.is_checked == null ? 'standart-them' : (user.is_checked == true ? 'green-them' : 'red-them')"
                 [border]="activeAppId === user.id ? 'red' : 'null'"
                 [showAddress]="true"
@@ -44,7 +45,7 @@
                 [startNumber]="true"   
                 [showRank]="true"  
                 [hideEmail]= "true"  
-                [user]="user">
+                [user]="user.user.personal">
               </app-user-section>
             </div>
             
@@ -82,12 +83,10 @@
                   [name]="true" [surname]="true"
                   [patronymic]="true" [user]="userGet.commission!">
                 </app-user-section>
-              </div>
-              
+              </div> 
             </ng-container>
             
             <div *ngIf="userGet.transaction" class="transaction-in-race">
-             
                   <ng-container *ngIf="userGet.transaction.status">
                     <span class="payment-status-green">
                         Взнос оплачен
@@ -105,7 +104,27 @@
                   </ng-container>
            
             </div>
-
+            <div class="validate-indicator">
+              <div class="validate-indicator__item">
+                 <span>C. - </span>
+                  <div *ngIf="polish.is_checked" class="validate-indicator__item__value">
+                    ✅
+                  </div>
+              </div>
+              <div class="validate-indicator__item">
+                 <span>Л. - </span>
+                  <div *ngIf="licensed.is_checked" class="validate-indicator__item__value">
+                    ✅
+                  </div>
+              </div>
+              <div class="validate-indicator__item">
+                 <span>Н. - </span>
+                  <div *ngIf="notarius.is_checked" class="validate-indicator__item__value">
+                    ✅
+                  </div>
+              </div>
+            </div>
+           
           </div>
       </div>
       <form class="personal-form">
@@ -165,13 +184,18 @@
         <div class="event-information-title users-title">
           <img src="/assets/icons/red-finished.svg" alt="">
           Документы
+          <app-check-box style="font-size: 14px;" (change)="checkInput($event,'dateOfBirth')" [checked]="checkStateInInput('dateOfBirth')" theme="white" labelText="Проверено"></app-check-box>
           <!-- <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
         </div>
 
         <div class="doc-information">
           <div class="input-container">
-            <app-standart-input [readonly]="true" [errorMessage]="formErrors.dateOfBirth.errorMessage" [invalid]="formErrors.dateOfBirth.errorMessage.length !== 0" [control]="personalUserForm.get('dateOfBirth')" placeholder="Выберите дату" label="Дата рождения" ></app-standart-input>
-            <app-standart-input [readonly]="true" [errorMessage]="formErrors.numberAndSeria.errorMessage" [invalid]="formErrors.numberAndSeria.errorMessage.length !== 0" [control]="personalUserForm.get('numberAndSeria')" placeholder="Серия, номер" label="Паспорт/Свидетельство о рождении"></app-standart-input>
+             <div class="input-checked-wrapper">
+                <app-standart-input type="date" [readonly]="true" [errorMessage]="formErrors.dateOfBirth.errorMessage" [invalid]="formErrors.dateOfBirth.errorMessage.length !== 0" [control]="personalUserForm.get('dateOfBirth')" placeholder="Выберите дату" label="Дата рождения" ></app-standart-input>
+            </div>
+             <div class="input-checked-wrapper">
+                <app-standart-input style="width: 100%;" [readonly]="true" [errorMessage]="formErrors.numberAndSeria.errorMessage" [invalid]="formErrors.numberAndSeria.errorMessage.length !== 0" [control]="personalUserForm.get('numberAndSeria')" placeholder="Серия, номер" label="Паспорт/Свидетельство о рождении"></app-standart-input>
+            </div>
           </div>
   
           <!-- <ion-modal class="region-modal" (didDismiss)="closeRegionModal()"  [isOpen]="regionModalState">
@@ -186,8 +210,12 @@
   
   
           <div class="input-container">
-            <app-standart-input [readonly]="true" [errorMessage]="formErrors.inn.errorMessage" [invalid]="formErrors.inn.errorMessage.length !== 0" [control]="personalUserForm.get('inn')" placeholder="ИНН" label="ИНН"></app-standart-input>
-            <app-standart-input [readonly]="true" [errorMessage]="formErrors.snils.errorMessage" [invalid]="formErrors.snils.errorMessage.length !== 0" [control]="personalUserForm.get('snils')" placeholder="СНИЛС" label="СНИЛС"></app-standart-input>
+                <div class="input-checked-wrapper">
+                  <app-standart-input [readonly]="true" [errorMessage]="formErrors.inn.errorMessage" [invalid]="formErrors.inn.errorMessage.length !== 0" [control]="personalUserForm.get('inn')" placeholder="ИНН" label="ИНН"></app-standart-input>
+               </div>
+                <div class="input-checked-wrapper">
+                  <app-standart-input [readonly]="true" [errorMessage]="formErrors.snils.errorMessage" [invalid]="formErrors.snils.errorMessage.length !== 0" [control]="personalUserForm.get('snils')" placeholder="СНИЛС" label="СНИЛС"></app-standart-input>
+               </div>
           </div>
   
           <div class="input-container">
@@ -200,17 +228,22 @@
           </div>
 
           <div class="polish" *ngIf="polish">
-
-            <div class="event-information-title users-title">
+            <div class="title-wrapper">
+               <div class="event-information-title users-title">
               <img src="/assets/icons/red-finished.svg" alt="">
               Страховой полис
               <!-- <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
             </div>
+              <app-check-box (change)="doumentCheck($event,polish)" [checked]="!!polish.is_checked" theme="white" labelText="Проверено"></app-check-box>
+            </div>
+           
             <div class="document-container">
               <div class="input-container">
                 <app-standart-input [readonly]="true" [control]="polisForm.get('number')" placeholder="Серия, номер" label="Серия, номер"></app-standart-input>
                 <app-standart-input [readonly]="true" [control]="polisForm.get('issuedWhom')" placeholder="Кем выдан" label="Кем выдан"></app-standart-input>
-                <app-standart-input [readonly]="true" [control]="polisForm.get('itWorksDate')" placeholder="Срок действия" label="Срок действия"></app-standart-input>
+                <app-standart-input 
+                  [invalid]="!isDateBeforeCurrent(polisForm.get('itWorksDate'))"
+                 [errorMessage]="!isDateBeforeCurrent(polisForm.get('itWorksDate')) ? 'Срок действия просрочен': '' " [readonly]="true" [control]="polisForm.get('itWorksDate')" placeholder="Срок действия до" label="Срок действия до"></app-standart-input>
   
               </div>
                   <div class="document" *ngIf="polish">
@@ -231,10 +264,13 @@
 
 
           <div class="licensed" *ngIf="licensed">
-            <div class="event-information-title users-title">
+           <div class="title-wrapper">
+               <div class="event-information-title users-title">
               <img src="/assets/icons/red-finished.svg" alt="">
               Лицензия
               <!-- <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
+            </div>
+              <app-check-box (change)="doumentCheck($event,licensed)" [checked]="!!licensed.is_checked" theme="white" labelText="Проверено"></app-check-box>
             </div>
             <div class="document-container">
               <app-standart-input [readonly]="true" [control]="licensesForm.get('number')" placeholder="Лицензия МФР" label="Лицензия МФР (тип, №):"></app-standart-input>
@@ -254,10 +290,13 @@
 
 
           <div class="notarius" *ngIf="notarius">
-            <div class="event-information-title users-title">
+           <div class="title-wrapper">
+               <div class="event-information-title users-title">
               <img src="/assets/icons/red-finished.svg" alt="">
               Нотариальное согласие
               <!-- <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
+            </div>
+              <app-check-box (change)="doumentCheck($event,notarius)" [checked]="!!notarius.is_checked" theme="white" labelText="Проверено"></app-check-box>
             </div>
             <div class="document-container">
              
@@ -274,21 +313,10 @@
               </div>
             </div>
           </div>
-        
-
-
-        
-        
-        
-        
-        
-        
-
-        
-
+      
         
           <div class="input-rich-container">
-            <app-standart-rich-input  [control]="personalUserForm.get('comment')" placeholder="Комментарий к заявке..." label="Комметарий"></app-standart-rich-input>
+            <!-- <app-standart-rich-input  [control]="personalUserForm.get('comment')" placeholder="Комментарий к заявке..." label="Комметарий"></app-standart-rich-input> -->
           </div>
         
         

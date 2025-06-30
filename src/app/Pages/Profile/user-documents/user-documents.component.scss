@@ -110,8 +110,8 @@ ion-modal{
     display: flex;
     gap: var(--standart-padding);
     right: 2rem;
- 
 }
+
 
 .header-container{
     display: flex;
@@ -206,6 +206,7 @@ ion-modal{
     gap: 0.5rem;
     display: flex;
     justify-content: space-between;
+    padding-bottom: var(--little-padding);
     .width-button{
         width: 100%;
     }
@@ -309,3 +310,7 @@ ion-modal{
   }
 
 
+.input-container{
+    font-family: var(--font-regular);
+    font-size: 14px;
+}

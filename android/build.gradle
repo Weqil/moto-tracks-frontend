@@ -16,6 +16,7 @@ buildscript {
 }
 
 apply from: "variables.gradle"
+apply plugin: 'com.google.gms.google-services' // добавь это в конец
 
 allprojects {
     repositories {
