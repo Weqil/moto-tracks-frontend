@@ -24,6 +24,10 @@
 	<true/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	 <key>BGTaskSchedulerPermittedIdentifiers</key>
+    <array>
+        <string>com.policam.motokros</string>
+    </array>
 	<key>NSCameraUsageDescription</key>
 	<string>Для создания фотографий для публикаций и аватарок $(PRODUCT_NAME) требуется доступ к вашей камере.</string>
 	<key>NSPhotoLibraryUsageDescription</key>

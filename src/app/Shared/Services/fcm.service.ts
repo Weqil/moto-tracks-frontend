@@ -117,6 +117,13 @@ export class FcmService {
     PushNotifications.addListener('pushNotificationReceived',
       (notification: PushNotificationSchema) => {
         // this.toastService.showToast(JSON.stringify(notification), 'light')
+        console.log(notification)
+        let data: InAppNotification = {
+          title: String(notification.title),
+          message: String(notification.body),
+        // data: JSON.parse(payload.data)
+      }
+      this.inAppNotificationService.show(data)
 
         // alert('Push received: ' + JSON.stringify(notification));
       }
