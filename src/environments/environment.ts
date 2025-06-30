@@ -9,7 +9,17 @@
 //   BACKEND_URL: 'https://api-moto.vokrug.city',
 //   metrikaId: 100026583,
 //   BACKEND_PORT: '443',
-//   version: '0.1.1'
+//   version: '0.1.1',
+//       firebase: {
+//         apiKey: "AIzaSyAAxAFOnsm7B4juuOXYst-kVlkkoaJLDL4",
+//         authDomain: "mototrack-1d377.firebaseapp.com",
+//         projectId: "mototrack-1d377",
+//         storageBucket: "mototrack-1d377.firebasestorage.app",
+//         messagingSenderId: "18133043476",
+//         appId: "1:18133043476:web:a705df994ff255e3f71a01",
+//         measurementId: "G-KXCXBFTJVB",
+//         vapidKey: "BLSMF3ZU_rnEM0ngZ6LrbVHIRZ522yAeYUxVHPIi343Xku3bWNxxOfq4Kj2efzBIg6bJsGJGygQRJtK1cQdRo9I"
+//     }
 // }
 
 

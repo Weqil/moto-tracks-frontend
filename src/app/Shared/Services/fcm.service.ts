@@ -80,10 +80,10 @@ export class FcmService {
                   // console.log(response) // Токен отправлен и сохранён на сервере
                 })
             } else {
-              this.toastService.showToast('Не удалось получить токен для уведомлений', 'warning')
+              // this.toastService.showToast('Не удалось получить токен для уведомлений', 'warning')
             }
           }).catch(() => {
-            this.toastService.showToast('Ошибка получения токена уведомлений', 'error')
+            // this.toastService.showToast('Ошибка получения токена уведомлений', 'error')
           });
       } else {
         // this.toastService.showToast('Разрешение на уведомления отклонено', 'primary')
@@ -108,7 +108,7 @@ export class FcmService {
     PushNotifications.addListener('registrationError',
       (error: any) => {
         console.log('FCM Token register error:', error);
-        this.toastService.showToast(error, 'error')
+        // this.toastService.showToast(error, 'error')
         // alert('Error on registration: ' + JSON.stringify(error));
       }
     );
@@ -116,7 +116,7 @@ export class FcmService {
     // Show us the notification payload if the app is open on our device
     PushNotifications.addListener('pushNotificationReceived',
       (notification: PushNotificationSchema) => {
-        this.toastService.showToast(JSON.stringify(notification), 'light')
+        // this.toastService.showToast(JSON.stringify(notification), 'light')
 
         // alert('Push received: ' + JSON.stringify(notification));
       }
@@ -125,7 +125,7 @@ export class FcmService {
     // Method called when tapping on a notification
     PushNotifications.addListener('pushNotificationActionPerformed',
       (notification: ActionPerformed) => {
-        this.toastService.showToast(JSON.stringify(notification), 'primary')
+        // this.toastService.showToast(JSON.stringify(notification), 'primary')
         // alert('Push action performed: ' + JSON.stringify(notification));
       }
     );
@@ -136,7 +136,7 @@ export class FcmService {
         case('ios'):
           FCM.getToken()
             .then(r => {
-              this.toastService.showToast(String(r.token), 'primary')
+              // this.toastService.showToast(String(r.token), 'primary')
               console.log('FCM Token:', r.token);
               this.pushTokenToServer(r.token).pipe(
                 catchError((err: any) => {
@@ -150,7 +150,7 @@ export class FcmService {
           break
         case('android'):
           PushNotifications.addListener('registration', (token: Token) => {
-            this.toastService.showToast(String(token), 'primary')
+            // this.toastService.showToast(String(token), 'primary')
             console.log('FCM Token:', token.value);
             this.pushTokenToServer(token.value).pipe(
               catchError((err: any) => {
