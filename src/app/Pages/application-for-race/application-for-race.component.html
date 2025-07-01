@@ -107,19 +107,19 @@
             <div class="validate-indicator">
               <div class="validate-indicator__item">
                  <span>C. - </span>
-                  <div *ngIf="polish.is_checked" class="validate-indicator__item__value">
+                  <div *ngIf="polish && polish.is_checked" class="validate-indicator__item__value">
                     ✅
                   </div>
               </div>
               <div class="validate-indicator__item">
                  <span>Л. - </span>
-                  <div *ngIf="licensed.is_checked" class="validate-indicator__item__value">
+                  <div *ngIf="licensed && licensed.is_checked" class="validate-indicator__item__value">
                     ✅
                   </div>
               </div>
               <div class="validate-indicator__item">
                  <span>Н. - </span>
-                  <div *ngIf="notarius.is_checked" class="validate-indicator__item__value">
+                  <div *ngIf="notarius && notarius.is_checked" class="validate-indicator__item__value">
                     ✅
                   </div>
               </div>
@@ -242,8 +242,7 @@
                 <app-standart-input [readonly]="true" [control]="polisForm.get('number')" placeholder="Серия, номер" label="Серия, номер"></app-standart-input>
                 <app-standart-input [readonly]="true" [control]="polisForm.get('issuedWhom')" placeholder="Кем выдан" label="Кем выдан"></app-standart-input>
                 <app-standart-input 
-                  [invalid]="!isDateBeforeCurrent(polisForm.get('itWorksDate'))"
-                 [errorMessage]="!isDateBeforeCurrent(polisForm.get('itWorksDate')) ? 'Срок действия просрочен': '' " [readonly]="true" [control]="polisForm.get('itWorksDate')" placeholder="Срок действия до" label="Срок действия до"></app-standart-input>
+                  [readonly]="true" [control]="polisForm.get('itWorksDate')" placeholder="Срок действия до" label="Срок действия до"></app-standart-input>
   
               </div>
                   <div class="document" *ngIf="polish">

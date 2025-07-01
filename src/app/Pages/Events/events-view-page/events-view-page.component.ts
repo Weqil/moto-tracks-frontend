@@ -1071,7 +1071,7 @@ createTransaction(): Observable<any> { // Возвращаем Observable
         locationId: this.userService.user.value?.personal.location?.id,
         commandId: this.userService.user.value?.personal.command?.id,
         region: this.userService.user.value?.personal.location ? this.userService.user.value?.personal.region : '',
-        community: this.userService.user.value?.personal.command?.id ? this.userService.user.value?.personal.command?.name : '',
+        community: this.userService.user.value?.personal.command?.id ? this.userService.user.value?.personal.command?.name : 'Лично',
         rankNumber: this.userService.user.value?.personal.rank_number,
         motoStamp:  this.userService.user.value?.personal.moto_stamp,
         numberAndSeria: this.userService.user.value?.personal.number_and_seria,

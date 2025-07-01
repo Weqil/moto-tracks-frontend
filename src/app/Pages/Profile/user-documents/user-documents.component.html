@@ -129,12 +129,10 @@
           <app-standart-input [control]="polisForm.get('issuedWhom')" placeholder="Кем выдан" label="Кем выдан"></app-standart-input>
           <app-standart-input 
            [control]="polisForm.get('itWorksDate')"
-           [invalid]="!isDateBeforeCurrent(polisForm.get('itWorksDate'))"
-           [errorMessage]="!isDateBeforeCurrent(polisForm.get('itWorksDate')) ? 'Срок действия просрочен': '' "
+         
             placeholder="Срок действия до" type="date" 
             label="Срок действия до"></app-standart-input>
           <div class="document" *ngIf="polis">
-            
              <div class="file-name">
               <img src="/assets/icons/documents.svg" alt="">
               <div class="name">
