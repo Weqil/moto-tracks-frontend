@@ -941,7 +941,6 @@ export class GroupApplicationComponent implements OnInit {
         this.paymentLink = res.payment_link;
         this.createTransactionId = res.transaction.id;
       } catch (error) {
-        console.error('Ошибка при создании транзакции:', error);
       }
     }
   }

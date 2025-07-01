@@ -1,5 +1,6 @@
 
 <ion-app >
+  <app-notification></app-notification>
   <ion-modal [isOpen]="!this.userHaveCurrentVersion">
     <ng-content>
       <ion-header translucent>
@@ -22,6 +23,7 @@
     </ng-content>
     
   </ion-modal>
+
   <!-- <ion-modal [canDismiss]="false" class="select-sport-category"  [isOpen]="this.sportCategoryModalState">
     <ng-content>
       <ion-header translucent>

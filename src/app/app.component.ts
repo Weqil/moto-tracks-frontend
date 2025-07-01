@@ -3,15 +3,28 @@ import { Router } from '@angular/router';
 import { Component, inject } from '@angular/core';
 import { IonApp, IonRouterOutlet, NavController, IonModal, IonContent, IonToolbar, IonTitle, IonFooter, IonButton, IonHeader } from '@ionic/angular/standalone';
 import { UserService } from './Shared/Data/Services/User/user.service';
-import { MetrikaModule } from 'ng-yandex-metrika';
-import  moment, { Moment, MomentInput, version } from 'moment'
+import { Moment } from 'moment'
 import { CupService } from './Shared/Data/Services/cup.service';
 import { Capacitor } from '@capacitor/core';
 import { VersionService } from './Shared/Data/Services/version.service';
 import { IconButtonComponent } from "./Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component";
 import { SportTypesService } from './Shared/Data/Services/sport-types.service';
 import localeRu from '@angular/common/locales/ru';
-import { CommonModule, registerLocaleData } from '@angular/common';
+import { CommonModule, NgIf, registerLocaleData } from '@angular/common';
+import { FcmService } from './Shared/Services/fcm.service';
+import { ToastService } from './Shared/Services/toast.service';
+import {
+  ActionPerformed,
+  PushNotificationSchema,
+  PushNotifications,
+  Token,
+} from '@capacitor/push-notifications';
+import { InAppNotification, NotificationComponent } from './Shared/Components/Notification/notification.component';
+import { i } from '@angular/cdk/data-source.d-Bblv7Zvh';
+import { InAppNotificationService } from './Shared/Data/Services/in-app-notification.service';
+
+
+
 async function getAppVersion() {
   const platform = Capacitor.getPlatform();
   if (Capacitor.isNativePlatform() || platform == 'ios' || platform == 'android') {
@@ -26,43 +39,30 @@ registerLocaleData(localeRu, 'ru');
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
-  imports: [IonHeader, IonButton, IonFooter, IonTitle, IonToolbar, IonContent, IonModal, IonApp, IonRouterOutlet, IconButtonComponent,CommonModule],
+  imports: [NotificationComponent, IonHeader, IonFooter, IonTitle, IonToolbar, IonContent, IonModal, IonApp, IonRouterOutlet, IconButtonComponent,CommonModule],
 })
 
 export class AppComponent {
   private startTimeInBackground?: Moment;
   private finishTimeInBackground?: Moment;
+
   navController: NavController = inject(NavController)
   versionService:VersionService = inject(VersionService)
+  fcmService: FcmService = inject(FcmService)
+  toastService: ToastService = inject(ToastService)
+  userService: UserService = inject(UserService)
+  cupService:CupService = inject(CupService)
+
   sportCategoryModalState:boolean = false
-  contentTypes:any = []
+  contentTypes:any = [];
   sportCategoryColorObject:any = {
     Мотокросс:'red',
     Эндуро:'green'
   }
   sportTypesService: SportTypesService = inject(SportTypesService)
   userHaveCurrentVersion:boolean = true
-  constructor(private navCtrl: NavController, private router: Router) {
-    
-    // App.addListener('resume', () => { 
-    //   this.finishTimeInBackground = moment()
-    //     // console.log(`Приложение снова активно`);
-    //     // console.log(this.finishTimeInBackground.format('HH:mm:ss'))
-    //     if (this.startTimeInBackground) {
-    //       const diffInSeconds = this.finishTimeInBackground.diff(this.startTimeInBackground, 'seconds');
-    //       // console.log(`Приложение было в фоновом режиме ${diffInSeconds} секунд`);
-    //       if(diffInSeconds>20){
-    //         window.location.reload();
-    //         // console.log(`Отправили на ту же страницу`);
-    //       }
-    //     }
-    // });
-
-  //   App.addListener('pause', () => { 
-  //     this.startTimeInBackground = moment()
-  //     // console.log(`Приложение ушло в фон`);
-  //     // console.log(this.startTimeInBackground.format('HH:mm:ss'))
-  // });
+  PushNotifications: any;
+  constructor(private navCtrl: NavController, private router: Router, private inAppNotificationService: InAppNotificationService) {
   }
    onUpdate() {
     const platform = Capacitor.getPlatform();
@@ -121,11 +121,11 @@ export class AppComponent {
        
         }
     })
-    
   }
-  userService:UserService = inject(UserService)
-  cupService:CupService = inject(CupService)
 
+  askForNotifications() {
+      this.fcmService.requestPermission();
+  }
   ngOnInit() {
     // console.log(this.stringHaveCurrentWords('50 см3','Коляски 7 50 см3'))
     this.getLastVersion()
@@ -141,19 +141,16 @@ export class AppComponent {
     this.cupService.getAllDegree().subscribe((res:any)=>{
       this.cupService.allDegree.next(res.degree) 
     })
+    this.userService.user.pipe().subscribe(() => {
+      this.fcmService.requestPermission();
+    })
+    // инициализация  push для web
+    this.fcmService.requestPermission();;
+    document.addEventListener('click', this.onFirstUserInteraction, { once: true })
   }
+
+  onFirstUserInteraction = () => {
+      if (Capacitor.getPlatform() === 'web')
+        this.fcmService.requestPermission()
+  };
 }
-        // let diff = moment().diff(moment(this.lastBackgroundTime), 'seconds');
-        // console.log(`Active - diff ${diff}`);
-        // if(diff>=20){
-          // console.log(diff)
-          // window.location.reload()
-          // console.log('Приложение обновилось')
-        // }
-        
-      // }
-      // else if(state.) {
-      //   this.lastBackgroundTime = moment().format('HH:mm:ss');
-      //   console.log(`Приложение свернуто`);
-      //   console.log(this.lastBackgroundTime);
-      // }

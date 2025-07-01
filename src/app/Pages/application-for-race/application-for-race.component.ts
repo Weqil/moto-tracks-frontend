@@ -147,9 +147,9 @@ export class ApplicationForRaceComponent  implements OnInit {
     this.tableModalValue = false
   }
   isDateBeforeCurrent(date: any): boolean {
-      const givenMoment = moment(date.value);
-      const currentMoment = moment(); // Получаем текущую дату и время
-      return givenMoment >= currentMoment
+      const givenMoment = moment(date.value,'DD.MM.YY');
+      const currentMoment = moment(); 
+      return givenMoment < currentMoment
 
   }
 
@@ -368,7 +368,7 @@ export class ApplicationForRaceComponent  implements OnInit {
       grade:new FormControl('', [Validators.required]),
       rankNumber:new FormControl('', [Validators.required]),
       email:new FormControl('', [Validators.required]),
-      community:new FormControl('', [Validators.required]),
+      community:new FormControl('Лично', [Validators.required]),
       locationId: new FormControl('', [Validators.required]),
       coach:new FormControl('', [Validators.required]),
       motoStamp:new FormControl('', [Validators.required]),

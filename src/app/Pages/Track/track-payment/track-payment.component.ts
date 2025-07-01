@@ -64,7 +64,6 @@ export class TrackPaymentComponent  implements OnInit {
         this.loadingService.hideLoading(loader)
       })
     ).subscribe(async (res:any)=>{
-      console.log(res)
       this.paymentLink = res.payment_link
       this.createTransactionId = res.transaction.id
       const openCapacitorSite = async () => {

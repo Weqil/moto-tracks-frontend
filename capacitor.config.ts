@@ -2,7 +2,7 @@ import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'com.policam.motokros',
-  appName: 'Мотокросс',
+  appName: 'Мототрек',
   webDir: 'www/browser',
 
   
