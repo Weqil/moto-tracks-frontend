@@ -78,7 +78,7 @@ export class UserDocumentsComponent  implements OnInit {
   arrayDocument:any[] = []
   licensed:any
   notarius:any
-  polish:any
+  polis:any
   resultModalState:boolean = false
   formattedResultsDocument:[
     {
@@ -624,6 +624,26 @@ submitForm(){
     }
    
   }
+    isDateBeforeCurrent(dateInPolis: any): boolean {
+      const givenMoment = moment(dateInPolis.value);
+      const currentMoment = moment(); // Получаем текущую дату и время
+      return givenMoment >= currentMoment
+    }
+
+ checkInputLabelForInputs(name:string){
+
+  if(this.userService.user.value?.personal?.comment){
+    let comment:any = {}
+    try{
+      comment = JSON.parse(this.userService.user.value?.personal?.comment)
+    }
+    catch(err:any){
+       let comment = {}
+    }
+    return !!comment[name]
+  }
+  return false
+ }
 
   setFormValue(){
     // let loader:HTMLIonLoadingElement
@@ -657,9 +677,8 @@ submitForm(){
             issuedWhom: polis.issued_whom,
             itWorksDate: moment(polis.it_works_date, 'DD.MM.YY').format('YYYY-MM-DD')
           })
-          console.log(polis.it_works_date)
           this.polisFile = {name:'Полис загружен', dontFile:true}
-          this.polish = polis
+          this.polis = polis
         }
         if(res.documents.find((doc:any)=> doc.type === 'pasport')){
           this.pasportForm.patchValue((res.documents.find((doc:any)=> doc.type === 'pasport')))

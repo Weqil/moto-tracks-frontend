@@ -28,6 +28,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { PrivateFilesComponent } from "../../CommonUI/Pages/private-files/private-files.component";
 import { StandartButtonComponent } from '@app/Shared/Components/UI/Buttons/standart-button/standart-button.component';
 import { serverError } from '@app/Shared/Data/Interfaces/errors';
+import { ALL_CHECK_LABELS } from '@app/Shared/Data/Interfaces/application-check';
 
 @Pipe({ name: 'safeUrl' })
 export class SafeUrlPipe implements PipeTransform {
@@ -70,7 +71,7 @@ export class ApplicationForRaceComponent  implements OnInit {
   sortUsers: any = {}
   viewUser: boolean = false
   userGetId!: string
-  userGet!:User
+  userGet!:any
   tableModalValue:boolean = false
   googleTabsLink:string = ''
   arrayDocument:Documents[]=[]
@@ -145,11 +146,51 @@ export class ApplicationForRaceComponent  implements OnInit {
   closetTableModal(){
     this.tableModalValue = false
   }
+  isDateBeforeCurrent(date: any): boolean {
+      const givenMoment = moment(date.value,'DD.MM.YY');
+      const currentMoment = moment(); 
+      return givenMoment < currentMoment
+
+  }
+
+  checkStateInInput(labelName:string):boolean{
+   if(this.userGet.user.personal.comment && this.userGet.user.personal.comment[labelName] ){
+    return !!this.userGet.user.personal.comment[labelName]
+   }
+    return false
+  }
+
+  checkInput(event:any,labelName:string,){
+    if(this.userGet.user.personal.comment && typeof this.userGet.user.personal.comment == 'object'){
+      this.userGet.user.personal.comment[labelName] = !event.state
+    }else{
+      this.userGet.user.personal.comment = {
+        [labelName]:!event.state
+      }
+    }
+    this.personalUserForm.patchValue({comment:JSON.stringify(this.userGet.user.personal.comment)})
+  }
 
     getUsersInRace(){
-      this.eventService.getApplicationsForCommisson(this.eventId).pipe().subscribe((res:any)=>{
-        
+      let loader:HTMLIonLoadingElement
+      this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=> loader = res)
+     this.eventService.getApplicationsForCommisson(this.eventId).pipe(
+      finalize(()=>this.loaderService.hideLoading(loader))
+     ).subscribe((res:any)=>{
         this.usersInRace = res.users
+        this.usersInRace.map((user:any)=>{
+          if(user.user.personal.comment){
+            let parceComment = {}
+             try {
+               parceComment = JSON.parse(user.user.personal.comment)
+               user.user.personal.comment = parceComment
+              } catch (err) {
+                user.user.personal.comment= {}
+              }              
+          }else{
+            user.user.personal.comment = {}
+          }
+        })
         this.formattedUsers = [];
 
         // Object.keys(this.usersInRace).forEach((key: string) => {
@@ -165,8 +206,12 @@ export class ApplicationForRaceComponent  implements OnInit {
            
         //   })
         // }
+        if(this.userGet){
+          let currentUser = this.usersInRace.find((user:any)=> user.id == this.userGet.id )
+          this.navigateToUser(currentUser.user_id,currentUser, currentUser.id)
+        }
+       
 
-        
         
       })
      
@@ -187,6 +232,16 @@ export class ApplicationForRaceComponent  implements OnInit {
     }
   )
 
+  doumentCheck(value:any, document:any){
+    let loader:HTMLIonLoadingElement
+    this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{loader = res})
+    this.userService.checkedDocument(document.id,{checked:!value.state}).pipe(
+      finalize(()=> this.loaderService.hideLoading(loader))
+    ).subscribe((res:any)=>{
+      this.getUsersInRace()
+    })
+  }
+
   notariusForm:FormGroup = new FormGroup (
     {
       notariusFile: new FormControl('',[Validators.required,]), // путь до файла
@@ -194,9 +249,9 @@ export class ApplicationForRaceComponent  implements OnInit {
   )
 
     navigateToUser(userId: string, userGet: User, appId:any) {
-      this.getDocumentUserById(Number(userId))
       this.userGetId = userId
       this.userGet= userGet
+      this.getDocumentUserById()
       this.setUserInForm()
       this.activeUserId = userId
       this.activeAppId = appId
@@ -232,33 +287,19 @@ export class ApplicationForRaceComponent  implements OnInit {
          
         }),
         map((res:any)=>{
-        console.log(res.text())
         }),
         finalize(()=>this.loaderService.hideLoading(loader)),
         catchError((err:any)=>{
           if(err.status == 200){
-            console.log(err.text())
           }
           return EMPTY;
         })
       ).subscribe((res:any)=>{
-        console.log(res)
       })
     }
 
-    getDocumentUserById(userId:number){
-      let loader:HTMLIonLoadingElement
-      this.loadingService.showLoading().then((res: HTMLIonLoadingElement)=>{
-          loader = res
-      })
-
-        this.eventService.getApplicationsForCommisson(this.eventId).pipe(
-          finalize(()=>{
-            this.loadingService.hideLoading(loader)
-          })
-        ).subscribe((res:any)=>{
-          this.appForComission = res.users
-          // console.log('Загрузил документы:', this.appForComission)
+    getDocumentUserById(){
+ 
           this.licensed = null;
           this.licensesFile = null;
 
@@ -267,66 +308,38 @@ export class ApplicationForRaceComponent  implements OnInit {
 
           this.notarius = null;
           this.notariusFile = null;
-          const selectedUser = this.appForComission.find((user: any) => user.user_id === userId);
-          if (selectedUser) {
-            const documents = selectedUser.documents;
-            const license = documents.find((doc: any) => doc.type === 'licenses');
-            const polis = documents.find((doc: any) => doc.type === 'polis');
-            const notarius = documents.find((doc: any) => doc.type === 'notarius');
-
-            // патчим формы и сохраняем файлы
-            if (license) {
-              this.licensesForm.patchValue(license);
-              this.licensesFile = { name: 'Лицензия загружена', dontFile: true };
-              
-              this.licensed = license;
+          let res
+          try{
+            res = this.userGet.documents
+          }catch(err){
+            res = []
+          }
+          
+          if(res.length)
+            if(res.find((doc:any)=> doc.type === 'licenses')){
+              let licensesDocument = res.find((doc:any)=> doc.type === 'licenses')
+              this.licensesForm.patchValue((res.find((doc:any)=> doc.type === 'licenses')))
+              this.licensesFile = {name:'Лицензия загружена', dontFile:true} 
+              this.licensed = licensesDocument
             }
-
-            if (polis) {
+            if((res.find((doc:any)=> doc.type === 'polis'))){
+              let polis = (res.find((doc:any)=> doc.type === 'polis'))
               this.polisForm.patchValue({
                 number: polis.number,
                 issuedWhom: polis.issued_whom,
                 itWorksDate: polis.it_works_date
-              });
-              this.polisFile = { name: 'Полис загружен', dontFile: true };
-              
-              this.polish = polis;
+              })
+              this.polisFile = {name:'Полис загружен', dontFile:true}
+              this.polish = polis
             }
-
-            if (notarius) {
-              this.notariusFile = { name: 'Согласие загружено', dontFile: true };
-              
-              this.notarius = notarius;
-            }
-          }
-
-            // if(res.documents.find((doc:any)=> doc.type === 'licenses')){
-            //   let licensesDocument = res.documents.find((doc:any)=> doc.type === 'licenses')
-            //   this.licensesForm.patchValue((res.documents.find((doc:any)=> doc.type === 'licenses')))
-            //   this.licensesFile = {name:'Лицензия загружена', dontFile:true} 
-            //   this.licensed = licensesDocument
-            //   console.log(this.licensed)
-            // }
-            // if((res.documents.find((doc:any)=> doc.type === 'polis'))){
-            //   let polis = (res.documents.find((doc:any)=> doc.type === 'polis'))
-            //   this.polisForm.patchValue({
-            //     number: polis.number,
-            //     issuedWhom: polis.issued_whom,
-            //     itWorksDate: polis.it_works_date
-            //   })
-            //   this.polisFile = {name:'Полис загружен', dontFile:true}
-            //   this.polish = polis
-            //   console.log(this.polish)
-            // }
-            // if(res.documents.find((doc:any)=> doc.type === 'notarius')){
-            //   let notarius = (res.documents.find((doc:any)=> doc.type === 'notarius'))
-            //   this.notariusFile = {name:'Согласие загружено', dontFile:true}
-            //   this.notarius = notarius
-            //   console.log(this.notarius)
-            // } 
+            if(res.find((doc:any)=> doc.type === 'notarius')){
+              let notarius = (res.find((doc:any)=> doc.type === 'notarius'))
+              this.notariusFile = {name:'Согласие загружено', dontFile:true}
+              this.notarius = notarius
+            } 
           // Только теперь открываем компонент
           this.viewUser = true
-        })
+        
     
       }
 
@@ -355,7 +368,7 @@ export class ApplicationForRaceComponent  implements OnInit {
       grade:new FormControl('', [Validators.required]),
       rankNumber:new FormControl('', [Validators.required]),
       email:new FormControl('', [Validators.required]),
-      community:new FormControl('', [Validators.required]),
+      community:new FormControl('Лично', [Validators.required]),
       locationId: new FormControl('', [Validators.required]),
       coach:new FormControl('', [Validators.required]),
       motoStamp:new FormControl('', [Validators.required]),
@@ -439,33 +452,29 @@ export class ApplicationForRaceComponent  implements OnInit {
     }
   
     setUserInForm(){
-     
-      if(this.userGet){
-        this.personalUserForm.patchValue(this.userGet)
-  
-        const rawPhone = this.userGet?.phone_number || '';
-        const cleanedPhone = parseInt(rawPhone.replace(/\D/g, ''), 10) || ''; // Удаляем все символы, кроме цифр
-  
+      if(this.userGet && this.userGet.user.personal){
+        this.personalUserForm.patchValue(this.userGet.user.personal)
+        const personal = this.userGet.user.personal
+
+        const rawPhone = personal.phone_number || '';
+        const cleanedPhone = parseInt(rawPhone.replace(/\D/g, ''), 10) || '';
         this.personalUserForm.patchValue({
-          name:this.userGet?.name,
-          surname:this.userGet?.surname,
-          dateOfBirth: this.userGet?.date_of_birth,
+          name: personal.name || '',
+          surname: personal.surname || '',
+          grade: this.userGet.grade?.name || '',
+          dateOfBirth: personal.date_of_birth || '',
           phoneNumber: cleanedPhone,
-          email:this.userGet?.user.email,
-          startNumber: this.userGet?.start_number,
-          locationId: this.userGet?.location?.id,
-          
-          region: this.userGet?.location.name + ' ' + this.userGet?.location.type,
-          community: this.userGet?.community,
-          rank: this.userGet?.rank,
-          engine:this.userGet?.engine,
-          motoStamp:  this.userGet?.moto_stamp,
-          numberAndSeria: this.userGet?.number_and_seria,
-          grade: this.userGet?.grade?.name,
-          group:'',
-          comment: this.userGet?.comment
+          startNumber: personal.start_number || '',
+          locationId: personal.location?.id || '',
+          region: personal.location?.name ? personal.location.name : '',
+          community: personal.community || '',
+          rank: personal.rank || '',
+          engine: personal.engine || '',
+          motoStamp: personal.moto_stamp || '',
+          numberAndSeria: personal.number_and_seria || '',
+          group: ''
         })
-      }else{
+      } else {
         this.personalUserForm.reset()
       }
     }
@@ -521,9 +530,21 @@ export class ApplicationForRaceComponent  implements OnInit {
       this.userInfo = !value
     }
 
+    sendValidateStateUser(){
+    
+      if(this.userGet.user.personal.comment && typeof this.userGet.user.personal.comment   == 'object'){
+        let truehLength = Object.keys(this.userGet.user.personal.comment).filter((key)=> this.userGet.user.personal.comment[key] == true).length
+       
+        this.userService.checkedPersonalInfo(this.userGet.user.id, {check:truehLength == ALL_CHECK_LABELS.length, comment:JSON.stringify(this.userGet.user.personal.comment )}).pipe().subscribe((res:any)=>{
+        })
+      }
+
+    }
     agreedApp(id: any){
-      const comment = this.personalUserForm.get('comment')?.value;
-      this.eventService.checkApplication(id, 1, comment)
+    
+
+      this.sendValidateStateUser()
+      this.eventService.checkApplication(id, 1, '')
       .pipe(finalize(()=>{
       })).subscribe((res:any)=>
         {
@@ -537,16 +558,13 @@ export class ApplicationForRaceComponent  implements OnInit {
     }
 
     disagreedApp(id: any){
-      const comment = this.personalUserForm.get('comment')?.value;
-      this.eventService.checkApplication(id, 0, comment)
+      this.sendValidateStateUser()
+      this.eventService.checkApplication(id, 0, '')
       .pipe(finalize(()=>{
 
       })).subscribe((res:any)=>
         {
-
-          this.getUsersInRace()
-
-          
+          this.getUsersInRace()    
           }
         )
         

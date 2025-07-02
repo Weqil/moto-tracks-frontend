@@ -529,7 +529,6 @@ export class GroupApplicationComponent implements OnInit {
 
   onUserSelect(user: UserWithTeam, isSelected: boolean, event: Event) {
     event.stopPropagation();
-    
     if (!user.personal) {
       this.toastService.showToast(
         'Пользователь должен сначала заполнить свою анкету самостоятельно',
@@ -549,6 +548,10 @@ export class GroupApplicationComponent implements OnInit {
     return this.selectedUsers.some(u => u.id === user.id);
   }
 
+  showReadonlyInfo() {
+    this.toastService.showToast('Данные можно изменить только в анкете участника', 'primary');
+  }
+
   openUserModal(user: UserWithTeam, event: Event) {
     event.stopPropagation();
     
@@ -560,12 +563,7 @@ export class GroupApplicationComponent implements OnInit {
       return;
     }
 
-    // Проверяем наличие класса
-    if (!user.personal.race_class) {
-      this.toastService.showToast('Сначала необходимо выбрать класс для пользователя', 'danger');
-      return;
-    }
-    
+  
     this.currentUser = user;
     this.isUserModalOpen = true;
     this.fillFormWithUserData(user);
@@ -912,23 +910,37 @@ export class GroupApplicationComponent implements OnInit {
     }
   }
 
+  stringHaveCurrentWords(sourceString:string, incomingString:string){
+      let sourceStringArray:string[] = sourceString.split(' ')
+      let incomingStringArray = incomingString.split(' ')
+      let currentWordCount = 0
+      sourceStringArray.forEach((word:string)=>{
+      incomingStringArray.find((incomingWord) => word == incomingWord) ? currentWordCount++ : null
+      })
+    return sourceStringArray.length == currentWordCount
+}
+
  async createTransaction(): Promise<void> {
   if (this.currentEvent.store) {
     const attArray: any = this.getSelectedGradesId()
       .map((gradeName: string) =>
-        this.attendances.find((att: IAttenden) => att.name.includes(gradeName))?.id
-      );
+         this.attendances.find((att:IAttenden): any =>{
+          if(this.stringHaveCurrentWords(gradeName,att.name)){
+            return att.id
+          }
+        })?.id 
+      
+
+      ).filter((item:any)=> item !== undefined);
 
     if (attArray && attArray.length) {
       try {
         const res: any = await firstValueFrom(
           this.transactionService.createTransactions({ attendanceIds: attArray, isRace: 1 })
         );
-
         this.paymentLink = res.payment_link;
         this.createTransactionId = res.transaction.id;
       } catch (error) {
-        console.error('Ошибка при создании транзакции:', error);
       }
     }
   }
@@ -970,34 +982,25 @@ export class GroupApplicationComponent implements OnInit {
         const fd = new FormData();
         
         // Добавляем все поля в FormData
-        fd.append('name', user.personal?.name ?? '');
-        fd.append('surname', user.personal?.surname ?? '');
-        fd.append('patronymic', user.personal?.patronymic ?? '');
-        fd.append('dateOfBirth', user.personal?.date_of_birth ?? '');
-        fd.append('region', String(user.personal?.region));
-        fd.append('city', user.personal?.city ?? '');
-        fd.append('inn', user.personal?.inn ?? '');
-        fd.append('snils', user.personal?.snils?.toString() ?? '');
+        // fd.append('name', user.personal?.name ?? '');
+        // fd.append('surname', user.personal?.surname ?? '');
+        // fd.append('patronymic', user.personal?.patronymic ?? '');
+        // fd.append('dateOfBirth', user.personal?.date_of_birth ?? '');
+        // fd.append('region', String(user.personal?.region));
+        // fd.append('city', user.personal?.city ?? '');
+        // fd.append('inn', user.personal?.inn ?? '');
+        // fd.append('snils', user.personal?.snils?.toString() ?? '');
         fd.append('commandId', user.teamId?.toString() ?? '');
-        fd.append('phoneNumber', user.personal?.phone_number ?? '');
-        fd.append('startNumber', user.personal?.start_number ?? '');
-        fd.append('group', user.personal?.group ?? '');
-        fd.append('rank', user.personal?.rank ?? '');
+        // fd.append('phoneNumber', user.personal?.phone_number ?? '');
+        // fd.append('startNumber', user.personal?.start_number ?? '');
+        // fd.append('group', user.personal?.group ?? '');
+        // fd.append('rank', user.personal?.rank ?? '');
         fd.append('userId', user.id?.toString() ?? '');
         
         // Находим ID класса по его названию
         const selectedGrade = this.eventGrades.find(grade => grade.name === user.personal?.race_class);
         fd.append('gradeId', selectedGrade?.id?.toString() ?? '');
-        
-        fd.append('rankNumber', user.personal?.rank_number ?? '');
-        fd.append('community', user.personal?.community ?? '');
-        fd.append('locationId', user.personal?.location?.id?.toString() ?? '');
-        fd.append('coach', this.userService.user.value?.personal ? 
-          `${this.userService.user.value.personal.surname} ${this.userService.user.value.personal.name} ${this.userService.user.value.personal.patronymic}` : 
-          '');
-        fd.append('motoStamp', user.personal?.moto_stamp ?? '');
-        fd.append('engine', user.personal?.engine ?? '');
-        fd.append('numberAndSeria', user.personal?.number_and_seria ?? '');
+        fd.append('transactionId',this.createTransactionId)
 
         // Добавляем ID документов
         const licenseDoc = user.documents?.find(doc => doc.type === 'licenses');
@@ -1007,7 +1010,6 @@ export class GroupApplicationComponent implements OnInit {
         fd.append('documentIds[0]', licenseDoc?.id?.toString() ?? '');
         fd.append('documentIds[1]', polisDoc?.id?.toString() ?? '');
         fd.append('documentIds[2]', notariusDoc?.id?.toString() ?? '');
-
         return { fd, user };
       });
 
@@ -1054,6 +1056,16 @@ export class GroupApplicationComponent implements OnInit {
         }
       });
     });
+      if(this.paymentLink && this.createTransactionId){
+        this.closePreviewModal()
+         setTimeout(()=>{
+            this.navController.navigateRoot(`/event-payment/${this.createTransactionId}`)
+        },100)
+        this.openPaymentBrowser()
+      }
+    })
+
+   
   }
 
   // Добавляем метод для выбора команды

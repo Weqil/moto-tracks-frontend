@@ -43,7 +43,7 @@
     .user-item {
       cursor: not-allowed;
       pointer-events: none;
-      opacity: 0.7;
+      opacity: 0.9;
 
       &:hover {
         background-color: transparent;
@@ -57,6 +57,7 @@
     .edit-icon {
       pointer-events: all;
       opacity: 1;
+   
     }
 
     .incomplete-data-indicator {
@@ -171,7 +172,7 @@
   color: var(--primary-color);
   transition: color 0.2s;
   padding: 4px;
-
+  width: 2rem;
   &:hover {
     color: var(--primary-color);
     opacity: 0.8;

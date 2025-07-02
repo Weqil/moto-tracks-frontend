@@ -889,7 +889,7 @@ export class EventsViewPageComponent  implements OnInit {
     ).subscribe((res:any)=>{
       this.raceUser = res.race.user
       this.event = res.race
-      this.loaderService.checkAndCloseLoader().then((res)=>console.log(res))
+      this.loaderService.checkAndCloseLoader().then((res))
       this.groupItems = this.event.grades
       this.registrate()
       this.getAttendanceInRace()
@@ -952,7 +952,6 @@ createTransaction(): Observable<any> { // Возвращаем Observable
           this.createTransactionId = res.transaction.id;
         }),
         catchError(error => {
-          // Обработка ошибок, если вызов API не удался
           this.paymentLink = ''; // Очищаем ссылку при ошибке, если нужно
           throw error; // Повторно выбрасываем ошибку для дальнейшей обработки
         })
@@ -990,7 +989,6 @@ createTransaction(): Observable<any> { // Возвращаем Observable
            ...this.personalUserForm.value,
            documentIds:[this.polisId, this.licensesId,this.notariusId]   
          }
-         console.log(this.createTransactionId)
          if(this.createTransactionId){
           currentForm.transactionId = this.createTransactionId
          }
@@ -1071,14 +1069,19 @@ createTransaction(): Observable<any> { // Возвращаем Observable
         phoneNumber: cleanedPhone,
         startNumber: this.userService.user.value?.personal.start_number,
         locationId: this.userService.user.value?.personal.location?.id,
-        commandId: this.userService.user.value?.personal.command?.id,
+       
         region: this.userService.user.value?.personal.location ? this.userService.user.value?.personal.region : '',
-        community: this.userService.user.value?.personal.command?.id ? this.userService.user.value?.personal.command?.name : '',
+        community: this.userService.user.value?.personal.command?.id ? this.userService.user.value?.personal.command?.name : 'Лично',
         rankNumber: this.userService.user.value?.personal.rank_number,
         motoStamp:  this.userService.user.value?.personal.moto_stamp,
         numberAndSeria: this.userService.user.value?.personal.number_and_seria,
         group:''
       })
+      if(this.userService.user.value?.personal.command?.id){
+           this.personalUserForm.patchValue({
+             commandId: this.userService.user.value?.personal.command?.id,
+           })
+      }
     }else{
       this.personalUserForm.reset()
     }
@@ -1305,5 +1308,8 @@ createTransaction(): Observable<any> { // Возвращаем Observable
     });
   }
 
+  showReadonlyInfo() {
+    this.toastService.showToast('Данные можно изменить только в анкете участника', 'primary');
+  }
 
 }

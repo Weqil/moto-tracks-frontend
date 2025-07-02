@@ -65,5 +65,6 @@ export class EventService {
     return this.http.post<any>(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races/${raceId}/toggle-appointment-race`, data)
   }
 
+
   
 }

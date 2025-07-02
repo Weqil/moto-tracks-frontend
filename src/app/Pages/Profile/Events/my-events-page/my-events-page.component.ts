@@ -187,8 +187,6 @@ closetTableModal(){
   }
 
   ionViewWillEnter(){
-    this.userRider = this.checkUserRoleService.searchLastRole()?.name == UserStatuses.rider
-
     this.setFilterInTape('all')
     this.getEvents()
     this.finishEvents()
@@ -201,8 +199,10 @@ closetTableModal(){
   ngOnInit() {
     window.addEventListener('popstate', (event) => {
       this.closetTableModal()
-      
-  })
+    })
+    this.userService.user.pipe().subscribe((res:any)=>{
+      this.userRider = this.checkUserRoleService.searchLastRole(res)?.name == UserStatuses.rider
+    })
   }
 
 }

@@ -47,12 +47,14 @@ export class StandartInputSelectComponent implements OnInit, OnDestroy {
   @Input() label: string = '';
   @Input() iconLeft:string = ''
   @Input() invalid:boolean = false
+  @Input() readonly:boolean = false
   @Input() errorMessage:string = ''
   @Input() stateValue: boolean = false;
   @Input() labelLight: boolean = false;
 
   changeState(){
-    if (!this.stateValue) {
+    
+    if (!this.stateValue && !this.readonly) {
       this.stateValue = true;
     } else {
       this.stateValue = false;

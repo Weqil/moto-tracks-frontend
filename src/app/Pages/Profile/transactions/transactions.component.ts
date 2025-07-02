@@ -30,7 +30,6 @@ export class TransactionsComponent implements OnInit {
     // this.loadTransactions();
     this.route.params.pipe().subscribe((params:any)=>{
       this.trackId = params['id']
-      console.log(this.trackId)
       if(this.trackId){
         this.loadTrackTransactions()
       }else{
@@ -50,7 +49,6 @@ export class TransactionsComponent implements OnInit {
       )
       .subscribe({
         next: (response: any) => {
-          console.log(response)
           this.transactions = response.transactions;
         },
         error: (error) => {

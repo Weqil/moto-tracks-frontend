@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">Мотокросс</string>
-    <string name="title_activity_main">Мотокросс</string>
+    <string name="app_name">Мототрек</string>
+    <string name="title_activity_main">Мототрек</string>
     <string name="package_name">com.policam.motokros</string>
     <string name="custom_url_scheme">com.policam.motokros</string>
 </resources>

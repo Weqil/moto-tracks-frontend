@@ -1,6 +1,6 @@
 {
 	"appId": "com.policam.motokros",
-	"appName": "Мотокросс",
+	"appName": "Мототрек",
 	"webDir": "www/browser",
 	"plugins": {
 		"SplashScreen": {
@@ -20,10 +20,12 @@
 		}
 	},
 	"packageClassList": [
+		"FCMPlugin",
 		"AppPlugin",
 		"CAPBrowserPlugin",
 		"HapticsPlugin",
 		"KeyboardPlugin",
+		"PushNotificationsPlugin",
 		"SplashScreenPlugin",
 		"StatusBarPlugin"
 	]
