@@ -897,7 +897,7 @@ export class GroupApplicationComponent implements OnInit {
     // Показать уведомление о загрузке файла
   }
 
-  closePreviewModal() {
+  async closePreviewModal(){
     this.isPreviewModalOpen = false;
   }
 
@@ -925,7 +925,6 @@ export class GroupApplicationComponent implements OnInit {
           this.transactionService.createTransactions({ attendanceIds: attArray, isRace: 1 })
         );
 
-        console.log(res);
         this.paymentLink = res.payment_link;
         this.createTransactionId = res.transaction.id;
       } catch (error) {
@@ -937,7 +936,6 @@ export class GroupApplicationComponent implements OnInit {
 
   async openPaymentBrowser(){
      const openCapacitorSite = async () => {
-      console.log(this.paymentLink)
        if(this.paymentLink){
           this.toastService.showToast('Необходимо оплатить стартовый взнос','warning')
           await Browser.open({ url: this.paymentLink });
@@ -953,14 +951,16 @@ export class GroupApplicationComponent implements OnInit {
     }
   
     this.createTransaction().then(()=>{
-      console.log(this.paymentLink)
-      console.log(this.createTransactionId)
+  
       if(this.paymentLink && this.createTransactionId){
-        this.closePreviewModal()
-         setTimeout(()=>{
+        this.closePreviewModal().then(()=>{
+           setTimeout(()=>{
                    this.navController.navigateRoot(`/event-payment/${this.createTransactionId}`)
         },100)
-        this.openPaymentBrowser()
+                this.openPaymentBrowser()
+        })
+        
+
       }
     })
 
@@ -1044,9 +1044,13 @@ export class GroupApplicationComponent implements OnInit {
         complete: () => {
           this.toastService.showToast('Отправка заявок завершена', 'success');
           if(!this.currentEvent.store){
-              this.navController.navigateForward(`/event/${this.currentEvent.id}`)
+                this.closePreviewModal().then(()=>{
+                  setTimeout(()=>{
+                    this.navController.navigateForward(`/event/${this.currentEvent.id}`)
+                  })
+                })
           }
-          this.closePreviewModal();
+      
         }
       });
     });
