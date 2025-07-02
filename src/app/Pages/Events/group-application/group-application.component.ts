@@ -1063,10 +1063,10 @@ export class GroupApplicationComponent implements OnInit {
         },100)
         this.openPaymentBrowser()
       }
-    })
+    }
 
    
-  }
+  
 
   // Добавляем метод для выбора команды
   onTeamSelect(teamId: string) {
