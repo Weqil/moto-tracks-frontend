@@ -22,13 +22,24 @@ import { StandartInputSelectComponent } from "../../Shared/Components/UI/Selecte
 import { StandartRichInputComponent } from "../../Shared/Components/UI/LinarikUI/forms/standart-rich-input/standart-rich-input.component";
 import { RegionsSelectModalComponent } from "../../Shared/Components/Modals/regions-select-modal/regions-select-modal.component";
 import moment from 'moment';
+import { sportRankItems } from '@app/Shared/Сonstants/sportValues';
 import { CheckBoxComponent } from "../../Shared/Components/UI/LinarikUI/forms/check-box/check-box.component";
 import { Pipe, PipeTransform } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { PrivateFilesComponent } from "../../CommonUI/Pages/private-files/private-files.component";
 import { StandartButtonComponent } from '@app/Shared/Components/UI/Buttons/standart-button/standart-button.component';
 import { serverError } from '@app/Shared/Data/Interfaces/errors';
+import { motoStampItems } from '@app/Shared/Сonstants/sportValues';
+import { formdataService } from 'src/app/Shared/Helpers/formdata.service';
+
 import { ALL_CHECK_LABELS } from '@app/Shared/Data/Interfaces/application-check';
+import { NavbarVisibleService } from '@app/Shared/Services/navbar-visible.service';
+import { MapService } from 'src/app/Shared/Data/Services/Map/map.service';
+import { SelectComandsComponent } from '@app/Shared/Components/Commands/select-comands/select-comands.component';
+import { ToastService } from '@app/Shared/Services/toast.service';
+import { ICommand, ICommandCreate } from '@app/Shared/Data/Interfaces/command';
+import { ComandsService } from '@app/Shared/Data/Services/Comands/comands.service';
+
 
 @Pipe({ name: 'safeUrl' })
 export class SafeUrlPipe implements PipeTransform {
@@ -45,7 +56,7 @@ export class SafeUrlPipe implements PipeTransform {
   styleUrls: ['./application-for-race.component.scss'],
   imports: [CommonModule, IonContent, HeaderModule, UserModule, 
     UserViewPageComponent, IconButtonComponent, StandartInputComponent, StandartInputSelectComponent,
-     StandartRichInputComponent, RegionsSelectModalComponent, CheckBoxComponent, SafeUrlPipe, PrivateFilesComponent, IonModal,StandartButtonComponent],
+     StandartRichInputComponent, RegionsSelectModalComponent, CheckBoxComponent, SafeUrlPipe, PrivateFilesComponent, IonModal,StandartButtonComponent,SelectComandsComponent],
 })
 export class ApplicationForRaceComponent  implements OnInit {
 
@@ -57,9 +68,19 @@ export class ApplicationForRaceComponent  implements OnInit {
   private readonly destroy$ = new Subject<void>()
   loadingService: LoadingService = inject(LoadingService)
   userService:UserService = inject(UserService)
+  toastService:ToastService = inject(ToastService)
+  commandService:ComandsService = inject(ComandsService)
+  formdataService:formdataService = inject(formdataService)
+  createCommandTemp!: ICommand
+
+  navBarVisibleService:NavbarVisibleService = inject(NavbarVisibleService)
   loaderService:LoadingService = inject(LoadingService)
+  mapService:MapService = inject(MapService)
+
   authService: AuthService = inject(AuthService)
   activeAppId:any
+  sportRankItems = sportRankItems
+  motoStampItems = motoStampItems
   constructor(private router: Router) {}
   raceUser!:User
   eventId: string = ''
@@ -68,6 +89,8 @@ export class ApplicationForRaceComponent  implements OnInit {
   usersInRace:any = []
   usersPreview: any[] = []
   groups:any = []
+  createRegionItems:any[] = []
+  searchRegionItems:any[] = []
   sortUsers: any = {}
   viewUser: boolean = false
   userGetId!: string
@@ -82,12 +105,15 @@ export class ApplicationForRaceComponent  implements OnInit {
   licensesFile:any =''
   polisFile:any = ''
   notariusFile:any = ''
+  regionModalState:boolean = false
+  comandSelectModalStateValue:boolean = false
   userInfo:boolean = false
   raceInfo:boolean = false
   docInfo:boolean = false
   licensedInfo:boolean = false
   polishInfo:boolean = false
   notariusInfo:boolean = false
+  OfflineRacerAddFormState:boolean = false
   activeDocument?:number
   viewDocumentValue:boolean = false
   appForComission:any = []
@@ -105,9 +131,7 @@ export class ApplicationForRaceComponent  implements OnInit {
   }
 
   ionViewWillEnter(){
-
-    
-    
+    this.getRegions()
     this.route.params.pipe(takeUntil(this.destroy$)).pipe(
       finalize(()=>{
 })
@@ -231,6 +255,18 @@ export class ApplicationForRaceComponent  implements OnInit {
       itWorksDate: new FormControl('',[Validators.required]), //Срок действия
     }
   )
+  
+ setEngine(event:any){
+    this.addOfflineUserForm.patchValue({engine: event.name})
+  }
+
+  setRank(event:any){
+    this.addOfflineUserForm.patchValue({rank: event.name})
+  }
+
+setMotoStamp(event:any){
+  this.addOfflineUserForm.patchValue({motoStamp: event.name})
+}
 
   doumentCheck(value:any, document:any){
     let loader:HTMLIonLoadingElement
@@ -268,6 +304,25 @@ export class ApplicationForRaceComponent  implements OnInit {
         this.googleTabsLink = res.table_url
         })
     }
+
+    openOfflineRacerAddForm(){
+      this.OfflineRacerAddFormState = true
+    }
+
+    closeOfflineRacerAddForm(){
+      this.OfflineRacerAddFormState = false
+      this.addOfflineUserForm.reset()
+    }
+    
+    openComandSelectModalStateValue(){
+     this.comandSelectModalStateValue = true
+    }
+
+    saveOfflineRacer(){
+      console.log(this.addOfflineUserForm.value)
+    }
+
+    saveAndAddNew(){}
 
     generatePdfInAplication(){
       let loader:HTMLIonLoadingElement
@@ -343,7 +398,104 @@ export class ApplicationForRaceComponent  implements OnInit {
     
       }
 
+    closeComandSelectModalStateValue(){
+      this.comandSelectModalStateValue = false
+    }
 
+     setComand(event:any){
+      this.personalUserForm.patchValue({community:event.name})
+      this.personalUserForm.patchValue({commandId:event.id})
+      this.closeComandSelectModalStateValue()
+      if(event.id != ''){
+        let loader:HTMLIonLoadingElement
+        this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+          loader = res
+        })
+        this.commandService.toggleMember(event.id).pipe(
+          finalize(()=>{this.loaderService.hideLoading(loader)})
+        ).subscribe((res:any)=>{this.toastService.showToast('Вы добавлены в команду','success')
+          
+        })
+      }
+    }
+
+  // getAllComands(){
+  //   let loader:HTMLIonLoadingElement
+  //   this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+  //     loader = res
+  //    })
+  //   this.commandService.getComands().pipe(
+  //     finalize(()=>{
+  //       this.loaderService.hideLoading(loader)
+  //     })
+  //   ).subscribe((res:any)=>{
+  //     this.allComands = []
+  //     this.allComands.push(
+  //         {id: '', name: 'Лично', region: 'papilapup'}
+  //     )
+    
+  //     if(this.createCommandTemp){
+  //       this.allComands.push(...res.commands.filter((command:ICommand)=> command.id == this.createCommandTemp.id))
+  //       this.allComands.push(...res.commands.filter((command:ICommand)=> command.id !== this.createCommandTemp.id))
+  //     }else{
+
+  //       this.allComands.push(...res.commands) 
+  //     }
+      
+    
+     
+  //   })
+  // }
+
+    createNewComand(formData: { id:number; name: string; city: string; locationId: number; region: string}){
+        const id = formData.id;
+        const region = formData.region;
+        const name = formData.name;
+        const locationId = formData.locationId;
+        const city = formData.city;
+    
+        if (!name || !city || !locationId) {
+          this.toastService.showToast('Заполните все поля перед созданием команды', 'warning');
+          return;
+        }
+    
+        let loader:HTMLIonLoadingElement
+        this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+         loader = res
+        })
+    
+    
+    
+        let user: User|null = this.userService.user.value
+        let commandValidateState: boolean = false
+        let command: ICommandCreate = {
+          id: id,
+          name: name,
+          locationId: locationId,
+          city: city,
+          region: region
+        }
+        if(user){
+      
+          Object.keys(command).forEach((key:any)=>{
+            commandValidateState =  !!command[key as keyof typeof command]
+          })
+          if(commandValidateState){
+            let fd:FormData = new FormData()
+            fd = this.formdataService.formdataAppendJson(fd, command)
+            this.commandService.createComand(fd).pipe(
+              finalize(()=>{
+                this.loaderService.hideLoading(loader)
+              })
+            ).subscribe((res: any)=>{
+      
+              this.createCommandTemp = res.command 
+              // this.getAllComands()
+            })
+          }
+          
+        }
+      }
 
     ngOnChanges(changes: SimpleChanges) {
       
@@ -375,6 +527,20 @@ export class ApplicationForRaceComponent  implements OnInit {
       engine:new FormControl('', [Validators.required]),
       numberAndSeria:new FormControl('', [Validators.required]),
       comment:new FormControl('', [Validators.required])
+    })
+
+    addOfflineUserForm: FormGroup = new FormGroup({
+      name: new FormControl('', [Validators.required]),
+      surname: new FormControl('', [Validators.required]),
+      patronymic: new FormControl('', [Validators.required]),
+      dateOfBirth: new FormControl('', [Validators.required]),
+      region: new FormControl('', [Validators.required]),
+      commandId:new FormControl('', [Validators.required]),
+      rank:new FormControl('', [Validators.required]),
+      community:new FormControl('Лично', [Validators.required]),
+      motoStamp:new FormControl('', [Validators.required]),
+      licenseNumber:new FormControl('', [Validators.required]),
+      
     })
   
   
@@ -570,6 +736,32 @@ export class ApplicationForRaceComponent  implements OnInit {
         
 
     }
+
+  openRegionModal(){
+    this.regionModalState = true
+    this.navBarVisibleService.hideNavBar()
+  }
+  closeRegionModal(){
+    setTimeout(()=>{
+      this.navBarVisibleService.showNavBar()
+    },100)
+    this.regionModalState = false
+  }
+  getRegions(){
+  this.mapService.getAllRegions(false,false,false).pipe().subscribe((res:any)=>{
+    res.data.forEach((region:any) => {
+      this.searchRegionItems.push({
+        name:`${region.name} ${region.type}`,
+        value:region.id
+      })
+    });
+  })
+}
+
+  setRegion(region:any){
+    this.closeRegionModal()
+    this.addOfflineUserForm.patchValue({locationId:region.value,region:region.name})
+  }
 
   ngOnInit() {
    

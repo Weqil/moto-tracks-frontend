@@ -22,6 +22,13 @@
         Список участников
         <!-- <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
       </div>
+      <div class="add-racer-button-wrapper">
+         <app-icon-button clippy="clippy-right" (click)="openOfflineRacerAddForm()" class="width-button" [widht]="'w71'"
+          buttonText="Добавить гонщика" elementsPosition="elements-position__row"  theme="red" height="standart-height" sizeIcon="standart-size"></app-icon-button>
+          
+      </div>
+
+      
       <!-- <div *ngFor="let group of formattedUsers">
         <div class="class-name">
           <div class="event-information-title users-title">
@@ -29,7 +36,7 @@
             {{group.group}}
             ##<app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button>
           </div>
-        </div> -->
+      </div> -->
         
         <div class="application-list">
           <div *ngFor="let user of usersInRace" >
@@ -55,7 +62,7 @@
         
     </div>
 
-    <ion-modal [isOpen]="tableModalValue">
+    <ion-modal class="link-table-modal" [isOpen]="tableModalValue">
       <ng-template>
         <ion-content>
           <div class="google-tabs">
@@ -66,6 +73,55 @@
             </div>
             <app-standart-button (click)="closetTableModal()" style="width: 100%;" buttonText="Закрыть" theme="light"></app-standart-button>
           </div>
+        </ion-content>
+      </ng-template>
+    </ion-modal>
+
+    <ion-modal class="create-offline-racer-form" (didDismiss)="closeOfflineRacerAddForm()"  [isOpen]="OfflineRacerAddFormState">
+      <ng-template>
+        <ion-content>
+          <div class="header-container">
+              <div class="add-offline-racer">
+                <span class="cabinet-header__title">Добавить гонщика</span>
+              </div>
+          </div>
+          <form action="" class="offline-racer-form">
+              <app-standart-input [control]="addOfflineUserForm.get('surname')" placeholder="Введите фамилию" [errorMessage]="formErrors.surname.errorMessage" [invalid]="formErrors.surname.errorMessage.length !== 0" label="Фамилия"></app-standart-input>
+              <app-standart-input [control]="addOfflineUserForm.get('name')" [errorMessage]="formErrors.name.errorMessage" [invalid]="formErrors.name.errorMessage.length !== 0" placeholder="Введите имя" label="Имя"></app-standart-input>
+              <app-standart-input [errorMessage]="formErrors.patronymic.errorMessage" [invalid]="formErrors.patronymic.errorMessage.length !== 0" [control]="addOfflineUserForm.get('patronymic')" placeholder="Введите отчество" label="Отчество"></app-standart-input>
+              <app-standart-input type="date" [errorMessage]="formErrors.dateOfBirth.errorMessage" [invalid]="formErrors.dateOfBirth.errorMessage.length !== 0" [control]="addOfflineUserForm.get('dateOfBirth')" placeholder="Выберите дату" label="Дата рождения" ></app-standart-input>
+              <app-standart-input [control]="addOfflineUserForm.get('licenseNumber')" placeholder="Лицензия МФР" label="Лицензия МФР (тип, №):"></app-standart-input>
+              <app-standart-input-select selectedName="motoStampSelect" [items]="motoStampItems" (onChange)="setMotoStamp($event)" [selectedItem]="{name:addOfflineUserForm.value.motoStamp, value:addOfflineUserForm.value.motoStamp}" label="Марка мотоцикла"></app-standart-input-select>      
+              <app-standart-input-select selectedName="rankSelect" [items]="sportRankItems" (onChange)="setRank($event)" [selectedItem]="{name:addOfflineUserForm.value.rank, value:addOfflineUserForm.value.rank }" label="Спортивное звание, разряд"></app-standart-input-select>        
+              <app-standart-input  (click)="openRegionModal()" [invalid]="formErrors.region.errorMessage.length !== 0"  [readonly]="true" label="Область/край" [control]="addOfflineUserForm.get('region')" placeholder="Выберите область"></app-standart-input> 
+              <app-standart-input [errorMessage]="formErrors.community.errorMessage" [invalid]="formErrors.community.errorMessage.length !== 0"  [readonly]="true" [control]="addOfflineUserForm.get('community')" placeholder="Команда" label="Название команды"></app-standart-input> 
+
+              <div class="offline-racer-button">
+                <app-icon-button (click)="closeOfflineRacerAddForm()" widht="w52" buttonText="Отмена"></app-icon-button>
+                <app-icon-button (click)="saveOfflineRacer()" theme="red" widht="w71" buttonText="Сохранить"></app-icon-button>
+                <app-icon-button theme="red" widht="w71" buttonText="Сохранить и добавить"></app-icon-button>
+              </div>
+            </form>
+          <app-regions-select-modal 
+                style="z-index: 100;"
+                (select)="setRegion($event)" 
+                [visible]="regionModalState" 
+                (onClose)="closeRegionModal()" 
+                [regions]="searchRegionItems"> 
+        </app-regions-select-modal>
+        <!-- <app-select-comands 
+        (createNewComand)="createNewComand($event)" 
+        (openComandSelectModal)="openComandSelectModalStateValue()" 
+        (closeComandSelectModal)="closeComandSelectModalStateValue()" 
+        [comandSelectModalStateValue]="comandSelectModalStateValue" 
+        (selectComand)="setComand($event)"  
+        [selectedRegion]="selectRegionInCommandModal"
+        (setSelectedRegion)="selectRegionInCommandModalFunction($event)"
+        [commands]="allComands"
+        [regions]="searchRegionItems"
+        [createRegions]="createRegionItems"
+        (clearFilterRegion)="clearRegionInComandFilter()">
+      </app-select-comands> -->
         </ion-content>
       </ng-template>
       
@@ -149,7 +205,7 @@
           </div>
           
           <div class="input-container">
-            <app-standart-input [readonly]="true" [errorMessage]="formErrors.region.errorMessage" [invalid]="formErrors.region.errorMessage.length !== 0"  [readonly]="true" label="Область/край" [control]="personalUserForm.get('region')" placeholder="Выберите область вашу область"></app-standart-input>     
+            <app-standart-input [readonly]="true" [errorMessage]="formErrors.region.errorMessage" [invalid]="formErrors.region.errorMessage.length !== 0"  [readonly]="true" label="Область/край" [control]="personalUserForm.get('region')" placeholder="Выберите вашу область"></app-standart-input>     
             <app-standart-input [readonly]="true" [errorMessage]="formErrors.city.errorMessage" [invalid]="formErrors.city.errorMessage.length !== 0" [control]="personalUserForm.get('city')" [errorMessage]="formErrors.city.errorMessage" [invalid]="formErrors.city.errorMessage.length !== 0" placeholder="Введите город" label="Город"></app-standart-input>       
           </div>
   
@@ -168,7 +224,7 @@
           </div>
   
           <div class="input-container">
-            <app-standart-input [readonly]="true" [errorMessage]="formErrors.community.errorMessage" [invalid]="formErrors.community.errorMessage.length !== 0"  [readonly]="true" [control]="personalUserForm.get('community')" placeholder="Команда" label="Название команды"></app-standart-input>
+            <app-standart-input (click)="openComandSelectModalStateValue()" [readonly]="true" [errorMessage]="formErrors.community.errorMessage" [invalid]="formErrors.community.errorMessage.length !== 0"  [readonly]="true" [control]="personalUserForm.get('community')" placeholder="Команда" label="Название команды"></app-standart-input>
             <app-standart-input [readonly]="true" [control]="personalUserForm.get('coach')" placeholder="Тренер" label="ФИО тренера"></app-standart-input>  
           </div>
   

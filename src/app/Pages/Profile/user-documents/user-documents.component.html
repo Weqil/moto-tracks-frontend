@@ -35,8 +35,7 @@
       <app-standart-input [control]="personalUserForm.get('email')" placeholder="Почта" label="Почта"></app-standart-input>
       <app-standart-input (click)="openRegionModal()" [readonly]="true" label="Область/край (обязательное поле)" [errorMessage]="formErrors.region.errorMessage" [invalid]="formErrors.region.errorMessage.length !== 0" [control]="personalUserForm.get('region')" placeholder="Выберите область вашу область"></app-standart-input>          
       <app-standart-input [control]="personalUserForm.get('city')"  placeholder="Введите город" label="Город"></app-standart-input>     
-      
-
+    
       <app-regions-select-modal 
         (select)="setRegion($event)" 
         [visible]="regionModalState" 
@@ -90,12 +89,8 @@
         <app-standart-input  selectedName="engineSelect"  [control]="personalUserForm.get('inn')" placeholder="ИНН" label="ИНН"></app-standart-input>
         <app-standart-input  selectedName="engineSelect"  [control]="personalUserForm.get('snils')" placeholder="СНИЛС" label="СНИЛС"></app-standart-input>
       </div>
-
-      
-        <app-standart-input [control]="personalUserForm.get('rankNumber')" placeholder="№ удостоверения (МСМК, МС, КМС)" label="№ удостоверения"></app-standart-input>
+      <app-standart-input [control]="personalUserForm.get('rankNumber')" placeholder="№ удостоверения (МСМК, МС, КМС)" label="№ удостоверения"></app-standart-input>
         
-      
-
       <div class="licensed">
         <div class="document-container">
           
@@ -221,7 +216,7 @@
           <app-standart-input [control]="personalUserForm.get('startNumber')"   [maxLength]="3" type="number" [errorMessage]="formErrors.startNumber.errorMessage" placeholder="Стартовый номер" label="Стартовый номер*"></app-standart-input>
         </div>
       </div>
-      <app-standart-input  [control]="personalUserForm.get('community')"  style="cursor: pointer;" (click)="openComandSelectModalStateValue()"  [readonly]="true" placeholder="Команда" label="Название команды"></app-standart-input>
+      <app-standart-input [control]="personalUserForm.get('community')"  style="cursor: pointer;" (click)="openComandSelectModalStateValue()"  [readonly]="true" placeholder="Команда" label="Название команды"></app-standart-input>
       <app-standart-input [control]="personalUserForm.get('coach')"  placeholder="Тренер" label="ФИО тренера"></app-standart-input>
 
 
