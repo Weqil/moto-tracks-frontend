@@ -1,35 +1,34 @@
-
-
-<ion-content >
+<ion-content>
   <ng-container *ngIf="event">
-  <!-- <app-header [headerTitle]="usersPreviewConfig.usersCount ? 'Участники: ' + usersPreviewConfig.usersCount : ' '"> -->
-<app-header [customContainer]="true" [hiddenBackButton]="true">
-  <div class="cabinet-header">
-    <button (click)="back()" class="cabinet-header__back">
-    <img src="/assets/icons/arrow.svg"  alt="Назад">
-    </button>
-    <span class="cabinet-header__title">{{event.name}}</span>
-   <app-icon-button (click)="generateGoogleLink(event.id)" class="width-button" [widht]="'w20'" height="long-height" 
-    [buttonIconColor]="'white-icon'"  icon="assets/icons/excel-file.svg" height="standart-height" sizeIcon="standart-size" theme="dark"></app-icon-button>
-  </div>
-</app-header>
-  <main class="main">
-    
-    <div class="main-content">
-
-      <div class="event-information-title users-title">
-        <img src="/assets/icons/red-finished.svg" alt="">
-        Список участников
-        <!-- <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
+    <!-- <app-header [headerTitle]="usersPreviewConfig.usersCount ? 'Участники: ' + usersPreviewConfig.usersCount : ' '"> -->
+    <app-header [customContainer]="true" [hiddenBackButton]="true">
+      <div class="cabinet-header">
+        <button (click)="back()" class="cabinet-header__back">
+          <img src="/assets/icons/arrow.svg" alt="Назад" />
+        </button>
+        <span class="cabinet-header__title">{{ event.name }}</span>
+        <app-icon-button
+          (click)="generateGoogleLink(event.id)"
+          class="width-button"
+          [widht]="'w20'"
+          height="long-height"
+          [buttonIconColor]="'white-icon'"
+          icon="assets/icons/excel-file.svg"
+          height="standart-height"
+          sizeIcon="standart-size"
+          theme="dark"
+        ></app-icon-button>
       </div>
-      <div class="add-racer-button-wrapper">
-         <app-icon-button clippy="clippy-right" (click)="openOfflineRacerAddForm()" class="width-button" [widht]="'w71'"
-          buttonText="Добавить гонщика" elementsPosition="elements-position__row"  theme="red" height="standart-height" sizeIcon="standart-size"></app-icon-button>
-          
-      </div>
+    </app-header>
+    <main class="main">
+      <div class="main-content">
+        <div class="event-information-title users-title">
+          <img src="/assets/icons/red-finished.svg" alt="" />
+          Список участников
+          <!-- <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
+        </div>
 
-      
-      <!-- <div *ngFor="let group of formattedUsers">
+        <!-- <div *ngFor="let group of formattedUsers">
         <div class="class-name">
           <div class="event-information-title users-title">
             <img src="/assets/icons/red-finished.svg" alt="">
@@ -37,231 +36,452 @@
             ##<app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button>
           </div>
       </div> -->
-        
+
         <div class="application-list">
-          <div *ngFor="let user of usersInRace" >
-            <div class="user-card" (click)=" navigateToUser(user.user.id, user, user.id)">
-              <app-user-section 
-              *ngIf="user.user.personal"
-                [them]="user.is_checked == null ? 'standart-them' : (user.is_checked == true ? 'green-them' : 'red-them')"
+          <div *ngFor="let user of usersInRace">
+            <div class="user-card" (click)="navigateToUser(user.user.id, user, user.id)">
+              <app-user-section
+                *ngIf="user.user && user.user.personal"
+                [them]="user.is_checked == null ? 'standart-them' : user.is_checked == true ? 'green-them' : 'red-them'"
                 [border]="activeAppId === user.id ? 'red' : 'null'"
                 [showAddress]="true"
                 [name]="true"
                 [surname]="true"
                 [patronymic]="true"
-                [startNumber]="true"   
-                [showRank]="true"  
-                [hideEmail]= "true"  
-                [user]="user.user.personal">
+                [startNumber]="true"
+                [showRank]="true"
+                [hideEmail]="true"
+                [user]="user.user.personal"
+              >
               </app-user-section>
             </div>
-            
           </div>
         </div>
-      <!-- </div> -->
-        
-    </div>
 
-    <ion-modal class="link-table-modal" [isOpen]="tableModalValue">
-      <ng-template>
-        <ion-content>
-          <div class="google-tabs">
-            <div class="google-tabs__modal-text">
-                Список участников был отправлен на вашу почту {{userService.user.value?.email}}
-                Сейчас можно открыть его по
-              <a class="google-tabs__modal-text__link" target="_blank" [href]="googleTabsLink">этой ссылке</a>
-            </div>
-            <app-standart-button (click)="closetTableModal()" style="width: 100%;" buttonText="Закрыть" theme="light"></app-standart-button>
+        <div class="event-information-title">
+          <img src="/assets/icons/red-finished.svg" alt="" />
+          Оффлайн участники
+        </div>
+        <div class="add-racer-button-wrapper">
+          <app-icon-button
+            clippy="clippy-right"
+            (click)="openOfflineRacerAddForm()"
+            class="width-button"
+            [widht]="'w71'"
+            buttonText="Добавить гонщика"
+            elementsPosition="elements-position__row"
+            theme="red"
+            height="standart-height"
+            sizeIcon="standart-size"
+          ></app-icon-button>
+        </div>
+
+        <div class="application-list">
+          <div *ngFor="let appoyment of offlineAppointments">
+            <app-user-section
+              (click)="showOfflineUserForm(appoyment)"
+              [name]="true"
+              [showAddress]="true"
+              [surname]="true"
+              [patronymic]="true"
+              [startNumber]="true"
+              [user]="appoyment"
+            ></app-user-section>
+            <!-- <div class="user-card" (click)="navigateToUser(user.user.id, user, user.id)">
+              <app-user-section
+                *ngIf="user.user && user.user.personal"
+                [them]="user.is_checked == null ? 'standart-them' : user.is_checked == true ? 'green-them' : 'red-them'"
+                [border]="activeAppId === user.id ? 'red' : 'null'"
+                [showAddress]="true"
+                [name]="true"
+                [surname]="true"
+                [patronymic]="true"
+                [startNumber]="true"
+                [showRank]="true"
+                [hideEmail]="true"
+                [user]="user.user.personal"
+              >
+              </app-user-section>
+            </div> -->
           </div>
-        </ion-content>
-      </ng-template>
-    </ion-modal>
+        </div>
 
-    <ion-modal class="create-offline-racer-form" (didDismiss)="closeOfflineRacerAddForm()"  [isOpen]="OfflineRacerAddFormState">
-      <ng-template>
-        <ion-content>
-          <div class="header-container">
+        <!-- </div> -->
+      </div>
+
+      <ion-modal class="link-table-modal" [isOpen]="tableModalValue">
+        <ng-template>
+          <ion-content>
+            <div class="google-tabs">
+              <div class="google-tabs__modal-text">
+                Список участников был отправлен на вашу почту {{ userService.user.value?.email }}
+                Сейчас можно открыть его по
+                <a class="google-tabs__modal-text__link" target="_blank" [href]="googleTabsLink">этой ссылке</a>
+              </div>
+              <app-standart-button (click)="closetTableModal()" style="width: 100%" buttonText="Закрыть" theme="light"></app-standart-button>
+            </div>
+          </ion-content>
+        </ng-template>
+      </ion-modal>
+
+      <ion-modal class="create-offline-racer-form" (didDismiss)="closeOfflineRacerAddFormWithDataForm()" [isOpen]="OfflineRacerAddFormState">
+        <ng-template>
+          <ion-content>
+            <div class="header-container">
               <div class="add-offline-racer">
                 <span class="cabinet-header__title">Добавить гонщика</span>
               </div>
-          </div>
-          <form action="" class="offline-racer-form">
+            </div>
+            <form action="" class="offline-racer-form">
+              <app-standart-input [control]="addOfflineUserForm.get('surname')" placeholder="Введите фамилию" label="Фамилия"></app-standart-input>
               <app-standart-input
-              [control]="addOfflineUserForm.get('surname')" placeholder="Введите фамилию" 
-              [errorMessage]="checkInputInControl(addOfflineUserForm.get('surname')).message"
-              [invalid]="checkInputInControl(addOfflineUserForm.get('surname')).invalid"
-              label="Фамилия"></app-standart-input>
-              <app-standart-input [control]="addOfflineUserForm.get('name')" 
-              [errorMessage]="formErrors.name.errorMessage"
-              [invalid]="formErrors.name.errorMessage.length !== 0" placeholder="Введите имя"
-              label="Имя"></app-standart-input>
-              <app-standart-input [errorMessage]="formErrors.patronymic.errorMessage" [invalid]="formErrors.patronymic.errorMessage.length !== 0" [control]="addOfflineUserForm.get('patronymic')" placeholder="Введите отчество" label="Отчество"></app-standart-input>
-              <app-standart-input type="date" [errorMessage]="formErrors.dateOfBirth.errorMessage" [invalid]="formErrors.dateOfBirth.errorMessage.length !== 0" [control]="addOfflineUserForm.get('dateOfBirth')" placeholder="Выберите дату" label="Дата рождения" ></app-standart-input>
-              <app-standart-input [control]="addOfflineUserForm.get('licenseNumber')" placeholder="Лицензия МФР" label="Лицензия МФР (тип, №):"></app-standart-input>
-              <app-standart-input-select selectedName="motoStampSelect" [items]="motoStampItems" (onChange)="setMotoStamp($event)" [selectedItem]="{name:addOfflineUserForm.value.motoStamp, value:addOfflineUserForm.value.motoStamp}" label="Марка мотоцикла"></app-standart-input-select>      
-              <app-standart-input-select selectedName="rankSelect" [items]="sportRankItems" (onChange)="setRank($event)" [selectedItem]="{name:addOfflineUserForm.value.rank, value:addOfflineUserForm.value.rank }" label="Спортивное звание, разряд"></app-standart-input-select>        
-              <app-standart-input  (click)="openRegionModal()" [invalid]="formErrors.region.errorMessage.length !== 0"  [readonly]="true" label="Область/край" [control]="addOfflineUserForm.get('region')" placeholder="Выберите область"></app-standart-input> 
-              <app-standart-input (click)="openComandSelectModalStateValue()" [errorMessage]="formErrors.community.errorMessage" [invalid]="formErrors.community.errorMessage.length !== 0"  [readonly]="true" [control]="addOfflineUserForm.get('community')" placeholder="Команда" label="Название команды"></app-standart-input> 
-
-              <div class="offline-racer-button">
-                <app-icon-button (click)="closeOfflineRacerAddForm()" widht="w52" buttonText="Отмена"></app-icon-button>
-                <app-icon-button (click)="saveOfflineRacer()" theme="red" widht="w71" buttonText="Сохранить"></app-icon-button>
-                <app-icon-button theme="red" widht="w71" buttonText="Сохранить и добавить"></app-icon-button>
-              </div>
+                [control]="addOfflineUserForm.get('name')"
+                [errorMessage]="checkInputInControl(addOfflineUserForm.get('name')).message"
+                [invalid]="checkInputInControl(addOfflineUserForm.get('name')).invalid"
+                placeholder="Введите имя"
+                label="Имя"
+              ></app-standart-input>
+              <app-standart-input
+                [errorMessage]="checkInputInControl(addOfflineUserForm.get('patronymic')).message"
+                [invalid]="checkInputInControl(addOfflineUserForm.get('patronymic')).invalid"
+                [control]="addOfflineUserForm.get('patronymic')"
+                placeholder="Введите отчество"
+                label="Отчество"
+              ></app-standart-input>
+              <app-standart-input
+                type="date"
+                [errorMessage]="checkInputInControl(addOfflineUserForm.get('dateOfBirth')).message"
+                [invalid]="checkInputInControl(addOfflineUserForm.get('dateOfBirth')).invalid"
+                [control]="addOfflineUserForm.get('dateOfBirth')"
+                placeholder="Выберите дату"
+                label="Дата рождения"
+              ></app-standart-input>
+              <app-standart-input-select
+                [errorMessage]="checkInputInControl(addOfflineUserForm.get('gradeId')).message"
+                [invalid]="checkInputInControl(addOfflineUserForm.get('gradeId')).invalid"
+                selectedName="groupSelect"
+                [items]="groupItems"
+                (onChange)="setGroup($event)"
+                [selectedItem]="{ name: addOfflineUserForm.value.group, value: addOfflineUserForm.value.group }"
+                label="Класс, группа*"
+              >
+              </app-standart-input-select>
+              <app-standart-input
+                [errorMessage]="checkInputInControl(addOfflineUserForm.get('licenseNumber')).message"
+                [invalid]="checkInputInControl(addOfflineUserForm.get('licenseNumber')).invalid"
+                [control]="addOfflineUserForm.get('licenseNumber')"
+                placeholder="Лицензия МФР"
+                label="Лицензия МФР (тип, №):"
+              ></app-standart-input>
+              <app-standart-input
+                [errorMessage]="checkInputInControl(addOfflineUserForm.get('startNumber')).message"
+                [invalid]="checkInputInControl(addOfflineUserForm.get('startNumber')).invalid"
+                [control]="addOfflineUserForm.get('startNumber')"
+                placeholder="Стартовый номер"
+                label="Стартовый номер"
+              ></app-standart-input>
+              <app-standart-input-select
+                [errorMessage]="checkInputInControl(addOfflineUserForm.get('motoStamp')).message"
+                [invalid]="checkInputInControl(addOfflineUserForm.get('motoStamp')).invalid"
+                selectedName="motoStampSelect"
+                [items]="motoStampItems"
+                (onChange)="setMotoStamp($event)"
+                [selectedItem]="{
+                  name: addOfflineUserForm.value.motoStamp,
+                  value: addOfflineUserForm.value.motoStamp,
+                }"
+                label="Марка мотоцикла"
+              ></app-standart-input-select>
+              <app-standart-input-select
+                [errorMessage]="checkInputInControl(addOfflineUserForm.get('rank')).message"
+                [invalid]="checkInputInControl(addOfflineUserForm.get('rank')).invalid"
+                selectedName="motoStampSelect"
+                selectedName="rankSelect"
+                [items]="sportRankItems"
+                (onChange)="setRank($event)"
+                [selectedItem]="{
+                  name: addOfflineUserForm.value.rank,
+                  value: addOfflineUserForm.value.rank,
+                }"
+                label="Спортивное звание, разряд"
+              ></app-standart-input-select>
+              <app-standart-input
+                (click)="openRegionModal()"
+                [errorMessage]="checkInputInControl(addOfflineUserForm.get('region')).message"
+                [invalid]="checkInputInControl(addOfflineUserForm.get('region')).invalid"
+                [readonly]="true"
+                label="Область/край"
+                [control]="addOfflineUserForm.get('region')"
+                placeholder="Выберите область"
+              ></app-standart-input>
+              <app-standart-input
+                (click)="openComandSelectModalStateValue()"
+                [errorMessage]="checkInputInControl(addOfflineUserForm.get('community')).message"
+                [invalid]="checkInputInControl(addOfflineUserForm.get('community')).invalid"
+                [readonly]="true"
+                [control]="addOfflineUserForm.get('community')"
+                placeholder="Команда"
+                label="Название команды"
+              ></app-standart-input>
             </form>
-          <app-regions-select-modal 
-                style="z-index: 100;"
-                (select)="setRegion($event)" 
-                [visible]="regionModalState" 
-                (onClose)="closeRegionModal()" 
-                [regions]="searchRegionItems"> 
-        </app-regions-select-modal>
 
-        </ion-content>
-      </ng-template>
-      
-    </ion-modal>
-    <app-select-comands 
-        (createNewComand)="createNewComand($event)" 
-        (openComandSelectModal)="openComandSelectModalStateValue()" 
-        (closeComandSelectModal)="closeComandSelectModalStateValue()" 
-        [comandSelectModalStateValue]="comandSelectModalStateValue" 
-        (selectComand)="setComand($event)"  
+            <div class="offline-racer-button">
+              <app-icon-button (click)="closeOfflineRacerAddForm()" widht="w52" buttonText="Отмена"></app-icon-button>
+              <app-icon-button (click)="saveOfflineRacer()" theme="red" widht="w71" buttonText="Сохранить"></app-icon-button>
+              <app-icon-button (click)="saveOfflineRacer(true)" theme="red" widht="w71" buttonText="Сохранить и добавить"></app-icon-button>
+            </div>
+            <app-regions-select-modal
+              style="z-index: 100"
+              (select)="setRegion($event)"
+              [visible]="regionModalState"
+              (onClose)="closeRegionModal()"
+              [regions]="searchRegionItems"
+            >
+            </app-regions-select-modal>
+          </ion-content>
+        </ng-template>
+      </ion-modal>
+      <app-select-comands
+        (createNewComand)="createNewComand($event)"
+        (openComandSelectModal)="openComandSelectModalStateValue()"
+        (closeComandSelectModal)="closeComandSelectModalStateValue()"
+        [comandSelectModalStateValue]="comandSelectModalStateValue"
+        (selectComand)="setComand($event)"
         [selectedRegion]="selectRegionInCommandModal"
         (setSelectedRegion)="selectRegionInCommandModalFunction($event)"
         [commands]="allComands"
         [regions]="searchRegionItems"
         [createRegions]="searchRegionItems"
-        (clearFilterRegion)="clearRegionInComandFilter()">
-    </app-select-comands>
-    <div class="view-user" *ngIf="viewUser">
-      <div class="payment-and-comission">
+        (clearFilterRegion)="clearRegionInComandFilter()"
+      >
+      </app-select-comands>
+      <div class="view-user" *ngIf="viewUser">
+        <div class="payment-and-comission">
           <div class="payment-and-comission__user">
             <ng-container *ngIf="userGet.commission">
               <div class="comission__wrapper">
-                 <span class="comission-header users-title">
-                  Проверил:
-                </span>
-                <app-user-section 
-                  [name]="true" [surname]="true"
-                  [patronymic]="true" [user]="userGet.commission!">
-                </app-user-section>
-              </div> 
+                <span class="comission-header users-title"> Проверил: </span>
+                <app-user-section [name]="true" [surname]="true" [patronymic]="true" [user]="userGet.commission!"> </app-user-section>
+              </div>
             </ng-container>
-            
+
             <div *ngIf="userGet.transaction" class="transaction-in-race">
-                  <ng-container *ngIf="userGet.transaction.status">
-                    <span class="payment-status-green">
-                        Взнос оплачен
-                    </span>
-                  </ng-container>
-                  <ng-container *ngIf="userGet.transaction.status === false">
-                    <span class="payment-status-red">
-                        Взнос не оплачен
-                    </span>
-                  </ng-container>
-                  <ng-container *ngIf="userGet.transaction.status == null">
-                    <span class="payment-status-blue">
-                        Ожидание оплаты взноса
-                    </span>
-                  </ng-container>
-           
+              <ng-container *ngIf="userGet.transaction.status">
+                <span class="payment-status-green"> Взнос оплачен </span>
+              </ng-container>
+              <ng-container *ngIf="userGet.transaction.status === false">
+                <span class="payment-status-red"> Взнос не оплачен </span>
+              </ng-container>
+              <ng-container *ngIf="userGet.transaction.status == null">
+                <span class="payment-status-blue"> Ожидание оплаты взноса </span>
+              </ng-container>
             </div>
             <div class="validate-indicator">
               <div class="validate-indicator__item">
-                 <span>C. - </span>
-                  <div *ngIf="polish && polish.is_checked" class="validate-indicator__item__value">
-                    ✅
-                  </div>
+                <span>C. - </span>
+                <div *ngIf="polish && polish.is_checked" class="validate-indicator__item__value">✅</div>
               </div>
               <div class="validate-indicator__item">
-                 <span>Л. - </span>
-                  <div *ngIf="licensed && licensed.is_checked" class="validate-indicator__item__value">
-                    ✅
-                  </div>
+                <span>Л. - </span>
+                <div *ngIf="licensed && licensed.is_checked" class="validate-indicator__item__value">✅</div>
               </div>
               <div class="validate-indicator__item">
-                 <span>Н. - </span>
-                  <div *ngIf="notarius && notarius.is_checked" class="validate-indicator__item__value">
-                    ✅
-                  </div>
+                <span>Н. - </span>
+                <div *ngIf="notarius && notarius.is_checked" class="validate-indicator__item__value">✅</div>
               </div>
             </div>
-           
           </div>
-      </div>
-      <form class="personal-form">
-        <div class="event-information-title users-title">
-          <img src="/assets/icons/red-finished.svg" alt="">
-          Личная информация
-          <!-- <div class="check-box">
+        </div>
+        <form class="personal-form">
+          <div class="event-information-title users-title">
+            <img src="/assets/icons/red-finished.svg" alt="" />
+            Личная информация
+            <!-- <div class="check-box">
             <app-check-box (click)="CheckBoxValue(userInfo)"  [height]="'long-height'" [value]="2" [checked]="userInfo" [labelText]="''" [theme]="'white'" [clippy]="''"></app-check-box>
           </div> -->
-        </div>
-
-        <div class="user-information">
-          <div class="input-container">
-            <app-standart-input [readonly]="true" [control]="personalUserForm.get('surname')" placeholder="Введите фамилию" [errorMessage]="formErrors.surname.errorMessage" [invalid]="formErrors.surname.errorMessage.length !== 0" label="Фамилия"></app-standart-input>
-            <app-standart-input [readonly]="true" [control]="personalUserForm.get('name')" [errorMessage]="formErrors.name.errorMessage" [invalid]="formErrors.name.errorMessage.length !== 0" placeholder="Введите имя" label="Имя"></app-standart-input>
-            <app-standart-input [readonly]="true" [errorMessage]="formErrors.patronymic.errorMessage" [invalid]="formErrors.patronymic.errorMessage.length !== 0" [control]="personalUserForm.get('patronymic')" placeholder="Введите отчество" label="Отчество"></app-standart-input>
           </div>
-  
-          <div class="input-container">
-            <app-standart-input [readonly]="true" [control]="personalUserForm.get('email')" [errorMessage]="formErrors.email.errorMessage" [invalid]="formErrors.email.errorMessage.length !== 0" maskType="email" placeholder="Почта" label="Почта"></app-standart-input>
-            <app-standart-input [readonly]="true" [control]="personalUserForm.get('phoneNumber')" [errorMessage]="formErrors.phoneNumber.errorMessage" [invalid]="formErrors.phoneNumber.errorMessage.length !== 0" maskType="phone" placeholder="Номер телефона" label="Телефон"></app-standart-input>
-          </div>
-          
-          <div class="input-container">
-            <app-standart-input [readonly]="true" [errorMessage]="formErrors.region.errorMessage" [invalid]="formErrors.region.errorMessage.length !== 0"  [readonly]="true" label="Область/край" [control]="personalUserForm.get('region')" placeholder="Выберите вашу область"></app-standart-input>     
-            <app-standart-input [readonly]="true" [errorMessage]="formErrors.city.errorMessage" [invalid]="formErrors.city.errorMessage.length !== 0" [control]="personalUserForm.get('city')" [errorMessage]="formErrors.city.errorMessage" [invalid]="formErrors.city.errorMessage.length !== 0" placeholder="Введите город" label="Город"></app-standart-input>       
-          </div>
-  
-        </div>
 
-        <div class="event-information-title users-title">
-          <img src="/assets/icons/red-finished.svg" alt="">
-          Гонка
-          <!-- <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
-        </div>
-
-        <div class="race-information">
-          <div class="input-container">
-            <app-standart-input [readonly]="true" [errorMessage]="formErrors.motoStamp.errorMessage" [invalid]="formErrors.motoStamp.errorMessage.length !== 0" selectedName="motoStampSelect" [control]="personalUserForm.get('motoStamp')"  label="Марка мотоцикла"></app-standart-input>
-            <app-standart-input [readonly]="true" [errorMessage]="formErrors.engine.errorMessage" [invalid]="formErrors.engine.errorMessage.length !== 0" selectedName="engineSelect"  [control]="personalUserForm.get('engine')"  label="Тип двигателя"></app-standart-input>
-          </div>
-  
-          <div class="input-container">
-            <app-standart-input (click)="openComandSelectModalStateValue()" [readonly]="true" [errorMessage]="formErrors.community.errorMessage" [invalid]="formErrors.community.errorMessage.length !== 0"  [readonly]="true" [control]="personalUserForm.get('community')" placeholder="Команда" label="Название команды"></app-standart-input>
-            <app-standart-input [readonly]="true" [control]="personalUserForm.get('coach')" placeholder="Тренер" label="ФИО тренера"></app-standart-input>  
-          </div>
-  
-          <div class="input-container">
-            <app-standart-input  [readonly]="true" [errorMessage]="formErrors.group.errorMessage" [invalid]="formErrors.group.errorMessage.length !== 0"  selectedName="groupSelect" [control]="personalUserForm.get('grade')" label="Класс, группа"></app-standart-input>
-            <app-standart-input  [readonly]="true" [errorMessage]="formErrors.startNumber.errorMessage" [invalid]="formErrors.startNumber.errorMessage.length !== 0" [control]="personalUserForm.get('startNumber')" [maxLength]="3" type="number" [invalid]="formErrors.startNumber.errorMessage.length !== 0" [errorMessage]="formErrors.startNumber.errorMessage" placeholder="Стартовый номер" label="Стартовый номер"></app-standart-input>
-          </div>
-  
-        </div>
-
-
-
-        <div class="event-information-title users-title">
-          <img src="/assets/icons/red-finished.svg" alt="">
-          Документы
-          <app-check-box style="font-size: 14px;" (change)="checkInput($event,'dateOfBirth')" [checked]="checkStateInInput('dateOfBirth')" theme="white" labelText="Проверено"></app-check-box>
-          <!-- <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
-        </div>
-
-        <div class="doc-information">
-          <div class="input-container">
-             <div class="input-checked-wrapper">
-                <app-standart-input type="date" [readonly]="true" [errorMessage]="formErrors.dateOfBirth.errorMessage" [invalid]="formErrors.dateOfBirth.errorMessage.length !== 0" [control]="personalUserForm.get('dateOfBirth')" placeholder="Выберите дату" label="Дата рождения" ></app-standart-input>
+          <div class="user-information">
+            <div class="input-container">
+              <app-standart-input
+                [readonly]="true"
+                [control]="personalUserForm.get('surname')"
+                placeholder="Введите фамилию"
+                [errorMessage]="formErrors.surname.errorMessage"
+                [invalid]="formErrors.surname.errorMessage.length !== 0"
+                label="Фамилия"
+              ></app-standart-input>
+              <app-standart-input
+                [readonly]="true"
+                [control]="personalUserForm.get('name')"
+                [errorMessage]="formErrors.name.errorMessage"
+                [invalid]="formErrors.name.errorMessage.length !== 0"
+                placeholder="Введите имя"
+                label="Имя"
+              ></app-standart-input>
+              <app-standart-input
+                [readonly]="true"
+                [errorMessage]="formErrors.patronymic.errorMessage"
+                [invalid]="formErrors.patronymic.errorMessage.length !== 0"
+                [control]="personalUserForm.get('patronymic')"
+                placeholder="Введите отчество"
+                label="Отчество"
+              ></app-standart-input>
             </div>
-             <div class="input-checked-wrapper">
-                <app-standart-input style="width: 100%;" [readonly]="true" [errorMessage]="formErrors.numberAndSeria.errorMessage" [invalid]="formErrors.numberAndSeria.errorMessage.length !== 0" [control]="personalUserForm.get('numberAndSeria')" placeholder="Серия, номер" label="Паспорт/Свидетельство о рождении"></app-standart-input>
+
+            <div class="input-container">
+              <app-standart-input
+                [readonly]="true"
+                [control]="personalUserForm.get('email')"
+                [errorMessage]="formErrors.email.errorMessage"
+                [invalid]="formErrors.email.errorMessage.length !== 0"
+                maskType="email"
+                placeholder="Почта"
+                label="Почта"
+              ></app-standart-input>
+              <app-standart-input
+                [readonly]="true"
+                [control]="personalUserForm.get('phoneNumber')"
+                [errorMessage]="formErrors.phoneNumber.errorMessage"
+                [invalid]="formErrors.phoneNumber.errorMessage.length !== 0"
+                maskType="phone"
+                placeholder="Номер телефона"
+                label="Телефон"
+              ></app-standart-input>
+            </div>
+
+            <div class="input-container">
+              <app-standart-input
+                [readonly]="true"
+                [errorMessage]="formErrors.region.errorMessage"
+                [invalid]="formErrors.region.errorMessage.length !== 0"
+                [readonly]="true"
+                label="Область/край"
+                [control]="personalUserForm.get('region')"
+                placeholder="Выберите вашу область"
+              ></app-standart-input>
+              <app-standart-input
+                [readonly]="true"
+                [errorMessage]="formErrors.city.errorMessage"
+                [invalid]="formErrors.city.errorMessage.length !== 0"
+                [control]="personalUserForm.get('city')"
+                [errorMessage]="formErrors.city.errorMessage"
+                [invalid]="formErrors.city.errorMessage.length !== 0"
+                placeholder="Введите город"
+                label="Город"
+              ></app-standart-input>
             </div>
           </div>
-  
-          <!-- <ion-modal class="region-modal" (didDismiss)="closeRegionModal()"  [isOpen]="regionModalState">
+
+          <div class="event-information-title users-title">
+            <img src="/assets/icons/red-finished.svg" alt="" />
+            Гонка
+            <!-- <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
+          </div>
+
+          <div class="race-information">
+            <div class="input-container">
+              <app-standart-input
+                [readonly]="true"
+                [errorMessage]="formErrors.motoStamp.errorMessage"
+                [invalid]="formErrors.motoStamp.errorMessage.length !== 0"
+                selectedName="motoStampSelect"
+                [control]="personalUserForm.get('motoStamp')"
+                label="Марка мотоцикла"
+              ></app-standart-input>
+              <app-standart-input
+                [readonly]="true"
+                [errorMessage]="formErrors.engine.errorMessage"
+                [invalid]="formErrors.engine.errorMessage.length !== 0"
+                selectedName="engineSelect"
+                [control]="personalUserForm.get('engine')"
+                label="Тип двигателя"
+              ></app-standart-input>
+            </div>
+
+            <div class="input-container">
+              <app-standart-input
+                (click)="openComandSelectModalStateValue()"
+                [readonly]="true"
+                [errorMessage]="formErrors.community.errorMessage"
+                [invalid]="formErrors.community.errorMessage.length !== 0"
+                [readonly]="true"
+                [control]="personalUserForm.get('community')"
+                placeholder="Команда"
+                label="Название команды"
+              ></app-standart-input>
+              <app-standart-input
+                [readonly]="true"
+                [control]="personalUserForm.get('coach')"
+                placeholder="Тренер"
+                label="ФИО тренера"
+              ></app-standart-input>
+            </div>
+
+            <div class="input-container">
+              <app-standart-input
+                [readonly]="true"
+                [errorMessage]="formErrors.group.errorMessage"
+                [invalid]="formErrors.group.errorMessage.length !== 0"
+                selectedName="groupSelect"
+                [control]="personalUserForm.get('grade')"
+                label="Класс, группа"
+              ></app-standart-input>
+              <app-standart-input
+                [readonly]="true"
+                [errorMessage]="formErrors.startNumber.errorMessage"
+                [invalid]="formErrors.startNumber.errorMessage.length !== 0"
+                [control]="personalUserForm.get('startNumber')"
+                [maxLength]="3"
+                type="number"
+                [invalid]="formErrors.startNumber.errorMessage.length !== 0"
+                [errorMessage]="formErrors.startNumber.errorMessage"
+                placeholder="Стартовый номер"
+                label="Стартовый номер"
+              ></app-standart-input>
+            </div>
+          </div>
+
+          <div class="event-information-title users-title">
+            <img src="/assets/icons/red-finished.svg" alt="" />
+            Документы
+            <app-check-box
+              style="font-size: 14px"
+              (change)="checkInput($event, 'dateOfBirth')"
+              [checked]="checkStateInInput('dateOfBirth')"
+              theme="white"
+              labelText="Проверено"
+            ></app-check-box>
+            <!-- <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
+          </div>
+
+          <div class="doc-information">
+            <div class="input-container">
+              <div class="input-checked-wrapper">
+                <app-standart-input
+                  type="date"
+                  [readonly]="true"
+                  [errorMessage]="formErrors.dateOfBirth.errorMessage"
+                  [invalid]="formErrors.dateOfBirth.errorMessage.length !== 0"
+                  [control]="personalUserForm.get('dateOfBirth')"
+                  placeholder="Выберите дату"
+                  label="Дата рождения"
+                ></app-standart-input>
+              </div>
+              <div class="input-checked-wrapper">
+                <app-standart-input
+                  style="width: 100%"
+                  [readonly]="true"
+                  [errorMessage]="formErrors.numberAndSeria.errorMessage"
+                  [invalid]="formErrors.numberAndSeria.errorMessage.length !== 0"
+                  [control]="personalUserForm.get('numberAndSeria')"
+                  placeholder="Серия, номер"
+                  label="Паспорт/Свидетельство о рождении"
+                ></app-standart-input>
+              </div>
+            </div>
+
+            <!-- <ion-modal class="region-modal" (didDismiss)="closeRegionModal()"  [isOpen]="regionModalState">
             <ng-template>
               <ion-content>
                 <div class="region-modal-container">
@@ -270,145 +490,299 @@
               </ion-content>
             </ng-template>  
           </ion-modal>         -->
-  
-  
-          <div class="input-container">
-                <div class="input-checked-wrapper">
-                  <app-standart-input [readonly]="true" [errorMessage]="formErrors.inn.errorMessage" [invalid]="formErrors.inn.errorMessage.length !== 0" [control]="personalUserForm.get('inn')" placeholder="ИНН" label="ИНН"></app-standart-input>
-               </div>
-                <div class="input-checked-wrapper">
-                  <app-standart-input [readonly]="true" [errorMessage]="formErrors.snils.errorMessage" [invalid]="formErrors.snils.errorMessage.length !== 0" [control]="personalUserForm.get('snils')" placeholder="СНИЛС" label="СНИЛС"></app-standart-input>
-               </div>
-          </div>
-  
-          <div class="input-container">
-            <!-- <app-standart-input [readonly]="true" [control]="personalUserForm.get('rankNumber')" placeholder="№ удостоверения (МСМК, МС, КМС)" label="№ удостоверения"></app-standart-input> -->
-            <app-standart-input [readonly]="true" [errorMessage]="formErrors.rank.errorMessage" [invalid]="formErrors.rank.errorMessage.length !== 0" [control]="personalUserForm.get('rank')" label="Спортивное звание, разряд"></app-standart-input>
-          </div>
 
+            <div class="input-container">
+              <div class="input-checked-wrapper">
+                <app-standart-input
+                  [readonly]="true"
+                  [errorMessage]="formErrors.inn.errorMessage"
+                  [invalid]="formErrors.inn.errorMessage.length !== 0"
+                  [control]="personalUserForm.get('inn')"
+                  placeholder="ИНН"
+                  label="ИНН"
+                ></app-standart-input>
+              </div>
+              <div class="input-checked-wrapper">
+                <app-standart-input
+                  [readonly]="true"
+                  [errorMessage]="formErrors.snils.errorMessage"
+                  [invalid]="formErrors.snils.errorMessage.length !== 0"
+                  [control]="personalUserForm.get('snils')"
+                  placeholder="СНИЛС"
+                  label="СНИЛС"
+                ></app-standart-input>
+              </div>
+            </div>
 
-            
+            <div class="input-container">
+              <!-- <app-standart-input [readonly]="true" [control]="personalUserForm.get('rankNumber')" placeholder="№ удостоверения (МСМК, МС, КМС)" label="№ удостоверения"></app-standart-input> -->
+              <app-standart-input
+                [readonly]="true"
+                [errorMessage]="formErrors.rank.errorMessage"
+                [invalid]="formErrors.rank.errorMessage.length !== 0"
+                [control]="personalUserForm.get('rank')"
+                label="Спортивное звание, разряд"
+              ></app-standart-input>
+            </div>
           </div>
 
           <div class="polish" *ngIf="polish">
             <div class="title-wrapper">
-               <div class="event-information-title users-title">
-              <img src="/assets/icons/red-finished.svg" alt="">
-              Страховой полис
-              <!-- <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
+              <div class="event-information-title users-title">
+                <img src="/assets/icons/red-finished.svg" alt="" />
+                Страховой полис
+                <!-- <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
+              </div>
+              <app-check-box
+                (change)="doumentCheck($event, polish)"
+                [checked]="!!polish.is_checked"
+                theme="white"
+                labelText="Проверено"
+              ></app-check-box>
             </div>
-              <app-check-box (change)="doumentCheck($event,polish)" [checked]="!!polish.is_checked" theme="white" labelText="Проверено"></app-check-box>
-            </div>
-           
+
             <div class="document-container">
               <div class="input-container">
-                <app-standart-input [readonly]="true" [control]="polisForm.get('number')" placeholder="Серия, номер" label="Серия, номер"></app-standart-input>
-                <app-standart-input [readonly]="true" [control]="polisForm.get('issuedWhom')" placeholder="Кем выдан" label="Кем выдан"></app-standart-input>
-                <app-standart-input 
-                  [readonly]="true" [control]="polisForm.get('itWorksDate')" placeholder="Срок действия до" label="Срок действия до"></app-standart-input>
-  
+                <app-standart-input
+                  [readonly]="true"
+                  [control]="polisForm.get('number')"
+                  placeholder="Серия, номер"
+                  label="Серия, номер"
+                ></app-standart-input>
+                <app-standart-input
+                  [readonly]="true"
+                  [control]="polisForm.get('issuedWhom')"
+                  placeholder="Кем выдан"
+                  label="Кем выдан"
+                ></app-standart-input>
+                <app-standart-input
+                  [readonly]="true"
+                  [control]="polisForm.get('itWorksDate')"
+                  placeholder="Срок действия до"
+                  label="Срок действия до"
+                ></app-standart-input>
               </div>
-                  <div class="document" *ngIf="polish">
+              <div class="document" *ngIf="polish">
                 <span>Файл документа</span>
-                 <div class="file-name" (click)="checkDocument(polish.id)">
-                  <img src="/assets/icons/documents.svg" alt="">
+                <div class="file-name" (click)="checkDocument(polish.id)">
+                  <img src="/assets/icons/documents.svg" alt="" />
                   <div class="name">
-                    {{polish.name}}
+                    {{ polish.name }}
                   </div>
-                  
-                 </div>
-                
+                </div>
               </div>
-              
             </div>
           </div>
-
-
 
           <div class="licensed" *ngIf="licensed">
-           <div class="title-wrapper">
-               <div class="event-information-title users-title">
-              <img src="/assets/icons/red-finished.svg" alt="">
-              Лицензия
-              <!-- <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
-            </div>
-              <app-check-box (change)="doumentCheck($event,licensed)" [checked]="!!licensed.is_checked" theme="white" labelText="Проверено"></app-check-box>
+            <div class="title-wrapper">
+              <div class="event-information-title users-title">
+                <img src="/assets/icons/red-finished.svg" alt="" />
+                Лицензия
+                <!-- <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
+              </div>
+              <app-check-box
+                (change)="doumentCheck($event, licensed)"
+                [checked]="!!licensed.is_checked"
+                theme="white"
+                labelText="Проверено"
+              ></app-check-box>
             </div>
             <div class="document-container">
-              <app-standart-input [readonly]="true" [control]="licensesForm.get('number')" placeholder="Лицензия МФР" label="Лицензия МФР (тип, №):"></app-standart-input>
+              <app-standart-input
+                [readonly]="true"
+                [control]="licensesForm.get('number')"
+                placeholder="Лицензия МФР"
+                label="Лицензия МФР (тип, №):"
+              ></app-standart-input>
               <div class="document" *ngIf="licensed">
                 <span>Файл документа</span>
-                  <div class="file-name" (click)="checkDocument(licensed.id)">
-                    <img src="/assets/icons/documents.svg" alt="">
-                    <div class="name">
-                      {{licensed.name}}
-                    </div>
-                   </div>
-                
+                <div class="file-name" (click)="checkDocument(licensed.id)">
+                  <img src="/assets/icons/documents.svg" alt="" />
+                  <div class="name">
+                    {{ licensed.name }}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-    
-
 
           <div class="notarius" *ngIf="notarius">
-           <div class="title-wrapper">
-               <div class="event-information-title users-title">
-              <img src="/assets/icons/red-finished.svg" alt="">
-              Нотариальное согласие
-              <!-- <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
-            </div>
-              <app-check-box (change)="doumentCheck($event,notarius)" [checked]="!!notarius.is_checked" theme="white" labelText="Проверено"></app-check-box>
+            <div class="title-wrapper">
+              <div class="event-information-title users-title">
+                <img src="/assets/icons/red-finished.svg" alt="" />
+                Нотариальное согласие
+                <!-- <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
+              </div>
+              <app-check-box
+                (change)="doumentCheck($event, notarius)"
+                [checked]="!!notarius.is_checked"
+                theme="white"
+                labelText="Проверено"
+              ></app-check-box>
             </div>
             <div class="document-container">
-             
               <div class="document" *ngIf="notarius">
                 <span>Файл документа</span>
-                  <div class="file-name" (click)="checkDocument(notarius.id)">
-                    <img src="/assets/icons/documents.svg" alt="">
-                    <div class="name">
-                      {{notarius.name}}
-                    </div>
-                    
-                   </div>            
-                 
+                <div class="file-name" (click)="checkDocument(notarius.id)">
+                  <img src="/assets/icons/documents.svg" alt="" />
+                  <div class="name">
+                    {{ notarius.name }}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-      
-        
+
           <div class="input-rich-container">
             <!-- <app-standart-rich-input  [control]="personalUserForm.get('comment')" placeholder="Комментарий к заявке..." label="Комметарий"></app-standart-rich-input> -->
           </div>
-        
-        
-        
-        
-        <!-- <app-standart-rich-input  [control]="personalUserForm.get('comment')" label="Комментарий" placeholder="Оставьте комментарий"></app-standart-rich-input> -->
-      </form>
-      <div class="button-container">
-        <app-icon-button (click)="agreedApp(activeAppId)"  [widht]="'full'" [theme]="'red'" clippy="clippy-right" [buttonText]="'Подтвердить заявку'"></app-icon-button>
-        <app-icon-button (click)="disagreedApp(activeAppId)" [widht]="'full'" clippy="clippy-right" [buttonText]="'Отклонить заявку'"></app-icon-button>
-      </div>
-       <app-icon-button icon="/assets/icons/documents.svg" buttonIconColor="white-icon" elementsPosition="elements-position__row" style="width: 100%; padding-top: var(--standart-padding);" (click)="generatePdfInAplication()"  [widht]="'full'"  [buttonText]="'Печать карточки'"></app-icon-button>
-    </div>
 
-    <div  class="document-view-container" *ngIf="viewDocumentValue">
-      <div class="event-information-title users-title">
-        <img src="/assets/icons/red-finished.svg" alt="">
-        Просмотр докумета
-        <!--<app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
+          <!-- <app-standart-rich-input  [control]="personalUserForm.get('comment')" label="Комментарий" placeholder="Оставьте комментарий"></app-standart-rich-input> -->
+        </form>
+        <div class="button-container">
+          <app-icon-button
+            (click)="agreedApp(activeAppId)"
+            [widht]="'full'"
+            [theme]="'red'"
+            clippy="clippy-right"
+            [buttonText]="'Подтвердить заявку'"
+          ></app-icon-button>
+          <app-icon-button
+            (click)="disagreedApp(activeAppId)"
+            [widht]="'full'"
+            clippy="clippy-right"
+            [buttonText]="'Отклонить заявку'"
+          ></app-icon-button>
         </div>
-        <div class="document-view" >
-
-        <app-private-files [postDocumentId]="activeDocument">
-
-        </app-private-files>
-
+        <app-icon-button
+          icon="/assets/icons/documents.svg"
+          buttonIconColor="white-icon"
+          elementsPosition="elements-position__row"
+          style="width: 100%; padding-top: var(--standart-padding)"
+          (click)="generatePdfInAplication()"
+          [widht]="'full'"
+          [buttonText]="'Печать карточки'"
+        ></app-icon-button>
       </div>
-    </div>
+      <div class="offline-view-user" *ngIf="viewUserOffline">
+        <form>
+          <div class="event-information-title users-title">
+            <img src="/assets/icons/red-finished.svg" alt="" />
+            Личная информация
+            <!-- <div class="check-box">
+            <app-check-box (click)="CheckBoxValue(userInfo)"  [height]="'long-height'" [value]="2" [checked]="userInfo" [labelText]="''" [theme]="'white'" [clippy]="''"></app-check-box>
+          </div> -->
+          </div>
+          <app-standart-input
+            [control]="viewOfflineUserForm.get('surname')"
+            placeholder="Введите фамилию"
+            [errorMessage]="checkInputInControl(viewOfflineUserForm.get('surname')).message"
+            [invalid]="checkInputInControl(viewOfflineUserForm.get('surname')).invalid"
+            label="Фамилия"
+          ></app-standart-input>
+          <app-standart-input
+            [control]="viewOfflineUserForm.get('name')"
+            [errorMessage]="checkInputInControl(viewOfflineUserForm.get('name')).message"
+            [invalid]="checkInputInControl(viewOfflineUserForm.get('name')).invalid"
+            placeholder="Введите имя"
+            label="Имя"
+          ></app-standart-input>
+          <app-standart-input
+            [errorMessage]="checkInputInControl(viewOfflineUserForm.get('patronymic')).message"
+            [invalid]="checkInputInControl(viewOfflineUserForm.get('patronymic')).invalid"
+            [control]="viewOfflineUserForm.get('patronymic')"
+            placeholder="Введите отчество"
+            label="Отчество"
+          ></app-standart-input>
+          <app-standart-input
+            type="date"
+            [errorMessage]="checkInputInControl(viewOfflineUserForm.get('dateOfBirth')).message"
+            [invalid]="checkInputInControl(viewOfflineUserForm.get('dateOfBirth')).invalid"
+            [control]="viewOfflineUserForm.get('dateOfBirth')"
+            placeholder="Выберите дату"
+            label="Дата рождения"
+          ></app-standart-input>
+          <app-standart-input-select
+            [errorMessage]="checkInputInControl(viewOfflineUserForm.get('gradeId')).message"
+            [invalid]="checkInputInControl(viewOfflineUserForm.get('gradeId')).invalid"
+            selectedName="groupSelect"
+            [items]="groupItems"
+            (onChange)="setGroup($event)"
+            [selectedItem]="{ name: viewOfflineUserForm.value.group, value: viewOfflineUserForm.value.group }"
+            label="Класс, группа*"
+          >
+          </app-standart-input-select>
+          <app-standart-input
+            [errorMessage]="checkInputInControl(viewOfflineUserForm.get('licenseNumber')).message"
+            [invalid]="checkInputInControl(viewOfflineUserForm.get('licenseNumber')).invalid"
+            [control]="viewOfflineUserForm.get('licenseNumber')"
+            placeholder="Лицензия МФР"
+            label="Лицензия МФР (тип, №):"
+          ></app-standart-input>
+          <app-standart-input
+            [errorMessage]="checkInputInControl(viewOfflineUserForm.get('startNumber')).message"
+            [invalid]="checkInputInControl(viewOfflineUserForm.get('startNumber')).invalid"
+            [control]="viewOfflineUserForm.get('startNumber')"
+            placeholder="Стартовый номер"
+            label="Стартовый номер"
+          ></app-standart-input>
+          <app-standart-input-select
+            [errorMessage]="checkInputInControl(viewOfflineUserForm.get('motoStamp')).message"
+            [invalid]="checkInputInControl(viewOfflineUserForm.get('motoStamp')).invalid"
+            selectedName="motoStampSelect"
+            [items]="motoStampItems"
+            (onChange)="setMotoStamp($event)"
+            [selectedItem]="{
+              name: viewOfflineUserForm.value.motoStamp,
+              value: viewOfflineUserForm.value.motoStamp,
+            }"
+            label="Марка мотоцикла"
+          ></app-standart-input-select>
+          <app-standart-input-select
+            [errorMessage]="checkInputInControl(viewOfflineUserForm.get('rank')).message"
+            [invalid]="checkInputInControl(viewOfflineUserForm.get('rank')).invalid"
+            selectedName="motoStampSelect"
+            selectedName="rankSelect"
+            [items]="sportRankItems"
+            (onChange)="setRank($event)"
+            [selectedItem]="{
+              name: viewOfflineUserForm.value.rank,
+              value: viewOfflineUserForm.value.rank,
+            }"
+            label="Спортивное звание, разряд"
+          ></app-standart-input-select>
+          <app-standart-input
+            (click)="openRegionModal()"
+            [errorMessage]="checkInputInControl(viewOfflineUserForm.get('region')).message"
+            [invalid]="checkInputInControl(viewOfflineUserForm.get('region')).invalid"
+            [readonly]="true"
+            label="Область/край"
+            [control]="viewOfflineUserForm.get('region')"
+            placeholder="Выберите область"
+          ></app-standart-input>
+          <app-standart-input
+            (click)="openComandSelectModalStateValue()"
+            [errorMessage]="checkInputInControl(viewOfflineUserForm.get('community')).message"
+            [invalid]="checkInputInControl(viewOfflineUserForm.get('community')).invalid"
+            [readonly]="true"
+            [control]="viewOfflineUserForm.get('community')"
+            placeholder="Команда"
+            label="Название команды"
+          ></app-standart-input>
+        </form>
+      </div>
 
-    
-  </main>
-</ng-container>
+      <div class="document-view-container" *ngIf="viewDocumentValue">
+        <div class="event-information-title users-title">
+          <img src="/assets/icons/red-finished.svg" alt="" />
+          Просмотр докумета
+          <!--<app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
+        </div>
+        <div class="document-view">
+          <app-private-files [postDocumentId]="activeDocument"> </app-private-files>
+        </div>
+      </div>
+    </main>
+  </ng-container>
 </ion-content>
