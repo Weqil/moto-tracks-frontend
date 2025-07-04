@@ -16,12 +16,12 @@ import { User } from '@app/Shared/Data/Interfaces/user-model';
 import { UserViewPageComponent } from "../Users/user-view-page/user-view-page.component";
 import { Documents } from '@app/Shared/Data/Interfaces/document-models';
 import { IconButtonComponent } from "../../Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component";
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { StandartInputComponent } from "../../Shared/Components/UI/LinarikUI/forms/standart-input/standart-input.component";
 import { StandartInputSelectComponent } from "../../Shared/Components/UI/Selecteds/standart-input-select/standart-input-select.component";
 import { StandartRichInputComponent } from "../../Shared/Components/UI/LinarikUI/forms/standart-rich-input/standart-rich-input.component";
 import { RegionsSelectModalComponent } from "../../Shared/Components/Modals/regions-select-modal/regions-select-modal.component";
-import moment from 'moment';
+import moment, { invalid } from 'moment';
 import { sportRankItems } from '@app/Shared/Сonstants/sportValues';
 import { CheckBoxComponent } from "../../Shared/Components/UI/LinarikUI/forms/check-box/check-box.component";
 import { Pipe, PipeTransform } from '@angular/core';
@@ -39,6 +39,7 @@ import { SelectComandsComponent } from '@app/Shared/Components/Commands/select-c
 import { ToastService } from '@app/Shared/Services/toast.service';
 import { ICommand, ICommandCreate } from '@app/Shared/Data/Interfaces/command';
 import { ComandsService } from '@app/Shared/Data/Services/Comands/comands.service';
+import { InputErrorService } from '@app/Shared/Services/input-error.service';
 
 
 @Pipe({ name: 'safeUrl' })
@@ -72,6 +73,7 @@ export class ApplicationForRaceComponent  implements OnInit {
   commandService:ComandsService = inject(ComandsService)
   formdataService:formdataService = inject(formdataService)
   createCommandTemp!: ICommand
+  inputErrorService: InputErrorService = inject(InputErrorService)
 
   navBarVisibleService:NavbarVisibleService = inject(NavbarVisibleService)
   loaderService:LoadingService = inject(LoadingService)
@@ -188,6 +190,18 @@ export class ApplicationForRaceComponent  implements OnInit {
     return false
   }
 
+  checkInputInControl(control:AbstractControl|null):{invalid:boolean,message:string}{
+    if(control){
+      return this.inputErrorService.checkInputInControl(control)
+    }else{
+      return {
+        invalid:true,
+        message:'control dont create'
+      }
+    }
+  }
+  
+
   checkInput(event:any,labelName:string,){
     if(this.userGet.user.personal.comment && typeof this.userGet.user.personal.comment == 'object'){
       this.userGet.user.personal.comment[labelName] = !event.state
@@ -248,7 +262,7 @@ export class ApplicationForRaceComponent  implements OnInit {
     
     licensesForm: FormGroup = new FormGroup(
     {
-      number: new FormControl('',[Validators.required, Validators.minLength(1), ]), //номер лицензии
+      number: new FormControl('',[Validators.required, Validators.minLength(1),]), //номер лицензии
     }
   )
 
@@ -267,6 +281,8 @@ export class ApplicationForRaceComponent  implements OnInit {
   setRank(event:any){
     this.addOfflineUserForm.patchValue({rank: event.name})
   }
+
+
 
 setMotoStamp(event:any){
   this.addOfflineUserForm.patchValue({motoStamp: event.name})
@@ -527,7 +543,7 @@ setMotoStamp(event:any){
 
     addOfflineUserForm: FormGroup = new FormGroup({
       name: new FormControl('', [Validators.required]),
-      surname: new FormControl('', [Validators.required]),
+      surname: new FormControl('', [Validators.required,Validators.minLength(3)]),
       patronymic: new FormControl('', [Validators.required]),
       dateOfBirth: new FormControl('', [Validators.required]),
       region: new FormControl('', [Validators.required]),

@@ -86,8 +86,15 @@
               </div>
           </div>
           <form action="" class="offline-racer-form">
-              <app-standart-input [control]="addOfflineUserForm.get('surname')" placeholder="Введите фамилию" [errorMessage]="formErrors.surname.errorMessage" [invalid]="formErrors.surname.errorMessage.length !== 0" label="Фамилия"></app-standart-input>
-              <app-standart-input [control]="addOfflineUserForm.get('name')" [errorMessage]="formErrors.name.errorMessage" [invalid]="formErrors.name.errorMessage.length !== 0" placeholder="Введите имя" label="Имя"></app-standart-input>
+              <app-standart-input
+              [control]="addOfflineUserForm.get('surname')" placeholder="Введите фамилию" 
+              [errorMessage]="checkInputInControl(addOfflineUserForm.get('surname')).message"
+              [invalid]="checkInputInControl(addOfflineUserForm.get('surname')).invalid"
+              label="Фамилия"></app-standart-input>
+              <app-standart-input [control]="addOfflineUserForm.get('name')" 
+              [errorMessage]="formErrors.name.errorMessage"
+              [invalid]="formErrors.name.errorMessage.length !== 0" placeholder="Введите имя"
+              label="Имя"></app-standart-input>
               <app-standart-input [errorMessage]="formErrors.patronymic.errorMessage" [invalid]="formErrors.patronymic.errorMessage.length !== 0" [control]="addOfflineUserForm.get('patronymic')" placeholder="Введите отчество" label="Отчество"></app-standart-input>
               <app-standart-input type="date" [errorMessage]="formErrors.dateOfBirth.errorMessage" [invalid]="formErrors.dateOfBirth.errorMessage.length !== 0" [control]="addOfflineUserForm.get('dateOfBirth')" placeholder="Выберите дату" label="Дата рождения" ></app-standart-input>
               <app-standart-input [control]="addOfflineUserForm.get('licenseNumber')" placeholder="Лицензия МФР" label="Лицензия МФР (тип, №):"></app-standart-input>
