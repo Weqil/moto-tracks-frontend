@@ -94,7 +94,7 @@
               <app-standart-input-select selectedName="motoStampSelect" [items]="motoStampItems" (onChange)="setMotoStamp($event)" [selectedItem]="{name:addOfflineUserForm.value.motoStamp, value:addOfflineUserForm.value.motoStamp}" label="Марка мотоцикла"></app-standart-input-select>      
               <app-standart-input-select selectedName="rankSelect" [items]="sportRankItems" (onChange)="setRank($event)" [selectedItem]="{name:addOfflineUserForm.value.rank, value:addOfflineUserForm.value.rank }" label="Спортивное звание, разряд"></app-standart-input-select>        
               <app-standart-input  (click)="openRegionModal()" [invalid]="formErrors.region.errorMessage.length !== 0"  [readonly]="true" label="Область/край" [control]="addOfflineUserForm.get('region')" placeholder="Выберите область"></app-standart-input> 
-              <app-standart-input [errorMessage]="formErrors.community.errorMessage" [invalid]="formErrors.community.errorMessage.length !== 0"  [readonly]="true" [control]="addOfflineUserForm.get('community')" placeholder="Команда" label="Название команды"></app-standart-input> 
+              <app-standart-input (click)="openComandSelectModalStateValue()" [errorMessage]="formErrors.community.errorMessage" [invalid]="formErrors.community.errorMessage.length !== 0"  [readonly]="true" [control]="addOfflineUserForm.get('community')" placeholder="Команда" label="Название команды"></app-standart-input> 
 
               <div class="offline-racer-button">
                 <app-icon-button (click)="closeOfflineRacerAddForm()" widht="w52" buttonText="Отмена"></app-icon-button>
@@ -109,7 +109,12 @@
                 (onClose)="closeRegionModal()" 
                 [regions]="searchRegionItems"> 
         </app-regions-select-modal>
-        <!-- <app-select-comands 
+
+        </ion-content>
+      </ng-template>
+      
+    </ion-modal>
+    <app-select-comands 
         (createNewComand)="createNewComand($event)" 
         (openComandSelectModal)="openComandSelectModalStateValue()" 
         (closeComandSelectModal)="closeComandSelectModalStateValue()" 
@@ -119,14 +124,9 @@
         (setSelectedRegion)="selectRegionInCommandModalFunction($event)"
         [commands]="allComands"
         [regions]="searchRegionItems"
-        [createRegions]="createRegionItems"
+        [createRegions]="searchRegionItems"
         (clearFilterRegion)="clearRegionInComandFilter()">
-      </app-select-comands> -->
-        </ion-content>
-      </ng-template>
-      
-    </ion-modal>
-
+    </app-select-comands>
     <div class="view-user" *ngIf="viewUser">
       <div class="payment-and-comission">
           <div class="payment-and-comission__user">

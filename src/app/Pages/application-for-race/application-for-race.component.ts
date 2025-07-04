@@ -85,6 +85,9 @@ export class ApplicationForRaceComponent  implements OnInit {
   raceUser!:User
   eventId: string = ''
   event!:IEvent
+  allComands:any[] = []
+  selectRegionInCommandModal:any = {}
+
   groupItems: {name:string, value:string}[] = []
   usersInRace:any = []
   usersPreview: any[] = []
@@ -132,6 +135,7 @@ export class ApplicationForRaceComponent  implements OnInit {
 
   ionViewWillEnter(){
     this.getRegions()
+    this.getAllComands()
     this.route.params.pipe(takeUntil(this.destroy$)).pipe(
       finalize(()=>{
 })
@@ -315,6 +319,7 @@ setMotoStamp(event:any){
     }
     
     openComandSelectModalStateValue(){
+      this.OfflineRacerAddFormState = false
      this.comandSelectModalStateValue = true
     }
 
@@ -403,49 +408,40 @@ setMotoStamp(event:any){
     }
 
      setComand(event:any){
-      this.personalUserForm.patchValue({community:event.name})
-      this.personalUserForm.patchValue({commandId:event.id})
       this.closeComandSelectModalStateValue()
-      if(event.id != ''){
-        let loader:HTMLIonLoadingElement
-        this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
-          loader = res
-        })
-        this.commandService.toggleMember(event.id).pipe(
-          finalize(()=>{this.loaderService.hideLoading(loader)})
-        ).subscribe((res:any)=>{this.toastService.showToast('Вы добавлены в команду','success')
-          
-        })
-      }
+      this.openOfflineRacerAddForm()
+      this.addOfflineUserForm.patchValue({community:event.name})
+      this.addOfflineUserForm.patchValue({commandId:event.id})
+      this.closeComandSelectModalStateValue()
     }
 
-  // getAllComands(){
-  //   let loader:HTMLIonLoadingElement
-  //   this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
-  //     loader = res
-  //    })
-  //   this.commandService.getComands().pipe(
-  //     finalize(()=>{
-  //       this.loaderService.hideLoading(loader)
-  //     })
-  //   ).subscribe((res:any)=>{
-  //     this.allComands = []
-  //     this.allComands.push(
-  //         {id: '', name: 'Лично', region: 'papilapup'}
-  //     )
+  getAllComands(){
+    let loader:HTMLIonLoadingElement
+    this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+      loader = res
+     })
+    this.commandService.getComands().pipe(
+      finalize(()=>{
+        this.loaderService.hideLoading(loader)
+      })
+    ).subscribe((res:any)=>{
+      this.allComands = []
+      this.allComands.push(
+          {id: '', name: 'Лично', region: 'papilapup'}
+      )
     
-  //     if(this.createCommandTemp){
-  //       this.allComands.push(...res.commands.filter((command:ICommand)=> command.id == this.createCommandTemp.id))
-  //       this.allComands.push(...res.commands.filter((command:ICommand)=> command.id !== this.createCommandTemp.id))
-  //     }else{
+      if(this.createCommandTemp){
+        this.allComands.push(...res.commands.filter((command:ICommand)=> command.id == this.createCommandTemp.id))
+        this.allComands.push(...res.commands.filter((command:ICommand)=> command.id !== this.createCommandTemp.id))
+      }else{
 
-  //       this.allComands.push(...res.commands) 
-  //     }
+        this.allComands.push(...res.commands) 
+      }
       
     
      
-  //   })
-  // }
+    })
+  }
 
     createNewComand(formData: { id:number; name: string; city: string; locationId: number; region: string}){
         const id = formData.id;
@@ -489,7 +485,7 @@ setMotoStamp(event:any){
               })
             ).subscribe((res: any)=>{
       
-              this.createCommandTemp = res.command 
+              this.setComand(res.command )
               // this.getAllComands()
             })
           }
@@ -757,7 +753,12 @@ setMotoStamp(event:any){
     });
   })
 }
-
+ selectRegionInCommandModalFunction(event:any){
+    this.selectRegionInCommandModal = event
+  }
+   clearRegionInComandFilter(){
+    this.selectRegionInCommandModal = {}
+  }
   setRegion(region:any){
     this.closeRegionModal()
     this.addOfflineUserForm.patchValue({locationId:region.value,region:region.name})
