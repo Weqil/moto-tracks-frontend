@@ -1,215 +1,227 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { IonContent } from '@ionic/angular';
-import { IonModal } from '@ionic/angular/standalone';
-import { catchError, EMPTY, finalize, throwError } from 'rxjs';
-import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
-import { ButtonsModule } from 'src/app/Shared/Modules/buttons/buttons.module';
-import { FormsModule } from 'src/app/Shared/Modules/forms/forms.module';
-import { StandartInputComponent } from '@app/Shared/Components/UI/LinarikUI/forms/standart-input/standart-input.component';
+import { HttpClient } from '@angular/common/http'
+import { Component, inject, OnInit } from '@angular/core'
+import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { IonContent } from '@ionic/angular'
+import { IonModal } from '@ionic/angular/standalone'
+import { catchError, EMPTY, finalize, throwError } from 'rxjs'
+import { UserService } from 'src/app/Shared/Data/Services/User/user.service'
+import { ButtonsModule } from 'src/app/Shared/Modules/buttons/buttons.module'
+import { FormsModule } from 'src/app/Shared/Modules/forms/forms.module'
+import { StandartInputComponent } from '@app/Shared/Components/UI/LinarikUI/forms/standart-input/standart-input.component'
 
-import { HeaderModule } from 'src/app/Shared/Modules/header/header.module';
-import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
-import { LoadingService } from 'src/app/Shared/Services/loading.service';
-import { ToastService } from 'src/app/Shared/Services/toast.service';
-import { NavController } from '@ionic/angular/standalone';
-import { serverError } from 'src/app/Shared/Data/Interfaces/errors';
-import { StandartInputSelectComponent } from 'src/app/Shared/Components/UI/Selecteds/standart-input-select/standart-input-select.component';
-import cloneDeep from 'lodash/cloneDeep';
-import _ from 'lodash';
-import { MapService } from 'src/app/Shared/Data/Services/Map/map.service';
-import { formdataService } from 'src/app/Shared/Helpers/formdata.service';
-import moment from 'moment';
-import { SelectComandsComponent } from 'src/app/Shared/Components/Commands/select-comands/select-comands.component';
-import { ComandsService } from 'src/app/Shared/Data/Services/Comands/comands.service';
-import { ICommand, ICommandCreate } from 'src/app/Shared/Data/Interfaces/command';
-import { User } from 'src/app/Shared/Data/Interfaces/user-model';
-import { CheckImgUrlPipe } from "../../../Shared/Helpers/check-img-url.pipe";
-import { RouterModule } from '@angular/router';
-import { PdfViewerModule } from 'ng2-pdf-viewer';
-import { CheckResultsPathPipe } from "../../../Shared/Helpers/check-results-path.pipe";
-import { IconButtonComponent } from "../../../Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component";
-import { SelectBottomModalComponent } from "../../../Shared/Components/UI/LinarikUI/select-bottom-modal/select-bottom-modal.component";
-import { RegionsSelectModalComponent } from "../../../Shared/Components/Modals/regions-select-modal/regions-select-modal.component";
-import { NavbarVisibleService } from '@app/Shared/Services/navbar-visible.service';
+import { HeaderModule } from 'src/app/Shared/Modules/header/header.module'
+import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module'
+import { LoadingService } from 'src/app/Shared/Services/loading.service'
+import { ToastService } from 'src/app/Shared/Services/toast.service'
+import { NavController } from '@ionic/angular/standalone'
+import { serverError } from 'src/app/Shared/Data/Interfaces/errors'
+import { StandartInputSelectComponent } from 'src/app/Shared/Components/UI/Selecteds/standart-input-select/standart-input-select.component'
+import cloneDeep from 'lodash/cloneDeep'
+import _ from 'lodash'
+import { MapService } from 'src/app/Shared/Data/Services/Map/map.service'
+import { formdataService } from 'src/app/Shared/Helpers/formdata.service'
+import moment from 'moment'
+import { SelectComandsComponent } from 'src/app/Shared/Components/Commands/select-comands/select-comands.component'
+import { ComandsService } from 'src/app/Shared/Data/Services/Comands/comands.service'
+import { ICommand, ICommandCreate } from 'src/app/Shared/Data/Interfaces/command'
+import { User } from 'src/app/Shared/Data/Interfaces/user-model'
+import { CheckImgUrlPipe } from '../../../Shared/Helpers/check-img-url.pipe'
+import { RouterModule } from '@angular/router'
+import { PdfViewerModule } from 'ng2-pdf-viewer'
+import { CheckResultsPathPipe } from '../../../Shared/Helpers/check-results-path.pipe'
+import { IconButtonComponent } from '../../../Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component'
+import { SelectBottomModalComponent } from '../../../Shared/Components/UI/LinarikUI/select-bottom-modal/select-bottom-modal.component'
+import { RegionsSelectModalComponent } from '../../../Shared/Components/Modals/regions-select-modal/regions-select-modal.component'
+import { NavbarVisibleService } from '@app/Shared/Services/navbar-visible.service'
+import { PdfUniteService } from '@app/Shared/Services/pdf-unite.service'
 
 @Component({
   selector: 'app-user-documents',
   templateUrl: './user-documents.component.html',
   styleUrls: ['./user-documents.component.scss'],
-  imports: [PdfViewerModule, RouterModule, SharedModule, FormsModule, StandartInputComponent, HeaderModule, StandartInputSelectComponent, IonModal, SelectComandsComponent, CheckImgUrlPipe, CheckResultsPathPipe, IconButtonComponent, SelectBottomModalComponent, RegionsSelectModalComponent]
+  imports: [
+    PdfViewerModule,
+    RouterModule,
+    SharedModule,
+    FormsModule,
+    StandartInputComponent,
+    HeaderModule,
+    StandartInputSelectComponent,
+    IonModal,
+    SelectComandsComponent,
+    CheckImgUrlPipe,
+    CheckResultsPathPipe,
+    IconButtonComponent,
+    SelectBottomModalComponent,
+    RegionsSelectModalComponent,
+  ],
 })
-export class UserDocumentsComponent  implements OnInit {
-  navController:NavController = inject(NavController)
-  constructor() { }
+export class UserDocumentsComponent implements OnInit {
+  navController: NavController = inject(NavController)
+  constructor() {}
   oldLicensesValue?: any
   oldPolisValue?: any
-  loaderService:LoadingService = inject(LoadingService)
-  navBarVisibleService:NavbarVisibleService = inject(NavbarVisibleService)
-  oldPasportValue?:{id:number,data:{numberAndSeria:string, fileLink:string}} 
-  httpClient:HttpClient = inject(HttpClient)
-  userService:UserService = inject(UserService)
-  selectRegionInCommandModal:any = {}
-  regionsInSelectComands:any[] = []
-  comandSelectModalStateValue:boolean = false
-  toastService:ToastService = inject(ToastService)
-  formdataService:formdataService = inject(formdataService)
+  loaderService: LoadingService = inject(LoadingService)
+  navBarVisibleService: NavbarVisibleService = inject(NavbarVisibleService)
+  oldPasportValue?: { id: number; data: { numberAndSeria: string; fileLink: string } }
+  httpClient: HttpClient = inject(HttpClient)
+  userService: UserService = inject(UserService)
+  selectRegionInCommandModal: any = {}
+  regionsInSelectComands: any[] = []
+  comandSelectModalStateValue: boolean = false
+  toastService: ToastService = inject(ToastService)
+  formdataService: formdataService = inject(formdataService)
 
-  regionModalState:boolean = false
+  regionModalState: boolean = false
 
-  licensesFile:any =''
-  polisFile:any = ''
-  notariusFile:any = ''
+  licensesFile: any = ''
+  polisFile: any = ''
+  notariusFile: any = ''
 
-  allComands:any[] = []
+  allComands: any[] = []
 
-  commandService:ComandsService = inject(ComandsService)
+  commandService: ComandsService = inject(ComandsService)
 
-  mapService:MapService = inject(MapService)
-
-  createRegionItems:any[] = []
-  searchRegionItems:any[] = []
+  mapService: MapService = inject(MapService)
+  pdfUniteService: PdfUniteService = inject(PdfUniteService)
+  createRegionItems: any[] = []
+  searchRegionItems: any[] = []
   createCommandTemp!: ICommand
-  oldNotariusFile:any
-  oldNotariusValue:any
-  oldPolisFile:any
-  documentStatus:boolean = false
-  arrayDocument:any[] = []
-  licensed:any
-  notarius:any
-  polis:any
-  resultModalState:boolean = false
-  formattedResultsDocument:[
-    {
-      path:string,
-      zoomLevel:number
-    }
-  ]|any[] = []
+  oldNotariusFile: any
+  oldNotariusValue: any
+  oldPolisFile: any
+  documentStatus: boolean = false
+  arrayDocument: any[] = []
+  licensed: any
+  notarius: any
+  polis: any
+  resultModalState: boolean = false
+  formattedResultsDocument:
+    | [
+        {
+          path: string
+          zoomLevel: number
+        },
+      ]
+    | any[] = []
 
-  currentResultFile:any = {
-    path:'',
-    zoomLevel:1
+  currentResultFile: any = {
+    path: '',
+    zoomLevel: 1,
   }
 
-  closeUploadResultModalState(){
+  closeUploadResultModalState() {
     this.resultModalState = false
   }
-  openUploadResultModalState(document:any){
+  openUploadResultModalState(document: any) {
     this.currentResultFile.path = document.url_view
     this.resultModalState = true
-  
   }
 
-  zoomIn(document:{path:string,zoomLevel:number}) {
-    let currentDocument = this.formattedResultsDocument.find((documentInArray:{path:string,zoomLevel:number})=>documentInArray.path == document.path )
-    currentDocument.zoomLevel += 0.1; // Увеличиваем масштаб на 10%
+  zoomIn(document: { path: string; zoomLevel: number }) {
+    let currentDocument = this.formattedResultsDocument.find(
+      (documentInArray: { path: string; zoomLevel: number }) => documentInArray.path == document.path,
+    )
+    currentDocument.zoomLevel += 0.1 // Увеличиваем масштаб на 10%
   }
 
-  zoomOut(document:{path:string,zoomLevel:number}) {
-    let currentDocument = this.formattedResultsDocument.find((documentInArray:{path:string,zoomLevel:number})=>documentInArray.path == document.path )
-    currentDocument.zoomLevel -= 0.1; // Уменьшаем масштаб на 10%
+  zoomOut(document: { path: string; zoomLevel: number }) {
+    let currentDocument = this.formattedResultsDocument.find(
+      (documentInArray: { path: string; zoomLevel: number }) => documentInArray.path == document.path,
+    )
+    currentDocument.zoomLevel -= 0.1 // Уменьшаем масштаб на 10%
   }
 
-  resetZoom(document:{path:string,zoomLevel:number}) {
-    let currentDocument = this.formattedResultsDocument.find((documentInArray:{path:string,zoomLevel:number})=>documentInArray.path == document.path )
-    currentDocument.zoomLevel = 1.0; 
+  resetZoom(document: { path: string; zoomLevel: number }) {
+    let currentDocument = this.formattedResultsDocument.find(
+      (documentInArray: { path: string; zoomLevel: number }) => documentInArray.path == document.path,
+    )
+    currentDocument.zoomLevel = 1.0
   }
-  
-  licensesForm: FormGroup = new FormGroup(
-    {
-      number: new FormControl('',[Validators.required, Validators.minLength(1), ]), //номер лицензии
-    }
-  )
 
-  polisForm: FormGroup = new FormGroup(
-    {
-      number: new FormControl('',[Validators.required]), //Серия и номер полиса
-      issuedWhom: new FormControl('',[Validators.required]), //Кем выдан
-      itWorksDate: new FormControl('',[Validators.required]), //Срок действия
-    }
-  )
+  licensesForm: FormGroup = new FormGroup({
+    number: new FormControl('', [Validators.required, Validators.minLength(1)]), //номер лицензии
+  })
 
-  notariusForm:FormGroup = new FormGroup (
-    {
-      notariusFile: new FormControl('',[Validators.required,]), // путь до файла
-    }
-  )
+  polisForm: FormGroup = new FormGroup({
+    number: new FormControl('', [Validators.required]), //Серия и номер полиса
+    issuedWhom: new FormControl('', [Validators.required]), //Кем выдан
+    itWorksDate: new FormControl('', [Validators.required]), //Срок действия
+  })
 
-  pasportForm: FormGroup = new FormGroup(
-    {
-      numberAndSeria: new FormControl('',[Validators.required, Validators.minLength(1)]), //Серия и номер полиса
-      pasportFileLink: new FormControl(''), // путь до файла
-    }
-  )
+  notariusForm: FormGroup = new FormGroup({
+    notariusFile: new FormControl('', [Validators.required]), // путь до файла
+  })
 
-  closeComandSelectModalStateValue(){
+  pasportForm: FormGroup = new FormGroup({
+    numberAndSeria: new FormControl('', [Validators.required, Validators.minLength(1)]), //Серия и номер полиса
+    pasportFileLink: new FormControl(''), // путь до файла
+  })
+
+  closeComandSelectModalStateValue() {
     this.comandSelectModalStateValue = false
   }
-  openComandSelectModalStateValue(){
+  openComandSelectModalStateValue() {
     this.comandSelectModalStateValue = true
   }
-  
 
- formErrors:any = {
+  formErrors: any = {
     name: {
-      errorMessage:''
-      },
+      errorMessage: '',
+    },
     surname: {
-       errorMessage:''
-      },
-    patronymic:{
-      errorMessage:''
+      errorMessage: '',
+    },
+    patronymic: {
+      errorMessage: '',
     },
 
-    region:{
-        errorMessage:''
-      },
+    region: {
+      errorMessage: '',
+    },
     startNumber: {
-       errorMessage:''
-      },
+      errorMessage: '',
+    },
 
     dateOfBirth: {
-        errorMessage:''
-       },
-  
-   
+      errorMessage: '',
+    },
   }
 
-  engineItems:{name:string, value:string}[] = [
-    {name:'2Т', value:'2Т'},
-    {name:'4Т', value:'4Т'},
+  engineItems: { name: string; value: string }[] = [
+    { name: '2Т', value: '2Т' },
+    { name: '4Т', value: '4Т' },
   ]
 
-  sportRankItems:{name:string, value:string}[] = [
-    {name:'МСМК', value:'МСМК'},
-    {name:'МС', value:'МС'},
-    {name:'КМС', value:'КМС'},
-    {name:'I', value:'I'},
-    {name:'II', value:'II'},
-    {name:'III', value:'III'},
-    {name:'Iю', value:'Iю'},
-    {name:'IIю', value:'IIю'},
-    {name:'IIIю', value:'IIIю'},
-    {name:'б/р', value:'б/р'},
+  sportRankItems: { name: string; value: string }[] = [
+    { name: 'МСМК', value: 'МСМК' },
+    { name: 'МС', value: 'МС' },
+    { name: 'КМС', value: 'КМС' },
+    { name: 'I', value: 'I' },
+    { name: 'II', value: 'II' },
+    { name: 'III', value: 'III' },
+    { name: 'Iю', value: 'Iю' },
+    { name: 'IIю', value: 'IIю' },
+    { name: 'IIIю', value: 'IIIю' },
+    { name: 'б/р', value: 'б/р' },
   ]
 
-  motoStampItems: {name:string, value:string}[] = [
-    {name:'Kaw', value:'Kaw'},
-    {name:'KTM', value:'KTM'},
-    {name:'Yam', value:'Yam'},
-    {name:'Gas-Gas', value:'Gas-Gas'},
-    {name:'Hon', value:'Hon'},
-    {name:'BSE', value:'BSE'},
-    {name:'Husq', value:'Husq'},
-    {name:'Kayo', value:'Kayo'},
-    {name:'Fantic', value:'Fantic'},
-    {name:'Урал',value:'Урал'},
-    {name:'Zabel', value:'Zabel'},
-    {name:'MTX', value:'MTX'},
-    {name:'TRIUMPH', value:'TRIUMPH'},
-    {name:'Suzuki', value:'Suzuki'},
-    {name:'Другое', value:'Другое'}
+  motoStampItems: { name: string; value: string }[] = [
+    { name: 'Kaw', value: 'Kaw' },
+    { name: 'KTM', value: 'KTM' },
+    { name: 'Yam', value: 'Yam' },
+    { name: 'Gas-Gas', value: 'Gas-Gas' },
+    { name: 'Hon', value: 'Hon' },
+    { name: 'BSE', value: 'BSE' },
+    { name: 'Husq', value: 'Husq' },
+    { name: 'Kayo', value: 'Kayo' },
+    { name: 'Fantic', value: 'Fantic' },
+    { name: 'Урал', value: 'Урал' },
+    { name: 'Zabel', value: 'Zabel' },
+    { name: 'MTX', value: 'MTX' },
+    { name: 'TRIUMPH', value: 'TRIUMPH' },
+    { name: 'Suzuki', value: 'Suzuki' },
+    { name: 'Другое', value: 'Другое' },
   ]
 
   personalUserForm: FormGroup = new FormGroup({
@@ -225,496 +237,523 @@ export class UserDocumentsComponent  implements OnInit {
     snils: new FormControl('', [Validators.required]),
     phoneNumber: new FormControl('', [Validators.required]),
     startNumber: new FormControl('', [Validators.required]),
-    group:new FormControl('', [Validators.required]),
-    rank:new FormControl('', [Validators.required]),
-    rankNumber:new FormControl('', [Validators.required]),
-    community:new FormControl('Лично', [Validators.required]),
-    coach:new FormControl('', [Validators.required]),
-    motoStamp:new FormControl('', [Validators.required]),
-    engine:new FormControl('', [Validators.required]),
-    numberAndSeria:new FormControl('', [Validators.required]),
-    commandId:new FormControl('', [Validators.required]),
+    group: new FormControl('', [Validators.required]),
+    rank: new FormControl('', [Validators.required]),
+    rankNumber: new FormControl('', [Validators.required]),
+    community: new FormControl('Лично', [Validators.required]),
+    coach: new FormControl('', [Validators.required]),
+    motoStamp: new FormControl('', [Validators.required]),
+    engine: new FormControl('', [Validators.required]),
+    numberAndSeria: new FormControl('', [Validators.required]),
+    commandId: new FormControl('', [Validators.required]),
   })
 
-submitValidate(){
-  let valid = true
-  Object.keys(this.personalUserForm.controls).forEach((key) => {
-    const control = this.personalUserForm.get(key); // Доступ к контролу
-    if (!control!.valid) {
-      if(this.formErrors[key]){
-        this.formErrors[key].errorMessage = 'Обязательное поле'; // Сообщение об ошибке
-         valid = false
+  submitValidate() {
+    let valid = true
+    Object.keys(this.personalUserForm.controls).forEach((key) => {
+      const control = this.personalUserForm.get(key) // Доступ к контролу
+      if (!control!.valid) {
+        if (this.formErrors[key]) {
+          this.formErrors[key].errorMessage = 'Обязательное поле' // Сообщение об ошибке
+          valid = false
+        }
+      } else {
+        if (this.formErrors[key]) {
+          this.formErrors[key].errorMessage = '' // Очистка сообщения об ошибке
+        }
+      }
+    })
+    return valid
+  }
+
+  getRegions() {
+    this.mapService
+      .getAllRegions(false, false, false)
+      .pipe()
+      .subscribe((res: any) => {
+        res.data.forEach((region: any) => {
+          this.searchRegionItems.push({
+            name: `${region.name} ${region.type}`,
+            value: region.id,
+          })
+        })
+      })
+  }
+
+  getCreateRegions() {
+    this.mapService
+      .getAllRegions()
+      .pipe()
+      .subscribe((res: any) => {
+        res.data.forEach((region: any) => {
+          this.createRegionItems.push({
+            name: `${region.name} ${region.type}`,
+            value: region.id,
+          })
+        })
+      })
+  }
+
+  setEngine(event: any) {
+    this.personalUserForm.patchValue({ engine: event.name })
+  }
+
+  setRank(event: any) {
+    this.personalUserForm.patchValue({ rank: event.name })
+  }
+
+  setMotoStamp(event: any) {
+    this.personalUserForm.patchValue({ motoStamp: event.name })
+  }
+
+  submitForm() {
+    if (this.submitValidate()) {
+      if (!this.oldLicensesValue && this.validateLicenses()) {
+        this.createLicenses()
+      }
+
+      if (!this.oldPolisValue && this.validatePolis()) {
+        this.createPolis()
+      }
+
+      if (!this.oldNotariusValue && this.validateNotarius()) {
+        this.createNotarius()
+      }
+
+      if (this.oldLicensesValue && this.validateLicenses()) {
+        let oldLicensesValue: any = this.oldLicensesValue
+        if (!_.isEqual(oldLicensesValue, this.licensesForm.value) || !this.licensesFile.dontFile) {
+          this.updateLicenses()
+        }
+      }
+
+      if (this.oldPolisValue && this.validatePolis()) {
+        let oldPolisValue: any = this.oldPolisValue
+        if (!_.isEqual(oldPolisValue, this.polisForm.value) || !this.polisFile.dontFile) {
+          this.updatePolis()
+        }
+      }
+      if (this.oldNotariusFile) {
+        this.updateNotarius()
+      }
+
+      let loader: HTMLIonLoadingElement
+      this.loaderService.showLoading().then((res: HTMLIonLoadingElement) => {
+        loader = res
+      })
+      if (this.userService.user.value?.personal) {
+        this.userService
+          .updatePersonalInfo(this.personalUserForm.value)
+          .pipe(
+            finalize(() => {
+              this.loaderService.hideLoading(loader)
+            }),
+          )
+          .subscribe((res: any) => {
+            this.toastService.showToast('Данные успешно изменены', 'success')
+            this.userService.refreshUser()
+            this.navController.back()
+          })
+      } else {
+        this.userService
+          .createPersonalInfo(this.personalUserForm.value)
+          .pipe(
+            finalize(() => {
+              this.loaderService.hideLoading(loader)
+            }),
+          )
+          .subscribe((res: any) => {
+            this.toastService.showToast('Данные успешно добавлены', 'success')
+            this.userService.refreshUser()
+            this.navController.back()
+          })
       }
     } else {
-        if( this.formErrors[key]){
-          this.formErrors[key].errorMessage = ''; // Очистка сообщения об ошибке
-        }
+      this.toastService.showToast('Заполните обязательные поля - Фамилия, имя, область, спортивное звание,', 'danger')
     }
-  });
-  return valid
-}
-
-getRegions(){
-  this.mapService.getAllRegions(false,false,false).pipe().subscribe((res:any)=>{
-    res.data.forEach((region:any) => {
-      this.searchRegionItems.push({
-        name:`${region.name} ${region.type}`,
-        value:region.id
-      })
-    });
-  })
-}
-
-getCreateRegions(){
-  this.mapService.getAllRegions().pipe().subscribe((res:any)=>{
-    
-    res.data.forEach((region:any) => {
-      this.createRegionItems.push({
-        name:`${region.name} ${region.type}`,
-        value:region.id
-      })
-    });
-  })
-}
-
-
-
-setEngine(event:any){
-  this.personalUserForm.patchValue({engine: event.name})
-}
-
-setRank(event:any){
-  this.personalUserForm.patchValue({rank: event.name})
-}
-
-setMotoStamp(event:any){
-  this.personalUserForm.patchValue({motoStamp: event.name})
-}
-
-submitForm(){
-
-  if(this.submitValidate()){
-    if(!this.oldLicensesValue && this.validateLicenses()){
-      this.createLicenses()
-    }
-    
-    if(!this.oldPolisValue && this.validatePolis()){
-      this.createPolis()
-    }
-    
-    if(!this.oldNotariusValue && this.validateNotarius()){
-      this.createNotarius()
-    }
-  
-    if(this.oldLicensesValue && this.validateLicenses()){
-  
-      let oldLicensesValue:any = this.oldLicensesValue
-      if(!_.isEqual(oldLicensesValue,this.licensesForm.value) || !this.licensesFile.dontFile){
-     
-        this.updateLicenses()
-      }
-    }
-  
-    if(this.oldPolisValue && this.validatePolis()){
-      let oldPolisValue:any = this.oldPolisValue
-      if(!_.isEqual(oldPolisValue,this.polisForm.value) || !this.polisFile.dontFile ){
-        this.updatePolis()
-      }
-    }
-    if(this.oldNotariusFile){
-      this.updateNotarius()
-    }
-
-    let loader:HTMLIonLoadingElement
-    this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
-      loader = res
-    })
-    if(this.userService.user.value?.personal){
-      this.userService.updatePersonalInfo(this.personalUserForm.value).pipe(
-        finalize(
-          ()=>{
-            this.loaderService.hideLoading(loader)
-          }
-        )
-      ).subscribe((res:any)=>{
-        this.toastService.showToast('Данные успешно изменены', 'success')
-        this.userService.refreshUser()
-        this.navController.back();
-      })
-    }else{
-        this.userService.createPersonalInfo(this.personalUserForm.value).pipe(
-          finalize(
-            ()=>{
-              this.loaderService.hideLoading(loader)
-            })
-        ).subscribe((res:any)=>{
-          this.toastService.showToast('Данные успешно добавлены', 'success')
-          this.userService.refreshUser()
-          this.navController.back();
-        })
-    }
-  }else{
-    this.toastService.showToast('Заполните обязательные поля - Фамилия, имя, область, спортивное звание,','danger')
   }
-}
 
-
-
-  cancelEdit(){
+  cancelEdit() {
     this.navController.back()
   }
 
   checkFormInDublicatsOldValue(form: FormGroup, oldValue: any) {
-    let dublicates: boolean = false;
-  
+    let dublicates: boolean = false
+
     for (let key in form.value) {
       if (form.value[key] === oldValue[key]) {
-        dublicates = true;
-        break;
+        dublicates = true
+        break
       }
     }
-  
-    return dublicates;
+
+    return dublicates
   }
 
-  validateLicenses(){
-    if(this.licensesForm.valid){
+  validateLicenses() {
+    if (this.licensesForm.valid) {
       return true
-    }else{
+    } else {
       return false
     }
   }
-  validatePolis(){ 
-    if(this.polisForm.valid){
+  validatePolis() {
+    if (this.polisForm.valid) {
       return true
-    }else{
+    } else {
       return false
     }
   }
-  validatePasport(){
-    if(this.pasportForm.valid ){
+  validatePasport() {
+    if (this.pasportForm.valid) {
       return true
-    }else{
+    } else {
       return false
     }
   }
 
-  createLicenses(){
-    let loader:HTMLIonLoadingElement
-    this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+  createLicenses() {
+    let loader: HTMLIonLoadingElement
+    this.loaderService.showLoading().then((res: HTMLIonLoadingElement) => {
       loader = res
     })
-    let fd:FormData = new FormData()
-    fd = this.formdataService.formdataAppendJson(fd,this.licensesForm.value)
-    fd.append('type','licenses')
-    fd.append('file',this.licensesFile)
+    let fd: FormData = new FormData()
+    fd = this.formdataService.formdataAppendJson(fd, this.licensesForm.value)
+    fd.append('type', 'licenses')
+    fd.append('file', this.licensesFile)
 
-    this.userService.createUserDocument(fd).pipe(
-    finalize(()=>{
-      this.loaderService.hideLoading(loader)
-    }),
-    catchError((err:serverError)=>{
-      this.toastService.showToast(err.error.message,'danger')
-      return EMPTY
-    })
-    ).subscribe((res:any)=>{
-      this.toastService.showToast('Данные лицензии успешно сохранены','success')
-      this.setFormValue()
-    })
+    this.userService
+      .createUserDocument(fd)
+      .pipe(
+        finalize(() => {
+          this.loaderService.hideLoading(loader)
+        }),
+        catchError((err: serverError) => {
+          this.toastService.showToast(err.error.message, 'danger')
+          return EMPTY
+        }),
+      )
+      .subscribe((res: any) => {
+        this.toastService.showToast('Данные лицензии успешно сохранены', 'success')
+        this.setFormValue()
+      })
   }
 
-  setPolisFile(event:any){
+  setPolisFile(event: any) {
     let file = event.target.files[0]
     this.polisFile = file
   }
 
-  setLicensesFile(event:any){
-    let file = event.target.files[0]
-    this.licensesFile = file
+  generateDocumentName(documentName: string): string {
+    if (this.userService.user.value && this.userService.user.value.personal) {
+      return `${documentName} ${this.userService.user.value.personal.name} ${this.userService.user.value.personal.surname}`
+    }
+    return documentName
   }
 
-  setNotariusFile(event:any){
+  async setLicensesFile(event: any) {
+    let file = event.target.files[0]
+    let currentPdf: any = await this.pdfUniteService.uniteFilesToPdf(event.target.files, this.generateDocumentName('Лицензии'))
+    this.pdfUniteService.downloadFile(currentPdf)
+    this.licensesFile = currentPdf
+  }
+
+  setNotariusFile(event: any) {
     let file = event.target.files[0]
     this.notariusFile = file
   }
-  
-  closeRegionModal(){
-    setTimeout(()=>{
+
+  closeRegionModal() {
+    setTimeout(() => {
       this.navBarVisibleService.showNavBar()
-    },100)
+    }, 100)
     this.regionModalState = false
   }
-  clearRegionInComandFilter(){
+  clearRegionInComandFilter() {
     this.selectRegionInCommandModal = {}
   }
-  openRegionModal(){
+  openRegionModal() {
     this.regionModalState = true
     this.navBarVisibleService.hideNavBar()
   }
 
-  createPasport(){
-      let loader:HTMLIonLoadingElement
-      this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
-        loader = res
-      })
-      this.userService.createUserDocument({type: 'pasport', data:(this.pasportForm.value)}).pipe(
-      finalize(()=>{
-        this.loaderService.hideLoading(loader)
-      })
-    ).subscribe((res:any)=>{
-      this.toastService.showToast('Данные паспорте успешно сохранены','success')
-      this.setFormValue()
+  createPasport() {
+    let loader: HTMLIonLoadingElement
+    this.loaderService.showLoading().then((res: HTMLIonLoadingElement) => {
+      loader = res
     })
+    this.userService
+      .createUserDocument({ type: 'pasport', data: this.pasportForm.value })
+      .pipe(
+        finalize(() => {
+          this.loaderService.hideLoading(loader)
+        }),
+      )
+      .subscribe((res: any) => {
+        this.toastService.showToast('Данные паспорте успешно сохранены', 'success')
+        this.setFormValue()
+      })
   }
 
-  createPolis(){
-    let loader:HTMLIonLoadingElement
-    this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+  createPolis() {
+    let loader: HTMLIonLoadingElement
+    this.loaderService.showLoading().then((res: HTMLIonLoadingElement) => {
       loader = res
-     })
-     let fd: FormData = new FormData()
-     fd.append('type','polis')
-     fd = this.formdataService.formdataAppendJson(fd,this.polisForm.value)
-     fd.append('file',this.polisFile)
-      this.userService.createUserDocument(fd).pipe(
-      finalize(()=>{
-        this.loaderService.hideLoading(loader)
-      })
-    ).subscribe((res:any)=>{
-      this.toastService.showToast('Данные полиса успешно сохранены','success')
-      this.setFormValue()
     })
+    let fd: FormData = new FormData()
+    fd.append('type', 'polis')
+    fd = this.formdataService.formdataAppendJson(fd, this.polisForm.value)
+    fd.append('file', this.polisFile)
+    this.userService
+      .createUserDocument(fd)
+      .pipe(
+        finalize(() => {
+          this.loaderService.hideLoading(loader)
+        }),
+      )
+      .subscribe((res: any) => {
+        this.toastService.showToast('Данные полиса успешно сохранены', 'success')
+        this.setFormValue()
+      })
   }
 
-  updateLicenses(){
-    let loader:HTMLIonLoadingElement
-    this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+  updateLicenses() {
+    let loader: HTMLIonLoadingElement
+    this.loaderService.showLoading().then((res: HTMLIonLoadingElement) => {
       loader = res
-     })
-    let fd:FormData = new FormData()
-    fd = this.formdataService.formdataAppendJson(fd,this.licensesForm.value)
-  
-    if(!this.licensesFile.dontFile){
-      fd.append('file',this.licensesFile)
+    })
+    let fd: FormData = new FormData()
+    fd = this.formdataService.formdataAppendJson(fd, this.licensesForm.value)
+
+    if (!this.licensesFile.dontFile) {
+      fd.append('file', this.licensesFile)
     }
-    this.userService.updateDocument(Number(this.oldLicensesValue?.id), fd).pipe(
-      finalize(()=>{
-        this.loaderService.hideLoading(loader)
+    this.userService
+      .updateDocument(Number(this.oldLicensesValue?.id), fd)
+      .pipe(
+        finalize(() => {
+          this.loaderService.hideLoading(loader)
+        }),
+      )
+      .subscribe((res: any) => {
+        this.toastService.showToast('Данные лицензии успешно обновлены', 'success')
       })
-    ).subscribe((res:any)=>{
-      this.toastService.showToast('Данные лицензии успешно обновлены','success')
-    })
   }
 
-
-  updatePolis(){
-    let loader:HTMLIonLoadingElement
-    this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+  updatePolis() {
+    let loader: HTMLIonLoadingElement
+    this.loaderService.showLoading().then((res: HTMLIonLoadingElement) => {
       loader = res
     })
-    let fd:FormData = new FormData()
-    fd = this.formdataService.formdataAppendJson(fd,this.polisForm.value)
-    if(!this.polisFile.dontFile){
-      fd.append('file',this.polisFile)
+    let fd: FormData = new FormData()
+    fd = this.formdataService.formdataAppendJson(fd, this.polisForm.value)
+    if (!this.polisFile.dontFile) {
+      fd.append('file', this.polisFile)
     }
-    this.userService.updateDocument(Number(this.oldPolisValue?.id),fd).pipe(
-      finalize(()=>{
-        this.loaderService.hideLoading(loader)
+    this.userService
+      .updateDocument(Number(this.oldPolisValue?.id), fd)
+      .pipe(
+        finalize(() => {
+          this.loaderService.hideLoading(loader)
+        }),
+      )
+      .subscribe((res: any) => {
+        this.toastService.showToast('Данные полиса успешно обновлены', 'success')
       })
-    ).subscribe((res:any)=>{
-      this.toastService.showToast('Данные полиса успешно обновлены','success')
-    })
   }
 
-  updateNotarius(){
-    if(this.validateNotarius()){
-      let loader:HTMLIonLoadingElement
-      this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+  updateNotarius() {
+    if (this.validateNotarius()) {
+      let loader: HTMLIonLoadingElement
+      this.loaderService.showLoading().then((res: HTMLIonLoadingElement) => {
         loader = res
       })
       let fd: FormData = new FormData()
-      if(!this.notariusFile.dontFile){
-        fd.append('file',this.notariusFile)
-        this.userService.updateDocument(Number(this.oldNotariusValue?.id),fd).pipe(
-          finalize(()=>{
-            this.loaderService.hideLoading(loader)
+      if (!this.notariusFile.dontFile) {
+        fd.append('file', this.notariusFile)
+        this.userService
+          .updateDocument(Number(this.oldNotariusValue?.id), fd)
+          .pipe(
+            finalize(() => {
+              this.loaderService.hideLoading(loader)
+            }),
+          )
+          .subscribe((res: any) => {
+            this.toastService.showToast('Данные удостоверения успешно обновлены', 'success')
           })
-        ).subscribe((res:any)=>{
-          this.toastService.showToast('Данные удостоверения успешно обновлены','success')
-        })
       }
-      
     }
-  
   }
 
-  validateNotarius(){
-    if(this.notariusFile && !this.notariusFile.dontFile){
+  validateNotarius() {
+    if (this.notariusFile && !this.notariusFile.dontFile) {
       return true
-    } else{
+    } else {
       return false
     }
   }
 
-  getAllComands(){
-    let loader:HTMLIonLoadingElement
-    this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+  getAllComands() {
+    let loader: HTMLIonLoadingElement
+    this.loaderService.showLoading().then((res: HTMLIonLoadingElement) => {
       loader = res
-     })
-    this.commandService.getComands().pipe(
-      finalize(()=>{
-        this.loaderService.hideLoading(loader)
-      })
-    ).subscribe((res:any)=>{
-      this.allComands = []
-      this.allComands.push(
-          {id: '', name: 'Лично', region: 'papilapup'}
-      )
-    
-      if(this.createCommandTemp){
-        this.allComands.push(...res.commands.filter((command:ICommand)=> command.id == this.createCommandTemp.id))
-        this.allComands.push(...res.commands.filter((command:ICommand)=> command.id !== this.createCommandTemp.id))
-      }else{
-
-        this.allComands.push(...res.commands) 
-      }
-      
-    
-     
     })
+    this.commandService
+      .getComands()
+      .pipe(
+        finalize(() => {
+          this.loaderService.hideLoading(loader)
+        }),
+      )
+      .subscribe((res: any) => {
+        this.allComands = []
+        this.allComands.push({ id: '', name: 'Лично', region: 'papilapup' })
+
+        if (this.createCommandTemp) {
+          this.allComands.push(...res.commands.filter((command: ICommand) => command.id == this.createCommandTemp.id))
+          this.allComands.push(...res.commands.filter((command: ICommand) => command.id !== this.createCommandTemp.id))
+        } else {
+          this.allComands.push(...res.commands)
+        }
+      })
   }
 
-  selectRegionInCommandModalFunction(event:any){
+  selectRegionInCommandModalFunction(event: any) {
     this.selectRegionInCommandModal = event
   }
 
-  setComand(event:any){
-    this.personalUserForm.patchValue({community:event.name})
-    this.personalUserForm.patchValue({commandId:event.id})
+  setComand(event: any) {
+    this.personalUserForm.patchValue({ community: event.name })
+    this.personalUserForm.patchValue({ commandId: event.id })
     this.closeComandSelectModalStateValue()
-    if(event.id != ''){
-      let loader:HTMLIonLoadingElement
-       this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+    if (event.id != '') {
+      let loader: HTMLIonLoadingElement
+      this.loaderService.showLoading().then((res: HTMLIonLoadingElement) => {
         loader = res
-       })
-      this.commandService.toggleMember(event.id).pipe(
-        finalize(()=>{this.loaderService.hideLoading(loader)})
-      ).subscribe((res:any)=>{this.toastService.showToast('Вы добавлены в команду','success')
-        this.setFormValue()})
+      })
+      this.commandService
+        .toggleMember(event.id)
+        .pipe(
+          finalize(() => {
+            this.loaderService.hideLoading(loader)
+          }),
+        )
+        .subscribe((res: any) => {
+          this.toastService.showToast('Вы добавлены в команду', 'success')
+          this.setFormValue()
+        })
     }
   }
-  createNotarius(){
-    if(this.validateNotarius()){
-        let loader:HTMLIonLoadingElement
-       this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+  createNotarius() {
+    if (this.validateNotarius()) {
+      let loader: HTMLIonLoadingElement
+      this.loaderService.showLoading().then((res: HTMLIonLoadingElement) => {
         loader = res
-       })
+      })
 
       let fd: FormData = new FormData()
-      fd.append('type','notarius')
-      fd.append('file',this.notariusFile)
-       this.userService.createUserDocument(fd).pipe(
-       finalize(()=>{
-         this.loaderService.hideLoading(loader)
-       })
-     ).subscribe((res:any)=>{
-       this.toastService.showToast('Данные успешно сохранены','success')
-       this.setFormValue()
-     })
+      fd.append('type', 'notarius')
+      fd.append('file', this.notariusFile)
+      this.userService
+        .createUserDocument(fd)
+        .pipe(
+          finalize(() => {
+            this.loaderService.hideLoading(loader)
+          }),
+        )
+        .subscribe((res: any) => {
+          this.toastService.showToast('Данные успешно сохранены', 'success')
+          this.setFormValue()
+        })
     }
-   
   }
-    isDateBeforeCurrent(dateInPolis: any): boolean {
-      const givenMoment = moment(dateInPolis.value);
-      const currentMoment = moment(); // Получаем текущую дату и время
-      return givenMoment >= currentMoment
-    }
-
- checkInputLabelForInputs(name:string){
-
-  if(this.userService.user.value?.personal?.comment){
-    let comment:any = {}
-    try{
-      comment = JSON.parse(this.userService.user.value?.personal?.comment)
-    }
-    catch(err:any){
-       let comment = {}
-    }
-    return !!comment[name]
+  isDateBeforeCurrent(dateInPolis: any): boolean {
+    const givenMoment = moment(dateInPolis.value)
+    const currentMoment = moment() // Получаем текущую дату и время
+    return givenMoment >= currentMoment
   }
-  return false
- }
 
-  setFormValue(){
+  checkInputLabelForInputs(name: string) {
+    if (this.userService.user.value?.personal?.comment) {
+      let comment: any = {}
+      try {
+        comment = JSON.parse(this.userService.user.value?.personal?.comment)
+      } catch (err: any) {
+        let comment = {}
+      }
+      return !!comment[name]
+    }
+    return false
+  }
+
+  setFormValue() {
     // let loader:HTMLIonLoadingElement
     // this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
     //   loader = res
     //  })
-    this.userService.getUserDocuments().pipe(
-      finalize(()=>{
-        // this.loaderService.hideLoading(loader)
-      }),
-      catchError(error => {
-        
-        return throwError(()=> error)
-      }),
-    ).subscribe((res:any)=>{
-      if(res.documents){
-        this.documentStatus = true
-        this.arrayDocument = res.documents
-       
-        if(res.documents.find((doc:any)=> doc.type === 'licenses')){
-          let licensesDocument = res.documents.find((doc:any)=> doc.type === 'licenses')
-          this.licensesForm.patchValue((res.documents.find((doc:any)=> doc.type === 'licenses')))
-          this.licensesFile = {name:'Лицензия загружена', dontFile:true} 
-          this.licensed = licensesDocument
-        
-        }
-        if((res.documents.find((doc:any)=> doc.type === 'polis'))){
-          let polis = (res.documents.find((doc:any)=> doc.type === 'polis'))
-          this.polisForm.patchValue({
-            number: polis.number,
-            issuedWhom: polis.issued_whom,
-            itWorksDate: moment(polis.it_works_date, 'DD.MM.YY').format('YYYY-MM-DD')
-          })
-          this.polisFile = {name:'Полис загружен', dontFile:true}
-          this.polis = polis
-        }
-        if(res.documents.find((doc:any)=> doc.type === 'pasport')){
-          this.pasportForm.patchValue((res.documents.find((doc:any)=> doc.type === 'pasport')))
-        } 
-        if(res.documents.find((doc:any)=> doc.type === 'notarius')){
-          let notarius = (res.documents.find((doc:any)=> doc.type === 'notarius'))
-          this.notariusFile = {name:'Согласие загружено', dontFile:true}
-          this.oldNotariusFile = {name:'Согласие загружено', dontFile:true}
-          this.notarius = notarius
-        } 
+    this.userService
+      .getUserDocuments()
+      .pipe(
+        finalize(() => {
+          // this.loaderService.hideLoading(loader)
+        }),
+        catchError((error) => {
+          return throwError(() => error)
+        }),
+      )
+      .subscribe((res: any) => {
+        if (res.documents) {
+          this.documentStatus = true
+          this.arrayDocument = res.documents
 
-      
-        this.oldLicensesValue = (res.documents.find((doc:any)=> doc.type === 'licenses'))
-        this.oldPolisValue = (res.documents.find((doc:any)=> doc.type === 'polis'))
-        this.oldNotariusValue = (res.documents.find((doc:any)=> doc.type === 'notarius'))
-        this.oldPasportValue = (res.documents.find((doc:any)=> doc.type === 'pasport'))
-      }
-      
-     
-    })
+          if (res.documents.find((doc: any) => doc.type === 'licenses')) {
+            let licensesDocument = res.documents.find((doc: any) => doc.type === 'licenses')
+            this.licensesForm.patchValue(res.documents.find((doc: any) => doc.type === 'licenses'))
+            this.licensesFile = { name: 'Лицензия загружена', dontFile: true }
+            this.licensed = licensesDocument
+          }
+          if (res.documents.find((doc: any) => doc.type === 'polis')) {
+            let polis = res.documents.find((doc: any) => doc.type === 'polis')
+            this.polisForm.patchValue({
+              number: polis.number,
+              issuedWhom: polis.issued_whom,
+              itWorksDate: moment(polis.it_works_date, 'DD.MM.YY').format('YYYY-MM-DD'),
+            })
+            this.polisFile = { name: 'Полис загружен', dontFile: true }
+            this.polis = polis
+          }
+          if (res.documents.find((doc: any) => doc.type === 'pasport')) {
+            this.pasportForm.patchValue(res.documents.find((doc: any) => doc.type === 'pasport'))
+          }
+          if (res.documents.find((doc: any) => doc.type === 'notarius')) {
+            let notarius = res.documents.find((doc: any) => doc.type === 'notarius')
+            this.notariusFile = { name: 'Согласие загружено', dontFile: true }
+            this.oldNotariusFile = { name: 'Согласие загружено', dontFile: true }
+            this.notarius = notarius
+          }
+
+          this.oldLicensesValue = res.documents.find((doc: any) => doc.type === 'licenses')
+          this.oldPolisValue = res.documents.find((doc: any) => doc.type === 'polis')
+          this.oldNotariusValue = res.documents.find((doc: any) => doc.type === 'notarius')
+          this.oldPasportValue = res.documents.find((doc: any) => doc.type === 'pasport')
+        }
+      })
   }
 
-  setRegion(region:any){
+  setRegion(region: any) {
     this.closeRegionModal()
-    this.personalUserForm.patchValue({locationId:region.value,region:region.name})
+    this.personalUserForm.patchValue({ locationId: region.value, region: region.name })
   }
 
-  userId?:number
+  userId?: number
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     this.setFormValue()
     this.getRegions()
     this.getCreateRegions()
     this.getAllComands()
     this.userService.refreshUser()
-    if(this.userService.user.value?.personal){
+    if (this.userService.user.value?.personal) {
       this.personalUserForm.patchValue(this.userService.user.value?.personal)
       this.userId = this.userService.user.value.id
       this.personalUserForm.patchValue({
@@ -724,68 +763,65 @@ submitForm(){
         rankNumber: this.userService.user.value?.personal.rank_number,
         commandId: this.userService.user.value?.personal.command?.id,
         locationId: this.userService.user.value?.personal.location?.id,
-        motoStamp:  this.userService.user.value?.personal.moto_stamp,
+        motoStamp: this.userService.user.value?.personal.moto_stamp,
         numberAndSeria: this.userService.user.value?.personal.number_and_seria,
         email: this.userService.user.value?.email,
       })
-      if(!this.userService.user.value?.personal.location?.id){
+      if (!this.userService.user.value?.personal.location?.id) {
         this.personalUserForm.patchValue({
-          region:'',
+          region: '',
         })
       }
-
-    }else{
+    } else {
       this.personalUserForm.reset()
     }
   }
 
-  createNewComand(formData: { id:number; name: string; city: string; locationId: number; region: string}){
-    const id = formData.id;
-    const region = formData.region;
-    const name = formData.name;
-    const locationId = formData.locationId;
-    const city = formData.city;
+  createNewComand(formData: { id: number; name: string; city: string; locationId: number; region: string }) {
+    const id = formData.id
+    const region = formData.region
+    const name = formData.name
+    const locationId = formData.locationId
+    const city = formData.city
 
     if (!name || !city || !locationId) {
-      this.toastService.showToast('Заполните все поля перед созданием команды', 'warning');
-      return;
+      this.toastService.showToast('Заполните все поля перед созданием команды', 'warning')
+      return
     }
 
-    let loader:HTMLIonLoadingElement
-    this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
-     loader = res
+    let loader: HTMLIonLoadingElement
+    this.loaderService.showLoading().then((res: HTMLIonLoadingElement) => {
+      loader = res
     })
 
-
-
-    let user: User|null = this.userService.user.value
+    let user: User | null = this.userService.user.value
     let commandValidateState: boolean = false
     let command: ICommandCreate = {
       id: id,
       name: name,
       locationId: locationId,
       city: city,
-      region: region
+      region: region,
     }
-    if(user){
-  
-      Object.keys(command).forEach((key:any)=>{
-        commandValidateState =  !!command[key as keyof typeof command]
+    if (user) {
+      Object.keys(command).forEach((key: any) => {
+        commandValidateState = !!command[key as keyof typeof command]
       })
-      if(commandValidateState){
-        let fd:FormData = new FormData()
+      if (commandValidateState) {
+        let fd: FormData = new FormData()
         fd = this.formdataService.formdataAppendJson(fd, command)
-        this.commandService.createComand(fd).pipe(
-          finalize(()=>{
-            this.loaderService.hideLoading(loader)
+        this.commandService
+          .createComand(fd)
+          .pipe(
+            finalize(() => {
+              this.loaderService.hideLoading(loader)
+            }),
+          )
+          .subscribe((res: any) => {
+            this.createCommandTemp = res.command // эта хрень становится icommand я в шоке
+            this.getAllComands()
           })
-        ).subscribe((res: any)=>{
-  
-          this.createCommandTemp = res.command // эта хрень становится icommand я в шоке 
-          this.getAllComands()
-        })
       }
-      
     }
   }
 
@@ -793,10 +829,6 @@ submitForm(){
     window.addEventListener('popstate', (event) => {
       this.closeRegionModal()
       this.closeComandSelectModalStateValue()
-      
-  })
+    })
   }
-
 }
-
-

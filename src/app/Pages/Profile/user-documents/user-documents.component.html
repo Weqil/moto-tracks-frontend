@@ -11,41 +11,66 @@
 
       <div class="uid-container">
         <span>UID: </span>
-        <span>{{userId}} </span>
+        <span>{{ userId }} </span>
       </div>
-
     </div>
   </app-header>
-  
 
-<main class="main-container">
-  <div class="footer-bottom-padding">
-    <div class="personal-info-container">
-      <div class="event-information-title">
-        <img src="/assets/icons/red-finished.svg" alt="">
-        Основная информация
-        <!-- <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
-      </div>
-      <div class="name-surname-container">
-        <app-standart-input [control]="personalUserForm.get('surname')" [errorMessage]="formErrors.surname.errorMessage" [invalid]="formErrors.surname.errorMessage.length !== 0" placeholder="Введите фамилию" label="Фамилия*"></app-standart-input>
-        <app-standart-input [control]="personalUserForm.get('name')" [errorMessage]="formErrors.name.errorMessage" [invalid]="formErrors.name.errorMessage.length !== 0" placeholder="Введите имя" label="Имя*"></app-standart-input>
-      </div>
-      <app-standart-input [control]="personalUserForm.get('patronymic')" [errorMessage]="formErrors.patronymic.errorMessage" [invalid]="formErrors.patronymic.errorMessage.length !== 0" placeholder="Введите отчество" label="Отчество (обязательное поле)"></app-standart-input>
-      <app-standart-input [control]="personalUserForm.get('phoneNumber')" placeholder="Номер телефона" label="Телефон"></app-standart-input>
-      <app-standart-input [control]="personalUserForm.get('email')" placeholder="Почта" label="Почта"></app-standart-input>
-      <app-standart-input (click)="openRegionModal()" [readonly]="true" label="Область/край (обязательное поле)" [errorMessage]="formErrors.region.errorMessage" [invalid]="formErrors.region.errorMessage.length !== 0" [control]="personalUserForm.get('region')" placeholder="Выберите область вашу область"></app-standart-input>          
-      <app-standart-input [control]="personalUserForm.get('city')"  placeholder="Введите город" label="Город"></app-standart-input>     
-    
-      <app-regions-select-modal 
-        (select)="setRegion($event)" 
-        [visible]="regionModalState" 
-        (onClose)="closeRegionModal()" 
-        [regions]="searchRegionItems"> 
-      </app-regions-select-modal>
+  <main class="main-container">
+    <div class="footer-bottom-padding">
+      <div class="personal-info-container">
+        <div class="event-information-title">
+          <img src="/assets/icons/red-finished.svg" alt="" />
+          Основная информация
+          <!-- <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
+        </div>
+        <div class="name-surname-container">
+          <app-standart-input
+            [control]="personalUserForm.get('surname')"
+            [errorMessage]="formErrors.surname.errorMessage"
+            [invalid]="formErrors.surname.errorMessage.length !== 0"
+            placeholder="Введите фамилию"
+            label="Фамилия*"
+          ></app-standart-input>
+          <app-standart-input
+            [control]="personalUserForm.get('name')"
+            [errorMessage]="formErrors.name.errorMessage"
+            [invalid]="formErrors.name.errorMessage.length !== 0"
+            placeholder="Введите имя"
+            label="Имя*"
+          ></app-standart-input>
+        </div>
+        <app-standart-input
+          [control]="personalUserForm.get('patronymic')"
+          [errorMessage]="formErrors.patronymic.errorMessage"
+          [invalid]="formErrors.patronymic.errorMessage.length !== 0"
+          placeholder="Введите отчество"
+          label="Отчество (обязательное поле)"
+        ></app-standart-input>
+        <app-standart-input [control]="personalUserForm.get('phoneNumber')" placeholder="Номер телефона" label="Телефон"></app-standart-input>
+        <app-standart-input [control]="personalUserForm.get('email')" placeholder="Почта" label="Почта"></app-standart-input>
+        <app-standart-input
+          (click)="openRegionModal()"
+          [readonly]="true"
+          label="Область/край (обязательное поле)"
+          [errorMessage]="formErrors.region.errorMessage"
+          [invalid]="formErrors.region.errorMessage.length !== 0"
+          [control]="personalUserForm.get('region')"
+          placeholder="Выберите область вашу область"
+        ></app-standart-input>
+        <app-standart-input [control]="personalUserForm.get('city')" placeholder="Введите город" label="Город"></app-standart-input>
 
-      <!-- [selectedRegion]="regionFilterName"  -->
+        <app-regions-select-modal
+          (select)="setRegion($event)"
+          [visible]="regionModalState"
+          (onClose)="closeRegionModal()"
+          [regions]="searchRegionItems"
+        >
+        </app-regions-select-modal>
 
-      <!-- <ion-modal  (didDismiss)="closeRegionModal()"  [isOpen]="regionModalState">
+        <!-- [selectedRegion]="regionFilterName"  -->
+
+        <!-- <ion-modal  (didDismiss)="closeRegionModal()"  [isOpen]="regionModalState">
         <ng-template>
           <ion-content>
             <div class="region-modal-container">
@@ -59,176 +84,266 @@
           </ion-content>
         </ng-template>  
       </ion-modal> -->
-
-    </div>
-    <div class="documents-container">
-      <div class="event-information-title">
-        <img src="/assets/icons/red-finished.svg" alt="">
-        Документы
-        <!-- <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
       </div>
-      <div class="input-container">
-          <app-icon-button *ngIf="personalUserForm.get('dateOfBirth')" [theme]="!checkInputLabelForInputs('dateOfBirth') ? 'white':'green'"
-           [fontColor]="!checkInputLabelForInputs('dateOfBirth') ? 'red-color':'standart-color'" 
-           height="little-height" [buttonBorderColor]="!checkInputLabelForInputs('dateOfBirth') ? 'red-border':'null-border'"
-            buttonBorderWidth="b1" [buttonText]="!checkInputLabelForInputs('dateOfBirth') ? 'Непроверено':'Проверено'"></app-icon-button>
-        <!-- <span class="checked-value">Непроверено</span> -->
-        <app-standart-input 
-          [control]="personalUserForm.get('dateOfBirth')" 
-          [errorMessage]="formErrors.dateOfBirth.errorMessage" 
-          [invalid]="formErrors.dateOfBirth.errorMessage.length !== 0"  
-          placeholder="Выберите дату" 
-          label="Дата рождения*" 
-          type="date"
-          
+      <div class="documents-container">
+        <div class="event-information-title">
+          <img src="/assets/icons/red-finished.svg" alt="" />
+          Документы
+          <!-- <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
+        </div>
+        <div class="input-container">
+          <app-icon-button
+            *ngIf="personalUserForm.get('dateOfBirth')"
+            [theme]="!checkInputLabelForInputs('dateOfBirth') ? 'white' : 'green'"
+            [fontColor]="!checkInputLabelForInputs('dateOfBirth') ? 'red-color' : 'standart-color'"
+            height="little-height"
+            [buttonBorderColor]="!checkInputLabelForInputs('dateOfBirth') ? 'red-border' : 'null-border'"
+            buttonBorderWidth="b1"
+            [buttonText]="!checkInputLabelForInputs('dateOfBirth') ? 'Непроверено' : 'Проверено'"
+          ></app-icon-button>
+          <!-- <span class="checked-value">Непроверено</span> -->
+          <app-standart-input
+            [control]="personalUserForm.get('dateOfBirth')"
+            [errorMessage]="formErrors.dateOfBirth.errorMessage"
+            [invalid]="formErrors.dateOfBirth.errorMessage.length !== 0"
+            placeholder="Выберите дату"
+            label="Дата рождения*"
+            type="date"
           ></app-standart-input>
-      </div>
-      
-      <app-standart-input [control]="personalUserForm.get('numberAndSeria')" placeholder="Серия, номер" label="Паспорт/Свидетельство о рождении"></app-standart-input>
-      <div class="snils-inn">
-        <app-standart-input  selectedName="engineSelect"  [control]="personalUserForm.get('inn')" placeholder="ИНН" label="ИНН"></app-standart-input>
-        <app-standart-input  selectedName="engineSelect"  [control]="personalUserForm.get('snils')" placeholder="СНИЛС" label="СНИЛС"></app-standart-input>
-      </div>
-      <app-standart-input [control]="personalUserForm.get('rankNumber')" placeholder="№ удостоверения (МСМК, МС, КМС)" label="№ удостоверения"></app-standart-input>
-        
-      <div class="licensed">
-        <div class="document-container">
-          
-          <app-standart-input [control]="licensesForm.get('number')" placeholder="Лицензия МФР" label="Лицензия МФР (тип, №):"></app-standart-input>
-          <div class="document" *ngIf="licensed">
-            
-              <div class="file-name">
-                <img src="/assets/icons/documents.svg" alt="">
-                <div class="name">
-                  {{licensed.name}}
-                  
-                </div>
-               </div>
-            
-          </div>
-          <div class="button-container">
-            <app-icon-button [trimButtonText]="'trim'" (click)="licensesFileInput.click()"  class="width-button" [widht]="'full'" height="long-height" [elementsPosition]="'elements-position__row'" buttonTextColor='red-text' [buttonIconColor]="'red-icon'" buttonText="{{licensesFile.name}}" [buttonBorderWidth]="'b05'" [buttonBorderColor]="'red-border'" icon="assets/icons/upload.svg" height="standart-height" sizeIcon="standart-size" theme="white"></app-icon-button>
-            <!-- <app-icon-button buttonText="Купить" theme="red" ></app-icon-button>   -->
-          </div>
-          <input (change)="setLicensesFile($event)" #licensesFileInput style="display: none;"  type="file">
-          <app-icon-button *ngIf="licensed" [theme]="!licensed.is_checked ? 'white':'green'"
-           [fontColor]="!licensed.is_checked ? 'red-color':'standart-color'" 
-           height="little-height" [buttonBorderColor]="!licensed.is_checked ? 'red-border':'null-border'"
-            buttonBorderWidth="b1" [buttonText]="!licensed.is_checked ? 'Непроверено':'Проверено'"></app-icon-button>
         </div>
-      </div>
 
-      <div class="polis">
-        <div class="document-container">
-          <app-standart-input [control]="polisForm.get('number')" placeholder="Серия, номер" label="Страховой полис"></app-standart-input>
-          <app-standart-input [control]="polisForm.get('issuedWhom')" placeholder="Кем выдан" label="Кем выдан"></app-standart-input>
-          <app-standart-input 
-           [control]="polisForm.get('itWorksDate')"
-         
-            placeholder="Срок действия до" type="date" 
-            label="Срок действия до"></app-standart-input>
-          <div class="document" *ngIf="polis">
-             <div class="file-name">
-              <img src="/assets/icons/documents.svg" alt="">
-              <div class="name">
-                {{polis.name}}
+        <app-standart-input
+          [control]="personalUserForm.get('numberAndSeria')"
+          placeholder="Серия, номер"
+          label="Паспорт/Свидетельство о рождении"
+        ></app-standart-input>
+        <div class="snils-inn">
+          <app-standart-input selectedName="engineSelect" [control]="personalUserForm.get('inn')" placeholder="ИНН" label="ИНН"></app-standart-input>
+          <app-standart-input
+            selectedName="engineSelect"
+            [control]="personalUserForm.get('snils')"
+            placeholder="СНИЛС"
+            label="СНИЛС"
+          ></app-standart-input>
+        </div>
+        <app-standart-input
+          [control]="personalUserForm.get('rankNumber')"
+          placeholder="№ удостоверения (МСМК, МС, КМС)"
+          label="№ удостоверения"
+        ></app-standart-input>
+
+        <div class="licensed">
+          <div class="document-container">
+            <app-standart-input [control]="licensesForm.get('number')" placeholder="Лицензия МФР" label="Лицензия МФР (тип, №):"></app-standart-input>
+            <div class="document" *ngIf="licensed">
+              <div class="file-name">
+                <img src="/assets/icons/documents.svg" alt="" />
+                <div class="name">
+                  {{ licensed.name }}
+                </div>
               </div>
-              
-             </div>
-            
+            </div>
+            <div class="button-container">
+              <app-icon-button
+                [trimButtonText]="'trim'"
+                (click)="licensesFileInput.click()"
+                class="width-button"
+                [widht]="'full'"
+                height="long-height"
+                [elementsPosition]="'elements-position__row'"
+                buttonTextColor="red-text"
+                [buttonIconColor]="'red-icon'"
+                buttonText="{{ licensesFile.name }}"
+                [buttonBorderWidth]="'b05'"
+                [buttonBorderColor]="'red-border'"
+                icon="assets/icons/upload.svg"
+                height="standart-height"
+                sizeIcon="standart-size"
+                theme="white"
+              ></app-icon-button>
+              <!-- <app-icon-button buttonText="Купить" theme="red" ></app-icon-button>   -->
+            </div>
+            <input multiple (change)="setLicensesFile($event)" #licensesFileInput style="display: none" type="file" />
+            <app-icon-button
+              *ngIf="licensed"
+              [theme]="!licensed.is_checked ? 'white' : 'green'"
+              [fontColor]="!licensed.is_checked ? 'red-color' : 'standart-color'"
+              height="little-height"
+              [buttonBorderColor]="!licensed.is_checked ? 'red-border' : 'null-border'"
+              buttonBorderWidth="b1"
+              [buttonText]="!licensed.is_checked ? 'Непроверено' : 'Проверено'"
+            ></app-icon-button>
           </div>
-          <div class="button-container">
-            <app-icon-button 
-            (click)="polisFileInput.click()" 
-            class="width-button" 
-            [widht]="'full'" 
-            height="long-height" 
-            [trimButtonText]="'trim'"
-            [elementsPosition]="'elements-position__row'" 
-            buttonTextColor='red-text' 
-            [buttonIconColor]="'red-icon'" 
-            buttonText="{{polisFile.name}}" 
-            [buttonBorderWidth]="'b05'" 
-            [buttonBorderColor]="'red-border'"  
-          
-            icon="assets/icons/upload.svg" 
-            height="standart-height" 
-            sizeIcon="standart-size" 
-            theme="white"></app-icon-button>
-            <!-- <app-icon-button    buttonText="Купить" theme="red" ></app-icon-button>   -->
-          </div>
-          <app-icon-button *ngIf="polis" [theme]="!polis.is_checked ? 'white':'green'"
-           [fontColor]="!polis.is_checked ? 'red-color':'standart-color'" 
-           height="little-height" [buttonBorderColor]="!polis.is_checked ? 'red-border':'null-border'"
-            buttonBorderWidth="b1" [buttonText]="!polis.is_checked ? 'Непроверено':'Проверено'"></app-icon-button>
-          <input (change)="setPolisFile($event)" #polisFileInput style="display: none;"  type="file">
         </div>
-      </div>
 
-      <div class="notarius">
-        <div class="document-container">
-          <div class="notarius-name">
-            Нотариальное согласие
-          </div>
-          <div class="document" *ngIf="notarius">
+        <div class="polis">
+          <div class="document-container">
+            <app-standart-input [control]="polisForm.get('number')" placeholder="Серия, номер" label="Страховой полис"></app-standart-input>
+            <app-standart-input [control]="polisForm.get('issuedWhom')" placeholder="Кем выдан" label="Кем выдан"></app-standart-input>
+            <app-standart-input
+              [control]="polisForm.get('itWorksDate')"
+              placeholder="Срок действия до"
+              type="date"
+              label="Срок действия до"
+            ></app-standart-input>
+            <div class="document" *ngIf="polis">
               <div class="file-name">
-                <img src="/assets/icons/documents.svg" alt="">
+                <img src="/assets/icons/documents.svg" alt="" />
                 <div class="name">
-                  {{notarius.name}}
+                  {{ polis.name }}
                 </div>
-                
-               </div>            
+              </div>
+            </div>
+            <div class="button-container">
+              <app-icon-button
+                (click)="polisFileInput.click()"
+                class="width-button"
+                [widht]="'full'"
+                height="long-height"
+                [trimButtonText]="'trim'"
+                [elementsPosition]="'elements-position__row'"
+                buttonTextColor="red-text"
+                [buttonIconColor]="'red-icon'"
+                buttonText="{{ polisFile.name }}"
+                [buttonBorderWidth]="'b05'"
+                [buttonBorderColor]="'red-border'"
+                icon="assets/icons/upload.svg"
+                height="standart-height"
+                sizeIcon="standart-size"
+                theme="white"
+              ></app-icon-button>
+              <!-- <app-icon-button    buttonText="Купить" theme="red" ></app-icon-button>   -->
+            </div>
+            <app-icon-button
+              *ngIf="polis"
+              [theme]="!polis.is_checked ? 'white' : 'green'"
+              [fontColor]="!polis.is_checked ? 'red-color' : 'standart-color'"
+              height="little-height"
+              [buttonBorderColor]="!polis.is_checked ? 'red-border' : 'null-border'"
+              buttonBorderWidth="b1"
+              [buttonText]="!polis.is_checked ? 'Непроверено' : 'Проверено'"
+            ></app-icon-button>
+            <input (change)="setPolisFile($event)" #polisFileInput style="display: none" type="file" />
           </div>
-          <div class="button-container">
-            <app-icon-button (click)="notariusFileInput.click()" [trimButtonText]="'trim'"  class="width-button" [widht]="'full'" height="long-height" [elementsPosition]="'elements-position__row'" buttonTextColor='red-text' [buttonIconColor]="'red-icon'" buttonText="{{notariusFile.name}}" [buttonBorderWidth]="'b05'" [buttonBorderColor]="'red-border'" icon="assets/icons/upload.svg" height="standart-height" sizeIcon="standart-size" theme="white"></app-icon-button>
-            <!-- <app-icon-button    buttonText="Купить" theme="red" ></app-icon-button>   -->
+        </div>
+
+        <div class="notarius">
+          <div class="document-container">
+            <div class="notarius-name">Нотариальное согласие</div>
+            <div class="document" *ngIf="notarius">
+              <div class="file-name">
+                <img src="/assets/icons/documents.svg" alt="" />
+                <div class="name">
+                  {{ notarius.name }}
+                </div>
+              </div>
+            </div>
+            <div class="button-container">
+              <app-icon-button
+                (click)="notariusFileInput.click()"
+                [trimButtonText]="'trim'"
+                class="width-button"
+                [widht]="'full'"
+                height="long-height"
+                [elementsPosition]="'elements-position__row'"
+                buttonTextColor="red-text"
+                [buttonIconColor]="'red-icon'"
+                buttonText="{{ notariusFile.name }}"
+                [buttonBorderWidth]="'b05'"
+                [buttonBorderColor]="'red-border'"
+                icon="assets/icons/upload.svg"
+                height="standart-height"
+                sizeIcon="standart-size"
+                theme="white"
+              ></app-icon-button>
+              <!-- <app-icon-button    buttonText="Купить" theme="red" ></app-icon-button>   -->
+            </div>
+            <input (change)="setNotariusFile($event)" #notariusFileInput style="display: none" type="file" />
+            <app-icon-button
+              *ngIf="notarius"
+              [theme]="!notarius.is_checked ? 'white' : 'green'"
+              [fontColor]="!notarius.is_checked ? 'red-color' : 'standart-color'"
+              height="little-height"
+              [buttonBorderColor]="!notarius.is_checked ? 'red-border' : 'null-border'"
+              buttonBorderWidth="b1"
+              [buttonText]="!notarius.is_checked ? 'Непроверено' : 'Проверено'"
+            ></app-icon-button>
           </div>
-          <input (change)="setNotariusFile($event)" #notariusFileInput style="display: none;"  type="file">
-          <app-icon-button *ngIf="notarius" [theme]="!notarius.is_checked ? 'white':'green'"
-           [fontColor]="!notarius.is_checked ? 'red-color':'standart-color'" 
-           height="little-height" [buttonBorderColor]="!notarius.is_checked ? 'red-border':'null-border'"
-            buttonBorderWidth="b1" [buttonText]="!notarius.is_checked ? 'Непроверено':'Проверено'"></app-icon-button>
         </div>
       </div>
+      <div class="race-container">
+        <div class="event-information-title">
+          <img src="/assets/icons/red-finished.svg" alt="" />
+          Гонки
+          <!-- <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
+        </div>
 
+        <div class="engine-mark">
+          <div class="engine">
+            <app-standart-input-select
+              selectedName="engineSelect"
+              [items]="engineItems"
+              (onChange)="setEngine($event)"
+              [selectedItem]="{ name: personalUserForm.value.engine, value: personalUserForm.value.engine }"
+              label="Тип двигателя"
+            ></app-standart-input-select>
+          </div>
+          <div class="motostamp">
+            <app-standart-input-select
+              selectedName="motoStampSelect"
+              [items]="motoStampItems"
+              (onChange)="setMotoStamp($event)"
+              [selectedItem]="{ name: personalUserForm.value.motoStamp, value: personalUserForm.value.motoStamp }"
+              label="Марка мотоцикла"
+            ></app-standart-input-select>
+          </div>
+        </div>
+
+        <div class="startnumber-sportrank">
+          <div class="rank">
+            <app-standart-input-select
+              selectedName="rankSelect"
+              [items]="sportRankItems"
+              (onChange)="setRank($event)"
+              [selectedItem]="{ name: personalUserForm.value.rank, value: personalUserForm.value.rank }"
+              label="Спортивное звание"
+            ></app-standart-input-select>
+          </div>
+          <div class="startnumber">
+            <app-standart-input
+              [control]="personalUserForm.get('startNumber')"
+              [maxLength]="3"
+              type="number"
+              [errorMessage]="formErrors.startNumber.errorMessage"
+              placeholder="Стартовый номер"
+              label="Стартовый номер*"
+            ></app-standart-input>
+          </div>
+        </div>
+        <app-standart-input
+          [control]="personalUserForm.get('community')"
+          style="cursor: pointer"
+          (click)="openComandSelectModalStateValue()"
+          [readonly]="true"
+          placeholder="Команда"
+          label="Название команды"
+        ></app-standart-input>
+        <app-standart-input [control]="personalUserForm.get('coach')" placeholder="Тренер" label="ФИО тренера"></app-standart-input>
+      </div>
+      <div class="save-button-container">
+        <app-icon-button
+          class="save-button"
+          (click)="submitForm()"
+          [theme]="'red'"
+          [widht]="'full'"
+          font="font-bold"
+          [height]="'long-height'"
+          [clippy]="'clippy-right'"
+          buttonText="Сохранить"
+        ></app-icon-button>
+      </div>
     </div>
-    <div class="race-container">
-      <div class="event-information-title">
-        <img src="/assets/icons/red-finished.svg" alt="">
-        Гонки
-        <!-- <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
-      </div>
-
-      <div class="engine-mark">
-        <div class="engine">
-          <app-standart-input-select selectedName="engineSelect"  [items]="engineItems" (onChange)="setEngine($event)" [selectedItem]="{name:personalUserForm.value.engine, value:personalUserForm.value.engine}" label="Тип двигателя" ></app-standart-input-select>
-        </div>
-        <div class="motostamp">
-          <app-standart-input-select selectedName="motoStampSelect" [items]="motoStampItems" (onChange)="setMotoStamp($event)" [selectedItem]="{name:personalUserForm.value.motoStamp, value:personalUserForm.value.motoStamp}" label="Марка мотоцикла"></app-standart-input-select>      
-        </div>
-      </div>
-
-      <div class="startnumber-sportrank">
-        <div class="rank">
-          <app-standart-input-select  selectedName="rankSelect" [items]="sportRankItems" (onChange)="setRank($event)" [selectedItem]="{name:personalUserForm.value.rank, value:personalUserForm.value.rank }" label="Спортивное звание"></app-standart-input-select>        
-        </div>
-        <div class="startnumber">
-          <app-standart-input [control]="personalUserForm.get('startNumber')"   [maxLength]="3" type="number" [errorMessage]="formErrors.startNumber.errorMessage" placeholder="Стартовый номер" label="Стартовый номер*"></app-standart-input>
-        </div>
-      </div>
-      <app-standart-input [control]="personalUserForm.get('community')"  style="cursor: pointer;" (click)="openComandSelectModalStateValue()"  [readonly]="true" placeholder="Команда" label="Название команды"></app-standart-input>
-      <app-standart-input [control]="personalUserForm.get('coach')"  placeholder="Тренер" label="ФИО тренера"></app-standart-input>
-
-
-    </div>
-    <div class="save-button-container">
-      <app-icon-button class="save-button" (click)="submitForm()" [theme]="'red'" [widht]="'full'" font="font-bold" [height]="'long-height'" [clippy]="'clippy-right'" buttonText="Сохранить"></app-icon-button>
-    </div>
-  </div>
-</main>
-
-
-  
+  </main>
 </ion-content>
 
 <ion-modal [isOpen]="resultModalState" class="upload-result-modal">
@@ -237,21 +352,20 @@
       <app-header headerTitle="Результаты гонки" [customBack]="true" (customBackClick)="closeUploadResultModalState()"></app-header>
       <ng-container *ngIf="currentResultFile">
         <div class="documents-grid">
-
-            <div class="documents-grid__item">
-              <pdf-viewer 
+          <div class="documents-grid__item">
+            <pdf-viewer
               [src]="currentResultFile.path | checkImgUrl"
               [render-text]="true"
               [zoom]="currentResultFile.zoomLevel"
               [original-size]="false"
               class="file__img"
-              ></pdf-viewer>
-              <div class="button-container--pdf">
-                <app-circle-button class="circle-button" [icon]="'assets/icons/plus.svg'" (click)="zoomIn(currentResultFile)"></app-circle-button>
-                <app-circle-button class="circle-button" [icon]="'assets/icons/minus.svg'" (click)="zoomOut(currentResultFile)"></app-circle-button>
-                <app-circle-button class="circle-button" [icon]="'assets/icons/close.svg'" (click)="resetZoom(currentResultFile)"></app-circle-button>
-              </div>
+            ></pdf-viewer>
+            <div class="button-container--pdf">
+              <app-circle-button class="circle-button" [icon]="'assets/icons/plus.svg'" (click)="zoomIn(currentResultFile)"></app-circle-button>
+              <app-circle-button class="circle-button" [icon]="'assets/icons/minus.svg'" (click)="zoomOut(currentResultFile)"></app-circle-button>
+              <app-circle-button class="circle-button" [icon]="'assets/icons/close.svg'" (click)="resetZoom(currentResultFile)"></app-circle-button>
             </div>
+          </div>
         </div>
       </ng-container>
     </ion-content>
@@ -260,20 +374,21 @@
 
 <!-- comandSelectModalStateValue -->
 
-<app-select-comands 
-  (createNewComand)="createNewComand($event)" 
-  (openComandSelectModal)="openComandSelectModalStateValue()" 
-  (closeComandSelectModal)="closeComandSelectModalStateValue()" 
-  [comandSelectModalStateValue]="comandSelectModalStateValue" 
-  (selectComand)="setComand($event)"  
+<app-select-comands
+  (createNewComand)="createNewComand($event)"
+  (openComandSelectModal)="openComandSelectModalStateValue()"
+  (closeComandSelectModal)="closeComandSelectModalStateValue()"
+  [comandSelectModalStateValue]="comandSelectModalStateValue"
+  (selectComand)="setComand($event)"
   [selectedRegion]="selectRegionInCommandModal"
   (setSelectedRegion)="selectRegionInCommandModalFunction($event)"
   [commands]="allComands"
   [regions]="searchRegionItems"
   [createRegions]="createRegionItems"
-  (clearFilterRegion)="clearRegionInComandFilter()">
+  (clearFilterRegion)="clearRegionInComandFilter()"
+>
 </app-select-comands>
-  <!-- <main class="main-container--with-header">
+<!-- <main class="main-container--with-header">
 
         <div class="input-container">
         <app-standart-input [control]="personalUserForm.get('surname')" [errorMessage]="formErrors.surname.errorMessage" [invalid]="formErrors.surname.errorMessage.length !== 0" placeholder="Введите фамилию" label="Фамилия (обязательное поле)"></app-standart-input>
@@ -410,7 +525,6 @@
         
       </div>     
   </main> -->
-
 
 <!-- <ion-modal [isOpen]="resultModalState" class="upload-result-modal">
   <ng-template>
