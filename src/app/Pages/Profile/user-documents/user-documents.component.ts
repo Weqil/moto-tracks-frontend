@@ -709,7 +709,7 @@ export class UserDocumentsComponent implements OnInit {
           if (res.documents.find((doc: any) => doc.type === 'licenses')) {
             let licensesDocument = res.documents.find((doc: any) => doc.type === 'licenses')
             this.licensesForm.patchValue(res.documents.find((doc: any) => doc.type === 'licenses'))
-            this.licensesFile = { name: 'Лицензия загружена', dontFile: true }
+            this.licensesFile = { name: 'Лицензии загружены', dontFile: true }
             this.licensed = licensesDocument
           }
           if (res.documents.find((doc: any) => doc.type === 'polis')) {
