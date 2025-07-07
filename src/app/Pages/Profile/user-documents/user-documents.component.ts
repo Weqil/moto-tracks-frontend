@@ -452,15 +452,14 @@ export class UserDocumentsComponent implements OnInit {
   }
 
   async setLicensesFile(event: any) {
-    let file = event.target.files[0]
     let currentPdf: any = await this.pdfUniteService.uniteFilesToPdf(event.target.files, this.generateDocumentName('Лицензии'))
     this.pdfUniteService.downloadFile(currentPdf)
     this.licensesFile = currentPdf
   }
 
-  setNotariusFile(event: any) {
-    let file = event.target.files[0]
-    this.notariusFile = file
+  async setNotariusFile(event: any) {
+    let currentPdf: any = await this.pdfUniteService.uniteFilesToPdf(event.target.files, this.generateDocumentName('Согласия'))
+    this.notariusFile = currentPdf
   }
 
   closeRegionModal() {
@@ -727,8 +726,8 @@ export class UserDocumentsComponent implements OnInit {
           }
           if (res.documents.find((doc: any) => doc.type === 'notarius')) {
             let notarius = res.documents.find((doc: any) => doc.type === 'notarius')
-            this.notariusFile = { name: 'Согласие загружено', dontFile: true }
-            this.oldNotariusFile = { name: 'Согласие загружено', dontFile: true }
+            this.notariusFile = { name: 'Согласия загружены', dontFile: true }
+            this.oldNotariusFile = { name: 'Согласия загружены', dontFile: true }
             this.notarius = notarius
           }
 

@@ -258,7 +258,7 @@
               ></app-icon-button>
               <!-- <app-icon-button    buttonText="Купить" theme="red" ></app-icon-button>   -->
             </div>
-            <input (change)="setNotariusFile($event)" #notariusFileInput style="display: none" type="file" />
+            <input multiple (change)="setNotariusFile($event)" #notariusFileInput style="display: none" type="file" />
             <app-icon-button
               *ngIf="notarius"
               [theme]="!notarius.is_checked ? 'white' : 'green'"
