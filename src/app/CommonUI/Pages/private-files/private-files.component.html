@@ -1,39 +1,55 @@
 <ion-content>
   <div class="container">
     <ng-container *ngIf="fileType == 'img'">
-      <angular-image-viewer  [src]="images" [footerTexts]="['']" [config]="{btnShow: {
-        zoomIn:true,
-        zoomOut: true,
-        rotateClockwise: true,
-        rotateCounterClockwise: true,
-      },
-      btnIcons:{
-        zoomIn:'zoom-icons',
-        zoomOut:'zoom-out',
-        rotateClockwise:'rotate-icons__left',
-        rotateCounterClockwise:'rotate-icons__right',
-        fullscreen:'full-screen-icons',
-        }
-      }">
+      <angular-image-viewer
+        [src]="images"
+        [footerTexts]="['']"
+        [config]="{
+          btnShow: {
+            zoomIn: true,
+            zoomOut: true,
+            rotateClockwise: true,
+            rotateCounterClockwise: true,
+          },
+          btnIcons: {
+            zoomIn: 'zoom-icons',
+            zoomOut: 'zoom-out',
+            rotateClockwise: 'rotate-icons__left',
+            rotateCounterClockwise: 'rotate-icons__right',
+            fullscreen: 'full-screen-icons',
+          },
+        }"
+      >
       </angular-image-viewer>
     </ng-container>
-    
+
     <ng-container *ngIf="fileType == 'pdf'">
-      <pdf-viewer [src]="fileUrl"
-      [render-text]="true"
-      [original-size]="false"
-      (pages-initialized)="hidePdfLoader()"
-      class="file__img"
-      [zoom]="zoom"
-      ></pdf-viewer>
-       <div class="button-container--pdf">
+      <div
+        class="pdf-pan-container"
+        (mousedown)="startPan($event)"
+        (mousemove)="onPan($event)"
+        (mouseup)="endPan()"
+        (mouseleave)="endPan()"
+        [class.panning]="isPanning"
+      >
+        <pdf-viewer
+          [src]="fileUrl"
+          [render-text]="true"
+          [original-size]="true"
+          (pages-initialized)="hidePdfLoader()"
+          class="file__img"
+          [zoom]="zoom"
+          [rotation]="pdfRotation"
+        ></pdf-viewer>
+        <div class="button-container--pdf">
           <app-circle-button class="circle-button" [icon]="'assets/icons/plus.svg'" (click)="zoomIn()"></app-circle-button>
           <app-circle-button class="circle-button" [icon]="'assets/icons/minus.svg'" (click)="zoomOut()"></app-circle-button>
+          <app-circle-button class="circle-button" [icon]="'assets/icons/rotate.svg'" (click)="rotateLeft()"></app-circle-button>
+          <app-circle-button class="circle-button rotate" [icon]="'assets/icons/rotate.svg'" (click)="rotateRight()"></app-circle-button>
           <app-circle-button class="circle-button" [icon]="'assets/icons/close.svg'" (click)="resetZoom()"></app-circle-button>
           <app-circle-button class="circle-button" [icon]="'assets/icons/documents.svg'" (click)="redirectInPdfBrowser()"></app-circle-button>
+        </div>
       </div>
     </ng-container>
-    
-  
   </div>
 </ion-content>
