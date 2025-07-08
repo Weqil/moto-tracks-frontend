@@ -13,7 +13,7 @@ export class  IconButtonComponent  implements OnInit {
    /**
    * Тема кнопки: `dark` — тёмная по умолчанию, `red` — красная,`white` - белая,`gray`
    */
-  @Input() theme: 'dark'|'red'|'white'|'dark-gray'|'green--light'|'red--light'| 'green' = 'dark'
+  @Input() theme: 'dark'|'red'|'white'|'dark-gray'|'green--light'|'red--light'| 'green' | 'transparent' = 'dark'
 
     /**
    * Расположить элементы сначала
@@ -45,7 +45,7 @@ export class  IconButtonComponent  implements OnInit {
    */
   @Input() icon:string = ''
 
-  
+
 
 
     /**
@@ -59,7 +59,7 @@ export class  IconButtonComponent  implements OnInit {
   @Input() clippy:'clippy-right'|'clippy-left'|''|'nav-clipy' = ''
 
     /**
-   *Размер 
+   *Размер
    */
   @Input() widht:'w20'|'w40'|'w49'|'w52'|'w58'|'w71'|'full' = 'w40'
 
@@ -98,6 +98,9 @@ export class  IconButtonComponent  implements OnInit {
    */
    @Input() font:'font'|'font-bold'|'none' = 'font'
 
+  /**
+   *Размер текста
+   */
    @Input() fontSize:'litle-font-size'|'standart-font-size'|'big-font-size' = 'standart-font-size'
 
    @Input() fontColor:'standart-color'|'red-color' = 'standart-color'

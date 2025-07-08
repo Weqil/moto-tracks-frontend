@@ -1,0 +1,42 @@
+<div class="page">
+  <div class="container">
+    <div class="footer-top">
+      <div class="logo">
+        <img class="logo-icon" src="/assets/icons/red-finished.svg" alt="Логотип">
+        <span class="logo-text">МотоКросс</span>
+      </div>
+      <div class="links">
+        @for (link of links; track $index) {
+          <div (click)="handleLinkClick(link)" class="bottom-nav__item">
+            <div class="button-container">
+              <app-icon-button
+                elementsPosition="elements-position__row"
+                widht="w20"
+                fontSize="standart-font-size"
+                buttonText={{link.name}}
+                icon={{link.icon}}
+                theme="transparent"
+                [height]="this.header ? 'standart-height' : 'long-height'"
+                [buttonIconColor]="link.active ? 'white-icon' : 'dark-icon'">
+              </app-icon-button>
+            </div>
+
+          </div>
+        }
+      </div>
+      <div class="app-buttons">
+        <a href="https://apps.apple.com/us/app/%D0%BC%D0%BE%D1%82%D0%BE%D1%82%D1%80%D0%B5%D0%BA/id6741205282" target="_blank">
+          <img src="assets/icons/download-on-the-app-store.svg" alt="download-on-the-app-store" >
+        </a>
+        <a href="https://www.rustore.ru/catalog/app/com.policam.motokros" target="_blank">
+          <img src="assets/icons/get-it-on-google-play.svg" alt="download-on-the-app-store">
+        </a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <a href="">Политика конфиденциальности</a>
+      <a href="">Условия использования</a>
+      <a href="">Оферта</a>
+    </div>
+  </div>
+</div>

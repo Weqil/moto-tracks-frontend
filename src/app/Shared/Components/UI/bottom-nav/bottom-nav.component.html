@@ -1,12 +1,36 @@
+<div class="page">
+<div [ngClass]="{'header': header}">
+  @if (header) {
+    <div class="logo-nav" (click)="handleLinkClick(this.links[0])">
+      <img class="logo-icon" src="/assets/icons/red-finished.svg" alt="Логотип" >
+      <h1 class="logo-text">МотоТрек</h1>
+    </div>
+  }
+  <div class="bottom-nav">
+      @for (link of links; track $index) {
+       <div (click)="handleLinkClick(link)" class="bottom-nav__item">
+          <div class="button-container">
+              <app-icon-button
+                [elementsPosition]="this.header ? 'elements-position__row' : 'elements-position'"
+                widht="w20"
+                clippy="nav-clipy"
+                fontSize="standart-font-size"
+                buttonText={{link.name}}
+                icon={{link.icon}}
+                [height]="this.header ? 'standart-height' : 'long-height'"
+                [theme]="link.active ? 'red' : 'white'"
+                [buttonIconColor]="link.active ? 'white-icon' : 'dark-icon'">
+              </app-icon-button>
+          </div>
 
-<div class="bottom-nav">
-    @for (link of links; track $index) {
-     <div (click)="handleLinkClick(link)" class="bottom-nav__item">
-        <div class="button-container">
-            <app-icon-button clippy="nav-clipy" widht="full" fontSize="litle-font-size"  widht="w52" buttonText={{link.name}} icon={{link.icon}} height="long-height"
-            [theme]="link.active ? 'red' : 'white'"  [buttonIconColor]="link.active ? 'white-icon' : 'dark-icon'"></app-icon-button>
-        </div>
-       
-     </div>
-    }
+       </div>
+      }
+  </div>
+  @if (header) {
+    <div class="nav-exit" (click)="logoutInAccount()">
+      <img class="nav-exit-icon" src="/assets/icons/exite.svg" alt="Выход из аккаунта">
+      <div class="nav-exit-text">Выход</div>
+    </div>
+  }
+</div>
 </div>

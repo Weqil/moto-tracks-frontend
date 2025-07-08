@@ -1,5 +1,4 @@
 
-
 .bottom-nav{
   display: flex;
   transform: skew(-8deg);
@@ -14,7 +13,7 @@
 .bottom-nav__item{
     margin-right: -1px;
     color: var(--font-standart-color);
-    
+
 }
 
 
@@ -33,5 +32,64 @@
         filter: brightness(0) saturate(100%) invert(52%) sepia(41%) saturate(6721%) hue-rotate(204deg) brightness(100%) contrast(105%);
 
     }
-  
+
+}
+.page {
+  display: flex;
+  justify-content: center;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  //width: var(--container-width); // так и не смог подключить переменную
+  width: 1670px;
+  background-color: #fff;
+  padding: 2px 10px;
+
+  .logo-nav {
+    display: flex;
+    align-items: center;
+    //justify-content: center;
+    cursor: pointer;
+
+    .logo-icon {
+      width: 50px;
+    }
+
+    .logo-text{
+      margin: 0 0 0 10px;
+      font-family: 'RussoOne-Regular'; // Нужно переопределить переменные шрифтов и заменить в библиотеке(но это не точно)
+      font-size: 34px;
+    }
+
+  }
+
+  .bottom-nav{
+    box-shadow: none;
+
+    button {
+      font-family: 'RobotoCondensed-Regular'; // Нужно переопределить переменные шрифтов и заменить в библиотеке(но это не точно)
+
+      img {
+        margin: 0;
+      }
+    }
+  }
+
+  .nav-exit {
+    display: flex;
+    cursor: pointer;
+
+    .nav-exit-text {
+      margin: 0 0 0 5px;
+      background-image: linear-gradient(to bottom, #FF5555, #D53131);
+      color: transparent;
+      background-clip: text;
+      -webkit-background-clip: text;
+      font-family: 'RobotoCondensed-Regular'; // Нужно переопределить переменные шрифтов и заменить в библиотеке(но это не точно)
+      font-size: 16px;
+    }
+  }
 }

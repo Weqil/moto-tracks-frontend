@@ -9,9 +9,9 @@
 
 .trim{
 
-    span{    
+    span{
 
-        max-width: 200px; 
+        max-width: 200px;
         width: 100%;
         white-space: nowrap;         /* Запрещает перенос текста */
         overflow: hidden;            /* Скрывает выходящий за границы текст */
@@ -22,7 +22,7 @@
 
 .no-trim{
 
-    span{   
+    span{
         text-wrap: wrap;
         max-width: 100%;
     }
@@ -64,7 +64,7 @@
     min-width: 3.25rem;
     padding-left: 1rem;
     padding-right: 1rem;
-    
+
 }
 .height64{
     height: 64px;
@@ -140,7 +140,7 @@
     //     transition: 0.3s all;
     //     background: #fc6969;
     // }
- 
+
     span{
         text-wrap: nowrap;
         color: #fff;
@@ -159,8 +159,21 @@
     span{
         color: #000000;
     }
-  
+
 }
+
+.transparent{
+  background: transparent;
+  transition: 0.3s all;
+  // &:active{
+  //     transition: 0.3s all;
+  //     background: #363636;
+  // }
+  span{
+    color: #fff;
+  }
+}
+
 .disabled{
     opacity: 0.4;
     pointer-events: none;
@@ -270,6 +283,9 @@
 .litle-font-size{
     font-size: 12px;
 }
+.standart-font-size{
+    font-size: 16px;
+}
 .big-font-size{
     font-size: 20px;
 }
@@ -298,7 +314,7 @@
 }
 
 .null-border{
-    border-color: rgba(0, 0, 0, 0.137); 
+    border-color: rgba(0, 0, 0, 0.137);
 }
 
 .dark-border{
@@ -314,30 +330,30 @@
 .dark-icon{
     img{
         filter: brightness(0) saturate(100%) invert(0%) sepia(96%) saturate(16%) hue-rotate(246deg) brightness(98%) contrast(105%);
-      
+
     }
-    
+
 }
 .red-icon{
     img{
-        
+
         filter: brightness(0) saturate(100%) invert(20%) sepia(99%) saturate(7451%) hue-rotate(356deg) brightness(91%) contrast(109%);
-        
-        
+
+
     }
-    
+
 }
 .white-icon{
 
     img{
-        
+
         filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(102%) contrast(102%);
-        
+
     }
 }
 
 .standart-size{
-    
+
     img{
         width: 20px;
         height: 20px;
