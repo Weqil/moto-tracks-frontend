@@ -487,10 +487,10 @@ submitForm(){
   }
 
   updateLicenses(){
-    let loader:HTMLIonLoadingElement
-    this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
-      loader = res
-     })
+    // let loader:HTMLIonLoadingElement
+    // this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+    //   loader = res
+    //  })
     let fd:FormData = new FormData()
     fd = this.formdataService.formdataAppendJson(fd,this.licensesForm.value)
   
@@ -499,7 +499,7 @@ submitForm(){
     }
     this.userService.updateDocument(Number(this.oldLicensesValue?.id), fd).pipe(
       finalize(()=>{
-        this.loaderService.hideLoading(loader)
+        this.loaderService.hideLoading()
       })
     ).subscribe((res:any)=>{
       this.toastService.showToast('Данные лицензии успешно обновлены','success')
@@ -508,10 +508,10 @@ submitForm(){
 
 
   updatePolis(){
-    let loader:HTMLIonLoadingElement
-    this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
-      loader = res
-    })
+    // let loader:HTMLIonLoadingElement
+    // this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+    //   loader = res
+    // })
     let fd:FormData = new FormData()
     fd = this.formdataService.formdataAppendJson(fd,this.polisForm.value)
     if(!this.polisFile.dontFile){
@@ -519,7 +519,7 @@ submitForm(){
     }
     this.userService.updateDocument(Number(this.oldPolisValue?.id),fd).pipe(
       finalize(()=>{
-        this.loaderService.hideLoading(loader)
+        this.loaderService.hideLoading()
       })
     ).subscribe((res:any)=>{
       this.toastService.showToast('Данные полиса успешно обновлены','success')
@@ -528,16 +528,16 @@ submitForm(){
 
   updateNotarius(){
     if(this.validateNotarius()){
-      let loader:HTMLIonLoadingElement
-      this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
-        loader = res
-      })
+      // let loader:HTMLIonLoadingElement
+      // this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+      //   loader = res
+      // })
       let fd: FormData = new FormData()
       if(!this.notariusFile.dontFile){
         fd.append('file',this.notariusFile)
         this.userService.updateDocument(Number(this.oldNotariusValue?.id),fd).pipe(
           finalize(()=>{
-            this.loaderService.hideLoading(loader)
+            // this.loaderService.hideLoading(loader)
           })
         ).subscribe((res:any)=>{
           this.toastService.showToast('Данные удостоверения успешно обновлены','success')
