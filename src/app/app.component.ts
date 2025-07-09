@@ -30,7 +30,6 @@ import { i } from '@angular/cdk/data-source.d-Bblv7Zvh'
 import { InAppNotificationService } from './Shared/Data/Services/in-app-notification.service'
 
 async function getAppVersion() {
-  console.log('add favicon')
   const platform = Capacitor.getPlatform()
   if (Capacitor.isNativePlatform() || platform == 'ios' || platform == 'android') {
     const info = await App.getInfo()
@@ -92,7 +91,6 @@ export class AppComponent {
     const header: HTMLElement = html.getElementsByTagName('head')[0]
     const title: HTMLElement = header.getElementsByTagName('title')[0]
     let subtitle = 'Мототрек'
-    console.log(window.location.host)
     if (window.location.host.includes('localhost')) {
       subtitle += ' - локальный '
     }
@@ -169,7 +167,6 @@ export class AppComponent {
     this.fcmService.requestPermission()
   }
   ngOnInit() {
-    // console.log(this.stringHaveCurrentWords('50 см3','Коляски 7 50 см3'))
     this.getLastVersion()
     this.sportTypesService.selectSportCategory.subscribe((res) => {
       this.sportCategoryModalState = res
