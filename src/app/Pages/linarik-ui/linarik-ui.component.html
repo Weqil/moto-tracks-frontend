@@ -1,12 +1,19 @@
 <ion-content>
-    <main class="elements-grid">
+  <main class="elements-grid">
+    <div class="user-card">
+      <app-user-section
+        cardLeftBorderWidth="b1"
+        borderColor="red"
+        [startNumber]="true"
+        [showRank]="true"
+        [showAddress]="true"
+        [showRoles]="false"
+        [user]="user"
+      >
+      </app-user-section>
+    </div>
 
-        <div class="user-card">
-            <app-user-section  cardLeftBorderWidth="b1" borderColor="red" [startNumber]="true"  [showRank]="true"  [showAddress]= "true" [showRoles]="false" [user]="user">
-            </app-user-section>
-        </div>
-
-        <!-- <div class="user-card">
+    <!-- <div class="user-card">
             <app-user-section [startNumber]="true"  [showRank]="true"  [showAddress]= "true" [showRoles]="false" [user]="user">
             </app-user-section>
         </div>
@@ -21,105 +28,206 @@
             </app-user-section>
         </div> -->
 
+    <div class="icon-buttons-grid">
+      <app-icon-button [buttonIconColor]="'white-icon'" icon="/assets/icons/user.svg" theme="dark"></app-icon-button>
+      <app-icon-button [buttonIconColor]="'white-icon'" icon="/assets/icons/user.svg" height="long-height" theme="red"></app-icon-button>
+      <app-icon-button [buttonIconColor]="'white-icon'" icon="/assets/icons/user.svg" theme="red"></app-icon-button>
+      <app-icon-button [buttonIconColor]="'white-icon'" icon="/assets/icons/user.svg" theme="dark"></app-icon-button>
+      <app-icon-button [buttonIconColor]="'white-icon'" [disabled]="true" icon="/assets/icons/user.svg" theme="red"></app-icon-button>
+      <app-icon-button [buttonIconColor]="'white-icon'" [disabled]="true" icon="/assets/icons/user.svg" theme="dark"></app-icon-button>
+    </div>
+    <div class="icon-buttons-grid__icon-buttons-grid--beveled">
+      <app-icon-button widht="w49" buttonText="Трассы" clippy="clippy-right" theme="dark"></app-icon-button>
+      <app-icon-button
+        widht="w52"
+        buttonText="Трассы"
+        clippy="clippy-right"
+        icon="/assets/icons/flagFinished.svg"
+        height="long-height"
+        theme="white"
+      ></app-icon-button>
+      <app-icon-button widht="w58" buttonText="Трассы" clippy="clippy-right" theme="red"></app-icon-button>
+      <app-icon-button [disabled]="true" widht="w58" buttonText="Трассы" clippy="clippy-right" theme="dark"></app-icon-button>
+      <app-icon-button widht="w49" buttonText="Трассы" clippy="clippy-right" theme="red"></app-icon-button>
+      <app-icon-button
+        widht="w52"
+        buttonText="Все"
+        clippy="clippy-right"
+        icon="/assets/icons/flagFinished.svg"
+        height="long-height"
+        theme="red"
+      ></app-icon-button>
+      <app-icon-button widht="w58" buttonText="Трассы" clippy="clippy-right" theme="dark"></app-icon-button>
+      <app-icon-button widht="w58" buttonText="Трассы" clippy="clippy-right" theme="dark"></app-icon-button>
+      <app-icon-button [disabled]="true" buttonText="Трассы" clippy="clippy-left" theme="dark"></app-icon-button>
+      <app-icon-button
+        [disabled]="true"
+        widht="w52"
+        buttonText="Трассы"
+        clippy="clippy-right"
+        icon="/assets/icons/flagFinished.svg"
+        height="long-height"
+        theme="white"
+      ></app-icon-button>
+      <app-icon-button [disabled]="true" widht="w52" buttonText="Трассы" clippy="clippy-right" theme="dark"></app-icon-button>
+      <app-icon-button [disabled]="true" widht="w58" buttonText="Трассы" clippy="clippy-right" theme="dark"></app-icon-button>
+      <app-icon-button
+        elementsPosition="elements-position__row"
+        widht="w71"
+        height="little-height"
+        icon="/assets/icons/flagFinished.svg"
+        widht="w58"
+        buttonText="Трассы"
+        clippy="clippy-right"
+        theme="white"
+      ></app-icon-button>
+      <app-icon-button
+        [buttonIconColor]="'red-icon'"
+        [buttonBorderWidth]="'b1'"
+        [buttonBorderColor]="'red-border'"
+        clippy="clippy-right"
+        icon="assets/icons/plus.svg"
+        height="standart-height"
+        sizeIcon="little-size"
+        theme="white"
+      ></app-icon-button>
+      <app-icon-button
+        [buttonIconColor]="'dark-icon'"
+        [buttonBorderWidth]="'b3'"
+        [buttonBorderColor]="'white-border'"
+        clippy="clippy-right"
+        icon="assets/icons/plus.svg"
+        height="standart-height"
+        sizeIcon="standart-size"
+        theme="red"
+      ></app-icon-button>
+    </div>
 
+    <div class="back-buttons-grid">
+      <app-back-button theme="gray"></app-back-button>
+      <app-back-button fontColor="font-dark" theme="white"></app-back-button>
+      <app-back-button border="red-border" fontColor="font-red"></app-back-button>
+      <app-back-button [disabled]="true" theme="red"></app-back-button>
+      <app-back-button [disabled]="true" theme="gray"></app-back-button>
+    </div>
 
-        
-        <div class="icon-buttons-grid">
-                <app-icon-button [buttonIconColor]="'white-icon'" icon="/assets/icons/user.svg" theme="dark"></app-icon-button>
-                <app-icon-button [buttonIconColor]="'white-icon'" icon="/assets/icons/user.svg" height="long-height" theme="red"></app-icon-button>
-                <app-icon-button [buttonIconColor]="'white-icon'" icon="/assets/icons/user.svg" theme="red"></app-icon-button>
-                <app-icon-button [buttonIconColor]="'white-icon'" icon="/assets/icons/user.svg" theme="dark"></app-icon-button>
-                <app-icon-button [buttonIconColor]="'white-icon'" [disabled]="true" icon="/assets/icons/user.svg" theme="red"></app-icon-button>
-                <app-icon-button [buttonIconColor]="'white-icon'" [disabled]="true" icon="/assets/icons/user.svg" theme="dark"></app-icon-button>
+    <div class="tab-element-grid">
+      <app-tab-element [active]="activeTab" (change)="changeTab($event)" text="Информация"></app-tab-element>
+    </div>
+
+    <div class="check-box-grid">
+      <ng-container *ngFor="let box of checkBoxArray">
+        <app-check-box
+          (change)="getCheckBoxValue($event)"
+          [value]="box.value"
+          [checked]="box.state"
+          [labelText]="box.labelText"
+          [theme]="box.theme"
+          [clippy]="box.clippy"
+        ></app-check-box>
+      </ng-container>
+    </div>
+
+    <div class="tab-menu-list-grid">
+      <app-tab-menu-item icon="/assets/icons/documents.svg" name="Анкета участника"></app-tab-menu-item>
+      <app-tab-menu-item icon="/assets/icons/documents.svg" name="Анкета участника"></app-tab-menu-item>
+      <app-tab-menu-item icon="/assets/icons/documents.svg" name="Анкета участника"></app-tab-menu-item>
+      <app-tab-menu-item icon="/assets/icons/documents.svg" name="Анкета участника"></app-tab-menu-item>
+    </div>
+    <div class="modal-grid">
+      <app-icon-button (click)="openModal()" buttonText="Открыть модальное окно" clippy="clippy-right" theme="red"></app-icon-button>
+      <app-select-bottom-modal (onClose)="closeModal()" [visible]="selectModalState"></app-select-bottom-modal>
+      <app-icon-button (click)="openRegionModal()" buttonText="Выбор региона" clippy="clippy-right" theme="red"></app-icon-button>
+      <app-select-bottom-modal (onClose)="closeRegionModal()" [visible]="selectRegionModalState">
+        <div class="region-modal-main">
+          <div class="region-modal-wrapper">
+            <app-standart-input
+              iconLeft="/assets/icons/search.svg"
+              placeholder="Поиск"
+              [dark]="true"
+              [control]="form.get('searchRegion')"
+            ></app-standart-input>
+            <div class="regions-grid">
+              <app-icon-button [elementsInStart]="true" widht="full" buttonText="Россия" clippy="clippy-right" theme="white"></app-icon-button>
+              <app-icon-button
+                [elementsInStart]="true"
+                *ngFor="let region of regions"
+                widht="full"
+                [buttonText]="region.name"
+                clippy="clippy-right"
+                theme="dark-gray"
+              ></app-icon-button>
+            </div>
+          </div>
+
+          <div class="buttons-container">
+            <div class="buttons-container__item">
+              <app-icon-button widht="full" buttonText="Сохранить" clippy="clippy-right" theme="red"></app-icon-button>
+            </div>
+            <div class="buttons-container__item">
+              <app-icon-button widht="full" buttonText="Сбросить" clippy="clippy-right" theme="dark-gray"></app-icon-button>
+            </div>
+          </div>
         </div>
-        <div class="icon-buttons-grid__icon-buttons-grid--beveled">
-            <app-icon-button widht="w49" buttonText="Трассы" clippy="clippy-right" theme="dark"></app-icon-button>
-            <app-icon-button widht="w52" buttonText="Трассы"  clippy="clippy-right" icon="/assets/icons/flagFinished.svg" height="long-height" theme="white"></app-icon-button>
-            <app-icon-button widht="w58" buttonText="Трассы" clippy="clippy-right" theme="red"></app-icon-button>
-            <app-icon-button [disabled]="true" widht="w58" buttonText="Трассы" clippy="clippy-right" theme="dark"></app-icon-button>
-            <app-icon-button widht="w49" buttonText="Трассы" clippy="clippy-right" theme="red"></app-icon-button>
-            <app-icon-button widht="w52" buttonText="Все"  clippy="clippy-right" icon="/assets/icons/flagFinished.svg" height="long-height" theme="red"></app-icon-button>
-            <app-icon-button widht="w58" buttonText="Трассы" clippy="clippy-right" theme="dark"></app-icon-button>
-            <app-icon-button widht="w58" buttonText="Трассы" clippy="clippy-right" theme="dark"></app-icon-button>
-            <app-icon-button [disabled]="true" buttonText="Трассы" clippy="clippy-left" theme="dark"></app-icon-button>
-            <app-icon-button [disabled]="true" widht="w52" buttonText="Трассы"  clippy="clippy-right" icon="/assets/icons/flagFinished.svg" height="long-height" theme="white"></app-icon-button>
-            <app-icon-button [disabled]="true" widht="w52" buttonText="Трассы" clippy="clippy-right" theme="dark"></app-icon-button>
-            <app-icon-button [disabled]="true" widht="w58" buttonText="Трассы" clippy="clippy-right" theme="dark"></app-icon-button>
-            <app-icon-button elementsPosition="elements-position__row" widht="w71" height="little-height" icon="/assets/icons/flagFinished.svg" widht="w58" buttonText="Трассы" clippy="clippy-right" theme="white"></app-icon-button>
-            <app-icon-button  [buttonIconColor]="'red-icon'" [buttonBorderWidth]="'b1'" [buttonBorderColor]="'red-border'" clippy="clippy-right" icon="assets/icons/plus.svg" height="standart-height" sizeIcon="little-size" theme="white"></app-icon-button>
-            <app-icon-button  [buttonIconColor]="'dark-icon'" [buttonBorderWidth]="'b3'" [buttonBorderColor]="'white-border'" clippy="clippy-right" icon="assets/icons/plus.svg" height="standart-height" sizeIcon="standart-size" theme="red"></app-icon-button>
+      </app-select-bottom-modal>
+    </div>
+    <div class="inputs-grid">
+      <app-standart-input placeholder="Введите данные вашего сайта" label="Сайт" [control]="form.get('text')"></app-standart-input>
+      <app-standart-input [disabled]="true" placeholder="Введите данные вашего сайта" label="Сайт" [control]="form.get('text')"></app-standart-input>
+      <app-standart-input placeholder="Введите данные для поиска" [dark]="true" label="Поиск" [control]="form.get('text')"></app-standart-input>
+      <app-standart-input
+        placeholder="Введите данные для поиска"
+        [disabled]="true"
+        [dark]="true"
+        label="Поиск"
+        [control]="form.get('text')"
+      ></app-standart-input>
+      <app-standart-input
+        iconLeft="/assets/icons/chat.svg"
+        placeholder="Введите данные вашего сайта"
+        label="Сайт"
+        [control]="form.get('text')"
+      ></app-standart-input>
+      <app-standart-input
+        iconLeft="/assets/icons/search.svg"
+        placeholder="Введите данные вашего сайта"
+        [dark]="true"
+        label="Сайт"
+        [control]="form.get('text')"
+      ></app-standart-input>
+      <app-standart-input
+        [disabled]="true"
+        iconLeft="/assets/icons/chat.svg"
+        placeholder="Введите данные вашего сайта"
+        label="Сайт"
+        [control]="form.get('text')"
+      ></app-standart-input>
+      <app-standart-input
+        [disabled]="true"
+        iconLeft="/assets/icons/search.svg"
+        placeholder="Введите данные вашего сайта"
+        [dark]="true"
+        label="Сайт"
+        [control]="form.get('text')"
+      ></app-standart-input>
+      <app-standart-input
+        [invalid]="true"
+        iconLeft="/assets/icons/chat.svg"
+        placeholder="Введите данные вашего сайта"
+        label="Сайт"
+        [control]="form.get('text')"
+      ></app-standart-input>
+      <app-standart-input
+        errorMessage="Введите корректные данные"
+        [invalid]="true"
+        iconLeft="/assets/icons/search.svg"
+        placeholder="Введите данные вашего сайта"
+        [dark]="true"
+        label="Сайт"
+        [control]="form.get('text')"
+      ></app-standart-input>
+    </div>
 
-        </div>
-
-        <div class="back-buttons-grid">
-            <app-back-button theme="gray"></app-back-button>
-            <app-back-button fontColor="font-dark" theme="white"></app-back-button>
-            <app-back-button border="red-border" fontColor="font-red"></app-back-button>
-            <app-back-button [disabled]="true" theme="red"></app-back-button>
-            <app-back-button [disabled]="true" theme="gray"></app-back-button>
-        </div>
-
-        <div class="tab-element-grid">
-            <app-tab-element [active]="activeTab" (change)="changeTab($event)" text="Информация"></app-tab-element>
-        </div>
-
-        <div class="check-box-grid">
-            <ng-container *ngFor="let box of checkBoxArray">
-                <app-check-box (change)="getCheckBoxValue($event)" [value]="box.value" [checked]="box.state" [labelText]="box.labelText" [theme]="box.theme" [clippy]="box.clippy" ></app-check-box>
-            </ng-container>
-        </div>
-
-        <div class="tab-menu-list-grid">
-            <app-tab-menu-item icon="/assets/icons/documents.svg" name="Анкета участника" ></app-tab-menu-item>
-            <app-tab-menu-item icon="/assets/icons/documents.svg" name="Анкета участника" ></app-tab-menu-item>
-            <app-tab-menu-item icon="/assets/icons/documents.svg" name="Анкета участника" ></app-tab-menu-item>
-            <app-tab-menu-item icon="/assets/icons/documents.svg" name="Анкета участника" ></app-tab-menu-item>
-        </div>
-        <div class="modal-grid">
-            <app-icon-button  (click)="openModal()"  buttonText="Открыть модальное окно" clippy="clippy-right" theme="red"></app-icon-button>
-            <app-select-bottom-modal (onClose)="closeModal()" [visible]="selectModalState"></app-select-bottom-modal>
-            <app-icon-button  (click)="openRegionModal()"  buttonText="Выбор региона" clippy="clippy-right" theme="red"></app-icon-button>
-            <app-select-bottom-modal (onClose)="closeRegionModal()" [visible]="selectRegionModalState">
-               
-                <div class="region-modal-main">
-                    <div class="region-modal-wrapper">
-                        <app-standart-input iconLeft="/assets/icons/search.svg" placeholder="Поиск" [dark]="true" [control]="form.get('searchRegion')"></app-standart-input>
-                        <div class="regions-grid">
-                            <app-icon-button [elementsInStart]="true" widht="full" buttonText="Россия" clippy="clippy-right" theme="white"></app-icon-button>
-                            <app-icon-button [elementsInStart]="true" *ngFor="let region of regions" widht="full" [buttonText]="region.name" clippy="clippy-right" theme="dark-gray"></app-icon-button>
-                        </div>
-                    </div>
-                   
-                    <div class="buttons-container">
-                        <div class="buttons-container__item">
-                            <app-icon-button widht="full" buttonText="Сохранить" clippy="clippy-right" theme="red"></app-icon-button>
-                        </div>
-                        <div class="buttons-container__item">
-                            <app-icon-button  widht="full" buttonText="Сбросить" clippy="clippy-right" theme="dark-gray"></app-icon-button>
-                        </div>
-                       
-                    </div>
-                </div>
-
-            </app-select-bottom-modal>
-        </div>
-        <div class="inputs-grid">
-            <app-standart-input placeholder="Введите данные вашего сайта" label="Сайт" [control]="form.get('text')"></app-standart-input>
-            <app-standart-input [disabled]="true" placeholder="Введите данные вашего сайта" label="Сайт" [control]="form.get('text')"></app-standart-input>
-            <app-standart-input  placeholder="Введите данные для поиска" [dark]="true" label="Поиск" [control]="form.get('text')"></app-standart-input>
-            <app-standart-input  placeholder="Введите данные для поиска" [disabled]="true" [dark]="true" label="Поиск" [control]="form.get('text')"></app-standart-input>
-            <app-standart-input iconLeft="/assets/icons/chat.svg" placeholder="Введите данные вашего сайта" label="Сайт" [control]="form.get('text')"></app-standart-input>
-            <app-standart-input iconLeft="/assets/icons/search.svg" placeholder="Введите данные вашего сайта" [dark]="true" label="Сайт" [control]="form.get('text')"></app-standart-input>
-            <app-standart-input [disabled]="true" iconLeft="/assets/icons/chat.svg" placeholder="Введите данные вашего сайта" label="Сайт" [control]="form.get('text')"></app-standart-input>
-            <app-standart-input [disabled]="true" iconLeft="/assets/icons/search.svg" placeholder="Введите данные вашего сайта" [dark]="true" label="Сайт" [control]="form.get('text')"></app-standart-input>
-            <app-standart-input  [invalid]="true" iconLeft="/assets/icons/chat.svg" placeholder="Введите данные вашего сайта" label="Сайт" [control]="form.get('text')"></app-standart-input>
-            <app-standart-input errorMessage="Введите корректные данные" [invalid]="true" iconLeft="/assets/icons/search.svg" placeholder="Введите данные вашего сайта" [dark]="true" label="Сайт" [control]="form.get('text')"></app-standart-input>
-
-        </div>
-        
-        <app-standart-rich-input>
-            
-        </app-standart-rich-input>
-       
-    </main>
+    <app-standart-rich-input> </app-standart-rich-input>
+  </main>
 </ion-content>

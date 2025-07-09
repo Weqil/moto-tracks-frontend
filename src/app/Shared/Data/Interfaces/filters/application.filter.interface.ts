@@ -3,4 +3,5 @@ export interface ApplicationFilters {
   page?: string
   limit?: number
   gradeId?: number
+  name?: string
 }

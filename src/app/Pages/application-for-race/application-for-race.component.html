@@ -7,17 +7,34 @@
           <img src="/assets/icons/arrow.svg" alt="Назад" />
         </button>
         <span class="cabinet-header__title">{{ event.name }}</span>
-        <app-icon-button
-          (click)="generateGoogleLink(event.id)"
-          class="width-button"
-          [widht]="'w20'"
-          height="long-height"
-          [buttonIconColor]="'white-icon'"
-          icon="assets/icons/excel-file.svg"
-          height="standart-height"
-          sizeIcon="standart-size"
-          theme="dark"
-        ></app-icon-button>
+        <div class="upload-buttons">
+          <app-icon-button
+            (click)="generateGoogleLink(event.id)"
+            class="width-button"
+            [widht]="'w20'"
+            height="long-height"
+            elementsPosition="row__reverse"
+            buttonText="Выгрузить таблицу"
+            [buttonIconColor]="'white-icon'"
+            icon="assets/icons/excel-file.svg"
+            height="standart-height"
+            sizeIcon="standart-size"
+            theme="dark"
+          ></app-icon-button>
+          <app-icon-button
+            (click)="generateGoogleLink(event.id)"
+            class="width-button"
+            [widht]="'w20'"
+            height="long-height"
+            elementsPosition="row__reverse"
+            buttonText="Пришедшие на гонку"
+            [buttonIconColor]="'white-icon'"
+            icon="assets/icons/excel-file.svg"
+            height="standart-height"
+            sizeIcon="standart-size"
+            theme="green"
+          ></app-icon-button>
+        </div>
       </div>
     </app-header>
     <main class="main">
@@ -26,10 +43,26 @@
           <div class="event-information-title users-title">
             <img src="/assets/icons/red-finished.svg" alt="" />
             Список участников
+            <div class="add-racer-button-wrapper">
+              <app-icon-button
+                clippy="clippy-right"
+                (click)="openOfflineRacerAddForm()"
+                class="width-button"
+                [widht]="'w71'"
+                buttonBorderColor="red-border"
+                fontColor="red-color"
+                buttonBorderWidth="b2"
+                buttonText="Добавить гонщика"
+                elementsPosition="elements-position__row"
+                theme="white"
+                height="little-height"
+                sizeIcon="standart-size"
+              ></app-icon-button>
+            </div>
           </div>
           <div class="grades-filter-grid">
             <app-icon-button
-              (click)="updateFilters('')"
+              (click)="updateGradeFilters('')"
               widht="w20"
               [theme]="!!!applicationsFilters().gradeId ? 'red' : 'dark'"
               clippy="clippy-right"
@@ -38,7 +71,7 @@
             ></app-icon-button>
             <ng-container *ngFor="let grade of event.grades">
               <app-icon-button
-                (click)="updateFilters(grade.id)"
+                (click)="updateGradeFilters(grade.id)"
                 widht="w20"
                 [theme]="applicationsFilters().gradeId == grade.id ? 'red' : 'dark'"
                 clippy="clippy-right"
@@ -47,19 +80,14 @@
               ></app-icon-button>
             </ng-container>
           </div>
-          <div class="add-racer-button-wrapper">
-            <app-icon-button
-              clippy="clippy-right"
-              (click)="openOfflineRacerAddForm()"
-              class="width-button"
-              [widht]="'w71'"
-              buttonText="Добавить гонщика"
-              elementsPosition="elements-position__row"
-              theme="red"
-              height="standart-height"
-              sizeIcon="standart-size"
-            ></app-icon-button>
-          </div>
+          <form [formGroup]="searchApplicationForm" (ngSubmit)="search()">
+            <app-standart-input
+              #searchInput
+              iconLeft="/assets/icons/search.svg"
+              placeholder="Введите ФИО для поиска"
+              [control]="searchApplicationForm.get('search')"
+            ></app-standart-input>
+          </form>
         </div>
 
         <div class="application-list">
