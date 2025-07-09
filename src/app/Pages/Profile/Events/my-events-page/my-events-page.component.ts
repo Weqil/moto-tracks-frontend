@@ -173,13 +173,13 @@ closetTableModal(){
   }
 
   finishEvents(){
-    let loader:HTMLIonLoadingElement
-    this.loadingService.showLoading().then((res: HTMLIonLoadingElement)=>{
-        loader = res
-    })
+    // let loader:HTMLIonLoadingElement
+    // this.loadingService.showLoading().then((res: HTMLIonLoadingElement)=>{
+    //     loader = res
+    // })
     this.eventService.getAllEvents({userId: String(this.userService.user.value?.id),dateEnd:moment().subtract(7, 'days').locale('ru'). format('YYYY-MM-DD'), sortField:'date_start', sort:'asc'}).pipe(
       finalize(()=>{
-        this.loadingService.hideLoading(loader)
+        // this.loadingService.hideLoading(loader)
       })
     ).subscribe((res:any)=>{
       this.finishedEvents = res.races
@@ -188,7 +188,6 @@ closetTableModal(){
 
   ionViewWillEnter(){
     this.setFilterInTape('all')
-    this.getEvents()
     this.finishEvents()
   }
 
