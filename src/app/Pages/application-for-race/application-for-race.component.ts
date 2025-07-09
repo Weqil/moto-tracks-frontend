@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, SimpleChanges } from '@angular/core'
+import { Component, effect, inject, OnInit, signal, SimpleChanges } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { IEvent } from '@app/Shared/Data/Interfaces/event'
 import { AuthService } from '@app/Shared/Data/Services/Auth/auth.service'
@@ -41,6 +41,7 @@ import { ICommand, ICommandCreate } from '@app/Shared/Data/Interfaces/command'
 import { ComandsService } from '@app/Shared/Data/Services/Comands/comands.service'
 import { InputErrorService } from '@app/Shared/Services/input-error.service'
 import { OfflineRacersService } from '@app/Shared/Data/Services/Race/offline-racers.service'
+import { ApplicationFilters } from '@app/Shared/Data/Interfaces/filters/application.filter.interface'
 
 @Pipe({ name: 'safeUrl' })
 export class SafeUrlPipe implements PipeTransform {
@@ -107,10 +108,19 @@ export class ApplicationForRaceComponent implements OnInit {
   usersInRace: any = []
   usersPreview: any[] = []
   groups: any = []
+  applicationsFilters = signal<ApplicationFilters>({})
   createRegionItems: any[] = []
   searchRegionItems: any[] = []
   sortUsers: any = {}
   viewUser: boolean = false
+  _filtersEffect = effect(() => {
+    console.log('изменил сигнал')
+    const applicationFilters = this.applicationsFilters()
+    if (this.event) {
+      this.getUsersInRace()
+      this.getOfflineRacer()
+    }
+  })
   viewUserOffline: boolean = false
   userGetId!: string
   userGet!: any
@@ -317,6 +327,18 @@ export class ApplicationForRaceComponent implements OnInit {
     this.navController.navigateRoot('/events')
   }
 
+  updateFilters(gradeId: number | '') {
+    this.applicationsFilters.update((filters: ApplicationFilters) => {
+      if (gradeId) {
+        return {
+          gradeId: gradeId,
+        }
+      } else {
+        return {}
+      }
+    })
+  }
+
   closetTableModal() {
     this.tableModalValue = false
   }
@@ -361,7 +383,7 @@ export class ApplicationForRaceComponent implements OnInit {
     let loader: HTMLIonLoadingElement
     this.loaderService.showLoading().then((res: HTMLIonLoadingElement) => (loader = res))
     this.eventService
-      .getApplicationsForCommisson(this.eventId)
+      .getApplicationsForCommisson(this.eventId, this.applicationsFilters())
       .pipe(finalize(() => this.loaderService.hideLoading(loader)))
       .subscribe((res: any) => {
         this.usersInRace = res.users
@@ -451,9 +473,8 @@ export class ApplicationForRaceComponent implements OnInit {
     this.viewDocumentValue = false
   }
 
-  setActiveAppId(appoyment:any){
+  setActiveAppId(appoyment: any) {
     this.activeAppId = appoyment.id
-
   }
 
   generateGoogleLink(eventId: any) {
@@ -516,7 +537,7 @@ export class ApplicationForRaceComponent implements OnInit {
     let loader: HTMLIonLoadingElement
     this.loaderService.showLoading().then((res: HTMLIonLoadingElement) => (loader = res))
     return this.offlineRacersService
-      .getOfflineRacer(Number(this.eventId))
+      .getOfflineRacer(Number(this.eventId), this.applicationsFilters())
       .pipe(finalize(() => this.loaderService.hideLoading(loader)))
       .subscribe((res: any) => {
         this.offlineAppointments = res.appointments

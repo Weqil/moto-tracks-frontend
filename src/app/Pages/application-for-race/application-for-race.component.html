@@ -23,9 +23,28 @@
     <main class="main">
       <div class="main-content">
         <div class="users-options">
-          <div class="filter-grid">
-            <ng-container *ngFor="let event of event.grades">
-              <app-icon-button widht="w20" clippy="clippy-right" height="little-height" [buttonText]="event.name"></app-icon-button>
+          <div class="event-information-title users-title">
+            <img src="/assets/icons/red-finished.svg" alt="" />
+            Список участников
+          </div>
+          <div class="grades-filter-grid">
+            <app-icon-button
+              (click)="updateFilters('')"
+              widht="w20"
+              [theme]="!!!applicationsFilters().gradeId ? 'red' : 'dark'"
+              clippy="clippy-right"
+              height="little-height"
+              buttonText="Все"
+            ></app-icon-button>
+            <ng-container *ngFor="let grade of event.grades">
+              <app-icon-button
+                (click)="updateFilters(grade.id)"
+                widht="w20"
+                [theme]="applicationsFilters().gradeId == grade.id ? 'red' : 'dark'"
+                clippy="clippy-right"
+                height="little-height"
+                [buttonText]="grade.name"
+              ></app-icon-button>
             </ng-container>
           </div>
           <div class="add-racer-button-wrapper">
@@ -40,10 +59,6 @@
               height="standart-height"
               sizeIcon="standart-size"
             ></app-icon-button>
-          </div>
-          <div class="event-information-title users-title">
-            <img src="/assets/icons/red-finished.svg" alt="" />
-            Список участников
           </div>
         </div>
 

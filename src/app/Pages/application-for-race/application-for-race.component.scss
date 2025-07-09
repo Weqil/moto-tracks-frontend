@@ -369,9 +369,11 @@
 }
 
 .grades-filter-grid {
-  padding-top: var(--little-padding);
+  padding-top: 1rem;
   display: flex;
-  overflow-y: auto;
+  max-width: 100%;
+  flex-wrap: wrap;
+  padding-bottom: var(--standart-padding);
   padding-left: var(--little-padding);
   gap: var(--little-padding);
   overflow-x: auto;
