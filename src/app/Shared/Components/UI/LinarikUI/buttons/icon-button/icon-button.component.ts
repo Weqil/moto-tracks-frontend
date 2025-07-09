@@ -111,12 +111,17 @@ export class  IconButtonComponent  implements OnInit {
 
    @Input() trimButtonText:'trim'|'no-trim' = 'no-trim'
 
-   /**
+  /**
+   *Добавление отступов справа и слева для logo
+   */
+    @Input() iconMargin:'icon-margin-standard'|'icon-margin-none' = 'icon-margin-standard'
+
+  /**
    * Функция собирает все классы и возвращает массив с нужными значениями
    */
   get getClasses():string[]{
     return [this.theme, this.buttonIconColor, this.fontSize, this.trimButtonText,
-      this.sizeIcon, this.buttonBorderWidth, this.buttonBorderColor, this.height, this.disabled ? 'disabled':'','icon-button',this.clippy, this.elementsPosition, this.widht, this.font, this.fontColor, this.elementsInStart ? 'elements-in-start':'']
+      this.sizeIcon, this.buttonBorderWidth, this.buttonBorderColor, this.height, this.disabled ? 'disabled':'','icon-button',this.clippy, this.elementsPosition, this.widht, this.font, this.fontColor, this.elementsInStart ? 'elements-in-start':'', this.iconMargin]
   }
 
   ngOnInit() {}
