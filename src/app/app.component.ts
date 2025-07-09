@@ -82,6 +82,26 @@ export class AppComponent {
     private router: Router,
     private inAppNotificationService: InAppNotificationService,
   ) {}
+
+  ngAfterViewInit() {
+    this.changeTitleInPage()
+  }
+
+  changeTitleInPage() {
+    const html: HTMLElement = document.getElementsByTagName('html')[0]
+    const header: HTMLElement = html.getElementsByTagName('head')[0]
+    const title: HTMLElement = header.getElementsByTagName('title')[0]
+    let subtitle = 'Мототрек'
+    console.log(window.location.host)
+    if (window.location.host.includes('localhost')) {
+      subtitle += ' - локальный '
+    }
+    if (window.location.host.includes('dev')) {
+      subtitle += ' - тестовый '
+    }
+    title.textContent = subtitle
+  }
+
   onUpdate() {
     const platform = Capacitor.getPlatform()
 
