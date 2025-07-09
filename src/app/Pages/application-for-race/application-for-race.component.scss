@@ -367,3 +367,15 @@
     gap: var(--standart-padding);
   }
 }
+
+.grades-filter-grid {
+  padding-top: var(--little-padding);
+  display: flex;
+  overflow-y: auto;
+  padding-left: var(--little-padding);
+  gap: var(--little-padding);
+  overflow-x: auto;
+  app-icon-button {
+    flex: 0 0 auto;
+  }
+}

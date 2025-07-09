@@ -451,6 +451,11 @@ export class ApplicationForRaceComponent implements OnInit {
     this.viewDocumentValue = false
   }
 
+  setActiveAppId(appoyment:any){
+    this.activeAppId = appoyment.id
+
+  }
+
   generateGoogleLink(eventId: any) {
     this.loadingService.showLoading()
     this.eventService
@@ -484,9 +489,7 @@ export class ApplicationForRaceComponent implements OnInit {
   }
 
   saveOfflineRacer(addAlso: boolean = false) {
-    console.log(this.addOfflineUserForm.value)
     this.addOfflineUserForm.markAllAsTouched()
-    console.log(this.addOfflineUserForm.value)
     if (this.addOfflineUserForm.valid) {
       this.createOfflineRacer().subscribe((res: any) => {
         this.toastService.showToast('Заявка успешно создана', 'success')
@@ -530,7 +533,6 @@ export class ApplicationForRaceComponent implements OnInit {
       .pipe(
         tap((res: Blob) => {
           if (res.size === 0) {
-            console.error('Получен пустой Blob!')
           } else {
             const blobUrl = URL.createObjectURL(res)
             const newWindow = window.open(blobUrl, '_blank')
@@ -595,7 +597,7 @@ export class ApplicationForRaceComponent implements OnInit {
   }
 
   showOfflineUserForm(offlineUser: any) {
-    console.log(offlineUser)
+    this.setActiveAppId(offlineUser)
     this.viewUserOffline = true
     this.viewUser = false
     // asdasdasd
@@ -622,7 +624,6 @@ export class ApplicationForRaceComponent implements OnInit {
       group: offlineUser.grade.name,
       region: offlineUser.location?.name,
     })
-    console.log(this.viewOfflineUserForm.value)
   }
 
   closeComandSelectModalStateValue() {
@@ -630,7 +631,6 @@ export class ApplicationForRaceComponent implements OnInit {
   }
 
   setComand(event: any) {
-    console.log(this.addOfflineUserForm.value)
     this.closeComandSelectModalStateValue()
     this.openOfflineRacerAddForm()
     this.addOfflineUserForm.patchValue({ community: event.name })
@@ -856,7 +856,6 @@ export class ApplicationForRaceComponent implements OnInit {
   }
   setRegion(region: any) {
     this.closeRegionModal()
-    console.log(region)
     this.addOfflineUserForm.patchValue({ locationId: region.value, region: region.name })
   }
 

@@ -22,25 +22,36 @@
     </app-header>
     <main class="main">
       <div class="main-content">
-        <div class="event-information-title users-title">
-          <img src="/assets/icons/red-finished.svg" alt="" />
-          Список участников
-          <!-- <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
-        </div>
-
-        <!-- <div *ngFor="let group of formattedUsers">
-        <div class="class-name">
-          <div class="event-information-title users-title">
-            <img src="/assets/icons/red-finished.svg" alt="">
-            {{group.group}}
-            ##<app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button>
+        <div class="users-options">
+          <div class="filter-grid">
+            <ng-container *ngFor="let event of event.grades">
+              <app-icon-button widht="w20" clippy="clippy-right" height="little-height" [buttonText]="event.name"></app-icon-button>
+            </ng-container>
           </div>
-      </div> -->
+          <div class="add-racer-button-wrapper">
+            <app-icon-button
+              clippy="clippy-right"
+              (click)="openOfflineRacerAddForm()"
+              class="width-button"
+              [widht]="'w71'"
+              buttonText="Добавить гонщика"
+              elementsPosition="elements-position__row"
+              theme="red"
+              height="standart-height"
+              sizeIcon="standart-size"
+            ></app-icon-button>
+          </div>
+          <div class="event-information-title users-title">
+            <img src="/assets/icons/red-finished.svg" alt="" />
+            Список участников
+          </div>
+        </div>
 
         <div class="application-list">
           <div *ngFor="let user of usersInRace">
-            <div class="user-card" (click)="navigateToUser(user.user.id, user, user.id)">
+            <div *ngIf="!!user.user" class="user-card" (click)="navigateToUser(user.user.id, user, user.id)">
               <app-user-section
+                style="cursor: pointer"
                 *ngIf="user.user && user.user.personal"
                 [them]="user.is_checked == null ? 'standart-them' : user.is_checked == true ? 'green-them' : 'red-them'"
                 [border]="activeAppId === user.id ? 'red' : 'null'"
@@ -56,56 +67,22 @@
               </app-user-section>
             </div>
           </div>
-        </div>
-
-        <div class="event-information-title">
-          <img src="/assets/icons/red-finished.svg" alt="" />
-          Оффлайн участники
-        </div>
-        <div class="add-racer-button-wrapper">
-          <app-icon-button
-            clippy="clippy-right"
-            (click)="openOfflineRacerAddForm()"
-            class="width-button"
-            [widht]="'w71'"
-            buttonText="Добавить гонщика"
-            elementsPosition="elements-position__row"
-            theme="red"
-            height="standart-height"
-            sizeIcon="standart-size"
-          ></app-icon-button>
-        </div>
-
-        <div class="application-list">
           <div *ngFor="let appoyment of offlineAppointments">
-            <app-user-section
-              (click)="showOfflineUserForm(appoyment)"
-              [name]="true"
-              [showAddress]="true"
-              [surname]="true"
-              [patronymic]="true"
-              [startNumber]="true"
-              [user]="appoyment"
-            ></app-user-section>
-            <!-- <div class="user-card" (click)="navigateToUser(user.user.id, user, user.id)">
+            <div class="user-card">
               <app-user-section
-                *ngIf="user.user && user.user.personal"
-                [them]="user.is_checked == null ? 'standart-them' : user.is_checked == true ? 'green-them' : 'red-them'"
-                [border]="activeAppId === user.id ? 'red' : 'null'"
-                [showAddress]="true"
+                (click)="showOfflineUserForm(appoyment)"
+                style="cursor: pointer"
                 [name]="true"
+                [showAddress]="true"
                 [surname]="true"
                 [patronymic]="true"
+                [border]="activeAppId === appoyment.id ? 'red' : 'null'"
                 [startNumber]="true"
-                [showRank]="true"
-                [hideEmail]="true"
-                [user]="user.user.personal"
-              >
-              </app-user-section>
-            </div> -->
+                [user]="appoyment"
+              ></app-user-section>
+            </div>
           </div>
         </div>
-
         <!-- </div> -->
       </div>
 
