@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation} from 
 import {IconButtonComponent} from "@app/Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component";
 import {Link} from "@app/CommonUI/Interfaces/navigation-link";
 import {SharedModule} from "@app/Shared/Modules/shared/shared.module";
+import { AppLinks } from "@app/config/app-links"
 
 @Component({
   selector: 'app-footer',
@@ -16,6 +17,10 @@ export class FooterComponent   {
   @Input() links!: Link[];
   @Input() header!: boolean;
   @Output() linkChanged: EventEmitter<Link> = new EventEmitter();
+
+  appStore = AppLinks.APP_STORE
+  googleStore = AppLinks.GOOGLE_PLAY
+  ruStore = AppLinks.RU_STORE
 
   constructor() { }
 
