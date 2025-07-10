@@ -14,7 +14,7 @@ import { NoDataFoundComponent } from 'src/app/Shared/Components/UI/no-data-found
 import { NgZone } from '@angular/core'
 import { UserModule } from 'src/app/Shared/Modules/user/user.module'
 import { selectedModule } from '../../../Shared/Modules/selected/selected.module'
-import { catchError, EMPTY, finalize, Subject, takeUntil, throwError } from 'rxjs'
+import { catchError, EMPTY, filter, finalize, from, map, Subject, takeUntil, throwError, toArray } from 'rxjs'
 import { userRoles } from 'src/app/Shared/Data/Enums/roles'
 import { NavController } from '@ionic/angular'
 import { serverError } from 'src/app/Shared/Data/Interfaces/errors'
@@ -26,6 +26,7 @@ import { UserStatuses, translitUserStatuses } from 'src/app/Shared/Enums/user-st
 import { IconButtonComponent } from '@app/Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component'
 import { CheckUserRoleService } from '@app/Shared/Data/Services/check-user-role.service'
 import { StandartInputComponent } from '@app/Shared/Components/UI/LinarikUI/forms/standart-input/standart-input.component'
+import { UserRole } from '@app/Shared/Data/Interfaces/user-role.interface'
 
 @Component({
   selector: 'app-settings',
@@ -59,10 +60,14 @@ export class SettingsComponent implements OnInit {
   userAgreedModalState: boolean = false
   checkUserRoleService: any = inject(CheckUserRoleService)
   selectRoleModalState: boolean = false
+  checkUserRole: CheckUserRoleService = inject(CheckUserRoleService)
+
   statusesSelect: boolean = false
   selectedStatusItem: any = {}
   private readonly destroy$ = new Subject<void>()
   disabledAgreedButton: boolean = true
+  userTranslitStatuses: string[] = []
+
   statuses: any[] = []
   emailModalValue: boolean = false
   phoneModalValue: boolean = false
@@ -102,7 +107,7 @@ export class SettingsComponent implements OnInit {
     if (!this.userService.userHaveRoot()) {
       if (this.userAgreedStatus !== 'false' && this.userAgreedStatus) {
         this.openSelectedStatus()
-      }else{
+      } else {
         this.openModalStateAgreed()
       }
     }
@@ -144,7 +149,7 @@ export class SettingsComponent implements OnInit {
   }
 
   constructor(
-    private userService: UserService,
+    public userService: UserService,
     private loadingService: LoadingService,
     private toastService: ToastService,
     private navController: NavController,
@@ -261,7 +266,7 @@ export class SettingsComponent implements OnInit {
 
   user!: User | null
 
-  selectStatus(event: any) {
+  selectStatus(event: { id: number; name: string; value: string }) {
     const closeModal = new Promise((resolve) => {
       this.selectRoleModalState = false
       setTimeout(() => {
@@ -308,7 +313,7 @@ export class SettingsComponent implements OnInit {
       }
 
       if (event.value == userRoles.couch) {
-        if ((this.userService.isPhoneVerified() || this.userService.isEmailVerified()) && this.userService.userHaveCurrentPersonal()) {
+        if (this.userService.isPhoneVerified() && this.userService.isEmailVerified() && this.userService.userHaveCurrentPersonal()) {
           this.loadingService.showLoading()
           this.userService
             .changeRoleForDefaultUser(event.id)
@@ -411,54 +416,55 @@ export class SettingsComponent implements OnInit {
   }
 
   ionViewWillEnter() {
-    this.loading.showLoading()
-    this.userService
-      .getChangeRoles()
-      .pipe(
-        finalize(() => {
-          this.loading.hideLoading()
-        }),
-      )
-      .subscribe((res: any) => {
-        this.statuses = []
-        res.role.forEach((roleItem: any) => {
-          this.statuses.push({
-            id: roleItem.id,
-            name:
-              roleItem.name === userRoles.organization
-                ? 'Организатор'
-                : roleItem.name === userRoles.couch
-                  ? 'Тренер'
-                  : roleItem.name === userRoles.admin
-                    ? 'Администратор'
-                    : roleItem.name === userRoles.commission
-                      ? 'Комиссия'
-                      : roleItem.name === userRoles.root
-                        ? 'Root'
-                        : 'Гонщик',
-            value: roleItem.name,
-          })
-        })
-        if (this.user?.roles.length && !this.userService.userHaveRoot()) {
-          const matchingStatus = this.statuses.find((statusItem: any) => this.user?.roles.some((role: any) => role.id === statusItem.id))
-          if (matchingStatus) {
-            this.selectedStatusItem = matchingStatus
-          } else {
-          }
-        } else if (this.userService.userHaveRoot()) {
-          this.selectedStatusItem = {
-            id: 5,
-            name: 'Комиссия',
-            value: 'Комиссия',
-          }
-        } else {
-          this.selectedStatusItem = {
-            id: 0,
-            name: 'Болельщик',
-            value: 'Болельщик',
-          }
-        }
-      })
+    // this.loading.showLoading()
+    // this.userService
+    //   .getChangeRoles()
+    //   .pipe(
+    //     finalize(() => {
+    //       this.loading.hideLoading()
+    //     }),
+    //   )
+    //   .subscribe((res: any) => {
+    //     console.log(this.checkUserRoleService.userCanAddNewRole())
+    //     this.statuses = []
+    //     res.role.forEach((roleItem: any) => {
+    //       this.statuses.push({
+    //         id: roleItem.id,
+    //         name:
+    //           roleItem.name === userRoles.organization
+    //             ? 'Организатор'
+    //             : roleItem.name === userRoles.couch
+    //               ? 'Тренер'
+    //               : roleItem.name === userRoles.admin
+    //                 ? 'Администратор'
+    //                 : roleItem.name === userRoles.commission
+    //                   ? 'Комиссия'
+    //                   : roleItem.name === userRoles.root
+    //                     ? 'Root'
+    //                     : 'Гонщик',
+    //         value: roleItem.name,
+    //       })
+    //     })
+    //     if (this.user?.roles.length && !this.userService.userHaveRoot()) {
+    //       const matchingStatus = this.statuses.find((statusItem: any) => this.user?.roles.some((role: any) => role.id === statusItem.id))
+    //       if (matchingStatus) {
+    //         this.selectedStatusItem = matchingStatus
+    //       } else {
+    //       }
+    //     } else if (this.userService.userHaveRoot()) {
+    //       this.selectedStatusItem = {
+    //         id: 5,
+    //         name: 'Комиссия',
+    //         value: 'Комиссия',
+    //       }
+    //     } else {
+    //       this.selectedStatusItem = {
+    //         id: 0,
+    //         name: 'Болельщик',
+    //         value: 'Болельщик',
+    //       }
+    //     }
+    //   })
 
     this.userService.user.pipe().subscribe(() => {
       this.user = this.userService.user.value
@@ -485,11 +491,26 @@ export class SettingsComponent implements OnInit {
       this.closeEmailModal()
     })
 
-    this.userService.user.pipe(takeUntil(this.destroy$)).subscribe(() => {
+    this.userService.user.pipe(takeUntil(this.destroy$)).subscribe((res: any) => {
       this.user = this.userService.user.value
       if (this.user) {
         this.userLastRole(this.user)
+        this.userTranslitStatuses = this.checkUserRole.getUserRoleNamesInTranslit(res)
+        if (this.userService.allRoles) {
+          from(this.userService.allRoles)
+            .pipe(
+              filter((role: any) => !this.checkUserRole.userHaveRole(role.name,res)),
+              map((role) => {
+                return { id: role.id, name: this.checkUserRole.getTranslitRole(role.name), value: role.name }
+              }),
+              toArray(),
+            )
+            .subscribe((res: any) => {
+              this.statuses = res
+            })
+        }
       }
+
       this.personalViewForm.patchValue({ phoneView: this.user?.phone?.number || '' })
       this.checkVerifiedPhone()
     })

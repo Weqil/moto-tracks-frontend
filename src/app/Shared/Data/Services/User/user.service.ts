@@ -198,7 +198,7 @@ export class UserService {
     return this.http.get<any>(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/roles-change`)
   }
 
-  changeRoleForDefaultUser(roleId:string){
+  changeRoleForDefaultUser(roleId:string|number){
     return this.http.post<any>(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/roles-change`, { roleId: roleId })
   }
 
