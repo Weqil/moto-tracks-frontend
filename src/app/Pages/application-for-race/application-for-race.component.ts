@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, SimpleChanges } from '@angular/core'
+import { Component, effect, ElementRef, inject, input, OnInit, signal, SimpleChanges, ViewChild } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { IEvent } from '@app/Shared/Data/Interfaces/event'
 import { AuthService } from '@app/Shared/Data/Services/Auth/auth.service'
@@ -6,7 +6,7 @@ import { EventService } from '@app/Shared/Data/Services/Event/event.service'
 import { UserService } from '@app/Shared/Data/Services/User/user.service'
 
 import { LoadingService } from '@app/Shared/Services/loading.service'
-import { catchError, EMPTY, finalize, map, Observable, Subject, takeUntil, tap } from 'rxjs'
+import { catchError, debounceTime, delay, EMPTY, finalize, map, Observable, Subject, takeUntil, tap } from 'rxjs'
 import { HeaderModule } from '../../Shared/Modules/header/header.module'
 import { IonModal, NavController, Platform, IonContent } from '@ionic/angular/standalone'
 import { isNull } from 'lodash'
@@ -16,7 +16,7 @@ import { User } from '@app/Shared/Data/Interfaces/user-model'
 import { UserViewPageComponent } from '../Users/user-view-page/user-view-page.component'
 import { Documents } from '@app/Shared/Data/Interfaces/document-models'
 import { IconButtonComponent } from '../../Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component'
-import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms'
+import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
 import { StandartInputComponent } from '../../Shared/Components/UI/LinarikUI/forms/standart-input/standart-input.component'
 import { StandartInputSelectComponent } from '../../Shared/Components/UI/Selecteds/standart-input-select/standart-input-select.component'
 import { StandartRichInputComponent } from '../../Shared/Components/UI/LinarikUI/forms/standart-rich-input/standart-rich-input.component'
@@ -41,6 +41,7 @@ import { ICommand, ICommandCreate } from '@app/Shared/Data/Interfaces/command'
 import { ComandsService } from '@app/Shared/Data/Services/Comands/comands.service'
 import { InputErrorService } from '@app/Shared/Services/input-error.service'
 import { OfflineRacersService } from '@app/Shared/Data/Services/Race/offline-racers.service'
+import { ApplicationFilters } from '@app/Shared/Data/Interfaces/filters/application.filter.interface'
 
 @Pipe({ name: 'safeUrl' })
 export class SafeUrlPipe implements PipeTransform {
@@ -72,6 +73,7 @@ export class SafeUrlPipe implements PipeTransform {
     IonModal,
     StandartButtonComponent,
     SelectComandsComponent,
+    ReactiveFormsModule,
   ],
 })
 export class ApplicationForRaceComponent implements OnInit {
@@ -107,10 +109,20 @@ export class ApplicationForRaceComponent implements OnInit {
   usersInRace: any = []
   usersPreview: any[] = []
   groups: any = []
+  applicationsFilters = signal<ApplicationFilters>({})
   createRegionItems: any[] = []
+  @ViewChild('searchInput') searchInput!: any
   searchRegionItems: any[] = []
   sortUsers: any = {}
   viewUser: boolean = false
+  _filtersEffect = effect(() => {
+    console.log('изменил сигнал')
+    const applicationFilters = this.applicationsFilters()
+    if (this.event) {
+      this.getUsersInRace()
+      this.getOfflineRacer()
+    }
+  })
   viewUserOffline: boolean = false
   userGetId!: string
   userGet!: any
@@ -272,6 +284,10 @@ export class ApplicationForRaceComponent implements OnInit {
     },
   }
 
+  searchApplicationForm = new FormGroup({
+    search: new FormControl(''),
+  })
+
   checkDocument(documentId: number) {
     this.activeDocument = documentId
     this.viewDocumentValue = true
@@ -315,6 +331,23 @@ export class ApplicationForRaceComponent implements OnInit {
 
   back() {
     this.navController.navigateRoot('/events')
+  }
+
+  updateGradeFilters(gradeId: number | '') {
+    this.applicationsFilters.update((filters: ApplicationFilters) => {
+      if (gradeId) {
+        return {
+          ...filters,
+          gradeId: gradeId,
+        }
+      } else {
+        let tempObject = { ...filters }
+        delete tempObject.gradeId
+        return {
+          ...tempObject,
+        }
+      }
+    })
   }
 
   closetTableModal() {
@@ -361,7 +394,7 @@ export class ApplicationForRaceComponent implements OnInit {
     let loader: HTMLIonLoadingElement
     this.loaderService.showLoading().then((res: HTMLIonLoadingElement) => (loader = res))
     this.eventService
-      .getApplicationsForCommisson(this.eventId)
+      .getApplicationsForCommisson(this.eventId, this.applicationsFilters())
       .pipe(finalize(() => this.loaderService.hideLoading(loader)))
       .subscribe((res: any) => {
         this.usersInRace = res.users
@@ -451,9 +484,8 @@ export class ApplicationForRaceComponent implements OnInit {
     this.viewDocumentValue = false
   }
 
-  setActiveAppId(appoyment:any){
+  setActiveAppId(appoyment: any) {
     this.activeAppId = appoyment.id
-
   }
 
   generateGoogleLink(eventId: any) {
@@ -516,7 +548,7 @@ export class ApplicationForRaceComponent implements OnInit {
     let loader: HTMLIonLoadingElement
     this.loaderService.showLoading().then((res: HTMLIonLoadingElement) => (loader = res))
     return this.offlineRacersService
-      .getOfflineRacer(Number(this.eventId))
+      .getOfflineRacer(Number(this.eventId), this.applicationsFilters())
       .pipe(finalize(() => this.loaderService.hideLoading(loader)))
       .subscribe((res: any) => {
         this.offlineAppointments = res.appointments
@@ -599,6 +631,7 @@ export class ApplicationForRaceComponent implements OnInit {
   showOfflineUserForm(offlineUser: any) {
     this.setActiveAppId(offlineUser)
     this.viewUserOffline = true
+    this.viewDocumentValue = false
     this.viewUser = false
     // asdasdasd
     //  name: personal.name || '',
@@ -859,5 +892,29 @@ export class ApplicationForRaceComponent implements OnInit {
     this.addOfflineUserForm.patchValue({ locationId: region.value, region: region.name })
   }
 
-  ngOnInit() {}
+  search() {
+    if (this.searchApplicationForm.value.search) {
+      this.applicationsFilters.update((filters: ApplicationFilters) => {
+        return {
+          ...filters,
+          name: this.searchApplicationForm.value.search!,
+        }
+      })
+    } else {
+    }
+  }
+
+  ngOnInit() {
+    this.searchApplicationForm.valueChanges.pipe(debounceTime(400)).subscribe((res: any) => {
+      if (!!!this.searchApplicationForm.value.search) {
+        this.applicationsFilters.update((filters: ApplicationFilters) => {
+          let tempFilters = { ...filters }
+          delete tempFilters.name
+          return {
+            ...tempFilters,
+          }
+        })
+      }
+    })
+  }
 }

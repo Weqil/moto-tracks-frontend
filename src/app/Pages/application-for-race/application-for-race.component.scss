@@ -3,8 +3,7 @@
   overflow-x: auto;
   display: flex;
   flex-wrap: nowrap;
-  justify-content: start;
-
+  align-items: baseline;
   gap: 2rem;
   padding: 1rem;
   padding-top: 3rem;
@@ -369,13 +368,19 @@
 }
 
 .grades-filter-grid {
-  padding-top: var(--little-padding);
+  padding-top: 1rem;
   display: flex;
-  overflow-y: auto;
+  max-width: 100%;
+  flex-wrap: wrap;
+  padding-bottom: var(--standart-padding);
   padding-left: var(--little-padding);
   gap: var(--little-padding);
   overflow-x: auto;
   app-icon-button {
     flex: 0 0 auto;
   }
+}
+.upload-buttons {
+  display: flex;
+  gap: var(--standart-padding);
 }

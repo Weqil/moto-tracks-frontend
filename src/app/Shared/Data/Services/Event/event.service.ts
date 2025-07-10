@@ -1,70 +1,84 @@
-import { query } from '@angular/animations';
-import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
+import { query } from '@angular/animations'
+import { HttpClient } from '@angular/common/http'
+import { inject, Injectable } from '@angular/core'
+import { environment } from 'src/environments/environment'
+import { ApplicationFilters } from '../../Interfaces/filters/application.filter.interface'
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class EventService {
+  constructor() {}
+  http: HttpClient = inject(HttpClient)
 
-  constructor() { }
-  http:HttpClient = inject(HttpClient)
-  
-  getAllEvents(params?:{userId?:string,appointmentUser?:number, dateStart?:string, dateEnd?:string,locationId?:string[],
-     sortField?:string, sort?:string, commissionUser?:number,userIdExists?:number|string,userOnlyAppointment?:0|1|number,}){
-    return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races`, {params:{...params}})
+  getAllEvents(params?: {
+    userId?: string
+    appointmentUser?: number
+    dateStart?: string
+    dateEnd?: string
+    locationId?: string[]
+    sortField?: string
+    sort?: string
+    commissionUser?: number
+    userIdExists?: number | string
+    userOnlyAppointment?: 0 | 1 | number
+  }) {
+    return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races`, { params: { ...params } })
   }
 
-  generateGoogleLink(id:string){
+  generateGoogleLink(id: string) {
     return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races/${id}/appointment-race/users-table`)
   }
 
-  generatePdfForAplication(aplicationId:number){
-    return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races/appointment-race/${aplicationId}/pdf`, {responseType: 'blob'})
-  }
-
-  getEventById(eventId:string,params?:{userId?:string,appointmentUser?:number, dateStart?:string,transactionUser?:number}){
-    return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races/${eventId}`,{
-      params:{...params}
+  generatePdfForAplication(aplicationId: number) {
+    return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races/appointment-race/${aplicationId}/pdf`, {
+      responseType: 'blob',
     })
   }
-  getEventByUserId(userId:string){
-    return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races`,{params: {userId:userId }})
+
+  getEventById(eventId: string, params?: { userId?: string; appointmentUser?: number; dateStart?: string; transactionUser?: number }) {
+    return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races/${eventId}`, {
+      params: { ...params },
+    })
   }
-  getUsersInRace(raceId:string){
-    return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races/${raceId}/appointment-race/users`,)
+  getEventByUserId(userId: string) {
+    return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races`, { params: { userId: userId } })
+  }
+  getUsersInRace(raceId: string) {
+    return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races/${raceId}/appointment-race/users`)
   }
 
-  updateEvent(editForm:any, eventId:string){
+  updateEvent(editForm: any, eventId: string) {
     return this.http.post(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races/${eventId}/update`, editForm)
   }
 
-  checkApplication(id:number, checkedValue:number, comment:string){
-    return this.http.post(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races/appointment-race/${id}/checked`,  {checked: checkedValue, comment: comment})
-  }
-
-  addResultInRace(raceId:string, pdfFiles:File[]|FormData){
-    return this.http.post(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races/${raceId}/add-document`, pdfFiles)
-  }
-
-  deleteResultInRace(raceId:string, pdfFilesDel:string[]){
-    return this.http.post(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races/${raceId}/add-document`, {
-      pdfFilesDel:pdfFilesDel
+  checkApplication(id: number, checkedValue: number, comment: string) {
+    return this.http.post(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races/appointment-race/${id}/checked`, {
+      checked: checkedValue,
+      comment: comment,
     })
   }
 
-  getApplicationsForCommisson(eventId:string){
-     return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races/${eventId}/appointment-race/appointments`)
+  addResultInRace(raceId: string, pdfFiles: File[] | FormData) {
+    return this.http.post(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races/${raceId}/add-document`, pdfFiles)
   }
 
-  createEvent(event:FormData){
+  deleteResultInRace(raceId: string, pdfFilesDel: string[]) {
+    return this.http.post(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races/${raceId}/add-document`, {
+      pdfFilesDel: pdfFilesDel,
+    })
+  }
+
+  getApplicationsForCommisson(eventId: string, applicationFilters: ApplicationFilters = {}) {
+    return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races/${eventId}/appointment-race/appointments`, {
+      params: { ...applicationFilters },
+    })
+  }
+
+  createEvent(event: FormData) {
     return this.http.post(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races`, event)
   }
-  toggleAplicationInRace(raceId:string,data:any){
+  toggleAplicationInRace(raceId: string, data: any) {
     return this.http.post<any>(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races/${raceId}/toggle-appointment-race`, data)
   }
-
-
-  
 }
