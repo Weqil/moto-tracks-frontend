@@ -60,7 +60,7 @@
     
 </ion-content>
 
-<ion-modal [isOpen]="tableModalValue">
+<ion-modal (didDismiss)="closeGoogleTable()" [isOpen]="tableModalValue">
   <ng-template>
     <ion-content>
       <div class="google-tabs">

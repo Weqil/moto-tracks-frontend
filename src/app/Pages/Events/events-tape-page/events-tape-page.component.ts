@@ -1,306 +1,327 @@
-import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
-import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
-import { CommonModule } from '@angular/common';
-import { HeaderModule } from 'src/app/Shared/Modules/header/header.module';
-import { ButtonsModule } from 'src/app/Shared/Modules/buttons/buttons.module';
-import { IonModal, NavController } from '@ionic/angular/standalone';
-import { EventModule } from 'src/app/Shared/Modules/event/event.module';
-import { IEvent } from 'src/app/Shared/Data/Interfaces/event';
-import { EventService } from 'src/app/Shared/Data/Services/Event/event.service';
-import { EventTapeService } from 'src/app/Shared/Data/Services/Event/event-tape.service';
-import { SwitchTypeService } from 'src/app/Shared/Services/switch-type.service';
-import { LoadingService } from 'src/app/Shared/Services/loading.service';
-import { finalize } from 'rxjs';
-import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
-import { TabsComponent } from "../../../Shared/Components/UI/tabs/tabs.component";
-import { TabsItemComponent } from "../../../Shared/Components/UI/tabs-item/tabs-item.component";
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core'
+import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module'
+import { CommonModule } from '@angular/common'
+import { HeaderModule } from 'src/app/Shared/Modules/header/header.module'
+import { ButtonsModule } from 'src/app/Shared/Modules/buttons/buttons.module'
+import { IonModal, NavController } from '@ionic/angular/standalone'
+import { EventModule } from 'src/app/Shared/Modules/event/event.module'
+import { IEvent } from 'src/app/Shared/Data/Interfaces/event'
+import { EventService } from 'src/app/Shared/Data/Services/Event/event.service'
+import { EventTapeService } from 'src/app/Shared/Data/Services/Event/event-tape.service'
+import { SwitchTypeService } from 'src/app/Shared/Services/switch-type.service'
+import { LoadingService } from 'src/app/Shared/Services/loading.service'
+import { finalize } from 'rxjs'
+import { UserService } from 'src/app/Shared/Data/Services/User/user.service'
+import { TabsComponent } from '../../../Shared/Components/UI/tabs/tabs.component'
+import { TabsItemComponent } from '../../../Shared/Components/UI/tabs-item/tabs-item.component'
 
-import moment from 'moment';
-import 'moment/locale/ru';
-import { cloneDeep, find, extend } from 'lodash';
-import { StandartInputSearchComponent } from 'src/app/Shared/Components/Forms/standart-input-search/standart-input-search.component';
-import { MapService } from 'src/app/Shared/Data/Services/Map/map.service';
-import _ from 'lodash';
-import { UploadFileInputComponent } from '@app/Shared/Components/UI/upload-file-input/upload-file-input.component';
-import { NoDataFoundComponent } from "../../../Shared/Components/UI/no-data-found/no-data-found.component";
-import { PdfViewerModule } from 'ng2-pdf-viewer';
-import { CheckImgUrlPipe } from "../../../Shared/Helpers/check-img-url.pipe";
-import { StandartInputComponent } from '@app/Shared/Components/UI/LinarikUI/forms/standart-input/standart-input.component';
-import { FormControl, FormGroup } from '@angular/forms';
-import { RegionsSelectModalComponent } from '@app/Shared/Components/Modals/regions-select-modal/regions-select-modal.component';
-import { NavbarVisibleService } from '@app/Shared/Services/navbar-visible.service';
-import { IconButtonComponent } from "../../../Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component";
-import { Degree } from '@app/Shared/Data/Interfaces/degree-model';
-import { CupService } from '@app/Shared/Data/Services/cup.service';
+import moment from 'moment'
+import 'moment/locale/ru'
+import { cloneDeep, find, extend } from 'lodash'
+import { StandartInputSearchComponent } from 'src/app/Shared/Components/Forms/standart-input-search/standart-input-search.component'
+import { MapService } from 'src/app/Shared/Data/Services/Map/map.service'
+import _ from 'lodash'
+import { UploadFileInputComponent } from '@app/Shared/Components/UI/upload-file-input/upload-file-input.component'
+import { NoDataFoundComponent } from '../../../Shared/Components/UI/no-data-found/no-data-found.component'
+import { PdfViewerModule } from 'ng2-pdf-viewer'
+import { CheckImgUrlPipe } from '../../../Shared/Helpers/check-img-url.pipe'
+import { StandartInputComponent } from '@app/Shared/Components/UI/LinarikUI/forms/standart-input/standart-input.component'
+import { FormControl, FormGroup } from '@angular/forms'
+import { RegionsSelectModalComponent } from '@app/Shared/Components/Modals/regions-select-modal/regions-select-modal.component'
+import { NavbarVisibleService } from '@app/Shared/Services/navbar-visible.service'
+import { IconButtonComponent } from '../../../Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component'
+import { Degree } from '@app/Shared/Data/Interfaces/degree-model'
+import { CupService } from '@app/Shared/Data/Services/cup.service'
 
-type Item = { title: string; createdAt: string; };
+type Item = { title: string; createdAt: string }
 @Component({
   selector: 'app-events-tape-page',
   templateUrl: './events-tape-page.component.html',
   styleUrls: ['./events-tape-page.component.scss'],
-  imports: [SharedModule, CommonModule, HeaderModule,
-    EventModule, IonModal, TabsComponent, TabsItemComponent,
-    StandartInputSearchComponent, UploadFileInputComponent, StandartInputComponent,
-    NoDataFoundComponent, NoDataFoundComponent, PdfViewerModule, CheckImgUrlPipe, RegionsSelectModalComponent, IconButtonComponent]
+  imports: [
+    SharedModule,
+    CommonModule,
+    HeaderModule,
+    EventModule,
+    IonModal,
+    TabsComponent,
+    TabsItemComponent,
+    StandartInputSearchComponent,
+    UploadFileInputComponent,
+    StandartInputComponent,
+    NoDataFoundComponent,
+    NoDataFoundComponent,
+    PdfViewerModule,
+    CheckImgUrlPipe,
+    RegionsSelectModalComponent,
+    IconButtonComponent,
+  ],
 })
-export class EventsTapePageComponent  implements OnInit {
+export class EventsTapePageComponent implements OnInit {
+  formatedEvents: { groupMonth: string; events: IEvent[] }[] = []
+  formatedExpiredEvents: { groupMonth: string; events: IEvent[] }[] = []
+  constructor() {}
 
-  formatedEvents: { groupMonth: string, events: IEvent[] }[] = [];
-  formatedExpiredEvents: { groupMonth: string, events: IEvent[] }[] = [];
-  constructor() {
-   
-   }
-
-  navBarVisibleService:NavbarVisibleService = inject(NavbarVisibleService)
+  navBarVisibleService: NavbarVisibleService = inject(NavbarVisibleService)
 
   navController: NavController = inject(NavController)
   eventService: EventService = inject(EventService)
-  loadingService:LoadingService = inject(LoadingService)
-  cupService:CupService = inject(CupService)
-  canRgp :boolean = true
+  loadingService: LoadingService = inject(LoadingService)
+  cupService: CupService = inject(CupService)
+  canRgp: boolean = true
   eventTapeService: EventTapeService = inject(EventTapeService)
-  rgpFilter:boolean = false
+  rgpFilter: boolean = false
 
-  @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
-  switchTypeService:SwitchTypeService = inject(SwitchTypeService)
-  regionModalState:boolean = false
-  resultsFilesUpload!:[
-    {
-      file:File,
-      localPath:string,
-    }
-  ]|any 
-  searchForm:FormGroup = new FormGroup({
-    searchLabael: new FormControl('')
+  @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>
+  switchTypeService: SwitchTypeService = inject(SwitchTypeService)
+  regionModalState: boolean = false
+  resultsFilesUpload!:
+    | [
+        {
+          file: File
+          localPath: string
+        },
+      ]
+    | any
+  searchForm: FormGroup = new FormGroup({
+    searchLabael: new FormControl(''),
   })
   userService: UserService = inject(UserService)
-  tableModalValue:boolean = false
-  googleTabsLink:string = ''
-  searchRegionItems:any[] = []
-  regionFilterName:string = 'Россия'
-  currentRace!:IEvent 
-  
-  allFilter:boolean = false
-  expiredFilter:boolean = false
-  currentFilter:boolean = true
+  tableModalValue: boolean = false
+  googleTabsLink: string = ''
+  searchRegionItems: any[] = []
+  regionFilterName: string = 'Россия'
+  currentRace!: IEvent
 
-  zoomLevel = 1.0;
-  isDragOver = false;
-  allowedTypes = [
-    'application/pdf',
-  ];
-  regionFilterId:string = ''
-  eventsFilter:any = {
-    dateStart:moment().subtract(2,'days').format('YYYY-MM-DD'),
-    locationId:[this.regionFilterId], 
-    sortField:'date_start',
-    sort:'asc',
-    commissionUser:1,
-    userIdExists: this.userService.user.value?.id ? this.userService.user.value?.id: ''
+  allFilter: boolean = false
+  expiredFilter: boolean = false
+  currentFilter: boolean = true
+
+  zoomLevel = 1.0
+  isDragOver = false
+  allowedTypes = ['application/pdf']
+  regionFilterId: string = ''
+  eventsFilter: any = {
+    dateStart: moment().subtract(2, 'days').format('YYYY-MM-DD'),
+    locationId: [this.regionFilterId],
+    sortField: 'date_start',
+    sort: 'asc',
+    commissionUser: 1,
+    userIdExists: this.userService.user.value?.id ? this.userService.user.value?.id : '',
   }
-  uploadResultModalState:boolean = false
-  expiredEvents:IEvent[]=[]
-  clearUploadFiles:boolean = false
-  mapService:MapService = inject(MapService)
-  startEvents: IEvent[]=[]
-  resultsFilesUploadArrayClear:any[] = []
-  formattedResultsDocument:[
-    {
-      path:string,
-      zoomLevel:number
-    }
-  ]|any[] = []
+  uploadResultModalState: boolean = false
+  expiredEvents: IEvent[] = []
+  clearUploadFiles: boolean = false
+  mapService: MapService = inject(MapService)
+  startEvents: IEvent[] = []
+  resultsFilesUploadArrayClear: any[] = []
+  formattedResultsDocument:
+    | [
+        {
+          path: string
+          zoomLevel: number
+        },
+      ]
+    | any[] = []
 
-   redirectApplicationForRace(eventId:any){
+  redirectApplicationForRace(eventId: any) {
     this.navController.navigateForward(`application-for-race/${eventId}`)
   }
 
-  setFilterInTape(filter:'all'|'current'|'expired'|'rgp'){
+  setFilterInTape(filter: 'all' | 'current' | 'expired' | 'rgp') {
     this.allFilter = filter == 'all'
     this.currentFilter = filter == 'current'
     this.expiredFilter = filter == 'expired'
     this.rgpFilter = filter == 'rgp'
 
-    if(this.currentFilter){
-      this.eventsFilter =  {
-        dateStart:moment().subtract(2,'days').format('YYYY-MM-DD'),
-        locationId:[this.regionFilterId], 
-        sortField:'date_start',
-        sort:'asc',
-        commissionUser:1,
-        userIdExists: this.userService.user.value?.id ? this.userService.user.value?.id: ''
-      }
-    }
-    if(this.expiredFilter){
+    if (this.currentFilter) {
       this.eventsFilter = {
-        dateEnd:moment().subtract(2, 'days').locale('ru'). format('YYYY-MM-DD'), 
-        locationId:[this.regionFilterId], sortField:'date_start',
-         sort:'desc',commissionUser:1,
-         userIdExists: this.userService.user.value?.id ? this.userService.user.value?.id: ''
+        dateStart: moment().subtract(2, 'days').format('YYYY-MM-DD'),
+        locationId: [this.regionFilterId],
+        sortField: 'date_start',
+        sort: 'asc',
+        commissionUser: 1,
+        userIdExists: this.userService.user.value?.id ? this.userService.user.value?.id : '',
+      }
+    }
+    if (this.expiredFilter) {
+      this.eventsFilter = {
+        dateEnd: moment().subtract(2, 'days').locale('ru').format('YYYY-MM-DD'),
+        locationId: [this.regionFilterId],
+        sortField: 'date_start',
+        sort: 'desc',
+        commissionUser: 1,
+        userIdExists: this.userService.user.value?.id ? this.userService.user.value?.id : '',
       }
     }
 
-    if(this.allFilter){
-      this.eventsFilter =  {
-        locationId:[this.regionFilterId], 
-        sort:'asc',
-        commissionUser:1,
-        userIdExists: this.userService.user.value?.id ? this.userService.user.value?.id: ''
+    if (this.allFilter) {
+      this.eventsFilter = {
+        locationId: [this.regionFilterId],
+        sort: 'asc',
+        commissionUser: 1,
+        userIdExists: this.userService.user.value?.id ? this.userService.user.value?.id : '',
       }
     }
 
-    if(this.rgpFilter){
-      this.eventsFilter =  {
-        dateStart:moment().subtract(2,'days').format('YYYY-MM-DD'),
-        locationId:[this.regionFilterId], 
-        sortField:'date_start',
-        sort:'asc',
-        commissionUser:1,
-        userIdExists: this.userService.user.value?.id ? this.userService.user.value?.id: '',
-        'degreeIds[]':Array([this.cupService.allDegree.value.find((degree:Degree)=>degree.name == 'rgp')?.id|| '']).join(',')
+    if (this.rgpFilter) {
+      this.eventsFilter = {
+        dateStart: moment().subtract(2, 'days').format('YYYY-MM-DD'),
+        locationId: [this.regionFilterId],
+        sortField: 'date_start',
+        sort: 'asc',
+        commissionUser: 1,
+        userIdExists: this.userService.user.value?.id ? this.userService.user.value?.id : '',
+        'degreeIds[]': Array([this.cupService.allDegree.value.find((degree: Degree) => degree.name == 'rgp')?.id || '']).join(','),
       }
     }
     this.getEvents()
-
   }
 
-  redirectInTracks(){
+  redirectInTracks() {
     this.navController.navigateForward('/tracks')
   }
-  
 
-  zoomIn(document:{path:string,zoomLevel:number}) {
-    let currentDocument = this.formattedResultsDocument.find((documentInArray:{path:string,zoomLevel:number})=>documentInArray.path == document.path )
-    currentDocument.zoomLevel += 0.1; // Увеличиваем масштаб на 10%
+  closeGoogleTable() {
+    this.tableModalValue = false
   }
 
-  setRgpFilter(event:any){
+  zoomIn(document: { path: string; zoomLevel: number }) {
+    let currentDocument = this.formattedResultsDocument.find(
+      (documentInArray: { path: string; zoomLevel: number }) => documentInArray.path == document.path,
+    )
+    currentDocument.zoomLevel += 0.1 // Увеличиваем масштаб на 10%
+  }
+
+  setRgpFilter(event: any) {
     this.setFilterInTape('rgp')
     this.rgpFilter = event
   }
 
-  zoomOut(document:{path:string,zoomLevel:number}) {
-    let currentDocument = this.formattedResultsDocument.find((documentInArray:{path:string,zoomLevel:number})=>documentInArray.path == document.path )
-    currentDocument.zoomLevel -= 0.1; // Уменьшаем масштаб на 10%
+  zoomOut(document: { path: string; zoomLevel: number }) {
+    let currentDocument = this.formattedResultsDocument.find(
+      (documentInArray: { path: string; zoomLevel: number }) => documentInArray.path == document.path,
+    )
+    currentDocument.zoomLevel -= 0.1 // Уменьшаем масштаб на 10%
   }
 
-  resetZoom(document:{path:string,zoomLevel:number}) {
-    let currentDocument = this.formattedResultsDocument.find((documentInArray:{path:string,zoomLevel:number})=>documentInArray.path == document.path )
-    currentDocument.zoomLevel = 1.0; 
+  resetZoom(document: { path: string; zoomLevel: number }) {
+    let currentDocument = this.formattedResultsDocument.find(
+      (documentInArray: { path: string; zoomLevel: number }) => documentInArray.path == document.path,
+    )
+    currentDocument.zoomLevel = 1.0
   }
 
-  closetTableModal(){
+  closetTableModal() {
     this.tableModalValue = false
   }
 
-  redirectInConfirm(id:number){
+  redirectInConfirm(id: number) {
     this.navController.navigateForward(`/aplication/confirm/${id}`)
   }
   onDragOver(event: DragEvent) {
-    event.preventDefault(); 
-    this.isDragOver = true;
+    event.preventDefault()
+    this.isDragOver = true
   }
-  formatingZoomValuesInResults(){
+  formatingZoomValuesInResults() {
     this.formattedResultsDocument = []
     this.clearUploadFiles = false
-    if(this.currentRace.pdf_files){
-       this.currentRace.pdf_files.forEach((file:any)=>{
-      this.formattedResultsDocument.push({
-        path:file,
-        zoomLevel:1,
+    if (this.currentRace.pdf_files) {
+      this.currentRace.pdf_files.forEach((file: any) => {
+        this.formattedResultsDocument.push({
+          path: file,
+          zoomLevel: 1,
+        })
       })
-    })
     }
   }
-  back(){
+  back() {
     this.closeUploadResultModalState()
   }
-  submitResultInRace(){
-    let loader:HTMLIonLoadingElement
-    this.loadingService.showLoading().then((res:HTMLIonLoadingElement)=>loader = res)
-    const fd:FormData = new FormData()
-  
-    this.resultsFilesUpload.forEach((fileElement:any,index:number) => {
-        fd.append(`pdfFiles[${index}]`,fileElement.file)
-    });
-    fd.forEach((value, key) => {
-     
-    });
+  submitResultInRace() {
+    let loader: HTMLIonLoadingElement
+    this.loadingService.showLoading().then((res: HTMLIonLoadingElement) => (loader = res))
+    const fd: FormData = new FormData()
 
-    this.eventService.addResultInRace(String(this.currentRace.id),fd).pipe(
-      finalize(()=>{
-        this.loadingService.hideLoading(loader)
-        this.resultsFilesUploadArrayClear = []
-      })
-    ).subscribe((res:any)=>{
-      this.currentRace = res.race
-      this.formatingZoomValuesInResults()
+    this.resultsFilesUpload.forEach((fileElement: any, index: number) => {
+      fd.append(`pdfFiles[${index}]`, fileElement.file)
     })
+    fd.forEach((value, key) => {})
+
+    this.eventService
+      .addResultInRace(String(this.currentRace.id), fd)
+      .pipe(
+        finalize(() => {
+          this.loadingService.hideLoading(loader)
+          this.resultsFilesUploadArrayClear = []
+        }),
+      )
+      .subscribe((res: any) => {
+        this.currentRace = res.race
+        this.formatingZoomValuesInResults()
+      })
   }
-  deleteResultFile(file:any){
-    let loader:HTMLIonLoadingElement
-    this.loadingService.showLoading().then((res:HTMLIonLoadingElement)=>{
+  deleteResultFile(file: any) {
+    let loader: HTMLIonLoadingElement
+    this.loadingService.showLoading().then((res: HTMLIonLoadingElement) => {
       loader = res
     })
-    this.eventService.deleteResultInRace(String(this.currentRace.id),[file.path]).pipe(
-      finalize(()=>this.loadingService.hideLoading(loader))
-    ).subscribe((res:any)=>{
-      this.currentRace = res.race
-      this.formatingZoomValuesInResults()
-    })
+    this.eventService
+      .deleteResultInRace(String(this.currentRace.id), [file.path])
+      .pipe(finalize(() => this.loadingService.hideLoading(loader)))
+      .subscribe((res: any) => {
+        this.currentRace = res.race
+        this.formatingZoomValuesInResults()
+      })
   }
   onDragLeave(event: DragEvent) {
-    event.preventDefault();
-    this.isDragOver = false;
+    event.preventDefault()
+    this.isDragOver = false
   }
   onDrop(event: DragEvent) {
-    this.isDragOver = false;
+    this.isDragOver = false
   }
- 
-  getUploadResultsFiles(files:any){
-   
+
+  getUploadResultsFiles(files: any) {
     this.resultsFilesUpload = files
   }
-  getResultFile(event:any){
-    this.isDragOver = false;
-    const input = event.target as HTMLInputElement;
-   
-  if (input.files) {
-    Array.from(input.files).forEach(file => {
-      if (!this.allowedTypes.includes(file.type)) {
-        console.warn('Неподдерживаемый тип файла:', file.name, file.type);
-        return;
-      }
-      const isDuplicate = this.resultsFilesUpload.some((existing:any) =>
-        existing.file.name === file.name &&
-        existing.file.size === file.size &&
-        existing.file.lastModified === file.lastModified
-      );
+  getResultFile(event: any) {
+    this.isDragOver = false
+    const input = event.target as HTMLInputElement
 
-      if (!isDuplicate) {
-        const reader = new FileReader();
-        reader.onload = () => {
-          this.resultsFilesUpload.push({
-            file: file,
-            localPath: reader.result as string
-          });
-        };
-        reader.readAsDataURL(file);
-      } else {
-        
-      }
-    });
+    if (input.files) {
+      Array.from(input.files).forEach((file) => {
+        if (!this.allowedTypes.includes(file.type)) {
+          console.warn('Неподдерживаемый тип файла:', file.name, file.type)
+          return
+        }
+        const isDuplicate = this.resultsFilesUpload.some(
+          (existing: any) => existing.file.name === file.name && existing.file.size === file.size && existing.file.lastModified === file.lastModified,
+        )
 
-    // Сброс input
-    this.fileInput.nativeElement.value = '';
-  }
+        if (!isDuplicate) {
+          const reader = new FileReader()
+          reader.onload = () => {
+            this.resultsFilesUpload.push({
+              file: file,
+              localPath: reader.result as string,
+            })
+          }
+          reader.readAsDataURL(file)
+        } else {
+        }
+      })
+
+      // Сброс input
+      this.fileInput.nativeElement.value = ''
+    }
   }
 
-  deleteUploudResultFile(file:any){
-    this.resultsFilesUpload = this.resultsFilesUpload.filter((uploadFile:any)=> uploadFile.localPath !== file.localPath)
+  deleteUploudResultFile(file: any) {
+    this.resultsFilesUpload = this.resultsFilesUpload.filter((uploadFile: any) => uploadFile.localPath !== file.localPath)
   }
 
-  openUploadResultModal(event:any){
+  openUploadResultModal(event: any) {
     this.resultsFilesUpload = []
     this.formattedResultsDocument = []
     this.currentRace = event
@@ -308,137 +329,145 @@ export class EventsTapePageComponent  implements OnInit {
     this.uploadResultModalState = true
   }
 
-  closeUploadResultModalState(){
+  closeUploadResultModalState() {
     this.uploadResultModalState = false
   }
 
-  getRegions(){
-    this.mapService.getAllRegions(true, false, false).pipe().subscribe((res:any)=>{
-      this.searchRegionItems.push({
-        name:'Россия',
-        value:''
-      })
-      res.data.forEach((region:any) => {
+  getRegions() {
+    this.mapService
+      .getAllRegions(true, false, false)
+      .pipe()
+      .subscribe((res: any) => {
         this.searchRegionItems.push({
-          name:`${region.name} ${region.type}`,
-          value:region.id
+          name: 'Россия',
+          value: '',
         })
-      });
-    })
+        res.data.forEach((region: any) => {
+          this.searchRegionItems.push({
+            name: `${region.name} ${region.type}`,
+            value: region.id,
+          })
+        })
+      })
   }
 
+  addResultFilesInRace(raceId: number) {}
 
-
-  addResultFilesInRace(raceId:number){
-    
-  }
-
-  generateGoogleLink(eventId:any){
+  generateGoogleLink(eventId: any) {
     this.loadingService.showLoading()
-    this.eventService.generateGoogleLink(eventId).pipe(
-      finalize(()=>
-         this.loadingService.hideLoading())
-    ).subscribe((res:any)=>{
-      this.tableModalValue = true
-      this.googleTabsLink = res.table_url
-    })
+    this.eventService
+      .generateGoogleLink(eventId)
+      .pipe(finalize(() => this.loadingService.hideLoading()))
+      .subscribe((res: any) => {
+        this.tableModalValue = true
+        this.googleTabsLink = res.table_url
+      })
   }
 
-  openRegionModal(){
+  openRegionModal() {
     this.regionModalState = true
     this.navBarVisibleService.hideNavBar()
   }
-  closeRegionModal(){
-    setTimeout(()=>{
+  closeRegionModal() {
+    setTimeout(() => {
       this.navBarVisibleService.showNavBar()
-    },100)
+    }, 100)
     this.regionModalState = false
   }
 
-  
-
-  items:Item[] = [
-    {title:'B',createdAt:'21.04.2025'},
-    {title:'A', createdAt:'20.04.2025'}
+  items: Item[] = [
+    { title: 'B', createdAt: '21.04.2025' },
+    { title: 'A', createdAt: '20.04.2025' },
   ]
-  sortingInTitle(){
-    this.items.sort((a:any,b:any) => a.title - b.title)
+  sortingInTitle() {
+    this.items.sort((a: any, b: any) => a.title - b.title)
   }
 
-  sortingInCreatedAt(){
-    this.items.sort((a:any,b:any) => a.createdAt - b.createdAt)
+  sortingInCreatedAt() {
+    this.items.sort((a: any, b: any) => a.createdAt - b.createdAt)
   }
 
-  filterEventsInLocation(event:any){
-
-    if(this.regionFilterName !== event.name){
+  filterEventsInLocation(event: any) {
+    if (this.regionFilterName !== event.name) {
       this.regionFilterName = event.name
       this.regionFilterId = event.value
-      this.eventsFilter.locationId =  this.regionFilterId
+      this.eventsFilter.locationId = this.regionFilterId
       this.getEvents()
     }
     this.closeRegionModal()
   }
 
-  getExpiredEvents(){
-    let loader:HTMLIonLoadingElement
-    this.loadingService.showLoading().then((res: HTMLIonLoadingElement)=>{
-        loader = res
+  getExpiredEvents() {
+    let loader: HTMLIonLoadingElement
+    this.loadingService.showLoading().then((res: HTMLIonLoadingElement) => {
+      loader = res
     })
 
-    this.eventService.getAllEvents({dateEnd:moment().subtract(2, 'days').locale('ru'). format('YYYY-MM-DD'), locationId:[this.regionFilterId], sortField:'date_start', sort:'desc',commissionUser:1,
-      userIdExists: this.userService.user.value?.id ? this.userService.user.value?.id: ''} //.subtract(7,'days')
-  ).pipe(
-      finalize(()=>{
-        this.loadingService.hideLoading(loader)
+    this.eventService
+      .getAllEvents(
+        {
+          dateEnd: moment().subtract(2, 'days').locale('ru').format('YYYY-MM-DD'),
+          locationId: [this.regionFilterId],
+          sortField: 'date_start',
+          sort: 'desc',
+          commissionUser: 1,
+          userIdExists: this.userService.user.value?.id ? this.userService.user.value?.id : '',
+        }, //.subtract(7,'days')
+      )
+      .pipe(
+        finalize(() => {
+          this.loadingService.hideLoading(loader)
+        }),
+      )
+      .subscribe((res: any) => {
+        this.expiredEvents = res.races
+
+        this.formatedExpiredEvents = Object.keys(
+          _.groupBy(this.expiredEvents, (event) => moment(event.date_start).locale('ru').format('MMMM YYYY')),
+        ).map((groupMonth) => ({
+          groupMonth: groupMonth.charAt(0).toUpperCase() + groupMonth.slice(1),
+          events: _.groupBy(this.expiredEvents, (event) => moment(event.date_start).locale('ru').format('MMMM YYYY'))[groupMonth],
+        }))
       })
-    ).subscribe((res:any)=>{
-      this.expiredEvents = res.races
-
-      this.formatedExpiredEvents = Object.keys(_.groupBy(this.expiredEvents, event => moment(event.date_start).locale('ru').format('MMMM YYYY')))
-      .map(groupMonth => ({
-      groupMonth: groupMonth.charAt(0).toUpperCase() + groupMonth.slice(1),
-      events: _.groupBy(this.expiredEvents, event => moment(event.date_start).locale('ru').format('MMMM YYYY'))[groupMonth]
-      }));
-    })
-
   }
 
-  getEvents(){
-    let loader:HTMLIonLoadingElement
-    this.loadingService.showLoading().then((res: HTMLIonLoadingElement)=>{
-        loader = res
+  getEvents() {
+    let loader: HTMLIonLoadingElement
+    this.loadingService.showLoading().then((res: HTMLIonLoadingElement) => {
+      loader = res
     })
-   
-    this.eventService.getAllEvents(this.eventsFilter).pipe(
-      finalize(()=>{ 
-        this.loadingService.hideLoading(loader)
-      })).subscribe((res:any)=>{
+
+    this.eventService
+      .getAllEvents(this.eventsFilter)
+      .pipe(
+        finalize(() => {
+          this.loadingService.hideLoading(loader)
+        }),
+      )
+      .subscribe((res: any) => {
         this.startEvents = res.races
-        this.formatedEvents = Object.keys(_.groupBy(this.startEvents, event => moment(event.date_start).locale('ru').format('MMMM YYYY')))
-      .map(groupMonth => ({
-      groupMonth: groupMonth.charAt(0).toUpperCase() + groupMonth.slice(1),
-      events: _.groupBy(this.startEvents, event => moment(event.date_start).locale('ru').format('MMMM YYYY'))[groupMonth]
-      }));
-    })
-
+        this.formatedEvents = Object.keys(_.groupBy(this.startEvents, (event) => moment(event.date_start).locale('ru').format('MMMM YYYY'))).map(
+          (groupMonth) => ({
+            groupMonth: groupMonth.charAt(0).toUpperCase() + groupMonth.slice(1),
+            events: _.groupBy(this.startEvents, (event) => moment(event.date_start).locale('ru').format('MMMM YYYY'))[groupMonth],
+          }),
+        )
+      })
   }
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     this.getEvents()
     // this.getExpiredEvents()
   }
- 
+
   ngOnInit() {
     this.getRegions()
-    this.cupService.allDegree.subscribe((res:Degree[])=>{
-      this.canRgp = res.some((degree:Degree)=> degree.name == 'rgp')
+    this.cupService.allDegree.subscribe((res: Degree[]) => {
+      this.canRgp = res.some((degree: Degree) => degree.name == 'rgp')
     })
     window.addEventListener('popstate', (event) => {
       this.closetTableModal()
       this.closeUploadResultModalState()
-    });
+    })
   }
-
 }
-

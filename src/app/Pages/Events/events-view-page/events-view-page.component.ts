@@ -1,160 +1,194 @@
-import { Component, Inject, inject, NgZone, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
-import { catchError, debounceTime, EMPTY, finalize,forkJoin, fromEvent, map, Observable, of, Subject, Subscription, switchMap, takeUntil, tap } from 'rxjs';
-import { IEvent } from 'src/app/Shared/Data/Interfaces/event';
-import { EventService } from 'src/app/Shared/Data/Services/Event/event.service';
-import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module';
-import { LoadingService } from 'src/app/Shared/Services/loading.service';
-import { SlidersModule } from 'src/app/Shared/Modules/sliders/sliders.module';
-import { ButtonsModule } from 'src/app/Shared/Modules/buttons/buttons.module';
-import { TrackSectionComponent } from "../../../Shared/Components/Track/track-section/track-section.component";
-import { SwitchTypeService } from 'src/app/Shared/Services/switch-type.service';
-import { IonModal, NavController, Platform } from '@ionic/angular/standalone';
-import { HeaderModule } from 'src/app/Shared/Modules/header/header.module';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { UserService } from 'src/app/Shared/Data/Services/User/user.service';
-import { AuthService } from 'src/app/Shared/Data/Services/Auth/auth.service';
-import { ToastService } from 'src/app/Shared/Services/toast.service';
+import { Component, Inject, inject, NgZone, OnInit } from '@angular/core'
+import { ActivatedRoute, RouterLink } from '@angular/router'
+import {
+  catchError,
+  debounceTime,
+  EMPTY,
+  finalize,
+  forkJoin,
+  fromEvent,
+  map,
+  Observable,
+  of,
+  Subject,
+  Subscription,
+  switchMap,
+  takeUntil,
+  tap,
+} from 'rxjs'
+import { IEvent } from 'src/app/Shared/Data/Interfaces/event'
+import { EventService } from 'src/app/Shared/Data/Services/Event/event.service'
+import { SharedModule } from 'src/app/Shared/Modules/shared/shared.module'
+import { LoadingService } from 'src/app/Shared/Services/loading.service'
+import { SlidersModule } from 'src/app/Shared/Modules/sliders/sliders.module'
+import { ButtonsModule } from 'src/app/Shared/Modules/buttons/buttons.module'
+import { TrackSectionComponent } from '../../../Shared/Components/Track/track-section/track-section.component'
+import { SwitchTypeService } from 'src/app/Shared/Services/switch-type.service'
+import { IonModal, NavController, Platform } from '@ionic/angular/standalone'
+import { HeaderModule } from 'src/app/Shared/Modules/header/header.module'
+import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { UserService } from 'src/app/Shared/Data/Services/User/user.service'
+import { AuthService } from 'src/app/Shared/Data/Services/Auth/auth.service'
+import { ToastService } from 'src/app/Shared/Services/toast.service'
 
-import { User } from 'src/app/Shared/Data/Interfaces/user-model';
-import * as _ from 'lodash';
+import { User } from 'src/app/Shared/Data/Interfaces/user-model'
+import * as _ from 'lodash'
 
-import { UsersPreviewComponent } from 'src/app/Shared/Components/UI/users-preview/users-preview.component';
-import { ConfirmModalComponent } from 'src/app/Shared/Components/UI/confirm-modal/confirm-modal.component';
-import { DomSanitizer } from '@angular/platform-browser';
-import { CheckImgUrlPipe } from "../../../Shared/Helpers/check-img-url.pipe";
-import { FormsModule } from 'src/app/Shared/Modules/forms/forms.module';
-import { serverError } from 'src/app/Shared/Data/Interfaces/errors';
-import { environment } from 'src/environments/environment';
-import { group } from '@angular/animations';
-import { MapService } from 'src/app/Shared/Data/Services/Map/map.service';
-import moment from 'moment';
-import { ImagesModalComponent } from "../../../Shared/Components/UI/images-modal/images-modal.component";
+import { UsersPreviewComponent } from 'src/app/Shared/Components/UI/users-preview/users-preview.component'
+import { ConfirmModalComponent } from 'src/app/Shared/Components/UI/confirm-modal/confirm-modal.component'
+import { DomSanitizer } from '@angular/platform-browser'
+import { CheckImgUrlPipe } from '../../../Shared/Helpers/check-img-url.pipe'
+import { FormsModule } from 'src/app/Shared/Modules/forms/forms.module'
+import { serverError } from 'src/app/Shared/Data/Interfaces/errors'
+import { environment } from 'src/environments/environment'
+import { group } from '@angular/animations'
+import { MapService } from 'src/app/Shared/Data/Services/Map/map.service'
+import moment from 'moment'
+import { ImagesModalComponent } from '../../../Shared/Components/UI/images-modal/images-modal.component'
 
-import { formdataService } from 'src/app/Shared/Helpers/formdata.service';
-import { SelectComandsComponent } from 'src/app/Shared/Components/Commands/select-comands/select-comands.component';
-import { ICommand, ICommandCreate } from 'src/app/Shared/Data/Interfaces/command';
-import { ComandsService } from 'src/app/Shared/Data/Services/Comands/comands.service';
-import { CheckUserRoleService } from 'src/app/Shared/Data/Services/check-user-role.service';
-import { userRoles } from 'src/app/Shared/Data/Enums/roles';
-import { PdfViewerModule } from 'ng2-pdf-viewer';
-import { CheckResultsPathPipe } from "../../../Shared/Helpers/check-results-path.pipe";
-import { TabElementComponent } from '@app/Shared/Components/UI/LinarikUI/tabs/tab-element/tab-element.component';
-import { UserSectionComponent } from '@app/Shared/Components/UserElements/user-section/user-section.component';
-import { IconButtonComponent } from '@app/Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component';
-import { StandartInputSelectComponent } from "../../../Shared/Components/UI/Selecteds/standart-input-select/standart-input-select.component";
-import { RegionsSelectModalComponent } from "../../../Shared/Components/Modals/regions-select-modal/regions-select-modal.component";
-import { AttendanceService } from '@app/Shared/Data/Services/attendance.service';
-import { IAttenden } from '@app/Shared/Data/Interfaces/attenden';
-import { TransactionsService } from '@app/Shared/Data/Services/transactions.service';
-import { Browser } from '@capacitor/browser';
-import { PaymentStatusComponent } from '@app/Shared/Components/Payment/payment-status/payment-status.component';
+import { formdataService } from 'src/app/Shared/Helpers/formdata.service'
+import { SelectComandsComponent } from 'src/app/Shared/Components/Commands/select-comands/select-comands.component'
+import { ICommand, ICommandCreate } from 'src/app/Shared/Data/Interfaces/command'
+import { ComandsService } from 'src/app/Shared/Data/Services/Comands/comands.service'
+import { CheckUserRoleService } from 'src/app/Shared/Data/Services/check-user-role.service'
+import { userRoles } from 'src/app/Shared/Data/Enums/roles'
+import { PdfViewerModule } from 'ng2-pdf-viewer'
+import { CheckResultsPathPipe } from '../../../Shared/Helpers/check-results-path.pipe'
+import { TabElementComponent } from '@app/Shared/Components/UI/LinarikUI/tabs/tab-element/tab-element.component'
+import { UserSectionComponent } from '@app/Shared/Components/UserElements/user-section/user-section.component'
+import { IconButtonComponent } from '@app/Shared/Components/UI/LinarikUI/buttons/icon-button/icon-button.component'
+import { StandartInputSelectComponent } from '../../../Shared/Components/UI/Selecteds/standart-input-select/standart-input-select.component'
+import { RegionsSelectModalComponent } from '../../../Shared/Components/Modals/regions-select-modal/regions-select-modal.component'
+import { AttendanceService } from '@app/Shared/Data/Services/attendance.service'
+import { IAttenden } from '@app/Shared/Data/Interfaces/attenden'
+import { TransactionsService } from '@app/Shared/Data/Services/transactions.service'
+import { Browser } from '@capacitor/browser'
+import { PaymentStatusComponent } from '@app/Shared/Components/Payment/payment-status/payment-status.component'
 
 @Component({
   selector: 'app-events-view-page',
   templateUrl: './events-view-page.component.html',
   styleUrls: ['./events-view-page.component.scss'],
-  imports: [SharedModule, SlidersModule, ButtonsModule, TabElementComponent,
-    TrackSectionComponent, IonModal, HeaderModule, IconButtonComponent,
-    ConfirmModalComponent, CheckImgUrlPipe, FormsModule, RouterLink,PaymentStatusComponent, ImagesModalComponent, SelectComandsComponent, PdfViewerModule, UserSectionComponent, StandartInputSelectComponent, RegionsSelectModalComponent, CheckResultsPathPipe]
+  imports: [
+    SharedModule,
+    SlidersModule,
+    ButtonsModule,
+    TabElementComponent,
+    TrackSectionComponent,
+    IonModal,
+    HeaderModule,
+    IconButtonComponent,
+    ConfirmModalComponent,
+    CheckImgUrlPipe,
+    FormsModule,
+    RouterLink,
+    PaymentStatusComponent,
+    ImagesModalComponent,
+    SelectComandsComponent,
+    PdfViewerModule,
+    UserSectionComponent,
+    StandartInputSelectComponent,
+    RegionsSelectModalComponent,
+    CheckResultsPathPipe,
+  ],
 })
-export class EventsViewPageComponent  implements OnInit {
+export class EventsViewPageComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-  
   private readonly destroy$ = new Subject<void>()
 
   route: ActivatedRoute = inject(ActivatedRoute)
   eventService: EventService = inject(EventService)
   authService: AuthService = inject(AuthService)
   resizeSubscription!: Subscription
-  transactionService:TransactionsService = inject(TransactionsService)
+  transactionService: TransactionsService = inject(TransactionsService)
   navController: NavController = inject(NavController)
   loadingService: LoadingService = inject(LoadingService)
-  switchTypeService:SwitchTypeService = inject(SwitchTypeService)
-  attendanceService:AttendanceService = inject(AttendanceService)
-  mapService:MapService = inject(MapService)
-  paymentLink:string = ''
-  comandSelectModalStateValue:boolean = false
-  backgroundImages:string = ''
-  changePersonalDateModalValue:boolean = false
-  createRegionItems:any[] = []
-  usersInRace:any[] = []
-  attendances:IAttenden[] = []
-  event!:IEvent
-  currentGradeName:string = ''
-  openUserModalValue:boolean = false
-  currentResultFile:any = {
-    path:'',
-    zoomLevel:1
+  switchTypeService: SwitchTypeService = inject(SwitchTypeService)
+  attendanceService: AttendanceService = inject(AttendanceService)
+  mapService: MapService = inject(MapService)
+  paymentLink: string = ''
+  comandSelectModalStateValue: boolean = false
+  backgroundImages: string = ''
+  changePersonalDateModalValue: boolean = false
+  createRegionItems: any[] = []
+  usersInRace: any[] = []
+  attendances: IAttenden[] = []
+  event!: IEvent
+  currentGradeName: string = ''
+  openUserModalValue: boolean = false
+  currentResultFile: any = {
+    path: '',
+    zoomLevel: 1,
   }
-  raceUser!:User
-  checkUserRoleService:CheckUserRoleService = inject(CheckUserRoleService)
-  searchRegionItems:any[] = []
+  raceUser!: User
+  checkUserRoleService: CheckUserRoleService = inject(CheckUserRoleService)
+  searchRegionItems: any[] = []
   createCommandTemp!: ICommand
-  registrationStatus:boolean = false
-  licensesFile:any =''
-  polisFile:any = ''
-  notariusFile:any = ''
-  confirmUsersRolesInGroupAplication:string[] = [userRoles.admin,userRoles.couch,userRoles.organization,userRoles.commission]
-  createTransactionId:any = ''
-  licensesId:string = ''
-  polisId:string = ''
-  notariusId:string = ''
-  allUsers:User[] = []
-  resultModalState:boolean = false
-  oldNotariusFile:any
-  selectRegionInCommandModal:any = {}
+  registrationStatus: boolean = false
+  licensesFile: any = ''
+  polisFile: any = ''
+  notariusFile: any = ''
+  confirmUsersRolesInGroupAplication: string[] = [userRoles.admin, userRoles.couch, userRoles.organization, userRoles.commission]
+  createTransactionId: any = ''
+  licensesId: string = ''
+  polisId: string = ''
+  notariusId: string = ''
+  allUsers: User[] = []
+  resultModalState: boolean = false
+  oldNotariusFile: any
+  selectRegionInCommandModal: any = {}
   currentTab = 'Информация'
-  oldPolisFile:any
-  selectRegionInCommandModalFunction(event:any){
+  oldPolisFile: any
+  selectRegionInCommandModalFunction(event: any) {
     this.selectRegionInCommandModal = event
   }
 
-  regionModalState:boolean = false
+  regionModalState: boolean = false
 
   ngZone: NgZone = inject(NgZone)
-  documents:any = []
+  documents: any = []
 
-  usersPreviewConfig:{usersCount:number}={
-    usersCount:0
+  usersPreviewConfig: { usersCount: number } = {
+    usersCount: 0,
   }
 
   eventTabs = [
     {
-      name:'Информация',
-      state:true
+      name: 'Информация',
+      state: true,
     },
     {
-      name:'Участники',
-      state:false
+      name: 'Участники',
+      state: false,
     },
-  
   ]
-  
-  formdataService:formdataService = inject(formdataService)
-  commandService:ComandsService = inject(ComandsService)
 
-  applicationFormValueState:boolean = false
+  formdataService: formdataService = inject(formdataService)
+  commandService: ComandsService = inject(ComandsService)
 
-  statusImagesModal?:boolean = false;
-  formattedResultsDocument:[
-    {
-      path:string,
-      zoomLevel:number
-    }
-  ]|any[] = []
+  applicationFormValueState: boolean = false
 
-  changeTab(event:any){
-    this.eventTabs.map((tab:{name:string,state:boolean})=>{
-      tab.state = tab.name == event.value 
+  statusImagesModal?: boolean = false
+  formattedResultsDocument:
+    | [
+        {
+          path: string
+          zoomLevel: number
+        },
+      ]
+    | any[] = []
+
+  changeTab(event: any) {
+    this.eventTabs.map((tab: { name: string; state: boolean }) => {
+      tab.state = tab.name == event.value
       this.currentTab = tab.name == event.value ? event.value : this.currentTab
     })
   }
 
-  userService:UserService = inject(UserService)
+  userService: UserService = inject(UserService)
   eventId: string = ''
-  allComands:any[] = []
+  allComands: any[] = []
   personalUserForm: FormGroup = new FormGroup({
     name: new FormControl('', [Validators.required]),
     surname: new FormControl('', [Validators.required]),
@@ -164,1041 +198,1025 @@ export class EventsViewPageComponent  implements OnInit {
     city: new FormControl('', [Validators.required]),
     inn: new FormControl('', [Validators.required]),
     snils: new FormControl('', [Validators.required]),
-    commandId:new FormControl('', [Validators.required]),
+    commandId: new FormControl('', [Validators.required]),
     phoneNumber: new FormControl('', [Validators.required]),
     startNumber: new FormControl('', [Validators.required]),
-    group:new FormControl('', [Validators.required]),
-    rank:new FormControl('', [Validators.required]),
-    gradeId:new FormControl('', [Validators.required]),
-    rankNumber:new FormControl('', [Validators.required]),
-    
-    community:new FormControl('Лично', [Validators.required]),
+    group: new FormControl('', [Validators.required]),
+    rank: new FormControl('', [Validators.required]),
+    gradeId: new FormControl('', [Validators.required]),
+    rankNumber: new FormControl('', [Validators.required]),
+
+    community: new FormControl('Лично', [Validators.required]),
     locationId: new FormControl('', [Validators.required]),
-    coach:new FormControl('', [Validators.required]),
-    motoStamp:new FormControl('', [Validators.required]),
-    engine:new FormControl('', [Validators.required]),
-    numberAndSeria:new FormControl('', [Validators.required]),
-    comment:new FormControl('', [Validators.required])
+    coach: new FormControl('', [Validators.required]),
+    motoStamp: new FormControl('', [Validators.required]),
+    engine: new FormControl('', [Validators.required]),
+    numberAndSeria: new FormControl('', [Validators.required]),
+    comment: new FormControl('', [Validators.required]),
   })
 
-  engineItems:{name:string, value:string}[] = [
-    {name:'2Т', value:'2Т'},
-    {name:'4Т', value:'4Т'},
+  engineItems: { name: string; value: string }[] = [
+    { name: '2Т', value: '2Т' },
+    { name: '4Т', value: '4Т' },
   ]
 
-  sportRankItems:{name:string, value:string}[] = [
-    {name:'МСМК', value:'МСМК'},
-    {name:'МС', value:'МС'},
-    {name:'КМС', value:'КМС'},
-    {name:'I', value:'I'},
-    {name:'II', value:'II'},
-    {name:'III', value:'III'},
-    {name:'Iю', value:'Iю'},
-    {name:'IIю', value:'IIю'},
-    {name:'IIIю', value:'IIIю'},
-    {name:'б/р', value:'б/р'},
+  sportRankItems: { name: string; value: string }[] = [
+    { name: 'МСМК', value: 'МСМК' },
+    { name: 'МС', value: 'МС' },
+    { name: 'КМС', value: 'КМС' },
+    { name: 'I', value: 'I' },
+    { name: 'II', value: 'II' },
+    { name: 'III', value: 'III' },
+    { name: 'Iю', value: 'Iю' },
+    { name: 'IIю', value: 'IIю' },
+    { name: 'IIIю', value: 'IIIю' },
+    { name: 'б/р', value: 'б/р' },
   ]
 
-  motoStampItems: {name:string, value:string}[] = [
-    {name:'Kaw', value:'Kaw'},
-    {name:'KTM', value:'KTM'},
-    {name:'Yam', value:'Yam'},
-    {name:'Gas-Gas', value:'Gas-Gas'},
-    {name:'Hon', value:'Hon'},
-    {name:'BSE', value:'BSE'},
-    {name:'Husq', value:'Husq'},
-    {name:'Kayo', value:'Kayo'},
-    {name:'Fantic', value:'Fantic'},
-    {name:'Урал',value:'Урал'},
-    {name:'Zabel', value:'Zabel'},
-    {name:'MTX', value:'MTX'},
-    {name:'TRIUMPH', value:'TRIUMPH'},
-    {name:'Suzuki', value:'Suzuki'},
-    {name:'Другое', value:'Другое'}
-   ]
-   groupItems: {name:string, value:string}[] = []
+  motoStampItems: { name: string; value: string }[] = [
+    { name: 'Kaw', value: 'Kaw' },
+    { name: 'KTM', value: 'KTM' },
+    { name: 'Yam', value: 'Yam' },
+    { name: 'Gas-Gas', value: 'Gas-Gas' },
+    { name: 'Hon', value: 'Hon' },
+    { name: 'BSE', value: 'BSE' },
+    { name: 'Husq', value: 'Husq' },
+    { name: 'Kayo', value: 'Kayo' },
+    { name: 'Fantic', value: 'Fantic' },
+    { name: 'Урал', value: 'Урал' },
+    { name: 'Zabel', value: 'Zabel' },
+    { name: 'MTX', value: 'MTX' },
+    { name: 'TRIUMPH', value: 'TRIUMPH' },
+    { name: 'Suzuki', value: 'Suzuki' },
+    { name: 'Другое', value: 'Другое' },
+  ]
+  groupItems: { name: string; value: string }[] = []
 
-    licensesForm: FormGroup = new FormGroup(
-      {
-        number: new FormControl('',[Validators.required, ]), //номер лицензии
-        licensesFileLink: new FormControl('',[Validators.required, ]), // путь до файла
-      }
-    )
-  
-    polisForm: FormGroup = new FormGroup(
-      {
-        number: new FormControl('',[Validators.required, ]), //Серия и номер полиса
-        issuedWhom: new FormControl('',[Validators.required, ]), //Кем выдан
-        itWorksDate: new FormControl('',[Validators.required, ]), //Срок действия
-        polisFileLink: new FormControl('',[Validators.required, ]), // путь до файла
-      }
-    )
-   
-    
+  licensesForm: FormGroup = new FormGroup({
+    number: new FormControl('', [Validators.required]), //номер лицензии
+    licensesFileLink: new FormControl('', [Validators.required]), // путь до файла
+  })
 
+  polisForm: FormGroup = new FormGroup({
+    number: new FormControl('', [Validators.required]), //Серия и номер полиса
+    issuedWhom: new FormControl('', [Validators.required]), //Кем выдан
+    itWorksDate: new FormControl('', [Validators.required]), //Срок действия
+    polisFileLink: new FormControl('', [Validators.required]), // путь до файла
+  })
 
-    formErrors:any = {
-      name: {
-        errorMessage:''
-      },
-      patronymic:{
-         errorMessage:''
-      },
-      dateOfBirth:{
-         errorMessage:''
-      },
-      inn:{
-        errorMessage:''
-      },
-      snils:{
-        errorMessage:''
-      },
-      phoneNumber:{
-        errorMessage:''
-      },
-      startNumber:{
-        errorMessage:''
-      },
-      group:{
-        errorMessage:''
-      },
-      rank:{
-        errorMessage:''
-      },
+  formErrors: any = {
+    name: {
+      errorMessage: '',
+    },
+    patronymic: {
+      errorMessage: '',
+    },
+    dateOfBirth: {
+      errorMessage: '',
+    },
+    inn: {
+      errorMessage: '',
+    },
+    snils: {
+      errorMessage: '',
+    },
+    phoneNumber: {
+      errorMessage: '',
+    },
+    startNumber: {
+      errorMessage: '',
+    },
+    group: {
+      errorMessage: '',
+    },
+    rank: {
+      errorMessage: '',
+    },
 
-      surname: {
-         errorMessage:''
-      },
-      region: {
-         errorMessage:''
-      },
-      city: {
-         errorMessage:''
-      },
-      community:{
-        errorMessage:''
-      },
-      motoStamp:{
-        errorMessage:''
-      },
-      engine:{
-        errorMessage:''
-      },
-      numberAndSeria:{
-        errorMessage:''
-      }
-    }
+    surname: {
+      errorMessage: '',
+    },
+    region: {
+      errorMessage: '',
+    },
+    city: {
+      errorMessage: '',
+    },
+    community: {
+      errorMessage: '',
+    },
+    motoStamp: {
+      errorMessage: '',
+    },
+    engine: {
+      errorMessage: '',
+    },
+    numberAndSeria: {
+      errorMessage: '',
+    },
+  }
 
-    documentsError:any = {
-      polisNumber:{
-        errorMessage:''
-      },
-      issuedWhom:{
-        errorMessage:''
-      },
-      itWorksDate:{
-        errorMessage:''
-      },
-      polisFile:{
-        errorMessage:''
-      },
+  documentsError: any = {
+    polisNumber: {
+      errorMessage: '',
+    },
+    issuedWhom: {
+      errorMessage: '',
+    },
+    itWorksDate: {
+      errorMessage: '',
+    },
+    polisFile: {
+      errorMessage: '',
+    },
+  }
 
-    }
+  loaderService: LoadingService = inject(LoadingService)
+  platform: Platform = inject(Platform)
+  pasport: any
+  sanitizer: DomSanitizer = inject(DomSanitizer)
+  licenses: any
+  paymentStatus: 'load' | 'success' | 'error' | 'sleep' = 'sleep'
+  polis: any
+  toastService: ToastService = inject(ToastService)
 
-    loaderService:LoadingService = inject(LoadingService)
-    platform:Platform = inject(Platform)
-    pasport:any
-    sanitizer:DomSanitizer = inject(DomSanitizer)
-    licenses:any
-    paymentStatus: 'load'|'success'|'error'|'sleep' = 'sleep'
-    polis:any
-    toastService:ToastService = inject(ToastService)
+  openStateUsersModal() {
+    this.openUserModalValue = true
+  }
+  closeStateUsersModal() {
+    this.openUserModalValue = false
+  }
 
-    openStateUsersModal(){
-      this.openUserModalValue = true
-    }
-    closeStateUsersModal(){
-      this.openUserModalValue = false
-    }
+  showToastInfoFileUpload() {
+    this.toastService.showToast('Файл уже был загружен, измените его в анкете участника', 'primary')
+  }
 
-   showToastInfoFileUpload(){
-     this.toastService.showToast('Файл уже был загружен, измените его в анкете участника','primary')
- 
-   }
-
-   selectGradeFilter(grade:string){
+  selectGradeFilter(grade: string) {
     this.currentGradeName = grade
-   }
+  }
 
-   setRegion(region:any){
+  setRegion(region: any) {
     this.closeRegionModal()
-    this.personalUserForm.patchValue({locationId:region.value, region:region.name})
-   }
+    this.personalUserForm.patchValue({ locationId: region.value, region: region.name })
+  }
 
-   getRegions(){
-    this.mapService.getAllRegions().pipe().subscribe((res:any)=>{
-      this.searchRegionItems.push({name:`Россия`,value:''})
-      res.data.forEach((region:any) => {
-        this.searchRegionItems.push({
-          name:`${region.name} ${region.type}`,
-          value:region.id
+  getRegions() {
+    this.mapService
+      .getAllRegions()
+      .pipe()
+      .subscribe((res: any) => {
+        this.searchRegionItems.push({ name: `Россия`, value: '' })
+        res.data.forEach((region: any) => {
+          this.searchRegionItems.push({
+            name: `${region.name} ${region.type}`,
+            value: region.id,
+          })
         })
-      });
-    })
-  }
-  getAllComands(){
-    let loader:HTMLIonLoadingElement
-    this.loadingService.showLoading().then((res:HTMLIonLoadingElement)=>loader = res)
-    this.commandService.getComands().pipe(
-      finalize(()=>{
-        this.loaderService.hideLoading(loader)
       })
-    ).subscribe((res:any)=>{
-  
-
-      this.allComands = []
-      this.allComands.push(
-          {id: '', name: 'Лично', region: 'papilapup'}
+  }
+  getAllComands() {
+    let loader: HTMLIonLoadingElement
+    this.loadingService.showLoading().then((res: HTMLIonLoadingElement) => (loader = res))
+    this.commandService
+      .getComands()
+      .pipe(
+        finalize(() => {
+          this.loaderService.hideLoading(loader)
+        }),
       )
-    
-      if(this.createCommandTemp){
-        this.allComands.push(...res.commands.filter((command:ICommand)=> command.id == this.createCommandTemp.id))
-        this.allComands.push(...res.commands.filter((command:ICommand)=> command.id !== this.createCommandTemp.id))
-      }else{
+      .subscribe((res: any) => {
+        this.allComands = []
+        this.allComands.push({ id: '', name: 'Лично', region: 'papilapup' })
 
-        this.allComands.push(...res.commands) 
-      }
-      
-    
-     
-    })
+        if (this.createCommandTemp) {
+          this.allComands.push(...res.commands.filter((command: ICommand) => command.id == this.createCommandTemp.id))
+          this.allComands.push(...res.commands.filter((command: ICommand) => command.id !== this.createCommandTemp.id))
+        } else {
+          this.allComands.push(...res.commands)
+        }
+      })
   }
 
-    formatingText(text:string): string{
-        return text.replace(/\n/g, '<br>').replace(/  /g, '&nbsp;&nbsp;');;
-    }
+  formatingText(text: string): string {
+    return text.replace(/\n/g, '<br>').replace(/  /g, '&nbsp;&nbsp;')
+  }
 
-    checkRecordEnd(){
-      let now = moment().format('YYYY-MM-DD HH:mm')
-      // console.log(now > moment(this.event?.record_end) )
-      // return now > moment(this.event?.record_end).format('YYYY-MM-DD HH:mm')
-      if(this.event?.record_end || this.event?.record_end !== null){
-        return now < moment(this.event?.record_end).format('YYYY-MM-DD HH:mm')
-      }else{
-        return false
-      }
+  checkRecordEnd() {
+    let now = moment().format('YYYY-MM-DD HH:mm')
+    // console.log(now > moment(this.event?.record_end) )
+    // return now > moment(this.event?.record_end).format('YYYY-MM-DD HH:mm')
+    if (this.event?.record_end || this.event?.record_end !== null) {
+      return now < moment(this.event?.record_end).format('YYYY-MM-DD HH:mm')
+    } else {
+      return false
     }
+  }
 
-    checkDateStart(){
-      let now = moment().format('YYYY-MM-DD HH:mm')
-      return now > moment(this.event?.date_start).format('YYYY-MM-DD HH:mm')
-    }
+  checkDateStart() {
+    let now = moment().format('YYYY-MM-DD HH:mm')
+    return now > moment(this.event?.date_start).format('YYYY-MM-DD HH:mm')
+  }
 
-    checkRecordStart(){
-      let now = moment().format('YYYY-MM-DD HH:mm')
-      if(this.event?.record_start || this.event?.record_start !== null){
-        return now > moment(this.event?.record_start).format('YYYY-MM-DD HH:mm')
-      }else{
-        return false
-      }
-     
+  checkRecordStart() {
+    let now = moment().format('YYYY-MM-DD HH:mm')
+    if (this.event?.record_start || this.event?.record_start !== null) {
+      return now > moment(this.event?.record_start).format('YYYY-MM-DD HH:mm')
+    } else {
+      return false
     }
+  }
 
-    setEngine(event:any){
-      this.personalUserForm.patchValue({engine: event.name})
-    }
-    setGroup(event:any){
-      this.personalUserForm.patchValue({group: event.name, gradeId:event.id})
-  
-    }
-     registrate() {
-        const recordStart = moment(this.event.record_start);
-        const recordEnd = moment(this.event.record_end);
-        const now = moment();
-        this.registrationStatus = now <= recordEnd && now >= recordStart
-      }
-    
+  setEngine(event: any) {
+    this.personalUserForm.patchValue({ engine: event.name })
+  }
+  setGroup(event: any) {
+    this.personalUserForm.patchValue({ group: event.name, gradeId: event.id })
+  }
+  registrate() {
+    const recordStart = moment(this.event.record_start)
+    const recordEnd = moment(this.event.record_end)
+    const now = moment()
+    this.registrationStatus = now <= recordEnd && now >= recordStart
+  }
+
   async sharePage() {
     const shareData = {
       title: document.title,
       text: `Гонка ${this.event.name}`,
-      url: window.location.href
-    };
+      url: window.location.href,
+    }
 
     if (navigator.share) {
       try {
-        await navigator.share(shareData);
-      } catch (err) {
-
-      }
+        await navigator.share(shareData)
+      } catch (err) {}
     } else {
       try {
-        await navigator.clipboard.writeText(window.location.href);
-    
-      } catch (err) {
-    
-      }
+        await navigator.clipboard.writeText(window.location.href)
+      } catch (err) {}
     }
-   }
-    
-    setRank(event:any){
-      this.personalUserForm.patchValue({rank: event.name})
-    }
-    clearRegionInComandFilter(){
-      this.selectRegionInCommandModal = {}
-    }
-    setMotoStamp(event:any){
-      this.personalUserForm.patchValue({motoStamp: event.name})
-    }
+  }
 
-    // cancelApplicationForm(){
- 
-    //   let currentForm = {
-    //     ...this.personalUserForm.value, 
-    //     licensesFileLink:``,
-    //     polisFileLink:``,
-    //     notariuFileLink:``,   
-    //     documentIds:[this.polisId,this.licensesId,this.notariusId]   
-    //   }
-    //   const fd: FormData = new FormData();
-    //   this.formdataService.formdataAppendJson(fd, currentForm)
-    //   let loader:HTMLIonLoadingElement
-    //   this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
-    //     loader = res
-    //   })
-    //   this.eventService.toggleAplicationInRace(this.eventId, fd).pipe(
-    //     finalize(()=>{
-    //       this.loadingService.hideLoading(loader)
-    //     })
-    //   ).subscribe((res:any)=>{
-    //       this.toastService.showToast('Заявка успешно отменена','success')
-    //       this.getUsersInRace()
-    //       this.getEvent()
-    //   })
-    // }
+  setRank(event: any) {
+    this.personalUserForm.patchValue({ rank: event.name })
+  }
+  clearRegionInComandFilter() {
+    this.selectRegionInCommandModal = {}
+  }
+  setMotoStamp(event: any) {
+    this.personalUserForm.patchValue({ motoStamp: event.name })
+  }
 
-   redirectInRace(){
-     this.navController.navigateForward(`/track/${this.event.track.id}`)
-   }
+  // cancelApplicationForm(){
 
-  redirectInUser(userId:any){
-     this.navController.navigateRoot(`/users/${userId}`)
-   }
+  //   let currentForm = {
+  //     ...this.personalUserForm.value,
+  //     licensesFileLink:``,
+  //     polisFileLink:``,
+  //     notariuFileLink:``,
+  //     documentIds:[this.polisId,this.licensesId,this.notariusId]
+  //   }
+  //   const fd: FormData = new FormData();
+  //   this.formdataService.formdataAppendJson(fd, currentForm)
+  //   let loader:HTMLIonLoadingElement
+  //   this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+  //     loader = res
+  //   })
+  //   this.eventService.toggleAplicationInRace(this.eventId, fd).pipe(
+  //     finalize(()=>{
+  //       this.loadingService.hideLoading(loader)
+  //     })
+  //   ).subscribe((res:any)=>{
+  //       this.toastService.showToast('Заявка успешно отменена','success')
+  //       this.getUsersInRace()
+  //       this.getEvent()
+  //   })
+  // }
 
-   //Если у пользователя не было данных создаём их
-   setFirstUserPersonal(){
-    if(!this.userService.user.value?.personal){
-        let loader:HTMLIonLoadingElement
-        this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
-          loader = res
-        })
-        this.userService.createPersonalInfo(this.personalUserForm.value).pipe(
-          finalize(
-            ()=>{
-              this.loaderService.hideLoading(loader)
-            })
-        ).subscribe((res:any)=>{
+  redirectInRace() {
+    this.navController.navigateForward(`/track/${this.event.track.id}`)
+  }
+
+  redirectInUser(userId: any) {
+    this.navController.navigateRoot(`/users/${userId}`)
+  }
+
+  //Если у пользователя не было данных создаём их
+  setFirstUserPersonal() {
+    if (!this.userService.user.value?.personal) {
+      let loader: HTMLIonLoadingElement
+      this.loaderService.showLoading().then((res: HTMLIonLoadingElement) => {
+        loader = res
+      })
+      this.userService
+        .createPersonalInfo(this.personalUserForm.value)
+        .pipe(
+          finalize(() => {
+            this.loaderService.hideLoading(loader)
+          }),
+        )
+        .subscribe((res: any) => {
           this.userService.refreshUser()
         })
-      }
-   }
+    }
+  }
 
-   setPolisFile(event:any){
+  setPolisFile(event: any) {
     let file = event.target.files[0]
     this.polisFile = file
   }
-  
-  formatingZoomValuesInResults(){
+
+  formatingZoomValuesInResults() {
     this.formattedResultsDocument = []
-    if(this.event.pdf_files && this.event.pdf_files.length){
-      this.event.pdf_files.forEach((file:any)=>{
+    if (this.event.pdf_files && this.event.pdf_files.length) {
+      this.event.pdf_files.forEach((file: any) => {
         this.formattedResultsDocument.push({
-          path:file,
-          zoomLevel:1,
+          path: file,
+          zoomLevel: 1,
         })
       })
     }
-   
   }
 
-   clearDescription(){
+  clearDescription() {
     return this.sanitizer.bypassSecurityTrustHtml(this.formatingText(String(this.event.desc)))
-   }
+  }
 
-   createLicenses(): Observable<any> {
-   
-    let loader:HTMLIonLoadingElement
-    this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+  createLicenses(): Observable<any> {
+    let loader: HTMLIonLoadingElement
+    this.loaderService.showLoading().then((res: HTMLIonLoadingElement) => {
       loader = res
     })
-      let fd: FormData = new FormData();
-      fd.append('type', 'licenses');
-      fd = this.formdataService.formdataAppendJson(fd,this.licensesForm.value)
+    let fd: FormData = new FormData()
+    fd.append('type', 'licenses')
+    fd = this.formdataService.formdataAppendJson(fd, this.licensesForm.value)
 
-      fd.append('file', this.licensesFile);
-      
-      return this.userService.createUserDocument(fd).pipe(
-        finalize(() => {
-          this.loaderService.hideLoading(loader);
-        }),
-        catchError((err: serverError) => {
-          this.toastService.showToast(err.error.message, 'danger');
-          return EMPTY;
-        })
-      );
-    
-    return of(null);
+    fd.append('file', this.licensesFile)
+
+    return this.userService.createUserDocument(fd).pipe(
+      finalize(() => {
+        this.loaderService.hideLoading(loader)
+      }),
+      catchError((err: serverError) => {
+        this.toastService.showToast(err.error.message, 'danger')
+        return EMPTY
+      }),
+    )
+
+    return of(null)
   }
 
   createPolis(): Observable<any> {
-    let loader:HTMLIonLoadingElement
-    this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+    let loader: HTMLIonLoadingElement
+    this.loaderService.showLoading().then((res: HTMLIonLoadingElement) => {
       loader = res
     })
-      let fd: FormData = new FormData();
-      fd.append('type', 'polis');
-      fd = this.formdataService.formdataAppendJson(fd, this.polisForm.value);
-      fd.append('file', this.polisFile);
-      
-      return this.userService.createUserDocument(fd).pipe(
-        finalize(() => {
-          this.loaderService.hideLoading(loader);
-        }),
-        catchError((err: serverError) => {
-          this.toastService.showToast(err.error.message, 'danger');
-          return EMPTY;
-        })
-      );
-    
-    return of(null);
+    let fd: FormData = new FormData()
+    fd.append('type', 'polis')
+    fd = this.formdataService.formdataAppendJson(fd, this.polisForm.value)
+    fd.append('file', this.polisFile)
+
+    return this.userService.createUserDocument(fd).pipe(
+      finalize(() => {
+        this.loaderService.hideLoading(loader)
+      }),
+      catchError((err: serverError) => {
+        this.toastService.showToast(err.error.message, 'danger')
+        return EMPTY
+      }),
+    )
+
+    return of(null)
   }
 
- createNotarius(): Observable<any>{
-  let fd: FormData = new FormData()
-   fd.append('type','notarius')
-   fd.append('file',this.notariusFile)
-    this.userService.createUserDocument(fd).pipe(
-    finalize(()=>{
+  createNotarius(): Observable<any> {
+    let fd: FormData = new FormData()
+    fd.append('type', 'notarius')
+    fd.append('file', this.notariusFile)
+    this.userService
+      .createUserDocument(fd)
+      .pipe(finalize(() => {}))
+      .subscribe((res: any) => {})
 
-    })
-    ).subscribe((res:any)=>{
-    })
-  
-    return of(null);
- }
+    return of(null)
+  }
 
   //Проверяю изменились ли данные у пользователя
-  checkChangeInPersonalform(){
+  checkChangeInPersonalform() {
     let personalFormChange = false
     function normalizeObject(obj: any) {
       return Object.keys(obj).reduce((acc: any, key: string) => {
-        acc[key] = obj[key] === null ? undefined : obj[key]; 
-        return acc;
-      }, {});
+        acc[key] = obj[key] === null ? undefined : obj[key]
+        return acc
+      }, {})
     }
-    
+
     if (this.userService.user.value?.personal) {
-  
-      let oldPersonal: any = { ...this.userService.user.value.personal };
+      let oldPersonal: any = { ...this.userService.user.value.personal }
       // Переименовываем поля
-      if(oldPersonal.command){
-          oldPersonal.commandId = oldPersonal.command.id
+      if (oldPersonal.command) {
+        oldPersonal.commandId = oldPersonal.command.id
       }
       delete oldPersonal['command']
       oldPersonal.locationId = oldPersonal.location.id
       delete oldPersonal['location']
       oldPersonal.gradeId = this.personalUserForm.value.gradeId
-      oldPersonal.dateOfBirth = oldPersonal.date_of_birth;
+      oldPersonal.dateOfBirth = oldPersonal.date_of_birth
       oldPersonal.comment = ''
-      oldPersonal.phoneNumber = oldPersonal.phone_number;
-      oldPersonal.startNumber = oldPersonal.start_number;
-      oldPersonal.rankNumber = oldPersonal.rank_number;
+      oldPersonal.phoneNumber = oldPersonal.phone_number
+      oldPersonal.startNumber = oldPersonal.start_number
+      oldPersonal.rankNumber = oldPersonal.rank_number
       oldPersonal.group = ''
       this.personalUserForm.patchValue({
-        group:''
+        group: '',
       })
-      oldPersonal.motoStamp = oldPersonal.moto_stamp;
+      oldPersonal.motoStamp = oldPersonal.moto_stamp
       oldPersonal.numberAndSeria = oldPersonal.number_and_seria
       // Удаляем старые названия
-      delete oldPersonal.date_of_birth;
-      delete oldPersonal.phone_number;
-      delete oldPersonal.start_number;
-      delete oldPersonal.rank_number;
-      delete oldPersonal.moto_stamp;
+      delete oldPersonal.date_of_birth
+      delete oldPersonal.phone_number
+      delete oldPersonal.start_number
+      delete oldPersonal.rank_number
+      delete oldPersonal.moto_stamp
       delete oldPersonal.number_and_seria
       // Приводим объекты к единому виду
-      const normalizedOld = normalizeObject(oldPersonal);
-      const normalizedForm = normalizeObject(this.personalUserForm.value);
-    
+      const normalizedOld = normalizeObject(oldPersonal)
+      const normalizedForm = normalizeObject(this.personalUserForm.value)
+
       this.personalUserForm.patchValue({
-        group:""
+        group: '',
       })
 
       // Используем Lodash
-      personalFormChange = _.isEqual(normalizedOld, normalizedForm);
-      Object.keys(normalizedOld).map((key:string)=>{
-       
-        if(!normalizedForm[key]){
-         
+      personalFormChange = _.isEqual(normalizedOld, normalizedForm)
+      Object.keys(normalizedOld).map((key: string) => {
+        if (!normalizedForm[key]) {
         }
       })
       //Если обьекты различаются
-      if(!personalFormChange && !this.attendances.length){
+      if (!personalFormChange && !this.attendances.length) {
         this.changePersonalDateModalValue = true
       }
     }
-    
   }
 
-  redirectTrenerInEditAplication(){
-    window.location.assign(`/aplication/${this.event.id}`);
+  redirectTrenerInEditAplication() {
+    window.location.assign(`/aplication/${this.event.id}`)
   }
 
-   get checkRecord():string{
-      
-      const recordStart = moment(this.event.record_start);
-      const recordEnd = moment(this.event.record_end);
-      const now = moment();
-      if(!this.event.record_start){
+  get checkRecord(): string {
+    const recordStart = moment(this.event.record_start)
+    const recordEnd = moment(this.event.record_end)
+    const now = moment()
+    if (!this.event.record_start) {
+      return 'Регистрация закрыта'
+    }
+    if (!this.registrationStatus) {
+      if (now > recordEnd) {
         return 'Регистрация закрыта'
       }
-      if(!this.registrationStatus){
-        if(now > recordEnd){
-          return 'Регистрация закрыта'
-        }
-        if(now < recordStart){
-          return `Регистрация с ${recordStart.format('DD.MM HH:mm')}`
-        }
+      if (now < recordStart) {
+        return `Регистрация с ${recordStart.format('DD.MM HH:mm')}`
       }
-      return `Регистрация до ${recordEnd.format('D MMMM HH:mm')}`
     }
+    return `Регистрация до ${recordEnd.format('D MMMM HH:mm')}`
+  }
 
-  checkDateStartInRace(){
-    if(this.event){
+  checkDateStartInRace() {
+    if (this.event) {
       let now = moment().format()
       return moment(this.event.date_start).format() < now
-    }else{
-      return 
+    } else {
+      return
     }
   }
-  closeUploadResultModalState(){
+  closeUploadResultModalState() {
     this.resultModalState = false
   }
-  openUploadResultModalState(document:any){
+  openUploadResultModalState(document: any) {
     this.currentResultFile = document
     this.resultModalState = true
   }
-  zoomIn(document:{path:string,zoomLevel:number}) {
-    let currentDocument = this.formattedResultsDocument.find((documentInArray:{path:string,zoomLevel:number})=>documentInArray.path == document.path )
-    currentDocument.zoomLevel += 0.1; // Увеличиваем масштаб на 10%
+  zoomIn(document: { path: string; zoomLevel: number }) {
+    let currentDocument = this.formattedResultsDocument.find(
+      (documentInArray: { path: string; zoomLevel: number }) => documentInArray.path == document.path,
+    )
+    currentDocument.zoomLevel += 0.1 // Увеличиваем масштаб на 10%
   }
 
-  zoomOut(document:{path:string,zoomLevel:number}) {
-    let currentDocument = this.formattedResultsDocument.find((documentInArray:{path:string,zoomLevel:number})=>documentInArray.path == document.path )
-    currentDocument.zoomLevel -= 0.1; // Уменьшаем масштаб на 10%
+  zoomOut(document: { path: string; zoomLevel: number }) {
+    let currentDocument = this.formattedResultsDocument.find(
+      (documentInArray: { path: string; zoomLevel: number }) => documentInArray.path == document.path,
+    )
+    currentDocument.zoomLevel -= 0.1 // Уменьшаем масштаб на 10%
   }
 
-  resetZoom(document:{path:string,zoomLevel:number}) {
-    let currentDocument = this.formattedResultsDocument.find((documentInArray:{path:string,zoomLevel:number})=>documentInArray.path == document.path )
-    currentDocument.zoomLevel = 1.0; 
+  resetZoom(document: { path: string; zoomLevel: number }) {
+    let currentDocument = this.formattedResultsDocument.find(
+      (documentInArray: { path: string; zoomLevel: number }) => documentInArray.path == document.path,
+    )
+    currentDocument.zoomLevel = 1.0
   }
-  saveNewPersonal(){
-    let loader:HTMLIonLoadingElement
-    this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
-          loader = res
+  saveNewPersonal() {
+    let loader: HTMLIonLoadingElement
+    this.loaderService.showLoading().then((res: HTMLIonLoadingElement) => {
+      loader = res
     })
 
-        // Форматируем номер телефона перед отправкой
-        let rawPhone = this.personalUserForm.value.phoneNumber;
-        let cleanedPhone = rawPhone.toString();
-        this.personalUserForm.patchValue({ phoneNumber: cleanedPhone });
+    // Форматируем номер телефона перед отправкой
+    let rawPhone = this.personalUserForm.value.phoneNumber
+    let cleanedPhone = rawPhone.toString()
+    this.personalUserForm.patchValue({ phoneNumber: cleanedPhone })
 
-    this.userService.updatePersonalInfo(this.personalUserForm.value).pipe(
-      finalize(
-        ()=>{
+    this.userService
+      .updatePersonalInfo(this.personalUserForm.value)
+      .pipe(
+        finalize(() => {
           this.loaderService.hideLoading(loader)
-        }
+        }),
       )
-    ).subscribe((res:any)=>{
-      this.toastService.showToast('Данные успешно изменены', 'success')
-      this.userService.refreshUser()
-      this.getUsersInRace()
-      this.changePersonalDateModalValue = false
-    })
+      .subscribe((res: any) => {
+        this.toastService.showToast('Данные успешно изменены', 'success')
+        this.userService.refreshUser()
+        this.getUsersInRace()
+        this.changePersonalDateModalValue = false
+      })
   }
 
-  closePersonalNewModal(){
+  closePersonalNewModal() {
     this.changePersonalDateModalValue = false
   }
 
-
-  setComand(event:any){
-    this.personalUserForm.patchValue({community:event.name})
-    this.personalUserForm.patchValue({commandId:event.id})
+  setComand(event: any) {
+    this.personalUserForm.patchValue({ community: event.name })
+    this.personalUserForm.patchValue({ commandId: event.id })
     this.closeComandSelectModalStateValue()
   }
 
-  openRacer(user:User){
+  openRacer(user: User) {
     this.closeStateUsersModal()
-    setTimeout(()=>{
-      if(this.openUserModalValue == false){
+    setTimeout(() => {
+      if (this.openUserModalValue == false) {
         this.ngZone.run(() => {
-          this.navController.navigateForward('/racer/1');
-        });
+          this.navController.navigateForward('/racer/1')
+        })
       }
-    },0)
- 
+    }, 0)
   }
-  closeComandSelectModalStateValue(){
+  closeComandSelectModalStateValue() {
     this.comandSelectModalStateValue = false
   }
-  openComandSelectModalStateValue(){
+  openComandSelectModalStateValue() {
     this.comandSelectModalStateValue = true
   }
 
   //здесь лоадер???
   setFirstDocuments(): Observable<void> {
     return this.userService.getUserDocuments().pipe(
-      finalize(() => {
-
-      }),
+      finalize(() => {}),
       switchMap((res: any) => {
-        
-        let operations: Observable<any>[] = [];
-        
+        let operations: Observable<any>[] = []
+
         if (!res.documents.find((doc: any) => doc.type === 'licenses')) {
-          operations.push(this.createLicenses());
+          operations.push(this.createLicenses())
         }
         if (!res.documents.find((doc: any) => doc.type === 'polis')) {
-          operations.push(this.createPolis());
+          operations.push(this.createPolis())
         }
         if (!res.documents.find((doc: any) => doc.type === 'notarius')) {
-          operations.push(this.createNotarius());
+          operations.push(this.createNotarius())
         }
-        
-        return operations.length ? forkJoin(operations) : of(null);
+
+        return operations.length ? forkJoin(operations) : of(null)
       }),
-      map(() => void 0)
-    );
+      map(() => void 0),
+    )
   }
 
-    openApplicationForm(){
-      let isLoggedIn:boolean = this.authService.isAuthenticated()
-      if(this.authService.isAuthenticated() && this.userService.user.value?.roles.length){
-        this.applicationFormValueState = true
-      }else if(this.authService.isAuthenticated() && !this.userService.user.value?.roles.length){
-        this.toastService.showToast('Что бы отправить заявку измените статус','warning')
-        this.navController.navigateForward('/settings')
-      } else{
-        this.toastService.showToast('Что бы отправить заявку авторизируйтесь','warning')
-        this.navController.navigateForward('/select-auth')
-      }
+  openApplicationForm() {
+    let isLoggedIn: boolean = this.authService.isAuthenticated()
+    if (this.authService.isAuthenticated() && this.userService.user.value?.roles.length) {
+      this.applicationFormValueState = true
+    } else if (this.authService.isAuthenticated() && !this.userService.user.value?.roles.length) {
+      this.toastService.showToast('Что бы отправить заявку измените статус', 'warning')
+      this.navController.navigateForward('/settings')
+    } else {
+      this.toastService.showToast('Что бы отправить заявку авторизируйтесь', 'warning')
+      this.navController.navigateForward('/select-auth')
     }
-    closeApplicationForm(){
-      this.applicationFormValueState = false
+  }
+  closeApplicationForm() {
+    this.applicationFormValueState = false
+  }
+
+  closeRegionModal() {
+    this.regionModalState = false
+  }
+  openRegionModal() {
+    this.regionModalState = true
+  }
+
+  createNewComand(formData: { id: number; name: string; city: string; locationId: number; region: string }) {
+    const id = formData.id
+    const region = formData.region
+    const name = formData.name
+    const locationId = formData.locationId
+    const city = formData.city
+
+    if (!name || !city || !locationId) {
+      this.toastService.showToast('Заполните все поля перед созданием команды', 'warning')
+      return
     }
 
-    closeRegionModal(){
-      this.regionModalState = false
-    }
-    openRegionModal(){
-      this.regionModalState = true
-    }
-  
-    createNewComand(formData: { id:number; name: string; city: string; locationId: number; region: string}){
-      
-      const id = formData.id;
-      const region = formData.region;
-      const name = formData.name;
-      const locationId = formData.locationId;
-      const city = formData.city;
+    let loader: HTMLIonLoadingElement
+    this.loaderService.showLoading().then((res: HTMLIonLoadingElement) => {
+      loader = res
+    })
 
-      if (!name || !city || !locationId) {
-        this.toastService.showToast('Заполните все поля перед созданием команды', 'warning');
-        return;
-      }
-  
-      let loader:HTMLIonLoadingElement
-      this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
-       loader = res
+    let user: User | null = this.userService.user.value
+    let commandValidateState: boolean = false
+    let command: ICommandCreate = {
+      id: id,
+      name: name,
+      locationId: locationId,
+      city: city,
+      region: region,
+    }
+    if (user) {
+      // if(user.personal && user.personal.city && user.personal.location){
+      //   command.locationId = Number(user.personal.location.id)
+      //   command.city = user.personal.city
+      // }
+      // else if(this.personalUserForm.value.city && this.personalUserForm.value.locationId){
+      //   command.locationId = Number( this.personalUserForm.value.locationId)
+      //   command.city = this.personalUserForm.value.city
+      // }
+      // else{
+      //   this.closeComandSelectModalStateValue()
+      //   this.toastService.showToast('Перед тем как создать команду обязательно заполните область и город','warning')
+      // }
+
+      Object.keys(command).forEach((key: any) => {
+        commandValidateState = !!command[key as keyof typeof command]
       })
-
-
-      let user: User|null = this.userService.user.value
-      let commandValidateState: boolean = false
-      let command: ICommandCreate = {
-        id: id,
-        name: name,
-        locationId: locationId,
-        city: city,
-        region: region
-      }
-      if(user){
-        // if(user.personal && user.personal.city && user.personal.location){
-        //   command.locationId = Number(user.personal.location.id)
-        //   command.city = user.personal.city
-        // }
-        // else if(this.personalUserForm.value.city && this.personalUserForm.value.locationId){
-        //   command.locationId = Number( this.personalUserForm.value.locationId)
-        //   command.city = this.personalUserForm.value.city
-        // }
-        // else{
-        //   this.closeComandSelectModalStateValue()
-        //   this.toastService.showToast('Перед тем как создать команду обязательно заполните область и город','warning')
-        // }
-        
-        Object.keys(command).forEach((key:any)=>{
-          commandValidateState =  !!command[key as keyof typeof command]
-        })
-        if(commandValidateState){
-          let fd:FormData = new FormData()
-          fd = this.formdataService.formdataAppendJson(fd, command)
-          this.commandService.createComand(fd).pipe(
-            finalize(()=>{
+      if (commandValidateState) {
+        let fd: FormData = new FormData()
+        fd = this.formdataService.formdataAppendJson(fd, command)
+        this.commandService
+          .createComand(fd)
+          .pipe(
+            finalize(() => {
               this.loaderService.hideLoading(loader)
-            })
-          ).subscribe((res: any)=>{
-    
+            }),
+          )
+          .subscribe((res: any) => {
             this.createCommandTemp = res.command
             this.getAllComands()
           })
-        }
-        
       }
     }
-
-    //здесь лоадер
-  getEvent(){
-    let loader:HTMLIonLoadingElement
-        //  this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
-        //        loader = res
-        //  })
-    this.eventService.getEventById(this.eventId,{
-      userId:String(this.userService.user.value?.id ? this.userService.user.value?.id : '' ),
-      appointmentUser:1,
-      transactionUser:1,
-    }).pipe(
-      catchError(err => {
-        // console.error('Ошибка при загрузке:', err);
-        // this.errorMessage = 'Ошибка загрузки пользователей';
-        return err; // или [] — в зависимости от ожидаемой структуры
-      }),
-      finalize(()=>{
-        this.loadingService.hideLoading()
-      })
-    ).subscribe((res:any)=>{
-      this.raceUser = res.race.user
-      this.event = res.race
-      this.loaderService.checkAndCloseLoader().then((res))
-      this.groupItems = this.event.grades
-      this.registrate()
-      this.getAttendanceInRace()
-      this.formatingZoomValuesInResults()
-      this.checkRecordEnd()
-      
-    })
   }
 
-  regenerateLinkInPayment(){
-    this.transactionService.getLastTransactionUserInRace(Number(this.eventId)).pipe().subscribe((res:any)=>{
-      if(res.transactions && res.transactions.length){
-        let transactionId = res.transactions[res.transactions.length - 1] ? res.transactions[res.transactions.length - 1].id : null
-        if(transactionId){
-          this.transactionService.regenerateLinkInTransactionForId(transactionId).pipe().subscribe((res:any)=>{
-            this.paymentLink = res.payment_link
-             setTimeout(()=>{
-                   this.navController.navigateRoot(`/event-payment/${transactionId}`)
-              },100)
-            this.openPaymentBrowser()
-          })
+  //здесь лоадер
+  getEvent() {
+    let loader: HTMLIonLoadingElement
+    //  this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
+    //        loader = res
+    //  })
+    this.eventService
+      .getEventById(this.eventId, {
+        userId: String(this.userService.user.value?.id ? this.userService.user.value?.id : ''),
+        appointmentUser: 1,
+        transactionUser: 1,
+      })
+      .pipe(
+        catchError((err) => {
+          // console.error('Ошибка при загрузке:', err);
+          // this.errorMessage = 'Ошибка загрузки пользователей';
+          return err // или [] — в зависимости от ожидаемой структуры
+        }),
+        finalize(() => {
+          this.loadingService.hideLoading()
+        }),
+      )
+      .subscribe((res: any) => {
+        this.raceUser = res.race.user
+        this.event = res.race
+        this.loaderService.checkAndCloseLoader().then(res)
+        this.groupItems = this.event.grades
+        this.registrate()
+        this.getAttendanceInRace()
+        this.formatingZoomValuesInResults()
+        this.checkRecordEnd()
+      })
+  }
+
+  regenerateLinkInPayment() {
+    this.transactionService
+      .getLastTransactionUserInRace(Number(this.eventId))
+      .pipe()
+      .subscribe((res: any) => {
+        if (res.transactions && res.transactions.length) {
+          let transactionId = res.transactions[res.transactions.length - 1] ? res.transactions[res.transactions.length - 1].id : null
+          if (transactionId) {
+            this.transactionService
+              .regenerateLinkInTransactionForId(transactionId)
+              .pipe()
+              .subscribe((res: any) => {
+                this.paymentLink = res.payment_link
+                setTimeout(() => {
+                  this.navController.navigateRoot(`/event-payment/${transactionId}`)
+                }, 100)
+                this.openPaymentBrowser()
+              })
+          }
         }
-      }
-    })
+      })
   }
 
-stringHaveCurrentWords(sourceString:string, incomingString:string){
-      let sourceStringArray:string[] = sourceString.split(' ')
-      let incomingStringArray = incomingString.split(' ')
-      let currentWordCount = 0
-      sourceStringArray.forEach((word:string)=>{
+  stringHaveCurrentWords(sourceString: string, incomingString: string) {
+    let sourceStringArray: string[] = sourceString.split(' ')
+    let incomingStringArray = incomingString.split(' ')
+    let currentWordCount = 0
+    sourceStringArray.forEach((word: string) => {
       incomingStringArray.find((incomingWord) => word == incomingWord) ? currentWordCount++ : null
-      })
+    })
     return sourceStringArray.length == currentWordCount
-}
+  }
 
-  checkUser(){
-    if(this.userService.user.value){
+  checkUser() {
+    if (this.userService.user.value) {
       return this.userService.user.value?.id == this.raceUser.id
-    }else{
+    } else {
       return false
     }
   }
-   setPaymentStatus(value:'load'|'success'|'error'|'sleep'){
+  setPaymentStatus(value: 'load' | 'success' | 'error' | 'sleep') {
     this.paymentStatus = value
   }
 
-createTransaction(): Observable<any> { // Возвращаем Observable
-  if (this.event.store) {
-    let currentAttendance: IAttenden | undefined = this.attendances.find((att: IAttenden) => att.name.includes(this.personalUserForm.value.group));
-    this.attendances.map((att)=>{
-      if( this.stringHaveCurrentWords(this.personalUserForm.value.group, att.name)){
-        currentAttendance = att
+  createTransaction(): Observable<any> {
+    // Возвращаем Observable
+    if (this.event.store) {
+      let currentAttendance: IAttenden | undefined = this.attendances.find((att: IAttenden) => att.name.includes(this.personalUserForm.value.group))
+      this.attendances.map((att) => {
+        if (this.stringHaveCurrentWords(this.personalUserForm.value.group, att.name)) {
+          currentAttendance = att
+        }
+      })
+      if (currentAttendance && currentAttendance.price !== 0) {
+        return this.transactionService.createTransactions({ attendanceIds: [currentAttendance.id], isRace: 1 }).pipe(
+          tap((res: any) => {
+            this.paymentLink = res.payment_link
+            this.createTransactionId = res.transaction.id
+          }),
+          catchError((error) => {
+            this.paymentLink = '' // Очищаем ссылку при ошибке, если нужно
+            throw error // Повторно выбрасываем ошибку для дальнейшей обработки
+          }),
+        )
+      } else {
+        // Если условия не выполнены, возвращаем Observable, который немедленно завершается
+        // или испускает определенное значение.
+        this.paymentLink = ''
+        return of({ type: 'noTransactionNeeded' }) // Или of(null), of(undefined)
       }
-    })
-    if (currentAttendance && currentAttendance.price !== 0) {
-      return this.transactionService.createTransactions({ attendanceIds: [currentAttendance.id], isRace: 1 }).pipe(
-        tap((res: any) => {
-          this.paymentLink = res.payment_link;
-          this.createTransactionId = res.transaction.id;
-        }),
-        catchError(error => {
-          this.paymentLink = ''; // Очищаем ссылку при ошибке, если нужно
-          throw error; // Повторно выбрасываем ошибку для дальнейшей обработки
-        })
-      );
     } else {
-      // Если условия не выполнены, возвращаем Observable, который немедленно завершается
-      // или испускает определенное значение.
-      this.paymentLink = '';
-      return of({ type: 'noTransactionNeeded' }); // Или of(null), of(undefined)
+      this.paymentLink = ''
+      return of({ type: 'noStoreEvent' }) // Или of(null), of(undefined)
     }
-  } else {
-    this.paymentLink = '';
-    return of({ type: 'noStoreEvent' }); // Или of(null), of(undefined)
-  }
-}
-
-  async openPaymentBrowser(){
-     const openCapacitorSite = async () => {
-       if(this.paymentLink){
-          this.toastService.showToast('Необходимо оплатить стартовый взнос','warning')
-          await Browser.open({ url: this.paymentLink });
-       }
-      };
-      openCapacitorSite()
   }
 
-  async formatedDataAndToggleAplication(){
-     this.setDocuments().pipe().subscribe(()=>{
-           // Форматируем номер телефона перед отправкой
-        let rawPhone = this.personalUserForm.value.phoneNumber || '';
-        let cleanedPhone = String(rawPhone).replace(/\D/g, '') || '';
-     
-        this.personalUserForm.patchValue({ phoneNumber: cleanedPhone });
-         let currentForm = {
-           ...this.personalUserForm.value,
-           documentIds:[this.polisId, this.licensesId,this.notariusId]   
-         }
-         if(this.createTransactionId){
+  async openPaymentBrowser() {
+    const openCapacitorSite = async () => {
+      if (this.paymentLink) {
+        this.toastService.showToast('Необходимо оплатить стартовый взнос', 'warning')
+        await Browser.open({ url: this.paymentLink })
+      }
+    }
+    openCapacitorSite()
+  }
+
+  async formatedDataAndToggleAplication() {
+    this.setDocuments()
+      .pipe()
+      .subscribe(() => {
+        // Форматируем номер телефона перед отправкой
+        let rawPhone = this.personalUserForm.value.phoneNumber || ''
+        let cleanedPhone = String(rawPhone).replace(/\D/g, '') || ''
+
+        this.personalUserForm.patchValue({ phoneNumber: cleanedPhone })
+        let currentForm = {
+          ...this.personalUserForm.value,
+          documentIds: [this.polisId, this.licensesId, this.notariusId],
+        }
+        if (this.createTransactionId) {
           currentForm.transactionId = this.createTransactionId
-         }
-         let fd: FormData = new FormData();
-         fd = this.formdataService.formdataAppendJson(fd, currentForm)
-     
-         let loader:HTMLIonLoadingElement
-         this.loaderService.showLoading().then((res:HTMLIonLoadingElement)=>{
-               loader = res
-         })
-         this.eventService.toggleAplicationInRace(this.eventId, fd).pipe(
-           finalize(()=>{
-             this.loadingService.hideLoading(loader)
-             
-           }),
-           catchError(err => {
-            // console.error('Ошибка при загрузке:', err);
-            // this.errorMessage = 'Ошибка загрузки пользователей';
-            return err; // или [] — в зависимости от ожидаемой структуры
-          })
-      
-         ).subscribe((res:any)=>{
-          
-             this.getUsersInRace()
-              this.closeFormPromise().then(()=>{
-              if(this.createTransactionId){
-                setTimeout(()=>{
-                   this.navController.navigateRoot(`/event-payment/${this.createTransactionId}`)
-                },100)
-                 
-                }
-              })
-         
-           
-             this.getEvent()
-             //Если пользователь не имел персональных данных
-             this.setFirstUserPersonal()
-             this.checkChangeInPersonalform()
+        }
+        let fd: FormData = new FormData()
+        fd = this.formdataService.formdataAppendJson(fd, currentForm)
 
-             this.openPaymentBrowser()
-             if(!this.attendances.length){
-                this.toastService.showToast('Заявка успешно отправленна','success')
-             }
-         })
+        let loader: HTMLIonLoadingElement
+        this.loaderService.showLoading().then((res: HTMLIonLoadingElement) => {
+          loader = res
         })
+        this.eventService
+          .toggleAplicationInRace(this.eventId, fd)
+          .pipe(
+            finalize(() => {
+              this.loadingService.hideLoading(loader)
+            }),
+            catchError((err) => {
+              // console.error('Ошибка при загрузке:', err);
+              // this.errorMessage = 'Ошибка загрузки пользователей';
+              return err // или [] — в зависимости от ожидаемой структуры
+            }),
+          )
+          .subscribe((res: any) => {
+            this.getUsersInRace()
+            this.closeFormPromise().then(() => {
+              if (this.createTransactionId) {
+                setTimeout(() => {
+                  this.navController.navigateRoot(`/event-payment/${this.createTransactionId}`)
+                }, 100)
+              }
+            })
+
+            this.getEvent()
+            //Если пользователь не имел персональных данных
+            this.setFirstUserPersonal()
+            this.checkChangeInPersonalform()
+
+            this.openPaymentBrowser()
+            if (!this.attendances.length) {
+              this.toastService.showToast('Заявка успешно отправленна', 'success')
+            }
+          })
+      })
   }
 
-  async toggleAplicationInRace(){
-    
-    if(this.submitValidate()){
-       await this.createTransaction().pipe().subscribe(async ()=>{
-         await this.setFirstDocuments().pipe().subscribe(async ()=>{
-         await this.formatedDataAndToggleAplication()
-          })
-       })
-      
-    }else{
-      this.toastService.showToast('Заполните обязательные поля - Фамилия, имя, область, класс, спортивное звание, телефон','danger')
+  async toggleAplicationInRace() {
+    if (this.submitValidate()) {
+      await this.createTransaction()
+        .pipe()
+        .subscribe(async () => {
+          await this.setFirstDocuments()
+            .pipe()
+            .subscribe(async () => {
+              await this.formatedDataAndToggleAplication()
+            })
+        })
+    } else {
+      this.toastService.showToast('Заполните обязательные поля - Фамилия, имя, область, класс, спортивное звание, телефон', 'danger')
     }
   }
 
-  async closeFormPromise(){
+  async closeFormPromise() {
     this.closeApplicationForm()
   }
 
-  setUserInForm(){
+  setUserInForm() {
     this.userService.refreshUser()
-    if(this.userService.user.value?.personal){
+    if (this.userService.user.value?.personal) {
       this.personalUserForm.patchValue(this.userService.user.value?.personal)
 
-      const rawPhone = this.userService.user.value?.personal?.phone_number || '';
-      const cleanedPhone = parseInt(rawPhone.replace(/\D/g, ''), 10) || ''; // Удаляем все символы, кроме цифр
+      const rawPhone = this.userService.user.value?.personal?.phone_number || ''
+      const cleanedPhone = parseInt(rawPhone.replace(/\D/g, ''), 10) || '' // Удаляем все символы, кроме цифр
 
       this.personalUserForm.patchValue({
-        name:this.userService.user.value?.personal.name,
-        surname:this.userService.user.value?.personal.surname,
+        name: this.userService.user.value?.personal.name,
+        surname: this.userService.user.value?.personal.surname,
         dateOfBirth: this.userService.user.value?.personal.date_of_birth,
         phoneNumber: cleanedPhone,
         startNumber: this.userService.user.value?.personal.start_number,
         locationId: this.userService.user.value?.personal.location?.id,
-       
+
         region: this.userService.user.value?.personal.location ? this.userService.user.value?.personal.region : '',
         community: this.userService.user.value?.personal.command?.id ? this.userService.user.value?.personal.command?.name : 'Лично',
         rankNumber: this.userService.user.value?.personal.rank_number,
-        motoStamp:  this.userService.user.value?.personal.moto_stamp,
+        motoStamp: this.userService.user.value?.personal.moto_stamp,
         numberAndSeria: this.userService.user.value?.personal.number_and_seria,
-        group:''
+        group: '',
       })
-      if(this.userService.user.value?.personal.command?.id){
-           this.personalUserForm.patchValue({
-             commandId: this.userService.user.value?.personal.command?.id,
-           })
+      if (this.userService.user.value?.personal.command?.id) {
+        this.personalUserForm.patchValue({
+          commandId: this.userService.user.value?.personal.command?.id,
+        })
       }
-    }else{
+    } else {
       this.personalUserForm.reset()
     }
   }
 
-//здесь лоадер
-  setDocuments(): Observable<any>{
-    this.userService.getUserDocuments().pipe(
-     finalize(()=>{
-       
-     })
-     ).subscribe((res:any)=>{
-     if(res.documents){
-       if(res.documents.find((doc:any)=> doc.type === 'licenses')){
-         let licensesDocument = res.documents.find((doc:any)=> doc.type === 'licenses')
-         this.licensesId = licensesDocument.id
-         this.licensesForm.patchValue(((res.documents.find((doc:any)=> doc.type === 'licenses'))))
-         this.licensesFile = {name:'Лицензия загружена', path:  `${environment.BASE_URL}/document/${licensesDocument.id } ` }
-       
-       }
-       if((res.documents.find((doc:any)=> doc.type === 'polis'))){
-         let polisDocument = res.documents.find((doc:any)=> doc.type === 'polis')
-         this.polisId = polisDocument.id
-         this.polisForm.patchValue({
-          number: polisDocument.number,
-          issuedWhom: polisDocument.issued_whom,
-          itWorksDate: moment(polisDocument.it_works_date).format('YYYY-MM-DD')
-         })
-         this.polisFile = {name:'Полис загружен', path:  `${environment.BASE_URL}/document/${polisDocument.id}`}
-       }
-       
-       if(res.documents.find((doc:any)=> doc.type === 'notarius')){
-         let notariusDocument = res.documents.find((doc:any)=> doc.type === 'notarius')
-         this.notariusId = notariusDocument.id
-         this.notariusFile = {name:'Согласие загружено', path: `${environment.BASE_URL}/document/${notariusDocument.id}`}
-         this.oldNotariusFile = {name:'Согласие загружено',  path:  `${environment.BASE_URL}/document/${notariusDocument.id}`}
-       } 
-     }
-    
-   })
-   return of(null);
- }
+  //здесь лоадер
+  setDocuments(): Observable<any> {
+    this.userService
+      .getUserDocuments()
+      .pipe(finalize(() => {}))
+      .subscribe((res: any) => {
+        if (res.documents) {
+          if (res.documents.find((doc: any) => doc.type === 'licenses')) {
+            let licensesDocument = res.documents.find((doc: any) => doc.type === 'licenses')
+            this.licensesId = licensesDocument.id
+            this.licensesForm.patchValue(res.documents.find((doc: any) => doc.type === 'licenses'))
+            this.licensesFile = { name: 'Лицензия загружена', path: `${environment.BASE_URL}/document/${licensesDocument.id} ` }
+          }
+          if (res.documents.find((doc: any) => doc.type === 'polis')) {
+            let polisDocument = res.documents.find((doc: any) => doc.type === 'polis')
+            this.polisId = polisDocument.id
+            this.polisForm.patchValue({
+              number: polisDocument.number,
+              issuedWhom: polisDocument.issued_whom,
+              itWorksDate: moment(polisDocument.it_works_date).format('YYYY-MM-DD'),
+            })
+            this.polisFile = { name: 'Полис загружен', path: `${environment.BASE_URL}/document/${polisDocument.id}` }
+          }
 
-  setFormValue(){
+          if (res.documents.find((doc: any) => doc.type === 'notarius')) {
+            let notariusDocument = res.documents.find((doc: any) => doc.type === 'notarius')
+            this.notariusId = notariusDocument.id
+            this.notariusFile = { name: 'Согласие загружено', path: `${environment.BASE_URL}/document/${notariusDocument.id}` }
+            this.oldNotariusFile = { name: 'Согласие загружено', path: `${environment.BASE_URL}/document/${notariusDocument.id}` }
+          }
+        }
+      })
+    return of(null)
+  }
+
+  setFormValue() {
     this.setDocuments()
   }
 
-  setLicensesFile(event:any){
+  setLicensesFile(event: any) {
     let file = event.target.files[0]
     this.licensesFile = file
   }
 
-  setNotariusFile(event:any){
+  setNotariusFile(event: any) {
     let file = event.target.files[0]
     this.notariusFile = file
   }
 
-  getUsersInRace(){
+  getUsersInRace() {
     this.usersInRace = []
     this.allUsers = []
-    this.eventService.getUsersInRace(this.eventId).pipe().subscribe((res:any)=>{
-      if(res.users){
-        Object.keys(res.users).forEach((group:string)=>{
-          this.usersInRace.push({group:group, users:res.users[group]})  
-          this.allUsers.push(...res.users[group])
-        })
-      }
-    })
+    this.eventService
+      .getUsersInRace(this.eventId)
+      .pipe()
+      .subscribe((res: any) => {
+        if (res.users) {
+          Object.keys(res.users).forEach((group: string) => {
+            this.usersInRace.push({ group: group, users: res.users[group] })
+            this.allUsers.push(...res.users[group])
+          })
+        }
+      })
   }
 
-
-
-  invalidRequest(){
-    if(this.personalUserForm.invalid || this.polisForm.invalid || this.licensesForm.invalid ){
+  invalidRequest() {
+    if (this.personalUserForm.invalid || this.polisForm.invalid || this.licensesForm.invalid) {
       return true
-    }else{
+    } else {
       return false
     }
   }
 
-  goToPoint(){
-    if(this.event.track){
+  goToPoint() {
+    if (this.event.track) {
       if (this.event.track?.latitude && this.event.track?.longitude) {
         window.location.href = 'https://yandex.ru/maps/?rtext=~' + this.event.track.latitude + ',' + this.event.track.longitude
       } else {
         // this.toastService.showToast('Произошла ошибка при получении координат', 'warning')
       }
     }
-  
-   }
+  }
 
-  submitValidate(){
+  submitValidate() {
     let valid = true
     Object.keys(this.personalUserForm.controls).forEach((key) => {
-      const control = this.personalUserForm.get(key); 
+      const control = this.personalUserForm.get(key)
       if (!control!.valid) {
-        if(this.formErrors[key]){
-          this.formErrors[key].errorMessage = 'Обязательное поле'; 
-           valid = false
+        if (this.formErrors[key]) {
+          this.formErrors[key].errorMessage = 'Обязательное поле'
+          valid = false
         }
       } else {
-          if( this.formErrors[key]){
-            this.formErrors[key].errorMessage = ''; 
-          }
+        if (this.formErrors[key]) {
+          this.formErrors[key].errorMessage = ''
+        }
       }
-    });
+    })
     Object.keys(this.polisForm.controls).forEach((key) => {
-      const control = this.polisForm.get(key);
+      const control = this.polisForm.get(key)
       if (!control!.valid) {
-        if(this.documentsError[key]){
-          this.documentsError[key].errorMessage = 'Обязательное поле'; 
-           valid = false
+        if (this.documentsError[key]) {
+          this.documentsError[key].errorMessage = 'Обязательное поле'
+          valid = false
         }
       } else {
-          if( this.documentsError[key]){
-            this.documentsError[key].errorMessage = ''; 
-          }
+        if (this.documentsError[key]) {
+          this.documentsError[key].errorMessage = ''
+        }
       }
     })
 
@@ -1216,61 +1234,62 @@ createTransaction(): Observable<any> { // Возвращаем Observable
     this.checkInImagesBackGround()
   }
 
-  checkInImagesBackGround(){
-    const width = window.innerWidth;
-    if(width > 696){
+  checkInImagesBackGround() {
+    const width = window.innerWidth
+    if (width > 696) {
       this.backgroundImages = '/assets/images/race-background__big.jpg'
-    }else{
+    } else {
       this.backgroundImages = '/assets/images/race-background.jpg'
     }
   }
 
-
-  
-
-  getCreateRegions(){
-    this.mapService.getAllRegions().pipe().subscribe((res:any)=>{
-    
-      res.data.forEach((region:any) => {
-        this.createRegionItems.push({
-          name:`${region.name} ${region.type}`,
-          value:region.id
+  getCreateRegions() {
+    this.mapService
+      .getAllRegions()
+      .pipe()
+      .subscribe((res: any) => {
+        res.data.forEach((region: any) => {
+          this.createRegionItems.push({
+            name: `${region.name} ${region.type}`,
+            value: region.id,
+          })
         })
-      });
-    })
-  }
-  
-  getAttendanceInRace(){
-    if(this.event.store){
-      this.attendanceService.getAttendanceForId(this.event.id).pipe().subscribe((res)=>{
-        this.attendances = res.attendance
       })
+  }
+
+  getAttendanceInRace() {
+    if (this.event.store) {
+      this.attendanceService
+        .getAttendanceForId(this.event.id)
+        .pipe()
+        .subscribe((res) => {
+          this.attendances = res.attendance
+        })
     }
   }
 
-
-  backNavigate(){
+  backNavigate() {
     this.navController.back()
   }
-  ionViewDidLeave(){
-      this.paymentStatus = 'sleep'
-      this.paymentLink = ''
+  ionViewDidLeave() {
+    this.paymentStatus = 'sleep'
+    this.paymentLink = ''
   }
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     this.getRegions()
     this.paymentLink = ''
 
     this.paymentStatus = 'sleep'
     this.attendances = []
     this.getCreateRegions()
-    this.route.params.pipe(takeUntil(this.destroy$)).pipe(
-      finalize(()=>{
-  })
-    ).subscribe((params) => {
+    this.route.params
+      .pipe(takeUntil(this.destroy$))
+      .pipe(finalize(() => {}))
+      .subscribe((params) => {
         this.eventId = params['id']
         this.getEvent()
         this.getUsersInRace()
-        if(this.authService.isAuthenticated()){
+        if (this.authService.isAuthenticated()) {
           this.setFormValue()
           this.setUserInForm()
           this.getAllComands()
@@ -1278,18 +1297,17 @@ createTransaction(): Observable<any> { // Возвращаем Observable
       })
   }
 
-
   ngOnInit() {
     this.checkInImagesBackGround()
-     this.transactionService.currentStatus.subscribe((res:any)=>{
+    this.transactionService.currentStatus.subscribe((res: any) => {
       this.paymentStatus = res
-      if(this.paymentStatus == 'success'){
+      if (this.paymentStatus == 'success') {
         const closeCapacitorSite = async () => {
           await Browser.close()
-        };
+        }
         closeCapacitorSite()
       }
-   })
+    })
     //Необходимо что бы не ломалась модалка
     window.addEventListener('popstate', (event) => {
       this.closeStateUsersModal()
@@ -1298,18 +1316,17 @@ createTransaction(): Observable<any> { // Возвращаем Observable
       this.closeUploadResultModalState()
       this.closeRegionModal()
       this.closeComandSelectModalStateValue()
-    });
+    })
     this.resizeSubscription = fromEvent(window, 'resize')
-    .pipe(
-      debounceTime(200) // Убирает лишние вызовы при частом ресайзе
-    )
-    .subscribe(() => {
-      this.onResize();
-    });
+      .pipe(
+        debounceTime(200), // Убирает лишние вызовы при частом ресайзе
+      )
+      .subscribe(() => {
+        this.onResize()
+      })
   }
 
   showReadonlyInfo() {
-    this.toastService.showToast('Данные можно изменить только в анкете участника', 'primary');
+    this.toastService.showToast('Данные можно изменить только в анкете участника', 'primary')
   }
-
 }

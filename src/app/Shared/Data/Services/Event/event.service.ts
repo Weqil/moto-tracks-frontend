@@ -26,8 +26,14 @@ export class EventService {
     return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races`, { params: { ...params } })
   }
 
-  generateGoogleLink(id: string) {
-    return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races/${id}/appointment-race/users-table`)
+  generateGoogleLink(id: string, hasCome?: boolean) {
+    let params: any = {}
+    if (hasCome) {
+      params.hasCome = 1
+    }
+    return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races/${id}/appointment-race/users-table`, {
+      params: { ...params },
+    })
   }
 
   generatePdfForAplication(aplicationId: number) {

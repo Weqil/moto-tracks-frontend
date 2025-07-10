@@ -453,6 +453,17 @@ export class ApplicationForRaceComponent implements OnInit {
     this.addOfflineUserForm.patchValue({ rank: event.name })
   }
 
+  async setUserComeInRace(application: any) {
+    let loader = await this.loaderService.showLoading()
+
+    this.userService
+      .userComeInRace(application.id, !!!application.has_come)
+      .pipe(finalize(() => this.loaderService.hideLoading(loader)))
+      .subscribe(() => {
+        this.getUsersInRace()
+      })
+  }
+
   setMotoStamp(event: any) {
     this.addOfflineUserForm.patchValue({ motoStamp: event.name })
   }
@@ -488,15 +499,19 @@ export class ApplicationForRaceComponent implements OnInit {
     this.activeAppId = appoyment.id
   }
 
-  generateGoogleLink(eventId: any) {
+  generateGoogleLink(eventId: any, hasCome?: boolean) {
     this.loadingService.showLoading()
     this.eventService
-      .generateGoogleLink(eventId)
+      .generateGoogleLink(eventId, hasCome)
       .pipe(finalize(() => this.loadingService.hideLoading()))
       .subscribe((res: any) => {
         this.tableModalValue = true
         this.googleTabsLink = res.table_url
       })
+  }
+
+  closeGoogleTable(){
+    this.tableModalValue = false
   }
 
   openOfflineRacerAddForm() {

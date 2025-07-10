@@ -22,7 +22,7 @@
             theme="dark"
           ></app-icon-button>
           <app-icon-button
-            (click)="generateGoogleLink(event.id)"
+            (click)="generateGoogleLink(event.id, true)"
             class="width-button"
             [widht]="'w20'"
             height="long-height"
@@ -129,7 +129,7 @@
         <!-- </div> -->
       </div>
 
-      <ion-modal class="link-table-modal" [isOpen]="tableModalValue">
+      <ion-modal class="link-table-modal" (didDismiss)="closeGoogleTable()" [isOpen]="tableModalValue">
         <ng-template>
           <ion-content>
             <div class="google-tabs">
@@ -284,7 +284,15 @@
                 <app-user-section [name]="true" [surname]="true" [patronymic]="true" [user]="userGet.commission!"> </app-user-section>
               </div>
             </ng-container>
-
+            <div class="come">
+              <app-check-box
+                (change)="setUserComeInRace(userGet)"
+                [checked]="!!userGet.has_come"
+                clippy="clippy-right"
+                theme="red"
+                labelText="Пришёл на гонку"
+              ></app-check-box>
+            </div>
             <div *ngIf="userGet.transaction" class="transaction-in-race">
               <ng-container *ngIf="userGet.transaction.status">
                 <span class="payment-status-green"> Взнос оплачен </span>
