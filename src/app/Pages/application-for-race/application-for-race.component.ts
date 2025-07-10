@@ -131,7 +131,7 @@ export class ApplicationForRaceComponent implements OnInit {
   arrayDocument: Documents[] = []
   licensed: any
   notarius: any
-  polish: any
+  polis: any
   activeUserId: any
   licensesFile: any = ''
   polisFile: any = ''
@@ -142,7 +142,7 @@ export class ApplicationForRaceComponent implements OnInit {
   raceInfo: boolean = false
   docInfo: boolean = false
   licensedInfo: boolean = false
-  polishInfo: boolean = false
+  polisInfo: boolean = false
   notariusInfo: boolean = false
   OfflineRacerAddFormState: boolean = false
   activeDocument?: number
@@ -589,7 +589,7 @@ export class ApplicationForRaceComponent implements OnInit {
     this.licensed = null
     this.licensesFile = null
 
-    this.polish = null
+    this.polis = null
     this.polisFile = null
 
     this.notarius = null
@@ -616,7 +616,7 @@ export class ApplicationForRaceComponent implements OnInit {
         itWorksDate: polis.it_works_date,
       })
       this.polisFile = { name: 'Полис загружен', dontFile: true }
-      this.polish = polis
+      this.polis = polis
     }
     if (res.find((doc: any) => doc.type === 'notarius')) {
       let notarius = res.find((doc: any) => doc.type === 'notarius')

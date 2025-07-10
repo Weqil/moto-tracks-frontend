@@ -299,7 +299,7 @@
             <div class="validate-indicator">
               <div class="validate-indicator__item">
                 <span>C. - </span>
-                <div *ngIf="polish && polish.is_checked" class="validate-indicator__item__value">✅</div>
+                <div *ngIf="polis && polis.is_checked" class="validate-indicator__item__value">✅</div>
               </div>
               <div class="validate-indicator__item">
                 <span>Л. - </span>
@@ -546,7 +546,7 @@
             </div>
           </div>
 
-          <div class="polish" *ngIf="polish">
+          <div class="polis" *ngIf="polis">
             <div class="title-wrapper">
               <div class="event-information-title users-title">
                 <img src="/assets/icons/red-finished.svg" alt="" />
@@ -554,8 +554,8 @@
                 <!-- <app-icon-button *ngIf="allUsers.length" font="font-bold" widht="w20" theme="red" clippy="clippy-right" height="auto-height" [buttonText]="allUsers.length"></app-icon-button> -->
               </div>
               <app-check-box
-                (change)="doumentCheck($event, polish)"
-                [checked]="!!polish.is_checked"
+                (change)="doumentCheck($event, polis)"
+                [checked]="!!polis.is_checked"
                 theme="white"
                 labelText="Проверено"
               ></app-check-box>
@@ -582,12 +582,12 @@
                   label="Срок действия до"
                 ></app-standart-input>
               </div>
-              <div class="document" *ngIf="polish">
+              <div class="document" *ngIf="polis">
                 <span>Файл документа</span>
-                <div class="file-name" (click)="checkDocument(polish.id)">
+                <div class="file-name" (click)="checkDocument(polis.id)">
                   <img src="/assets/icons/documents.svg" alt="" />
                   <div class="name">
-                    {{ polish.name }}
+                    {{ polis.name }}
                   </div>
                 </div>
               </div>
