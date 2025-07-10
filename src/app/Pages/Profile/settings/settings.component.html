@@ -177,13 +177,13 @@
           </div>
         </div> -->
   
-        <ion-modal class="agreed-modal" [isOpen]="userAgreedModalState" (didDismiss)="closeModalAgreedNotVerificated()">
+        <ion-modal class="agreed-modal" [isOpen]="userAgreedModalState" [canDismiss]="!userAgreedModalState" (didDismiss)="closeModalAgreedNotVerificated()">
             <ng-template>
                 <ion-content>
                   <div class="agreed-select__main">
                      <label class="agreed" name="agreed">Подтверждаю что ознакомлен и согласен с политикой для гонщика и организатора</label>
                     <div class="user-agreed">
-                      <span (click)="navigateInAgreed()">Пользовательское соглашение</span>
+                      <span style="cursor: pointer;" (click)="navigateInAgreed()">Пользовательское соглашение</span>
                       <ion-checkbox (ionChange)="changeAgreedState($event)"  for="agreed" class="agreed-select-status-checkbox"></ion-checkbox>
                     </div>
                     <div class="button-conteiner">
