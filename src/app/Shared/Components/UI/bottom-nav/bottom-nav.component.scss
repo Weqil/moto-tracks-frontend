@@ -43,10 +43,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  //width: var(--container-width); // так и не смог подключить переменную
-  width: 1670px;
+  width: var(--container-width);
   background-color: #fff;
-  padding: 2px 10px;
+  padding: 6px 10px;
 
   .logo-nav {
     display: flex;
@@ -60,7 +59,7 @@
 
     .logo-text{
       margin: 0 0 0 10px;
-      font-family: 'RussoOne-Regular'; // Нужно переопределить переменные шрифтов и заменить в библиотеке(но это не точно)
+      font-family: var(--font-regular);
       font-size: 34px;
     }
 
@@ -68,10 +67,7 @@
 
   .bottom-nav{
     box-shadow: none;
-
-    button {
-      font-family: 'RobotoCondensed-Regular'; // Нужно переопределить переменные шрифтов и заменить в библиотеке(но это не точно)
-    }
+    gap: 0.5rem;
   }
 
   .nav-exit {
@@ -84,7 +80,7 @@
       color: transparent;
       background-clip: text;
       -webkit-background-clip: text;
-      font-family: 'RobotoCondensed-Regular'; // Нужно переопределить переменные шрифтов и заменить в библиотеке(но это не точно)
+      font-family: var(--second-font-regular);
       font-size: 16px;
     }
   }
