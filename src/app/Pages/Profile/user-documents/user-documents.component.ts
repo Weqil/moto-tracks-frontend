@@ -517,10 +517,10 @@ export class UserDocumentsComponent implements OnInit {
   }
 
   updateLicenses() {
-    let loader: HTMLIonLoadingElement
-    this.loaderService.showLoading().then((res: HTMLIonLoadingElement) => {
-      loader = res
-    })
+    // let loader: HTMLIonLoadingElement
+    // this.loaderService.showLoading().then((res: HTMLIonLoadingElement) => {
+    //   loader = res
+   //  })
     let fd: FormData = new FormData()
     fd = this.formdataService.formdataAppendJson(fd, this.licensesForm.value)
 
@@ -531,7 +531,7 @@ export class UserDocumentsComponent implements OnInit {
       .updateDocument(Number(this.oldLicensesValue?.id), fd)
       .pipe(
         finalize(() => {
-          this.loaderService.hideLoading(loader)
+          this.loaderService.hideLoading()
         }),
       )
       .subscribe((res: any) => {
@@ -540,10 +540,10 @@ export class UserDocumentsComponent implements OnInit {
   }
 
   updatePolis() {
-    let loader: HTMLIonLoadingElement
-    this.loaderService.showLoading().then((res: HTMLIonLoadingElement) => {
-      loader = res
-    })
+    // let loader: HTMLIonLoadingElement
+    // this.loaderService.showLoading().then((res: HTMLIonLoadingElement) => {
+    //   loader = res
+    // })
     let fd: FormData = new FormData()
     fd = this.formdataService.formdataAppendJson(fd, this.polisForm.value)
     if (!this.polisFile.dontFile) {
@@ -553,7 +553,7 @@ export class UserDocumentsComponent implements OnInit {
       .updateDocument(Number(this.oldPolisValue?.id), fd)
       .pipe(
         finalize(() => {
-          this.loaderService.hideLoading(loader)
+          this.loaderService.hideLoading()
         }),
       )
       .subscribe((res: any) => {
@@ -563,10 +563,10 @@ export class UserDocumentsComponent implements OnInit {
 
   updateNotarius() {
     if (this.validateNotarius()) {
-      let loader: HTMLIonLoadingElement
-      this.loaderService.showLoading().then((res: HTMLIonLoadingElement) => {
-        loader = res
-      })
+      // let loader: HTMLIonLoadingElement
+      // this.loaderService.showLoading().then((res: HTMLIonLoadingElement) => {
+      //   loader = res
+      // })
       let fd: FormData = new FormData()
       if (!this.notariusFile.dontFile) {
         fd.append('file', this.notariusFile)
@@ -574,7 +574,7 @@ export class UserDocumentsComponent implements OnInit {
           .updateDocument(Number(this.oldNotariusValue?.id), fd)
           .pipe(
             finalize(() => {
-              this.loaderService.hideLoading(loader)
+              // this.loaderService.hideLoading(loader)
             }),
           )
           .subscribe((res: any) => {

@@ -895,7 +895,7 @@ export class GroupApplicationComponent implements OnInit {
     // Показать уведомление о загрузке файла
   }
 
-  closePreviewModal() {
+  async closePreviewModal(){
     this.isPreviewModalOpen = false;
   }
 
@@ -963,7 +963,20 @@ export class GroupApplicationComponent implements OnInit {
     }
   
     this.createTransaction().then(()=>{
-       this.loadingService.showLoading().then(loader => {
+  
+      if(this.paymentLink && this.createTransactionId){
+        this.closePreviewModal().then(()=>{
+           setTimeout(()=>{
+                   this.navController.navigateRoot(`/event-payment/${this.createTransactionId}`)
+        },100)
+                this.openPaymentBrowser()
+        })
+        
+
+      }
+    })
+
+    this.loadingService.showLoading().then(loader => {
       // Создаем массив FormData для каждого пользователя
       const formDataArray = this.selectedUsers.map(user => {
         const fd = new FormData();
@@ -1033,9 +1046,13 @@ export class GroupApplicationComponent implements OnInit {
         complete: () => {
           this.toastService.showToast('Отправка заявок завершена', 'success');
           if(!this.currentEvent.store){
-              this.navController.navigateForward(`/event/${this.currentEvent.id}`)
+                this.closePreviewModal().then(()=>{
+                  setTimeout(()=>{
+                    this.navController.navigateForward(`/event/${this.currentEvent.id}`)
+                  })
+                })
           }
-          this.closePreviewModal();
+      
         }
       });
     });
@@ -1046,10 +1063,10 @@ export class GroupApplicationComponent implements OnInit {
         },100)
         this.openPaymentBrowser()
       }
-    })
+    }
 
    
-  }
+  
 
   // Добавляем метод для выбора команды
   onTeamSelect(teamId: string) {
