@@ -1,0 +1,45 @@
+<!-- <p (click)="getRaces()">
+  Хронометраж {{ arrivalName }}
+</p> -->
+<div class="body">
+  <div class="header">
+    <div class="session">
+      <div><strong>Заезд:</strong> {{ arrivalName ?? ''}}</div>
+      <div><strong>Класс:</strong> {{ gradeName ?? ''}}</div>
+      <div><strong>Длится:</strong> {{ status?.timing}}</div>
+      <div><strong>Начнётся через:</strong> {{ status?.timeToGo ?? ''}}</div>
+    </div>
+    <div class="right-info">
+      <div class="green">{{status?.color}}</div>
+      <div>Местное время гонки: {{ status?.syncTime ?? ''}}</div>
+      <!-- <div>Общее количество кругов: {{ status?.circlesAll ?? ''}}</div> -->
+    </div>
+  </div>
+
+  <div class="table-header">
+    <div>#</div>
+    <div>Стартовый номер|Гонщик</div>
+    <div>Текущий круг</div>
+    <div>Последнее время</div>
+    <div>Лучший круг</div>
+    <div>Лучшее время</div>
+    <div>Отстование</div>
+  </div>
+
+  <div class="table-row" *ngFor="let racer of racerSock" id="{{racer.startNumber}}">
+    <div>{{ racer.position ?? ''}}</div>
+    <div>{{ racer.startNumber }} | {{ racer.name ?? 'Без имени' }} {{ racer.firstName ?? 'Без фамилии' }} <!--<span style="font-size: 12px; color: #000000;">Crown Vic</span> --></div>
+    <div>{{ racer.nowCircle }}</div>
+    <div> {{ racer.lastTime}}</div>
+    <div>{{ racer.bestCircle }}</div>
+    <div>{{ racer.bestCircleTime }}</div>
+    <div>{{ racer.city }}</div>
+    <div>{{ racer.backlog }}</div>
+
+  </div>
+  
+  <!-- <div style="flex-grow: 1; background-color: #444; min-height: 300px;"></div> -->
+
+  <div class="footer">Вермя и результат гонки не являются официальными</div>
+</div>
+

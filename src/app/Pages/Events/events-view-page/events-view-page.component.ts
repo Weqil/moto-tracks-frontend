@@ -34,7 +34,6 @@ import { ToastService } from 'src/app/Shared/Services/toast.service'
 import { User } from 'src/app/Shared/Data/Interfaces/user-model'
 import * as _ from 'lodash'
 
-import { UsersPreviewComponent } from 'src/app/Shared/Components/UI/users-preview/users-preview.component'
 import { ConfirmModalComponent } from 'src/app/Shared/Components/UI/confirm-modal/confirm-modal.component'
 import { DomSanitizer } from '@angular/platform-browser'
 import { CheckImgUrlPipe } from '../../../Shared/Helpers/check-img-url.pipe'
@@ -64,6 +63,7 @@ import { IAttenden } from '@app/Shared/Data/Interfaces/attenden'
 import { TransactionsService } from '@app/Shared/Data/Services/transactions.service'
 import { Browser } from '@capacitor/browser'
 import { PaymentStatusComponent } from '@app/Shared/Components/Payment/payment-status/payment-status.component'
+import { TimeKeeperComponent } from '@app/Shared/Components/time-keeper/time-keeper.component'
 
 @Component({
   selector: 'app-events-view-page',
@@ -74,11 +74,9 @@ import { PaymentStatusComponent } from '@app/Shared/Components/Payment/payment-s
     SlidersModule,
     ButtonsModule,
     TabElementComponent,
-    TrackSectionComponent,
     IonModal,
     HeaderModule,
     IconButtonComponent,
-    ConfirmModalComponent,
     CheckImgUrlPipe,
     FormsModule,
     RouterLink,
@@ -90,6 +88,7 @@ import { PaymentStatusComponent } from '@app/Shared/Components/Payment/payment-s
     StandartInputSelectComponent,
     RegionsSelectModalComponent,
     CheckResultsPathPipe,
+    TimeKeeperComponent,
   ],
 })
 export class EventsViewPageComponent implements OnInit {
