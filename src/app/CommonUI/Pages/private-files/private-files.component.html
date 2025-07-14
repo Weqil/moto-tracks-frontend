@@ -2,6 +2,8 @@
   <div class="container">
     <ng-container *ngIf="fileType == 'img'">
       <angular-image-viewer
+        style="width: 100%; height: 100%;"
+      
         [src]="images"
         [footerTexts]="['']"
         [config]="{
