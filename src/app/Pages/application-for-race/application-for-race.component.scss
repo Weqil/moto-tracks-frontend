@@ -302,8 +302,8 @@
 }
 .create-offline-racer-form {
   --width: 30rem;
-  --height: 60rem;
-  --min-heigth: 60rem;
+  --max-height: 60rem;
+  --padding-bottom: 1rem;
 }
 .add-offline-racer {
   display: flex;
