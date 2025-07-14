@@ -1,6 +1,6 @@
 import { NgFor } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { User } from '@app/Shared/Interfaces/user.interface';
 import { catchError } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -34,7 +34,7 @@ interface IRacerTimeKeeper {
   styleUrls: ['./time-keeper.component.scss'],
   imports: [NgFor],
 })
-export class TimeKeeperComponent  implements OnInit {
+export class TimeKeeperComponent  implements OnInit, OnDestroy {
 
   constructor() { }
 
@@ -50,11 +50,6 @@ export class TimeKeeperComponent  implements OnInit {
   arrivalName: string = ''
   gradeName: string = ''
   status?: IStatusTimeKeeper
-
-
-  getRaces(){
-    this.socket.close()
-  }
 
   onMessage(data: string) {
     const mess: any[] = data.split(',')
@@ -85,7 +80,6 @@ export class TimeKeeperComponent  implements OnInit {
         const key_user = this.racers.findIndex((race:any) => race.start_number == racer.startNumber)
         if (key_user !== -1) {
           racer.user = this.racers[key_user]
-          console.log(racer)
         }
         const key_a = this.racerSock.findIndex((race: IRacerTimeKeeper) => race.startNumber === racer.startNumber)
         if (key_a === -1) { 
@@ -156,7 +150,6 @@ export class TimeKeeperComponent  implements OnInit {
     };
 
     this.socket.onclose = (event) => {
-      console.log('Соединение закрыто');
       this.racerSock = []
       this.gradeName = ''
       this.status = {
@@ -166,13 +159,7 @@ export class TimeKeeperComponent  implements OnInit {
         syncTime: new Date(),
       }
       this.setUrlWSAndOpenWS()
-      // setInterval(async () => {
-      //   const result = this.setUrlWSAndOpenWS();
-      //   if (result) {
-      //       console.log('Получен нужный ответ! Останавливаемся.');
-      //       clearInterval(intervalId);
-      //     }
-      //   }, 5000);
+
     }
 
     this.socket.onerror = (error) => {
@@ -185,7 +172,6 @@ export class TimeKeeperComponent  implements OnInit {
     this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races-ws/` + this.raceIdWS)
     .pipe()
     .subscribe((response: any) => {
-      console.log(response)
       this.openSocket('wss://' + response.LiveTimingHost + '/instance/' + response.CurrentRaces[0].Instance + '/' + response.LiveTimingToken)
     })
   }
@@ -193,6 +179,9 @@ export class TimeKeeperComponent  implements OnInit {
 
   ngOnInit() {
     this.setUrlWSAndOpenWS()
+  }
+  ngOnDestroy() {
+    this.socket.close()
   }
 
 }

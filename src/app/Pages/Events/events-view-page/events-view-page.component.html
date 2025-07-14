@@ -1,5 +1,5 @@
 <ion-content>
-  <!-- <app-time-keeper [racers]="allUsers" [raceIdWS]="157258"></app-time-keeper> -->
+  <app-time-keeper *ngIf="event?.hrono_id" [racers]="allUsers" [raceIdWS]="event.hrono_id ? event.hrono_id : 0"></app-time-keeper>
   <main>
     <div class="event">
       <div class="event-header">
