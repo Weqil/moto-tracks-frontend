@@ -2,75 +2,85 @@
   <main>
     <section class="main-about">
       <div class="main-about__info">
-          <div class="flag-image-wrapper">
-            <img class="flag-image" src="/assets/icons/race-flag.svg" alt="">
-          </div>
+        <div class="flag-image-wrapper">
+          <img class="flag-image" src="/assets/icons/race-flag.svg" alt="" />
+        </div>
         <h1 class="main-about__heading">МотоТрек</h1>
-        <span class="main-about__description">Приложение для записи на соревнования по
-        мотоспорту и поиска трасс для тренировок</span>
+        <span class="main-about__description">Приложение для записи на соревнования по мотоспорту и поиска трасс для тренировок</span>
       </div>
-      <div class="main-about-images-block">
-      </div>
+      <div class="main-about-images-block"></div>
     </section>
 
     <section class="advantages-about">
       <div class="advantages-about__info">
-         <!-- <div class="advantages-about__heading-wrapper">
+        <!-- <div class="advantages-about__heading-wrapper">
             <app-icon-button [shapeColumn]="true" fontSize="big-font-size" clippy="clippy-right" height="long-height"  widht="full" theme="red" buttonText="Плюсы приложения МотоКросс"></app-icon-button>
           </div> -->
-          <div class="info-check-list">
-            <div class="info-check-list__item">
-              <img src="/assets/icons/select.svg" alt="" class="info-check-list__item__icon">
-              <div class="info-check-list__item__info">
-                <span class="info-check-list__item__info__name">Удобство и простота</span>
-                <span class="info-check-list__item__info__description">
-                  Предварительная регистрация в одно нажатие. Вся
-                  информация о зарегистрированных спортсменах в
-                  режиме реального времени.
-                </span>
-              </div>
-            </div>
-            <div class="info-check-list__item">
-              <img src="/assets/icons/select.svg" alt="" class="info-check-list__item__icon">
-              <div class="info-check-list__item__info">
-                <span class="info-check-list__item__info__name">Максимальная автоматизация</span>
-                <span class="info-check-list__item__info__description">
-                 Все данные о вашей трассе загружаются в приложение и
-                  любой спортсмен одним кликом проложит маршрут до
-                  вашей трассы.
-                </span>
-              </div>
-            </div>
-            <div class="info-check-list__item">
-              <img src="/assets/icons/select.svg" alt="" class="info-check-list__item__icon">
-              <div class="info-check-list__item__info">
-                <span class="info-check-list__item__info__name">Испытано на Чемпионате России</span>
-                <span class="info-check-list__item__info__description">
-                  Наше приложение уже успешно работает на масштабных
-                  соревнованиях, включая Чемпионат России по мотокроссу.
-                </span>
-              </div>
+        <div class="info-check-list">
+          <div class="info-check-list__item">
+            <img src="/assets/icons/select.svg" alt="" class="info-check-list__item__icon" />
+            <div class="info-check-list__item__info">
+              <span class="info-check-list__item__info__name">Удобство и простота</span>
+              <span class="info-check-list__item__info__description">
+                Предварительная регистрация в одно нажатие. Вся информация о зарегистрированных спортсменах в режиме реального времени.
+              </span>
             </div>
           </div>
+          <div class="info-check-list__item">
+            <img src="/assets/icons/select.svg" alt="" class="info-check-list__item__icon" />
+            <div class="info-check-list__item__info">
+              <span class="info-check-list__item__info__name">Максимальная автоматизация</span>
+              <span class="info-check-list__item__info__description">
+                Все данные о вашей трассе загружаются в приложение и любой спортсмен одним кликом проложит маршрут до вашей трассы.
+              </span>
+            </div>
+          </div>
+          <div class="info-check-list__item">
+            <img src="/assets/icons/select.svg" alt="" class="info-check-list__item__icon" />
+            <div class="info-check-list__item__info">
+              <span class="info-check-list__item__info__name">Испытано на Чемпионате России</span>
+              <span class="info-check-list__item__info__description">
+                Наше приложение уже успешно работает на масштабных соревнованиях, включая Чемпионат России по мотокроссу.
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="video-block">
+          <iframe
+            src="https://kinescope.io/embed/2ZfbzMDXPfe6nBV1T9LB3z"
+            allow="autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer; clipboard-write; screen-wake-lock;"
+            frameborder="0"
+            allowfullscreen
+            style="margin: auto; width: 400px; height: 300px; top: 0; left: 0"
+          ></iframe>
+        </div>
       </div>
       <div class="auth-button-wrapper">
-          <app-icon-button clippy="clippy-right" [shapeColumn]="true" (click)="redirectInSelectAuth()" style="width: 40rem" widht="full" theme="red"  buttonText="Начать пользоваться"></app-icon-button>
+        <app-icon-button
+          clippy="clippy-right"
+          [shapeColumn]="true"
+          (click)="redirectInSelectAuth()"
+          style="width: 40rem"
+          widht="full"
+          theme="red"
+          buttonText="Начать пользоваться"
+        ></app-icon-button>
       </div>
       <div class="links-block">
-          <div (click)="redirectInLink('google')" class="links-block__item">
-              <img src="/assets/icons/google-play.svg" alt="">
-          </div>
-          <div (click)="redirectInLink('ruStore')" class="links-block__item">
-              <img src="/assets/icons/rustore.svg" alt="">
-          </div>
-          <div (click)="redirectInLink('appStore')" class="links-block__item">
-              <img src="/assets/icons/app-store.svg" alt="">
-          </div>
-          <div (click)="redirectInLink('tg')" class="links-block__item">
-              <img src="/assets/icons/telegram.svg" alt="">
-          </div>
+        <div (click)="redirectInLink('google')" class="links-block__item">
+          <img src="/assets/icons/google-play.svg" alt="" />
+        </div>
+        <div (click)="redirectInLink('ruStore')" class="links-block__item">
+          <img src="/assets/icons/rustore.svg" alt="" />
+        </div>
+        <div (click)="redirectInLink('appStore')" class="links-block__item">
+          <img src="/assets/icons/app-store.svg" alt="" />
+        </div>
+        <div (click)="redirectInLink('tg')" class="links-block__item">
+          <img src="/assets/icons/telegram.svg" alt="" />
+        </div>
       </div>
+      <div style="position: relative; padding-top: 222.22%; width: 100%"></div>
     </section>
   </main>
 </ion-content>
-
