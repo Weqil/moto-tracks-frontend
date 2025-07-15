@@ -291,18 +291,6 @@ export class ApplicationForRaceComponent implements OnInit {
     this.viewDocumentValue = true
   }
 
-  ionViewWillEnter() {
-    this.route.params
-      .pipe(takeUntil(this.destroy$))
-      .pipe()
-      .subscribe((params) => {
-        this.eventId = params['id']
-        this.loadingService
-          .observableLoaderScoup([this.getAllComands(), this.getEvent(), this.getUsersInRace(true), this.getOfflineRacer(true)])
-          .subscribe()
-      })
-  }
-
   getEvent() {
     return this.eventService
       .getEventById(this.eventId, {
@@ -892,6 +880,19 @@ export class ApplicationForRaceComponent implements OnInit {
       })
     } else {
     }
+  }
+  ionViewWillEnter() {
+    setTimeout(() => {
+      this.route.params
+        .pipe(takeUntil(this.destroy$))
+        .pipe()
+        .subscribe((params) => {
+          this.eventId = params['id']
+          this.loadingService
+            .observableLoaderScoup([this.getAllComands(), this.getEvent(), this.getUsersInRace(true), this.getOfflineRacer(true)])
+            .subscribe()
+        })
+    }, 200)
   }
 
   ngOnInit() {

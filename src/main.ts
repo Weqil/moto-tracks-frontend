@@ -37,8 +37,6 @@ bootstrapApplication(AppComponent, {
     provideAppInitializer(() => {
       let loadingService = inject(LoadingService)
       let mapService = inject(MapService)
-      let loader: HTMLIonLoadingElement
-      loadingService.showLoading().then((res: HTMLIonLoadingElement) => (loader = res))
       let userService = inject(UserService)
       function getRoles(): Observable<any> {
         return userService.getChangeRoles().pipe(
@@ -63,9 +61,7 @@ bootstrapApplication(AppComponent, {
           }),
         )
       }
-      forkJoin([getRoles(), getRegions()])
-        .pipe(finalize(() => loadingService.hideLoading(loader)))
-        .subscribe()
+      loadingService.observableLoaderScoup([getRoles(), getRegions()]).pipe().subscribe()
     }),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideMessaging(() => getMessaging()),
