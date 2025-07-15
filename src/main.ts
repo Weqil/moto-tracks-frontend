@@ -23,7 +23,7 @@ import { contentTypeInterceptorFn } from '@app/Shared/Data/Interceptors/contentT
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app'
 import { provideMessaging, getMessaging } from '@angular/fire/messaging'
 import { UserService } from '@app/Shared/Data/Services/User/user.service'
-import { finalize, forkJoin, from, map, Observable, tap, toArray } from 'rxjs'
+import { finalize, firstValueFrom, forkJoin, from, map, Observable, tap, toArray } from 'rxjs'
 import { LoadingService } from '@app/Shared/Services/loading.service'
 import { MapService } from '@app/Shared/Data/Services/Map/map.service'
 
@@ -35,9 +35,10 @@ registerLocaleData(localeRu, 'ru')
 bootstrapApplication(AppComponent, {
   providers: [
     provideAppInitializer(() => {
-      let loadingService = inject(LoadingService)
-      let mapService = inject(MapService)
-      let userService = inject(UserService)
+      const loadingService = inject(LoadingService)
+      const mapService = inject(MapService)
+      const userService = inject(UserService)
+
       function getRoles(): Observable<any> {
         return userService.getChangeRoles().pipe(
           tap((res: any) => {
@@ -45,23 +46,23 @@ bootstrapApplication(AppComponent, {
           }),
         )
       }
+
       function getRegions(): Observable<any> {
         return mapService.getAllRegions(false, false, false).pipe(
-          tap((res: any) => {
-            from(res.data)
-              .pipe(
-                map((region: any) => {
-                  return { name: `${region.name} ${region.type}`, value: region.id }
-                }),
-                toArray(),
-              )
-              .subscribe((res: { name: string; value: string }[]) => {
-                mapService.allRegions.next(res)
-              })
+          map((res: any) =>
+            res.data.map((region: any) => ({
+              name: `${region.name} ${region.type}`,
+              value: region.id,
+            })),
+          ),
+          tap((regions: { name: string; value: string }[]) => {
+            mapService.allRegions.next(regions)
           }),
         )
       }
-      loadingService.observableLoaderScoup([getRoles(), getRegions()]).pipe().subscribe()
+      return loadingService.showLoading().then((loader: HTMLIonLoadingElement) => {
+        return firstValueFrom(forkJoin([getRoles(), getRegions()])).then(() => loadingService.hideLoading(loader))
+      })
     }),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideMessaging(() => getMessaging()),
