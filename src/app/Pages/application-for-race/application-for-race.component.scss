@@ -259,6 +259,7 @@
 .payment-and-comission__user {
   min-width: 100%;
   flex-shrink: 1;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   display: flex;
@@ -319,6 +320,7 @@
   align-items: center;
   justify-content: center;
   gap: var(--little-padding);
+  padding-bottom: var(--standart-padding);
 }
 .offline-racer-form {
   padding: var(--standart-padding);

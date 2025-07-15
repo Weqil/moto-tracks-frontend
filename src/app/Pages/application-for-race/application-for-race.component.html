@@ -91,8 +91,8 @@
         </div>
 
         <div class="application-list">
-          <div *ngFor="let user of usersInRace">
-            <div *ngIf="!!user.user" class="user-card" (click)="navigateToUser(user.user.id, user, user.id)">
+          <ng-container *ngFor="let user of usersInRace">
+            <div *ngIf="!!user.user && user.user !== null" class="user-card" (click)="navigateToUser(user.user.id, user, user.id)">
               <app-user-section
                 style="cursor: pointer"
                 *ngIf="user.user && user.user.personal"
@@ -109,7 +109,7 @@
               >
               </app-user-section>
             </div>
-          </div>
+          </ng-container>
           <div *ngFor="let appoyment of offlineAppointments">
             <div class="user-card">
               <app-user-section

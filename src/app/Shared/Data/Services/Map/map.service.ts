@@ -1,24 +1,22 @@
-import { query } from '@angular/animations';
-import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
+import { query } from '@angular/animations'
+import { HttpClient } from '@angular/common/http'
+import { inject, Injectable } from '@angular/core'
+import { BehaviorSubject } from 'rxjs'
+import { environment } from 'src/environments/environment'
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MapService {
-
-  constructor() { }
-  http:HttpClient = inject(HttpClient)
- 
-  getAllRegions(existsRace?: boolean, existsTrack?: boolean, existComand?: boolean){
-   
-
+  constructor() {}
+  http: HttpClient = inject(HttpClient)
+  allRegions: BehaviorSubject<{ name: string; value: string }[]> = new BehaviorSubject<{ name: string; value: string }[]>([])
+  getAllRegions(existsRace?: boolean, existsTrack?: boolean, existComand?: boolean) {
     const query = {
       raceCountExists: existsRace ? '1' : '0',
       trackCountExists: existsTrack ? '1' : '0',
-      commandCountExists: existComand ? '1' : '0'
-    };
-    return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/locations`, {params: query})
+      commandCountExists: existComand ? '1' : '0',
+    }
+    return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/locations`, { params: query })
   }
 }

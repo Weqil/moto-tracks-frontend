@@ -6,7 +6,7 @@ import { EventService } from '@app/Shared/Data/Services/Event/event.service'
 import { UserService } from '@app/Shared/Data/Services/User/user.service'
 
 import { LoadingService } from '@app/Shared/Services/loading.service'
-import { catchError, debounceTime, delay, EMPTY, finalize, map, Observable, Subject, takeUntil, tap } from 'rxjs'
+import { catchError, debounceTime, delay, EMPTY, finalize, forkJoin, map, Observable, Subject, takeUntil, tap } from 'rxjs'
 import { HeaderModule } from '../../Shared/Modules/header/header.module'
 import { IonModal, NavController, Platform, IonContent } from '@ionic/angular/standalone'
 import { isNull } from 'lodash'
@@ -112,15 +112,13 @@ export class ApplicationForRaceComponent implements OnInit {
   applicationsFilters = signal<ApplicationFilters>({})
   createRegionItems: any[] = []
   @ViewChild('searchInput') searchInput!: any
-  searchRegionItems: any[] = []
+  searchRegionItems: any[] = this.mapService.allRegions.value
   sortUsers: any = {}
   viewUser: boolean = false
   _filtersEffect = effect(() => {
-    console.log('изменил сигнал')
     const applicationFilters = this.applicationsFilters()
     if (this.event) {
-      this.getUsersInRace()
-      this.getOfflineRacer()
+      this.loaderService.observableLoaderScoup([this.getUsersInRace(true), this.getOfflineRacer(true)]).subscribe()
     }
   })
   viewUserOffline: boolean = false
@@ -294,39 +292,31 @@ export class ApplicationForRaceComponent implements OnInit {
   }
 
   ionViewWillEnter() {
-    this.getRegions()
-    this.getAllComands()
     this.route.params
       .pipe(takeUntil(this.destroy$))
-      .pipe(finalize(() => {}))
+      .pipe()
       .subscribe((params) => {
         this.eventId = params['id']
-        this.getEvent()
-        this.getUsersInRace()
+        this.loadingService
+          .observableLoaderScoup([this.getAllComands(), this.getEvent(), this.getUsersInRace(true), this.getOfflineRacer(true)])
+          .subscribe()
       })
-    this.getOfflineRacer()
   }
 
   getEvent() {
-    let loader: HTMLIonLoadingElement
-    this.loaderService.showLoading().then((res: HTMLIonLoadingElement) => {
-      loader = res
-    })
-    this.eventService
+    return this.eventService
       .getEventById(this.eventId, {
         userId: String(this.userService.user.value?.id ? this.userService.user.value?.id : ''),
         appointmentUser: 1,
       })
       .pipe(
-        finalize(() => {
-          this.loadingService.hideLoading(loader)
+        tap((res: any) => {
+          this.raceUser = res.race.user
+          this.event = res.race
+          this.groupItems = this.event.grades
         }),
+        finalize(() => {}),
       )
-      .subscribe((res: any) => {
-        this.raceUser = res.race.user
-        this.event = res.race
-        this.groupItems = this.event.grades
-      })
   }
 
   back() {
@@ -390,13 +380,13 @@ export class ApplicationForRaceComponent implements OnInit {
     })
   }
 
-  getUsersInRace() {
+  getUsersInRace(hideLoader: boolean = false) {
     let loader: HTMLIonLoadingElement
-    this.loaderService.showLoading().then((res: HTMLIonLoadingElement) => (loader = res))
-    this.eventService
-      .getApplicationsForCommisson(this.eventId, this.applicationsFilters())
-      .pipe(finalize(() => this.loaderService.hideLoading(loader)))
-      .subscribe((res: any) => {
+    if (!hideLoader) {
+      this.loadingService.showLoading().then((laoder) => (loader = loader))
+    }
+    return this.eventService.getApplicationsForCommisson(this.eventId, this.applicationsFilters()).pipe(
+      tap((res: any) => {
         this.usersInRace = res.users
         this.usersInRace.map((user: any) => {
           if (user.user && user.user.personal.comment) {
@@ -414,25 +404,17 @@ export class ApplicationForRaceComponent implements OnInit {
           }
         })
         this.formattedUsers = []
-
-        // Object.keys(this.usersInRace).forEach((key: string) => {
-        //   this.formattedUsers.push({
-        //     users: this.usersInRace[key]
-        //   });
-        // });
-
-        // if(this.usersInRace){
-        //   Object.keys(this.usersInRace).forEach((res:any)=>{
-        //   let tempArray:any = Array(this.usersInRace[res])[0]
-        //    this.usersPreviewConfig.usersCount += tempArray.length
-
-        //   })
-        // }
         if (this.userGet) {
           let currentUser = this.usersInRace.find((user: any) => user.id == this.userGet.id)
-          this.navigateToUser(currentUser.user_id, currentUser, currentUser.id)
+          if (currentUser) this.navigateToUser(currentUser.user_id, currentUser, currentUser.id)
         }
-      })
+      }),
+      finalize(() => {
+        if (!hideLoader) {
+          this.loadingService.hideLoading(loader)
+        }
+      }),
+    )
   }
 
   licensesForm: FormGroup = new FormGroup({
@@ -460,7 +442,7 @@ export class ApplicationForRaceComponent implements OnInit {
       .userComeInRace(application.id, !!!application.has_come)
       .pipe(finalize(() => this.loaderService.hideLoading(loader)))
       .subscribe(() => {
-        this.getUsersInRace()
+        this.getUsersInRace().subscribe()
       })
   }
 
@@ -469,16 +451,9 @@ export class ApplicationForRaceComponent implements OnInit {
   }
 
   doumentCheck(value: any, document: any) {
-    let loader: HTMLIonLoadingElement
-    this.loaderService.showLoading().then((res: HTMLIonLoadingElement) => {
-      loader = res
-    })
-    this.userService
-      .checkedDocument(document.id, { checked: !value.state })
-      .pipe(finalize(() => this.loaderService.hideLoading(loader)))
-      .subscribe((res: any) => {
-        this.getUsersInRace()
-      })
+    this.loaderService
+      .observableLoaderScoup([this.userService.checkedDocument(document.id, { checked: !value.state }), this.getUsersInRace(true)])
+      .subscribe()
   }
 
   notariusForm: FormGroup = new FormGroup({
@@ -510,7 +485,7 @@ export class ApplicationForRaceComponent implements OnInit {
       })
   }
 
-  closeGoogleTable(){
+  closeGoogleTable() {
     this.tableModalValue = false
   }
 
@@ -536,38 +511,43 @@ export class ApplicationForRaceComponent implements OnInit {
   }
 
   saveOfflineRacer(addAlso: boolean = false) {
-    this.addOfflineUserForm.markAllAsTouched()
     if (this.addOfflineUserForm.valid) {
-      this.createOfflineRacer().subscribe((res: any) => {
-        this.toastService.showToast('Заявка успешно создана', 'success')
-        this.getOfflineRacer()
-        if (addAlso) {
-          this.addOfflineUserForm.reset()
-        } else {
-          this.closeOfflineRacerAddForm()
-          this.addOfflineUserForm.reset()
-        }
-      })
+      this.loaderService
+        .observableLoaderScoup([this.createOfflineRacer()])
+        .pipe(finalize(() => {}))
+        .subscribe((res: any) => {
+          this.toastService.showToast('Заявка успешно создана', 'success')
+          this.getOfflineRacer(true)
+          if (addAlso) {
+            this.addOfflineUserForm.reset()
+          } else {
+            this.closeOfflineRacerAddForm()
+            this.addOfflineUserForm.reset()
+          }
+        })
     }
+    this.addOfflineUserForm.markAllAsTouched()
   }
 
   createOfflineRacer(): Observable<any> {
-    let loader: HTMLIonLoadingElement
-    this.loaderService.showLoading().then((res: HTMLIonLoadingElement) => (loader = res))
-    return this.offlineRacersService
-      .createOfflineRacer(Number(this.eventId), this.addOfflineUserForm.value)
-      .pipe(finalize(() => this.loaderService.hideLoading(loader)))
+    return this.offlineRacersService.createOfflineRacer(Number(this.eventId), this.addOfflineUserForm.value).pipe()
   }
 
-  getOfflineRacer() {
+  getOfflineRacer(hideLoader: boolean = false) {
     let loader: HTMLIonLoadingElement
-    this.loaderService.showLoading().then((res: HTMLIonLoadingElement) => (loader = res))
-    return this.offlineRacersService
-      .getOfflineRacer(Number(this.eventId), this.applicationsFilters())
-      .pipe(finalize(() => this.loaderService.hideLoading(loader)))
-      .subscribe((res: any) => {
+    if (!hideLoader) {
+      this.loaderService.showLoading().then((res: HTMLIonLoadingElement) => (loader = res))
+    }
+    return this.offlineRacersService.getOfflineRacer(Number(this.eventId), this.applicationsFilters()).pipe(
+      tap((res: any) => {
         this.offlineAppointments = res.appointments
-      })
+      }),
+      finalize(() => {
+        if (!hideLoader) {
+          this.loaderService.hideLoading(loader)
+        }
+      }),
+    )
   }
 
   saveAndAddNew() {}
@@ -686,18 +666,12 @@ export class ApplicationForRaceComponent implements OnInit {
   }
 
   getAllComands() {
-    let loader: HTMLIonLoadingElement
-    this.loaderService.showLoading().then((res: HTMLIonLoadingElement) => {
-      loader = res
-    })
-    this.commandService
-      .getComands()
-      .pipe(
-        finalize(() => {
-          this.loaderService.hideLoading(loader)
-        }),
-      )
-      .subscribe((res: any) => {
+    // let loader: HTMLIonLoadingElement
+    // this.loaderService.showLoading().then((res: HTMLIonLoadingElement) => {
+    //   loader = res
+    // })
+    return this.commandService.getComands().pipe(
+      tap((res: any) => {
         this.allComands = []
         this.allComands.push({ id: '', name: 'Лично', region: 'papilapup' })
 
@@ -707,7 +681,8 @@ export class ApplicationForRaceComponent implements OnInit {
         } else {
           this.allComands.push(...res.commands)
         }
-      })
+      }),
+    )
   }
 
   createNewComand(formData: { id: number; name: string; city: string; locationId: number; region: string }) {
@@ -884,17 +859,17 @@ export class ApplicationForRaceComponent implements OnInit {
     this.regionModalState = false
   }
   getRegions() {
-    this.mapService
-      .getAllRegions(false, false, false)
-      .pipe()
-      .subscribe((res: any) => {
-        res.data.forEach((region: any) => {
-          this.searchRegionItems.push({
-            name: `${region.name} ${region.type}`,
-            value: region.id,
-          })
-        })
-      })
+    // this.mapService
+    //   .getAllRegions(false, false, false)
+    //   .pipe()
+    //   .subscribe((res: any) => {
+    //     res.data.forEach((region: any) => {
+    //       this.searchRegionItems.push({
+    //         name: `${region.name} ${region.type}`,
+    //         value: region.id,
+    //       })
+    //     })
+    //   })
   }
   selectRegionInCommandModalFunction(event: any) {
     this.selectRegionInCommandModal = event

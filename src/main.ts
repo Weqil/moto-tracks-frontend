@@ -23,7 +23,9 @@ import { contentTypeInterceptorFn } from '@app/Shared/Data/Interceptors/contentT
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app'
 import { provideMessaging, getMessaging } from '@angular/fire/messaging'
 import { UserService } from '@app/Shared/Data/Services/User/user.service'
-import { tap } from 'rxjs'
+import { finalize, forkJoin, from, map, Observable, tap, toArray } from 'rxjs'
+import { LoadingService } from '@app/Shared/Services/loading.service'
+import { MapService } from '@app/Shared/Data/Services/Map/map.service'
 
 const yandexMapConfig: YaConfig = {
   apikey: environment.apiKeyYandex + '&' + `suggest_apikey=${environment.apiKeyYandexSubject}`,
@@ -33,12 +35,37 @@ registerLocaleData(localeRu, 'ru')
 bootstrapApplication(AppComponent, {
   providers: [
     provideAppInitializer(() => {
+      let loadingService = inject(LoadingService)
+      let mapService = inject(MapService)
+      let loader: HTMLIonLoadingElement
+      loadingService.showLoading().then((res: HTMLIonLoadingElement) => (loader = res))
       let userService = inject(UserService)
-      return userService.getChangeRoles().pipe(
-        tap((res: any) => {
-          userService.allRoles = res.role
-        }),
-      )
+      function getRoles(): Observable<any> {
+        return userService.getChangeRoles().pipe(
+          tap((res: any) => {
+            userService.allRoles = res.role
+          }),
+        )
+      }
+      function getRegions(): Observable<any> {
+        return mapService.getAllRegions(false, false, false).pipe(
+          tap((res: any) => {
+            from(res.data)
+              .pipe(
+                map((region: any) => {
+                  return { name: `${region.name} ${region.type}`, value: region.id }
+                }),
+                toArray(),
+              )
+              .subscribe((res: { name: string; value: string }[]) => {
+                mapService.allRegions.next(res)
+              })
+          }),
+        )
+      }
+      forkJoin([getRoles(), getRegions()])
+        .pipe(finalize(() => loadingService.hideLoading(loader)))
+        .subscribe()
     }),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideMessaging(() => getMessaging()),
