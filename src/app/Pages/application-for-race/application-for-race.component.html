@@ -14,7 +14,7 @@
             [widht]="'w20'"
             height="long-height"
             elementsPosition="row__reverse"
-            buttonText="Выгрузить таблицу"
+            buttonText="Заявившиеся"
             [buttonIconColor]="'white-icon'"
             icon="assets/icons/excel-file.svg"
             height="standart-height"
@@ -27,7 +27,7 @@
             [widht]="'w20'"
             height="long-height"
             elementsPosition="row__reverse"
-            buttonText="Пришедшие на гонку"
+            buttonText="Прибыл и допущен"
             [buttonIconColor]="'white-icon'"
             icon="assets/icons/excel-file.svg"
             height="standart-height"
@@ -126,6 +126,7 @@
             </div>
           </div>
         </div>
+
         <!-- </div> -->
       </div>
 
@@ -275,6 +276,13 @@
         (clearFilterRegion)="clearRegionInComandFilter()"
       >
       </app-select-comands>
+      <div class="not-found-users__wrapper" *ngIf="!viewUser && !viewUserOffline">
+        <div class="not-found-users">Выберите спортсмена для его проверки.
+          <br>
+          В день начала соревнований, не забудьте отмечать прибывших на гонку спортсменов
+        </div>
+      </div>
+
       <div class="view-user" *ngIf="viewUser">
         <div class="payment-and-comission">
           <div class="payment-and-comission__user">
@@ -290,7 +298,7 @@
                 [checked]="!!userGet.has_come"
                 clippy="clippy-right"
                 theme="red"
-                labelText="Пришёл на гонку"
+                labelText="Прибыл и допущен"
               ></app-check-box>
             </div>
             <div *ngIf="userGet.transaction" class="transaction-in-race">
