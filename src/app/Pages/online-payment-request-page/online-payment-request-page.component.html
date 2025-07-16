@@ -1,3 +1,32 @@
-<p>
-  online-payment-request-page works!
-</p>
+<ion-content>
+  <app-header [customContainer]="true" [hiddenBackButton]="true">
+    <div class="cabinet-header">
+      <button class="cabinet-header__back">
+        <img src="/assets/icons/arrow.svg" alt="Назад" />
+      </button>
+      <span class="cabinet-header__title">Подключение онлайн оплаты на гонке</span>
+      <button class="cabinet-header__plug none"></button>
+    </div>
+  </app-header>
+  <main class="main-container--with-header">
+    <div class="request-container">
+      <div class="event-information-title">
+        <img src="/assets/icons/red-finished.svg" alt="" />
+        Отправьте заявку для подключения.
+      </div>
+      <form action="" class="input-form">
+        <app-standart-input
+          label="Телефон"
+          maskType="phone"
+          [control]="onlinePaymentForm.get('number')"
+          placeholder="Введите ваш номер телефона"
+        ></app-standart-input>
+        <app-standart-input label="Почта" maskType="email" [control]="onlinePaymentForm.get('email')" placeholder="E-mail"></app-standart-input>
+
+        <app-standart-rich-input label="Описание заявки" [control]="onlinePaymentForm.get('message')" placeholder="Введите ваше обращение">
+        </app-standart-rich-input>
+        <app-icon-button buttonText="Отправить" theme="red" clippy="clippy-right" widht="full"></app-icon-button>
+      </form>
+    </div>
+  </main>
+</ion-content>

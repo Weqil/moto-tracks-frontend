@@ -1,0 +1,23 @@
+.request-container {
+  width: 100%;
+  max-width: 960px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding-left: var(--standart-padding);
+  padding-right: var(--standart-padding);
+}
+.online-payment-header {
+  font-family: var(--font-regular);
+  font-size: 32px;
+}
+
+.input-form {
+  padding-top: var(--standart-padding);
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  gap: var(--standart-padding);
+  flex-direction: column;
+}
