@@ -45,8 +45,9 @@
             </div>
           </div>
         </div>
-        <div class="video-block">
+        <div *ngIf="showVideo" class="video-block">
           <iframe
+            #videoFrame
             src="https://kinescope.io/embed/2ZfbzMDXPfe6nBV1T9LB3z"
             allow="autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer; clipboard-write; screen-wake-lock;"
             frameborder="0"
