@@ -4,28 +4,42 @@
       <button class="cabinet-header__back">
         <img src="/assets/icons/arrow.svg" alt="Назад" />
       </button>
-      <span class="cabinet-header__title">Подключение онлайн оплаты на гонке</span>
+      <span class="cabinet-header__title">Онлайн оплата</span>
       <button class="cabinet-header__plug none"></button>
     </div>
   </app-header>
   <main class="main-container--with-header">
     <div class="request-container">
-      <div class="event-information-title">
-        <img src="/assets/icons/red-finished.svg" alt="" />
-        Отправьте заявку для подключения.
-      </div>
-      <form action="" class="input-form">
+      <form [formGroup]="onlinePaymentForm" (ngSubmit)="submitForm()" class="input-form">
         <app-standart-input
           label="Телефон"
           maskType="phone"
           [control]="onlinePaymentForm.get('number')"
-          placeholder="Введите ваш номер телефона"
+          placeholder="+7"
+          [errorMessage]="checkInputInControl(onlinePaymentForm.get('number')).message"
+          [invalid]="checkInputInControl(onlinePaymentForm.get('number')).invalid"
         ></app-standart-input>
-        <app-standart-input label="Почта" maskType="email" [control]="onlinePaymentForm.get('email')" placeholder="E-mail"></app-standart-input>
-
-        <app-standart-rich-input label="Описание заявки" [control]="onlinePaymentForm.get('message')" placeholder="Введите ваше обращение">
+        <app-standart-input
+          [errorMessage]="checkInputInControl(onlinePaymentForm.get('email')).message"
+          [invalid]="checkInputInControl(onlinePaymentForm.get('email')).invalid"
+          label="Почта"
+          maskType="email"
+          [control]="onlinePaymentForm.get('email')"
+          placeholder="E-mail"
+        ></app-standart-input>
+        <app-standart-rich-input
+          [errorMessage]="checkInputInControl(onlinePaymentForm.get('message')).message"
+          [invalid]="checkInputInControl(onlinePaymentForm.get('message')).invalid"
+          label="Описание заявки"
+          [control]="onlinePaymentForm.get('message')"
+          placeholder="Введите ваше обращение"
+        >
         </app-standart-rich-input>
-        <app-icon-button buttonText="Отправить" theme="red" clippy="clippy-right" widht="full"></app-icon-button>
+        <span class="request-description">
+          Мы обязательно свяжемся с вами в ближайшее время. Хотим обратить ваше внимание, что подключение оплаты возможно только за неделю до начала
+          соревнования.</span
+        >
+        <app-icon-button (click)="submitForm()" type="button" buttonText="Отправить" theme="red" clippy="clippy-right" widht="full"></app-icon-button>
       </form>
     </div>
   </main>

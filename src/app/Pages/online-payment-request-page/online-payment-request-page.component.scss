@@ -21,3 +21,8 @@
   gap: var(--standart-padding);
   flex-direction: column;
 }
+
+.request-description {
+  font-family: var(--font-regular);
+  max-width: 400px;
+}

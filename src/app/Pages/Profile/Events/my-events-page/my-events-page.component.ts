@@ -150,6 +150,11 @@ export class MyEventsPageComponent implements OnInit {
       finalize(() => {}),
     )
   }
+
+  navigateInOnlinePaymentRequest() {
+    this.navController.navigateRoot('/online-payment-request')
+  }
+
   startEvents() {
     let loader: HTMLIonLoadingElement
     this.loadingService.showLoading().then((res: HTMLIonLoadingElement) => {

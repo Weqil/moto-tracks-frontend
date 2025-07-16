@@ -1,103 +1,104 @@
-.events{
-    padding-bottom: 5rem;
+.events {
+  padding-bottom: 5rem;
 }
 
-.buttons-container{
-    width: 100%;
+.buttons-container {
+  width: 100%;
+  display: flex;
+  padding: var(--little-padding);
+  justify-content: center;
+  gap: 10px;
+}
+.payment-online-request-button {
+  padding-top: var(--standart-padding);
+}
+.my-events-header {
+  max-width: 960px;
+  width: 100%;
+  align-items: center;
+  color: #181818;
+  margin: auto;
+
+  .cabinet-header__back {
+    background: none;
+  }
+  .cabinet-header__exite {
+    background: none;
+  }
+  .cabinet-header__title {
+    font-family: var(--font-regular);
+    font-size: 16px;
+  }
+  .my-events-header__top {
     display: flex;
-    padding: var(--little-padding);
-    justify-content: center;
-    gap: 10px;
-
-}
-.my-events-header{
-    max-width: 960px;
     width: 100%;
+    justify-content: space-between;
     align-items: center;
-    color: #181818;
-    margin: auto;
-   
- 
-    .cabinet-header__back{
-        background: none;
-    }
-    .cabinet-header__exite{
-        background: none;
-    }
-    .cabinet-header__title{
-        font-family: var(--font-regular);
-        font-size: 16px;
-    }
-    .my-events-header__top{
-        display: flex;
-        width: 100%;
-        justify-content: space-between;
-        align-items: center;
-    }
-    .header__filter-grid{
-        padding-top: var(--standart-padding);
-        display: flex;
-        gap: 8px;
-    }
-}
-ion-modal{
-    --max-height: 12rem;
-    --max-width: 22rem;
-    --border-radius: 5px;
-    --overflow: hidden;
-}
-.google-tabs{
+  }
+  .header__filter-grid {
+    padding-top: var(--standart-padding);
     display: flex;
-    height: 100%;
-    flex-direction: column;
+    gap: 8px;
+  }
+}
+ion-modal {
+  --max-height: 12rem;
+  --max-width: 22rem;
+  --border-radius: 5px;
+  --overflow: hidden;
+}
+.google-tabs {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  padding: var(--standart-padding);
+  gap: var(--standart-padding);
+  align-items: center;
+  justify-content: center;
+  .google-tabs__modal-text {
+    border-radius: 5px;
+    font-family: var(--font-semi-bold);
     padding: var(--standart-padding);
-    gap: var(--standart-padding);
-    align-items: center;
-    justify-content: center;
-    .google-tabs__modal-text{
-        border-radius: 5px;
-        font-family: var(--font-semi-bold);
-        padding: var(--standart-padding);
-        color: #000000;
-        border: 1px solid rgba(76, 88, 97, 0.2549019608);
-     .google-tabs__modal-text__link{
-        font-family: var(--font-bold);
-        border-bottom: solid 1px #000000;
+    color: #000000;
+    border: 1px solid rgba(76, 88, 97, 0.2549019608);
+    .google-tabs__modal-text__link {
+      font-family: var(--font-bold);
+      border-bottom: solid 1px #000000;
     }
-    }
+  }
 }
-.edit-button-wrapper{
-    position: absolute;
-    right: -1rem;
-    z-index: 100;
-    top: 1.4rem;
+.edit-button-wrapper {
+  position: absolute;
+  right: -1rem;
+  z-index: 100;
+  top: 1.4rem;
 }
-.card-wrapper{
-    position: relative;
+.card-wrapper {
+  position: relative;
 }
-.events-grid{
+.events-grid {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  flex-direction: column;
+  padding-bottom: 2rem;
+  .month {
     width: 100%;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    gap:2rem;
-    flex-direction: column;
-    padding-bottom: 2rem;
-    .month{
-        width: 100%;
-        display: flex;
-        justify-content: start;
-        font-family: var(--font-extra-bold);
-        font-size: var(--font-headers-size-little);  
-    }
-    .month-shape{
-        width: 100%;
-        background: #FF5555;
-        background: linear-gradient(180deg, rgba(255, 85, 85, 1) 0%, rgba(210, 49, 49, 1) 100%);
-        height: 3px;
-        transform: skew(-68deg);
-    }
-    .month-container{
-        width: 21rem;
-    }
+    justify-content: start;
+    font-family: var(--font-extra-bold);
+    font-size: var(--font-headers-size-little);
+  }
+  .month-shape {
+    width: 100%;
+    background: #ff5555;
+    background: linear-gradient(180deg, rgba(255, 85, 85, 1) 0%, rgba(210, 49, 49, 1) 100%);
+    height: 3px;
+    transform: skew(-68deg);
+  }
+  .month-container {
+    width: 21rem;
+  }
 }
