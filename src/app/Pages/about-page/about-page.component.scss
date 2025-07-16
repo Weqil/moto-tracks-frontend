@@ -185,11 +185,20 @@ main {
   gap: 1rem;
   margin-top: 1rem;
 }
-.advantages-about__info{
+
+.advantages-about__info {
   display: flex;
   width: 100%;
   justify-content: space-between;
   align-items: center;
+}
+@media (max-width: 1200px) {
+  .advantages-about__info {
+    display: block;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+  }
 }
 .video-block {
   display: flex;
