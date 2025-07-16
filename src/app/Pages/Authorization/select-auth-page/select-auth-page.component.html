@@ -5,20 +5,34 @@
     </main>
     <div class="select-auth-content">
       <div class="select-auth-content__title">
-        <img src="/assets/icons/red-finished.svg" alt="">
-        <div class="select-auth-content__title__text">
-          МотоТрек
-        </div>
+        <img src="/assets/icons/red-finished.svg" alt="" />
+        <div class="select-auth-content__title__text">МотоТрек</div>
       </div>
-      <div class="app-description">
-        Приложение для поиска и записи на мотокросс гонки и записи на мотокросс трассы.
-      </div>
+      <div class="app-description">Приложение для поиска и записи на мотокросс гонки и записи на мотокросс трассы.</div>
       <div class="register-button">
-        <app-icon-button (click)="inRegistration()" [shapeColumn]="true" height="long-height" widht="full" theme="red" clippy="clippy-right" buttonText="Зарегистрироваться"></app-icon-button>
+        <app-icon-button
+          (click)="inRegistration()"
+          [shapeColumn]="true"
+          height="long-height"
+          widht="full"
+          theme="red"
+          clippy="clippy-right"
+          buttonText="Зарегистрироваться"
+        ></app-icon-button>
       </div>
       <span (click)="inLogin()" class="login-link">У меня уже есть аккаунт</span>
-      <div *ngIf="selectedSportName" class="select-sport-category">
-        <app-icon-button widht="full" (click)="openSelectSportTypesModal()"  buttonText="{{selectedSportName}}"></app-icon-button>
+      <div class="select-sport-category">
+        <app-icon-button
+          (click)="navigateInAbout()"
+          theme="white"
+          buttonBorderColor="red-border"
+          fontColor="red-color"
+          buttonBorderWidth="b1"
+          clippy="clippy-right"
+          widht="w71"
+          height="little-height"
+          buttonText="О программе"
+        ></app-icon-button>
       </div>
     </div>
   </div>

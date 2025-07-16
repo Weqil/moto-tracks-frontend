@@ -117,7 +117,6 @@ export class LoginPageComponent  implements OnInit {
   }
 
   submitRecovery() {
-    
    
     if( !this.recoveryForm.invalid && this.timerReady){
       this.sendTokenInEmail()

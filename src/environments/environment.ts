@@ -4,7 +4,7 @@ export const environment = {
   apiKeyYandex: '9a1df530-ff4c-4c63-b19c-ede18479110d',
   apiKeyYandexSubject: '326052a4-78c1-44b0-8971-2f18fbde7cf9',
   APP_NAME: 'VOKRUG',
-  BASE_URL: 'https://moto.vokrug.city/',
+  BASE_URL: 'https://moto.vokrug.city',
   PORT: '443',
   BACKEND_URL: 'https://api-moto.vokrug.city',
   metrikaId: 100026583,
