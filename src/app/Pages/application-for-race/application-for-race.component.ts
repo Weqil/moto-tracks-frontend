@@ -313,7 +313,7 @@ export class ApplicationForRaceComponent implements OnInit {
   }
 
   checkFileNameType(fileName:string) {
-    return this.fileService.hasFileType(fileName) 
+    return this.fileService.hasFileType(fileName)
   }
 
   updateGradeFilters(gradeId: number | '') {
@@ -826,7 +826,7 @@ export class ApplicationForRaceComponent implements OnInit {
       .checkApplication(id, 1, '')
       .pipe(finalize(() => {}))
       .subscribe((res: any) => {
-        this.getUsersInRace()
+        this.getUsersInRace().subscribe()
       })
   }
 
@@ -836,7 +836,7 @@ export class ApplicationForRaceComponent implements OnInit {
       .checkApplication(id, 0, '')
       .pipe(finalize(() => {}))
       .subscribe((res: any) => {
-        this.getUsersInRace()
+        this.getUsersInRace().subscribe()
       })
   }
   setGroup(event: any) {
