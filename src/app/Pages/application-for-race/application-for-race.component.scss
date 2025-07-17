@@ -271,6 +271,7 @@
 .comission__wrapper {
   display: flex;
   flex-direction: column;
+  padding-bottom: var(--standart-padding);
 }
 .payment-status {
   &-red {
@@ -399,6 +400,6 @@
   align-items: center !important;
 }
 
-.offline-racer-form{
+.offline-racer-form {
   padding-bottom: var(--standart-padding);
 }

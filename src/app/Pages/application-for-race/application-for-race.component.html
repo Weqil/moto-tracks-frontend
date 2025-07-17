@@ -286,13 +286,13 @@
 
       <div class="view-user" *ngIf="viewUser">
         <div class="payment-and-comission">
+          <ng-container *ngIf="userGet.commission">
+            <div class="comission__wrapper">
+              <span class="comission-header users-title"> Проверил: </span>
+              <app-user-section [name]="true" [surname]="true" [patronymic]="true" [user]="userGet.commission!"> </app-user-section>
+            </div>
+          </ng-container>
           <div class="payment-and-comission__user">
-            <ng-container *ngIf="userGet.commission">
-              <div class="comission__wrapper">
-                <span class="comission-header users-title"> Проверил: </span>
-                <app-user-section [name]="true" [surname]="true" [patronymic]="true" [user]="userGet.commission!"> </app-user-section>
-              </div>
-            </ng-container>
             <div class="come">
               <app-check-box
                 (change)="setUserComeInRace(userGet)"
@@ -302,17 +302,7 @@
                 labelText="Прибыл и допущен"
               ></app-check-box>
             </div>
-            <div *ngIf="userGet.transaction" class="transaction-in-race">
-              <ng-container *ngIf="userGet.transaction.status">
-                <span class="payment-status-green"> Взнос оплачен </span>
-              </ng-container>
-              <ng-container *ngIf="userGet.transaction.status === false">
-                <span class="payment-status-red"> Взнос не оплачен </span>
-              </ng-container>
-              <ng-container *ngIf="userGet.transaction.status == null">
-                <span class="payment-status-blue"> Ожидание оплаты взноса </span>
-              </ng-container>
-            </div>
+
             <div class="validate-indicator">
               <div class="validate-indicator__item">
                 <span>C. - </span>
@@ -327,6 +317,17 @@
                 <div *ngIf="notarius && notarius.is_checked" class="validate-indicator__item__value">✅</div>
               </div>
             </div>
+          </div>
+          <div *ngIf="userGet.transaction" class="transaction-in-race">
+            <ng-container *ngIf="userGet.transaction.status">
+              <span class="payment-status-green"> Взнос оплачен </span>
+            </ng-container>
+            <ng-container *ngIf="userGet.transaction.status === false">
+              <span class="payment-status-red"> Взнос не оплачен </span>
+            </ng-container>
+            <ng-container *ngIf="userGet.transaction.status == null">
+              <span class="payment-status-blue"> Ожидание оплаты взноса </span>
+            </ng-container>
           </div>
         </div>
         <form class="personal-form">
