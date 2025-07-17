@@ -312,7 +312,7 @@ export class ApplicationForRaceComponent implements OnInit {
     this.navController.navigateRoot('/events')
   }
 
-  checkFileNameType(fileName:string) {
+  checkFileNameType(fileName: string) {
     return this.fileService.hasFileType(fileName)
   }
 
@@ -471,7 +471,19 @@ export class ApplicationForRaceComponent implements OnInit {
     this.loadingService.showLoading()
     this.eventService
       .generateGoogleLink(eventId, hasCome)
-      .pipe(finalize(() => this.loadingService.hideLoading()))
+      .pipe(
+        catchError((err: serverError) => {
+          if (err.status == 404) {
+            this.toastService.showToast(
+              `${hasCome ? 'Пожалуйста, отметьте участников, которые прибыли на гонку.' : 'На гонку пока никто не зарегистрировался.'}`,
+              'warning',
+            )
+          }
+          console.log(err)
+          return EMPTY
+        }),
+        finalize(() => this.loadingService.hideLoading()),
+      )
       .subscribe((res: any) => {
         this.tableModalValue = true
         this.googleTabsLink = res.table_url
