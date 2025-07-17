@@ -96,7 +96,7 @@
               <app-user-section
                 style="cursor: pointer"
                 *ngIf="user.user && user.user.personal"
-                [them]="user.is_checked == null ? 'standart-them' : user.is_checked == true ? 'green-them' : 'red-them'"
+                [them]="user.is_checked == null ? 'yellow-them' : user.is_checked == true ? 'green-them' : 'red-them'"
                 [border]="activeAppId === user.id ? 'red' : 'null'"
                 [showAddress]="true"
                 [name]="true"
@@ -277,8 +277,9 @@
       >
       </app-select-comands>
       <div class="not-found-users__wrapper" *ngIf="!viewUser && !viewUserOffline">
-        <div class="not-found-users">Выберите спортсмена для его проверки.
-          <br>
+        <div class="not-found-users">
+          Выберите спортсмена для его проверки.
+          <br />
           В день начала соревнований, не забудьте отмечать прибывших на гонку спортсменов
         </div>
       </div>
@@ -524,7 +525,7 @@
                   <app-standart-input-search label="Область/край" [searchCurrentItems]="searchRegionItems" [searchItems]="searchRegionItems" (changeSearchValue)="setRegion($event)"></app-standart-input-search>
                 </div>
               </ion-content>
-            </ng-template>  
+            </ng-template>
           </ion-modal>         -->
 
             <div class="input-container">

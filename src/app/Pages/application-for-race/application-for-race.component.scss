@@ -21,7 +21,7 @@
       max-width: 960px;
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
+      gap: var(--standart-padding);
       padding: var(--standart-padding);
       border-radius: 0.5rem;
 
@@ -397,4 +397,8 @@
   display: flex !important;
   height: 100% !important;
   align-items: center !important;
+}
+
+.offline-racer-form{
+  padding-bottom: var(--standart-padding);
 }
