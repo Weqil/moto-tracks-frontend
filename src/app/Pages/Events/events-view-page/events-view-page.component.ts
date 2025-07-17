@@ -6,6 +6,7 @@ import {
   EMPTY,
   finalize,
   forkJoin,
+  from,
   fromEvent,
   map,
   Observable,
@@ -15,6 +16,7 @@ import {
   switchMap,
   takeUntil,
   tap,
+  toArray,
 } from 'rxjs'
 import { IEvent } from 'src/app/Shared/Data/Interfaces/event'
 import { EventService } from 'src/app/Shared/Data/Services/Event/event.service'
@@ -877,6 +879,26 @@ export class EventsViewPageComponent implements OnInit {
     }
   }
 
+  setPriceInGrades() {
+    from(this.groupItems)
+      .pipe(
+        map((grade) => {
+          let currentAttendance: IAttenden | undefined
+          this.attendances.map((att) => {
+            if (this.stringHaveCurrentWords(grade.name, att.name)) {
+              currentAttendance = att
+            }
+          })
+          return {
+            ...grade,
+            name: grade.name + `  ${currentAttendance ? '- Взнос: ' + currentAttendance.price + '₽' : ''}`,
+          }
+        }),
+        toArray(),
+      )
+      .subscribe((res) => (this.groupItems = res))
+  }
+
   //здесь лоадер
   getEvent() {
     let loader: HTMLIonLoadingElement
@@ -900,12 +922,18 @@ export class EventsViewPageComponent implements OnInit {
         }),
       )
       .subscribe((res: any) => {
-        this.raceUser = res.race.user
+        if (res.race.user) {
+          this.raceUser = res.race.user
+        }
         this.event = res.race
         this.loaderService.checkAndCloseLoader().then(res)
         this.groupItems = this.event.grades
         this.registrate()
-        this.getAttendanceInRace()
+        if (this.event.store) {
+          this.getAttendanceInRace().subscribe(() => {
+            this.setPriceInGrades()
+          })
+        }
         this.formatingZoomValuesInResults()
         this.checkRecordEnd()
       })
@@ -958,9 +986,13 @@ export class EventsViewPageComponent implements OnInit {
   createTransaction(): Observable<any> {
     // Возвращаем Observable
     if (this.event.store) {
-      let currentAttendance: IAttenden | undefined = this.attendances.find((att: IAttenden) => att.name.includes(this.personalUserForm.value.group))
+      let currentAttendance: IAttenden | undefined
+      let currentName = this.personalUserForm.value.group
+      if (this.personalUserForm.value.group.includes('- Взнос: ')) {
+         currentName = this.personalUserForm.value.group.split('- Взнос: ')[0].trim()
+      }
       this.attendances.map((att) => {
-        if (this.stringHaveCurrentWords(this.personalUserForm.value.group, att.name)) {
+        if (this.stringHaveCurrentWords(currentName, att.name)) {
           currentAttendance = att
         }
       })
@@ -1258,14 +1290,11 @@ export class EventsViewPageComponent implements OnInit {
   }
 
   getAttendanceInRace() {
-    if (this.event.store) {
-      this.attendanceService
-        .getAttendanceForId(this.event.id)
-        .pipe()
-        .subscribe((res) => {
-          this.attendances = res.attendance
-        })
-    }
+    return this.attendanceService.getAttendanceForId(this.event.id).pipe(
+      tap((res) => {
+        this.attendances = res.attendance
+      }),
+    )
   }
 
   backNavigate() {
