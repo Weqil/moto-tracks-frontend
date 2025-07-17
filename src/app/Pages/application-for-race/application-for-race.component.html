@@ -604,7 +604,7 @@
                 <div class="file-name" (click)="checkDocument(polis.id)">
                   <img src="/assets/icons/documents.svg" alt="" />
                   <div class="name">
-                    {{ polis.name }}
+                    {{ checkFileNameType(polis.name) ? polis.name : 'Отсутствует' }}
                   </div>
                 </div>
               </div>
@@ -637,7 +637,7 @@
                 <div class="file-name" (click)="checkDocument(licensed.id)">
                   <img src="/assets/icons/documents.svg" alt="" />
                   <div class="name">
-                    {{ licensed.name }}
+                    {{ checkFileNameType(licensed.name) ? licensed.name : 'Отсутствует' }}
                   </div>
                 </div>
               </div>
@@ -664,7 +664,7 @@
                 <div class="file-name" (click)="checkDocument(notarius.id)">
                   <img src="/assets/icons/documents.svg" alt="" />
                   <div class="name">
-                    {{ notarius.name }}
+                    {{ checkFileNameType(notarius.name) ? notarius.name : 'Отсутствует' }}
                   </div>
                 </div>
               </div>

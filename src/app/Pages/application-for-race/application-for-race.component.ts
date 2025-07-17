@@ -42,6 +42,7 @@ import { ComandsService } from '@app/Shared/Data/Services/Comands/comands.servic
 import { InputErrorService } from '@app/Shared/Services/input-error.service'
 import { OfflineRacersService } from '@app/Shared/Data/Services/Race/offline-racers.service'
 import { ApplicationFilters } from '@app/Shared/Data/Interfaces/filters/application.filter.interface'
+import { FileService } from '@app/Shared/Services/file.service'
 
 @Pipe({ name: 'safeUrl' })
 export class SafeUrlPipe implements PipeTransform {
@@ -104,7 +105,7 @@ export class ApplicationForRaceComponent implements OnInit {
   event!: IEvent
   allComands: any[] = []
   selectRegionInCommandModal: any = {}
-
+  fileService: FileService = inject(FileService)
   groupItems: { name: string; value: string }[] = []
   usersInRace: any = []
   usersPreview: any[] = []
@@ -309,6 +310,10 @@ export class ApplicationForRaceComponent implements OnInit {
 
   back() {
     this.navController.navigateRoot('/events')
+  }
+
+  checkFileNameType(fileName:string) {
+    return this.fileService.hasFileType(fileName) 
   }
 
   updateGradeFilters(gradeId: number | '') {
@@ -590,9 +595,11 @@ export class ApplicationForRaceComponent implements OnInit {
         this.licensesForm.patchValue(res.find((doc: any) => doc.type === 'licenses'))
         this.licensesFile = { name: 'Лицензия загружена', dontFile: true }
         this.licensed = licensesDocument
+        console.log(this.licensed)
       }
     if (res.find((doc: any) => doc.type === 'polis')) {
       let polis = res.find((doc: any) => doc.type === 'polis')
+      console.log(polis)
       this.polisForm.patchValue({
         number: polis.number,
         issuedWhom: polis.issued_whom,
