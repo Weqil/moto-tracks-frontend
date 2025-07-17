@@ -453,7 +453,6 @@ export class UserDocumentsComponent implements OnInit {
 
   async setLicensesFile(event: any) {
     let currentPdf: any = await this.pdfUniteService.uniteFilesToPdf(event.target.files, this.generateDocumentName('Лицензии'))
-    this.pdfUniteService.downloadFile(currentPdf)
     this.licensesFile = currentPdf
   }
 
@@ -520,7 +519,7 @@ export class UserDocumentsComponent implements OnInit {
     // let loader: HTMLIonLoadingElement
     // this.loaderService.showLoading().then((res: HTMLIonLoadingElement) => {
     //   loader = res
-   //  })
+    //  })
     let fd: FormData = new FormData()
     fd = this.formdataService.formdataAppendJson(fd, this.licensesForm.value)
 
