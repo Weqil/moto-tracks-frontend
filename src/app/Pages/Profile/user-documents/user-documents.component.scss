@@ -1,316 +1,307 @@
-.document-container{
-    border: 1px solid rgba(76, 88, 97, 0.473);
-    padding: var(--little-padding);
-    margin-bottom: var(--little-padding);
-    display: flex;
-    
-    gap: var(--little-padding);
-    flex-direction: column;
+.document-container {
+  border: 1px solid rgba(76, 88, 97, 0.473);
+  padding: var(--little-padding);
+  margin-bottom: var(--little-padding);
+  display: flex;
+
+  gap: var(--little-padding);
+  flex-direction: column;
+  width: 100%;
+}
+
+.footer-bottom-padding {
+  padding-bottom: 4rem;
+}
+
+.document-header {
+  padding-top: 0.5rem;
+  font-family: var(--font-bold);
+  font-size: var(--font-regular-size);
+  padding-bottom: var(--little-padding);
+}
+.document-modal {
+  --width: 100%;
+  --min-height: 100vh;
+  --border-radius: 0%;
+}
+
+.start-number-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0px 10px 0px;
+  gap: 10px;
+}
+
+.user-document-container {
+  padding-top: 1rem;
+}
+.buttons-container {
+  padding-top: var(--standart-padding);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.scan-header {
+  margin-top: 0.5rem;
+  font-family: var(--font-regular);
+  font-size: var(--font-regular-size);
+}
+
+ion-modal {
+  --max-height: 50%;
+  --width: 90%;
+  --border-radius: 12px;
+  --overflow-y: hidden;
+}
+.region-modal-container {
+  padding: var(--standart-padding);
+  padding-top: 0rem;
+}
+
+.document {
+  width: 100%;
+  background-color: white;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  a {
     width: 100%;
+  }
 }
 
-.footer-bottom-padding{
-    padding-bottom: 4rem;
+.upload-result-modal {
+  --min-width: 100%;
+  --min-height: 100%;
 }
-
-.document-header{
-    padding-top: 0.5rem;
-    font-family: var(--font-bold);
-    font-size: var(--font-regular-size);
-    padding-bottom: var(--little-padding);
-
+.documents-grid__item {
+  display: flex;
+  flex-direction: column;
+  padding: var(--standart-padding);
+  width: 95vw;
+  height: 100vh;
+  position: relative;
+  gap: var(--standart-padding);
 }
-
-.start-number-container{
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-}
-
-.input-container{
-    display: flex;
-    flex-direction: column;
-    padding: 10px 0px 10px 0px;
-    gap: 10px;
-}
-
-.user-document-container{
-    padding-top: 1rem;
-    
-}
-.buttons-container{
-    padding-top: var(--standart-padding);
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-.scan-header{
-    margin-top: 0.5rem;
-    font-family: var(--font-regular);
-    font-size: var(--font-regular-size);
-}
-
-ion-modal{
-    --max-height:50%;
-    --width:90%;
-    --border-radius: 12px;
-    --overflow-y: hidden;
-}
-.region-modal-container{
-    padding: var(--standart-padding);
-    padding-top: 0rem;
-}
-
-.document{
-    width: 100%;
-    background-color: white;
-    
-    
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    a{
-        width: 100%;
-    }
-    
-    
-}
-
-.upload-result-modal{
-    --min-width: 100%;
-    --min-height: 100%;
-}
-.documents-grid__item{
-    display: flex;
-    flex-direction: column;
-    padding: var(--standart-padding);
-    width: 95vw;
-    height: 100vh;
-    position: relative;
-    gap: var(--standart-padding);
-}
-.file__img{
+.file__img {
   width: 100%;
   height: 100%;
 }
-.documents-grid{
-    display: flex;
-    padding-bottom: 10rem;
-    flex-wrap: wrap;
-    align-items: center;
-    padding-top:4rem;
-    width: 100%;
-    justify-content: center;
-    gap: 2rem;
+.documents-grid {
+  display: flex;
+  padding-bottom: 10rem;
+  flex-wrap: wrap;
+  align-items: center;
+  padding-top: 4rem;
+  width: 100%;
+  justify-content: center;
+  gap: 2rem;
 }
-.button-container--pdf{
+.button-container--pdf {
+  position: absolute;
+  top: 2rem;
+  display: flex;
+  gap: var(--standart-padding);
+  right: 2rem;
+}
+
+.header-container {
+  display: flex;
+  justify-content: center;
+  max-width: 960px;
+  align-items: center;
+  height: 40px;
+  width: 100%;
+
+  padding-right: 1rem;
+  position: relative;
+  margin: auto;
+
+  .back-button {
     position: absolute;
-    top: 2rem;
-    display: flex;
-    gap: var(--standart-padding);
-    right: 2rem;
-}
-
-
-.header-container{
+    left: 0;
+  }
+  .text-container {
+    font-size: 16px;
     display: flex;
     justify-content: center;
-    max-width: 960px;
-    align-items: center;
-    height: 40px;
-    width: 100%;
-    
-    padding-right: 1rem;
-    position: relative;
-    margin: auto;
-
-    .back-button{
-        position: absolute;
-        left: 0;
-    }
-    .text-container{
-        font-size: 16px;
-        display: flex;
-        justify-content: center;
-        flex-grow: 1;
-        padding-left: 50px;
-    }
-    .uid-container{
-        display: flex;
-        font-size: var(--font-little-size);
-        flex-direction: column;
-        color: black;
-        opacity: 50%;
-    }
-}
-
-.event-information-title{
+    flex-grow: 1;
+    padding-left: 50px;
+  }
+  .uid-container {
     display: flex;
-    align-items: center;
-    gap: 8px;
-    padding-top: 1rem;
-    img{
-       width: 28px; 
-    }
-    font-family: var(--font-bold);
-    font-size: 18px;
-}
-
-.personal-info-container{
-    display: flex;
+    font-size: var(--font-little-size);
     flex-direction: column;
-    gap: 1rem;
-    
-    .name-surname-container{
-        display: flex;
-        justify-content: space-between;
-        gap: 1rem;
-        app-standart-input{
-            width: 50%;
-        }
-        
-    }
-}
-
-.documents-container{
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    .snils-inn{
-        display: flex;
-        justify-content: space-between;
-        gap: 1rem;
-        app-standart-input{
-            
-            width: 50%; 
-        }
-        
-    }
-    .ranknumber-startnumber{
-        display: flex;
-        justify-content: space-between;
-    }
-    .licensed{
-        width: 100%;
-    }
-    .polish{
-        width: 100%;
-    }
-    .notarius{
-        width: 100%;
-    }
-}
-
-.button-container{
-    gap: 0.5rem;
-    display: flex;
-    justify-content: space-between;
-    padding-bottom: var(--little-padding);
-    .width-button{
-        width: 100%;
-    }
-}
-
-.race-container{
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.engine-mark{
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-    .engine{
-        width: 100%;
-    }
-    .motostamp{
-        width: 100%;
-    }
-}
-
-.startnumber-sportrank{
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-    .rank{
-        width: 100%;
-    }
-    .startnumber{
-        width: 100%;
-    }
-}
-
-.save-button-container{
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    margin-top: 30px;
-    .save-button{
-        width: 100%;
-    }
-}
-
-.file-name{
-    height: 39px;
-    opacity: 0.6;
-    display: flex;
-    gap: 0.5rem;
-    justify-content: start;
-    align-items: center;
     color: black;
-    padding: 0.4rem;
-    padding-left: 0.8rem;
-    border: 1px solid gray;
-    width: 100%;
-    
-    img{
-       opacity: 0.8;
-        max-width: 20px;
-        max-height: 20px;
-    }
-
-    .name{
-        width: 100%;
-        max-width: 300px;
-        white-space: nowrap;         /* Запрещает перенос текста */
-        overflow: hidden;            /* Скрывает выходящий за границы текст */
-        text-overflow: ellipsis;     /* Добавляет троеточие (…) в конце */
-    }
+    opacity: 50%;
+  }
 }
 
-.regions-grid{
-    display: grid;
-    padding-top: 1rem;
-    width: 100%;
-    gap: 0.5rem;
+.event-information-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-top: 1rem;
+  img {
+    width: 28px;
+  }
+  font-family: var(--font-bold);
+  font-size: 18px;
 }
 
+.personal-info-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 
-
-
-.region-modal-wrapper{
-    padding: 0.5rem 1.2rem;
-}
-
-.main-container{
-    max-width: 960px;
-    width: 100%;
-    height: 100%;
+  .name-surname-container {
     display: flex;
-    
-    flex-direction: column;
-    margin: auto;
-   
+    justify-content: space-between;
+    gap: 1rem;
+    app-standart-input {
+      width: 50%;
+    }
   }
-  
-  .notarius-name{
-    opacity: 0.7;
+}
+
+.documents-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  .snils-inn {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    app-standart-input {
+      width: 50%;
+    }
+  }
+  .ranknumber-startnumber {
+    display: flex;
+    justify-content: space-between;
+  }
+  .licensed {
+    width: 100%;
+  }
+  .polish {
+    width: 100%;
+  }
+  .notarius {
+    width: 100%;
+  }
+}
+
+.button-container {
+  gap: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: var(--little-padding);
+  .width-button {
+    width: 100%;
+  }
+}
+
+.race-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.engine-mark {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  .engine {
+    width: 100%;
+  }
+  .motostamp {
+    width: 100%;
+  }
+}
+
+.startnumber-sportrank {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  .rank {
+    width: 100%;
+  }
+  .startnumber {
+    width: 100%;
+  }
+}
+
+.save-button-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 30px;
+  .save-button {
+    width: 100%;
+  }
+}
+
+.file-name {
+  height: 39px;
+  opacity: 0.6;
+  display: flex;
+  gap: 0.5rem;
+  justify-content: start;
+  align-items: center;
+  color: black;
+  padding: 0.4rem;
+  padding-left: 0.8rem;
+  border: 1px solid gray;
+  width: 100%;
+
+  img {
+    opacity: 0.8;
+    max-width: 20px;
+    max-height: 20px;
   }
 
+  .name {
+    width: 100%;
+    max-width: 300px;
+    white-space: nowrap; /* Запрещает перенос текста */
+    overflow: hidden; /* Скрывает выходящий за границы текст */
+    text-overflow: ellipsis; /* Добавляет троеточие (…) в конце */
+  }
+}
 
-.input-container{
-    font-family: var(--font-regular);
-    font-size: 14px;
+.regions-grid {
+  display: grid;
+  padding-top: 1rem;
+  width: 100%;
+  gap: 0.5rem;
+}
+
+.region-modal-wrapper {
+  padding: 0.5rem 1.2rem;
+}
+
+.main-container {
+  max-width: 960px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+
+  flex-direction: column;
+  margin: auto;
+}
+
+.notarius-name {
+  opacity: 0.7;
+}
+
+.input-container {
+  font-family: var(--font-regular);
+  font-size: 14px;
 }

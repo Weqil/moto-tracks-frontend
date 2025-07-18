@@ -23,7 +23,11 @@ export class FileService {
   }
 
   hasFileType(filename: string) {
-    const lastDotIndex = filename.lastIndexOf('.')
-    return lastDotIndex > 0 && lastDotIndex < filename.length - 1
+    if (filename.lastIndexOf('.')) {
+      const lastDotIndex = filename.lastIndexOf('.')
+      return lastDotIndex > 0 && lastDotIndex < filename.length - 1
+    } else {
+      return false
+    }
   }
 }

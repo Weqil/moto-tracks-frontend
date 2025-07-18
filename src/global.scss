@@ -6,7 +6,7 @@
 
 //Подключаю переменные шрифтов
  @use './app/CommonUI/StyleVariables/fonts.scss';
- 
+
 //Подключаю переменные colors
  @use './app/CommonUI/StyleVariables/colors.scss';
 
@@ -15,7 +15,7 @@
 
  //Подключаю переменные padding
  @use './app/CommonUI/StyleVariables/padding.scss';
- 
+
 //Подключаю переменные фонов
  @use './app/CommonUI/StyleVariables/backgrounds.scss';
 
@@ -81,7 +81,7 @@
     margin-top: 40px;
   }
 
-  
+
 .select-category-grid{
     display: flex;
     justify-content: center;
@@ -89,6 +89,10 @@
     height: 100%;
     gap: var(--standart-padding);
     align-items: center;
+}
+
+.text-container{
+  font-family: var(--font-regular);
 }
 
 .image-txt-count-left-align{
@@ -104,7 +108,7 @@
     background-image: url('/assets/icons/plus.svg');
     display: block;
   }
- 
+
   .zoom-out{
     filter: brightness(0) saturate(100%);
     width: 100%;
@@ -169,12 +173,12 @@
     align-items: center;
     gap: 8px;
     img{
-       width: 24px; 
+       width: 24px;
     }
     font-family: var(--font-bold);
     font-size: 18px;
 }
-  
+
 .full-screen-icons{
     filter: brightness(0) saturate(100%);
     width: 60%;
@@ -186,16 +190,16 @@
     background-image: url('/assets/icons/full-screen.svg');
     display: block;
   }
-  
+
   .none-text-change{
-  
+
       -webkit-touch-callout: none;
       -webkit-user-select: none;
       -khtml-user-select: none;
-      -moz-user-select: none; 
-      -ms-user-select: none; 
-      user-select: none; 
-  
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+
   }
 
   *{
@@ -206,7 +210,7 @@
   }
 
   ngx-otp-input {
-    
+
     .ngx-otp-input-form {
       display: flex;
       justify-content: center;
