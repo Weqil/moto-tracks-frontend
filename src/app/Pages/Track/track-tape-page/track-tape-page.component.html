@@ -1,39 +1,75 @@
 <ion-content [scrollEvents]="true">
-  <app-header  [customContainer]="true">
-    <form (ngSubmit)="search()" class="header-container">
-      <app-standart-input type="search" iconLeft="/assets/icons/search.svg" placeholder="Поиск трассы" style="width: 100%;" [control]="searchTapeTrackForm.get('searchInput')"></app-standart-input>
-      <div class="header__filter-grid">
-        <app-icon-button (click)="clearAllFilters()" [theme]="!this.regionFilterId ? 'red':'dark'" height="little-height" clippy="clippy-right" buttonText="Все"></app-icon-button>
-        <app-icon-button (click)="openRegionModal()" [theme]="this.regionFilterId ? 'red':'dark'" height="little-height" clippy="clippy-right" [buttonText]="regionFilterName ? regionFilterName : 'По области'"></app-icon-button>
-      </div>
-    </form>
- 
-  </app-header>
-  <app-regions-select-modal (select)="filterEventsInLocation($event)" [selectedRegion]="regionFilterName" [visible]="regionModalState" (onClose)="closeRegionModal()" [regions]="searchRegionItems"> </app-regions-select-modal>
-  <main class="main-container--with-header--strong">
-    <div class="tracks">
-      <div class="tracks-grid">
-        @for (track of  this.trackTapeService.tracks; track $index) {
-          <div class="tracks-grid__item">
-            <app-track-section [routerLink]="['/track/', track.id]" routerLinkActive="router-link-active" [hidhtStatus]="true"  [track]="track"></app-track-section>
+  <div [ngClass]="{'page-layout': isDesktop}">
+    <app-header  [customContainer]="true" *ngIf="!isDesktop">
+      <form (ngSubmit)="search()" class="header-container">
+        <app-standart-input type="search" iconLeft="/assets/icons/search.svg" placeholder="Поиск трассы" style="width: 100%;" [control]="searchTapeTrackForm.get('searchInput')"></app-standart-input>
+        <div class="header__filter-grid">
+          <app-icon-button (click)="clearAllFilters()" [theme]="!this.regionFilterId ? 'red':'dark'" height="little-height" clippy="clippy-right" buttonText="Все"></app-icon-button>
+          <app-icon-button (click)="openRegionModal()" [theme]="this.regionFilterId ? 'red':'dark'" height="little-height" clippy="clippy-right" [buttonText]="regionFilterName ? regionFilterName : 'По области'"></app-icon-button>
+        </div>
+      </form>
+
+    </app-header>
+    <app-regions-select-modal (select)="filterEventsInLocation($event)" [selectedRegion]="regionFilterName" [visible]="regionModalState" (onClose)="closeRegionModal()" [regions]="searchRegionItems"> </app-regions-select-modal>
+
+
+    <main class="main-container--with-header--strong" [ngClass]="{'desktop': isDesktop}">
+
+      <div class="filters" *ngIf="isDesktop">
+        <div class="filters-logo">
+          <img class="logo-icon" src="/assets/icons/red-finished.svg" alt="Логотип">
+          <span class="logo-text">Фильтры</span>
+        </div>
+        <form class="filter-form">
+          <div class="filter-section">
+            <span>Отображение</span>
+            <div class="button-group">
+              <app-icon-button (click)="clearAllFilters()" [theme]="!this.regionFilterId ? 'red':'dark'" height="little-height" clippy="clippy-right" buttonText="Все"></app-icon-button>
+<!--              <app-icon-button (click)="clearAllFilters()" [theme]="this.regionFilterId ? 'red':'dark'" height="little-height" clippy="clippy-right" buttonText="Только открытые"></app-icon-button>-->
+            </div>
           </div>
-        } 
+          <div class="filter-section">
+            <span>Край/область</span>
+            <button (click)="openRegionModal()" class="open-region-modal">
+              {{regionFilterName}}
+              <img src="/assets/icons/arrow_down.svg" alt="">
+            </button>
+          </div>
+<!--          <div class="filter-section">-->
+<!--            <span>Услуги</span>-->
+<!--            <app-standart-input-select></app-standart-input-select>-->
+<!--          </div>-->
+<!--          <div class="filter-section actions">-->
+<!--            <app-icon-button (click)="clearAllFilters()" theme="red" height="long-height" widht="full" clippy="clippy-right" buttonText="Применить"></app-icon-button>-->
+<!--            <app-icon-button (click)="clearAllFilters()" theme="dark-gray" height="long-height" widht="full" clippy="clippy-right" buttonText="Сбросить"></app-icon-button>-->
+<!--          </div>-->
+        </form>
       </div>
-    </div> 
-  </main>
+
+      <div class="tracks">
+        <div class="tracks-grid">
+          @for (track of  this.trackTapeService.tracks; track $index) {
+            <div class="tracks-grid__item">
+              <app-track-section [routerLink]="['/track/', track.id]" routerLinkActive="router-link-active" [hidhtStatus]="true"  [track]="track"></app-track-section>
+            </div>
+          }
+        </div>
+      </div>
+    </main>
+  </div>
 </ion-content>
 
 <!-- <ion-modal class="region-modal" (didDismiss)="closeRegionModal()"  [isOpen]="regionModalState">
   <ng-template>
     <ion-content>
       <div class="region-modal-container">
-        <app-standart-input-search 
-        label="Область/край*" 
-        [searchCurrentItems]="searchRegionItems" 
-        [searchItems]="searchRegionItems" 
+        <app-standart-input-search
+        label="Область/край*"
+        [searchCurrentItems]="searchRegionItems"
+        [searchItems]="searchRegionItems"
         (changeSearchValue)="filterEventsInLocation($event)">
       </app-standart-input-search>
       </div>
     </ion-content>
-  </ng-template>  
+  </ng-template>
 </ion-modal>        -->

@@ -34,6 +34,7 @@
     left: 50%;
     /* коррекция положения элемента */
     transform: translate(-50%, -50%);
+    width: max-content;
 }
 .bottom-nav-container-shadow{
     width: 19.7rem;

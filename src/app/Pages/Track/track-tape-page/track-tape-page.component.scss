@@ -29,7 +29,7 @@
     }
 }
 .tracks{
-    
+
 }
 .header-container{
     max-width: 960px;
@@ -78,4 +78,121 @@
     app-standart-input-search{
         --page-bg: #ffffff
     }
+}
+
+.filters-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  .logo-icon {}
+
+  .logo-text {
+    font-family: var(--font-regular);
+    font-size: 18px;
+  }
+}
+
+.filter-section .button-group {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+
+.filter-section span {
+  font-family: var(--second-font-regular);
+  font-size: 14px;
+  color: #6A6A6A;
+}
+
+.page-layout {
+  max-width: var(--container-width);
+  margin: 0 auto;
+}
+
+.open-region-modal {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  padding-right: 0.75rem;
+  height: 40px;
+  justify-content: space-between;
+  background: var(--white-color);
+  text-align: start;
+  font-size: var( --font-regular-size);
+  font-family: var(--second-font-regular);
+  border: 1px solid var(--dark-2);
+}
+
+.desktop {
+  display: flex;
+  //flex-direction: row;
+  gap: 2rem;
+  padding-top: 1rem;
+
+  .filters {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    flex-shrink: 0;
+    max-width: 100%;
+    width: 320px;
+
+    .filter-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+
+      .filter-section {
+        display: flex;
+        flex-direction: column;
+
+        &.actions {
+          flex-direction: row;
+          justify-content: stretch;
+          gap: 0.5rem;
+
+          * {
+            flex: 1 1 50%;
+          }
+        }
+      }
+    }
+  }
+
+  .tracks {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .tracks-grid {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+      gap: 1.5rem;
+      justify-content: space-around;
+      padding-bottom: 1rem;
+
+      .tracks-grid__item {
+        flex: 1 1 300px;
+        min-width: 200px;
+        max-width: 370px;
+        display: flex;
+        justify-content: center;
+
+        //flex: 1 1 250px;
+        //max-width: 370px;
+        //min-width: 200px;
+        //display: flex;
+        //justify-content: center;
+      }
+    }
+  }
 }

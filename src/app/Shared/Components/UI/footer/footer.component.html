@@ -1,28 +1,28 @@
 <div class="page">
   <div class="container">
     <div class="footer-top">
-      <div class="top-row">
-        <div class="links">
-          @for (link of links; track $index) {
-            <div (click)="handleLinkClick(link)" class="bottom-nav__item">
-              <div class="button-container">
-                <app-icon-button
-                  elementsPosition="elements-position__row"
-                  widht="w20"
-                  fontSize="standart-font-size"
-                  buttonText={{link.name}}
-                  icon={{link.icon}}
-                  theme="transparent"
-                  iconMargin="icon-margin-none"
-                  [height]="this.header ? 'standart-height' : 'long-height'"
-                  buttonIconColor="white-icon">
-                </app-icon-button>
-              </div>
+<!--      <div class="top-row">-->
+<!--        <div class="links">-->
+<!--          @for (link of links; track $index) {-->
+<!--            <div (click)="handleLinkClick(link)" class="bottom-nav__item">-->
+<!--              <div class="button-container">-->
+<!--                <app-icon-button-->
+<!--                  elementsPosition="elements-position__row"-->
+<!--                  widht="w20"-->
+<!--                  fontSize="standart-font-size"-->
+<!--                  buttonText={{link.name}}-->
+<!--                  icon={{link.icon}}-->
+<!--                  theme="transparent"-->
+<!--                  iconMargin="icon-margin-none"-->
+<!--                  [height]="this.header ? 'standart-height' : 'long-height'"-->
+<!--                  buttonIconColor="white-icon">-->
+<!--                </app-icon-button>-->
+<!--              </div>-->
 
-            </div>
-          }
-        </div>
-      </div>
+<!--            </div>-->
+<!--          }-->
+<!--        </div>-->
+<!--      </div>-->
       <div class="bottom-row">
         <div class="logo">
           <img class="logo-icon" src="/assets/icons/red-finished.svg" alt="Логотип">

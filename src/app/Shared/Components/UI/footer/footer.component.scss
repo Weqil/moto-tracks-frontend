@@ -63,7 +63,7 @@
   border-top: 1px solid #6A6A6A;
 
   a {
-    font-family: 'RobotoCondensed-Regular'; // Нужно переопределить переменные шрифтов и заменить в библиотеке
+    font-family: var(--second-font-regular);
     font-size: 16px;                        // Не понял где задаются шрифты
     color: #6A6A6A;
   }

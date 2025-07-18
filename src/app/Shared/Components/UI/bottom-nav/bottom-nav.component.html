@@ -17,7 +17,7 @@
                 fontSize="standart-font-size"
                 buttonText={{link.name}}
                 icon={{link.icon}}
-                iconMargin="icon-margin-none"
+                [iconMargin]="this.header ? 'icon-margin-none' : 'icon-margin-standard'"
                 [height]="this.header ? 'standart-height' : 'long-height'"
                 [theme]="link.active ? 'red' : 'white'"
                 [buttonIconColor]="link.active ? 'white-icon' : 'dark-icon'">
