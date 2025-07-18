@@ -1,6 +1,6 @@
 import { Component, inject, Input, OnInit, SimpleChanges } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
-import { catchError, EMPTY, finalize, of, Subject, takeUntil } from 'rxjs'
+import { catchError, EMPTY, finalize, of, Subject, takeUntil, tap } from 'rxjs'
 import { UserService } from 'src/app/Shared/Data/Services/User/user.service'
 import { IonRouterOutlet, IonContent } from '@ionic/angular/standalone'
 import { NgxImageZoomModule } from 'ngx-image-zoom'
@@ -37,7 +37,7 @@ export class PrivateFilesComponent implements OnInit {
   loadingService: LoadingService = inject(LoadingService)
   documentId!: number
   @Input() postDocumentId?: number
-  pdfRotation: number = 0;
+  pdfRotation: number = 0
 
   startPan(event: MouseEvent) {
     this.isPanning = true
@@ -73,50 +73,45 @@ export class PrivateFilesComponent implements OnInit {
     this.userService
       .getUserDocumentFileBiId(this.documentId)
       .pipe(
+        tap((res: Blob) => {
+          if (res) {
+            let ras
+            this.fileType = 'img'
+            switch (res.type) {
+              case 'image/jpeg':
+                ras = '.jpg'
+                break
+              case 'application/pdf':
+                ras = '.pdf'
+                this.loadingService.showLoading()
+                this.fileType = 'pdf'
+
+                break
+              case 'image/png':
+                ras = '.png'
+                break
+              case 'image/jpg':
+                ras = '.jpg'
+                break
+            }
+            this.fileUrl = URL.createObjectURL(res)
+            console.log(this.fileUrl)
+            if (this.fileType === 'img') {
+              this.images.push(this.fileUrl)
+            }
+          }
+        }),
         catchError((err) => {
           console.error(err)
           return of(null)
         }),
+
         finalize(() => {
-          //
+          console.log(this.images)
         }),
       )
-      .subscribe((response: Blob | null) => {
-        if (response) {
-          // const url = window.URL.createObjectURL(response);
-          // const a = document.createElement('a');
-          // a.href = url;
-          let ras
-          this.fileType = 'img'
-          switch (response.type) {
-            case 'image/jpeg':
-              ras = '.jpg'
-              break
-            case 'application/pdf':
-              ras = '.pdf'
-              this.loadingService.showLoading()
-              this.fileType = 'pdf'
-
-              break
-            case 'image/png':
-              ras = '.png'
-              break
-            case 'image/jpg':
-              ras = '.jpg'
-              break
-          }
-
-          // a.download = 'document_'+ this.documentId + ras; // Укажите имя файла и расширение
-          // document.body.appendChild(a);
-          // a.click();
-          // window.URL.revokeObjectURL(url);
-          // document.body.removeChild(a);
-          const url = window.URL.createObjectURL(response)
-          this.fileUrl = url
-          if (this.fileType === 'img') {
-            this.images.push(this.fileUrl)
-          }
-        }
+      .subscribe((response) => {
+        console.log(response)
       })
   }
 
@@ -124,6 +119,7 @@ export class PrivateFilesComponent implements OnInit {
     this.loadingService.hideLoading()
   }
   ionViewWillEnter() {
+    console.log('private document')
     if (!this.postDocumentId) {
       this.route.params
         .pipe(takeUntil(this.destroy$))
@@ -149,17 +145,17 @@ export class PrivateFilesComponent implements OnInit {
     console.log(this.zoom)
   }
   rotateLeft() {
-    this.pdfRotation = (this.pdfRotation - 90) % 360;
-    if (this.pdfRotation < 0) this.pdfRotation += 360;
+    this.pdfRotation = (this.pdfRotation - 90) % 360
+    if (this.pdfRotation < 0) this.pdfRotation += 360
   }
 
   rotateRight() {
-    this.pdfRotation = (this.pdfRotation + 90) % 360;
+    this.pdfRotation = (this.pdfRotation + 90) % 360
   }
 
   resetZoom() {
-    this.zoom = 1.0;
-    this.pdfRotation = 0;
+    this.zoom = 1.0
+    this.pdfRotation = 0
   }
   redirectInPdfBrowser() {
     // window.nav(fileUrl,)

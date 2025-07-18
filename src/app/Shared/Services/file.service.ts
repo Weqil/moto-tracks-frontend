@@ -21,4 +21,13 @@ export class FileService {
       return `${this.backendUrl}${string}`
     }
   }
+
+  hasFileType(filename: string) {
+    if (filename.lastIndexOf('.')) {
+      const lastDotIndex = filename.lastIndexOf('.')
+      return lastDotIndex > 0 && lastDotIndex < filename.length - 1
+    } else {
+      return false
+    }
+  }
 }

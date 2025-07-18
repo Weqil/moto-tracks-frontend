@@ -14,7 +14,7 @@
             [widht]="'w20'"
             height="long-height"
             elementsPosition="row__reverse"
-            buttonText="Выгрузить таблицу"
+            buttonText="Заявившиеся"
             [buttonIconColor]="'white-icon'"
             icon="assets/icons/excel-file.svg"
             height="standart-height"
@@ -27,7 +27,7 @@
             [widht]="'w20'"
             height="long-height"
             elementsPosition="row__reverse"
-            buttonText="Пришедшие на гонку"
+            buttonText="Прибыл и допущен"
             [buttonIconColor]="'white-icon'"
             icon="assets/icons/excel-file.svg"
             height="standart-height"
@@ -91,12 +91,12 @@
         </div>
 
         <div class="application-list">
-          <div *ngFor="let user of usersInRace">
-            <div *ngIf="!!user.user" class="user-card" (click)="navigateToUser(user.user.id, user, user.id)">
+          <ng-container *ngFor="let user of usersInRace">
+            <div *ngIf="!!user.user && user.user !== null" class="user-card" (click)="navigateToUser(user.user.id, user, user.id)">
               <app-user-section
                 style="cursor: pointer"
                 *ngIf="user.user && user.user.personal"
-                [them]="user.is_checked == null ? 'standart-them' : user.is_checked == true ? 'green-them' : 'red-them'"
+                [them]="user.is_checked == null ? 'yellow-them' : user.is_checked == true ? 'green-them' : 'red-them'"
                 [border]="activeAppId === user.id ? 'red' : 'null'"
                 [showAddress]="true"
                 [name]="true"
@@ -109,7 +109,7 @@
               >
               </app-user-section>
             </div>
-          </div>
+          </ng-container>
           <div *ngFor="let appoyment of offlineAppointments">
             <div class="user-card">
               <app-user-section
@@ -126,6 +126,7 @@
             </div>
           </div>
         </div>
+
         <!-- </div> -->
       </div>
 
@@ -275,35 +276,33 @@
         (clearFilterRegion)="clearRegionInComandFilter()"
       >
       </app-select-comands>
+      <div class="not-found-users__wrapper" *ngIf="!viewUser && !viewUserOffline">
+        <div class="not-found-users">
+          Выберите спортсмена для его проверки.
+          <br />
+          В день начала соревнований, не забудьте отмечать прибывших на гонку спортсменов
+        </div>
+      </div>
+
       <div class="view-user" *ngIf="viewUser">
         <div class="payment-and-comission">
+          <ng-container *ngIf="userGet.commission">
+            <div class="comission__wrapper">
+              <span class="comission-header users-title"> Проверил: </span>
+              <app-user-section [name]="true" [surname]="true" [patronymic]="true" [user]="userGet.commission!"> </app-user-section>
+            </div>
+          </ng-container>
           <div class="payment-and-comission__user">
-            <ng-container *ngIf="userGet.commission">
-              <div class="comission__wrapper">
-                <span class="comission-header users-title"> Проверил: </span>
-                <app-user-section [name]="true" [surname]="true" [patronymic]="true" [user]="userGet.commission!"> </app-user-section>
-              </div>
-            </ng-container>
             <div class="come">
               <app-check-box
                 (change)="setUserComeInRace(userGet)"
                 [checked]="!!userGet.has_come"
                 clippy="clippy-right"
                 theme="red"
-                labelText="Пришёл на гонку"
+                labelText="Прибыл и допущен"
               ></app-check-box>
             </div>
-            <div *ngIf="userGet.transaction" class="transaction-in-race">
-              <ng-container *ngIf="userGet.transaction.status">
-                <span class="payment-status-green"> Взнос оплачен </span>
-              </ng-container>
-              <ng-container *ngIf="userGet.transaction.status === false">
-                <span class="payment-status-red"> Взнос не оплачен </span>
-              </ng-container>
-              <ng-container *ngIf="userGet.transaction.status == null">
-                <span class="payment-status-blue"> Ожидание оплаты взноса </span>
-              </ng-container>
-            </div>
+
             <div class="validate-indicator">
               <div class="validate-indicator__item">
                 <span>C. - </span>
@@ -318,6 +317,17 @@
                 <div *ngIf="notarius && notarius.is_checked" class="validate-indicator__item__value">✅</div>
               </div>
             </div>
+          </div>
+          <div *ngIf="userGet.transaction" class="transaction-in-race">
+            <ng-container *ngIf="userGet.transaction.status">
+              <span class="payment-status-green"> Взнос оплачен </span>
+            </ng-container>
+            <ng-container *ngIf="userGet.transaction.status === false">
+              <span class="payment-status-red"> Взнос не оплачен </span>
+            </ng-container>
+            <ng-container *ngIf="userGet.transaction.status == null">
+              <span class="payment-status-blue"> Ожидание оплаты взноса </span>
+            </ng-container>
           </div>
         </div>
         <form class="personal-form">
@@ -516,7 +526,7 @@
                   <app-standart-input-search label="Область/край" [searchCurrentItems]="searchRegionItems" [searchItems]="searchRegionItems" (changeSearchValue)="setRegion($event)"></app-standart-input-search>
                 </div>
               </ion-content>
-            </ng-template>  
+            </ng-template>
           </ion-modal>         -->
 
             <div class="input-container">
@@ -595,7 +605,7 @@
                 <div class="file-name" (click)="checkDocument(polis.id)">
                   <img src="/assets/icons/documents.svg" alt="" />
                   <div class="name">
-                    {{ polis.name }}
+                    {{ checkFileNameType(polis.name) ? polis.name : 'Отсутствует' }}
                   </div>
                 </div>
               </div>
@@ -628,7 +638,7 @@
                 <div class="file-name" (click)="checkDocument(licensed.id)">
                   <img src="/assets/icons/documents.svg" alt="" />
                   <div class="name">
-                    {{ licensed.name }}
+                    {{ checkFileNameType(licensed.name) ? licensed.name : 'Отсутствует' }}
                   </div>
                 </div>
               </div>
@@ -655,7 +665,7 @@
                 <div class="file-name" (click)="checkDocument(notarius.id)">
                   <img src="/assets/icons/documents.svg" alt="" />
                   <div class="name">
-                    {{ notarius.name }}
+                    {{ checkFileNameType(notarius.name) ? notarius.name : 'Отсутствует' }}
                   </div>
                 </div>
               </div>

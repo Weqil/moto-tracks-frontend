@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http'
 import { Component, inject, OnInit } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { IonContent } from '@ionic/angular'
-import { IonModal } from '@ionic/angular/standalone'
-import { catchError, EMPTY, finalize, throwError } from 'rxjs'
+import { IonModal, Platform } from '@ionic/angular/standalone'
+import { catchError, EMPTY, finalize, Subscription, throwError } from 'rxjs'
 import { UserService } from 'src/app/Shared/Data/Services/User/user.service'
 import { ButtonsModule } from 'src/app/Shared/Modules/buttons/buttons.module'
 import { FormsModule } from 'src/app/Shared/Modules/forms/forms.module'
@@ -34,6 +34,8 @@ import { SelectBottomModalComponent } from '../../../Shared/Components/UI/Linari
 import { RegionsSelectModalComponent } from '../../../Shared/Components/Modals/regions-select-modal/regions-select-modal.component'
 import { NavbarVisibleService } from '@app/Shared/Services/navbar-visible.service'
 import { PdfUniteService } from '@app/Shared/Services/pdf-unite.service'
+import { PrivateFilesComponent } from '@app/CommonUI/Pages/private-files/private-files.component'
+import { FileService } from '@app/Shared/Services/file.service'
 
 @Component({
   selector: 'app-user-documents',
@@ -42,6 +44,7 @@ import { PdfUniteService } from '@app/Shared/Services/pdf-unite.service'
   imports: [
     PdfViewerModule,
     RouterModule,
+    PrivateFilesComponent,
     SharedModule,
     FormsModule,
     StandartInputComponent,
@@ -58,7 +61,14 @@ import { PdfUniteService } from '@app/Shared/Services/pdf-unite.service'
 })
 export class UserDocumentsComponent implements OnInit {
   navController: NavController = inject(NavController)
-  constructor() {}
+  backButtonSub: Subscription
+  constructor(private platform: Platform) {
+    this.backButtonSub = this.platform.backButton.subscribeWithPriority(10, () => {
+      // Твой код обработки кнопки "Назад"
+      console.log('Back button pressed!')
+      // Например, показать alert или выполнить кастомную навигацию
+    })
+  }
   oldLicensesValue?: any
   oldPolisValue?: any
   loaderService: LoadingService = inject(LoadingService)
@@ -69,9 +79,11 @@ export class UserDocumentsComponent implements OnInit {
   selectRegionInCommandModal: any = {}
   regionsInSelectComands: any[] = []
   comandSelectModalStateValue: boolean = false
+  fileService: FileService = inject(FileService)
   toastService: ToastService = inject(ToastService)
   formdataService: formdataService = inject(formdataService)
-
+  activeDocument!: number
+  activeDocumentModalState: boolean = false
   regionModalState: boolean = false
 
   licensesFile: any = ''
@@ -163,6 +175,18 @@ export class UserDocumentsComponent implements OnInit {
   }
   openComandSelectModalStateValue() {
     this.comandSelectModalStateValue = true
+  }
+
+  openViewDocumentModal(document: any) {
+    console.log(document)
+    if (this.fileService.hasFileType(document.name)) {
+      this.activeDocument = document.id
+      this.activeDocumentModalState = true
+    }
+  }
+
+  closeViewDocumentModal() {
+    this.activeDocumentModalState = false
   }
 
   formErrors: any = {
@@ -453,7 +477,6 @@ export class UserDocumentsComponent implements OnInit {
 
   async setLicensesFile(event: any) {
     let currentPdf: any = await this.pdfUniteService.uniteFilesToPdf(event.target.files, this.generateDocumentName('Лицензии'))
-    this.pdfUniteService.downloadFile(currentPdf)
     this.licensesFile = currentPdf
   }
 
@@ -520,7 +543,7 @@ export class UserDocumentsComponent implements OnInit {
     // let loader: HTMLIonLoadingElement
     // this.loaderService.showLoading().then((res: HTMLIonLoadingElement) => {
     //   loader = res
-   //  })
+    //  })
     let fd: FormData = new FormData()
     fd = this.formdataService.formdataAppendJson(fd, this.licensesForm.value)
 
@@ -827,6 +850,7 @@ export class UserDocumentsComponent implements OnInit {
   ngOnInit() {
     window.addEventListener('popstate', (event) => {
       this.closeRegionModal()
+      this.closeViewDocumentModal()
       this.closeComandSelectModalStateValue()
     })
   }

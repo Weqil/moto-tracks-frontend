@@ -173,12 +173,7 @@ export class AppComponent {
     })
     this.getAllSportCategory()
 
-    this.userService
-      .getChangeRoles()
-      .pipe()
-      .subscribe((res: any) => {
-        this.userService.allRoles = res.role
-      })
+
     this.userService.refreshUser()
     this.cupService.getAllDegree().subscribe((res: any) => {
       this.cupService.allDegree.next(res.degree)

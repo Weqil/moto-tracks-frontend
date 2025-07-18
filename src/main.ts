@@ -23,7 +23,9 @@ import { contentTypeInterceptorFn } from '@app/Shared/Data/Interceptors/contentT
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app'
 import { provideMessaging, getMessaging } from '@angular/fire/messaging'
 import { UserService } from '@app/Shared/Data/Services/User/user.service'
-import { tap } from 'rxjs'
+import { finalize, firstValueFrom, forkJoin, from, map, Observable, tap, toArray } from 'rxjs'
+import { LoadingService } from '@app/Shared/Services/loading.service'
+import { MapService } from '@app/Shared/Data/Services/Map/map.service'
 
 const yandexMapConfig: YaConfig = {
   apikey: environment.apiKeyYandex + '&' + `suggest_apikey=${environment.apiKeyYandexSubject}`,
@@ -33,12 +35,34 @@ registerLocaleData(localeRu, 'ru')
 bootstrapApplication(AppComponent, {
   providers: [
     provideAppInitializer(() => {
-      let userService = inject(UserService)
-      return userService.getChangeRoles().pipe(
-        tap((res: any) => {
-          userService.allRoles = res.role
-        }),
-      )
+      const loadingService = inject(LoadingService)
+      const mapService = inject(MapService)
+      const userService = inject(UserService)
+
+      function getRoles(): Observable<any> {
+        return userService.getChangeRoles().pipe(
+          tap((res: any) => {
+            userService.allRoles = res.role
+          }),
+        )
+      }
+
+      function getRegions(): Observable<any> {
+        return mapService.getAllRegions(false, false, false).pipe(
+          map((res: any) =>
+            res.data.map((region: any) => ({
+              name: `${region.name} ${region.type}`,
+              value: region.id,
+            })),
+          ),
+          tap((regions: { name: string; value: string }[]) => {
+            mapService.allRegions.next(regions)
+          }),
+        )
+      }
+      return loadingService.showLoading().then((loader: HTMLIonLoadingElement) => {
+        return firstValueFrom(forkJoin([getRoles(), getRegions()])).then(() => loadingService.hideLoading(loader))
+      })
     }),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideMessaging(() => getMessaging()),

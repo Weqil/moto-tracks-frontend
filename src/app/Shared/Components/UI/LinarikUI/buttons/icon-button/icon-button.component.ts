@@ -45,7 +45,6 @@ export class  IconButtonComponent  implements OnInit {
    */
   @Input() icon:string = ''
 
-  
 
 
     /**
@@ -59,7 +58,7 @@ export class  IconButtonComponent  implements OnInit {
   @Input() clippy:'clippy-right'|'clippy-left'|''|'nav-clipy' = ''
 
     /**
-   *Размер 
+   *Размер
    */
   @Input() widht:'w20'|'w40'|'w49'|'w52'|'w58'|'w71'|'full' = 'w40'
 
