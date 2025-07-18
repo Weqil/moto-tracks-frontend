@@ -1159,7 +1159,7 @@ export class EventsViewPageComponent implements OnInit {
             this.polisForm.patchValue({
               number: polisDocument.number,
               issuedWhom: polisDocument.issued_whom,
-              itWorksDate: moment(polisDocument.it_works_date).format('YYYY-MM-DD'),
+              itWorksDate: moment(polisDocument.it_works_date,'DD.MM.YY').format('YYYY-MM-DD'),
             })
             this.polisFile = { name: 'Полис загружен', path: `${environment.BASE_URL}/document/${polisDocument.id}` }
           }
