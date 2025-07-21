@@ -10,8 +10,13 @@ export const comissionsRoutes: Routes = [
     loadComponent: () => import('../Pages/application-for-race/application-for-race.component').then((m) => m.ApplicationForRaceComponent),
   },
   {
-    path: 'create-result-reace/:id',
+    path: 'select-result-race/:id',
     canActivate: [canActivateAuth, canActivateUserHaveRole([userRoles.commission], 'Эта страница доступна только членам комиссии')],
-    loadComponent: () => import('../Pages/Events/Results/create-result-page/create-result-page.component').then((m) => m.CreateResultPageComponent),
+    loadComponent: () => import('../Pages/Events/Results/select-results-page/select-result-page.component').then((m) => m.CreateResultPageComponent),
+  },
+  {
+    path: 'create-result-race/:id',
+    canActivate: [canActivateAuth, canActivateUserHaveRole([userRoles.commission], 'Эта страница доступна только членам комиссии')],
+    loadComponent: () => import('../Pages/Events/Results/create-results-page/create-results-page.component').then((m) => m.CreateResultsPageComponent),
   },
 ]

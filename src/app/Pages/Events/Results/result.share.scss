@@ -1,4 +1,6 @@
 .check-in-header__text {
+  padding-bottom: var(--standart-padding);
+  border-bottom: 1px solid #dddddd;
   font-family: var(--font-bold);
   font-size: var(--font-headers-size);
 }

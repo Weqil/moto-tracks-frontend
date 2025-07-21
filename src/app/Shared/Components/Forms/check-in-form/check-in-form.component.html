@@ -1,0 +1,9 @@
+<form action="" class="check-in-form">
+  <app-standart-input label="Класс гонки" [readonly]="true" [control]="groupForm.get('name')"></app-standart-input>
+  <div class="appoiments-tables">
+    <app-standart-input label="Название заезда" [readonly]="false" [control]="checkInForm.get('checkInName')"></app-standart-input>
+    <div class="save-check-in-button">
+      <app-icon-button (click)="submitForm()" buttonText="Сохранить заезд" theme="red" clippy="clippy-right" widht="full"></app-icon-button>
+    </div>
+  </div>
+</form>

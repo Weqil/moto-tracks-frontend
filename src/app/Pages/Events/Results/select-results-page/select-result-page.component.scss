@@ -1,0 +1,32 @@
+.check-in-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--standart-padding);
+  .check-in-filter-grid {
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: var(--standart-padding);
+    flex-direction: row;
+    gap: var(--little-padding);
+    align-items: center;
+    padding-bottom: var(--standart-padding);
+  }
+  padding-bottom: var(--standart-padding);
+  .check-in-header__text {
+    padding-bottom: var(--standart-padding);
+    border-bottom: 1px solid #dddddd;
+    font-family: var(--font-bold);
+    font-size: var(--font-headers-size);
+  }
+}
+
+.check-in-filter-wrapper {
+  border-bottom: 1px solid #dddddd;
+}
+
+.not-found-check-in {
+  font-family: var(--font-regular);
+  font-size: var(--font-headers-size-little);
+  padding-right: var(--standart-padding);
+  color: var(--text-color);
+}

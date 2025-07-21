@@ -1,0 +1,104 @@
+<ion-content>
+  <app-header [customContainer]="true" [hiddenBackButton]="true">
+    <div class="cabinet-header">
+      <button (click)="back()" class="cabinet-header__back">
+        <img src="/assets/icons/arrow.svg" alt="Назад" />
+      </button>
+      <span class="cabinet-header__title">Результаты гонки</span>
+      <button class="cabinet-header__plug none"></button>
+    </div>
+  </app-header>
+  <main class="main-container--with-header">
+    <div class="check-in-header">
+      <div class="check-in-header__text">Результаты</div>
+
+      <div class="check-in-filter-wrapper">
+        <div class="event-information-title">
+          <img src="/assets/icons/red-finished.svg" alt="" />
+          250 см3
+        </div>
+        <div class="check-in-filter-grid">
+          <app-icon-button class="check-in-filter-grid__button" clippy="clippy-right" buttonText="Заезд 1" width="full"></app-icon-button>
+          <app-icon-button class="check-in-filter-grid__button" clippy="clippy-right" buttonText="Заезд 2" width="full"></app-icon-button>
+          <app-icon-button class="check-in-filter-grid__button" clippy="clippy-right" buttonText="Заезд 3" width="full"></app-icon-button>
+          <app-icon-button
+            class="check-in-filter-grid__button"
+            buttonBorderColor="red-border"
+            fontColor="red-color"
+            clippy="clippy-right"
+            buttonBorderWidth="b1"
+            theme="white"
+            buttonText="Добавить"
+            width="full"
+          >
+          </app-icon-button>
+        </div>
+      </div>
+      <div class="check-in-filter-wrapper">
+        <div class="event-information-title">
+          <img src="/assets/icons/red-finished.svg" alt="" />
+          125 см3 (13-17 лет)
+        </div>
+        <div class="check-in-filter-grid">
+          <app-icon-button class="check-in-filter-grid__button" clippy="clippy-right" buttonText="Заезд 1" width="full"></app-icon-button>
+          <app-icon-button class="check-in-filter-grid__button" clippy="clippy-right" buttonText="Заезд 2" width="full"></app-icon-button>
+          <app-icon-button class="check-in-filter-grid__button" clippy="clippy-right" buttonText="Заезд 3" width="full"></app-icon-button>
+          <app-icon-button
+            class="check-in-filter-grid__button"
+            buttonBorderColor="red-border"
+            fontColor="red-color"
+            clippy="clippy-right"
+            buttonBorderWidth="b1"
+            theme="white"
+            buttonText="Добавить"
+            width="full"
+          >
+          </app-icon-button>
+        </div>
+      </div>
+      <div class="check-in-filter-wrapper">
+        <div class="event-information-title">
+          <img src="/assets/icons/red-finished.svg" alt="" />
+          Коляски 750 см3
+        </div>
+        <div class="check-in-filter-grid">
+          <app-icon-button class="check-in-filter-grid__button" clippy="clippy-right" buttonText="Заезд 1" width="full"></app-icon-button>
+          <app-icon-button class="check-in-filter-grid__button" clippy="clippy-right" buttonText="Заезд 2" width="full"></app-icon-button>
+          <app-icon-button class="check-in-filter-grid__button" clippy="clippy-right" buttonText="Заезд 3" width="full"></app-icon-button>
+          <app-icon-button
+            class="check-in-filter-grid__button"
+            buttonBorderColor="red-border"
+            fontColor="red-color"
+            clippy="clippy-right"
+            buttonBorderWidth="b1"
+            theme="white"
+            (click)="navigateInCreate('gradeId')"
+            buttonText="Добавить"
+            width="full"
+          >
+          </app-icon-button>
+        </div>
+      </div>
+      <div class="check-in-filter-wrapper">
+        <div class="event-information-title">
+          <img src="/assets/icons/red-finished.svg" alt="" />
+          85 см3
+        </div>
+        <div class="check-in-filter-grid">
+          <div class="not-found-check-in">Заезды не добавлены</div>
+          <app-icon-button
+            class="check-in-filter-grid__button"
+            buttonBorderColor="red-border"
+            fontColor="red-color"
+            clippy="clippy-right"
+            buttonBorderWidth="b1"
+            theme="white"
+            buttonText="Добавить"
+            width="full"
+          >
+          </app-icon-button>
+        </div>
+      </div>
+    </div>
+  </main>
+</ion-content>

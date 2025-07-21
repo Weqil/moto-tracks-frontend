@@ -186,8 +186,8 @@ export class EventsTapePageComponent implements OnInit {
     this.tableModalValue = false
   }
 
-  redirectInCreateResultPage(event: IEvent) {
-    this.navController.navigateForward(`/create-result-reace/${event.id}`)
+  redirectInSelectResultPage(event: IEvent) {
+    this.navController.navigateForward(`/select-result-race/${event.id}`)
   }
 
   zoomIn(document: { path: string; zoomLevel: number }) {

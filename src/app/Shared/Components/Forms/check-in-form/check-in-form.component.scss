@@ -1,0 +1,9 @@
+.check-in-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--standart-padding);
+}
+
+.save-check-in-button {
+  padding-top: var(--standart-padding);
+}

@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { CreateResultPageComponent } from './create-result-page.component';
+import { CheckInFormComponent } from './check-in-form.component';
 
-describe('CreateResultPageComponent', () => {
-  let component: CreateResultPageComponent;
-  let fixture: ComponentFixture<CreateResultPageComponent>;
+describe('CheckInFormComponent', () => {
+  let component: CheckInFormComponent;
+  let fixture: ComponentFixture<CheckInFormComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ CreateResultPageComponent ],
+      declarations: [ CheckInFormComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(CreateResultPageComponent);
+    fixture = TestBed.createComponent(CheckInFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

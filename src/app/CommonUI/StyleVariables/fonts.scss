@@ -1,26 +1,23 @@
-
 :root {
-    --font-bold: 'NunitoSans-Bold';
-    --font-black: 'NunitoSans-Black';
-    --font-extra-bold: 'NunitoSans-Extrabold';
-    --font-regular: 'NunitoSans-Regular';
-    --font-semi-bold: 'NunitoSans-SemiBold';
-    --font-extra-light: 'NunitoSans-ExtraLight';
-    --font-light: 'NunitoSans-Light';
-  }
-  
-
-:root {
-   --font-little-size:12px;
-  --font-regular-size:14px;
-  --font-headers-size:1.25rem;
-  --font-headers-size-little:1.1rem;
-
+  --font-bold: 'NunitoSans-Bold';
+  --font-black: 'NunitoSans-Black';
+  --font-extra-bold: 'NunitoSans-Extrabold';
+  --font-regular: 'NunitoSans-Regular';
+  --font-semi-bold: 'NunitoSans-SemiBold';
+  --font-extra-light: 'NunitoSans-ExtraLight';
+  --font-light: 'NunitoSans-Light';
 }
 
 :root {
-  --font-standart-white-color:var(--white-color);
-  --font-gray-color:var(--grey-color);
-  --font-standart-color:var(--dark-grey-color);
-  --font-grey-color:var(--grey-color)
+  --font-little-size: 12px;
+  --font-regular-size: 14px;
+  --font-headers-size: 1.25rem;
+  --font-headers-size-little: 1.1rem;
+}
+
+:root {
+  --font-standart-white-color: var(--white-color);
+  --font-gray-color: var(--grey-color);
+  --font-standart-color: var(--dark-grey-color);
+  --font-grey-color: var(--grey-color);
 }
