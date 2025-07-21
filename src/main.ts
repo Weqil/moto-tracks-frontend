@@ -25,12 +25,13 @@ import { provideMessaging, getMessaging } from '@angular/fire/messaging'
 import { UserService } from '@app/Shared/Data/Services/User/user.service'
 import { finalize, firstValueFrom, forkJoin, from, map, Observable, tap, toArray } from 'rxjs'
 import { LoadingService } from '@app/Shared/Services/loading.service'
+import { comissionsRoutes } from '@app/Routes/comissions.routes'
 import { MapService } from '@app/Shared/Data/Services/Map/map.service'
 
 const yandexMapConfig: YaConfig = {
   apikey: environment.apiKeyYandex + '&' + `suggest_apikey=${environment.apiKeyYandexSubject}`,
 }
-const allAppRoutes = [...publicRoutes, ...privateRoutes, ...authRoutes, ...errorsRoutes]
+const allAppRoutes = [...publicRoutes, ...comissionsRoutes, ...privateRoutes, ...authRoutes, ...errorsRoutes]
 registerLocaleData(localeRu, 'ru')
 bootstrapApplication(AppComponent, {
   providers: [
@@ -71,9 +72,7 @@ bootstrapApplication(AppComponent, {
     provideIonicAngular(),
     { provide: LOCALE_ID, useValue: 'ru' },
     provideRouter(allAppRoutes, withPreloading(PreloadAllModules)),
-
     importProvidersFrom(MetrikaModule.forRoot([{ id: environment.metrikaId, webvisor: true }, { id: environment.metrikaId }])),
-    provideRouter(errorsRoutes),
     importProvidersFrom(AngularYandexMapsModule.forRoot(yandexMapConfig)),
     provideHttpClient(withInterceptors([authTokenInterceptor, contentTypeInterceptorFn])),
   ],

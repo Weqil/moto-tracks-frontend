@@ -186,6 +186,10 @@ export class EventsTapePageComponent implements OnInit {
     this.tableModalValue = false
   }
 
+  redirectInCreateResultPage(event: IEvent) {
+    this.navController.navigateForward(`/create-result-reace/${event.id}`)
+  }
+
   zoomIn(document: { path: string; zoomLevel: number }) {
     let currentDocument = this.formattedResultsDocument.find(
       (documentInArray: { path: string; zoomLevel: number }) => documentInArray.path == document.path,
