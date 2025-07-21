@@ -303,8 +303,8 @@
   --overflow: hidden;
 }
 .create-offline-racer-form {
-  --width: 30rem;
-  --max-height: 60rem;
+  --width: 100vw;
+  --height: 100vh;
   --padding-bottom: 1rem;
 }
 .add-offline-racer {
@@ -403,4 +403,12 @@
 
 .offline-racer-form {
   padding-bottom: var(--standart-padding);
+}
+
+.create-offline-racer-container {
+  width: 100%;
+  max-width: 960px;
+  margin: auto;
+  padding-left: var(--standart-padding);
+  padding-right: var(--standart-padding);
 }

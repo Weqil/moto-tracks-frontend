@@ -500,6 +500,7 @@ export class ApplicationForRaceComponent implements OnInit {
 
   closeOfflineRacerAddForm() {
     this.OfflineRacerAddFormState = false
+    this.regionModalState = false
   }
   cancelCreateOffline() {
     this.OfflineRacerAddFormState = false
@@ -522,7 +523,7 @@ export class ApplicationForRaceComponent implements OnInit {
         .pipe(finalize(() => {}))
         .subscribe((res: any) => {
           this.toastService.showToast('Заявка успешно создана', 'success')
-          this.getOfflineRacer(true)
+          this.getOfflineRacer(true).subscribe()
           if (addAlso) {
             this.addOfflineUserForm.reset()
           } else {
@@ -650,6 +651,7 @@ export class ApplicationForRaceComponent implements OnInit {
     //     motoStamp: personal.moto_stamp || '',
     //     numberAndSeria: personal.number_and_seria || '',
     //     group: '',
+    console.log(offlineUser)
     this.viewOfflineUserForm.patchValue({
       ...offlineUser,
       startNumber: offlineUser.start_number,
@@ -663,6 +665,7 @@ export class ApplicationForRaceComponent implements OnInit {
 
   closeComandSelectModalStateValue() {
     this.comandSelectModalStateValue = false
+    this.openOfflineRacerAddForm()
   }
 
   setComand(event: any) {
