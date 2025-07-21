@@ -88,7 +88,7 @@
   .logo-icon {}
 
   .logo-text {
-    font-family: var(--font-regular);
+    font-family: var(--new-font-regular);
     font-size: 18px;
   }
 }
@@ -126,7 +126,7 @@
   background: var(--white-color);
   text-align: start;
   font-size: var( --font-regular-size);
-  font-family: var(--second-font-regular);
+  font-family: var(--new-second-font-regular);
   border: 1px solid var(--dark-2);
 }
 
@@ -152,6 +152,11 @@
       .filter-section {
         display: flex;
         flex-direction: column;
+
+        span {
+          font-family: var(--new-second-font-regular);
+          font-size: 14px;
+        }
 
         &.actions {
           flex-direction: row;

@@ -24,7 +24,14 @@
           <div class="filter-section">
             <span>Отображение</span>
             <div class="button-group">
-              <app-icon-button (click)="clearAllFilters()" [theme]="!this.regionFilterId ? 'red':'dark'" height="little-height" clippy="clippy-right" buttonText="Все"></app-icon-button>
+              <app-icon-button
+                (click)="clearAllFilters()"
+                [theme]="!this.regionFilterId ? 'red':'dark'"
+                [font]="this.isDesktop ? 'font__new-second-font-regular' : 'font'"
+                height="little-height"
+                clippy="clippy-right"
+                buttonText="Все"
+              ></app-icon-button>
 <!--              <app-icon-button (click)="clearAllFilters()" [theme]="this.regionFilterId ? 'red':'dark'" height="little-height" clippy="clippy-right" buttonText="Только открытые"></app-icon-button>-->
             </div>
           </div>

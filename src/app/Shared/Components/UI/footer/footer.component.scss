@@ -14,7 +14,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 10px;
+  //margin-bottom: 10px;
 }
 
 .bottom-row {
@@ -36,7 +36,7 @@
 
 .logo-text {
   margin: 0 0 0 10px;
-  font-family: var(--font-regular);
+  font-family: var(--new-font-regular);
   font-size: 40px;
   color: #ffffff;
 }
@@ -63,8 +63,8 @@
   border-top: 1px solid #6A6A6A;
 
   a {
-    font-family: var(--second-font-regular);
-    font-size: 16px;                        // Не понял где задаются шрифты
+    font-family: var(--new-second-font-regular);
+    font-size: var(--font-regular-size);
     color: #6A6A6A;
   }
 

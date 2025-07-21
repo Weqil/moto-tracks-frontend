@@ -96,7 +96,7 @@ export class  IconButtonComponent  implements OnInit {
          /**
    *Жирность текста
    */
-   @Input() font:'font'|'font-bold'|'none' = 'font'
+   @Input() font:'font'|'font-bold'|'font__semi-bold'|'font__new-second-font-regular'|'font__new-second-font-medium'|'none' = 'font'
 
   /**
    *Размер текста

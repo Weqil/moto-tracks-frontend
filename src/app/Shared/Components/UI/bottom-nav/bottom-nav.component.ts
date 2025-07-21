@@ -50,4 +50,7 @@ export class BottomNavComponent  {
   }
 
 
+  loginInAccount() {
+    this.navControler.navigateForward('/select-auth',{  animated: false })
+  }
 }

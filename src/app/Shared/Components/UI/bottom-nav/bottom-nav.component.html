@@ -12,9 +12,10 @@
           <div class="button-container">
               <app-icon-button
                 [elementsPosition]="this.header ? 'elements-position__row' : 'elements-position'"
-                widht="w20"
+                [font]="this.header ? 'font__new-second-font-regular' : 'font__semi-bold'"
                 clippy="nav-clipy"
-                fontSize="standart-font-size"
+                [fontSize]="this.header ? 'standart-font-size' : 'litle-font-size'"
+                [widht]="this.header ? 'w20' : 'w52'"
                 buttonText={{link.name}}
                 icon={{link.icon}}
                 [iconMargin]="this.header ? 'icon-margin-none' : 'icon-margin-standard'"
@@ -28,10 +29,20 @@
       }
   </div>
   @if (header) {
-    <div class="nav-exit" (click)="logoutInAccount()">
-      <img class="nav-exit-icon" src="/assets/icons/exite.svg" alt="Выход из аккаунта">
-      <div class="nav-exit-text">Выход</div>
-    </div>
+    @if (userService.user.value) {
+      <div class="nav-exit" (click)="logoutInAccount()">
+        <img class="nav-exit-icon" src="/assets/icons/exite.svg" alt="Выход из аккаунта">
+        <div class="nav-exit-text">Выход</div>
+      </div>
+    } @else {
+      <div class="nav-enter" (click)="loginInAccount()">
+        <img class="nav-enter-icon" src="/assets/icons/exite.svg" alt="Выход из аккаунта">
+        <div class="nav-enter-text">Войти</div>
+      </div>
+    }
+
+
+
   }
 </div>
 </div>
