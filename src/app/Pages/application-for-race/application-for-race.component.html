@@ -712,6 +712,7 @@
             <app-check-box (click)="CheckBoxValue(userInfo)"  [height]="'long-height'" [value]="2" [checked]="userInfo" [labelText]="''" [theme]="'white'" [clippy]="''"></app-check-box>
           </div> -->
           </div>
+
           <app-standart-input
             [control]="viewOfflineUserForm.get('surname')"
             placeholder="Введите фамилию"
@@ -808,6 +809,10 @@
             placeholder="Команда"
             label="Название команды"
           ></app-standart-input>
+          <div class="offline-buttons-container">
+            <app-icon-button (click)="deleteOfflineRacer()" widht="full" buttonText="Удалить"></app-icon-button>
+            <app-icon-button (click)="saveOfflineRacer()" theme="red" widht="full" buttonText="Сохранить"></app-icon-button>
+          </div>
         </form>
       </div>
 

@@ -511,7 +511,7 @@ export class ApplicationForRaceComponent implements OnInit {
     this.OfflineRacerAddFormState = false
   }
 
-  openComandSelectModalStateValue() {
+  openComandSelectModalStateValue(edit: boolean = false) {
     this.OfflineRacerAddFormState = false
     this.comandSelectModalStateValue = true
   }
@@ -857,7 +857,22 @@ export class ApplicationForRaceComponent implements OnInit {
   setGroup(event: any) {
     this.addOfflineUserForm.patchValue({ gradeId: event.id, group: event.name })
   }
-
+  deleteOfflineRacer() {
+    this.loaderService.showLoading().then((loader: HTMLIonLoadingElement) => {
+      this.offlineRacersService
+        .deleteOfflineRacer(this.eventId, this.activeAppId)
+        .pipe(
+          finalize(() => {
+            this.loaderService.hideLoading(loader)
+          }),
+        )
+        .subscribe((res: any) => {
+          this.toastService.showToast('Заявка успешно удалена', 'success')
+          this.getOfflineRacer().subscribe()
+          this.viewUserOffline = false
+        })
+    })
+  }
   openRegionModal() {
     this.regionModalState = true
     this.navBarVisibleService.hideNavBar()
