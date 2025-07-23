@@ -13,7 +13,7 @@ export class OfflineRacersService {
   createOfflineRacer(raceId: number, data: any) {
     return this.http.post(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races/${raceId}/appointment-race/offline`, data)
   }
-  getOfflineRacer(raceId: number, applicationFilters: ApplicationFilters = {}) {
+  getOfflineRacer(raceId: number | string, applicationFilters: ApplicationFilters = {}) {
     return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races/${raceId}/appointment-race/offline`, {
       params: { ...applicationFilters },
     })

@@ -18,7 +18,7 @@
         Данные
       </div>
       <div class="check-in-form__container">
-        <app-check-in-form (checkInFormChange)="onCheckInFormChange($event)" [checkInForm]="checkInForm" group="Коляски 750 см3"></app-check-in-form>
+        <app-check-in-form [allApplications]="allApplications" (checkInFormChange)="onCheckInFormChange($event)" [checkInForm]="checkInForm" [group]="grade.name"></app-check-in-form>
       </div>
     </div>
   </main>
