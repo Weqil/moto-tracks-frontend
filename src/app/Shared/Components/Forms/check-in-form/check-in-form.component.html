@@ -1,10 +1,40 @@
 <form action="" class="check-in-form">
   <app-standart-input label="Класс гонки" [readonly]="true" [control]="groupForm.get('name')"></app-standart-input>
   <div class="appoiments-tables">
-    <app-standart-input label="Название заезда" [readonly]="false" [control]="checkInForm.get('checkInName')"></app-standart-input>
-    @for (applicationsFormGroup of applicationsForm.controls; track $index) {
-      <app-standart-input [control]="applicationsFormGroup.get('name')"></app-standart-input>
-    }
+    <app-standart-input
+      label="Название заезда"
+      [invalid]="checkInputInControl(checkInForm.get('checkInName')).invalid"
+      [errorMessage]="checkInputInControl(checkInForm.get('checkInName')).message"
+      [readonly]="false"
+      [control]="checkInForm.get('checkInName')"
+    ></app-standart-input>
+    <div class="event-information-title racer-tittles">
+      <img src="/assets/icons/red-finished.svg" alt="" />
+      Гонщики
+    </div>
+    <div class="racers-grid">
+      @for (applicationsFormGroup of applicationsForm.controls; track $index) {
+        <div class="racers-grid__item">
+          <app-standart-input
+            [invalid]="checkInputInControl(applicationsFormGroup.get('place')).invalid"
+            [label]="$index == 0 ? 'Место' : ''"
+            [control]="applicationsFormGroup.get('place')"
+          ></app-standart-input>
+          <app-standart-input
+            [readonly]="true"
+            [label]="$index == 0 ? 'Старт. номер' : ''"
+            [control]="applicationsFormGroup.get('start_number')"
+          ></app-standart-input>
+          <app-standart-input [readonly]="true" [label]="$index == 0 ? 'ФИО' : ''" [control]="applicationsFormGroup.get('name')"></app-standart-input>
+          <app-standart-input
+            [invalid]="checkInputInControl(applicationsFormGroup.get('scores')).invalid"
+            [label]="$index == 0 ? 'Очки' : ''"
+            [control]="applicationsFormGroup.get('scores')"
+          ></app-standart-input>
+        </div>
+      }
+    </div>
+
     <div class="save-check-in-button">
       <app-icon-button (click)="submitForm()" buttonText="Сохранить заезд" theme="red" clippy="clippy-right" widht="full"></app-icon-button>
     </div>

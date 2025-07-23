@@ -1,8 +1,10 @@
-import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms'
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core'
 import { StandartInputComponent } from '../../UI/LinarikUI/forms/standart-input/standart-input.component'
 import { IconButtonComponent } from '../../UI/LinarikUI/buttons/icon-button/icon-button.component'
 import { retsultsApplicationsGet } from '@app/Shared/Data/Interfaces/resultsApplications'
+import { InputErrorService } from '@app/Shared/Services/input-error.service'
+import { from, map, toArray } from 'rxjs'
 
 interface CheckInForm {
   checkInName: FormControl<string>
@@ -12,9 +14,12 @@ type ApplicationForm = FormGroup<{
   name: FormControl<string>
   start_number: FormControl<string>
   appointmentId: FormControl<Number>
-  scores: FormControl<number>
-  arrival: FormControl<number>
+  scores: FormControl<number | null>
+  arrival: FormControl<string>
+  place: FormControl<number | null>
 }>
+
+type ApplicationFormValue = ApplicationForm['value']
 
 @Component({
   selector: 'app-check-in-form',
@@ -25,6 +30,7 @@ type ApplicationForm = FormGroup<{
 export class CheckInFormComponent implements OnInit {
   constructor(private fb: FormBuilder) {}
   applicationsForm!: FormArray<ApplicationForm>
+  inputErrorService = inject(InputErrorService)
   @Input() checkInForm!: FormGroup<CheckInForm>
   @Output() checkInFormChange = new EventEmitter<FormGroup<CheckInForm>>()
   @Input() set allApplications(value: retsultsApplicationsGet[]) {
@@ -44,8 +50,9 @@ export class CheckInFormComponent implements OnInit {
               nonNullable: true,
             }),
             appointmentId: new FormControl<Number>(application.id, { nonNullable: true }),
-            scores: new FormControl<number>(0, { nonNullable: true }),
-            arrival: new FormControl<number>(0, { nonNullable: true }),
+            scores: new FormControl<number | null>(null, Validators.required),
+            arrival: new FormControl<string>('', { nonNullable: true }),
+            place: new FormControl<number | null>(null, Validators.required),
           })
         }),
       )
@@ -60,8 +67,42 @@ export class CheckInFormComponent implements OnInit {
     name: new FormControl(this.group || ''),
   })
 
+  checkInputInControl(control: AbstractControl | null): { invalid: boolean; message: string } {
+    if (control) {
+      return this.inputErrorService.checkInputInControl(control)
+    } else {
+      return {
+        invalid: true,
+        message: 'control dont create',
+      }
+    }
+  }
+
+  formatingApplicationsForm() {
+    console.log(this.applicationsForm.value)
+    from(this.applicationsForm.value)
+      .pipe(
+        map((application: ApplicationFormValue) => {
+          return {
+            appointmentId: application.appointmentId,
+            scores: application.scores,
+            arrival: this.checkInForm.value.checkInName,
+            place: application.place,
+          }
+        }),
+        toArray(),
+      )
+      .subscribe((aplications: any) => {
+        this.checkInFormChange.emit(aplications)
+      })
+  }
+
   submitForm() {
-    this.checkInFormChange.emit(this.checkInForm)
+    this.checkInForm.markAllAsTouched()
+    this.applicationsForm.markAllAsTouched()
+    if (this.checkInForm.valid && this.applicationsForm.valid) {
+      this.formatingApplicationsForm()
+    }
   }
 
   ngOnInit() {}

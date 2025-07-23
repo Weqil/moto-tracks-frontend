@@ -1,6 +1,7 @@
+import { ResultsService } from './../../../../Shared/Data/results.service'
 import { OfflineRacersService } from './../../../../Shared/Data/Services/Race/offline-racers.service'
 import { Component, inject, OnInit } from '@angular/core'
-import { FormControl, FormGroup } from '@angular/forms'
+import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router'
 import { CheckInFormComponent } from '@app/Shared/Components/Forms/check-in-form/check-in-form.component'
 import { HeaderComponent } from '@app/Shared/Components/UI/header/header.component'
@@ -26,25 +27,35 @@ export class CreateResultsPageComponent implements OnInit {
   constructor(private route: ActivatedRoute) {}
   navController: NavController = inject(NavController)
   eventService: EventService = inject(EventService)
+
   OfflineRacersService: OfflineRacersService = inject(OfflineRacersService)
   loadingService: LoadingService = inject(LoadingService)
   applicationsFilters!: ApplicationFilters
+  resultsService: ResultsService = inject(ResultsService)
   storeResultsService: StoreReslutsService = inject(StoreReslutsService)
   grade!: Grade
   checkInForm = new FormGroup({
-    checkInName: new FormControl<string>('', { nonNullable: true }),
+    checkInName: new FormControl<string>('', { validators: Validators.required, nonNullable: true }),
   })
 
   allApplications: retsultsApplicationsGet[] = []
 
-  onCheckInFormChange(event: FormGroup) {}
+  onCheckInFormChange(event: any) {
+    this.loadingService.showLoading().then((load: HTMLIonLoadingElement) => {
+      this.resultsService
+        .createResults(String(this.storeResultsService.getCurrentRace()?.id), event)
+        .pipe(finalize(() => this.loadingService.hideLoading(load)))
+        .subscribe((response: any) => {
+         this.navController.back()
+        })
+    })
+  }
   back() {
     this.navController.back()
   }
   getAppoyments(): Observable<any> {
     return forkJoin([this.getOfflineRacers(), this.getOnlineRacers()]).pipe(
       tap((event) => {
-        console.log(event)
       }),
       map((applicationsArray: any[]) => {
         return applicationsArray[0].concat(applicationsArray[1])
@@ -81,7 +92,6 @@ export class CreateResultsPageComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe((params: any) => {
-      console.log(params)
       this.grade = {
         id: params.gradeId,
         name: params.gradeName,

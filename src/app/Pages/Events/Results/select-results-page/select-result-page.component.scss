@@ -1,13 +1,15 @@
 .check-in-header {
   display: flex;
   flex-direction: column;
+  padding-left: var(--standart-padding);
+  padding-right: var(--standart-padding);
   gap: var(--standart-padding);
   .check-in-filter-grid {
     display: flex;
     flex-wrap: wrap;
     padding-top: var(--standart-padding);
     flex-direction: row;
-    gap: var(--little-padding);
+    gap: var(--standart-padding);
     align-items: center;
     padding-bottom: var(--standart-padding);
   }

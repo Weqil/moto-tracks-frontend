@@ -11,16 +11,42 @@
   <main class="main-container--with-header">
     <div class="check-in-header">
       <div class="check-in-header__text">Результаты</div>
-      @for (grade of storeResultsService.getCurrentRace()?.grades; track grade.id) {
+      @for (grade of this.arrivalWithGrades.grades; track grade.id) {
         <div class="check-in-filter-wrapper">
           <div class="event-information-title">
             <img src="/assets/icons/red-finished.svg" alt="" />
             {{ grade.name }}
           </div>
           <div class="check-in-filter-grid">
-            <app-icon-button class="check-in-filter-grid__button" clippy="clippy-right" buttonText="Заезд 1" width="full"></app-icon-button>
-            <app-icon-button class="check-in-filter-grid__button" clippy="clippy-right" buttonText="Заезд 2" width="full"></app-icon-button>
-            <app-icon-button class="check-in-filter-grid__button" clippy="clippy-right" buttonText="Заезд 3" width="full"></app-icon-button>
+            @for (arrival of grade.arrivals; track arrival.id) {
+              <app-icon-button class="check-in-filter-grid__button" buttonBorderColor="red-border" [buttonText]="arrival.arrival" width="full">
+              </app-icon-button>
+            }
+            @if (grade.arrivals.length == 0) {
+              <span class="not-found-check-in"> Заезды не добавлены </span>
+            }
+            <app-icon-button
+              (click)="navigateInCreate({id: grade.id, name: grade.name, description: grade.description} )"
+              class="check-in-filter-grid__button"
+              buttonBorderColor="red-border"
+              fontColor="red-color"
+              clippy="clippy-right"
+              buttonBorderWidth="b1"
+              theme="white"
+              buttonText="Добавить"
+              width="full"
+            >
+            </app-icon-button>
+          </div>
+        </div>
+      }
+      <!-- @for (grade of storeResultsService.getCurrentRace()?.grades; track grade.id) {
+        <div class="check-in-filter-wrapper">
+          <div class="event-information-title">
+            <img src="/assets/icons/red-finished.svg" alt="" />
+            {{ grade.name }}
+          </div>
+          <div class="check-in-filter-grid">
             <app-icon-button
               (click)="navigateInCreate(grade)"
               class="check-in-filter-grid__button"
@@ -35,7 +61,7 @@
             </app-icon-button>
           </div>
         </div>
-      }
+      } -->
     </div>
   </main>
 </ion-content>

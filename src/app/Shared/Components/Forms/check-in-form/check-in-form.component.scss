@@ -7,3 +7,24 @@
 .save-check-in-button {
   padding-top: var(--standart-padding);
 }
+.racer-tittles {
+  padding-top: var(--standart-padding);
+  padding-bottom: var(--standart-padding);
+}
+
+.racers-grid {
+  padding-bottom: var(--standart-padding);
+}
+
+.racers-grid__item {
+  display: grid;
+  align-items: end;
+  grid-template-columns: 1fr 0.8fr 4fr 1fr;
+  gap: 16px;
+}
+
+.racers-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--standart-padding);
+}

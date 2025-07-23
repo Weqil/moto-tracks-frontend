@@ -1,6 +1,8 @@
 @use '../result.share.scss';
 
 .check-in-form {
+  padding-left: var(--standart-padding);
+  padding-right: var(--standart-padding);
   padding-top: var(--standart-padding);
   padding-bottom: var(--standart-padding);
 }
