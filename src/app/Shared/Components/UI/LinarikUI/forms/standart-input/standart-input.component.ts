@@ -31,6 +31,8 @@ export class StandartInputComponent implements OnInit {
   @Input() label: string = ''
   @Input() labelLight: boolean = false
 
+  @Output() focus: EventEmitter<any> = new EventEmitter<any>
+  @Output() onFocus: EventEmitter<any> = new EventEmitter<any>
   /**
    * Текст-подсказка внутри элемента ввода
    */
@@ -113,6 +115,13 @@ export class StandartInputComponent implements OnInit {
   TrimValue(): void {
     const trimmedValue = this.control.value?.trim()
     this.control.setValue(trimmedValue, { emitEvent: false })
+  }
+
+  emitFocus(){
+    this.focus.emit()
+  }
+  emitOnFocus(){
+    this.onFocus.emit()
   }
 
   ngOnChanges() {}

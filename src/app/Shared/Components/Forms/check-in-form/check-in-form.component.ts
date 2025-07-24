@@ -1,9 +1,9 @@
+import { InputErrorService } from './../../../Services/input-error.service'
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
 import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core'
 import { StandartInputComponent } from '../../UI/LinarikUI/forms/standart-input/standart-input.component'
 import { IconButtonComponent } from '../../UI/LinarikUI/buttons/icon-button/icon-button.component'
 import { retsultsApplicationsGet } from '@app/Shared/Data/Interfaces/resultsApplications'
-import { InputErrorService } from '@app/Shared/Services/input-error.service'
 import { from, map, toArray } from 'rxjs'
 
 interface CheckInForm {
@@ -30,7 +30,9 @@ type ApplicationFormValue = ApplicationForm['value']
 export class CheckInFormComponent implements OnInit {
   constructor(private fb: FormBuilder) {}
   applicationsForm!: FormArray<ApplicationForm>
-  inputErrorService = inject(InputErrorService)
+  writingFocus: boolean = false
+  inputErrorService: InputErrorService = inject(InputErrorService)
+  formHaveSubscribe: boolean = false
   @Input() checkInForm!: FormGroup<CheckInForm>
   @Output() checkInFormChange = new EventEmitter<FormGroup<CheckInForm>>()
   @Input() set allApplications(value: retsultsApplicationsGet[]) {
@@ -56,8 +58,21 @@ export class CheckInFormComponent implements OnInit {
           })
         }),
       )
+      this.applicationsForm.controls.forEach((control) => {
+        control.valueChanges.subscribe((value) => {
+          if (!this.writingFocus) {
+            control.patchValue(
+              {
+                scores: this.getScores(Number(control.get('place')?.value)),
+              },
+              { emitEvent: false },
+            )
+          }
+        })
+      })
     }
   }
+
   @Input() set group(value: any) {
     if (value) {
       this.groupForm.patchValue({ name: value || '' })
@@ -66,6 +81,29 @@ export class CheckInFormComponent implements OnInit {
   groupForm = new FormGroup({
     name: new FormControl(this.group || ''),
   })
+
+  getScores(place: number) {
+    if (place === 1) {
+      return 25
+    }
+    if (place === 2) {
+      return 22
+    }
+    if (place === 3) {
+      return 20
+    }
+    if (place === 4) {
+      return 18
+    }
+    if (place === 5) {
+      return 16
+    }
+    if (place > 5) {
+      if (15 - (place - 6) <= 1) return 1
+      return 15 - (place - 6)
+    }
+    return null
+  }
 
   checkInputInControl(control: AbstractControl | null): { invalid: boolean; message: string } {
     if (control) {
@@ -78,8 +116,11 @@ export class CheckInFormComponent implements OnInit {
     }
   }
 
+  onScoresFocus(formGroup: FormGroup, focus: boolean): void {
+    this.writingFocus = focus
+  }
+
   formatingApplicationsForm() {
-    console.log(this.applicationsForm.value)
     from(this.applicationsForm.value)
       .pipe(
         map((application: ApplicationFormValue) => {

@@ -91,6 +91,7 @@ export class CreateResultsPageComponent implements OnInit {
   }
 
   ngOnInit() {
+    
     this.route.params.subscribe((params: any) => {
       this.grade = {
         id: params.gradeId,

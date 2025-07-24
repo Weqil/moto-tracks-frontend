@@ -29,8 +29,12 @@
           <app-standart-input
             [invalid]="checkInputInControl(applicationsFormGroup.get('scores')).invalid"
             [label]="$index == 0 ? 'Очки' : ''"
+            (focus)="onScoresFocus(applicationsFormGroup, true)"
+            (onFocus)="onScoresFocus(applicationsFormGroup, false)"
             [control]="applicationsFormGroup.get('scores')"
-          ></app-standart-input>
+          >
+            ></app-standart-input
+          >
         </div>
       }
     </div>
