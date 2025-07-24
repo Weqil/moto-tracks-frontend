@@ -47,7 +47,12 @@
           placeholder="Введите отчество"
           label="Отчество (обязательное поле)"
         ></app-standart-input>
-        <app-standart-input [control]="personalUserForm.get('phoneNumber')" placeholder="Номер телефона" label="Телефон"></app-standart-input>
+        <app-standart-input
+          maskType="phone"
+          [control]="personalUserForm.get('phoneNumber')"
+          placeholder="Номер телефона"
+          label="Телефон"
+        ></app-standart-input>
         <app-standart-input [control]="personalUserForm.get('email')" placeholder="Почта" label="Почта"></app-standart-input>
         <app-standart-input
           (click)="openRegionModal()"

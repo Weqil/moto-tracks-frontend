@@ -1,5 +1,5 @@
 <ion-content>
-  <app-time-keeper *ngIf="event?.hrono_id" [racers]="allUsers" [raceIdWS]="event.hrono_id ? event.hrono_id : 0"></app-time-keeper>
+  <!-- <app-time-keeper *ngIf="event?.hrono_id" [racers]="allUsers" [raceIdWS]="event.hrono_id ? event.hrono_id : 0"></app-time-keeper> -->
   <main>
     <div class="event">
       <div class="event-header">
@@ -269,7 +269,7 @@
       <!-- <div class="slider-container">
         <app-show-slider standartImagesPath='assets/images/moto-background.png' [files]="event.images" (click)="openImagesModalFunction()"></app-show-slider>
         <div class="slider-container__header">
-        </div> 
+        </div>
       </div> -->
 
       <!-- <div class="main-container-parent">
@@ -289,11 +289,11 @@
             <div class="group-item__name">{{group.name}}</div>
           </div>
         </div>
-        
+
         <div *ngIf="event.position_file || event.results_file" class="event-documents">
            <span *ngIf="event.results_file" [routerLink]="['/view-document', event.results_file | checkImgUrl]" class="event-documents__text"> <img class="event-documents__icon" src="/assets/icons/documents.svg"> Регламент</span>
            <span *ngIf="event.position_file" [routerLink]="['/view-document', event.position_file | checkImgUrl]" class="event-documents__text"> <img class="event-documents__icon" src="/assets/icons/documents.svg"alt=""> Положение</span>
-           
+
            <ng-container *ngFor="let document of formattedResultsDocument">
             <span (click)="openUploadResultModalState(document)" *ngIf="document" class="event-documents__text"><img class="event-documents__icon" src="/assets/icons/documents.svg" alt=""> {{document.path| checkResultsPath}} </span>
            </ng-container>
@@ -307,7 +307,7 @@
                   <div class="documents-grid">
 
                       <div class="documents-grid__item">
-                        <pdf-viewer 
+                        <pdf-viewer
                         [src]="currentResultFile.path | checkImgUrl"
                         [render-text]="true"
                         [zoom]="currentResultFile.zoomLevel"
@@ -328,10 +328,10 @@
         </ng-container>
 
         <div class="event-track">
-    
+
           <app-track-section [hidhtStatus]="true" (click)="redirectInRace()" [track]="event.track"></app-track-section>
         </div>
-        
+
 
         <div class="list-users-container">
           @if (usersPreviewConfig.usersCount) {
@@ -339,19 +339,19 @@
               Участники гонки
               {{usersPreviewConfig.usersCount}}
             </div>
-          <app-users-preview 
-          [groups]="event.grades"  
-          [fullValueUsers]="usersPreviewConfig.usersCount" 
-          [users]="usersInRace" [moreCount]="usersPreviewConfig.usersCount" 
-          [openUsersModal]="openUserModalValue" 
-          (closeModalEmit)="closeStateUsersModal()" 
+          <app-users-preview
+          [groups]="event.grades"
+          [fullValueUsers]="usersPreviewConfig.usersCount"
+          [users]="usersInRace" [moreCount]="usersPreviewConfig.usersCount"
+          [openUsersModal]="openUserModalValue"
+          (closeModalEmit)="closeStateUsersModal()"
           (openModalEmit)="openStateUsersModal()"></app-users-preview>
         }
         </div>
 
       </div>
-      
-   
+
+
     </div> -->
 
       <div class="footer-page">
@@ -516,7 +516,7 @@
                   <app-standart-input-search label="Область/край*" [searchCurrentItems]="searchRegionItems" [searchItems]="searchRegionItems" (changeSearchValue)="setRegion($event)"></app-standart-input-search>
                 </div>
               </ion-content>
-            </ng-template>  
+            </ng-template>
           </ion-modal>         -->
 
             <app-regions-select-modal
