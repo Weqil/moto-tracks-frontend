@@ -512,8 +512,22 @@ export class ApplicationForRaceComponent implements OnInit {
   }
 
   openComandSelectModalStateValue(edit: boolean = false) {
-    this.OfflineRacerAddFormState = false
     this.comandSelectModalStateValue = true
+  }
+  editOfflineRacer() {
+    this.loaderService.showLoading().then((res: HTMLIonLoadingElement) => {
+      this.offlineRacersService
+        .updateOfflineRacer(Number(this.eventId), Number(this.activeAppId), this.viewOfflineUserForm.value)
+        .pipe(
+          finalize(() => {
+            this.loaderService.hideLoading(res)
+          }),
+        )
+        .subscribe((res: any) => {
+          console.log(res)
+          this.getOfflineRacer().subscribe()
+        })
+    })
   }
 
   saveOfflineRacer(addAlso: boolean = false) {
@@ -654,6 +668,9 @@ export class ApplicationForRaceComponent implements OnInit {
     console.log(offlineUser)
     this.viewOfflineUserForm.patchValue({
       ...offlineUser,
+      locationId: offlineUser.location?.id,
+      community: offlineUser.community || 'Лично',
+      gradeId: offlineUser.grade.id || '',
       startNumber: offlineUser.start_number,
       dateOfBirth: offlineUser.date_of_birth,
       licenseNumber: offlineUser.license_number,
@@ -665,14 +682,17 @@ export class ApplicationForRaceComponent implements OnInit {
 
   closeComandSelectModalStateValue() {
     this.comandSelectModalStateValue = false
-    this.openOfflineRacerAddForm()
   }
 
-  setComand(event: any) {
+  setComand(event: any, edit: boolean = false) {
+    if (!edit) {
+      this.addOfflineUserForm.patchValue({ community: event.name })
+      this.addOfflineUserForm.patchValue({ commandId: event.id })
+    } else {
+      this.viewOfflineUserForm.patchValue({ community: event.name })
+      this.viewOfflineUserForm.patchValue({ commandId: event.id })
+    }
     this.closeComandSelectModalStateValue()
-    this.openOfflineRacerAddForm()
-    this.addOfflineUserForm.patchValue({ community: event.name })
-    this.addOfflineUserForm.patchValue({ commandId: event.id })
   }
 
   getAllComands() {
@@ -695,7 +715,7 @@ export class ApplicationForRaceComponent implements OnInit {
     )
   }
 
-  createNewComand(formData: { id: number; name: string; city: string; locationId: number; region: string }) {
+  createNewComand(formData: { id: number; name: string; city: string; locationId: number; region: string }, edit: boolean = false) {
     const id = formData.id
     const region = formData.region
     const name = formData.name
@@ -736,7 +756,7 @@ export class ApplicationForRaceComponent implements OnInit {
             }),
           )
           .subscribe((res: any) => {
-            this.setComand(res.command)
+            this.setComand(res.command, edit)
             // this.getAllComands()
           })
       }
@@ -902,9 +922,13 @@ export class ApplicationForRaceComponent implements OnInit {
   clearRegionInComandFilter() {
     this.selectRegionInCommandModal = {}
   }
-  setRegion(region: any) {
+  setRegion(region: any, edit: boolean = false) {
     this.closeRegionModal()
-    this.addOfflineUserForm.patchValue({ locationId: region.value, region: region.name })
+    if (!edit) {
+      this.addOfflineUserForm.patchValue({ locationId: region.value, region: region.name })
+    } else {
+      this.viewOfflineUserForm.patchValue({ locationId: region.value, region: region.name })
+    }
   }
 
   search() {

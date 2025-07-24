@@ -24,8 +24,9 @@ import { IconButtonComponent } from "../../UI/LinarikUI/buttons/icon-button/icon
 export class SelectComandsComponent  implements OnInit {
 
   constructor() { }
-  @Input() commands: ICommand[] = []  
+  @Input() commands: ICommand[] = []
   @Input() selectedRegion?: {name:string, value:string}
+  @Input() fullWidth: boolean = false
   @Input() regions?: [{name:string, value:string}]|any
   @Input() createRegions?: [{name:string, value:string}]|any
   @Input() comandSelectModalStateValue: boolean = true
@@ -49,7 +50,7 @@ export class SelectComandsComponent  implements OnInit {
     close(){
       this.comandSelectModalStateValue = false
     }
-    
+
 
   visibleCreateCommandContainerValue: boolean = false
   locationId: string = ''
@@ -65,14 +66,14 @@ export class SelectComandsComponent  implements OnInit {
   nonVisible(){
       this.visibleCreateCommandContainerValue = false
   }
- 
+
   openCreateComandsModalState(){
     this.createComandsModalState = true
   }
   closeCreateComandsModalState(){
     this.createComandsModalState = false
   }
- 
+
   ngOnChanges(){
       if(this.commands && this.selectedRegion?.value){
         this.sortComands = this.commands.filter((comand:ICommand)=> !comand.id || comand.location?.id === Number(this.selectedRegion?.value))
@@ -89,7 +90,7 @@ export class SelectComandsComponent  implements OnInit {
   }
 
   setCreateRegion(region:any){
-    
+
     this.closeCreateRegionModal()
     this.locationId = region.value
     this.createComandForm.patchValue({region:region.name})
@@ -120,14 +121,14 @@ export class SelectComandsComponent  implements OnInit {
   }
 
   createComandFunction(){
-  
+
     this.createNewComand.emit(this.createComandForm.value)
     this.sortComands = []
     this.clearSelectRegion()
 
     this.createComandForm.reset();
 
-    
+
   }
 
   closeCreateRegionModal(){
@@ -136,8 +137,8 @@ export class SelectComandsComponent  implements OnInit {
   openCreateRegionModal(){
     this.createRegionModalState = true
   }
- 
- 
+
+
   ngOnInit() {}
 
 }

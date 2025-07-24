@@ -153,6 +153,21 @@
                 <span class="cabinet-header__title">Добавить гонщика</span>
               </div>
             </div>
+            <app-select-comands
+              [fullWidth]="true"
+              (createNewComand)="createNewComand($event)"
+              (openComandSelectModal)="openComandSelectModalStateValue()"
+              (closeComandSelectModal)="closeComandSelectModalStateValue()"
+              [comandSelectModalStateValue]="comandSelectModalStateValue"
+              (selectComand)="setComand($event)"
+              [selectedRegion]="selectRegionInCommandModal"
+              (setSelectedRegion)="selectRegionInCommandModalFunction($event)"
+              [commands]="allComands"
+              [regions]="searchRegionItems"
+              [createRegions]="searchRegionItems"
+              (clearFilterRegion)="clearRegionInComandFilter()"
+            >
+            </app-select-comands>
             <form action="" class="offline-racer-form create-offline-racer-container">
               <app-standart-input [control]="addOfflineUserForm.get('surname')" placeholder="Введите фамилию" label="Фамилия"></app-standart-input>
               <app-standart-input
@@ -262,20 +277,7 @@
           </ion-content>
         </ng-template>
       </ion-modal>
-      <app-select-comands
-        (createNewComand)="createNewComand($event)"
-        (openComandSelectModal)="openComandSelectModalStateValue()"
-        (closeComandSelectModal)="closeComandSelectModalStateValue()"
-        [comandSelectModalStateValue]="comandSelectModalStateValue"
-        (selectComand)="setComand($event)"
-        [selectedRegion]="selectRegionInCommandModal"
-        (setSelectedRegion)="selectRegionInCommandModalFunction($event)"
-        [commands]="allComands"
-        [regions]="searchRegionItems"
-        [createRegions]="searchRegionItems"
-        (clearFilterRegion)="clearRegionInComandFilter()"
-      >
-      </app-select-comands>
+
       <div class="not-found-users__wrapper" *ngIf="!viewUser && !viewUserOffline">
         <div class="not-found-users">
           Выберите спортсмена для его проверки.
@@ -712,7 +714,7 @@
             <app-check-box (click)="CheckBoxValue(userInfo)"  [height]="'long-height'" [value]="2" [checked]="userInfo" [labelText]="''" [theme]="'white'" [clippy]="''"></app-check-box>
           </div> -->
           </div>
-
+          <!-- Форма просмотра оффлайн гонщика -->
           <app-standart-input
             [control]="viewOfflineUserForm.get('surname')"
             placeholder="Введите фамилию"
@@ -811,9 +813,32 @@
           ></app-standart-input>
           <div class="offline-buttons-container">
             <app-icon-button (click)="deleteOfflineRacer()" widht="full" buttonText="Удалить"></app-icon-button>
-            <app-icon-button (click)="saveOfflineRacer()" theme="red" widht="full" buttonText="Сохранить"></app-icon-button>
+            <app-icon-button (click)="editOfflineRacer()" theme="red" widht="full" buttonText="Сохранить"></app-icon-button>
           </div>
         </form>
+        <app-select-comands
+          [fullWidth]="true"
+          (createNewComand)="createNewComand($event, true)"
+          (openComandSelectModal)="openComandSelectModalStateValue()"
+          (closeComandSelectModal)="closeComandSelectModalStateValue()"
+          [comandSelectModalStateValue]="comandSelectModalStateValue"
+          (selectComand)="setComand($event, true)"
+          [selectedRegion]="selectRegionInCommandModal"
+          (setSelectedRegion)="selectRegionInCommandModalFunction($event)"
+          [commands]="allComands"
+          [regions]="searchRegionItems"
+          [createRegions]="searchRegionItems"
+          (clearFilterRegion)="clearRegionInComandFilter()"
+        >
+        </app-select-comands>
+        <app-regions-select-modal
+          style="z-index: 100"
+          (select)="setRegion($event, true)"
+          [visible]="regionModalState"
+          (onClose)="closeRegionModal()"
+          [regions]="searchRegionItems"
+        >
+        </app-regions-select-modal>
       </div>
 
       <div class="document-view-container" *ngIf="viewDocumentValue">
