@@ -776,7 +776,7 @@
             [invalid]="checkInputInControl(viewOfflineUserForm.get('gradeId')).invalid"
             selectedName="groupSelect"
             [items]="groupItems"
-            (onChange)="setGroup($event)"
+            (onChange)="setOfflineEditGroup($event)"
             [selectedItem]="{ name: viewOfflineUserForm.value.group, value: viewOfflineUserForm.value.group }"
             label="Класс, группа*"
           >

@@ -644,26 +644,24 @@ export class ApplicationForRaceComponent implements OnInit {
     this.viewUserOffline = false
   }
   editOnlineApplication() {
-    if (this.personalUserForm.value.gradeId && this.personalUserForm.value.commandId) {
-      this.loaderService.showLoading().then((res: HTMLIonLoadingElement) => {
-        this.eventService
-          .updateApplicationForRace(this.userGet.id, {
-            gradeId: this.personalUserForm.value.gradeId,
-            commandId: this.personalUserForm.value.commandId,
-          })
-          .pipe(
-            finalize(() => {
-              this.loaderService.hideLoading(res)
-            }),
-          )
-          .subscribe((res: any) => {
-            this.toastService.showToast('Заявка успешно изменена', 'success')
-            this.getUsersInRace(true).subscribe()
-          })
-      })
-    } else {
-      this.personalUserForm.markAllAsTouched()
-    }
+    this.loaderService.showLoading().then((res: HTMLIonLoadingElement) => {
+      this.eventService
+        .updateApplicationForRace(this.userGet.id, {
+          gradeId: this.personalUserForm.value.gradeId,
+          commandId: this.personalUserForm.value.commandId,
+        })
+        .pipe(
+          finalize(() => {
+            this.loaderService.hideLoading(res)
+          }),
+        )
+        .subscribe((res: any) => {
+          this.toastService.showToast('Заявка успешно изменена', 'success')
+          this.getUsersInRace(true).subscribe()
+        })
+    })
+
+    this.personalUserForm.markAllAsTouched()
   }
   showOfflineUserForm(offlineUser: any) {
     this.setActiveAppId(offlineUser)
@@ -691,6 +689,7 @@ export class ApplicationForRaceComponent implements OnInit {
       community: offlineUser?.command?.name || 'Лично',
       gradeId: offlineUser.grade.id || '',
       startNumber: offlineUser.start_number,
+      commandId: offlineUser.command?.id || '',
       dateOfBirth: offlineUser.date_of_birth,
       licenseNumber: offlineUser.license_number,
       motoStamp: offlineUser.moto_stamp,
@@ -712,7 +711,7 @@ export class ApplicationForRaceComponent implements OnInit {
       this.personalUserForm.patchValue({ community: event.name })
       this.personalUserForm.patchValue({ commandId: event.id })
     }
-    if (!editOnline && !editOffline) {
+    if (editOffline) {
       this.viewOfflineUserForm.patchValue({ community: event.name })
       this.viewOfflineUserForm.patchValue({ commandId: event.id })
     }
@@ -797,7 +796,6 @@ export class ApplicationForRaceComponent implements OnInit {
     if (this.userGet && this.userGet.user.personal) {
       this.personalUserForm.patchValue(this.userGet.user.personal)
       const personal = this.userGet.user.personal
-
       const rawPhone = personal.phone_number || ''
       const cleanedPhone = parseInt(rawPhone.replace(/\D/g, ''), 10) || ''
       this.personalUserForm.patchValue({
@@ -906,6 +904,9 @@ export class ApplicationForRaceComponent implements OnInit {
   }
   setGroup(event: any) {
     this.addOfflineUserForm.patchValue({ gradeId: event.id, group: event.name })
+  }
+  setOfflineEditGroup(event: any) {
+    this.viewOfflineUserForm.patchValue({ gradeId: event.id, group: event.name })
   }
   setGroupInOnline(event: any) {
     this.personalUserForm.patchValue({ gradeId: event.id, grade: event.name })
