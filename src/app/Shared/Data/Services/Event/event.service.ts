@@ -26,6 +26,7 @@ export class EventService {
     return this.http.get(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races`, { params: { ...params } })
   }
 
+
   generateGoogleLink(id: string, hasCome?: boolean) {
     let params: any = {}
     if (hasCome) {
@@ -80,7 +81,9 @@ export class EventService {
       params: { ...applicationFilters },
     })
   }
-
+  updateApplicationForRace(applicationId: string, formData: any) {
+    return this.http.patch(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races/appointment-race/online/${applicationId}`, formData)
+  }
   createEvent(event: FormData) {
     return this.http.post(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races`, event)
   }

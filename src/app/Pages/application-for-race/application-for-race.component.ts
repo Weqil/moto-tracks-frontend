@@ -168,6 +168,7 @@ export class ApplicationForRaceComponent implements OnInit {
     startNumber: new FormControl('', [Validators.required]),
     group: new FormControl('', [Validators.required]),
     rank: new FormControl('', [Validators.required]),
+    gradeId: new FormControl('', [Validators.required]),
     grade: new FormControl('', [Validators.required]),
     rankNumber: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required]),
@@ -511,7 +512,7 @@ export class ApplicationForRaceComponent implements OnInit {
     this.OfflineRacerAddFormState = false
   }
 
-  openComandSelectModalStateValue(edit: boolean = false) {
+  openComandSelectModalStateValue(edit: boolean = false, add: boolean = false) {
     this.comandSelectModalStateValue = true
   }
   editOfflineRacer() {
@@ -642,7 +643,30 @@ export class ApplicationForRaceComponent implements OnInit {
     this.viewUser = true
     this.viewUserOffline = false
   }
-
+  editOnlineApplication() {
+    console.log(this.personalUserForm.value.gradeId)
+    console.log(this.personalUserForm.value.commandId)
+    if (this.personalUserForm.value.gradeId && this.personalUserForm.value.commandId) {
+      this.loaderService.showLoading().then((res: HTMLIonLoadingElement) => {
+        this.eventService
+          .updateApplicationForRace(this.userGet.id, {
+            gradeId: this.personalUserForm.value.gradeId,
+            commandId: this.personalUserForm.value.commandId,
+          })
+          .pipe(
+            finalize(() => {
+              this.loaderService.hideLoading(res)
+            }),
+          )
+          .subscribe((res: any) => {
+            this.toastService.showToast('Заявка успешно изменена', 'success')
+            this.getUsersInRace(true).subscribe()
+          })
+      })
+    } else {
+      this.personalUserForm.markAllAsTouched()
+    }
+  }
   showOfflineUserForm(offlineUser: any) {
     this.setActiveAppId(offlineUser)
     this.viewUserOffline = true
@@ -681,11 +705,16 @@ export class ApplicationForRaceComponent implements OnInit {
     this.comandSelectModalStateValue = false
   }
 
-  setComand(event: any, edit: boolean = false) {
-    if (!edit) {
+  setComand(event: any, editOffline: boolean = false, editOnline: boolean = false) {
+    if (!editOffline) {
       this.addOfflineUserForm.patchValue({ community: event.name })
       this.addOfflineUserForm.patchValue({ commandId: event.id })
-    } else {
+    }
+    if (editOnline) {
+      this.personalUserForm.patchValue({ community: event.name })
+      this.personalUserForm.patchValue({ commandId: event.id })
+    }
+    if (!editOnline && !editOffline) {
       this.viewOfflineUserForm.patchValue({ community: event.name })
       this.viewOfflineUserForm.patchValue({ commandId: event.id })
     }
@@ -712,7 +741,11 @@ export class ApplicationForRaceComponent implements OnInit {
     )
   }
 
-  createNewComand(formData: { id: number; name: string; city: string; locationId: number; region: string }, edit: boolean = false) {
+  createNewComand(
+    formData: { id: number; name: string; city: string; locationId: number; region: string },
+    editOffline: boolean = false,
+    editOnline: boolean = false,
+  ) {
     const id = formData.id
     const region = formData.region
     const name = formData.name
@@ -753,7 +786,7 @@ export class ApplicationForRaceComponent implements OnInit {
             }),
           )
           .subscribe((res: any) => {
-            this.setComand(res.command, edit)
+            this.setComand(res.command, editOffline, editOnline)
             // this.getAllComands()
           })
       }
@@ -776,9 +809,11 @@ export class ApplicationForRaceComponent implements OnInit {
         dateOfBirth: personal.date_of_birth || '',
         phoneNumber: cleanedPhone,
         startNumber: personal.start_number || '',
+        commandId: this.userGet.command?.id || '',
+        gradeId: this.userGet.grade?.id || '',
         locationId: personal.location?.id || '',
         region: personal.location?.name ? personal.location.name : '',
-        community: personal.community || '',
+        community: this.userGet.command?.name || 'Лично',
         rank: personal.rank || '',
         engine: personal.engine || '',
         motoStamp: personal.moto_stamp || '',
@@ -788,6 +823,7 @@ export class ApplicationForRaceComponent implements OnInit {
     } else {
       this.personalUserForm.reset()
     }
+    console.log(this.userGet)
   }
 
   checkBoxArray: any = [
@@ -873,6 +909,9 @@ export class ApplicationForRaceComponent implements OnInit {
   }
   setGroup(event: any) {
     this.addOfflineUserForm.patchValue({ gradeId: event.id, group: event.name })
+  }
+  setGroupInOnline(event: any) {
+    this.personalUserForm.patchValue({ gradeId: event.id, grade: event.name })
   }
   deleteOfflineRacer() {
     this.loaderService.showLoading().then((loader: HTMLIonLoadingElement) => {

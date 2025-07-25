@@ -332,6 +332,21 @@
             </ng-container>
           </div>
         </div>
+        <app-select-comands
+          [fullWidth]="true"
+          (createNewComand)="createNewComand($event, false, true)"
+          (openComandSelectModal)="openComandSelectModalStateValue()"
+          (closeComandSelectModal)="closeComandSelectModalStateValue()"
+          [comandSelectModalStateValue]="comandSelectModalStateValue"
+          (selectComand)="setComand($event, false, true)"
+          [selectedRegion]="selectRegionInCommandModal"
+          (setSelectedRegion)="selectRegionInCommandModalFunction($event)"
+          [commands]="allComands"
+          [regions]="searchRegionItems"
+          [createRegions]="searchRegionItems"
+          (clearFilterRegion)="clearRegionInComandFilter()"
+        >
+        </app-select-comands>
         <form class="personal-form">
           <div class="event-information-title users-title">
             <img src="/assets/icons/red-finished.svg" alt="" />
@@ -441,7 +456,7 @@
 
             <div class="input-container">
               <app-standart-input
-                (click)="openComandSelectModalStateValue()"
+                (click)="openComandSelectModalStateValue(false, true)"
                 [readonly]="true"
                 [errorMessage]="formErrors.community.errorMessage"
                 [invalid]="formErrors.community.errorMessage.length !== 0"
@@ -459,14 +474,17 @@
             </div>
 
             <div class="input-container">
-              <app-standart-input
-                [readonly]="true"
-                [errorMessage]="formErrors.group.errorMessage"
-                [invalid]="formErrors.group.errorMessage.length !== 0"
+              <app-standart-input-select
+                style="width: 50%"
+                [errorMessage]="checkInputInControl(personalUserForm.get('gradeId')).message"
+                [invalid]="checkInputInControl(personalUserForm.get('gradeId')).invalid"
                 selectedName="groupSelect"
-                [control]="personalUserForm.get('grade')"
-                label="Класс, группа"
-              ></app-standart-input>
+                [items]="groupItems"
+                (onChange)="setGroupInOnline($event)"
+                [selectedItem]="{ name: personalUserForm.value.grade, value: personalUserForm.value.grade }"
+                label="Класс, группа*"
+              >
+              </app-standart-input-select>
               <app-standart-input
                 [readonly]="true"
                 [errorMessage]="formErrors.startNumber.errorMessage"
@@ -695,6 +713,15 @@
             [buttonText]="'Отклонить заявку'"
           ></app-icon-button>
         </div>
+        <app-icon-button
+          style="width: 100%; padding-top: var(--standart-padding)"
+          widht="full"
+          theme="red"
+          clippy="clippy-right"
+          buttonText="Изменить"
+          (click)="editOnlineApplication()"
+        ></app-icon-button>
+
         <app-icon-button
           icon="/assets/icons/documents.svg"
           buttonIconColor="white-icon"
