@@ -16,6 +16,7 @@ import { ApplicationFilters } from '@app/Shared/Data/Interfaces/filters/applicat
 import { event } from 'yandex-maps'
 import { retsultsApplicationsGet } from '@app/Shared/Data/Interfaces/resultsApplications'
 import { filter } from 'lodash'
+import { GroupService } from '@app/Shared/Data/Services/Race/group.service'
 
 @Component({
   selector: 'app-create-results-page',
@@ -27,13 +28,17 @@ export class CreateResultsPageComponent implements OnInit {
   constructor(private route: ActivatedRoute) {}
   navController: NavController = inject(NavController)
   eventService: EventService = inject(EventService)
-
+  groupService: GroupService = inject(GroupService)
   OfflineRacersService: OfflineRacersService = inject(OfflineRacersService)
   loadingService: LoadingService = inject(LoadingService)
   applicationsFilters!: ApplicationFilters
   resultsService: ResultsService = inject(ResultsService)
   storeResultsService: StoreReslutsService = inject(StoreReslutsService)
-  grade!: Grade
+  grade: Grade = {
+    id: '',
+    name: '',
+    description: '',
+  }
   checkInForm = new FormGroup({
     checkInName: new FormControl<string>('', { validators: Validators.required, nonNullable: true }),
   })
@@ -46,7 +51,7 @@ export class CreateResultsPageComponent implements OnInit {
         .createResults(String(this.storeResultsService.getCurrentRace()?.id), event)
         .pipe(finalize(() => this.loadingService.hideLoading(load)))
         .subscribe((response: any) => {
-         this.navController.back()
+          this.navController.back()
         })
     })
   }
@@ -55,8 +60,7 @@ export class CreateResultsPageComponent implements OnInit {
   }
   getAppoyments(): Observable<any> {
     return forkJoin([this.getOfflineRacers(), this.getOnlineRacers()]).pipe(
-      tap((event) => {
-      }),
+      tap((event) => {}),
       map((applicationsArray: any[]) => {
         return applicationsArray[0].concat(applicationsArray[1])
       }),
@@ -91,32 +95,38 @@ export class CreateResultsPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    
     this.route.params.subscribe((params: any) => {
-      this.grade = {
-        id: params.gradeId,
-        name: params.gradeName,
-        description: '',
-      }
-      this.applicationsFilters = {
-        gradeId: params.gradeId,
-      }
       this.loadingService.showLoading().then((load: HTMLIonLoadingElement) => {
-        if (this.storeResultsService.getCurrentRace()?.id) {
-          this.getAppoyments()
-            .pipe(finalize(() => this.loadingService.hideLoading(load)))
-            .subscribe((event: any) => {
-              this.allApplications = event
+        this.groupService
+          .getGroupById(params.gradeId)
+          .pipe(finalize(() => this.loadingService.hideLoading(load)))
+          .subscribe((group: any) => {
+            this.grade = {
+              id: group.grade.gradeId,
+              name: group.grade.name,
+              description: '',
+            }
+            this.applicationsFilters = {
+              gradeId: params.gradeId,
+            }
+            this.loadingService.showLoading().then((load: HTMLIonLoadingElement) => {
+              if (this.storeResultsService.getCurrentRace()?.id) {
+                this.getAppoyments()
+                  .pipe(finalize(() => this.loadingService.hideLoading(load)))
+                  .subscribe((event: any) => {
+                    this.allApplications = event
+                  })
+              } else {
+                this.getEvent(params.raceId).subscribe((event) => {
+                  this.getAppoyments()
+                    .pipe(finalize(() => this.loadingService.hideLoading(load)))
+                    .subscribe((event: any) => {
+                      this.allApplications = event
+                    })
+                })
+              }
             })
-        } else {
-          this.getEvent(params.raceId).subscribe((event) => {
-            this.getAppoyments()
-              .pipe(finalize(() => this.loadingService.hideLoading(load)))
-              .subscribe((event: any) => {
-                this.allApplications = event
-              })
           })
-        }
       })
     })
   }

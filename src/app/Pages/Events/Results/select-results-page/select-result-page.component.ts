@@ -32,7 +32,7 @@ export class CreateResultPageComponent implements OnInit {
     this.navController.back()
   }
   navigateInCreate(grade: Grade) {
-    this.navController.navigateForward(`/create-result-race/${grade.id}/${grade.name}/${this.storeResultsService.getCurrentRace()?.id}`)
+    this.navController.navigateForward(`/create-result-race/${grade.id}/${this.storeResultsService.getCurrentRace()?.id}`)
   }
 
   formattingArrivals(arrivals: IArrivals[]) {

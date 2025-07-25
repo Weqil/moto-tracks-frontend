@@ -11,6 +11,16 @@ export class StoreReslutsService {
   constructor() {}
   http: HttpClient = inject(HttpClient)
   public currentRace$: BehaviorSubject<IEvent | null> = new BehaviorSubject<IEvent | null>(null)
+  public currentGrade$: BehaviorSubject<Grade | null> = new BehaviorSubject<Grade | null>(null)
+
+  public setCurrentGrade(grade: Grade | null) {
+    this.currentGrade$.next(grade)
+  }
+
+  public getCurrentGrade(): Grade | null {
+    return this.currentGrade$.getValue()
+  }
+  
   public setCurrentRace(event: IEvent | null) {
     this.currentRace$.next(event)
   }
