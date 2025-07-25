@@ -1,127 +1,151 @@
-ion-content{
-    --background:#181818;
+ion-content {
+  --background: #181818;
 }
-.elements-grid{
-    display: flex;
-    padding: 1rem;
-    max-width: 960px;
-    margin: auto;
-    flex-wrap: wrap;
-    gap: 1rem;
+.elements-grid {
+  display: flex;
+  padding: 1rem;
+  max-width: 960px;
+  margin: auto;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
-.icon-buttons-grid{
-    width: 120px;
-    padding: 0.5rem;
-    display: flex;
-    height: fit-content;
-    flex-wrap: wrap;
-    border: 2px dashed rgb(61, 61, 61);
-    gap: 8px 18px;
+.container {
+  cursor: grab;
+  overflow: auto;
+  width: 400px;
+  height: 400px;
+  background-color: red;
+  &.--down {
+    cursor: grab;
+    overflow: auto;
+    width: 400px;
+    height: 400px;
+    background-color: red;
+    cursor: grabbing;
+  }
 }
-.icon-buttons-grid__icon-buttons-grid--beveled{
-    height: fit-content;
-    padding: 0.5rem;
-    display: flex;
-    flex-wrap: wrap;
-    border: 2px dashed rgb(61, 61, 61);
-    gap: 8px 18px;
+.container__element {
+  margin-top: 150px;
+  margin-left: 100px;
+  margin-right: 2rem;
+  border-right: 80px solid black;
+  background-color: #fff;
+  width: 600px;
+  height: 100px;
+}
+.icon-buttons-grid {
+  width: 120px;
+  padding: 0.5rem;
+  display: flex;
+  height: fit-content;
+  flex-wrap: wrap;
+  border: 2px dashed rgb(61, 61, 61);
+  gap: 8px 18px;
+}
+.icon-buttons-grid__icon-buttons-grid--beveled {
+  height: fit-content;
+  padding: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  border: 2px dashed rgb(61, 61, 61);
+  gap: 8px 18px;
 }
 
-.icon-buttons-grid__icon-buttons-grid--beveled{
-    max-width: 310px;
+.icon-buttons-grid__icon-buttons-grid--beveled {
+  max-width: 310px;
 }
-.back-buttons-grid{
-    padding: 0.5rem;
-    display: flex;
-    flex-direction: column;
-    max-width: 105px;
-    border: 2px dashed rgb(61, 61, 61);
-    gap: 18px;
+.back-buttons-grid {
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  max-width: 105px;
+  border: 2px dashed rgb(61, 61, 61);
+  gap: 18px;
 }
-.check-box-grid{
-    padding: 0.5rem;
-    display: flex;
-    width: 360px;
-    height: fit-content;
-    flex-direction: column;
-    border: 2px dashed rgb(61, 61, 61);
-    gap: 18px;
+.check-box-grid {
+  padding: 0.5rem;
+  display: flex;
+  width: 360px;
+  height: fit-content;
+  flex-direction: column;
+  border: 2px dashed rgb(61, 61, 61);
+  gap: 18px;
 }
-.tab-menu-list-grid{
-    padding: 0.5rem;
-    display: flex;
-    width: 360px;
-    height: fit-content;
-    background: #fff;
-    flex-direction: column;
-    border: 2px dashed rgb(61, 61, 61);
-    gap: 18px;
+.tab-menu-list-grid {
+  padding: 0.5rem;
+  display: flex;
+  width: 360px;
+  height: fit-content;
+  background: #fff;
+  flex-direction: column;
+  border: 2px dashed rgb(61, 61, 61);
+  gap: 18px;
 }
-.tab-element-grid{
-    padding: 0.5rem;
-    display: flex;
-    width: 190px;
-    height: fit-content;
-    align-items: center;
-    flex-direction: column;
-    border: 2px dashed rgb(61, 61, 61);
-    gap: 18px;
+.tab-element-grid {
+  padding: 0.5rem;
+  display: flex;
+  width: 190px;
+  height: fit-content;
+  align-items: center;
+  flex-direction: column;
+  border: 2px dashed rgb(61, 61, 61);
+  gap: 18px;
 }
-.elements-grid{
-    padding-bottom: 10rem;
+.elements-grid {
+  padding-bottom: 10rem;
 }
-.modal-grid{
-    border: 2px dashed rgb(61, 61, 61);
-    padding: 0.5rem;
-    display: flex;
-    align-items: start;
-    flex-direction: column;
-    gap: 1rem;
-    justify-content: center;
-    height: fit-content;
+.modal-grid {
+  border: 2px dashed rgb(61, 61, 61);
+  padding: 0.5rem;
+  display: flex;
+  align-items: start;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+  height: fit-content;
 }
-.region-modal-wrapper{
-    padding: 0.5rem 1.2rem;
+.region-modal-wrapper {
+  padding: 0.5rem 1.2rem;
 }
-.buttons-container{
-    position: sticky;
-    display: flex;
-    transform: translateZ(0);
-    padding: 1rem 1.2rem;
-    will-change:transform;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    background: #181818;
-    bottom: 0;
-    transform: translate3d(0,0,0);
-    gap: 1rem;
-    z-index: 11000;
+.buttons-container {
+  position: sticky;
+  display: flex;
+  transform: translateZ(0);
+  padding: 1rem 1.2rem;
+  will-change: transform;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background: #181818;
+  bottom: 0;
+  transform: translate3d(0, 0, 0);
+  gap: 1rem;
+  z-index: 11000;
 }
-.buttons-container__item{
-    width: 50%;
+.buttons-container__item {
+  width: 50%;
 }
-.region-modal-main{
-    position: relative;
+.region-modal-main {
+  position: relative;
 }
-.regions-grid{
-    display: grid;
-    padding-top: 1rem;
-    width: 100%;
-    gap: 0.5rem;
+.regions-grid {
+  display: grid;
+  padding-top: 1rem;
+  width: 100%;
+  gap: 0.5rem;
 }
-.inputs-grid{
-    border: 2px dashed rgb(61, 61, 61);
-    width:360px;
-    padding: 0.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    padding-bottom: 2rem;
+.inputs-grid {
+  border: 2px dashed rgb(61, 61, 61);
+  width: 360px;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-bottom: 2rem;
 }
-.inputs-grid{
-    background: #fff;
+.inputs-grid {
+  background: #fff;
 }
-.user-card{
-    width: 100%;
+.user-card {
+  width: 100%;
 }

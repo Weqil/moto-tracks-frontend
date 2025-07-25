@@ -1,5 +1,14 @@
 <ion-content>
   <main class="elements-grid">
+    <div
+      #scrollContainer
+      (mouseup)="scrollContainerUp($event, scrollContainer)"
+      (mousemove)="scrollContainerMove($event, scrollContainer)"
+      (mousedown)="scrollContainerDown($event, scrollContainer)"
+      class="container"
+    >
+      <div class="container__element"></div>
+    </div>
     <div class="user-card">
       <app-user-section
         cardLeftBorderWidth="b1"
