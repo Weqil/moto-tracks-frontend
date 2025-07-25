@@ -1,23 +1,22 @@
-
- @use '@ionic/angular/css/palettes/dark.system.css';
+@use '@ionic/angular/css/palettes/dark.system.css';
 
 //Подключаю  шрифты
- @use './app/CommonUI/StyleLinks/font-links.scss';
+@use './app/CommonUI/StyleLinks/font-links.scss';
 
 //Подключаю переменные шрифтов
- @use './app/CommonUI/StyleVariables/fonts.scss';
+@use './app/CommonUI/StyleVariables/fonts.scss';
 
 //Подключаю переменные colors
- @use './app/CommonUI/StyleVariables/colors.scss';
+@use './app/CommonUI/StyleVariables/colors.scss';
 
- //Подключаю переменные margin
- @use './app/CommonUI/StyleVariables/margin.scss';
+//Подключаю переменные margin
+@use './app/CommonUI/StyleVariables/margin.scss';
 
- //Подключаю переменные padding
- @use './app/CommonUI/StyleVariables/padding.scss';
+//Подключаю переменные padding
+@use './app/CommonUI/StyleVariables/padding.scss';
 
 //Подключаю переменные фонов
- @use './app/CommonUI/StyleVariables/backgrounds.scss';
+@use './app/CommonUI/StyleVariables/backgrounds.scss';
 
 //Подключаю отдельные модули с классами
 
@@ -26,23 +25,22 @@
 @use './app/CommonUI/StylesModules/text-heading.scss';
 
 /* Core CSS required for Ionic components to work properly */
-@import "@ionic/angular/css/core.css";
+@import '@ionic/angular/css/core.css';
 
 /* Basic CSS for apps built with Ionic */
-@import "@ionic/angular/css/normalize.css";
-@import "@ionic/angular/css/structure.css";
-@import "@ionic/angular/css/typography.css";
-@import "@ionic/angular/css/display.css";
+@import '@ionic/angular/css/normalize.css';
+@import '@ionic/angular/css/structure.css';
+@import '@ionic/angular/css/typography.css';
+@import '@ionic/angular/css/display.css';
 
 /* Optional CSS utils that can be commented out */
-@import "@ionic/angular/css/padding.css";
-@import "@ionic/angular/css/float-elements.css";
-@import "@ionic/angular/css/text-alignment.css";
-@import "@ionic/angular/css/text-transformation.css";
-@import "@ionic/angular/css/flex-utils.css";
+@import '@ionic/angular/css/padding.css';
+@import '@ionic/angular/css/float-elements.css';
+@import '@ionic/angular/css/text-alignment.css';
+@import '@ionic/angular/css/text-transformation.css';
+@import '@ionic/angular/css/flex-utils.css';
 
-
-@import "node_modules/ng-zorro-antd/ng-zorro-antd.min.css";
+@import 'node_modules/ng-zorro-antd/ng-zorro-antd.min.css';
 /**
  * Ionic Dark Mode
  * -----------------------------------------------------
@@ -53,178 +51,178 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 
-*{
-
-    scrollbar-width: none;
-    word-break: break-word;
+* {
+  scrollbar-width: none;
+  word-break: break-word;
 }
 
 *::-webkit-scrollbar {
-    display: none;
-  }
-
-  ion-content {
-    --background: var(--page-background);
-    --padding-top: var(--ion-safe-area-top, 0);
-  }
-
-  .invisible {
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  .not-found-users{
-    color:#929292;
-    font-family: var(--font-regular);
-    font-size: 24px;
-    text-align: center;
-    margin-top: 40px;
-  }
-
-
-.select-category-grid{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    gap: var(--standart-padding);
-    align-items: center;
+  display: none;
 }
 
-.text-container{
+ion-content {
+  --background: var(--page-background);
+  --padding-top: var(--ion-safe-area-top, 0);
+}
+
+.invisible {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.not-found-users {
+  color: #929292;
+  font-family: var(--font-regular);
+  font-size: 24px;
+  text-align: center;
+  margin-top: 40px;
+}
+
+.select-category-grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  gap: var(--standart-padding);
+  align-items: center;
+}
+
+.text-container {
   font-family: var(--font-regular);
 }
 
-.image-txt-count-left-align{
+.image-txt-count-left-align {
   display: none !important;
 }
-  .zoom-icons{
-    filter: brightness(0) saturate(100%);
-    width: 100%;
-    height: 100%;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-    background-image: url('/assets/icons/plus.svg');
-    display: block;
-  }
-
-  .zoom-out{
-    filter: brightness(0) saturate(100%);
-    width: 100%;
-    height: 100%;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-    background-image: url('/assets/icons/minus.svg');
-    display: block;
-  }
-  .rotate-icons__right{
-    width: 60%;
-    margin: auto;
-    height: 60%;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    background-image: url('/assets/icons/rotate.svg');
-    display: block;
-  }
-  .rotate-icons__left{
-    width: 60%;
-    margin: auto;
-    height: 60%;
-    background-repeat: no-repeat;
-    background-position: center;
-    transform: scale(-1, 1);
-    background-size: cover;
-    background-image: url('/assets/icons/rotate.svg');
-    display: block;
-  }
-  #__ymDebuggerOpener,
-  .__ymDebuggerOpener {
-    display: none !important;
-  }
-
-.none{
-  opacity: 0;
-  pointer-events: none;
-
+.zoom-icons {
+  filter: brightness(0) saturate(100%);
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  background-image: url('/assets/icons/plus.svg');
+  display: block;
 }
 
-.cabinet-header{
+.zoom-out {
+  filter: brightness(0) saturate(100%);
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  background-image: url('/assets/icons/minus.svg');
+  display: block;
+}
+.rotate-icons__right {
+  width: 60%;
+  margin: auto;
+  height: 60%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-image: url('/assets/icons/rotate.svg');
+  display: block;
+}
+.rotate-icons__left {
+  width: 60%;
+  margin: auto;
+  height: 60%;
+  background-repeat: no-repeat;
+  background-position: center;
+  transform: scale(-1, 1);
+  background-size: cover;
+  background-image: url('/assets/icons/rotate.svg');
+  display: block;
+}
+#__ymDebuggerOpener,
+.__ymDebuggerOpener {
+  display: none !important;
+}
+
+.none {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.cabinet-header {
   max-width: 960px;
   width: 100%;
   margin: auto;
   display: flex;
   justify-content: space-between;
-  .cabinet-header__back{
-      background: none;
+  .cabinet-header__back {
+    background: none;
   }
-  .cabinet-header__exite{
-      background: none;
+  .cabinet-header__exite {
+    background: none;
   }
-  .cabinet-header__title{
-      font-family: var(--font-regular);
+  .cabinet-header__title {
+    font-family: var(--font-regular);
   }
 }
 
-.event-information-title{
+ion-toast.my-red-text-toast {
+  --color: red; /* Sets the message text color to red */
+  --background: #ffe0e0; /* Example: also set a light red background */
+  --border-radius: 8px; /* Example: customize border radius */
+  --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Example: add shadow */
+}
+
+.event-information-title {
   display: flex;
-    align-items: center;
-    gap: 8px;
-    img{
-       width: 24px;
-    }
-    font-family: var(--font-bold);
-    font-size: 18px;
+  align-items: center;
+  gap: 8px;
+  img {
+    width: 24px;
+  }
+  font-family: var(--font-bold);
+  font-size: 18px;
 }
 
-.full-screen-icons{
-    filter: brightness(0) saturate(100%);
-    width: 60%;
-    margin: auto;
-    height: 60%;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    background-image: url('/assets/icons/full-screen.svg');
-    display: block;
+.full-screen-icons {
+  filter: brightness(0) saturate(100%);
+  width: 60%;
+  margin: auto;
+  height: 60%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-image: url('/assets/icons/full-screen.svg');
+  display: block;
+}
+
+.none-text-change {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  color: var(--font-standart-color);
+  text-decoration: none;
+}
+
+ngx-otp-input {
+  .ngx-otp-input-form {
+    display: flex;
+    justify-content: center;
+    width: 100%;
   }
+}
 
-  .none-text-change{
-
-      -webkit-touch-callout: none;
-      -webkit-user-select: none;
-      -khtml-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-
-  }
-
-  *{
-    padding: 0;
-    margin: 0;
-    color: var(--font-standart-color);
-    text-decoration: none;
-  }
-
-  ngx-otp-input {
-
-    .ngx-otp-input-form {
-      display: flex;
-      justify-content: center;
-      width: 100%;
-    }
-
-  }
-
-  .ngx-otp-input-box {
-    min-width: 4rem !important;
-    min-height: 4rem !important;
-    background: rgb(255, 255, 255) !important;
-    border: 1px solid rgb(190, 190, 190) !important;
-    border-radius: 0px !important;
-    font-size: 2rem !important;
-    text-align: center !important;
+.ngx-otp-input-box {
+  min-width: 4rem !important;
+  min-height: 4rem !important;
+  background: rgb(255, 255, 255) !important;
+  border: 1px solid rgb(190, 190, 190) !important;
+  border-radius: 0px !important;
+  font-size: 2rem !important;
+  text-align: center !important;
 }

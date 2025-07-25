@@ -19,9 +19,9 @@ export class OfflineRacersService {
     })
   }
   deleteOfflineRacer(raceId: number | string, appointmentId: number) {
-    return this.http.delete(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races/${raceId}/appointment-race/offline/${appointmentId}`)
+    return this.http.delete(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races/appointment-race/offline/${appointmentId}`)
   }
   updateOfflineRacer(raceId: number | string, appointmentId: number, data: any) {
-    return this.http.patch(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races/${raceId}/appointment-race/offline/${appointmentId}`, data)
+    return this.http.patch(`${environment.BACKEND_URL}:${environment.BACKEND_PORT}/api/races/appointment-race/offline/${appointmentId}`, data)
   }
 }

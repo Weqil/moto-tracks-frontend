@@ -524,7 +524,7 @@ export class ApplicationForRaceComponent implements OnInit {
           }),
         )
         .subscribe((res: any) => {
-          console.log(res)
+          this.toastService.showToast('Заявка успешно изменена', 'success')
           this.getOfflineRacer().subscribe()
         })
     })
@@ -665,11 +665,10 @@ export class ApplicationForRaceComponent implements OnInit {
     //     motoStamp: personal.moto_stamp || '',
     //     numberAndSeria: personal.number_and_seria || '',
     //     group: '',
-    console.log(offlineUser)
     this.viewOfflineUserForm.patchValue({
       ...offlineUser,
       locationId: offlineUser.location?.id,
-      community: offlineUser.community || 'Лично',
+      community: offlineUser?.command?.name || 'Лично',
       gradeId: offlineUser.grade.id || '',
       startNumber: offlineUser.start_number,
       dateOfBirth: offlineUser.date_of_birth,
