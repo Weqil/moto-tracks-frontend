@@ -644,8 +644,6 @@ export class ApplicationForRaceComponent implements OnInit {
     this.viewUserOffline = false
   }
   editOnlineApplication() {
-    console.log(this.personalUserForm.value.gradeId)
-    console.log(this.personalUserForm.value.commandId)
     if (this.personalUserForm.value.gradeId && this.personalUserForm.value.commandId) {
       this.loaderService.showLoading().then((res: HTMLIonLoadingElement) => {
         this.eventService
@@ -823,7 +821,6 @@ export class ApplicationForRaceComponent implements OnInit {
     } else {
       this.personalUserForm.reset()
     }
-    console.log(this.userGet)
   }
 
   checkBoxArray: any = [
