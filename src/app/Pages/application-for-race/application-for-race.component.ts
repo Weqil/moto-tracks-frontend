@@ -601,7 +601,6 @@ export class ApplicationForRaceComponent implements OnInit {
   }
 
   getDocumentUserById() {
-    console.log('получаю доки')
     this.licensed = null
     this.licensesFile = null
 
@@ -623,11 +622,9 @@ export class ApplicationForRaceComponent implements OnInit {
         this.licensesForm.patchValue(res.find((doc: any) => doc.type === 'licenses'))
         this.licensesFile = { name: 'Лицензия загружена', dontFile: true }
         this.licensed = licensesDocument
-        console.log(this.licensed)
       }
     if (res.find((doc: any) => doc.type === 'polis')) {
       let polis = res.find((doc: any) => doc.type === 'polis')
-      console.log(polis)
       this.polisForm.patchValue({
         number: polis.number,
         issuedWhom: polis.issued_whom,
