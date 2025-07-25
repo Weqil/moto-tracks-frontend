@@ -601,6 +601,7 @@ export class ApplicationForRaceComponent implements OnInit {
   }
 
   getDocumentUserById() {
+    console.log('получаю доки')
     this.licensed = null
     this.licensesFile = null
 
